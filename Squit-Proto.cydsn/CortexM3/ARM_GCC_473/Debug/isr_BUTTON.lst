@@ -1,0 +1,3219 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"isr_BUTTON.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	idx,1,1
+  19              		.section	.text.isr_BUTTON_Start,"ax",%progbits
+  20              		.align	2
+  21              		.global	isr_BUTTON_Start
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	isr_BUTTON_Start, %function
+  25              	isr_BUTTON_Start:
+  26              	.LFB56:
+  27              		.file 1 ".\\Generated_Source\\PSoC5\\isr_BUTTON.c"
+   1:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isr_BUTTON.c **** * File Name: isr_BUTTON.c  
+   3:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+   5:.\Generated_Source\PSoC5/isr_BUTTON.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+   8:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+   9:.\Generated_Source\PSoC5/isr_BUTTON.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  11:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isr_BUTTON.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isr_BUTTON.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isr_BUTTON.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  18:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  19:.\Generated_Source\PSoC5/isr_BUTTON.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC5/isr_BUTTON.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC5/isr_BUTTON.c **** #include <isr_BUTTON.h>
+  22:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  23:.\Generated_Source\PSoC5/isr_BUTTON.c **** #if !defined(isr_BUTTON__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  25:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isr_BUTTON.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isr_BUTTON.c **** /* `#START isr_BUTTON_intc` */
+  29:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  30:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <device.h>
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 2
+
+
+  31:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <gobee.h>
+  32:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <gobeelib.h>
+  33:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <mover.h>
+  34:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <motor_CTRL.h>	
+  35:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <estimators.h>
+  36:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	#include <gml.h>
+  37:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	
+  38:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	extern uint8 machine_state;		/*  Gobee Machine State */
+  39:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  40:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	/* GLOBAL MOTOR AXIS STRUCTURES */
+  41:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	extern struct MOTOR_AXIS pan_axis;			/* PAN Motor Axis Parameters & R TDatas		*/	
+  42:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	extern struct MOTOR_AXIS tilt_axis;			/* TILT Motor Axis Parameters & R TDatas	*/		
+  43:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	
+  44:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	uint8 idx;
+  45:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	
+  46:.\Generated_Source\PSoC5/isr_BUTTON.c **** /* `#END` */
+  47:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  48:.\Generated_Source\PSoC5/isr_BUTTON.c **** #ifndef CYINT_IRQ_BASE
+  49:.\Generated_Source\PSoC5/isr_BUTTON.c **** #define CYINT_IRQ_BASE      16
+  50:.\Generated_Source\PSoC5/isr_BUTTON.c **** #endif /* CYINT_IRQ_BASE */
+  51:.\Generated_Source\PSoC5/isr_BUTTON.c **** #ifndef CYINT_VECT_TABLE
+  52:.\Generated_Source\PSoC5/isr_BUTTON.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  53:.\Generated_Source\PSoC5/isr_BUTTON.c **** #endif /* CYINT_VECT_TABLE */
+  54:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  55:.\Generated_Source\PSoC5/isr_BUTTON.c **** /* Declared in startup, used to set unused interrupts to. */
+  56:.\Generated_Source\PSoC5/isr_BUTTON.c **** CY_ISR_PROTO(IntDefaultHandler);
+  57:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  58:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  59:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+  60:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_Start
+  61:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+  62:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  63:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+  64:.\Generated_Source\PSoC5/isr_BUTTON.c **** *  Set up the interrupt and enable it.
+  65:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  66:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:  
+  67:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+  68:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  69:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+  70:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+  71:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  72:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+  73:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_Start(void)
+  74:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+  28              		.loc 1 74 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 14, -4
+  37 0002 00AF     		add	r7, sp, #0
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_register 7
+  75:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* For all we know the interrupt is active. */
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 3
+
+
+  76:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_Disable();
+  40              		.loc 1 76 0
+  41 0004 FFF7FEFF 		bl	isr_BUTTON_Disable
+  77:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  78:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Set the ISR to point to the isr_BUTTON Interrupt. */
+  79:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_SetVector(&isr_BUTTON_Interrupt);
+  42              		.loc 1 79 0
+  43 0008 40F20000 		movw	r0, #:lower16:isr_BUTTON_Interrupt
+  44 000c C0F20000 		movt	r0, #:upper16:isr_BUTTON_Interrupt
+  45 0010 FFF7FEFF 		bl	isr_BUTTON_SetVector
+  80:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  81:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Set the priority. */
+  82:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_SetPriority((uint8)isr_BUTTON_INTC_PRIOR_NUMBER);
+  46              		.loc 1 82 0
+  47 0014 4FF00700 		mov	r0, #7
+  48 0018 FFF7FEFF 		bl	isr_BUTTON_SetPriority
+  83:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  84:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Enable it. */
+  85:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_Enable();
+  49              		.loc 1 85 0
+  50 001c FFF7FEFF 		bl	isr_BUTTON_Enable
+  86:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+  51              		.loc 1 86 0
+  52 0020 80BD     		pop	{r7, pc}
+  53              		.cfi_endproc
+  54              	.LFE56:
+  55              		.size	isr_BUTTON_Start, .-isr_BUTTON_Start
+  56 0022 00BF     		.section	.text.isr_BUTTON_StartEx,"ax",%progbits
+  57              		.align	2
+  58              		.global	isr_BUTTON_StartEx
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	isr_BUTTON_StartEx, %function
+  62              	isr_BUTTON_StartEx:
+  63              	.LFB57:
+  87:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  88:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+  89:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+  90:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_StartEx
+  91:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+  92:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  93:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+  94:.\Generated_Source\PSoC5/isr_BUTTON.c **** *  Set up the interrupt and enable it.
+  95:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  96:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:  
+  97:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  98:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+  99:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 100:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 101:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 102:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 103:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_StartEx(cyisraddress address)
+ 104:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+  64              		.loc 1 104 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 8
+  67              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 4
+
+
+  68 0000 80B5     		push	{r7, lr}
+  69              	.LCFI2:
+  70              		.cfi_def_cfa_offset 8
+  71              		.cfi_offset 7, -8
+  72              		.cfi_offset 14, -4
+  73 0002 82B0     		sub	sp, sp, #8
+  74              	.LCFI3:
+  75              		.cfi_def_cfa_offset 16
+  76 0004 00AF     		add	r7, sp, #0
+  77              	.LCFI4:
+  78              		.cfi_def_cfa_register 7
+  79 0006 7860     		str	r0, [r7, #4]
+ 105:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* For all we know the interrupt is active. */
+ 106:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_Disable();
+  80              		.loc 1 106 0
+  81 0008 FFF7FEFF 		bl	isr_BUTTON_Disable
+ 107:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 108:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Set the ISR to point to the isr_BUTTON Interrupt. */
+ 109:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_SetVector(address);
+  82              		.loc 1 109 0
+  83 000c 7868     		ldr	r0, [r7, #4]
+  84 000e FFF7FEFF 		bl	isr_BUTTON_SetVector
+ 110:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 111:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Set the priority. */
+ 112:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_SetPriority((uint8)isr_BUTTON_INTC_PRIOR_NUMBER);
+  85              		.loc 1 112 0
+  86 0012 4FF00700 		mov	r0, #7
+  87 0016 FFF7FEFF 		bl	isr_BUTTON_SetPriority
+ 113:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 114:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Enable it. */
+ 115:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_Enable();
+  88              		.loc 1 115 0
+  89 001a FFF7FEFF 		bl	isr_BUTTON_Enable
+ 116:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+  90              		.loc 1 116 0
+  91 001e 07F10807 		add	r7, r7, #8
+  92 0022 BD46     		mov	sp, r7
+  93 0024 80BD     		pop	{r7, pc}
+  94              		.cfi_endproc
+  95              	.LFE57:
+  96              		.size	isr_BUTTON_StartEx, .-isr_BUTTON_StartEx
+  97 0026 00BF     		.section	.text.isr_BUTTON_Stop,"ax",%progbits
+  98              		.align	2
+  99              		.global	isr_BUTTON_Stop
+ 100              		.thumb
+ 101              		.thumb_func
+ 102              		.type	isr_BUTTON_Stop, %function
+ 103              	isr_BUTTON_Stop:
+ 104              	.LFB58:
+ 117:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 118:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 119:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 120:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_Stop
+ 121:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 122:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 123:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 124:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Disables and removes the interrupt.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 5
+
+
+ 125:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 126:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:  
+ 127:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 128:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 129:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 130:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 131:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 132:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_Stop(void)
+ 133:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 105              		.loc 1 133 0
+ 106              		.cfi_startproc
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 1, uses_anonymous_args = 0
+ 109 0000 80B5     		push	{r7, lr}
+ 110              	.LCFI5:
+ 111              		.cfi_def_cfa_offset 8
+ 112              		.cfi_offset 7, -8
+ 113              		.cfi_offset 14, -4
+ 114 0002 00AF     		add	r7, sp, #0
+ 115              	.LCFI6:
+ 116              		.cfi_def_cfa_register 7
+ 134:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Disable this interrupt. */
+ 135:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_Disable();
+ 117              		.loc 1 135 0
+ 118 0004 FFF7FEFF 		bl	isr_BUTTON_Disable
+ 136:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 137:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Set the ISR to point to the passive one. */
+ 138:.\Generated_Source\PSoC5/isr_BUTTON.c ****     isr_BUTTON_SetVector(&IntDefaultHandler);
+ 119              		.loc 1 138 0
+ 120 0008 40F20000 		movw	r0, #:lower16:IntDefaultHandler
+ 121 000c C0F20000 		movt	r0, #:upper16:IntDefaultHandler
+ 122 0010 FFF7FEFF 		bl	isr_BUTTON_SetVector
+ 139:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 123              		.loc 1 139 0
+ 124 0014 80BD     		pop	{r7, pc}
+ 125              		.cfi_endproc
+ 126              	.LFE58:
+ 127              		.size	isr_BUTTON_Stop, .-isr_BUTTON_Stop
+ 128 0016 00BF     		.section	.text.isr_BUTTON_Interrupt,"ax",%progbits
+ 129              		.align	2
+ 130              		.global	isr_BUTTON_Interrupt
+ 131              		.thumb
+ 132              		.thumb_func
+ 133              		.type	isr_BUTTON_Interrupt, %function
+ 134              	isr_BUTTON_Interrupt:
+ 135              	.LFB59:
+ 140:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 141:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 142:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 143:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_Interrupt
+ 144:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 145:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 146:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 147:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   The default Interrupt Service Routine for isr_BUTTON.
+ 148:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 149:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Add custom code between the coments to keep the next version of this file
+ 150:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   from over writting your code.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 6
+
+
+ 151:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 152:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:  
+ 153:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 154:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 155:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 156:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 157:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 158:.\Generated_Source\PSoC5/isr_BUTTON.c **** CY_ISR(isr_BUTTON_Interrupt)
+ 159:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 136              		.loc 1 159 0
+ 137              		.cfi_startproc
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 1, uses_anonymous_args = 0
+ 140 0000 80B5     		push	{r7, lr}
+ 141              	.LCFI7:
+ 142              		.cfi_def_cfa_offset 8
+ 143              		.cfi_offset 7, -8
+ 144              		.cfi_offset 14, -4
+ 145 0002 00AF     		add	r7, sp, #0
+ 146              	.LCFI8:
+ 147              		.cfi_def_cfa_register 7
+ 160:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /*  Place your Interrupt code here. */
+ 161:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* `#START isr_BUTTON_Interrupt` */
+ 162:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	
+ 163:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	if (machine_state == GOBEE_ENERGIZED)
+ 148              		.loc 1 163 0
+ 149 0004 40F20003 		movw	r3, #:lower16:machine_state
+ 150 0008 C0F20003 		movt	r3, #:upper16:machine_state
+ 151 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 152 000e 052B     		cmp	r3, #5
+ 153 0010 21D1     		bne	.L5
+ 164:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	{
+ 165:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		Control_Reg_BUZ_Write(BUZZER_ON);	/* buzzer on			*/
+ 154              		.loc 1 165 0
+ 155 0012 4FF00100 		mov	r0, #1
+ 156 0016 FFF7FEFF 		bl	Control_Reg_BUZ_Write
+ 166:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		CyDelay(250);						/* 250msec sec delay	*/
+ 157              		.loc 1 166 0
+ 158 001a 4FF0FA00 		mov	r0, #250
+ 159 001e FFF7FEFF 		bl	CyDelay
+ 167:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		Control_Reg_BUZ_Write(BUZZER_OFF);	/* buzzer off			*/
+ 160              		.loc 1 167 0
+ 161 0022 4FF00000 		mov	r0, #0
+ 162 0026 FFF7FEFF 		bl	Control_Reg_BUZ_Write
+ 168:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 169:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		/* Mapping State Machine Initialization & STOP */
+ 170:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		MappingStateMachineInit();
+ 163              		.loc 1 170 0
+ 164 002a FFF7FEFF 		bl	MappingStateMachineInit
+ 171:.\Generated_Source\PSoC5/isr_BUTTON.c **** 			
+ 172:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		machine_state = GOBEE_DEENERGIZED;
+ 165              		.loc 1 172 0
+ 166 002e 40F20003 		movw	r3, #:lower16:machine_state
+ 167 0032 C0F20003 		movt	r3, #:upper16:machine_state
+ 168 0036 4FF00602 		mov	r2, #6
+ 169 003a 1A70     		strb	r2, [r3, #0]
+ 173:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		motor_sleep(&pan_axis);
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 7
+
+
+ 170              		.loc 1 173 0
+ 171 003c 40F20000 		movw	r0, #:lower16:pan_axis
+ 172 0040 C0F20000 		movt	r0, #:upper16:pan_axis
+ 173 0044 FFF7FEFF 		bl	motor_sleep
+ 174:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		motor_sleep(&tilt_axis);		
+ 174              		.loc 1 174 0
+ 175 0048 40F20000 		movw	r0, #:lower16:tilt_axis
+ 176 004c C0F20000 		movt	r0, #:upper16:tilt_axis
+ 177 0050 FFF7FEFF 		bl	motor_sleep
+ 178 0054 59E0     		b	.L4
+ 179              	.L5:
+ 175:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	}
+ 176:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	else if (machine_state == GOBEE_DEENERGIZED)
+ 180              		.loc 1 176 0
+ 181 0056 40F20003 		movw	r3, #:lower16:machine_state
+ 182 005a C0F20003 		movt	r3, #:upper16:machine_state
+ 183 005e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 184 0060 062B     		cmp	r3, #6
+ 185 0062 52D1     		bne	.L4
+ 177:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	{
+ 178:.\Generated_Source\PSoC5/isr_BUTTON.c ****  		for (idx = 0; idx < 3; idx++)
+ 186              		.loc 1 178 0
+ 187 0064 40F20003 		movw	r3, #:lower16:idx
+ 188 0068 C0F20003 		movt	r3, #:upper16:idx
+ 189 006c 4FF00002 		mov	r2, #0
+ 190 0070 1A70     		strb	r2, [r3, #0]
+ 191 0072 1CE0     		b	.L7
+ 192              	.L8:
+ 179:.\Generated_Source\PSoC5/isr_BUTTON.c ****  		{			
+ 180:.\Generated_Source\PSoC5/isr_BUTTON.c **** 			Control_Reg_BUZ_Write(BUZZER_ON);	/* buzzer on			*/
+ 193              		.loc 1 180 0 discriminator 2
+ 194 0074 4FF00100 		mov	r0, #1
+ 195 0078 FFF7FEFF 		bl	Control_Reg_BUZ_Write
+ 181:.\Generated_Source\PSoC5/isr_BUTTON.c **** 			CyDelay(80);						/* 250msec sec delay	*/
+ 196              		.loc 1 181 0 discriminator 2
+ 197 007c 4FF05000 		mov	r0, #80
+ 198 0080 FFF7FEFF 		bl	CyDelay
+ 182:.\Generated_Source\PSoC5/isr_BUTTON.c **** 			Control_Reg_BUZ_Write(BUZZER_OFF);	/* buzzer off			*/
+ 199              		.loc 1 182 0 discriminator 2
+ 200 0084 4FF00000 		mov	r0, #0
+ 201 0088 FFF7FEFF 		bl	Control_Reg_BUZ_Write
+ 183:.\Generated_Source\PSoC5/isr_BUTTON.c **** 			CyDelay(30);						/* 125msec sec delay	*/			
+ 202              		.loc 1 183 0 discriminator 2
+ 203 008c 4FF01E00 		mov	r0, #30
+ 204 0090 FFF7FEFF 		bl	CyDelay
+ 178:.\Generated_Source\PSoC5/isr_BUTTON.c ****  		for (idx = 0; idx < 3; idx++)
+ 205              		.loc 1 178 0 discriminator 2
+ 206 0094 40F20003 		movw	r3, #:lower16:idx
+ 207 0098 C0F20003 		movt	r3, #:upper16:idx
+ 208 009c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 209 009e 03F10103 		add	r3, r3, #1
+ 210 00a2 DAB2     		uxtb	r2, r3
+ 211 00a4 40F20003 		movw	r3, #:lower16:idx
+ 212 00a8 C0F20003 		movt	r3, #:upper16:idx
+ 213 00ac 1A70     		strb	r2, [r3, #0]
+ 214              	.L7:
+ 178:.\Generated_Source\PSoC5/isr_BUTTON.c ****  		for (idx = 0; idx < 3; idx++)
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 8
+
+
+ 215              		.loc 1 178 0 is_stmt 0 discriminator 1
+ 216 00ae 40F20003 		movw	r3, #:lower16:idx
+ 217 00b2 C0F20003 		movt	r3, #:upper16:idx
+ 218 00b6 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 219 00b8 022B     		cmp	r3, #2
+ 220 00ba DBD9     		bls	.L8
+ 184:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		}	
+ 185:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 186:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		motor_init(&pan_axis);						/* Initialize Pan Axis  */
+ 221              		.loc 1 186 0 is_stmt 1
+ 222 00bc 40F20000 		movw	r0, #:lower16:pan_axis
+ 223 00c0 C0F20000 		movt	r0, #:upper16:pan_axis
+ 224 00c4 FFF7FEFF 		bl	motor_init
+ 187:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		motor_init(&tilt_axis);						/* Initialize Tilt Axis */			
+ 225              		.loc 1 187 0
+ 226 00c8 40F20000 		movw	r0, #:lower16:tilt_axis
+ 227 00cc C0F20000 		movt	r0, #:upper16:tilt_axis
+ 228 00d0 FFF7FEFF 		bl	motor_init
+ 188:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		QuadDec_PAN_Start();						/* Reset PAN Feedback Encoder Counter	*/
+ 229              		.loc 1 188 0
+ 230 00d4 FFF7FEFF 		bl	QuadDec_PAN_Start
+ 189:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		QuadDec_TILT_Start();						/* Reset TILT Feedback Encoder Counter	*/
+ 231              		.loc 1 189 0
+ 232 00d8 FFF7FEFF 		bl	QuadDec_TILT_Start
+ 190:.\Generated_Source\PSoC5/isr_BUTTON.c **** 			
+ 191:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		/* CLU state machine Init */
+ 192:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		clu_sm_init();
+ 233              		.loc 1 192 0
+ 234 00dc FFF7FEFF 		bl	clu_sm_init
+ 193:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		
+ 194:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		/* Mapping State Machine START */
+ 195:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		MappingStateMachineStart();
+ 235              		.loc 1 195 0
+ 236 00e0 FFF7FEFF 		bl	MappingStateMachineStart
+ 196:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 197:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		machine_state = GOBEE_ENERGIZED;			
+ 237              		.loc 1 197 0
+ 238 00e4 40F20003 		movw	r3, #:lower16:machine_state
+ 239 00e8 C0F20003 		movt	r3, #:upper16:machine_state
+ 240 00ec 4FF00502 		mov	r2, #5
+ 241 00f0 1A70     		strb	r2, [r3, #0]
+ 198:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		motor_energize(&pan_axis);
+ 242              		.loc 1 198 0
+ 243 00f2 40F20000 		movw	r0, #:lower16:pan_axis
+ 244 00f6 C0F20000 		movt	r0, #:upper16:pan_axis
+ 245 00fa FFF7FEFF 		bl	motor_energize
+ 199:.\Generated_Source\PSoC5/isr_BUTTON.c **** 		motor_energize(&tilt_axis);		
+ 246              		.loc 1 199 0
+ 247 00fe 40F20000 		movw	r0, #:lower16:tilt_axis
+ 248 0102 C0F20000 		movt	r0, #:upper16:tilt_axis
+ 249 0106 FFF7FEFF 		bl	motor_energize
+ 250              	.L4:
+ 200:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	}	
+ 201:.\Generated_Source\PSoC5/isr_BUTTON.c **** 	
+ 202:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* `#END` */
+ 203:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 251              		.loc 1 203 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 9
+
+
+ 252 010a 80BD     		pop	{r7, pc}
+ 253              		.cfi_endproc
+ 254              	.LFE59:
+ 255              		.size	isr_BUTTON_Interrupt, .-isr_BUTTON_Interrupt
+ 256              		.section	.text.isr_BUTTON_SetVector,"ax",%progbits
+ 257              		.align	2
+ 258              		.global	isr_BUTTON_SetVector
+ 259              		.thumb
+ 260              		.thumb_func
+ 261              		.type	isr_BUTTON_SetVector, %function
+ 262              	isr_BUTTON_SetVector:
+ 263              	.LFB60:
+ 204:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 205:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 206:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 207:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_SetVector
+ 208:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 209:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 210:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 211:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Change the ISR vector for the Interrupt. Note calling isr_BUTTON_Start
+ 212:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   will override any effect this method would have had. To set the vector 
+ 213:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   before the component has been started use isr_BUTTON_StartEx instead.
+ 214:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 215:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 216:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 217:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 218:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 219:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 220:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 221:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 222:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_SetVector(cyisraddress address)
+ 223:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 264              		.loc 1 223 0
+ 265              		.cfi_startproc
+ 266              		@ args = 0, pretend = 0, frame = 16
+ 267              		@ frame_needed = 1, uses_anonymous_args = 0
+ 268              		@ link register save eliminated.
+ 269 0000 80B4     		push	{r7}
+ 270              	.LCFI9:
+ 271              		.cfi_def_cfa_offset 4
+ 272              		.cfi_offset 7, -4
+ 273 0002 85B0     		sub	sp, sp, #20
+ 274              	.LCFI10:
+ 275              		.cfi_def_cfa_offset 24
+ 276 0004 00AF     		add	r7, sp, #0
+ 277              	.LCFI11:
+ 278              		.cfi_def_cfa_register 7
+ 279 0006 7860     		str	r0, [r7, #4]
+ 224:.\Generated_Source\PSoC5/isr_BUTTON.c ****     cyisraddress * ramVectorTable;
+ 225:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 226:.\Generated_Source\PSoC5/isr_BUTTON.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 280              		.loc 1 226 0
+ 281 0008 4EF60853 		movw	r3, #60680
+ 282 000c CEF20003 		movt	r3, 57344
+ 283 0010 1B68     		ldr	r3, [r3, #0]
+ 284 0012 FB60     		str	r3, [r7, #12]
+ 227:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 10
+
+
+ 228:.\Generated_Source\PSoC5/isr_BUTTON.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_BUTTON__INTC_NUMBER] = address;
+ 285              		.loc 1 228 0
+ 286 0014 FB68     		ldr	r3, [r7, #12]
+ 287 0016 03F14803 		add	r3, r3, #72
+ 288 001a 7A68     		ldr	r2, [r7, #4]
+ 289 001c 1A60     		str	r2, [r3, #0]
+ 229:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 290              		.loc 1 229 0
+ 291 001e 07F11407 		add	r7, r7, #20
+ 292 0022 BD46     		mov	sp, r7
+ 293 0024 80BC     		pop	{r7}
+ 294 0026 7047     		bx	lr
+ 295              		.cfi_endproc
+ 296              	.LFE60:
+ 297              		.size	isr_BUTTON_SetVector, .-isr_BUTTON_SetVector
+ 298              		.section	.text.isr_BUTTON_GetVector,"ax",%progbits
+ 299              		.align	2
+ 300              		.global	isr_BUTTON_GetVector
+ 301              		.thumb
+ 302              		.thumb_func
+ 303              		.type	isr_BUTTON_GetVector, %function
+ 304              	isr_BUTTON_GetVector:
+ 305              	.LFB61:
+ 230:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 231:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 232:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 233:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_GetVector
+ 234:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 235:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 236:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 237:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 238:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 239:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 240:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 241:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 242:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 243:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Address of the ISR in the interrupt vector table.
+ 244:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 245:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 246:.\Generated_Source\PSoC5/isr_BUTTON.c **** cyisraddress isr_BUTTON_GetVector(void)
+ 247:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 306              		.loc 1 247 0
+ 307              		.cfi_startproc
+ 308              		@ args = 0, pretend = 0, frame = 8
+ 309              		@ frame_needed = 1, uses_anonymous_args = 0
+ 310              		@ link register save eliminated.
+ 311 0000 80B4     		push	{r7}
+ 312              	.LCFI12:
+ 313              		.cfi_def_cfa_offset 4
+ 314              		.cfi_offset 7, -4
+ 315 0002 83B0     		sub	sp, sp, #12
+ 316              	.LCFI13:
+ 317              		.cfi_def_cfa_offset 16
+ 318 0004 00AF     		add	r7, sp, #0
+ 319              	.LCFI14:
+ 320              		.cfi_def_cfa_register 7
+ 248:.\Generated_Source\PSoC5/isr_BUTTON.c ****     cyisraddress * ramVectorTable;
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 11
+
+
+ 249:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 250:.\Generated_Source\PSoC5/isr_BUTTON.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 321              		.loc 1 250 0
+ 322 0006 4EF60853 		movw	r3, #60680
+ 323 000a CEF20003 		movt	r3, 57344
+ 324 000e 1B68     		ldr	r3, [r3, #0]
+ 325 0010 7B60     		str	r3, [r7, #4]
+ 251:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 252:.\Generated_Source\PSoC5/isr_BUTTON.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_BUTTON__INTC_NUMBER];
+ 326              		.loc 1 252 0
+ 327 0012 7B68     		ldr	r3, [r7, #4]
+ 328 0014 9B6C     		ldr	r3, [r3, #72]
+ 253:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 329              		.loc 1 253 0
+ 330 0016 1846     		mov	r0, r3
+ 331 0018 07F10C07 		add	r7, r7, #12
+ 332 001c BD46     		mov	sp, r7
+ 333 001e 80BC     		pop	{r7}
+ 334 0020 7047     		bx	lr
+ 335              		.cfi_endproc
+ 336              	.LFE61:
+ 337              		.size	isr_BUTTON_GetVector, .-isr_BUTTON_GetVector
+ 338 0022 00BF     		.section	.text.isr_BUTTON_SetPriority,"ax",%progbits
+ 339              		.align	2
+ 340              		.global	isr_BUTTON_SetPriority
+ 341              		.thumb
+ 342              		.thumb_func
+ 343              		.type	isr_BUTTON_SetPriority, %function
+ 344              	isr_BUTTON_SetPriority:
+ 345              	.LFB62:
+ 254:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 255:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 256:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 257:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_SetPriority
+ 258:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 259:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 260:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 261:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Sets the Priority of the Interrupt. Note calling isr_BUTTON_Start
+ 262:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   or isr_BUTTON_StartEx will override any effect this method 
+ 263:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   would have had. This method should only be called after 
+ 264:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   isr_BUTTON_Start or isr_BUTTON_StartEx has been called. To set 
+ 265:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 266:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 267:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 268:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 269:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 270:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 271:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 272:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 273:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 274:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_SetPriority(uint8 priority)
+ 275:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 346              		.loc 1 275 0
+ 347              		.cfi_startproc
+ 348              		@ args = 0, pretend = 0, frame = 8
+ 349              		@ frame_needed = 1, uses_anonymous_args = 0
+ 350              		@ link register save eliminated.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 12
+
+
+ 351 0000 80B4     		push	{r7}
+ 352              	.LCFI15:
+ 353              		.cfi_def_cfa_offset 4
+ 354              		.cfi_offset 7, -4
+ 355 0002 83B0     		sub	sp, sp, #12
+ 356              	.LCFI16:
+ 357              		.cfi_def_cfa_offset 16
+ 358 0004 00AF     		add	r7, sp, #0
+ 359              	.LCFI17:
+ 360              		.cfi_def_cfa_register 7
+ 361 0006 0346     		mov	r3, r0
+ 362 0008 FB71     		strb	r3, [r7, #7]
+ 276:.\Generated_Source\PSoC5/isr_BUTTON.c ****     *isr_BUTTON_INTC_PRIOR = priority << 5;
+ 363              		.loc 1 276 0
+ 364 000a 4EF20243 		movw	r3, #58370
+ 365 000e CEF20003 		movt	r3, 57344
+ 366 0012 FA79     		ldrb	r2, [r7, #7]
+ 367 0014 4FEA4212 		lsl	r2, r2, #5
+ 368 0018 D2B2     		uxtb	r2, r2
+ 369 001a 1A70     		strb	r2, [r3, #0]
+ 277:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 370              		.loc 1 277 0
+ 371 001c 07F10C07 		add	r7, r7, #12
+ 372 0020 BD46     		mov	sp, r7
+ 373 0022 80BC     		pop	{r7}
+ 374 0024 7047     		bx	lr
+ 375              		.cfi_endproc
+ 376              	.LFE62:
+ 377              		.size	isr_BUTTON_SetPriority, .-isr_BUTTON_SetPriority
+ 378 0026 00BF     		.section	.text.isr_BUTTON_GetPriority,"ax",%progbits
+ 379              		.align	2
+ 380              		.global	isr_BUTTON_GetPriority
+ 381              		.thumb
+ 382              		.thumb_func
+ 383              		.type	isr_BUTTON_GetPriority, %function
+ 384              	isr_BUTTON_GetPriority:
+ 385              	.LFB63:
+ 278:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 279:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 280:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 281:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_GetPriority
+ 282:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 283:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 284:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 285:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Gets the Priority of the Interrupt.
+ 286:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 287:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 288:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 289:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 290:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 291:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 292:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 293:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 294:.\Generated_Source\PSoC5/isr_BUTTON.c **** uint8 isr_BUTTON_GetPriority(void)
+ 295:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 386              		.loc 1 295 0
+ 387              		.cfi_startproc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 13
+
+
+ 388              		@ args = 0, pretend = 0, frame = 8
+ 389              		@ frame_needed = 1, uses_anonymous_args = 0
+ 390              		@ link register save eliminated.
+ 391 0000 80B4     		push	{r7}
+ 392              	.LCFI18:
+ 393              		.cfi_def_cfa_offset 4
+ 394              		.cfi_offset 7, -4
+ 395 0002 83B0     		sub	sp, sp, #12
+ 396              	.LCFI19:
+ 397              		.cfi_def_cfa_offset 16
+ 398 0004 00AF     		add	r7, sp, #0
+ 399              	.LCFI20:
+ 400              		.cfi_def_cfa_register 7
+ 296:.\Generated_Source\PSoC5/isr_BUTTON.c ****     uint8 priority;
+ 297:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 298:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 299:.\Generated_Source\PSoC5/isr_BUTTON.c ****     priority = *isr_BUTTON_INTC_PRIOR >> 5;
+ 401              		.loc 1 299 0
+ 402 0006 4EF20243 		movw	r3, #58370
+ 403 000a CEF20003 		movt	r3, 57344
+ 404 000e 1B78     		ldrb	r3, [r3, #0]
+ 405 0010 DBB2     		uxtb	r3, r3
+ 406 0012 4FEA5313 		lsr	r3, r3, #5
+ 407 0016 FB71     		strb	r3, [r7, #7]
+ 300:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 301:.\Generated_Source\PSoC5/isr_BUTTON.c ****     return priority;
+ 408              		.loc 1 301 0
+ 409 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 302:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 410              		.loc 1 302 0
+ 411 001a 1846     		mov	r0, r3
+ 412 001c 07F10C07 		add	r7, r7, #12
+ 413 0020 BD46     		mov	sp, r7
+ 414 0022 80BC     		pop	{r7}
+ 415 0024 7047     		bx	lr
+ 416              		.cfi_endproc
+ 417              	.LFE63:
+ 418              		.size	isr_BUTTON_GetPriority, .-isr_BUTTON_GetPriority
+ 419 0026 00BF     		.section	.text.isr_BUTTON_Enable,"ax",%progbits
+ 420              		.align	2
+ 421              		.global	isr_BUTTON_Enable
+ 422              		.thumb
+ 423              		.thumb_func
+ 424              		.type	isr_BUTTON_Enable, %function
+ 425              	isr_BUTTON_Enable:
+ 426              	.LFB64:
+ 303:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 304:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 305:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 306:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_Enable
+ 307:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 308:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 309:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 310:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Enables the interrupt.
+ 311:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 312:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 313:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 14
+
+
+ 314:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 315:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 316:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 317:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 318:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 319:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_Enable(void)
+ 320:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 427              		.loc 1 320 0
+ 428              		.cfi_startproc
+ 429              		@ args = 0, pretend = 0, frame = 0
+ 430              		@ frame_needed = 1, uses_anonymous_args = 0
+ 431              		@ link register save eliminated.
+ 432 0000 80B4     		push	{r7}
+ 433              	.LCFI21:
+ 434              		.cfi_def_cfa_offset 4
+ 435              		.cfi_offset 7, -4
+ 436 0002 00AF     		add	r7, sp, #0
+ 437              	.LCFI22:
+ 438              		.cfi_def_cfa_register 7
+ 321:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Enable the general interrupt. */
+ 322:.\Generated_Source\PSoC5/isr_BUTTON.c ****     *isr_BUTTON_INTC_SET_EN = isr_BUTTON__INTC_MASK;
+ 439              		.loc 1 322 0
+ 440 0004 4FF46143 		mov	r3, #57600
+ 441 0008 CEF20003 		movt	r3, 57344
+ 442 000c 4FF00402 		mov	r2, #4
+ 443 0010 1A60     		str	r2, [r3, #0]
+ 323:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 444              		.loc 1 323 0
+ 445 0012 BD46     		mov	sp, r7
+ 446 0014 80BC     		pop	{r7}
+ 447 0016 7047     		bx	lr
+ 448              		.cfi_endproc
+ 449              	.LFE64:
+ 450              		.size	isr_BUTTON_Enable, .-isr_BUTTON_Enable
+ 451              		.section	.text.isr_BUTTON_GetState,"ax",%progbits
+ 452              		.align	2
+ 453              		.global	isr_BUTTON_GetState
+ 454              		.thumb
+ 455              		.thumb_func
+ 456              		.type	isr_BUTTON_GetState, %function
+ 457              	isr_BUTTON_GetState:
+ 458              	.LFB65:
+ 324:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 325:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 326:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 327:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_GetState
+ 328:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 329:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 330:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 331:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 332:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 333:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 334:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 335:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 336:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 337:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   1 if enabled, 0 if disabled.
+ 338:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 15
+
+
+ 339:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 340:.\Generated_Source\PSoC5/isr_BUTTON.c **** uint8 isr_BUTTON_GetState(void)
+ 341:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 459              		.loc 1 341 0
+ 460              		.cfi_startproc
+ 461              		@ args = 0, pretend = 0, frame = 0
+ 462              		@ frame_needed = 1, uses_anonymous_args = 0
+ 463              		@ link register save eliminated.
+ 464 0000 80B4     		push	{r7}
+ 465              	.LCFI23:
+ 466              		.cfi_def_cfa_offset 4
+ 467              		.cfi_offset 7, -4
+ 468 0002 00AF     		add	r7, sp, #0
+ 469              	.LCFI24:
+ 470              		.cfi_def_cfa_register 7
+ 342:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Get the state of the general interrupt. */
+ 343:.\Generated_Source\PSoC5/isr_BUTTON.c ****     return ((*isr_BUTTON_INTC_SET_EN & (uint32)isr_BUTTON__INTC_MASK) != 0u) ? 1u:0u;
+ 471              		.loc 1 343 0
+ 472 0004 4FF46143 		mov	r3, #57600
+ 473 0008 CEF20003 		movt	r3, 57344
+ 474 000c 1B68     		ldr	r3, [r3, #0]
+ 475 000e 03F00403 		and	r3, r3, #4
+ 476 0012 002B     		cmp	r3, #0
+ 477 0014 02D0     		beq	.L17
+ 478              		.loc 1 343 0 is_stmt 0 discriminator 1
+ 479 0016 4FF00103 		mov	r3, #1
+ 480 001a 01E0     		b	.L18
+ 481              	.L17:
+ 482              		.loc 1 343 0 discriminator 2
+ 483 001c 4FF00003 		mov	r3, #0
+ 484              	.L18:
+ 344:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 485              		.loc 1 344 0 is_stmt 1 discriminator 3
+ 486 0020 1846     		mov	r0, r3
+ 487 0022 BD46     		mov	sp, r7
+ 488 0024 80BC     		pop	{r7}
+ 489 0026 7047     		bx	lr
+ 490              		.cfi_endproc
+ 491              	.LFE65:
+ 492              		.size	isr_BUTTON_GetState, .-isr_BUTTON_GetState
+ 493              		.section	.text.isr_BUTTON_Disable,"ax",%progbits
+ 494              		.align	2
+ 495              		.global	isr_BUTTON_Disable
+ 496              		.thumb
+ 497              		.thumb_func
+ 498              		.type	isr_BUTTON_Disable, %function
+ 499              	isr_BUTTON_Disable:
+ 500              	.LFB66:
+ 345:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 346:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 347:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 348:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_Disable
+ 349:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 350:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 351:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 352:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Disables the Interrupt.
+ 353:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 16
+
+
+ 354:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 355:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 356:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 357:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 358:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 359:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 360:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 361:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_Disable(void)
+ 362:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 501              		.loc 1 362 0
+ 502              		.cfi_startproc
+ 503              		@ args = 0, pretend = 0, frame = 0
+ 504              		@ frame_needed = 1, uses_anonymous_args = 0
+ 505              		@ link register save eliminated.
+ 506 0000 80B4     		push	{r7}
+ 507              	.LCFI25:
+ 508              		.cfi_def_cfa_offset 4
+ 509              		.cfi_offset 7, -4
+ 510 0002 00AF     		add	r7, sp, #0
+ 511              	.LCFI26:
+ 512              		.cfi_def_cfa_register 7
+ 363:.\Generated_Source\PSoC5/isr_BUTTON.c ****     /* Disable the general interrupt. */
+ 364:.\Generated_Source\PSoC5/isr_BUTTON.c ****     *isr_BUTTON_INTC_CLR_EN = isr_BUTTON__INTC_MASK;
+ 513              		.loc 1 364 0
+ 514 0004 4EF28013 		movw	r3, #57728
+ 515 0008 CEF20003 		movt	r3, 57344
+ 516 000c 4FF00402 		mov	r2, #4
+ 517 0010 1A60     		str	r2, [r3, #0]
+ 365:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 518              		.loc 1 365 0
+ 519 0012 BD46     		mov	sp, r7
+ 520 0014 80BC     		pop	{r7}
+ 521 0016 7047     		bx	lr
+ 522              		.cfi_endproc
+ 523              	.LFE66:
+ 524              		.size	isr_BUTTON_Disable, .-isr_BUTTON_Disable
+ 525              		.section	.text.isr_BUTTON_SetPending,"ax",%progbits
+ 526              		.align	2
+ 527              		.global	isr_BUTTON_SetPending
+ 528              		.thumb
+ 529              		.thumb_func
+ 530              		.type	isr_BUTTON_SetPending, %function
+ 531              	isr_BUTTON_SetPending:
+ 532              	.LFB67:
+ 366:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 367:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 368:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 369:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_SetPending
+ 370:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 371:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 372:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 373:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 374:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   generating the interrupt.
+ 375:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 376:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 377:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 378:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 17
+
+
+ 379:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 380:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 381:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 382:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 383:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_SetPending(void)
+ 384:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 533              		.loc 1 384 0
+ 534              		.cfi_startproc
+ 535              		@ args = 0, pretend = 0, frame = 0
+ 536              		@ frame_needed = 1, uses_anonymous_args = 0
+ 537              		@ link register save eliminated.
+ 538 0000 80B4     		push	{r7}
+ 539              	.LCFI27:
+ 540              		.cfi_def_cfa_offset 4
+ 541              		.cfi_offset 7, -4
+ 542 0002 00AF     		add	r7, sp, #0
+ 543              	.LCFI28:
+ 544              		.cfi_def_cfa_register 7
+ 385:.\Generated_Source\PSoC5/isr_BUTTON.c ****     *isr_BUTTON_INTC_SET_PD = isr_BUTTON__INTC_MASK;
+ 545              		.loc 1 385 0
+ 546 0004 4FF46243 		mov	r3, #57856
+ 547 0008 CEF20003 		movt	r3, 57344
+ 548 000c 4FF00402 		mov	r2, #4
+ 549 0010 1A60     		str	r2, [r3, #0]
+ 386:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 550              		.loc 1 386 0
+ 551 0012 BD46     		mov	sp, r7
+ 552 0014 80BC     		pop	{r7}
+ 553 0016 7047     		bx	lr
+ 554              		.cfi_endproc
+ 555              	.LFE67:
+ 556              		.size	isr_BUTTON_SetPending, .-isr_BUTTON_SetPending
+ 557              		.section	.text.isr_BUTTON_ClearPending,"ax",%progbits
+ 558              		.align	2
+ 559              		.global	isr_BUTTON_ClearPending
+ 560              		.thumb
+ 561              		.thumb_func
+ 562              		.type	isr_BUTTON_ClearPending, %function
+ 563              	isr_BUTTON_ClearPending:
+ 564              	.LFB68:
+ 387:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 388:.\Generated_Source\PSoC5/isr_BUTTON.c **** 
+ 389:.\Generated_Source\PSoC5/isr_BUTTON.c **** /*******************************************************************************
+ 390:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Function Name: isr_BUTTON_ClearPending
+ 391:.\Generated_Source\PSoC5/isr_BUTTON.c **** ********************************************************************************
+ 392:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 393:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Summary:
+ 394:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   Clears a pending interrupt.
+ 395:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 396:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Parameters:
+ 397:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 398:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 399:.\Generated_Source\PSoC5/isr_BUTTON.c **** * Return:
+ 400:.\Generated_Source\PSoC5/isr_BUTTON.c **** *   None
+ 401:.\Generated_Source\PSoC5/isr_BUTTON.c **** *
+ 402:.\Generated_Source\PSoC5/isr_BUTTON.c **** *******************************************************************************/
+ 403:.\Generated_Source\PSoC5/isr_BUTTON.c **** void isr_BUTTON_ClearPending(void)
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 18
+
+
+ 404:.\Generated_Source\PSoC5/isr_BUTTON.c **** {
+ 565              		.loc 1 404 0
+ 566              		.cfi_startproc
+ 567              		@ args = 0, pretend = 0, frame = 0
+ 568              		@ frame_needed = 1, uses_anonymous_args = 0
+ 569              		@ link register save eliminated.
+ 570 0000 80B4     		push	{r7}
+ 571              	.LCFI29:
+ 572              		.cfi_def_cfa_offset 4
+ 573              		.cfi_offset 7, -4
+ 574 0002 00AF     		add	r7, sp, #0
+ 575              	.LCFI30:
+ 576              		.cfi_def_cfa_register 7
+ 405:.\Generated_Source\PSoC5/isr_BUTTON.c ****     *isr_BUTTON_INTC_CLR_PD = isr_BUTTON__INTC_MASK;
+ 577              		.loc 1 405 0
+ 578 0004 4EF28023 		movw	r3, #57984
+ 579 0008 CEF20003 		movt	r3, 57344
+ 580 000c 4FF00402 		mov	r2, #4
+ 581 0010 1A60     		str	r2, [r3, #0]
+ 406:.\Generated_Source\PSoC5/isr_BUTTON.c **** }
+ 582              		.loc 1 406 0
+ 583 0012 BD46     		mov	sp, r7
+ 584 0014 80BC     		pop	{r7}
+ 585 0016 7047     		bx	lr
+ 586              		.cfi_endproc
+ 587              	.LFE68:
+ 588              		.size	isr_BUTTON_ClearPending, .-isr_BUTTON_ClearPending
+ 589              		.text
+ 590              	.Letext0:
+ 591              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 592              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 593              		.file 4 "./gobee.h"
+ 594              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 595              		.section	.debug_info,"",%progbits
+ 596              	.Ldebug_info0:
+ 597 0000 32060000 		.4byte	0x632
+ 598 0004 0200     		.2byte	0x2
+ 599 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 600 000a 04       		.byte	0x4
+ 601 000b 01       		.uleb128 0x1
+ 602 000c 55030000 		.4byte	.LASF89
+ 603 0010 01       		.byte	0x1
+ 604 0011 99040000 		.4byte	.LASF90
+ 605 0015 E6000000 		.4byte	.LASF91
+ 606 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 607 001d 00000000 		.4byte	0
+ 608 0021 00000000 		.4byte	0
+ 609 0025 00000000 		.4byte	.Ldebug_line0
+ 610 0029 02       		.uleb128 0x2
+ 611 002a 01       		.byte	0x1
+ 612 002b 06       		.byte	0x6
+ 613 002c EF020000 		.4byte	.LASF0
+ 614 0030 02       		.uleb128 0x2
+ 615 0031 01       		.byte	0x1
+ 616 0032 08       		.byte	0x8
+ 617 0033 98020000 		.4byte	.LASF1
+ 618 0037 02       		.uleb128 0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 19
+
+
+ 619 0038 02       		.byte	0x2
+ 620 0039 05       		.byte	0x5
+ 621 003a 77000000 		.4byte	.LASF2
+ 622 003e 02       		.uleb128 0x2
+ 623 003f 02       		.byte	0x2
+ 624 0040 07       		.byte	0x7
+ 625 0041 9E030000 		.4byte	.LASF3
+ 626 0045 03       		.uleb128 0x3
+ 627 0046 04       		.byte	0x4
+ 628 0047 05       		.byte	0x5
+ 629 0048 696E7400 		.ascii	"int\000"
+ 630 004c 02       		.uleb128 0x2
+ 631 004d 04       		.byte	0x4
+ 632 004e 07       		.byte	0x7
+ 633 004f 26030000 		.4byte	.LASF4
+ 634 0053 02       		.uleb128 0x2
+ 635 0054 08       		.byte	0x8
+ 636 0055 05       		.byte	0x5
+ 637 0056 35020000 		.4byte	.LASF5
+ 638 005a 02       		.uleb128 0x2
+ 639 005b 08       		.byte	0x8
+ 640 005c 07       		.byte	0x7
+ 641 005d FB020000 		.4byte	.LASF6
+ 642 0061 02       		.uleb128 0x2
+ 643 0062 04       		.byte	0x4
+ 644 0063 05       		.byte	0x5
+ 645 0064 CB030000 		.4byte	.LASF7
+ 646 0068 02       		.uleb128 0x2
+ 647 0069 04       		.byte	0x4
+ 648 006a 07       		.byte	0x7
+ 649 006b BF040000 		.4byte	.LASF8
+ 650 006f 02       		.uleb128 0x2
+ 651 0070 04       		.byte	0x4
+ 652 0071 07       		.byte	0x7
+ 653 0072 14040000 		.4byte	.LASF9
+ 654 0076 04       		.uleb128 0x4
+ 655 0077 01       		.byte	0x1
+ 656 0078 05       		.uleb128 0x5
+ 657 0079 04       		.byte	0x4
+ 658 007a 76000000 		.4byte	0x76
+ 659 007e 02       		.uleb128 0x2
+ 660 007f 01       		.byte	0x1
+ 661 0080 08       		.byte	0x8
+ 662 0081 C6030000 		.4byte	.LASF10
+ 663 0085 06       		.uleb128 0x6
+ 664 0086 D4030000 		.4byte	.LASF11
+ 665 008a 02       		.byte	0x2
+ 666 008b 4F       		.byte	0x4f
+ 667 008c 61000000 		.4byte	0x61
+ 668 0090 06       		.uleb128 0x6
+ 669 0091 9D010000 		.4byte	.LASF12
+ 670 0095 03       		.byte	0x3
+ 671 0096 5B       		.byte	0x5b
+ 672 0097 30000000 		.4byte	0x30
+ 673 009b 06       		.uleb128 0x6
+ 674 009c FC030000 		.4byte	.LASF13
+ 675 00a0 03       		.byte	0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 20
+
+
+ 676 00a1 5D       		.byte	0x5d
+ 677 00a2 6F000000 		.4byte	0x6f
+ 678 00a6 06       		.uleb128 0x6
+ 679 00a7 97010000 		.4byte	.LASF14
+ 680 00ab 03       		.byte	0x3
+ 681 00ac 5F       		.byte	0x5f
+ 682 00ad 37000000 		.4byte	0x37
+ 683 00b1 06       		.uleb128 0x6
+ 684 00b2 26040000 		.4byte	.LASF15
+ 685 00b6 03       		.byte	0x3
+ 686 00b7 60       		.byte	0x60
+ 687 00b8 61000000 		.4byte	0x61
+ 688 00bc 02       		.uleb128 0x2
+ 689 00bd 04       		.byte	0x4
+ 690 00be 04       		.byte	0x4
+ 691 00bf 1D020000 		.4byte	.LASF16
+ 692 00c3 02       		.uleb128 0x2
+ 693 00c4 08       		.byte	0x8
+ 694 00c5 04       		.byte	0x4
+ 695 00c6 2C040000 		.4byte	.LASF17
+ 696 00ca 06       		.uleb128 0x6
+ 697 00cb E7030000 		.4byte	.LASF18
+ 698 00cf 03       		.byte	0x3
+ 699 00d0 6C       		.byte	0x6c
+ 700 00d1 7E000000 		.4byte	0x7e
+ 701 00d5 06       		.uleb128 0x6
+ 702 00d6 0F040000 		.4byte	.LASF19
+ 703 00da 03       		.byte	0x3
+ 704 00db F0       		.byte	0xf0
+ 705 00dc E0000000 		.4byte	0xe0
+ 706 00e0 07       		.uleb128 0x7
+ 707 00e1 90000000 		.4byte	0x90
+ 708 00e5 06       		.uleb128 0x6
+ 709 00e6 30050000 		.4byte	.LASF20
+ 710 00ea 03       		.byte	0x3
+ 711 00eb F2       		.byte	0xf2
+ 712 00ec F0000000 		.4byte	0xf0
+ 713 00f0 07       		.uleb128 0x7
+ 714 00f1 9B000000 		.4byte	0x9b
+ 715 00f5 08       		.uleb128 0x8
+ 716 00f6 43020000 		.4byte	.LASF21
+ 717 00fa 03       		.byte	0x3
+ 718 00fb 0201     		.2byte	0x102
+ 719 00fd 78000000 		.4byte	0x78
+ 720 0101 09       		.uleb128 0x9
+ 721 0102 04       		.byte	0x4
+ 722 0103 04       		.byte	0x4
+ 723 0104 1B01     		.2byte	0x11b
+ 724 0106 23010000 		.4byte	0x123
+ 725 010a 0A       		.uleb128 0xa
+ 726 010b 38030000 		.4byte	.LASF22
+ 727 010f 04       		.byte	0x4
+ 728 0110 1D01     		.2byte	0x11d
+ 729 0112 23010000 		.4byte	0x123
+ 730 0116 0A       		.uleb128 0xa
+ 731 0117 14050000 		.4byte	.LASF23
+ 732 011b 04       		.byte	0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 21
+
+
+ 733 011c 1E01     		.2byte	0x11e
+ 734 011e BC000000 		.4byte	0xbc
+ 735 0122 00       		.byte	0
+ 736 0123 0B       		.uleb128 0xb
+ 737 0124 CA000000 		.4byte	0xca
+ 738 0128 33010000 		.4byte	0x133
+ 739 012c 0C       		.uleb128 0xc
+ 740 012d 68000000 		.4byte	0x68
+ 741 0131 03       		.byte	0x3
+ 742 0132 00       		.byte	0
+ 743 0133 08       		.uleb128 0x8
+ 744 0134 21050000 		.4byte	.LASF24
+ 745 0138 04       		.byte	0x4
+ 746 0139 1F01     		.2byte	0x11f
+ 747 013b 01010000 		.4byte	0x101
+ 748 013f 0D       		.uleb128 0xd
+ 749 0140 8A020000 		.4byte	.LASF25
+ 750 0144 04       		.byte	0x4
+ 751 0145 04       		.byte	0x4
+ 752 0146 A001     		.2byte	0x1a0
+ 753 0148 5C010000 		.4byte	0x15c
+ 754 014c 0E       		.uleb128 0xe
+ 755 014d DC030000 		.4byte	.LASF27
+ 756 0151 04       		.byte	0x4
+ 757 0152 A201     		.2byte	0x1a2
+ 758 0154 B1000000 		.4byte	0xb1
+ 759 0158 02       		.byte	0x2
+ 760 0159 23       		.byte	0x23
+ 761 015a 00       		.uleb128 0
+ 762 015b 00       		.byte	0
+ 763 015c 0D       		.uleb128 0xd
+ 764 015d B7010000 		.4byte	.LASF26
+ 765 0161 14       		.byte	0x14
+ 766 0162 04       		.byte	0x4
+ 767 0163 9901     		.2byte	0x199
+ 768 0165 B5010000 		.4byte	0x1b5
+ 769 0169 0E       		.uleb128 0xe
+ 770 016a EE040000 		.4byte	.LASF28
+ 771 016e 04       		.byte	0x4
+ 772 016f 9B01     		.2byte	0x19b
+ 773 0171 B1000000 		.4byte	0xb1
+ 774 0175 02       		.byte	0x2
+ 775 0176 23       		.byte	0x23
+ 776 0177 00       		.uleb128 0
+ 777 0178 0E       		.uleb128 0xe
+ 778 0179 56010000 		.4byte	.LASF29
+ 779 017d 04       		.byte	0x4
+ 780 017e 9C01     		.2byte	0x19c
+ 781 0180 BC000000 		.4byte	0xbc
+ 782 0184 02       		.byte	0x2
+ 783 0185 23       		.byte	0x23
+ 784 0186 04       		.uleb128 0x4
+ 785 0187 0E       		.uleb128 0xe
+ 786 0188 D1040000 		.4byte	.LASF30
+ 787 018c 04       		.byte	0x4
+ 788 018d 9D01     		.2byte	0x19d
+ 789 018f BC000000 		.4byte	0xbc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 22
+
+
+ 790 0193 02       		.byte	0x2
+ 791 0194 23       		.byte	0x23
+ 792 0195 08       		.uleb128 0x8
+ 793 0196 0E       		.uleb128 0xe
+ 794 0197 94000000 		.4byte	.LASF31
+ 795 019b 04       		.byte	0x4
+ 796 019c 9E01     		.2byte	0x19e
+ 797 019e BC000000 		.4byte	0xbc
+ 798 01a2 02       		.byte	0x2
+ 799 01a3 23       		.byte	0x23
+ 800 01a4 0C       		.uleb128 0xc
+ 801 01a5 0E       		.uleb128 0xe
+ 802 01a6 46030000 		.4byte	.LASF32
+ 803 01aa 04       		.byte	0x4
+ 804 01ab A601     		.2byte	0x1a6
+ 805 01ad 3F010000 		.4byte	0x13f
+ 806 01b1 02       		.byte	0x2
+ 807 01b2 23       		.byte	0x23
+ 808 01b3 10       		.uleb128 0x10
+ 809 01b4 00       		.byte	0
+ 810 01b5 0D       		.uleb128 0xd
+ 811 01b6 19050000 		.4byte	.LASF33
+ 812 01ba 0C       		.byte	0xc
+ 813 01bb 04       		.byte	0x4
+ 814 01bc EE01     		.2byte	0x1ee
+ 815 01be FF010000 		.4byte	0x1ff
+ 816 01c2 0E       		.uleb128 0xe
+ 817 01c3 BF010000 		.4byte	.LASF34
+ 818 01c7 04       		.byte	0x4
+ 819 01c8 F001     		.2byte	0x1f0
+ 820 01ca 90000000 		.4byte	0x90
+ 821 01ce 02       		.byte	0x2
+ 822 01cf 23       		.byte	0x23
+ 823 01d0 00       		.uleb128 0
+ 824 01d1 0E       		.uleb128 0xe
+ 825 01d2 6C000000 		.4byte	.LASF35
+ 826 01d6 04       		.byte	0x4
+ 827 01d7 F401     		.2byte	0x1f4
+ 828 01d9 90000000 		.4byte	0x90
+ 829 01dd 02       		.byte	0x2
+ 830 01de 23       		.byte	0x23
+ 831 01df 01       		.uleb128 0x1
+ 832 01e0 0E       		.uleb128 0xe
+ 833 01e1 CC010000 		.4byte	.LASF36
+ 834 01e5 04       		.byte	0x4
+ 835 01e6 FA01     		.2byte	0x1fa
+ 836 01e8 BC000000 		.4byte	0xbc
+ 837 01ec 02       		.byte	0x2
+ 838 01ed 23       		.byte	0x23
+ 839 01ee 04       		.uleb128 0x4
+ 840 01ef 0E       		.uleb128 0xe
+ 841 01f0 12030000 		.4byte	.LASF37
+ 842 01f4 04       		.byte	0x4
+ 843 01f5 FB01     		.2byte	0x1fb
+ 844 01f7 BC000000 		.4byte	0xbc
+ 845 01fb 02       		.byte	0x2
+ 846 01fc 23       		.byte	0x23
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 23
+
+
+ 847 01fd 08       		.uleb128 0x8
+ 848 01fe 00       		.byte	0
+ 849 01ff 0D       		.uleb128 0xd
+ 850 0200 5F010000 		.4byte	.LASF38
+ 851 0204 28       		.byte	0x28
+ 852 0205 04       		.byte	0x4
+ 853 0206 0002     		.2byte	0x200
+ 854 0208 B2020000 		.4byte	0x2b2
+ 855 020c 0E       		.uleb128 0xe
+ 856 020d DC030000 		.4byte	.LASF27
+ 857 0211 04       		.byte	0x4
+ 858 0212 0202     		.2byte	0x202
+ 859 0214 33010000 		.4byte	0x133
+ 860 0218 02       		.byte	0x2
+ 861 0219 23       		.byte	0x23
+ 862 021a 00       		.uleb128 0
+ 863 021b 0E       		.uleb128 0xe
+ 864 021c E6020000 		.4byte	.LASF39
+ 865 0220 04       		.byte	0x4
+ 866 0221 0802     		.2byte	0x208
+ 867 0223 90000000 		.4byte	0x90
+ 868 0227 02       		.byte	0x2
+ 869 0228 23       		.byte	0x23
+ 870 0229 04       		.uleb128 0x4
+ 871 022a 0F       		.uleb128 0xf
+ 872 022b 4B706600 		.ascii	"Kpf\000"
+ 873 022f 04       		.byte	0x4
+ 874 0230 0C02     		.2byte	0x20c
+ 875 0232 33010000 		.4byte	0x133
+ 876 0236 02       		.byte	0x2
+ 877 0237 23       		.byte	0x23
+ 878 0238 08       		.uleb128 0x8
+ 879 0239 0F       		.uleb128 0xf
+ 880 023a 4B646600 		.ascii	"Kdf\000"
+ 881 023e 04       		.byte	0x4
+ 882 023f 0E02     		.2byte	0x20e
+ 883 0241 33010000 		.4byte	0x133
+ 884 0245 02       		.byte	0x2
+ 885 0246 23       		.byte	0x23
+ 886 0247 0C       		.uleb128 0xc
+ 887 0248 0F       		.uleb128 0xf
+ 888 0249 4B696600 		.ascii	"Kif\000"
+ 889 024d 04       		.byte	0x4
+ 890 024e 1002     		.2byte	0x210
+ 891 0250 33010000 		.4byte	0x133
+ 892 0254 02       		.byte	0x2
+ 893 0255 23       		.byte	0x23
+ 894 0256 10       		.uleb128 0x10
+ 895 0257 0E       		.uleb128 0xe
+ 896 0258 92010000 		.4byte	.LASF40
+ 897 025c 04       		.byte	0x4
+ 898 025d 1202     		.2byte	0x212
+ 899 025f 33010000 		.4byte	0x133
+ 900 0263 02       		.byte	0x2
+ 901 0264 23       		.byte	0x23
+ 902 0265 14       		.uleb128 0x14
+ 903 0266 0E       		.uleb128 0xe
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 24
+
+
+ 904 0267 33030000 		.4byte	.LASF41
+ 905 026b 04       		.byte	0x4
+ 906 026c 1602     		.2byte	0x216
+ 907 026e 33010000 		.4byte	0x133
+ 908 0272 02       		.byte	0x2
+ 909 0273 23       		.byte	0x23
+ 910 0274 18       		.uleb128 0x18
+ 911 0275 0E       		.uleb128 0xe
+ 912 0276 08000000 		.4byte	.LASF42
+ 913 027a 04       		.byte	0x4
+ 914 027b 1802     		.2byte	0x218
+ 915 027d 33010000 		.4byte	0x133
+ 916 0281 02       		.byte	0x2
+ 917 0282 23       		.byte	0x23
+ 918 0283 1C       		.uleb128 0x1c
+ 919 0284 0E       		.uleb128 0xe
+ 920 0285 8E000000 		.4byte	.LASF43
+ 921 0289 04       		.byte	0x4
+ 922 028a 1A02     		.2byte	0x21a
+ 923 028c 90000000 		.4byte	0x90
+ 924 0290 02       		.byte	0x2
+ 925 0291 23       		.byte	0x23
+ 926 0292 20       		.uleb128 0x20
+ 927 0293 0E       		.uleb128 0xe
+ 928 0294 A6020000 		.4byte	.LASF44
+ 929 0298 04       		.byte	0x4
+ 930 0299 1E02     		.2byte	0x21e
+ 931 029b 90000000 		.4byte	0x90
+ 932 029f 02       		.byte	0x2
+ 933 02a0 23       		.byte	0x23
+ 934 02a1 21       		.uleb128 0x21
+ 935 02a2 0E       		.uleb128 0xe
+ 936 02a3 51040000 		.4byte	.LASF45
+ 937 02a7 04       		.byte	0x4
+ 938 02a8 2202     		.2byte	0x222
+ 939 02aa 33010000 		.4byte	0x133
+ 940 02ae 02       		.byte	0x2
+ 941 02af 23       		.byte	0x23
+ 942 02b0 24       		.uleb128 0x24
+ 943 02b1 00       		.byte	0
+ 944 02b2 0D       		.uleb128 0xd
+ 945 02b3 D4020000 		.4byte	.LASF46
+ 946 02b7 50       		.byte	0x50
+ 947 02b8 04       		.byte	0x4
+ 948 02b9 2802     		.2byte	0x228
+ 949 02bb BF030000 		.4byte	0x3bf
+ 950 02bf 0E       		.uleb128 0xe
+ 951 02c0 49000000 		.4byte	.LASF47
+ 952 02c4 04       		.byte	0x4
+ 953 02c5 2A02     		.2byte	0x22a
+ 954 02c7 B1000000 		.4byte	0xb1
+ 955 02cb 02       		.byte	0x2
+ 956 02cc 23       		.byte	0x23
+ 957 02cd 00       		.uleb128 0
+ 958 02ce 0E       		.uleb128 0xe
+ 959 02cf E0010000 		.4byte	.LASF48
+ 960 02d3 04       		.byte	0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 25
+
+
+ 961 02d4 2B02     		.2byte	0x22b
+ 962 02d6 B1000000 		.4byte	0xb1
+ 963 02da 02       		.byte	0x2
+ 964 02db 23       		.byte	0x23
+ 965 02dc 04       		.uleb128 0x4
+ 966 02dd 0E       		.uleb128 0xe
+ 967 02de D2000000 		.4byte	.LASF49
+ 968 02e2 04       		.byte	0x4
+ 969 02e3 3002     		.2byte	0x230
+ 970 02e5 B1000000 		.4byte	0xb1
+ 971 02e9 02       		.byte	0x2
+ 972 02ea 23       		.byte	0x23
+ 973 02eb 08       		.uleb128 0x8
+ 974 02ec 0E       		.uleb128 0xe
+ 975 02ed F8010000 		.4byte	.LASF50
+ 976 02f1 04       		.byte	0x4
+ 977 02f2 3102     		.2byte	0x231
+ 978 02f4 B1000000 		.4byte	0xb1
+ 979 02f8 02       		.byte	0x2
+ 980 02f9 23       		.byte	0x23
+ 981 02fa 0C       		.uleb128 0xc
+ 982 02fb 0E       		.uleb128 0xe
+ 983 02fc 47040000 		.4byte	.LASF51
+ 984 0300 04       		.byte	0x4
+ 985 0301 3602     		.2byte	0x236
+ 986 0303 5C010000 		.4byte	0x15c
+ 987 0307 02       		.byte	0x2
+ 988 0308 23       		.byte	0x23
+ 989 0309 10       		.uleb128 0x10
+ 990 030a 0E       		.uleb128 0xe
+ 991 030b E8040000 		.4byte	.LASF52
+ 992 030f 04       		.byte	0x4
+ 993 0310 3802     		.2byte	0x238
+ 994 0312 BC000000 		.4byte	0xbc
+ 995 0316 02       		.byte	0x2
+ 996 0317 23       		.byte	0x23
+ 997 0318 24       		.uleb128 0x24
+ 998 0319 0E       		.uleb128 0xe
+ 999 031a DC020000 		.4byte	.LASF53
+ 1000 031e 04       		.byte	0x4
+ 1001 031f 3902     		.2byte	0x239
+ 1002 0321 BC000000 		.4byte	0xbc
+ 1003 0325 02       		.byte	0x2
+ 1004 0326 23       		.byte	0x23
+ 1005 0327 28       		.uleb128 0x28
+ 1006 0328 0E       		.uleb128 0xe
+ 1007 0329 29050000 		.4byte	.LASF54
+ 1008 032d 04       		.byte	0x4
+ 1009 032e 3A02     		.2byte	0x23a
+ 1010 0330 BC000000 		.4byte	0xbc
+ 1011 0334 02       		.byte	0x2
+ 1012 0335 23       		.byte	0x23
+ 1013 0336 2C       		.uleb128 0x2c
+ 1014 0337 0E       		.uleb128 0xe
+ 1015 0338 B8000000 		.4byte	.LASF55
+ 1016 033c 04       		.byte	0x4
+ 1017 033d 3B02     		.2byte	0x23b
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 26
+
+
+ 1018 033f BC000000 		.4byte	0xbc
+ 1019 0343 02       		.byte	0x2
+ 1020 0344 23       		.byte	0x23
+ 1021 0345 30       		.uleb128 0x30
+ 1022 0346 0E       		.uleb128 0xe
+ 1023 0347 36050000 		.4byte	.LASF56
+ 1024 034b 04       		.byte	0x4
+ 1025 034c 3C02     		.2byte	0x23c
+ 1026 034e BC000000 		.4byte	0xbc
+ 1027 0352 02       		.byte	0x2
+ 1028 0353 23       		.byte	0x23
+ 1029 0354 34       		.uleb128 0x34
+ 1030 0355 0E       		.uleb128 0xe
+ 1031 0356 F7040000 		.4byte	.LASF57
+ 1032 035a 04       		.byte	0x4
+ 1033 035b 3D02     		.2byte	0x23d
+ 1034 035d BC000000 		.4byte	0xbc
+ 1035 0361 02       		.byte	0x2
+ 1036 0362 23       		.byte	0x23
+ 1037 0363 38       		.uleb128 0x38
+ 1038 0364 0E       		.uleb128 0xe
+ 1039 0365 14000000 		.4byte	.LASF58
+ 1040 0369 04       		.byte	0x4
+ 1041 036a 3F02     		.2byte	0x23f
+ 1042 036c BC000000 		.4byte	0xbc
+ 1043 0370 02       		.byte	0x2
+ 1044 0371 23       		.byte	0x23
+ 1045 0372 3C       		.uleb128 0x3c
+ 1046 0373 0E       		.uleb128 0xe
+ 1047 0374 00000000 		.4byte	.LASF59
+ 1048 0378 04       		.byte	0x4
+ 1049 0379 4002     		.2byte	0x240
+ 1050 037b A6000000 		.4byte	0xa6
+ 1051 037f 02       		.byte	0x2
+ 1052 0380 23       		.byte	0x23
+ 1053 0381 40       		.uleb128 0x40
+ 1054 0382 0E       		.uleb128 0xe
+ 1055 0383 66010000 		.4byte	.LASF60
+ 1056 0387 04       		.byte	0x4
+ 1057 0388 4102     		.2byte	0x241
+ 1058 038a A6000000 		.4byte	0xa6
+ 1059 038e 02       		.byte	0x2
+ 1060 038f 23       		.byte	0x23
+ 1061 0390 42       		.uleb128 0x42
+ 1062 0391 0E       		.uleb128 0xe
+ 1063 0392 3E030000 		.4byte	.LASF61
+ 1064 0396 04       		.byte	0x4
+ 1065 0397 4302     		.2byte	0x243
+ 1066 0399 BC000000 		.4byte	0xbc
+ 1067 039d 02       		.byte	0x2
+ 1068 039e 23       		.byte	0x23
+ 1069 039f 44       		.uleb128 0x44
+ 1070 03a0 0E       		.uleb128 0xe
+ 1071 03a1 03040000 		.4byte	.LASF62
+ 1072 03a5 04       		.byte	0x4
+ 1073 03a6 4502     		.2byte	0x245
+ 1074 03a8 BC000000 		.4byte	0xbc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 27
+
+
+ 1075 03ac 02       		.byte	0x2
+ 1076 03ad 23       		.byte	0x23
+ 1077 03ae 48       		.uleb128 0x48
+ 1078 03af 0E       		.uleb128 0xe
+ 1079 03b0 10020000 		.4byte	.LASF63
+ 1080 03b4 04       		.byte	0x4
+ 1081 03b5 4602     		.2byte	0x246
+ 1082 03b7 90000000 		.4byte	0x90
+ 1083 03bb 02       		.byte	0x2
+ 1084 03bc 23       		.byte	0x23
+ 1085 03bd 4C       		.uleb128 0x4c
+ 1086 03be 00       		.byte	0
+ 1087 03bf 0D       		.uleb128 0xd
+ 1088 03c0 81000000 		.4byte	.LASF64
+ 1089 03c4 0C       		.byte	0xc
+ 1090 03c5 04       		.byte	0x4
+ 1091 03c6 4A02     		.2byte	0x24a
+ 1092 03c8 FA030000 		.4byte	0x3fa
+ 1093 03cc 0E       		.uleb128 0xe
+ 1094 03cd B1030000 		.4byte	.LASF65
+ 1095 03d1 04       		.byte	0x4
+ 1096 03d2 4C02     		.2byte	0x24c
+ 1097 03d4 90000000 		.4byte	0x90
+ 1098 03d8 02       		.byte	0x2
+ 1099 03d9 23       		.byte	0x23
+ 1100 03da 00       		.uleb128 0
+ 1101 03db 0E       		.uleb128 0xe
+ 1102 03dc A5000000 		.4byte	.LASF66
+ 1103 03e0 04       		.byte	0x4
+ 1104 03e1 4D02     		.2byte	0x24d
+ 1105 03e3 BC000000 		.4byte	0xbc
+ 1106 03e7 02       		.byte	0x2
+ 1107 03e8 23       		.byte	0x23
+ 1108 03e9 04       		.uleb128 0x4
+ 1109 03ea 0E       		.uleb128 0xe
+ 1110 03eb A3010000 		.4byte	.LASF67
+ 1111 03ef 04       		.byte	0x4
+ 1112 03f0 4E02     		.2byte	0x24e
+ 1113 03f2 BC000000 		.4byte	0xbc
+ 1114 03f6 02       		.byte	0x2
+ 1115 03f7 23       		.byte	0x23
+ 1116 03f8 08       		.uleb128 0x8
+ 1117 03f9 00       		.byte	0
+ 1118 03fa 0D       		.uleb128 0xd
+ 1119 03fb B4020000 		.4byte	.LASF68
+ 1120 03ff 90       		.byte	0x90
+ 1121 0400 04       		.byte	0x4
+ 1122 0401 EB01     		.2byte	0x1eb
+ 1123 0403 43040000 		.4byte	0x443
+ 1124 0407 0E       		.uleb128 0xe
+ 1125 0408 5D000000 		.4byte	.LASF69
+ 1126 040c 04       		.byte	0x4
+ 1127 040d FD01     		.2byte	0x1fd
+ 1128 040f B5010000 		.4byte	0x1b5
+ 1129 0413 02       		.byte	0x2
+ 1130 0414 23       		.byte	0x23
+ 1131 0415 00       		.uleb128 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 28
+
+
+ 1132 0416 0E       		.uleb128 0xe
+ 1133 0417 46030000 		.4byte	.LASF32
+ 1134 041b 04       		.byte	0x4
+ 1135 041c 2402     		.2byte	0x224
+ 1136 041e FF010000 		.4byte	0x1ff
+ 1137 0422 02       		.byte	0x2
+ 1138 0423 23       		.byte	0x23
+ 1139 0424 0C       		.uleb128 0xc
+ 1140 0425 0F       		.uleb128 0xf
+ 1141 0426 6D6300   		.ascii	"mc\000"
+ 1142 0429 04       		.byte	0x4
+ 1143 042a 4702     		.2byte	0x247
+ 1144 042c B2020000 		.4byte	0x2b2
+ 1145 0430 02       		.byte	0x2
+ 1146 0431 23       		.byte	0x23
+ 1147 0432 34       		.uleb128 0x34
+ 1148 0433 0F       		.uleb128 0xf
+ 1149 0434 6C6300   		.ascii	"lc\000"
+ 1150 0437 04       		.byte	0x4
+ 1151 0438 4F02     		.2byte	0x24f
+ 1152 043a BF030000 		.4byte	0x3bf
+ 1153 043e 03       		.byte	0x3
+ 1154 043f 23       		.byte	0x23
+ 1155 0440 8401     		.uleb128 0x84
+ 1156 0442 00       		.byte	0
+ 1157 0443 10       		.uleb128 0x10
+ 1158 0444 01       		.byte	0x1
+ 1159 0445 D7040000 		.4byte	.LASF70
+ 1160 0449 01       		.byte	0x1
+ 1161 044a 49       		.byte	0x49
+ 1162 044b 01       		.byte	0x1
+ 1163 044c 00000000 		.4byte	.LFB56
+ 1164 0450 22000000 		.4byte	.LFE56
+ 1165 0454 00000000 		.4byte	.LLST0
+ 1166 0458 01       		.byte	0x1
+ 1167 0459 11       		.uleb128 0x11
+ 1168 045a 01       		.byte	0x1
+ 1169 045b 50020000 		.4byte	.LASF73
+ 1170 045f 01       		.byte	0x1
+ 1171 0460 67       		.byte	0x67
+ 1172 0461 01       		.byte	0x1
+ 1173 0462 00000000 		.4byte	.LFB57
+ 1174 0466 26000000 		.4byte	.LFE57
+ 1175 046a 2C000000 		.4byte	.LLST1
+ 1176 046e 01       		.byte	0x1
+ 1177 046f 82040000 		.4byte	0x482
+ 1178 0473 12       		.uleb128 0x12
+ 1179 0474 64000000 		.4byte	.LASF75
+ 1180 0478 01       		.byte	0x1
+ 1181 0479 67       		.byte	0x67
+ 1182 047a F5000000 		.4byte	0xf5
+ 1183 047e 02       		.byte	0x2
+ 1184 047f 91       		.byte	0x91
+ 1185 0480 74       		.sleb128 -12
+ 1186 0481 00       		.byte	0
+ 1187 0482 10       		.uleb128 0x10
+ 1188 0483 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 29
+
+
+ 1189 0484 7A020000 		.4byte	.LASF71
+ 1190 0488 01       		.byte	0x1
+ 1191 0489 84       		.byte	0x84
+ 1192 048a 01       		.byte	0x1
+ 1193 048b 00000000 		.4byte	.LFB58
+ 1194 048f 16000000 		.4byte	.LFE58
+ 1195 0493 64000000 		.4byte	.LLST2
+ 1196 0497 01       		.byte	0x1
+ 1197 0498 10       		.uleb128 0x10
+ 1198 0499 01       		.byte	0x1
+ 1199 049a 73010000 		.4byte	.LASF72
+ 1200 049e 01       		.byte	0x1
+ 1201 049f 9E       		.byte	0x9e
+ 1202 04a0 01       		.byte	0x1
+ 1203 04a1 00000000 		.4byte	.LFB59
+ 1204 04a5 0C010000 		.4byte	.LFE59
+ 1205 04a9 90000000 		.4byte	.LLST3
+ 1206 04ad 01       		.byte	0x1
+ 1207 04ae 13       		.uleb128 0x13
+ 1208 04af 01       		.byte	0x1
+ 1209 04b0 BF020000 		.4byte	.LASF74
+ 1210 04b4 01       		.byte	0x1
+ 1211 04b5 DE       		.byte	0xde
+ 1212 04b6 01       		.byte	0x1
+ 1213 04b7 00000000 		.4byte	.LFB60
+ 1214 04bb 28000000 		.4byte	.LFE60
+ 1215 04bf BC000000 		.4byte	.LLST4
+ 1216 04c3 01       		.byte	0x1
+ 1217 04c4 E5040000 		.4byte	0x4e5
+ 1218 04c8 12       		.uleb128 0x12
+ 1219 04c9 64000000 		.4byte	.LASF75
+ 1220 04cd 01       		.byte	0x1
+ 1221 04ce DE       		.byte	0xde
+ 1222 04cf F5000000 		.4byte	0xf5
+ 1223 04d3 02       		.byte	0x2
+ 1224 04d4 91       		.byte	0x91
+ 1225 04d5 6C       		.sleb128 -20
+ 1226 04d6 14       		.uleb128 0x14
+ 1227 04d7 ED030000 		.4byte	.LASF76
+ 1228 04db 01       		.byte	0x1
+ 1229 04dc E0       		.byte	0xe0
+ 1230 04dd E5040000 		.4byte	0x4e5
+ 1231 04e1 02       		.byte	0x2
+ 1232 04e2 91       		.byte	0x91
+ 1233 04e3 74       		.sleb128 -12
+ 1234 04e4 00       		.byte	0
+ 1235 04e5 05       		.uleb128 0x5
+ 1236 04e6 04       		.byte	0x4
+ 1237 04e7 F5000000 		.4byte	0xf5
+ 1238 04eb 15       		.uleb128 0x15
+ 1239 04ec 01       		.byte	0x1
+ 1240 04ed 34000000 		.4byte	.LASF79
+ 1241 04f1 01       		.byte	0x1
+ 1242 04f2 F6       		.byte	0xf6
+ 1243 04f3 01       		.byte	0x1
+ 1244 04f4 F5000000 		.4byte	0xf5
+ 1245 04f8 00000000 		.4byte	.LFB61
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 30
+
+
+ 1246 04fc 22000000 		.4byte	.LFE61
+ 1247 0500 F4000000 		.4byte	.LLST5
+ 1248 0504 01       		.byte	0x1
+ 1249 0505 18050000 		.4byte	0x518
+ 1250 0509 14       		.uleb128 0x14
+ 1251 050a ED030000 		.4byte	.LASF76
+ 1252 050e 01       		.byte	0x1
+ 1253 050f F8       		.byte	0xf8
+ 1254 0510 E5040000 		.4byte	0x4e5
+ 1255 0514 02       		.byte	0x2
+ 1256 0515 91       		.byte	0x91
+ 1257 0516 74       		.sleb128 -12
+ 1258 0517 00       		.byte	0
+ 1259 0518 16       		.uleb128 0x16
+ 1260 0519 01       		.byte	0x1
+ 1261 051a 63020000 		.4byte	.LASF77
+ 1262 051e 01       		.byte	0x1
+ 1263 051f 1201     		.2byte	0x112
+ 1264 0521 01       		.byte	0x1
+ 1265 0522 00000000 		.4byte	.LFB62
+ 1266 0526 26000000 		.4byte	.LFE62
+ 1267 052a 2C010000 		.4byte	.LLST6
+ 1268 052e 01       		.byte	0x1
+ 1269 052f 43050000 		.4byte	0x543
+ 1270 0533 17       		.uleb128 0x17
+ 1271 0534 C8040000 		.4byte	.LASF78
+ 1272 0538 01       		.byte	0x1
+ 1273 0539 1201     		.2byte	0x112
+ 1274 053b 90000000 		.4byte	0x90
+ 1275 053f 02       		.byte	0x2
+ 1276 0540 91       		.byte	0x91
+ 1277 0541 77       		.sleb128 -9
+ 1278 0542 00       		.byte	0
+ 1279 0543 18       		.uleb128 0x18
+ 1280 0544 01       		.byte	0x1
+ 1281 0545 1D000000 		.4byte	.LASF80
+ 1282 0549 01       		.byte	0x1
+ 1283 054a 2601     		.2byte	0x126
+ 1284 054c 01       		.byte	0x1
+ 1285 054d 90000000 		.4byte	0x90
+ 1286 0551 00000000 		.4byte	.LFB63
+ 1287 0555 26000000 		.4byte	.LFE63
+ 1288 0559 64010000 		.4byte	.LLST7
+ 1289 055d 01       		.byte	0x1
+ 1290 055e 72050000 		.4byte	0x572
+ 1291 0562 19       		.uleb128 0x19
+ 1292 0563 C8040000 		.4byte	.LASF78
+ 1293 0567 01       		.byte	0x1
+ 1294 0568 2801     		.2byte	0x128
+ 1295 056a 90000000 		.4byte	0x90
+ 1296 056e 02       		.byte	0x2
+ 1297 056f 91       		.byte	0x91
+ 1298 0570 77       		.sleb128 -9
+ 1299 0571 00       		.byte	0
+ 1300 0572 1A       		.uleb128 0x1a
+ 1301 0573 01       		.byte	0x1
+ 1302 0574 23020000 		.4byte	.LASF81
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 31
+
+
+ 1303 0578 01       		.byte	0x1
+ 1304 0579 3F01     		.2byte	0x13f
+ 1305 057b 01       		.byte	0x1
+ 1306 057c 00000000 		.4byte	.LFB64
+ 1307 0580 18000000 		.4byte	.LFE64
+ 1308 0584 9C010000 		.4byte	.LLST8
+ 1309 0588 01       		.byte	0x1
+ 1310 0589 1B       		.uleb128 0x1b
+ 1311 058a 01       		.byte	0x1
+ 1312 058b 33040000 		.4byte	.LASF92
+ 1313 058f 01       		.byte	0x1
+ 1314 0590 5401     		.2byte	0x154
+ 1315 0592 01       		.byte	0x1
+ 1316 0593 90000000 		.4byte	0x90
+ 1317 0597 00000000 		.4byte	.LFB65
+ 1318 059b 28000000 		.4byte	.LFE65
+ 1319 059f C8010000 		.4byte	.LLST9
+ 1320 05a3 01       		.byte	0x1
+ 1321 05a4 1A       		.uleb128 0x1a
+ 1322 05a5 01       		.byte	0x1
+ 1323 05a6 BF000000 		.4byte	.LASF82
+ 1324 05aa 01       		.byte	0x1
+ 1325 05ab 6901     		.2byte	0x169
+ 1326 05ad 01       		.byte	0x1
+ 1327 05ae 00000000 		.4byte	.LFB66
+ 1328 05b2 18000000 		.4byte	.LFE66
+ 1329 05b6 F4010000 		.4byte	.LLST10
+ 1330 05ba 01       		.byte	0x1
+ 1331 05bb 1A       		.uleb128 0x1a
+ 1332 05bc 01       		.byte	0x1
+ 1333 05bd 83040000 		.4byte	.LASF83
+ 1334 05c1 01       		.byte	0x1
+ 1335 05c2 7F01     		.2byte	0x17f
+ 1336 05c4 01       		.byte	0x1
+ 1337 05c5 00000000 		.4byte	.LFB67
+ 1338 05c9 18000000 		.4byte	.LFE67
+ 1339 05cd 20020000 		.4byte	.LLST11
+ 1340 05d1 01       		.byte	0x1
+ 1341 05d2 1A       		.uleb128 0x1a
+ 1342 05d3 01       		.byte	0x1
+ 1343 05d4 6B040000 		.4byte	.LASF84
+ 1344 05d8 01       		.byte	0x1
+ 1345 05d9 9301     		.2byte	0x193
+ 1346 05db 01       		.byte	0x1
+ 1347 05dc 00000000 		.4byte	.LFB68
+ 1348 05e0 18000000 		.4byte	.LFE68
+ 1349 05e4 4C020000 		.4byte	.LLST12
+ 1350 05e8 01       		.byte	0x1
+ 1351 05e9 1C       		.uleb128 0x1c
+ 1352 05ea 07050000 		.4byte	.LASF85
+ 1353 05ee 05       		.byte	0x5
+ 1354 05ef 1606     		.2byte	0x616
+ 1355 05f1 F7050000 		.4byte	0x5f7
+ 1356 05f5 01       		.byte	0x1
+ 1357 05f6 01       		.byte	0x1
+ 1358 05f7 07       		.uleb128 0x7
+ 1359 05f8 85000000 		.4byte	0x85
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 32
+
+
+ 1360 05fc 1D       		.uleb128 0x1d
+ 1361 05fd B8030000 		.4byte	.LASF86
+ 1362 0601 01       		.byte	0x1
+ 1363 0602 26       		.byte	0x26
+ 1364 0603 90000000 		.4byte	0x90
+ 1365 0607 01       		.byte	0x1
+ 1366 0608 01       		.byte	0x1
+ 1367 0609 1D       		.uleb128 0x1d
+ 1368 060a 4C030000 		.4byte	.LASF87
+ 1369 060e 01       		.byte	0x1
+ 1370 060f 29       		.byte	0x29
+ 1371 0610 FA030000 		.4byte	0x3fa
+ 1372 0614 01       		.byte	0x1
+ 1373 0615 01       		.byte	0x1
+ 1374 0616 1D       		.uleb128 0x1d
+ 1375 0617 88010000 		.4byte	.LASF88
+ 1376 061b 01       		.byte	0x1
+ 1377 061c 2A       		.byte	0x2a
+ 1378 061d FA030000 		.4byte	0x3fa
+ 1379 0621 01       		.byte	0x1
+ 1380 0622 01       		.byte	0x1
+ 1381 0623 1E       		.uleb128 0x1e
+ 1382 0624 69647800 		.ascii	"idx\000"
+ 1383 0628 01       		.byte	0x1
+ 1384 0629 2C       		.byte	0x2c
+ 1385 062a 90000000 		.4byte	0x90
+ 1386 062e 01       		.byte	0x1
+ 1387 062f 05       		.byte	0x5
+ 1388 0630 03       		.byte	0x3
+ 1389 0631 00000000 		.4byte	idx
+ 1390 0635 00       		.byte	0
+ 1391              		.section	.debug_abbrev,"",%progbits
+ 1392              	.Ldebug_abbrev0:
+ 1393 0000 01       		.uleb128 0x1
+ 1394 0001 11       		.uleb128 0x11
+ 1395 0002 01       		.byte	0x1
+ 1396 0003 25       		.uleb128 0x25
+ 1397 0004 0E       		.uleb128 0xe
+ 1398 0005 13       		.uleb128 0x13
+ 1399 0006 0B       		.uleb128 0xb
+ 1400 0007 03       		.uleb128 0x3
+ 1401 0008 0E       		.uleb128 0xe
+ 1402 0009 1B       		.uleb128 0x1b
+ 1403 000a 0E       		.uleb128 0xe
+ 1404 000b 55       		.uleb128 0x55
+ 1405 000c 06       		.uleb128 0x6
+ 1406 000d 11       		.uleb128 0x11
+ 1407 000e 01       		.uleb128 0x1
+ 1408 000f 52       		.uleb128 0x52
+ 1409 0010 01       		.uleb128 0x1
+ 1410 0011 10       		.uleb128 0x10
+ 1411 0012 06       		.uleb128 0x6
+ 1412 0013 00       		.byte	0
+ 1413 0014 00       		.byte	0
+ 1414 0015 02       		.uleb128 0x2
+ 1415 0016 24       		.uleb128 0x24
+ 1416 0017 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 33
+
+
+ 1417 0018 0B       		.uleb128 0xb
+ 1418 0019 0B       		.uleb128 0xb
+ 1419 001a 3E       		.uleb128 0x3e
+ 1420 001b 0B       		.uleb128 0xb
+ 1421 001c 03       		.uleb128 0x3
+ 1422 001d 0E       		.uleb128 0xe
+ 1423 001e 00       		.byte	0
+ 1424 001f 00       		.byte	0
+ 1425 0020 03       		.uleb128 0x3
+ 1426 0021 24       		.uleb128 0x24
+ 1427 0022 00       		.byte	0
+ 1428 0023 0B       		.uleb128 0xb
+ 1429 0024 0B       		.uleb128 0xb
+ 1430 0025 3E       		.uleb128 0x3e
+ 1431 0026 0B       		.uleb128 0xb
+ 1432 0027 03       		.uleb128 0x3
+ 1433 0028 08       		.uleb128 0x8
+ 1434 0029 00       		.byte	0
+ 1435 002a 00       		.byte	0
+ 1436 002b 04       		.uleb128 0x4
+ 1437 002c 15       		.uleb128 0x15
+ 1438 002d 00       		.byte	0
+ 1439 002e 27       		.uleb128 0x27
+ 1440 002f 0C       		.uleb128 0xc
+ 1441 0030 00       		.byte	0
+ 1442 0031 00       		.byte	0
+ 1443 0032 05       		.uleb128 0x5
+ 1444 0033 0F       		.uleb128 0xf
+ 1445 0034 00       		.byte	0
+ 1446 0035 0B       		.uleb128 0xb
+ 1447 0036 0B       		.uleb128 0xb
+ 1448 0037 49       		.uleb128 0x49
+ 1449 0038 13       		.uleb128 0x13
+ 1450 0039 00       		.byte	0
+ 1451 003a 00       		.byte	0
+ 1452 003b 06       		.uleb128 0x6
+ 1453 003c 16       		.uleb128 0x16
+ 1454 003d 00       		.byte	0
+ 1455 003e 03       		.uleb128 0x3
+ 1456 003f 0E       		.uleb128 0xe
+ 1457 0040 3A       		.uleb128 0x3a
+ 1458 0041 0B       		.uleb128 0xb
+ 1459 0042 3B       		.uleb128 0x3b
+ 1460 0043 0B       		.uleb128 0xb
+ 1461 0044 49       		.uleb128 0x49
+ 1462 0045 13       		.uleb128 0x13
+ 1463 0046 00       		.byte	0
+ 1464 0047 00       		.byte	0
+ 1465 0048 07       		.uleb128 0x7
+ 1466 0049 35       		.uleb128 0x35
+ 1467 004a 00       		.byte	0
+ 1468 004b 49       		.uleb128 0x49
+ 1469 004c 13       		.uleb128 0x13
+ 1470 004d 00       		.byte	0
+ 1471 004e 00       		.byte	0
+ 1472 004f 08       		.uleb128 0x8
+ 1473 0050 16       		.uleb128 0x16
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 34
+
+
+ 1474 0051 00       		.byte	0
+ 1475 0052 03       		.uleb128 0x3
+ 1476 0053 0E       		.uleb128 0xe
+ 1477 0054 3A       		.uleb128 0x3a
+ 1478 0055 0B       		.uleb128 0xb
+ 1479 0056 3B       		.uleb128 0x3b
+ 1480 0057 05       		.uleb128 0x5
+ 1481 0058 49       		.uleb128 0x49
+ 1482 0059 13       		.uleb128 0x13
+ 1483 005a 00       		.byte	0
+ 1484 005b 00       		.byte	0
+ 1485 005c 09       		.uleb128 0x9
+ 1486 005d 17       		.uleb128 0x17
+ 1487 005e 01       		.byte	0x1
+ 1488 005f 0B       		.uleb128 0xb
+ 1489 0060 0B       		.uleb128 0xb
+ 1490 0061 3A       		.uleb128 0x3a
+ 1491 0062 0B       		.uleb128 0xb
+ 1492 0063 3B       		.uleb128 0x3b
+ 1493 0064 05       		.uleb128 0x5
+ 1494 0065 01       		.uleb128 0x1
+ 1495 0066 13       		.uleb128 0x13
+ 1496 0067 00       		.byte	0
+ 1497 0068 00       		.byte	0
+ 1498 0069 0A       		.uleb128 0xa
+ 1499 006a 0D       		.uleb128 0xd
+ 1500 006b 00       		.byte	0
+ 1501 006c 03       		.uleb128 0x3
+ 1502 006d 0E       		.uleb128 0xe
+ 1503 006e 3A       		.uleb128 0x3a
+ 1504 006f 0B       		.uleb128 0xb
+ 1505 0070 3B       		.uleb128 0x3b
+ 1506 0071 05       		.uleb128 0x5
+ 1507 0072 49       		.uleb128 0x49
+ 1508 0073 13       		.uleb128 0x13
+ 1509 0074 00       		.byte	0
+ 1510 0075 00       		.byte	0
+ 1511 0076 0B       		.uleb128 0xb
+ 1512 0077 01       		.uleb128 0x1
+ 1513 0078 01       		.byte	0x1
+ 1514 0079 49       		.uleb128 0x49
+ 1515 007a 13       		.uleb128 0x13
+ 1516 007b 01       		.uleb128 0x1
+ 1517 007c 13       		.uleb128 0x13
+ 1518 007d 00       		.byte	0
+ 1519 007e 00       		.byte	0
+ 1520 007f 0C       		.uleb128 0xc
+ 1521 0080 21       		.uleb128 0x21
+ 1522 0081 00       		.byte	0
+ 1523 0082 49       		.uleb128 0x49
+ 1524 0083 13       		.uleb128 0x13
+ 1525 0084 2F       		.uleb128 0x2f
+ 1526 0085 0B       		.uleb128 0xb
+ 1527 0086 00       		.byte	0
+ 1528 0087 00       		.byte	0
+ 1529 0088 0D       		.uleb128 0xd
+ 1530 0089 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 35
+
+
+ 1531 008a 01       		.byte	0x1
+ 1532 008b 03       		.uleb128 0x3
+ 1533 008c 0E       		.uleb128 0xe
+ 1534 008d 0B       		.uleb128 0xb
+ 1535 008e 0B       		.uleb128 0xb
+ 1536 008f 3A       		.uleb128 0x3a
+ 1537 0090 0B       		.uleb128 0xb
+ 1538 0091 3B       		.uleb128 0x3b
+ 1539 0092 05       		.uleb128 0x5
+ 1540 0093 01       		.uleb128 0x1
+ 1541 0094 13       		.uleb128 0x13
+ 1542 0095 00       		.byte	0
+ 1543 0096 00       		.byte	0
+ 1544 0097 0E       		.uleb128 0xe
+ 1545 0098 0D       		.uleb128 0xd
+ 1546 0099 00       		.byte	0
+ 1547 009a 03       		.uleb128 0x3
+ 1548 009b 0E       		.uleb128 0xe
+ 1549 009c 3A       		.uleb128 0x3a
+ 1550 009d 0B       		.uleb128 0xb
+ 1551 009e 3B       		.uleb128 0x3b
+ 1552 009f 05       		.uleb128 0x5
+ 1553 00a0 49       		.uleb128 0x49
+ 1554 00a1 13       		.uleb128 0x13
+ 1555 00a2 38       		.uleb128 0x38
+ 1556 00a3 0A       		.uleb128 0xa
+ 1557 00a4 00       		.byte	0
+ 1558 00a5 00       		.byte	0
+ 1559 00a6 0F       		.uleb128 0xf
+ 1560 00a7 0D       		.uleb128 0xd
+ 1561 00a8 00       		.byte	0
+ 1562 00a9 03       		.uleb128 0x3
+ 1563 00aa 08       		.uleb128 0x8
+ 1564 00ab 3A       		.uleb128 0x3a
+ 1565 00ac 0B       		.uleb128 0xb
+ 1566 00ad 3B       		.uleb128 0x3b
+ 1567 00ae 05       		.uleb128 0x5
+ 1568 00af 49       		.uleb128 0x49
+ 1569 00b0 13       		.uleb128 0x13
+ 1570 00b1 38       		.uleb128 0x38
+ 1571 00b2 0A       		.uleb128 0xa
+ 1572 00b3 00       		.byte	0
+ 1573 00b4 00       		.byte	0
+ 1574 00b5 10       		.uleb128 0x10
+ 1575 00b6 2E       		.uleb128 0x2e
+ 1576 00b7 00       		.byte	0
+ 1577 00b8 3F       		.uleb128 0x3f
+ 1578 00b9 0C       		.uleb128 0xc
+ 1579 00ba 03       		.uleb128 0x3
+ 1580 00bb 0E       		.uleb128 0xe
+ 1581 00bc 3A       		.uleb128 0x3a
+ 1582 00bd 0B       		.uleb128 0xb
+ 1583 00be 3B       		.uleb128 0x3b
+ 1584 00bf 0B       		.uleb128 0xb
+ 1585 00c0 27       		.uleb128 0x27
+ 1586 00c1 0C       		.uleb128 0xc
+ 1587 00c2 11       		.uleb128 0x11
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 36
+
+
+ 1588 00c3 01       		.uleb128 0x1
+ 1589 00c4 12       		.uleb128 0x12
+ 1590 00c5 01       		.uleb128 0x1
+ 1591 00c6 40       		.uleb128 0x40
+ 1592 00c7 06       		.uleb128 0x6
+ 1593 00c8 9642     		.uleb128 0x2116
+ 1594 00ca 0C       		.uleb128 0xc
+ 1595 00cb 00       		.byte	0
+ 1596 00cc 00       		.byte	0
+ 1597 00cd 11       		.uleb128 0x11
+ 1598 00ce 2E       		.uleb128 0x2e
+ 1599 00cf 01       		.byte	0x1
+ 1600 00d0 3F       		.uleb128 0x3f
+ 1601 00d1 0C       		.uleb128 0xc
+ 1602 00d2 03       		.uleb128 0x3
+ 1603 00d3 0E       		.uleb128 0xe
+ 1604 00d4 3A       		.uleb128 0x3a
+ 1605 00d5 0B       		.uleb128 0xb
+ 1606 00d6 3B       		.uleb128 0x3b
+ 1607 00d7 0B       		.uleb128 0xb
+ 1608 00d8 27       		.uleb128 0x27
+ 1609 00d9 0C       		.uleb128 0xc
+ 1610 00da 11       		.uleb128 0x11
+ 1611 00db 01       		.uleb128 0x1
+ 1612 00dc 12       		.uleb128 0x12
+ 1613 00dd 01       		.uleb128 0x1
+ 1614 00de 40       		.uleb128 0x40
+ 1615 00df 06       		.uleb128 0x6
+ 1616 00e0 9642     		.uleb128 0x2116
+ 1617 00e2 0C       		.uleb128 0xc
+ 1618 00e3 01       		.uleb128 0x1
+ 1619 00e4 13       		.uleb128 0x13
+ 1620 00e5 00       		.byte	0
+ 1621 00e6 00       		.byte	0
+ 1622 00e7 12       		.uleb128 0x12
+ 1623 00e8 05       		.uleb128 0x5
+ 1624 00e9 00       		.byte	0
+ 1625 00ea 03       		.uleb128 0x3
+ 1626 00eb 0E       		.uleb128 0xe
+ 1627 00ec 3A       		.uleb128 0x3a
+ 1628 00ed 0B       		.uleb128 0xb
+ 1629 00ee 3B       		.uleb128 0x3b
+ 1630 00ef 0B       		.uleb128 0xb
+ 1631 00f0 49       		.uleb128 0x49
+ 1632 00f1 13       		.uleb128 0x13
+ 1633 00f2 02       		.uleb128 0x2
+ 1634 00f3 0A       		.uleb128 0xa
+ 1635 00f4 00       		.byte	0
+ 1636 00f5 00       		.byte	0
+ 1637 00f6 13       		.uleb128 0x13
+ 1638 00f7 2E       		.uleb128 0x2e
+ 1639 00f8 01       		.byte	0x1
+ 1640 00f9 3F       		.uleb128 0x3f
+ 1641 00fa 0C       		.uleb128 0xc
+ 1642 00fb 03       		.uleb128 0x3
+ 1643 00fc 0E       		.uleb128 0xe
+ 1644 00fd 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 37
+
+
+ 1645 00fe 0B       		.uleb128 0xb
+ 1646 00ff 3B       		.uleb128 0x3b
+ 1647 0100 0B       		.uleb128 0xb
+ 1648 0101 27       		.uleb128 0x27
+ 1649 0102 0C       		.uleb128 0xc
+ 1650 0103 11       		.uleb128 0x11
+ 1651 0104 01       		.uleb128 0x1
+ 1652 0105 12       		.uleb128 0x12
+ 1653 0106 01       		.uleb128 0x1
+ 1654 0107 40       		.uleb128 0x40
+ 1655 0108 06       		.uleb128 0x6
+ 1656 0109 9742     		.uleb128 0x2117
+ 1657 010b 0C       		.uleb128 0xc
+ 1658 010c 01       		.uleb128 0x1
+ 1659 010d 13       		.uleb128 0x13
+ 1660 010e 00       		.byte	0
+ 1661 010f 00       		.byte	0
+ 1662 0110 14       		.uleb128 0x14
+ 1663 0111 34       		.uleb128 0x34
+ 1664 0112 00       		.byte	0
+ 1665 0113 03       		.uleb128 0x3
+ 1666 0114 0E       		.uleb128 0xe
+ 1667 0115 3A       		.uleb128 0x3a
+ 1668 0116 0B       		.uleb128 0xb
+ 1669 0117 3B       		.uleb128 0x3b
+ 1670 0118 0B       		.uleb128 0xb
+ 1671 0119 49       		.uleb128 0x49
+ 1672 011a 13       		.uleb128 0x13
+ 1673 011b 02       		.uleb128 0x2
+ 1674 011c 0A       		.uleb128 0xa
+ 1675 011d 00       		.byte	0
+ 1676 011e 00       		.byte	0
+ 1677 011f 15       		.uleb128 0x15
+ 1678 0120 2E       		.uleb128 0x2e
+ 1679 0121 01       		.byte	0x1
+ 1680 0122 3F       		.uleb128 0x3f
+ 1681 0123 0C       		.uleb128 0xc
+ 1682 0124 03       		.uleb128 0x3
+ 1683 0125 0E       		.uleb128 0xe
+ 1684 0126 3A       		.uleb128 0x3a
+ 1685 0127 0B       		.uleb128 0xb
+ 1686 0128 3B       		.uleb128 0x3b
+ 1687 0129 0B       		.uleb128 0xb
+ 1688 012a 27       		.uleb128 0x27
+ 1689 012b 0C       		.uleb128 0xc
+ 1690 012c 49       		.uleb128 0x49
+ 1691 012d 13       		.uleb128 0x13
+ 1692 012e 11       		.uleb128 0x11
+ 1693 012f 01       		.uleb128 0x1
+ 1694 0130 12       		.uleb128 0x12
+ 1695 0131 01       		.uleb128 0x1
+ 1696 0132 40       		.uleb128 0x40
+ 1697 0133 06       		.uleb128 0x6
+ 1698 0134 9742     		.uleb128 0x2117
+ 1699 0136 0C       		.uleb128 0xc
+ 1700 0137 01       		.uleb128 0x1
+ 1701 0138 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 38
+
+
+ 1702 0139 00       		.byte	0
+ 1703 013a 00       		.byte	0
+ 1704 013b 16       		.uleb128 0x16
+ 1705 013c 2E       		.uleb128 0x2e
+ 1706 013d 01       		.byte	0x1
+ 1707 013e 3F       		.uleb128 0x3f
+ 1708 013f 0C       		.uleb128 0xc
+ 1709 0140 03       		.uleb128 0x3
+ 1710 0141 0E       		.uleb128 0xe
+ 1711 0142 3A       		.uleb128 0x3a
+ 1712 0143 0B       		.uleb128 0xb
+ 1713 0144 3B       		.uleb128 0x3b
+ 1714 0145 05       		.uleb128 0x5
+ 1715 0146 27       		.uleb128 0x27
+ 1716 0147 0C       		.uleb128 0xc
+ 1717 0148 11       		.uleb128 0x11
+ 1718 0149 01       		.uleb128 0x1
+ 1719 014a 12       		.uleb128 0x12
+ 1720 014b 01       		.uleb128 0x1
+ 1721 014c 40       		.uleb128 0x40
+ 1722 014d 06       		.uleb128 0x6
+ 1723 014e 9742     		.uleb128 0x2117
+ 1724 0150 0C       		.uleb128 0xc
+ 1725 0151 01       		.uleb128 0x1
+ 1726 0152 13       		.uleb128 0x13
+ 1727 0153 00       		.byte	0
+ 1728 0154 00       		.byte	0
+ 1729 0155 17       		.uleb128 0x17
+ 1730 0156 05       		.uleb128 0x5
+ 1731 0157 00       		.byte	0
+ 1732 0158 03       		.uleb128 0x3
+ 1733 0159 0E       		.uleb128 0xe
+ 1734 015a 3A       		.uleb128 0x3a
+ 1735 015b 0B       		.uleb128 0xb
+ 1736 015c 3B       		.uleb128 0x3b
+ 1737 015d 05       		.uleb128 0x5
+ 1738 015e 49       		.uleb128 0x49
+ 1739 015f 13       		.uleb128 0x13
+ 1740 0160 02       		.uleb128 0x2
+ 1741 0161 0A       		.uleb128 0xa
+ 1742 0162 00       		.byte	0
+ 1743 0163 00       		.byte	0
+ 1744 0164 18       		.uleb128 0x18
+ 1745 0165 2E       		.uleb128 0x2e
+ 1746 0166 01       		.byte	0x1
+ 1747 0167 3F       		.uleb128 0x3f
+ 1748 0168 0C       		.uleb128 0xc
+ 1749 0169 03       		.uleb128 0x3
+ 1750 016a 0E       		.uleb128 0xe
+ 1751 016b 3A       		.uleb128 0x3a
+ 1752 016c 0B       		.uleb128 0xb
+ 1753 016d 3B       		.uleb128 0x3b
+ 1754 016e 05       		.uleb128 0x5
+ 1755 016f 27       		.uleb128 0x27
+ 1756 0170 0C       		.uleb128 0xc
+ 1757 0171 49       		.uleb128 0x49
+ 1758 0172 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 39
+
+
+ 1759 0173 11       		.uleb128 0x11
+ 1760 0174 01       		.uleb128 0x1
+ 1761 0175 12       		.uleb128 0x12
+ 1762 0176 01       		.uleb128 0x1
+ 1763 0177 40       		.uleb128 0x40
+ 1764 0178 06       		.uleb128 0x6
+ 1765 0179 9742     		.uleb128 0x2117
+ 1766 017b 0C       		.uleb128 0xc
+ 1767 017c 01       		.uleb128 0x1
+ 1768 017d 13       		.uleb128 0x13
+ 1769 017e 00       		.byte	0
+ 1770 017f 00       		.byte	0
+ 1771 0180 19       		.uleb128 0x19
+ 1772 0181 34       		.uleb128 0x34
+ 1773 0182 00       		.byte	0
+ 1774 0183 03       		.uleb128 0x3
+ 1775 0184 0E       		.uleb128 0xe
+ 1776 0185 3A       		.uleb128 0x3a
+ 1777 0186 0B       		.uleb128 0xb
+ 1778 0187 3B       		.uleb128 0x3b
+ 1779 0188 05       		.uleb128 0x5
+ 1780 0189 49       		.uleb128 0x49
+ 1781 018a 13       		.uleb128 0x13
+ 1782 018b 02       		.uleb128 0x2
+ 1783 018c 0A       		.uleb128 0xa
+ 1784 018d 00       		.byte	0
+ 1785 018e 00       		.byte	0
+ 1786 018f 1A       		.uleb128 0x1a
+ 1787 0190 2E       		.uleb128 0x2e
+ 1788 0191 00       		.byte	0
+ 1789 0192 3F       		.uleb128 0x3f
+ 1790 0193 0C       		.uleb128 0xc
+ 1791 0194 03       		.uleb128 0x3
+ 1792 0195 0E       		.uleb128 0xe
+ 1793 0196 3A       		.uleb128 0x3a
+ 1794 0197 0B       		.uleb128 0xb
+ 1795 0198 3B       		.uleb128 0x3b
+ 1796 0199 05       		.uleb128 0x5
+ 1797 019a 27       		.uleb128 0x27
+ 1798 019b 0C       		.uleb128 0xc
+ 1799 019c 11       		.uleb128 0x11
+ 1800 019d 01       		.uleb128 0x1
+ 1801 019e 12       		.uleb128 0x12
+ 1802 019f 01       		.uleb128 0x1
+ 1803 01a0 40       		.uleb128 0x40
+ 1804 01a1 06       		.uleb128 0x6
+ 1805 01a2 9742     		.uleb128 0x2117
+ 1806 01a4 0C       		.uleb128 0xc
+ 1807 01a5 00       		.byte	0
+ 1808 01a6 00       		.byte	0
+ 1809 01a7 1B       		.uleb128 0x1b
+ 1810 01a8 2E       		.uleb128 0x2e
+ 1811 01a9 00       		.byte	0
+ 1812 01aa 3F       		.uleb128 0x3f
+ 1813 01ab 0C       		.uleb128 0xc
+ 1814 01ac 03       		.uleb128 0x3
+ 1815 01ad 0E       		.uleb128 0xe
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 40
+
+
+ 1816 01ae 3A       		.uleb128 0x3a
+ 1817 01af 0B       		.uleb128 0xb
+ 1818 01b0 3B       		.uleb128 0x3b
+ 1819 01b1 05       		.uleb128 0x5
+ 1820 01b2 27       		.uleb128 0x27
+ 1821 01b3 0C       		.uleb128 0xc
+ 1822 01b4 49       		.uleb128 0x49
+ 1823 01b5 13       		.uleb128 0x13
+ 1824 01b6 11       		.uleb128 0x11
+ 1825 01b7 01       		.uleb128 0x1
+ 1826 01b8 12       		.uleb128 0x12
+ 1827 01b9 01       		.uleb128 0x1
+ 1828 01ba 40       		.uleb128 0x40
+ 1829 01bb 06       		.uleb128 0x6
+ 1830 01bc 9742     		.uleb128 0x2117
+ 1831 01be 0C       		.uleb128 0xc
+ 1832 01bf 00       		.byte	0
+ 1833 01c0 00       		.byte	0
+ 1834 01c1 1C       		.uleb128 0x1c
+ 1835 01c2 34       		.uleb128 0x34
+ 1836 01c3 00       		.byte	0
+ 1837 01c4 03       		.uleb128 0x3
+ 1838 01c5 0E       		.uleb128 0xe
+ 1839 01c6 3A       		.uleb128 0x3a
+ 1840 01c7 0B       		.uleb128 0xb
+ 1841 01c8 3B       		.uleb128 0x3b
+ 1842 01c9 05       		.uleb128 0x5
+ 1843 01ca 49       		.uleb128 0x49
+ 1844 01cb 13       		.uleb128 0x13
+ 1845 01cc 3F       		.uleb128 0x3f
+ 1846 01cd 0C       		.uleb128 0xc
+ 1847 01ce 3C       		.uleb128 0x3c
+ 1848 01cf 0C       		.uleb128 0xc
+ 1849 01d0 00       		.byte	0
+ 1850 01d1 00       		.byte	0
+ 1851 01d2 1D       		.uleb128 0x1d
+ 1852 01d3 34       		.uleb128 0x34
+ 1853 01d4 00       		.byte	0
+ 1854 01d5 03       		.uleb128 0x3
+ 1855 01d6 0E       		.uleb128 0xe
+ 1856 01d7 3A       		.uleb128 0x3a
+ 1857 01d8 0B       		.uleb128 0xb
+ 1858 01d9 3B       		.uleb128 0x3b
+ 1859 01da 0B       		.uleb128 0xb
+ 1860 01db 49       		.uleb128 0x49
+ 1861 01dc 13       		.uleb128 0x13
+ 1862 01dd 3F       		.uleb128 0x3f
+ 1863 01de 0C       		.uleb128 0xc
+ 1864 01df 3C       		.uleb128 0x3c
+ 1865 01e0 0C       		.uleb128 0xc
+ 1866 01e1 00       		.byte	0
+ 1867 01e2 00       		.byte	0
+ 1868 01e3 1E       		.uleb128 0x1e
+ 1869 01e4 34       		.uleb128 0x34
+ 1870 01e5 00       		.byte	0
+ 1871 01e6 03       		.uleb128 0x3
+ 1872 01e7 08       		.uleb128 0x8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 41
+
+
+ 1873 01e8 3A       		.uleb128 0x3a
+ 1874 01e9 0B       		.uleb128 0xb
+ 1875 01ea 3B       		.uleb128 0x3b
+ 1876 01eb 0B       		.uleb128 0xb
+ 1877 01ec 49       		.uleb128 0x49
+ 1878 01ed 13       		.uleb128 0x13
+ 1879 01ee 3F       		.uleb128 0x3f
+ 1880 01ef 0C       		.uleb128 0xc
+ 1881 01f0 02       		.uleb128 0x2
+ 1882 01f1 0A       		.uleb128 0xa
+ 1883 01f2 00       		.byte	0
+ 1884 01f3 00       		.byte	0
+ 1885 01f4 00       		.byte	0
+ 1886              		.section	.debug_loc,"",%progbits
+ 1887              	.Ldebug_loc0:
+ 1888              	.LLST0:
+ 1889 0000 00000000 		.4byte	.LFB56
+ 1890 0004 02000000 		.4byte	.LCFI0
+ 1891 0008 0200     		.2byte	0x2
+ 1892 000a 7D       		.byte	0x7d
+ 1893 000b 00       		.sleb128 0
+ 1894 000c 02000000 		.4byte	.LCFI0
+ 1895 0010 04000000 		.4byte	.LCFI1
+ 1896 0014 0200     		.2byte	0x2
+ 1897 0016 7D       		.byte	0x7d
+ 1898 0017 08       		.sleb128 8
+ 1899 0018 04000000 		.4byte	.LCFI1
+ 1900 001c 22000000 		.4byte	.LFE56
+ 1901 0020 0200     		.2byte	0x2
+ 1902 0022 77       		.byte	0x77
+ 1903 0023 08       		.sleb128 8
+ 1904 0024 00000000 		.4byte	0
+ 1905 0028 00000000 		.4byte	0
+ 1906              	.LLST1:
+ 1907 002c 00000000 		.4byte	.LFB57
+ 1908 0030 02000000 		.4byte	.LCFI2
+ 1909 0034 0200     		.2byte	0x2
+ 1910 0036 7D       		.byte	0x7d
+ 1911 0037 00       		.sleb128 0
+ 1912 0038 02000000 		.4byte	.LCFI2
+ 1913 003c 04000000 		.4byte	.LCFI3
+ 1914 0040 0200     		.2byte	0x2
+ 1915 0042 7D       		.byte	0x7d
+ 1916 0043 08       		.sleb128 8
+ 1917 0044 04000000 		.4byte	.LCFI3
+ 1918 0048 06000000 		.4byte	.LCFI4
+ 1919 004c 0200     		.2byte	0x2
+ 1920 004e 7D       		.byte	0x7d
+ 1921 004f 10       		.sleb128 16
+ 1922 0050 06000000 		.4byte	.LCFI4
+ 1923 0054 26000000 		.4byte	.LFE57
+ 1924 0058 0200     		.2byte	0x2
+ 1925 005a 77       		.byte	0x77
+ 1926 005b 10       		.sleb128 16
+ 1927 005c 00000000 		.4byte	0
+ 1928 0060 00000000 		.4byte	0
+ 1929              	.LLST2:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 42
+
+
+ 1930 0064 00000000 		.4byte	.LFB58
+ 1931 0068 02000000 		.4byte	.LCFI5
+ 1932 006c 0200     		.2byte	0x2
+ 1933 006e 7D       		.byte	0x7d
+ 1934 006f 00       		.sleb128 0
+ 1935 0070 02000000 		.4byte	.LCFI5
+ 1936 0074 04000000 		.4byte	.LCFI6
+ 1937 0078 0200     		.2byte	0x2
+ 1938 007a 7D       		.byte	0x7d
+ 1939 007b 08       		.sleb128 8
+ 1940 007c 04000000 		.4byte	.LCFI6
+ 1941 0080 16000000 		.4byte	.LFE58
+ 1942 0084 0200     		.2byte	0x2
+ 1943 0086 77       		.byte	0x77
+ 1944 0087 08       		.sleb128 8
+ 1945 0088 00000000 		.4byte	0
+ 1946 008c 00000000 		.4byte	0
+ 1947              	.LLST3:
+ 1948 0090 00000000 		.4byte	.LFB59
+ 1949 0094 02000000 		.4byte	.LCFI7
+ 1950 0098 0200     		.2byte	0x2
+ 1951 009a 7D       		.byte	0x7d
+ 1952 009b 00       		.sleb128 0
+ 1953 009c 02000000 		.4byte	.LCFI7
+ 1954 00a0 04000000 		.4byte	.LCFI8
+ 1955 00a4 0200     		.2byte	0x2
+ 1956 00a6 7D       		.byte	0x7d
+ 1957 00a7 08       		.sleb128 8
+ 1958 00a8 04000000 		.4byte	.LCFI8
+ 1959 00ac 0C010000 		.4byte	.LFE59
+ 1960 00b0 0200     		.2byte	0x2
+ 1961 00b2 77       		.byte	0x77
+ 1962 00b3 08       		.sleb128 8
+ 1963 00b4 00000000 		.4byte	0
+ 1964 00b8 00000000 		.4byte	0
+ 1965              	.LLST4:
+ 1966 00bc 00000000 		.4byte	.LFB60
+ 1967 00c0 02000000 		.4byte	.LCFI9
+ 1968 00c4 0200     		.2byte	0x2
+ 1969 00c6 7D       		.byte	0x7d
+ 1970 00c7 00       		.sleb128 0
+ 1971 00c8 02000000 		.4byte	.LCFI9
+ 1972 00cc 04000000 		.4byte	.LCFI10
+ 1973 00d0 0200     		.2byte	0x2
+ 1974 00d2 7D       		.byte	0x7d
+ 1975 00d3 04       		.sleb128 4
+ 1976 00d4 04000000 		.4byte	.LCFI10
+ 1977 00d8 06000000 		.4byte	.LCFI11
+ 1978 00dc 0200     		.2byte	0x2
+ 1979 00de 7D       		.byte	0x7d
+ 1980 00df 18       		.sleb128 24
+ 1981 00e0 06000000 		.4byte	.LCFI11
+ 1982 00e4 28000000 		.4byte	.LFE60
+ 1983 00e8 0200     		.2byte	0x2
+ 1984 00ea 77       		.byte	0x77
+ 1985 00eb 18       		.sleb128 24
+ 1986 00ec 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 43
+
+
+ 1987 00f0 00000000 		.4byte	0
+ 1988              	.LLST5:
+ 1989 00f4 00000000 		.4byte	.LFB61
+ 1990 00f8 02000000 		.4byte	.LCFI12
+ 1991 00fc 0200     		.2byte	0x2
+ 1992 00fe 7D       		.byte	0x7d
+ 1993 00ff 00       		.sleb128 0
+ 1994 0100 02000000 		.4byte	.LCFI12
+ 1995 0104 04000000 		.4byte	.LCFI13
+ 1996 0108 0200     		.2byte	0x2
+ 1997 010a 7D       		.byte	0x7d
+ 1998 010b 04       		.sleb128 4
+ 1999 010c 04000000 		.4byte	.LCFI13
+ 2000 0110 06000000 		.4byte	.LCFI14
+ 2001 0114 0200     		.2byte	0x2
+ 2002 0116 7D       		.byte	0x7d
+ 2003 0117 10       		.sleb128 16
+ 2004 0118 06000000 		.4byte	.LCFI14
+ 2005 011c 22000000 		.4byte	.LFE61
+ 2006 0120 0200     		.2byte	0x2
+ 2007 0122 77       		.byte	0x77
+ 2008 0123 10       		.sleb128 16
+ 2009 0124 00000000 		.4byte	0
+ 2010 0128 00000000 		.4byte	0
+ 2011              	.LLST6:
+ 2012 012c 00000000 		.4byte	.LFB62
+ 2013 0130 02000000 		.4byte	.LCFI15
+ 2014 0134 0200     		.2byte	0x2
+ 2015 0136 7D       		.byte	0x7d
+ 2016 0137 00       		.sleb128 0
+ 2017 0138 02000000 		.4byte	.LCFI15
+ 2018 013c 04000000 		.4byte	.LCFI16
+ 2019 0140 0200     		.2byte	0x2
+ 2020 0142 7D       		.byte	0x7d
+ 2021 0143 04       		.sleb128 4
+ 2022 0144 04000000 		.4byte	.LCFI16
+ 2023 0148 06000000 		.4byte	.LCFI17
+ 2024 014c 0200     		.2byte	0x2
+ 2025 014e 7D       		.byte	0x7d
+ 2026 014f 10       		.sleb128 16
+ 2027 0150 06000000 		.4byte	.LCFI17
+ 2028 0154 26000000 		.4byte	.LFE62
+ 2029 0158 0200     		.2byte	0x2
+ 2030 015a 77       		.byte	0x77
+ 2031 015b 10       		.sleb128 16
+ 2032 015c 00000000 		.4byte	0
+ 2033 0160 00000000 		.4byte	0
+ 2034              	.LLST7:
+ 2035 0164 00000000 		.4byte	.LFB63
+ 2036 0168 02000000 		.4byte	.LCFI18
+ 2037 016c 0200     		.2byte	0x2
+ 2038 016e 7D       		.byte	0x7d
+ 2039 016f 00       		.sleb128 0
+ 2040 0170 02000000 		.4byte	.LCFI18
+ 2041 0174 04000000 		.4byte	.LCFI19
+ 2042 0178 0200     		.2byte	0x2
+ 2043 017a 7D       		.byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 44
+
+
+ 2044 017b 04       		.sleb128 4
+ 2045 017c 04000000 		.4byte	.LCFI19
+ 2046 0180 06000000 		.4byte	.LCFI20
+ 2047 0184 0200     		.2byte	0x2
+ 2048 0186 7D       		.byte	0x7d
+ 2049 0187 10       		.sleb128 16
+ 2050 0188 06000000 		.4byte	.LCFI20
+ 2051 018c 26000000 		.4byte	.LFE63
+ 2052 0190 0200     		.2byte	0x2
+ 2053 0192 77       		.byte	0x77
+ 2054 0193 10       		.sleb128 16
+ 2055 0194 00000000 		.4byte	0
+ 2056 0198 00000000 		.4byte	0
+ 2057              	.LLST8:
+ 2058 019c 00000000 		.4byte	.LFB64
+ 2059 01a0 02000000 		.4byte	.LCFI21
+ 2060 01a4 0200     		.2byte	0x2
+ 2061 01a6 7D       		.byte	0x7d
+ 2062 01a7 00       		.sleb128 0
+ 2063 01a8 02000000 		.4byte	.LCFI21
+ 2064 01ac 04000000 		.4byte	.LCFI22
+ 2065 01b0 0200     		.2byte	0x2
+ 2066 01b2 7D       		.byte	0x7d
+ 2067 01b3 04       		.sleb128 4
+ 2068 01b4 04000000 		.4byte	.LCFI22
+ 2069 01b8 18000000 		.4byte	.LFE64
+ 2070 01bc 0200     		.2byte	0x2
+ 2071 01be 77       		.byte	0x77
+ 2072 01bf 04       		.sleb128 4
+ 2073 01c0 00000000 		.4byte	0
+ 2074 01c4 00000000 		.4byte	0
+ 2075              	.LLST9:
+ 2076 01c8 00000000 		.4byte	.LFB65
+ 2077 01cc 02000000 		.4byte	.LCFI23
+ 2078 01d0 0200     		.2byte	0x2
+ 2079 01d2 7D       		.byte	0x7d
+ 2080 01d3 00       		.sleb128 0
+ 2081 01d4 02000000 		.4byte	.LCFI23
+ 2082 01d8 04000000 		.4byte	.LCFI24
+ 2083 01dc 0200     		.2byte	0x2
+ 2084 01de 7D       		.byte	0x7d
+ 2085 01df 04       		.sleb128 4
+ 2086 01e0 04000000 		.4byte	.LCFI24
+ 2087 01e4 28000000 		.4byte	.LFE65
+ 2088 01e8 0200     		.2byte	0x2
+ 2089 01ea 77       		.byte	0x77
+ 2090 01eb 04       		.sleb128 4
+ 2091 01ec 00000000 		.4byte	0
+ 2092 01f0 00000000 		.4byte	0
+ 2093              	.LLST10:
+ 2094 01f4 00000000 		.4byte	.LFB66
+ 2095 01f8 02000000 		.4byte	.LCFI25
+ 2096 01fc 0200     		.2byte	0x2
+ 2097 01fe 7D       		.byte	0x7d
+ 2098 01ff 00       		.sleb128 0
+ 2099 0200 02000000 		.4byte	.LCFI25
+ 2100 0204 04000000 		.4byte	.LCFI26
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 45
+
+
+ 2101 0208 0200     		.2byte	0x2
+ 2102 020a 7D       		.byte	0x7d
+ 2103 020b 04       		.sleb128 4
+ 2104 020c 04000000 		.4byte	.LCFI26
+ 2105 0210 18000000 		.4byte	.LFE66
+ 2106 0214 0200     		.2byte	0x2
+ 2107 0216 77       		.byte	0x77
+ 2108 0217 04       		.sleb128 4
+ 2109 0218 00000000 		.4byte	0
+ 2110 021c 00000000 		.4byte	0
+ 2111              	.LLST11:
+ 2112 0220 00000000 		.4byte	.LFB67
+ 2113 0224 02000000 		.4byte	.LCFI27
+ 2114 0228 0200     		.2byte	0x2
+ 2115 022a 7D       		.byte	0x7d
+ 2116 022b 00       		.sleb128 0
+ 2117 022c 02000000 		.4byte	.LCFI27
+ 2118 0230 04000000 		.4byte	.LCFI28
+ 2119 0234 0200     		.2byte	0x2
+ 2120 0236 7D       		.byte	0x7d
+ 2121 0237 04       		.sleb128 4
+ 2122 0238 04000000 		.4byte	.LCFI28
+ 2123 023c 18000000 		.4byte	.LFE67
+ 2124 0240 0200     		.2byte	0x2
+ 2125 0242 77       		.byte	0x77
+ 2126 0243 04       		.sleb128 4
+ 2127 0244 00000000 		.4byte	0
+ 2128 0248 00000000 		.4byte	0
+ 2129              	.LLST12:
+ 2130 024c 00000000 		.4byte	.LFB68
+ 2131 0250 02000000 		.4byte	.LCFI29
+ 2132 0254 0200     		.2byte	0x2
+ 2133 0256 7D       		.byte	0x7d
+ 2134 0257 00       		.sleb128 0
+ 2135 0258 02000000 		.4byte	.LCFI29
+ 2136 025c 04000000 		.4byte	.LCFI30
+ 2137 0260 0200     		.2byte	0x2
+ 2138 0262 7D       		.byte	0x7d
+ 2139 0263 04       		.sleb128 4
+ 2140 0264 04000000 		.4byte	.LCFI30
+ 2141 0268 18000000 		.4byte	.LFE68
+ 2142 026c 0200     		.2byte	0x2
+ 2143 026e 77       		.byte	0x77
+ 2144 026f 04       		.sleb128 4
+ 2145 0270 00000000 		.4byte	0
+ 2146 0274 00000000 		.4byte	0
+ 2147              		.section	.debug_aranges,"",%progbits
+ 2148 0000 7C000000 		.4byte	0x7c
+ 2149 0004 0200     		.2byte	0x2
+ 2150 0006 00000000 		.4byte	.Ldebug_info0
+ 2151 000a 04       		.byte	0x4
+ 2152 000b 00       		.byte	0
+ 2153 000c 0000     		.2byte	0
+ 2154 000e 0000     		.2byte	0
+ 2155 0010 00000000 		.4byte	.LFB56
+ 2156 0014 22000000 		.4byte	.LFE56-.LFB56
+ 2157 0018 00000000 		.4byte	.LFB57
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 46
+
+
+ 2158 001c 26000000 		.4byte	.LFE57-.LFB57
+ 2159 0020 00000000 		.4byte	.LFB58
+ 2160 0024 16000000 		.4byte	.LFE58-.LFB58
+ 2161 0028 00000000 		.4byte	.LFB59
+ 2162 002c 0C010000 		.4byte	.LFE59-.LFB59
+ 2163 0030 00000000 		.4byte	.LFB60
+ 2164 0034 28000000 		.4byte	.LFE60-.LFB60
+ 2165 0038 00000000 		.4byte	.LFB61
+ 2166 003c 22000000 		.4byte	.LFE61-.LFB61
+ 2167 0040 00000000 		.4byte	.LFB62
+ 2168 0044 26000000 		.4byte	.LFE62-.LFB62
+ 2169 0048 00000000 		.4byte	.LFB63
+ 2170 004c 26000000 		.4byte	.LFE63-.LFB63
+ 2171 0050 00000000 		.4byte	.LFB64
+ 2172 0054 18000000 		.4byte	.LFE64-.LFB64
+ 2173 0058 00000000 		.4byte	.LFB65
+ 2174 005c 28000000 		.4byte	.LFE65-.LFB65
+ 2175 0060 00000000 		.4byte	.LFB66
+ 2176 0064 18000000 		.4byte	.LFE66-.LFB66
+ 2177 0068 00000000 		.4byte	.LFB67
+ 2178 006c 18000000 		.4byte	.LFE67-.LFB67
+ 2179 0070 00000000 		.4byte	.LFB68
+ 2180 0074 18000000 		.4byte	.LFE68-.LFB68
+ 2181 0078 00000000 		.4byte	0
+ 2182 007c 00000000 		.4byte	0
+ 2183              		.section	.debug_ranges,"",%progbits
+ 2184              	.Ldebug_ranges0:
+ 2185 0000 00000000 		.4byte	.LFB56
+ 2186 0004 22000000 		.4byte	.LFE56
+ 2187 0008 00000000 		.4byte	.LFB57
+ 2188 000c 26000000 		.4byte	.LFE57
+ 2189 0010 00000000 		.4byte	.LFB58
+ 2190 0014 16000000 		.4byte	.LFE58
+ 2191 0018 00000000 		.4byte	.LFB59
+ 2192 001c 0C010000 		.4byte	.LFE59
+ 2193 0020 00000000 		.4byte	.LFB60
+ 2194 0024 28000000 		.4byte	.LFE60
+ 2195 0028 00000000 		.4byte	.LFB61
+ 2196 002c 22000000 		.4byte	.LFE61
+ 2197 0030 00000000 		.4byte	.LFB62
+ 2198 0034 26000000 		.4byte	.LFE62
+ 2199 0038 00000000 		.4byte	.LFB63
+ 2200 003c 26000000 		.4byte	.LFE63
+ 2201 0040 00000000 		.4byte	.LFB64
+ 2202 0044 18000000 		.4byte	.LFE64
+ 2203 0048 00000000 		.4byte	.LFB65
+ 2204 004c 28000000 		.4byte	.LFE65
+ 2205 0050 00000000 		.4byte	.LFB66
+ 2206 0054 18000000 		.4byte	.LFE66
+ 2207 0058 00000000 		.4byte	.LFB67
+ 2208 005c 18000000 		.4byte	.LFE67
+ 2209 0060 00000000 		.4byte	.LFB68
+ 2210 0064 18000000 		.4byte	.LFE68
+ 2211 0068 00000000 		.4byte	0
+ 2212 006c 00000000 		.4byte	0
+ 2213              		.section	.debug_line,"",%progbits
+ 2214              	.Ldebug_line0:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 47
+
+
+ 2215 0000 46020000 		.section	.debug_str,"MS",%progbits,1
+ 2215      02000A01 
+ 2215      00000201 
+ 2215      FB0E0D00 
+ 2215      01010101 
+ 2216              	.LASF59:
+ 2217 0000 70776D5F 		.ascii	"pwm_var\000"
+ 2217      76617200 
+ 2218              	.LASF42:
+ 2219 0008 4761696E 		.ascii	"Gain_ANAOUT\000"
+ 2219      5F414E41 
+ 2219      4F555400 
+ 2220              	.LASF58:
+ 2221 0014 6374726C 		.ascii	"ctrl_var\000"
+ 2221      5F766172 
+ 2221      00
+ 2222              	.LASF80:
+ 2223 001d 6973725F 		.ascii	"isr_BUTTON_GetPriority\000"
+ 2223      42555454 
+ 2223      4F4E5F47 
+ 2223      65745072 
+ 2223      696F7269 
+ 2224              	.LASF79:
+ 2225 0034 6973725F 		.ascii	"isr_BUTTON_GetVector\000"
+ 2225      42555454 
+ 2225      4F4E5F47 
+ 2225      65745665 
+ 2225      63746F72 
+ 2226              	.LASF47:
+ 2227 0049 6D617374 		.ascii	"master_enc_position\000"
+ 2227      65725F65 
+ 2227      6E635F70 
+ 2227      6F736974 
+ 2227      696F6E00 
+ 2228              	.LASF69:
+ 2229 005d 76706172 		.ascii	"vparam\000"
+ 2229      616D00
+ 2230              	.LASF75:
+ 2231 0064 61646472 		.ascii	"address\000"
+ 2231      65737300 
+ 2232              	.LASF35:
+ 2233 006c 61737469 		.ascii	"astim_type\000"
+ 2233      6D5F7479 
+ 2233      706500
+ 2234              	.LASF2:
+ 2235 0077 73686F72 		.ascii	"short int\000"
+ 2235      7420696E 
+ 2235      7400
+ 2236              	.LASF64:
+ 2237 0081 4C494D49 		.ascii	"LIMITCONTROL\000"
+ 2237      54434F4E 
+ 2237      54524F4C 
+ 2237      00
+ 2238              	.LASF43:
+ 2239 008e 636F6C6F 		.ascii	"color\000"
+ 2239      7200
+ 2240              	.LASF31:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 48
+
+
+ 2241 0094 616E6775 		.ascii	"angular_velocity\000"
+ 2241      6C61725F 
+ 2241      76656C6F 
+ 2241      63697479 
+ 2241      00
+ 2242              	.LASF66:
+ 2243 00a5 6D617374 		.ascii	"master_limit_delta\000"
+ 2243      65725F6C 
+ 2243      696D6974 
+ 2243      5F64656C 
+ 2243      746100
+ 2244              	.LASF55:
+ 2245 00b8 64657272 		.ascii	"derror\000"
+ 2245      6F7200
+ 2246              	.LASF82:
+ 2247 00bf 6973725F 		.ascii	"isr_BUTTON_Disable\000"
+ 2247      42555454 
+ 2247      4F4E5F44 
+ 2247      69736162 
+ 2247      6C6500
+ 2248              	.LASF49:
+ 2249 00d2 6D617374 		.ascii	"master_joy_position\000"
+ 2249      65725F6A 
+ 2249      6F795F70 
+ 2249      6F736974 
+ 2249      696F6E00 
+ 2250              	.LASF91:
+ 2251 00e6 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 2251      73657273 
+ 2251      5C477261 
+ 2251      7A69616E 
+ 2251      6F20472E 
+ 2252 0115 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 2252      5C535155 
+ 2252      49545C56 
+ 2252      6572732E 
+ 2252      302E302D 
+ 2253 0145 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 2253      2D50726F 
+ 2253      746F2E63 
+ 2253      7964736E 
+ 2253      00
+ 2254              	.LASF29:
+ 2255 0156 76656C6F 		.ascii	"velocity\000"
+ 2255      63697479 
+ 2255      00
+ 2256              	.LASF38:
+ 2257 015f 50415241 		.ascii	"PARAMS\000"
+ 2257      4D5300
+ 2258              	.LASF60:
+ 2259 0166 70776D5F 		.ascii	"pwm_test_var\000"
+ 2259      74657374 
+ 2259      5F766172 
+ 2259      00
+ 2260              	.LASF72:
+ 2261 0173 6973725F 		.ascii	"isr_BUTTON_Interrupt\000"
+ 2261      42555454 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 49
+
+
+ 2261      4F4E5F49 
+ 2261      6E746572 
+ 2261      72757074 
+ 2262              	.LASF88:
+ 2263 0188 74696C74 		.ascii	"tilt_axis\000"
+ 2263      5F617869 
+ 2263      7300
+ 2264              	.LASF40:
+ 2265 0192 4B736966 		.ascii	"Ksif\000"
+ 2265      00
+ 2266              	.LASF14:
+ 2267 0197 696E7431 		.ascii	"int16\000"
+ 2267      3600
+ 2268              	.LASF12:
+ 2269 019d 75696E74 		.ascii	"uint8\000"
+ 2269      3800
+ 2270              	.LASF67:
+ 2271 01a3 64656365 		.ascii	"deceleration_factor\000"
+ 2271      6C657261 
+ 2271      74696F6E 
+ 2271      5F666163 
+ 2271      746F7200 
+ 2272              	.LASF26:
+ 2273 01b7 454E434F 		.ascii	"ENCODER\000"
+ 2273      44455200 
+ 2274              	.LASF34:
+ 2275 01bf 61737469 		.ascii	"astim_enable\000"
+ 2275      6D5F656E 
+ 2275      61626C65 
+ 2275      00
+ 2276              	.LASF36:
+ 2277 01cc 7265736F 		.ascii	"resolution_step_deg\000"
+ 2277      6C757469 
+ 2277      6F6E5F73 
+ 2277      7465705F 
+ 2277      64656700 
+ 2278              	.LASF48:
+ 2279 01e0 6D617374 		.ascii	"master_enc_sample_delta\000"
+ 2279      65725F65 
+ 2279      6E635F73 
+ 2279      616D706C 
+ 2279      655F6465 
+ 2280              	.LASF50:
+ 2281 01f8 6D617374 		.ascii	"master_joy_sample_delta\000"
+ 2281      65725F6A 
+ 2281      6F795F73 
+ 2281      616D706C 
+ 2281      655F6465 
+ 2282              	.LASF63:
+ 2283 0210 61737469 		.ascii	"astim_ZCsync\000"
+ 2283      6D5F5A43 
+ 2283      73796E63 
+ 2283      00
+ 2284              	.LASF16:
+ 2285 021d 666C6F61 		.ascii	"float\000"
+ 2285      7400
+ 2286              	.LASF81:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 50
+
+
+ 2287 0223 6973725F 		.ascii	"isr_BUTTON_Enable\000"
+ 2287      42555454 
+ 2287      4F4E5F45 
+ 2287      6E61626C 
+ 2287      6500
+ 2288              	.LASF5:
+ 2289 0235 6C6F6E67 		.ascii	"long long int\000"
+ 2289      206C6F6E 
+ 2289      6720696E 
+ 2289      7400
+ 2290              	.LASF21:
+ 2291 0243 63796973 		.ascii	"cyisraddress\000"
+ 2291      72616464 
+ 2291      72657373 
+ 2291      00
+ 2292              	.LASF73:
+ 2293 0250 6973725F 		.ascii	"isr_BUTTON_StartEx\000"
+ 2293      42555454 
+ 2293      4F4E5F53 
+ 2293      74617274 
+ 2293      457800
+ 2294              	.LASF77:
+ 2295 0263 6973725F 		.ascii	"isr_BUTTON_SetPriority\000"
+ 2295      42555454 
+ 2295      4F4E5F53 
+ 2295      65745072 
+ 2295      696F7269 
+ 2296              	.LASF71:
+ 2297 027a 6973725F 		.ascii	"isr_BUTTON_Stop\000"
+ 2297      42555454 
+ 2297      4F4E5F53 
+ 2297      746F7000 
+ 2298              	.LASF25:
+ 2299 028a 454E435F 		.ascii	"ENC_PARAMETER\000"
+ 2299      50415241 
+ 2299      4D455445 
+ 2299      5200
+ 2300              	.LASF1:
+ 2301 0298 756E7369 		.ascii	"unsigned char\000"
+ 2301      676E6564 
+ 2301      20636861 
+ 2301      7200
+ 2302              	.LASF44:
+ 2303 02a6 6C696D69 		.ascii	"limit_control\000"
+ 2303      745F636F 
+ 2303      6E74726F 
+ 2303      6C00
+ 2304              	.LASF68:
+ 2305 02b4 4D4F544F 		.ascii	"MOTOR_AXIS\000"
+ 2305      525F4158 
+ 2305      495300
+ 2306              	.LASF74:
+ 2307 02bf 6973725F 		.ascii	"isr_BUTTON_SetVector\000"
+ 2307      42555454 
+ 2307      4F4E5F53 
+ 2307      65745665 
+ 2307      63746F72 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 51
+
+
+ 2308              	.LASF46:
+ 2309 02d4 4D434441 		.ascii	"MCDATAS\000"
+ 2309      54415300 
+ 2310              	.LASF53:
+ 2311 02dc 6572726F 		.ascii	"error_bef\000"
+ 2311      725F6265 
+ 2311      6600
+ 2312              	.LASF39:
+ 2313 02e6 706F6C61 		.ascii	"polarity\000"
+ 2313      72697479 
+ 2313      00
+ 2314              	.LASF0:
+ 2315 02ef 7369676E 		.ascii	"signed char\000"
+ 2315      65642063 
+ 2315      68617200 
+ 2316              	.LASF6:
+ 2317 02fb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2317      206C6F6E 
+ 2317      6720756E 
+ 2317      7369676E 
+ 2317      65642069 
+ 2318              	.LASF37:
+ 2319 0312 7265736F 		.ascii	"resolution_rad_step\000"
+ 2319      6C757469 
+ 2319      6F6E5F72 
+ 2319      61645F73 
+ 2319      74657000 
+ 2320              	.LASF4:
+ 2321 0326 756E7369 		.ascii	"unsigned int\000"
+ 2321      676E6564 
+ 2321      20696E74 
+ 2321      00
+ 2322              	.LASF41:
+ 2323 0333 4B6F7066 		.ascii	"Kopf\000"
+ 2323      00
+ 2324              	.LASF22:
+ 2325 0338 66627974 		.ascii	"fbyte\000"
+ 2325      6500
+ 2326              	.LASF61:
+ 2327 033e 63757272 		.ascii	"current\000"
+ 2327      656E7400 
+ 2328              	.LASF32:
+ 2329 0346 70617261 		.ascii	"param\000"
+ 2329      6D00
+ 2330              	.LASF87:
+ 2331 034c 70616E5F 		.ascii	"pan_axis\000"
+ 2331      61786973 
+ 2331      00
+ 2332              	.LASF89:
+ 2333 0355 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2333      4320342E 
+ 2333      372E3320 
+ 2333      32303133 
+ 2333      30333132 
+ 2334 0388 616E6368 		.ascii	"anch revision 196615]\000"
+ 2334      20726576 
+ 2334      6973696F 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 52
+
+
+ 2334      6E203139 
+ 2334      36363135 
+ 2335              	.LASF3:
+ 2336 039e 73686F72 		.ascii	"short unsigned int\000"
+ 2336      7420756E 
+ 2336      7369676E 
+ 2336      65642069 
+ 2336      6E7400
+ 2337              	.LASF65:
+ 2338 03b1 73746174 		.ascii	"status\000"
+ 2338      757300
+ 2339              	.LASF86:
+ 2340 03b8 6D616368 		.ascii	"machine_state\000"
+ 2340      696E655F 
+ 2340      73746174 
+ 2340      6500
+ 2341              	.LASF10:
+ 2342 03c6 63686172 		.ascii	"char\000"
+ 2342      00
+ 2343              	.LASF7:
+ 2344 03cb 6C6F6E67 		.ascii	"long int\000"
+ 2344      20696E74 
+ 2344      00
+ 2345              	.LASF11:
+ 2346 03d4 696E7433 		.ascii	"int32_t\000"
+ 2346      325F7400 
+ 2347              	.LASF27:
+ 2348 03dc 7265736F 		.ascii	"resolution\000"
+ 2348      6C757469 
+ 2348      6F6E00
+ 2349              	.LASF18:
+ 2350 03e7 63686172 		.ascii	"char8\000"
+ 2350      3800
+ 2351              	.LASF76:
+ 2352 03ed 72616D56 		.ascii	"ramVectorTable\000"
+ 2352      6563746F 
+ 2352      72546162 
+ 2352      6C6500
+ 2353              	.LASF13:
+ 2354 03fc 75696E74 		.ascii	"uint32\000"
+ 2354      333200
+ 2355              	.LASF62:
+ 2356 0403 466C6F61 		.ascii	"Float_ASTIM\000"
+ 2356      745F4153 
+ 2356      54494D00 
+ 2357              	.LASF19:
+ 2358 040f 72656738 		.ascii	"reg8\000"
+ 2358      00
+ 2359              	.LASF9:
+ 2360 0414 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2360      20756E73 
+ 2360      69676E65 
+ 2360      6420696E 
+ 2360      7400
+ 2361              	.LASF15:
+ 2362 0426 696E7433 		.ascii	"int32\000"
+ 2362      3200
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 53
+
+
+ 2363              	.LASF17:
+ 2364 042c 646F7562 		.ascii	"double\000"
+ 2364      6C6500
+ 2365              	.LASF92:
+ 2366 0433 6973725F 		.ascii	"isr_BUTTON_GetState\000"
+ 2366      42555454 
+ 2366      4F4E5F47 
+ 2366      65745374 
+ 2366      61746500 
+ 2367              	.LASF51:
+ 2368 0447 736C6176 		.ascii	"slave_enc\000"
+ 2368      655F656E 
+ 2368      6300
+ 2369              	.LASF45:
+ 2370 0451 6C696D69 		.ascii	"limit_deceleration_factor\000"
+ 2370      745F6465 
+ 2370      63656C65 
+ 2370      72617469 
+ 2370      6F6E5F66 
+ 2371              	.LASF84:
+ 2372 046b 6973725F 		.ascii	"isr_BUTTON_ClearPending\000"
+ 2372      42555454 
+ 2372      4F4E5F43 
+ 2372      6C656172 
+ 2372      50656E64 
+ 2373              	.LASF83:
+ 2374 0483 6973725F 		.ascii	"isr_BUTTON_SetPending\000"
+ 2374      42555454 
+ 2374      4F4E5F53 
+ 2374      65745065 
+ 2374      6E64696E 
+ 2375              	.LASF90:
+ 2376 0499 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isr_BUTTON.c\000"
+ 2376      6E657261 
+ 2376      7465645F 
+ 2376      536F7572 
+ 2376      63655C50 
+ 2377              	.LASF8:
+ 2378 04bf 73697A65 		.ascii	"sizetype\000"
+ 2378      74797065 
+ 2378      00
+ 2379              	.LASF78:
+ 2380 04c8 7072696F 		.ascii	"priority\000"
+ 2380      72697479 
+ 2380      00
+ 2381              	.LASF30:
+ 2382 04d1 616E676C 		.ascii	"angle\000"
+ 2382      6500
+ 2383              	.LASF70:
+ 2384 04d7 6973725F 		.ascii	"isr_BUTTON_Start\000"
+ 2384      42555454 
+ 2384      4F4E5F53 
+ 2384      74617274 
+ 2384      00
+ 2385              	.LASF52:
+ 2386 04e8 6572726F 		.ascii	"error\000"
+ 2386      7200
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccN6537R.s 			page 54
+
+
+ 2387              	.LASF28:
+ 2388 04ee 706F7369 		.ascii	"position\000"
+ 2388      74696F6E 
+ 2388      00
+ 2389              	.LASF57:
+ 2390 04f7 64656164 		.ascii	"deadband_factor\000"
+ 2390      62616E64 
+ 2390      5F666163 
+ 2390      746F7200 
+ 2391              	.LASF85:
+ 2392 0507 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2392      52784275 
+ 2392      66666572 
+ 2392      00
+ 2393              	.LASF23:
+ 2394 0514 666E756D 		.ascii	"fnum\000"
+ 2394      00
+ 2395              	.LASF33:
+ 2396 0519 56504152 		.ascii	"VPARAMS\000"
+ 2396      414D5300 
+ 2397              	.LASF24:
+ 2398 0521 666C6F61 		.ascii	"floatEE\000"
+ 2398      74454500 
+ 2399              	.LASF54:
+ 2400 0529 69657272 		.ascii	"ierror\000"
+ 2400      6F7200
+ 2401              	.LASF20:
+ 2402 0530 72656733 		.ascii	"reg32\000"
+ 2402      3200
+ 2403              	.LASF56:
+ 2404 0536 64657269 		.ascii	"derivative_lowpass\000"
+ 2404      76617469 
+ 2404      76655F6C 
+ 2404      6F777061 
+ 2404      737300
+ 2405              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,2731 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"isr_CTRL.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.isr_CTRL_Interrupt,"ax",%progbits
+  19              		.align	1
+  20              		.global	isr_CTRL_Interrupt
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	isr_CTRL_Interrupt, %function
+  24              	isr_CTRL_Interrupt:
+  25              	.LFB3:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\isr_CTRL.c"
+   1:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isr_CTRL.c **** * File Name: isr_CTRL.c  
+   3:.\Generated_Source\PSoC5/isr_CTRL.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+   5:.\Generated_Source\PSoC5/isr_CTRL.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isr_CTRL.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+   8:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+   9:.\Generated_Source\PSoC5/isr_CTRL.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  11:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isr_CTRL.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isr_CTRL.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isr_CTRL.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isr_CTRL.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  18:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  19:.\Generated_Source\PSoC5/isr_CTRL.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC5/isr_CTRL.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC5/isr_CTRL.c **** #include <isr_CTRL.h>
+  22:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  23:.\Generated_Source\PSoC5/isr_CTRL.c **** #if !defined(isr_CTRL__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  25:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isr_CTRL.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isr_CTRL.c **** /* `#START isr_CTRL_intc` */
+  29:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  30:.\Generated_Source\PSoC5/isr_CTRL.c **** #include <sensor_CTRL.h>
+  31:.\Generated_Source\PSoC5/isr_CTRL.c **** #include <motor_CTRL.h>
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/isr_CTRL.c **** 	
+  33:.\Generated_Source\PSoC5/isr_CTRL.c **** extern uint16 isr_START_check_counter;
+  34:.\Generated_Source\PSoC5/isr_CTRL.c **** extern uint16 isr_STOP_check_counter;
+  35:.\Generated_Source\PSoC5/isr_CTRL.c **** 	
+  36:.\Generated_Source\PSoC5/isr_CTRL.c **** /* EXTERNAL Feedback Encoder */
+  37:.\Generated_Source\PSoC5/isr_CTRL.c **** extern struct ENCODER pan_feedback_encoder; /* PAN Feedback Encoder Parameters & RT Datas */
+  38:.\Generated_Source\PSoC5/isr_CTRL.c **** extern struct ENCODER tilt_feedback_encoder; /* TILT Feedback Encoder Parameters & RT Datas */
+  39:.\Generated_Source\PSoC5/isr_CTRL.c ****     
+  40:.\Generated_Source\PSoC5/isr_CTRL.c **** /* External Motor Axis 		 */
+  41:.\Generated_Source\PSoC5/isr_CTRL.c **** extern struct MOTOR_AXIS pan_axis; 			/* PAN Motor Axis Parameters & RT Datas	*/
+  42:.\Generated_Source\PSoC5/isr_CTRL.c **** extern struct MOTOR_AXIS tilt_axis; 		/* TILT Motor Axis Parameters & RT Datas	*/
+  43:.\Generated_Source\PSoC5/isr_CTRL.c ****     
+  44:.\Generated_Source\PSoC5/isr_CTRL.c **** /* `#END` */
+  45:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  46:.\Generated_Source\PSoC5/isr_CTRL.c **** #ifndef CYINT_IRQ_BASE
+  47:.\Generated_Source\PSoC5/isr_CTRL.c **** #define CYINT_IRQ_BASE      16
+  48:.\Generated_Source\PSoC5/isr_CTRL.c **** #endif /* CYINT_IRQ_BASE */
+  49:.\Generated_Source\PSoC5/isr_CTRL.c **** #ifndef CYINT_VECT_TABLE
+  50:.\Generated_Source\PSoC5/isr_CTRL.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  51:.\Generated_Source\PSoC5/isr_CTRL.c **** #endif /* CYINT_VECT_TABLE */
+  52:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  53:.\Generated_Source\PSoC5/isr_CTRL.c **** /* Declared in startup, used to set unused interrupts to. */
+  54:.\Generated_Source\PSoC5/isr_CTRL.c **** CY_ISR_PROTO(IntDefaultHandler);
+  55:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  56:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  57:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+  58:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_Start
+  59:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+  60:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  61:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+  62:.\Generated_Source\PSoC5/isr_CTRL.c **** *  Set up the interrupt and enable it.
+  63:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  64:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:  
+  65:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+  66:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  67:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+  68:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+  69:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  70:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+  71:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_Start(void)
+  72:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+  73:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* For all we know the interrupt is active. */
+  74:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_Disable();
+  75:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  76:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Set the ISR to point to the isr_CTRL Interrupt. */
+  77:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_SetVector(&isr_CTRL_Interrupt);
+  78:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  79:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Set the priority. */
+  80:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_SetPriority((uint8)isr_CTRL_INTC_PRIOR_NUMBER);
+  81:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  82:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Enable it. */
+  83:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_Enable();
+  84:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+  85:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  86:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+  87:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+  88:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_StartEx
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+  90:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  91:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+  92:.\Generated_Source\PSoC5/isr_CTRL.c **** *  Set up the interrupt and enable it.
+  93:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  94:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:  
+  95:.\Generated_Source\PSoC5/isr_CTRL.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  96:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+  97:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+  98:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+  99:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 100:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 101:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_StartEx(cyisraddress address)
+ 102:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 103:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* For all we know the interrupt is active. */
+ 104:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_Disable();
+ 105:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 106:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Set the ISR to point to the isr_CTRL Interrupt. */
+ 107:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_SetVector(address);
+ 108:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 109:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Set the priority. */
+ 110:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_SetPriority((uint8)isr_CTRL_INTC_PRIOR_NUMBER);
+ 111:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 112:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Enable it. */
+ 113:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_Enable();
+ 114:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 115:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 116:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 117:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 118:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_Stop
+ 119:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 120:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 121:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 122:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Disables and removes the interrupt.
+ 123:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 124:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:  
+ 125:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 126:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 127:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 128:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 129:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 130:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_Stop(void)
+ 131:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 132:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Disable this interrupt. */
+ 133:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_Disable();
+ 134:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 135:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Set the ISR to point to the passive one. */
+ 136:.\Generated_Source\PSoC5/isr_CTRL.c ****     isr_CTRL_SetVector(&IntDefaultHandler);
+ 137:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 138:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 139:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 140:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 141:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_Interrupt
+ 142:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 143:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 144:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 145:.\Generated_Source\PSoC5/isr_CTRL.c **** *   The default Interrupt Service Routine for isr_CTRL.
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 4
+
+
+ 146:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 147:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Add custom code between the coments to keep the next version of this file
+ 148:.\Generated_Source\PSoC5/isr_CTRL.c **** *   from over writting your code.
+ 149:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 150:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:  
+ 151:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 152:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 153:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 154:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 155:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 156:.\Generated_Source\PSoC5/isr_CTRL.c **** CY_ISR(isr_CTRL_Interrupt)
+ 157:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+  27              		.loc 1 157 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+ 158:.\Generated_Source\PSoC5/isr_CTRL.c ****     /*  Place your Interrupt code here. */
+ 159:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* `#START isr_CTRL_Interrupt` */
+ 160:.\Generated_Source\PSoC5/isr_CTRL.c **** 	
+ 161:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 162:.\Generated_Source\PSoC5/isr_CTRL.c **** #if MEASURE_CONTROL_ISR
+ 163:.\Generated_Source\PSoC5/isr_CTRL.c **** 	Control_Reg_LED_Write(0x00);
+ 164:.\Generated_Source\PSoC5/isr_CTRL.c **** 	//SET_ON(LED_OK);	/* ON LED OK - MEASUREMENT	POINT*/
+ 165:.\Generated_Source\PSoC5/isr_CTRL.c **** #endif
+ 166:.\Generated_Source\PSoC5/isr_CTRL.c **** 	isr_START_check_counter++;	
+  36              		.loc 1 166 0
+  37 0002 084B     		ldr	r3, .L2
+  38 0004 1A88     		ldrh	r2, [r3, #0]
+  39 0006 501C     		adds	r0, r2, #1
+  40 0008 1880     		strh	r0, [r3, #0]	@ movhi
+ 167:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 168:.\Generated_Source\PSoC5/isr_CTRL.c **** 	/************************************/
+ 169:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* GoBee Sensors Sampling & Control */
+ 170:.\Generated_Source\PSoC5/isr_CTRL.c **** 	/************************************/
+ 171:.\Generated_Source\PSoC5/isr_CTRL.c ****     sensor_control();
+  41              		.loc 1 171 0
+  42 000a FFF7FEFF 		bl	sensor_control
+  43              	.LVL0:
+ 172:.\Generated_Source\PSoC5/isr_CTRL.c ****  
+ 173:.\Generated_Source\PSoC5/isr_CTRL.c **** 	/*************************************/	
+ 174:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* GoBee Motor Control               */
+ 175:.\Generated_Source\PSoC5/isr_CTRL.c **** 	/*************************************/	
+ 176:.\Generated_Source\PSoC5/isr_CTRL.c ****     motor_control(&pan_axis);
+  44              		.loc 1 176 0
+  45 000e 0648     		ldr	r0, .L2+4
+  46 0010 FFF7FEFF 		bl	motor_control
+  47              	.LVL1:
+ 177:.\Generated_Source\PSoC5/isr_CTRL.c ****     motor_control(&tilt_axis);
+  48              		.loc 1 177 0
+  49 0014 0548     		ldr	r0, .L2+8
+  50 0016 FFF7FEFF 		bl	motor_control
+  51              	.LVL2:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 5
+
+
+ 178:.\Generated_Source\PSoC5/isr_CTRL.c **** 	
+ 179:.\Generated_Source\PSoC5/isr_CTRL.c **** 	isr_STOP_check_counter++;
+  52              		.loc 1 179 0
+  53 001a 0549     		ldr	r1, .L2+12
+  54 001c 0B88     		ldrh	r3, [r1, #0]
+  55 001e 5A1C     		adds	r2, r3, #1
+  56 0020 0A80     		strh	r2, [r1, #0]	@ movhi
+  57 0022 08BD     		pop	{r3, pc}
+  58              	.L3:
+  59              		.align	2
+  60              	.L2:
+  61 0024 00000000 		.word	isr_START_check_counter
+  62 0028 00000000 		.word	pan_axis
+  63 002c 00000000 		.word	tilt_axis
+  64 0030 00000000 		.word	isr_STOP_check_counter
+  65              		.cfi_endproc
+  66              	.LFE3:
+  67              		.size	isr_CTRL_Interrupt, .-isr_CTRL_Interrupt
+  68              		.section	.text.isr_CTRL_Start,"ax",%progbits
+  69              		.align	1
+  70              		.global	isr_CTRL_Start
+  71              		.thumb
+  72              		.thumb_func
+  73              		.type	isr_CTRL_Start, %function
+  74              	isr_CTRL_Start:
+  75              	.LFB0:
+  72:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+  76              		.loc 1 72 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+  81              	.LBB22:
+  82              	.LBB23:
+ 180:.\Generated_Source\PSoC5/isr_CTRL.c **** #if MEASURE_CONTROL_ISR
+ 181:.\Generated_Source\PSoC5/isr_CTRL.c **** 	Control_Reg_LED_Write(0x01);
+ 182:.\Generated_Source\PSoC5/isr_CTRL.c **** 	//SET_OFF(LED_OK);	/* OFF LED OK - MEASUREMENT	POINT*/
+ 183:.\Generated_Source\PSoC5/isr_CTRL.c **** #endif
+ 184:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 185:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* `#END` */
+ 186:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 187:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 188:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 189:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 190:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_SetVector
+ 191:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 192:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 193:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 194:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Change the ISR vector for the Interrupt. Note calling isr_CTRL_Start
+ 195:.\Generated_Source\PSoC5/isr_CTRL.c **** *   will override any effect this method would have had. To set the vector 
+ 196:.\Generated_Source\PSoC5/isr_CTRL.c **** *   before the component has been started use isr_CTRL_StartEx instead.
+ 197:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 198:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 199:.\Generated_Source\PSoC5/isr_CTRL.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 200:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 201:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 202:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 6
+
+
+ 203:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 204:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 205:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_SetVector(cyisraddress address)
+ 206:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 207:.\Generated_Source\PSoC5/isr_CTRL.c ****     cyisraddress * ramVectorTable;
+ 208:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 210:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 211:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER] = address;
+ 212:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 213:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 214:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 215:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 216:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_GetVector
+ 217:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 218:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 219:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 220:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 221:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 222:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 223:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 224:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 225:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 226:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Address of the ISR in the interrupt vector table.
+ 227:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 228:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 229:.\Generated_Source\PSoC5/isr_CTRL.c **** cyisraddress isr_CTRL_GetVector(void)
+ 230:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 231:.\Generated_Source\PSoC5/isr_CTRL.c ****     cyisraddress * ramVectorTable;
+ 232:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 233:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 234:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 235:.\Generated_Source\PSoC5/isr_CTRL.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER];
+ 236:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 237:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 238:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 239:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 240:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_SetPriority
+ 241:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 242:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 243:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 244:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Sets the Priority of the Interrupt. Note calling isr_CTRL_Start
+ 245:.\Generated_Source\PSoC5/isr_CTRL.c **** *   or isr_CTRL_StartEx will override any effect this method 
+ 246:.\Generated_Source\PSoC5/isr_CTRL.c **** *   would have had. This method should only be called after 
+ 247:.\Generated_Source\PSoC5/isr_CTRL.c **** *   isr_CTRL_Start or isr_CTRL_StartEx has been called. To set 
+ 248:.\Generated_Source\PSoC5/isr_CTRL.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 249:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 250:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 251:.\Generated_Source\PSoC5/isr_CTRL.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 252:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 253:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 254:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 255:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 256:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 257:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_SetPriority(uint8 priority)
+ 258:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 7
+
+
+ 260:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 261:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 262:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 263:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 264:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_GetPriority
+ 265:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 266:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 267:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 268:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Gets the Priority of the Interrupt.
+ 269:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 270:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 271:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 272:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 273:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 274:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 275:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 276:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 277:.\Generated_Source\PSoC5/isr_CTRL.c **** uint8 isr_CTRL_GetPriority(void)
+ 278:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 279:.\Generated_Source\PSoC5/isr_CTRL.c ****     uint8 priority;
+ 280:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 281:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 282:.\Generated_Source\PSoC5/isr_CTRL.c ****     priority = *isr_CTRL_INTC_PRIOR >> 5;
+ 283:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 284:.\Generated_Source\PSoC5/isr_CTRL.c ****     return priority;
+ 285:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 286:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 287:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 288:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 289:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_Enable
+ 290:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 291:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 292:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 293:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Enables the interrupt.
+ 294:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 295:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 296:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 297:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 298:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 299:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 300:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 301:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 302:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_Enable(void)
+ 303:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 304:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Enable the general interrupt. */
+ 305:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_EN = isr_CTRL__INTC_MASK;
+ 306:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 307:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 308:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 309:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 310:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_GetState
+ 311:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 312:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 313:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 314:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 315:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 316:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 8
+
+
+ 317:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 318:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 319:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 320:.\Generated_Source\PSoC5/isr_CTRL.c **** *   1 if enabled, 0 if disabled.
+ 321:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 322:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 323:.\Generated_Source\PSoC5/isr_CTRL.c **** uint8 isr_CTRL_GetState(void)
+ 324:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 325:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Get the state of the general interrupt. */
+ 326:.\Generated_Source\PSoC5/isr_CTRL.c ****     return ((*isr_CTRL_INTC_SET_EN & (uint32)isr_CTRL__INTC_MASK) != 0u) ? 1u:0u;
+ 327:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 328:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 329:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 330:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 331:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_Disable
+ 332:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 333:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 334:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 335:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Disables the Interrupt.
+ 336:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 337:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 338:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 339:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 340:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 341:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 342:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 343:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 344:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_Disable(void)
+ 345:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 346:.\Generated_Source\PSoC5/isr_CTRL.c ****     /* Disable the general interrupt. */
+ 347:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_CLR_EN = isr_CTRL__INTC_MASK;
+  83              		.loc 1 347 0
+  84 0000 064A     		ldr	r2, .L5
+  85              	.LBE23:
+  86              	.LBE22:
+  87              	.LBB25:
+  88              	.LBB26:
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  89              		.loc 1 209 0
+  90 0002 0748     		ldr	r0, .L5+4
+  91              	.LBE26:
+  92              	.LBE25:
+  93              	.LBB29:
+  94              	.LBB24:
+  95              		.loc 1 347 0
+  96 0004 0823     		movs	r3, #8
+  97 0006 1360     		str	r3, [r2, #0]
+  98              	.LVL3:
+  99              	.LBE24:
+ 100              	.LBE29:
+ 101              	.LBB30:
+ 102              	.LBB27:
+ 211:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER] = address;
+ 103              		.loc 1 211 0
+ 104 0008 0649     		ldr	r1, .L5+8
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 105              		.loc 1 209 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 9
+
+
+ 106 000a 0268     		ldr	r2, [r0, #0]
+ 107              	.LVL4:
+ 108              	.LBE27:
+ 109              	.LBE30:
+ 110              	.LBB31:
+ 111              	.LBB32:
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ 112              		.loc 1 259 0
+ 113 000c A020     		movs	r0, #160
+ 114              	.LBE32:
+ 115              	.LBE31:
+ 116              	.LBB35:
+ 117              	.LBB28:
+ 211:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER] = address;
+ 118              		.loc 1 211 0
+ 119 000e D164     		str	r1, [r2, #76]
+ 120              	.LVL5:
+ 121              	.LBE28:
+ 122              	.LBE35:
+ 123              	.LBB36:
+ 124              	.LBB33:
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ 125              		.loc 1 259 0
+ 126 0010 054A     		ldr	r2, .L5+12
+ 127              	.LVL6:
+ 128              	.LBE33:
+ 129              	.LBE36:
+ 130              	.LBB37:
+ 131              	.LBB38:
+ 305:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_EN = isr_CTRL__INTC_MASK;
+ 132              		.loc 1 305 0
+ 133 0012 0649     		ldr	r1, .L5+16
+ 134              	.LBE38:
+ 135              	.LBE37:
+ 136              	.LBB40:
+ 137              	.LBB34:
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ 138              		.loc 1 259 0
+ 139 0014 1070     		strb	r0, [r2, #0]
+ 140              	.LBE34:
+ 141              	.LBE40:
+ 142              	.LBB41:
+ 143              	.LBB39:
+ 305:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_EN = isr_CTRL__INTC_MASK;
+ 144              		.loc 1 305 0
+ 145 0016 0B60     		str	r3, [r1, #0]
+ 146 0018 7047     		bx	lr
+ 147              	.L6:
+ 148 001a 00BF     		.align	2
+ 149              	.L5:
+ 150 001c 80E100E0 		.word	-536813184
+ 151 0020 08ED00E0 		.word	-536810232
+ 152 0024 00000000 		.word	isr_CTRL_Interrupt
+ 153 0028 03E400E0 		.word	-536812541
+ 154 002c 00E100E0 		.word	-536813312
+ 155              	.LBE39:
+ 156              	.LBE41:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 10
+
+
+ 157              		.cfi_endproc
+ 158              	.LFE0:
+ 159              		.size	isr_CTRL_Start, .-isr_CTRL_Start
+ 160              		.section	.text.isr_CTRL_StartEx,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	isr_CTRL_StartEx
+ 163              		.thumb
+ 164              		.thumb_func
+ 165              		.type	isr_CTRL_StartEx, %function
+ 166              	isr_CTRL_StartEx:
+ 167              	.LFB1:
+ 102:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 168              		.loc 1 102 0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172              		@ link register save eliminated.
+ 173              	.LVL7:
+ 174              	.LBB42:
+ 175              	.LBB43:
+ 176              		.loc 1 347 0
+ 177 0000 054A     		ldr	r2, .L8
+ 178              	.LBE43:
+ 179              	.LBE42:
+ 180              	.LBB45:
+ 181              	.LBB46:
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 182              		.loc 1 209 0
+ 183 0002 0649     		ldr	r1, .L8+4
+ 184              	.LBE46:
+ 185              	.LBE45:
+ 186              	.LBB49:
+ 187              	.LBB44:
+ 188              		.loc 1 347 0
+ 189 0004 0823     		movs	r3, #8
+ 190 0006 1360     		str	r3, [r2, #0]
+ 191              	.LVL8:
+ 192              	.LBE44:
+ 193              	.LBE49:
+ 194              	.LBB50:
+ 195              	.LBB47:
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 196              		.loc 1 209 0
+ 197 0008 0A68     		ldr	r2, [r1, #0]
+ 198              	.LVL9:
+ 199              	.LBE47:
+ 200              	.LBE50:
+ 201              	.LBB51:
+ 202              	.LBB52:
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ 203              		.loc 1 259 0
+ 204 000a 0549     		ldr	r1, .L8+8
+ 205              	.LBE52:
+ 206              	.LBE51:
+ 207              	.LBB54:
+ 208              	.LBB48:
+ 211:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER] = address;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 11
+
+
+ 209              		.loc 1 211 0
+ 210 000c D064     		str	r0, [r2, #76]
+ 211              	.LVL10:
+ 212              	.LBE48:
+ 213              	.LBE54:
+ 214              	.LBB55:
+ 215              	.LBB56:
+ 305:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_EN = isr_CTRL__INTC_MASK;
+ 216              		.loc 1 305 0
+ 217 000e 054A     		ldr	r2, .L8+12
+ 218              	.LVL11:
+ 219              	.LBE56:
+ 220              	.LBE55:
+ 221              	.LBB58:
+ 222              	.LBB53:
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ 223              		.loc 1 259 0
+ 224 0010 A020     		movs	r0, #160
+ 225              	.LVL12:
+ 226 0012 0870     		strb	r0, [r1, #0]
+ 227              	.LBE53:
+ 228              	.LBE58:
+ 229              	.LBB59:
+ 230              	.LBB57:
+ 305:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_EN = isr_CTRL__INTC_MASK;
+ 231              		.loc 1 305 0
+ 232 0014 1360     		str	r3, [r2, #0]
+ 233 0016 7047     		bx	lr
+ 234              	.L9:
+ 235              		.align	2
+ 236              	.L8:
+ 237 0018 80E100E0 		.word	-536813184
+ 238 001c 08ED00E0 		.word	-536810232
+ 239 0020 03E400E0 		.word	-536812541
+ 240 0024 00E100E0 		.word	-536813312
+ 241              	.LBE57:
+ 242              	.LBE59:
+ 243              		.cfi_endproc
+ 244              	.LFE1:
+ 245              		.size	isr_CTRL_StartEx, .-isr_CTRL_StartEx
+ 246              		.section	.text.isr_CTRL_Stop,"ax",%progbits
+ 247              		.align	1
+ 248              		.global	isr_CTRL_Stop
+ 249              		.thumb
+ 250              		.thumb_func
+ 251              		.type	isr_CTRL_Stop, %function
+ 252              	isr_CTRL_Stop:
+ 253              	.LFB2:
+ 131:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 254              		.loc 1 131 0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258              		@ link register save eliminated.
+ 259              	.LBB60:
+ 260              	.LBB61:
+ 261              		.loc 1 347 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 12
+
+
+ 262 0000 034B     		ldr	r3, .L11
+ 263              	.LBE61:
+ 264              	.LBE60:
+ 265              	.LBB63:
+ 266              	.LBB64:
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 267              		.loc 1 209 0
+ 268 0002 0448     		ldr	r0, .L11+4
+ 269              	.LBE64:
+ 270              	.LBE63:
+ 271              	.LBB66:
+ 272              	.LBB62:
+ 273              		.loc 1 347 0
+ 274 0004 0822     		movs	r2, #8
+ 275 0006 1A60     		str	r2, [r3, #0]
+ 276              	.LVL13:
+ 277              	.LBE62:
+ 278              	.LBE66:
+ 279              	.LBB67:
+ 280              	.LBB65:
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 281              		.loc 1 209 0
+ 282 0008 0168     		ldr	r1, [r0, #0]
+ 283              	.LVL14:
+ 211:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER] = address;
+ 284              		.loc 1 211 0
+ 285 000a 034A     		ldr	r2, .L11+8
+ 286 000c CA64     		str	r2, [r1, #76]
+ 287 000e 7047     		bx	lr
+ 288              	.L12:
+ 289              		.align	2
+ 290              	.L11:
+ 291 0010 80E100E0 		.word	-536813184
+ 292 0014 08ED00E0 		.word	-536810232
+ 293 0018 00000000 		.word	IntDefaultHandler
+ 294              	.LBE65:
+ 295              	.LBE67:
+ 296              		.cfi_endproc
+ 297              	.LFE2:
+ 298              		.size	isr_CTRL_Stop, .-isr_CTRL_Stop
+ 299              		.section	.text.isr_CTRL_SetVector,"ax",%progbits
+ 300              		.align	1
+ 301              		.global	isr_CTRL_SetVector
+ 302              		.thumb
+ 303              		.thumb_func
+ 304              		.type	isr_CTRL_SetVector, %function
+ 305              	isr_CTRL_SetVector:
+ 306              	.LFB4:
+ 206:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 307              		.loc 1 206 0
+ 308              		.cfi_startproc
+ 309              		@ args = 0, pretend = 0, frame = 0
+ 310              		@ frame_needed = 0, uses_anonymous_args = 0
+ 311              		@ link register save eliminated.
+ 312              	.LVL15:
+ 209:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 313              		.loc 1 209 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 13
+
+
+ 314 0000 014B     		ldr	r3, .L14
+ 315 0002 1968     		ldr	r1, [r3, #0]
+ 316              	.LVL16:
+ 211:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER] = address;
+ 317              		.loc 1 211 0
+ 318 0004 C864     		str	r0, [r1, #76]
+ 319 0006 7047     		bx	lr
+ 320              	.L15:
+ 321              		.align	2
+ 322              	.L14:
+ 323 0008 08ED00E0 		.word	-536810232
+ 324              		.cfi_endproc
+ 325              	.LFE4:
+ 326              		.size	isr_CTRL_SetVector, .-isr_CTRL_SetVector
+ 327              		.section	.text.isr_CTRL_GetVector,"ax",%progbits
+ 328              		.align	1
+ 329              		.global	isr_CTRL_GetVector
+ 330              		.thumb
+ 331              		.thumb_func
+ 332              		.type	isr_CTRL_GetVector, %function
+ 333              	isr_CTRL_GetVector:
+ 334              	.LFB5:
+ 230:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 335              		.loc 1 230 0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 0, uses_anonymous_args = 0
+ 339              		@ link register save eliminated.
+ 340              	.LVL17:
+ 233:.\Generated_Source\PSoC5/isr_CTRL.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 341              		.loc 1 233 0
+ 342 0000 014B     		ldr	r3, .L17
+ 343              	.LVL18:
+ 235:.\Generated_Source\PSoC5/isr_CTRL.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_CTRL__INTC_NUMBER];
+ 344              		.loc 1 235 0
+ 345 0002 1868     		ldr	r0, [r3, #0]
+ 236:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 346              		.loc 1 236 0
+ 347 0004 C06C     		ldr	r0, [r0, #76]
+ 348 0006 7047     		bx	lr
+ 349              	.L18:
+ 350              		.align	2
+ 351              	.L17:
+ 352 0008 08ED00E0 		.word	-536810232
+ 353              		.cfi_endproc
+ 354              	.LFE5:
+ 355              		.size	isr_CTRL_GetVector, .-isr_CTRL_GetVector
+ 356              		.section	.text.isr_CTRL_SetPriority,"ax",%progbits
+ 357              		.align	1
+ 358              		.global	isr_CTRL_SetPriority
+ 359              		.thumb
+ 360              		.thumb_func
+ 361              		.type	isr_CTRL_SetPriority, %function
+ 362              	isr_CTRL_SetPriority:
+ 363              	.LFB6:
+ 258:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 364              		.loc 1 258 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 14
+
+
+ 365              		.cfi_startproc
+ 366              		@ args = 0, pretend = 0, frame = 0
+ 367              		@ frame_needed = 0, uses_anonymous_args = 0
+ 368              		@ link register save eliminated.
+ 369              	.LVL19:
+ 259:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_PRIOR = priority << 5;
+ 370              		.loc 1 259 0
+ 371 0000 4001     		lsls	r0, r0, #5
+ 372              	.LVL20:
+ 373 0002 024B     		ldr	r3, .L20
+ 374 0004 C1B2     		uxtb	r1, r0
+ 375 0006 1970     		strb	r1, [r3, #0]
+ 376 0008 7047     		bx	lr
+ 377              	.L21:
+ 378 000a 00BF     		.align	2
+ 379              	.L20:
+ 380 000c 03E400E0 		.word	-536812541
+ 381              		.cfi_endproc
+ 382              	.LFE6:
+ 383              		.size	isr_CTRL_SetPriority, .-isr_CTRL_SetPriority
+ 384              		.section	.text.isr_CTRL_GetPriority,"ax",%progbits
+ 385              		.align	1
+ 386              		.global	isr_CTRL_GetPriority
+ 387              		.thumb
+ 388              		.thumb_func
+ 389              		.type	isr_CTRL_GetPriority, %function
+ 390              	isr_CTRL_GetPriority:
+ 391              	.LFB7:
+ 278:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 392              		.loc 1 278 0
+ 393              		.cfi_startproc
+ 394              		@ args = 0, pretend = 0, frame = 0
+ 395              		@ frame_needed = 0, uses_anonymous_args = 0
+ 396              		@ link register save eliminated.
+ 282:.\Generated_Source\PSoC5/isr_CTRL.c ****     priority = *isr_CTRL_INTC_PRIOR >> 5;
+ 397              		.loc 1 282 0
+ 398 0000 014B     		ldr	r3, .L23
+ 399 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 400              	.LVL21:
+ 285:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 401              		.loc 1 285 0
+ 402 0004 4009     		lsrs	r0, r0, #5
+ 403              	.LVL22:
+ 404 0006 7047     		bx	lr
+ 405              	.L24:
+ 406              		.align	2
+ 407              	.L23:
+ 408 0008 03E400E0 		.word	-536812541
+ 409              		.cfi_endproc
+ 410              	.LFE7:
+ 411              		.size	isr_CTRL_GetPriority, .-isr_CTRL_GetPriority
+ 412              		.section	.text.isr_CTRL_Enable,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	isr_CTRL_Enable
+ 415              		.thumb
+ 416              		.thumb_func
+ 417              		.type	isr_CTRL_Enable, %function
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 15
+
+
+ 418              	isr_CTRL_Enable:
+ 419              	.LFB8:
+ 303:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 420              		.loc 1 303 0
+ 421              		.cfi_startproc
+ 422              		@ args = 0, pretend = 0, frame = 0
+ 423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 424              		@ link register save eliminated.
+ 305:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_EN = isr_CTRL__INTC_MASK;
+ 425              		.loc 1 305 0
+ 426 0000 014B     		ldr	r3, .L26
+ 427 0002 0822     		movs	r2, #8
+ 428 0004 1A60     		str	r2, [r3, #0]
+ 429 0006 7047     		bx	lr
+ 430              	.L27:
+ 431              		.align	2
+ 432              	.L26:
+ 433 0008 00E100E0 		.word	-536813312
+ 434              		.cfi_endproc
+ 435              	.LFE8:
+ 436              		.size	isr_CTRL_Enable, .-isr_CTRL_Enable
+ 437              		.section	.text.isr_CTRL_GetState,"ax",%progbits
+ 438              		.align	1
+ 439              		.global	isr_CTRL_GetState
+ 440              		.thumb
+ 441              		.thumb_func
+ 442              		.type	isr_CTRL_GetState, %function
+ 443              	isr_CTRL_GetState:
+ 444              	.LFB9:
+ 324:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 445              		.loc 1 324 0
+ 446              		.cfi_startproc
+ 447              		@ args = 0, pretend = 0, frame = 0
+ 448              		@ frame_needed = 0, uses_anonymous_args = 0
+ 449              		@ link register save eliminated.
+ 326:.\Generated_Source\PSoC5/isr_CTRL.c ****     return ((*isr_CTRL_INTC_SET_EN & (uint32)isr_CTRL__INTC_MASK) != 0u) ? 1u:0u;
+ 450              		.loc 1 326 0
+ 451 0000 024B     		ldr	r3, .L29
+ 452 0002 1868     		ldr	r0, [r3, #0]
+ 327:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 453              		.loc 1 327 0
+ 454 0004 C0F3C000 		ubfx	r0, r0, #3, #1
+ 455 0008 7047     		bx	lr
+ 456              	.L30:
+ 457 000a 00BF     		.align	2
+ 458              	.L29:
+ 459 000c 00E100E0 		.word	-536813312
+ 460              		.cfi_endproc
+ 461              	.LFE9:
+ 462              		.size	isr_CTRL_GetState, .-isr_CTRL_GetState
+ 463              		.section	.text.isr_CTRL_Disable,"ax",%progbits
+ 464              		.align	1
+ 465              		.global	isr_CTRL_Disable
+ 466              		.thumb
+ 467              		.thumb_func
+ 468              		.type	isr_CTRL_Disable, %function
+ 469              	isr_CTRL_Disable:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 16
+
+
+ 470              	.LFB10:
+ 345:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 471              		.loc 1 345 0
+ 472              		.cfi_startproc
+ 473              		@ args = 0, pretend = 0, frame = 0
+ 474              		@ frame_needed = 0, uses_anonymous_args = 0
+ 475              		@ link register save eliminated.
+ 476              		.loc 1 347 0
+ 477 0000 014B     		ldr	r3, .L32
+ 478 0002 0822     		movs	r2, #8
+ 479 0004 1A60     		str	r2, [r3, #0]
+ 480 0006 7047     		bx	lr
+ 481              	.L33:
+ 482              		.align	2
+ 483              	.L32:
+ 484 0008 80E100E0 		.word	-536813184
+ 485              		.cfi_endproc
+ 486              	.LFE10:
+ 487              		.size	isr_CTRL_Disable, .-isr_CTRL_Disable
+ 488              		.section	.text.isr_CTRL_SetPending,"ax",%progbits
+ 489              		.align	1
+ 490              		.global	isr_CTRL_SetPending
+ 491              		.thumb
+ 492              		.thumb_func
+ 493              		.type	isr_CTRL_SetPending, %function
+ 494              	isr_CTRL_SetPending:
+ 495              	.LFB11:
+ 348:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 349:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 350:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 351:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 352:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_SetPending
+ 353:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 354:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 355:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 356:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 357:.\Generated_Source\PSoC5/isr_CTRL.c **** *   generating the interrupt.
+ 358:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 359:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 360:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 361:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 362:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 363:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 364:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 365:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 366:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_SetPending(void)
+ 367:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 496              		.loc 1 367 0
+ 497              		.cfi_startproc
+ 498              		@ args = 0, pretend = 0, frame = 0
+ 499              		@ frame_needed = 0, uses_anonymous_args = 0
+ 500              		@ link register save eliminated.
+ 368:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_SET_PD = isr_CTRL__INTC_MASK;
+ 501              		.loc 1 368 0
+ 502 0000 014B     		ldr	r3, .L35
+ 503 0002 0822     		movs	r2, #8
+ 504 0004 1A60     		str	r2, [r3, #0]
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 17
+
+
+ 505 0006 7047     		bx	lr
+ 506              	.L36:
+ 507              		.align	2
+ 508              	.L35:
+ 509 0008 00E200E0 		.word	-536813056
+ 510              		.cfi_endproc
+ 511              	.LFE11:
+ 512              		.size	isr_CTRL_SetPending, .-isr_CTRL_SetPending
+ 513              		.section	.text.isr_CTRL_ClearPending,"ax",%progbits
+ 514              		.align	1
+ 515              		.global	isr_CTRL_ClearPending
+ 516              		.thumb
+ 517              		.thumb_func
+ 518              		.type	isr_CTRL_ClearPending, %function
+ 519              	isr_CTRL_ClearPending:
+ 520              	.LFB12:
+ 369:.\Generated_Source\PSoC5/isr_CTRL.c **** }
+ 370:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 371:.\Generated_Source\PSoC5/isr_CTRL.c **** 
+ 372:.\Generated_Source\PSoC5/isr_CTRL.c **** /*******************************************************************************
+ 373:.\Generated_Source\PSoC5/isr_CTRL.c **** * Function Name: isr_CTRL_ClearPending
+ 374:.\Generated_Source\PSoC5/isr_CTRL.c **** ********************************************************************************
+ 375:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 376:.\Generated_Source\PSoC5/isr_CTRL.c **** * Summary:
+ 377:.\Generated_Source\PSoC5/isr_CTRL.c **** *   Clears a pending interrupt.
+ 378:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 379:.\Generated_Source\PSoC5/isr_CTRL.c **** * Parameters:
+ 380:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 381:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 382:.\Generated_Source\PSoC5/isr_CTRL.c **** * Return:
+ 383:.\Generated_Source\PSoC5/isr_CTRL.c **** *   None
+ 384:.\Generated_Source\PSoC5/isr_CTRL.c **** *
+ 385:.\Generated_Source\PSoC5/isr_CTRL.c **** *******************************************************************************/
+ 386:.\Generated_Source\PSoC5/isr_CTRL.c **** void isr_CTRL_ClearPending(void)
+ 387:.\Generated_Source\PSoC5/isr_CTRL.c **** {
+ 521              		.loc 1 387 0
+ 522              		.cfi_startproc
+ 523              		@ args = 0, pretend = 0, frame = 0
+ 524              		@ frame_needed = 0, uses_anonymous_args = 0
+ 525              		@ link register save eliminated.
+ 388:.\Generated_Source\PSoC5/isr_CTRL.c ****     *isr_CTRL_INTC_CLR_PD = isr_CTRL__INTC_MASK;
+ 526              		.loc 1 388 0
+ 527 0000 014B     		ldr	r3, .L38
+ 528 0002 0822     		movs	r2, #8
+ 529 0004 1A60     		str	r2, [r3, #0]
+ 530 0006 7047     		bx	lr
+ 531              	.L39:
+ 532              		.align	2
+ 533              	.L38:
+ 534 0008 80E200E0 		.word	-536812928
+ 535              		.cfi_endproc
+ 536              	.LFE12:
+ 537              		.size	isr_CTRL_ClearPending, .-isr_CTRL_ClearPending
+ 538              		.text
+ 539              	.Letext0:
+ 540              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 541              		.file 3 "./sensor_CTRL.h"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 18
+
+
+ 542              		.file 4 "./motor_CTRL.h"
+ 543              		.section	.debug_info,"",%progbits
+ 544              	.Ldebug_info0:
+ 545 0000 34040000 		.4byte	0x434
+ 546 0004 0200     		.2byte	0x2
+ 547 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 548 000a 04       		.byte	0x4
+ 549 000b 01       		.uleb128 0x1
+ 550 000c 61020000 		.4byte	.LASF41
+ 551 0010 01       		.byte	0x1
+ 552 0011 D6020000 		.4byte	.LASF42
+ 553 0015 F2000000 		.4byte	.LASF43
+ 554 0019 60010000 		.4byte	.Ldebug_ranges0+0x160
+ 555 001d 00000000 		.4byte	0
+ 556 0021 00000000 		.4byte	0
+ 557 0025 00000000 		.4byte	.Ldebug_line0
+ 558 0029 02       		.uleb128 0x2
+ 559 002a 01       		.byte	0x1
+ 560 002b 06       		.byte	0x6
+ 561 002c CA020000 		.4byte	.LASF0
+ 562 0030 02       		.uleb128 0x2
+ 563 0031 01       		.byte	0x1
+ 564 0032 08       		.byte	0x8
+ 565 0033 7F000000 		.4byte	.LASF1
+ 566 0037 02       		.uleb128 0x2
+ 567 0038 02       		.byte	0x2
+ 568 0039 05       		.byte	0x5
+ 569 003a 51020000 		.4byte	.LASF2
+ 570 003e 02       		.uleb128 0x2
+ 571 003f 02       		.byte	0x2
+ 572 0040 07       		.byte	0x7
+ 573 0041 38000000 		.4byte	.LASF3
+ 574 0045 03       		.uleb128 0x3
+ 575 0046 04       		.byte	0x4
+ 576 0047 05       		.byte	0x5
+ 577 0048 696E7400 		.ascii	"int\000"
+ 578 004c 02       		.uleb128 0x2
+ 579 004d 04       		.byte	0x4
+ 580 004e 07       		.byte	0x7
+ 581 004f A2010000 		.4byte	.LASF4
+ 582 0053 02       		.uleb128 0x2
+ 583 0054 08       		.byte	0x8
+ 584 0055 05       		.byte	0x5
+ 585 0056 2F020000 		.4byte	.LASF5
+ 586 005a 02       		.uleb128 0x2
+ 587 005b 08       		.byte	0x8
+ 588 005c 07       		.byte	0x7
+ 589 005d CC010000 		.4byte	.LASF6
+ 590 0061 02       		.uleb128 0x2
+ 591 0062 04       		.byte	0x4
+ 592 0063 05       		.byte	0x5
+ 593 0064 AA020000 		.4byte	.LASF7
+ 594 0068 02       		.uleb128 0x2
+ 595 0069 04       		.byte	0x4
+ 596 006a 07       		.byte	0x7
+ 597 006b 26020000 		.4byte	.LASF8
+ 598 006f 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 19
+
+
+ 599 0070 04       		.byte	0x4
+ 600 0071 07       		.byte	0x7
+ 601 0072 C9000000 		.4byte	.LASF9
+ 602 0076 04       		.uleb128 0x4
+ 603 0077 01       		.byte	0x1
+ 604 0078 05       		.uleb128 0x5
+ 605 0079 04       		.byte	0x4
+ 606 007a 76000000 		.4byte	0x76
+ 607 007e 02       		.uleb128 0x2
+ 608 007f 01       		.byte	0x1
+ 609 0080 08       		.byte	0x8
+ 610 0081 3D020000 		.4byte	.LASF10
+ 611 0085 06       		.uleb128 0x6
+ 612 0086 5B020000 		.4byte	.LASF11
+ 613 008a 02       		.byte	0x2
+ 614 008b 5B       		.byte	0x5b
+ 615 008c 30000000 		.4byte	0x30
+ 616 0090 06       		.uleb128 0x6
+ 617 0091 94010000 		.4byte	.LASF12
+ 618 0095 02       		.byte	0x2
+ 619 0096 5C       		.byte	0x5c
+ 620 0097 3E000000 		.4byte	0x3e
+ 621 009b 06       		.uleb128 0x6
+ 622 009c 9B010000 		.4byte	.LASF13
+ 623 00a0 02       		.byte	0x2
+ 624 00a1 5D       		.byte	0x5d
+ 625 00a2 6F000000 		.4byte	0x6f
+ 626 00a6 02       		.uleb128 0x2
+ 627 00a7 04       		.byte	0x4
+ 628 00a8 04       		.byte	0x4
+ 629 00a9 60000000 		.4byte	.LASF14
+ 630 00ad 02       		.uleb128 0x2
+ 631 00ae 08       		.byte	0x8
+ 632 00af 04       		.byte	0x4
+ 633 00b0 8D010000 		.4byte	.LASF15
+ 634 00b4 06       		.uleb128 0x6
+ 635 00b5 17020000 		.4byte	.LASF16
+ 636 00b9 02       		.byte	0x2
+ 637 00ba F0       		.byte	0xf0
+ 638 00bb BF000000 		.4byte	0xbf
+ 639 00bf 07       		.uleb128 0x7
+ 640 00c0 85000000 		.4byte	0x85
+ 641 00c4 06       		.uleb128 0x6
+ 642 00c5 00000000 		.4byte	.LASF17
+ 643 00c9 02       		.byte	0x2
+ 644 00ca F2       		.byte	0xf2
+ 645 00cb CF000000 		.4byte	0xcf
+ 646 00cf 07       		.uleb128 0x7
+ 647 00d0 9B000000 		.4byte	0x9b
+ 648 00d4 08       		.uleb128 0x8
+ 649 00d5 F2010000 		.4byte	.LASF18
+ 650 00d9 02       		.byte	0x2
+ 651 00da 0201     		.2byte	0x102
+ 652 00dc 78000000 		.4byte	0x78
+ 653 00e0 09       		.uleb128 0x9
+ 654 00e1 01       		.byte	0x1
+ 655 00e2 27000000 		.4byte	.LASF23
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 20
+
+
+ 656 00e6 01       		.byte	0x1
+ 657 00e7 5801     		.2byte	0x158
+ 658 00e9 01       		.byte	0x1
+ 659 00ea 01       		.byte	0x1
+ 660 00eb 0A       		.uleb128 0xa
+ 661 00ec 01       		.byte	0x1
+ 662 00ed FA020000 		.4byte	.LASF19
+ 663 00f1 01       		.byte	0x1
+ 664 00f2 CD       		.byte	0xcd
+ 665 00f3 01       		.byte	0x1
+ 666 00f4 01       		.byte	0x1
+ 667 00f5 10010000 		.4byte	0x110
+ 668 00f9 0B       		.uleb128 0xb
+ 669 00fa C4010000 		.4byte	.LASF21
+ 670 00fe 01       		.byte	0x1
+ 671 00ff CD       		.byte	0xcd
+ 672 0100 D4000000 		.4byte	0xd4
+ 673 0104 0C       		.uleb128 0xc
+ 674 0105 42020000 		.4byte	.LASF31
+ 675 0109 01       		.byte	0x1
+ 676 010a CF       		.byte	0xcf
+ 677 010b 10010000 		.4byte	0x110
+ 678 010f 00       		.byte	0
+ 679 0110 05       		.uleb128 0x5
+ 680 0111 04       		.byte	0x4
+ 681 0112 D4000000 		.4byte	0xd4
+ 682 0116 0D       		.uleb128 0xd
+ 683 0117 01       		.byte	0x1
+ 684 0118 4B000000 		.4byte	.LASF20
+ 685 011c 01       		.byte	0x1
+ 686 011d 0101     		.2byte	0x101
+ 687 011f 01       		.byte	0x1
+ 688 0120 01       		.byte	0x1
+ 689 0121 32010000 		.4byte	0x132
+ 690 0125 0E       		.uleb128 0xe
+ 691 0126 74010000 		.4byte	.LASF22
+ 692 012a 01       		.byte	0x1
+ 693 012b 0101     		.2byte	0x101
+ 694 012d 85000000 		.4byte	0x85
+ 695 0131 00       		.byte	0
+ 696 0132 09       		.uleb128 0x9
+ 697 0133 01       		.byte	0x1
+ 698 0134 7D010000 		.4byte	.LASF24
+ 699 0138 01       		.byte	0x1
+ 700 0139 2E01     		.2byte	0x12e
+ 701 013b 01       		.byte	0x1
+ 702 013c 01       		.byte	0x1
+ 703 013d 0F       		.uleb128 0xf
+ 704 013e 01       		.byte	0x1
+ 705 013f B6000000 		.4byte	.LASF25
+ 706 0143 01       		.byte	0x1
+ 707 0144 9C       		.byte	0x9c
+ 708 0145 01       		.byte	0x1
+ 709 0146 00000000 		.4byte	.LFB3
+ 710 014a 34000000 		.4byte	.LFE3
+ 711 014e 00000000 		.4byte	.LLST0
+ 712 0152 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 21
+
+
+ 713 0153 73010000 		.4byte	0x173
+ 714 0157 10       		.uleb128 0x10
+ 715 0158 0E000000 		.4byte	.LVL0
+ 716 015c 0D040000 		.4byte	0x40d
+ 717 0160 10       		.uleb128 0x10
+ 718 0161 14000000 		.4byte	.LVL1
+ 719 0165 17040000 		.4byte	0x417
+ 720 0169 10       		.uleb128 0x10
+ 721 016a 1A000000 		.4byte	.LVL2
+ 722 016e 17040000 		.4byte	0x417
+ 723 0172 00       		.byte	0
+ 724 0173 11       		.uleb128 0x11
+ 725 0174 01       		.byte	0x1
+ 726 0175 E3010000 		.4byte	.LASF26
+ 727 0179 01       		.byte	0x1
+ 728 017a 47       		.byte	0x47
+ 729 017b 01       		.byte	0x1
+ 730 017c 00000000 		.4byte	.LFB0
+ 731 0180 30000000 		.4byte	.LFE0
+ 732 0184 02       		.byte	0x2
+ 733 0185 7D       		.byte	0x7d
+ 734 0186 00       		.sleb128 0
+ 735 0187 01       		.byte	0x1
+ 736 0188 F4010000 		.4byte	0x1f4
+ 737 018c 12       		.uleb128 0x12
+ 738 018d E0000000 		.4byte	0xe0
+ 739 0191 00000000 		.4byte	.LBB22
+ 740 0195 00000000 		.4byte	.Ldebug_ranges0+0
+ 741 0199 01       		.byte	0x1
+ 742 019a 4A       		.byte	0x4a
+ 743 019b 13       		.uleb128 0x13
+ 744 019c EB000000 		.4byte	0xeb
+ 745 01a0 02000000 		.4byte	.LBB25
+ 746 01a4 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 747 01a8 01       		.byte	0x1
+ 748 01a9 4D       		.byte	0x4d
+ 749 01aa CA010000 		.4byte	0x1ca
+ 750 01ae 14       		.uleb128 0x14
+ 751 01af F9000000 		.4byte	0xf9
+ 752 01b3 06       		.byte	0x6
+ 753 01b4 03       		.byte	0x3
+ 754 01b5 00000000 		.4byte	isr_CTRL_Interrupt
+ 755 01b9 9F       		.byte	0x9f
+ 756 01ba 15       		.uleb128 0x15
+ 757 01bb 38000000 		.4byte	.Ldebug_ranges0+0x38
+ 758 01bf 16       		.uleb128 0x16
+ 759 01c0 04010000 		.4byte	0x104
+ 760 01c4 20000000 		.4byte	.LLST1
+ 761 01c8 00       		.byte	0
+ 762 01c9 00       		.byte	0
+ 763 01ca 13       		.uleb128 0x13
+ 764 01cb 16010000 		.4byte	0x116
+ 765 01cf 0C000000 		.4byte	.LBB31
+ 766 01d3 58000000 		.4byte	.Ldebug_ranges0+0x58
+ 767 01d7 01       		.byte	0x1
+ 768 01d8 50       		.byte	0x50
+ 769 01d9 E4010000 		.4byte	0x1e4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 22
+
+
+ 770 01dd 17       		.uleb128 0x17
+ 771 01de 25010000 		.4byte	0x125
+ 772 01e2 05       		.byte	0x5
+ 773 01e3 00       		.byte	0
+ 774 01e4 12       		.uleb128 0x12
+ 775 01e5 32010000 		.4byte	0x132
+ 776 01e9 12000000 		.4byte	.LBB37
+ 777 01ed 78000000 		.4byte	.Ldebug_ranges0+0x78
+ 778 01f1 01       		.byte	0x1
+ 779 01f2 53       		.byte	0x53
+ 780 01f3 00       		.byte	0
+ 781 01f4 11       		.uleb128 0x11
+ 782 01f5 01       		.byte	0x1
+ 783 01f6 0D030000 		.4byte	.LASF27
+ 784 01fa 01       		.byte	0x1
+ 785 01fb 65       		.byte	0x65
+ 786 01fc 01       		.byte	0x1
+ 787 01fd 00000000 		.4byte	.LFB1
+ 788 0201 28000000 		.4byte	.LFE1
+ 789 0205 02       		.byte	0x2
+ 790 0206 7D       		.byte	0x7d
+ 791 0207 00       		.sleb128 0
+ 792 0208 01       		.byte	0x1
+ 793 0209 81020000 		.4byte	0x281
+ 794 020d 18       		.uleb128 0x18
+ 795 020e C4010000 		.4byte	.LASF21
+ 796 0212 01       		.byte	0x1
+ 797 0213 65       		.byte	0x65
+ 798 0214 D4000000 		.4byte	0xd4
+ 799 0218 43000000 		.4byte	.LLST2
+ 800 021c 12       		.uleb128 0x12
+ 801 021d E0000000 		.4byte	0xe0
+ 802 0221 00000000 		.4byte	.LBB42
+ 803 0225 90000000 		.4byte	.Ldebug_ranges0+0x90
+ 804 0229 01       		.byte	0x1
+ 805 022a 68       		.byte	0x68
+ 806 022b 13       		.uleb128 0x13
+ 807 022c EB000000 		.4byte	0xeb
+ 808 0230 02000000 		.4byte	.LBB45
+ 809 0234 A8000000 		.4byte	.Ldebug_ranges0+0xa8
+ 810 0238 01       		.byte	0x1
+ 811 0239 6B       		.byte	0x6b
+ 812 023a 57020000 		.4byte	0x257
+ 813 023e 19       		.uleb128 0x19
+ 814 023f F9000000 		.4byte	0xf9
+ 815 0243 69000000 		.4byte	.LLST3
+ 816 0247 15       		.uleb128 0x15
+ 817 0248 C8000000 		.4byte	.Ldebug_ranges0+0xc8
+ 818 024c 16       		.uleb128 0x16
+ 819 024d 04010000 		.4byte	0x104
+ 820 0251 8F000000 		.4byte	.LLST4
+ 821 0255 00       		.byte	0
+ 822 0256 00       		.byte	0
+ 823 0257 13       		.uleb128 0x13
+ 824 0258 16010000 		.4byte	0x116
+ 825 025c 0A000000 		.4byte	.LBB51
+ 826 0260 E8000000 		.4byte	.Ldebug_ranges0+0xe8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 23
+
+
+ 827 0264 01       		.byte	0x1
+ 828 0265 6E       		.byte	0x6e
+ 829 0266 71020000 		.4byte	0x271
+ 830 026a 17       		.uleb128 0x17
+ 831 026b 25010000 		.4byte	0x125
+ 832 026f 05       		.byte	0x5
+ 833 0270 00       		.byte	0
+ 834 0271 12       		.uleb128 0x12
+ 835 0272 32010000 		.4byte	0x132
+ 836 0276 0E000000 		.4byte	.LBB55
+ 837 027a 00010000 		.4byte	.Ldebug_ranges0+0x100
+ 838 027e 01       		.byte	0x1
+ 839 027f 71       		.byte	0x71
+ 840 0280 00       		.byte	0
+ 841 0281 11       		.uleb128 0x11
+ 842 0282 01       		.byte	0x1
+ 843 0283 71000000 		.4byte	.LASF28
+ 844 0287 01       		.byte	0x1
+ 845 0288 82       		.byte	0x82
+ 846 0289 01       		.byte	0x1
+ 847 028a 00000000 		.4byte	.LFB2
+ 848 028e 1C000000 		.4byte	.LFE2
+ 849 0292 02       		.byte	0x2
+ 850 0293 7D       		.byte	0x7d
+ 851 0294 00       		.sleb128 0
+ 852 0295 01       		.byte	0x1
+ 853 0296 CC020000 		.4byte	0x2cc
+ 854 029a 12       		.uleb128 0x12
+ 855 029b E0000000 		.4byte	0xe0
+ 856 029f 00000000 		.4byte	.LBB60
+ 857 02a3 18010000 		.4byte	.Ldebug_ranges0+0x118
+ 858 02a7 01       		.byte	0x1
+ 859 02a8 85       		.byte	0x85
+ 860 02a9 1A       		.uleb128 0x1a
+ 861 02aa EB000000 		.4byte	0xeb
+ 862 02ae 02000000 		.4byte	.LBB63
+ 863 02b2 30010000 		.4byte	.Ldebug_ranges0+0x130
+ 864 02b6 01       		.byte	0x1
+ 865 02b7 88       		.byte	0x88
+ 866 02b8 1B       		.uleb128 0x1b
+ 867 02b9 F9000000 		.4byte	0xf9
+ 868 02bd 15       		.uleb128 0x15
+ 869 02be 48010000 		.4byte	.Ldebug_ranges0+0x148
+ 870 02c2 1C       		.uleb128 0x1c
+ 871 02c3 04010000 		.4byte	0x104
+ 872 02c7 01       		.byte	0x1
+ 873 02c8 51       		.byte	0x51
+ 874 02c9 00       		.byte	0
+ 875 02ca 00       		.byte	0
+ 876 02cb 00       		.byte	0
+ 877 02cc 1D       		.uleb128 0x1d
+ 878 02cd EB000000 		.4byte	0xeb
+ 879 02d1 00000000 		.4byte	.LFB4
+ 880 02d5 0C000000 		.4byte	.LFE4
+ 881 02d9 02       		.byte	0x2
+ 882 02da 7D       		.byte	0x7d
+ 883 02db 00       		.sleb128 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 24
+
+
+ 884 02dc 01       		.byte	0x1
+ 885 02dd F0020000 		.4byte	0x2f0
+ 886 02e1 14       		.uleb128 0x14
+ 887 02e2 F9000000 		.4byte	0xf9
+ 888 02e6 01       		.byte	0x1
+ 889 02e7 50       		.byte	0x50
+ 890 02e8 1C       		.uleb128 0x1c
+ 891 02e9 04010000 		.4byte	0x104
+ 892 02ed 01       		.byte	0x1
+ 893 02ee 51       		.byte	0x51
+ 894 02ef 00       		.byte	0
+ 895 02f0 1E       		.uleb128 0x1e
+ 896 02f1 01       		.byte	0x1
+ 897 02f2 8D000000 		.4byte	.LASF29
+ 898 02f6 01       		.byte	0x1
+ 899 02f7 E5       		.byte	0xe5
+ 900 02f8 01       		.byte	0x1
+ 901 02f9 D4000000 		.4byte	0xd4
+ 902 02fd 00000000 		.4byte	.LFB5
+ 903 0301 0C000000 		.4byte	.LFE5
+ 904 0305 02       		.byte	0x2
+ 905 0306 7D       		.byte	0x7d
+ 906 0307 00       		.sleb128 0
+ 907 0308 01       		.byte	0x1
+ 908 0309 1D030000 		.4byte	0x31d
+ 909 030d 1F       		.uleb128 0x1f
+ 910 030e 42020000 		.4byte	.LASF31
+ 911 0312 01       		.byte	0x1
+ 912 0313 E7       		.byte	0xe7
+ 913 0314 10010000 		.4byte	0x110
+ 914 0318 B2000000 		.4byte	.LLST5
+ 915 031c 00       		.byte	0
+ 916 031d 1D       		.uleb128 0x1d
+ 917 031e 16010000 		.4byte	0x116
+ 918 0322 00000000 		.4byte	.LFB6
+ 919 0326 10000000 		.4byte	.LFE6
+ 920 032a 02       		.byte	0x2
+ 921 032b 7D       		.byte	0x7d
+ 922 032c 00       		.sleb128 0
+ 923 032d 01       		.byte	0x1
+ 924 032e 3C030000 		.4byte	0x33c
+ 925 0332 19       		.uleb128 0x19
+ 926 0333 25010000 		.4byte	0x125
+ 927 0337 D6000000 		.4byte	.LLST6
+ 928 033b 00       		.byte	0
+ 929 033c 20       		.uleb128 0x20
+ 930 033d 01       		.byte	0x1
+ 931 033e AF010000 		.4byte	.LASF30
+ 932 0342 01       		.byte	0x1
+ 933 0343 1501     		.2byte	0x115
+ 934 0345 01       		.byte	0x1
+ 935 0346 85000000 		.4byte	0x85
+ 936 034a 00000000 		.4byte	.LFB7
+ 937 034e 0C000000 		.4byte	.LFE7
+ 938 0352 02       		.byte	0x2
+ 939 0353 7D       		.byte	0x7d
+ 940 0354 00       		.sleb128 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 25
+
+
+ 941 0355 01       		.byte	0x1
+ 942 0356 6B030000 		.4byte	0x36b
+ 943 035a 21       		.uleb128 0x21
+ 944 035b 74010000 		.4byte	.LASF22
+ 945 035f 01       		.byte	0x1
+ 946 0360 1701     		.2byte	0x117
+ 947 0362 85000000 		.4byte	0x85
+ 948 0366 F7000000 		.4byte	.LLST7
+ 949 036a 00       		.byte	0
+ 950 036b 22       		.uleb128 0x22
+ 951 036c 32010000 		.4byte	0x132
+ 952 0370 00000000 		.4byte	.LFB8
+ 953 0374 0C000000 		.4byte	.LFE8
+ 954 0378 02       		.byte	0x2
+ 955 0379 7D       		.byte	0x7d
+ 956 037a 00       		.sleb128 0
+ 957 037b 01       		.byte	0x1
+ 958 037c 23       		.uleb128 0x23
+ 959 037d 01       		.byte	0x1
+ 960 037e 06000000 		.4byte	.LASF44
+ 961 0382 01       		.byte	0x1
+ 962 0383 4301     		.2byte	0x143
+ 963 0385 01       		.byte	0x1
+ 964 0386 85000000 		.4byte	0x85
+ 965 038a 00000000 		.4byte	.LFB9
+ 966 038e 10000000 		.4byte	.LFE9
+ 967 0392 02       		.byte	0x2
+ 968 0393 7D       		.byte	0x7d
+ 969 0394 00       		.sleb128 0
+ 970 0395 01       		.byte	0x1
+ 971 0396 22       		.uleb128 0x22
+ 972 0397 E0000000 		.4byte	0xe0
+ 973 039b 00000000 		.4byte	.LFB10
+ 974 039f 0C000000 		.4byte	.LFE10
+ 975 03a3 02       		.byte	0x2
+ 976 03a4 7D       		.byte	0x7d
+ 977 03a5 00       		.sleb128 0
+ 978 03a6 01       		.byte	0x1
+ 979 03a7 24       		.uleb128 0x24
+ 980 03a8 01       		.byte	0x1
+ 981 03a9 60010000 		.4byte	.LASF32
+ 982 03ad 01       		.byte	0x1
+ 983 03ae 6E01     		.2byte	0x16e
+ 984 03b0 01       		.byte	0x1
+ 985 03b1 00000000 		.4byte	.LFB11
+ 986 03b5 0C000000 		.4byte	.LFE11
+ 987 03b9 02       		.byte	0x2
+ 988 03ba 7D       		.byte	0x7d
+ 989 03bb 00       		.sleb128 0
+ 990 03bc 01       		.byte	0x1
+ 991 03bd 24       		.uleb128 0x24
+ 992 03be 01       		.byte	0x1
+ 993 03bf A0000000 		.4byte	.LASF33
+ 994 03c3 01       		.byte	0x1
+ 995 03c4 8201     		.2byte	0x182
+ 996 03c6 01       		.byte	0x1
+ 997 03c7 00000000 		.4byte	.LFB12
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 26
+
+
+ 998 03cb 0C000000 		.4byte	.LFE12
+ 999 03cf 02       		.byte	0x2
+ 1000 03d0 7D       		.byte	0x7d
+ 1001 03d1 00       		.sleb128 0
+ 1002 03d2 01       		.byte	0x1
+ 1003 03d3 25       		.uleb128 0x25
+ 1004 03d4 66000000 		.4byte	.LASF40
+ 1005 03d8 01       		.byte	0x1
+ 1006 03d9 26       		.uleb128 0x26
+ 1007 03da FF010000 		.4byte	.LASF34
+ 1008 03de 01       		.byte	0x1
+ 1009 03df 21       		.byte	0x21
+ 1010 03e0 90000000 		.4byte	0x90
+ 1011 03e4 01       		.byte	0x1
+ 1012 03e5 01       		.byte	0x1
+ 1013 03e6 26       		.uleb128 0x26
+ 1014 03e7 DB000000 		.4byte	.LASF35
+ 1015 03eb 01       		.byte	0x1
+ 1016 03ec 22       		.byte	0x22
+ 1017 03ed 90000000 		.4byte	0x90
+ 1018 03f1 01       		.byte	0x1
+ 1019 03f2 01       		.byte	0x1
+ 1020 03f3 26       		.uleb128 0x26
+ 1021 03f4 B3020000 		.4byte	.LASF36
+ 1022 03f8 01       		.byte	0x1
+ 1023 03f9 29       		.byte	0x29
+ 1024 03fa D3030000 		.4byte	0x3d3
+ 1025 03fe 01       		.byte	0x1
+ 1026 03ff 01       		.byte	0x1
+ 1027 0400 26       		.uleb128 0x26
+ 1028 0401 1C020000 		.4byte	.LASF37
+ 1029 0405 01       		.byte	0x1
+ 1030 0406 2A       		.byte	0x2a
+ 1031 0407 D3030000 		.4byte	0x3d3
+ 1032 040b 01       		.byte	0x1
+ 1033 040c 01       		.byte	0x1
+ 1034 040d 27       		.uleb128 0x27
+ 1035 040e 01       		.byte	0x1
+ 1036 040f 18000000 		.4byte	.LASF38
+ 1037 0413 03       		.byte	0x3
+ 1038 0414 0E       		.byte	0xe
+ 1039 0415 01       		.byte	0x1
+ 1040 0416 01       		.byte	0x1
+ 1041 0417 28       		.uleb128 0x28
+ 1042 0418 01       		.byte	0x1
+ 1043 0419 BC020000 		.4byte	.LASF39
+ 1044 041d 04       		.byte	0x4
+ 1045 041e 14       		.byte	0x14
+ 1046 041f 01       		.byte	0x1
+ 1047 0420 01       		.byte	0x1
+ 1048 0421 2B040000 		.4byte	0x42b
+ 1049 0425 29       		.uleb128 0x29
+ 1050 0426 2B040000 		.4byte	0x42b
+ 1051 042a 00       		.byte	0
+ 1052 042b 05       		.uleb128 0x5
+ 1053 042c 04       		.byte	0x4
+ 1054 042d 31040000 		.4byte	0x431
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 27
+
+
+ 1055 0431 25       		.uleb128 0x25
+ 1056 0432 66000000 		.4byte	.LASF40
+ 1057 0436 01       		.byte	0x1
+ 1058 0437 00       		.byte	0
+ 1059              		.section	.debug_abbrev,"",%progbits
+ 1060              	.Ldebug_abbrev0:
+ 1061 0000 01       		.uleb128 0x1
+ 1062 0001 11       		.uleb128 0x11
+ 1063 0002 01       		.byte	0x1
+ 1064 0003 25       		.uleb128 0x25
+ 1065 0004 0E       		.uleb128 0xe
+ 1066 0005 13       		.uleb128 0x13
+ 1067 0006 0B       		.uleb128 0xb
+ 1068 0007 03       		.uleb128 0x3
+ 1069 0008 0E       		.uleb128 0xe
+ 1070 0009 1B       		.uleb128 0x1b
+ 1071 000a 0E       		.uleb128 0xe
+ 1072 000b 55       		.uleb128 0x55
+ 1073 000c 06       		.uleb128 0x6
+ 1074 000d 11       		.uleb128 0x11
+ 1075 000e 01       		.uleb128 0x1
+ 1076 000f 52       		.uleb128 0x52
+ 1077 0010 01       		.uleb128 0x1
+ 1078 0011 10       		.uleb128 0x10
+ 1079 0012 06       		.uleb128 0x6
+ 1080 0013 00       		.byte	0
+ 1081 0014 00       		.byte	0
+ 1082 0015 02       		.uleb128 0x2
+ 1083 0016 24       		.uleb128 0x24
+ 1084 0017 00       		.byte	0
+ 1085 0018 0B       		.uleb128 0xb
+ 1086 0019 0B       		.uleb128 0xb
+ 1087 001a 3E       		.uleb128 0x3e
+ 1088 001b 0B       		.uleb128 0xb
+ 1089 001c 03       		.uleb128 0x3
+ 1090 001d 0E       		.uleb128 0xe
+ 1091 001e 00       		.byte	0
+ 1092 001f 00       		.byte	0
+ 1093 0020 03       		.uleb128 0x3
+ 1094 0021 24       		.uleb128 0x24
+ 1095 0022 00       		.byte	0
+ 1096 0023 0B       		.uleb128 0xb
+ 1097 0024 0B       		.uleb128 0xb
+ 1098 0025 3E       		.uleb128 0x3e
+ 1099 0026 0B       		.uleb128 0xb
+ 1100 0027 03       		.uleb128 0x3
+ 1101 0028 08       		.uleb128 0x8
+ 1102 0029 00       		.byte	0
+ 1103 002a 00       		.byte	0
+ 1104 002b 04       		.uleb128 0x4
+ 1105 002c 15       		.uleb128 0x15
+ 1106 002d 00       		.byte	0
+ 1107 002e 27       		.uleb128 0x27
+ 1108 002f 0C       		.uleb128 0xc
+ 1109 0030 00       		.byte	0
+ 1110 0031 00       		.byte	0
+ 1111 0032 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 28
+
+
+ 1112 0033 0F       		.uleb128 0xf
+ 1113 0034 00       		.byte	0
+ 1114 0035 0B       		.uleb128 0xb
+ 1115 0036 0B       		.uleb128 0xb
+ 1116 0037 49       		.uleb128 0x49
+ 1117 0038 13       		.uleb128 0x13
+ 1118 0039 00       		.byte	0
+ 1119 003a 00       		.byte	0
+ 1120 003b 06       		.uleb128 0x6
+ 1121 003c 16       		.uleb128 0x16
+ 1122 003d 00       		.byte	0
+ 1123 003e 03       		.uleb128 0x3
+ 1124 003f 0E       		.uleb128 0xe
+ 1125 0040 3A       		.uleb128 0x3a
+ 1126 0041 0B       		.uleb128 0xb
+ 1127 0042 3B       		.uleb128 0x3b
+ 1128 0043 0B       		.uleb128 0xb
+ 1129 0044 49       		.uleb128 0x49
+ 1130 0045 13       		.uleb128 0x13
+ 1131 0046 00       		.byte	0
+ 1132 0047 00       		.byte	0
+ 1133 0048 07       		.uleb128 0x7
+ 1134 0049 35       		.uleb128 0x35
+ 1135 004a 00       		.byte	0
+ 1136 004b 49       		.uleb128 0x49
+ 1137 004c 13       		.uleb128 0x13
+ 1138 004d 00       		.byte	0
+ 1139 004e 00       		.byte	0
+ 1140 004f 08       		.uleb128 0x8
+ 1141 0050 16       		.uleb128 0x16
+ 1142 0051 00       		.byte	0
+ 1143 0052 03       		.uleb128 0x3
+ 1144 0053 0E       		.uleb128 0xe
+ 1145 0054 3A       		.uleb128 0x3a
+ 1146 0055 0B       		.uleb128 0xb
+ 1147 0056 3B       		.uleb128 0x3b
+ 1148 0057 05       		.uleb128 0x5
+ 1149 0058 49       		.uleb128 0x49
+ 1150 0059 13       		.uleb128 0x13
+ 1151 005a 00       		.byte	0
+ 1152 005b 00       		.byte	0
+ 1153 005c 09       		.uleb128 0x9
+ 1154 005d 2E       		.uleb128 0x2e
+ 1155 005e 00       		.byte	0
+ 1156 005f 3F       		.uleb128 0x3f
+ 1157 0060 0C       		.uleb128 0xc
+ 1158 0061 03       		.uleb128 0x3
+ 1159 0062 0E       		.uleb128 0xe
+ 1160 0063 3A       		.uleb128 0x3a
+ 1161 0064 0B       		.uleb128 0xb
+ 1162 0065 3B       		.uleb128 0x3b
+ 1163 0066 05       		.uleb128 0x5
+ 1164 0067 27       		.uleb128 0x27
+ 1165 0068 0C       		.uleb128 0xc
+ 1166 0069 20       		.uleb128 0x20
+ 1167 006a 0B       		.uleb128 0xb
+ 1168 006b 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 29
+
+
+ 1169 006c 00       		.byte	0
+ 1170 006d 0A       		.uleb128 0xa
+ 1171 006e 2E       		.uleb128 0x2e
+ 1172 006f 01       		.byte	0x1
+ 1173 0070 3F       		.uleb128 0x3f
+ 1174 0071 0C       		.uleb128 0xc
+ 1175 0072 03       		.uleb128 0x3
+ 1176 0073 0E       		.uleb128 0xe
+ 1177 0074 3A       		.uleb128 0x3a
+ 1178 0075 0B       		.uleb128 0xb
+ 1179 0076 3B       		.uleb128 0x3b
+ 1180 0077 0B       		.uleb128 0xb
+ 1181 0078 27       		.uleb128 0x27
+ 1182 0079 0C       		.uleb128 0xc
+ 1183 007a 20       		.uleb128 0x20
+ 1184 007b 0B       		.uleb128 0xb
+ 1185 007c 01       		.uleb128 0x1
+ 1186 007d 13       		.uleb128 0x13
+ 1187 007e 00       		.byte	0
+ 1188 007f 00       		.byte	0
+ 1189 0080 0B       		.uleb128 0xb
+ 1190 0081 05       		.uleb128 0x5
+ 1191 0082 00       		.byte	0
+ 1192 0083 03       		.uleb128 0x3
+ 1193 0084 0E       		.uleb128 0xe
+ 1194 0085 3A       		.uleb128 0x3a
+ 1195 0086 0B       		.uleb128 0xb
+ 1196 0087 3B       		.uleb128 0x3b
+ 1197 0088 0B       		.uleb128 0xb
+ 1198 0089 49       		.uleb128 0x49
+ 1199 008a 13       		.uleb128 0x13
+ 1200 008b 00       		.byte	0
+ 1201 008c 00       		.byte	0
+ 1202 008d 0C       		.uleb128 0xc
+ 1203 008e 34       		.uleb128 0x34
+ 1204 008f 00       		.byte	0
+ 1205 0090 03       		.uleb128 0x3
+ 1206 0091 0E       		.uleb128 0xe
+ 1207 0092 3A       		.uleb128 0x3a
+ 1208 0093 0B       		.uleb128 0xb
+ 1209 0094 3B       		.uleb128 0x3b
+ 1210 0095 0B       		.uleb128 0xb
+ 1211 0096 49       		.uleb128 0x49
+ 1212 0097 13       		.uleb128 0x13
+ 1213 0098 00       		.byte	0
+ 1214 0099 00       		.byte	0
+ 1215 009a 0D       		.uleb128 0xd
+ 1216 009b 2E       		.uleb128 0x2e
+ 1217 009c 01       		.byte	0x1
+ 1218 009d 3F       		.uleb128 0x3f
+ 1219 009e 0C       		.uleb128 0xc
+ 1220 009f 03       		.uleb128 0x3
+ 1221 00a0 0E       		.uleb128 0xe
+ 1222 00a1 3A       		.uleb128 0x3a
+ 1223 00a2 0B       		.uleb128 0xb
+ 1224 00a3 3B       		.uleb128 0x3b
+ 1225 00a4 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 30
+
+
+ 1226 00a5 27       		.uleb128 0x27
+ 1227 00a6 0C       		.uleb128 0xc
+ 1228 00a7 20       		.uleb128 0x20
+ 1229 00a8 0B       		.uleb128 0xb
+ 1230 00a9 01       		.uleb128 0x1
+ 1231 00aa 13       		.uleb128 0x13
+ 1232 00ab 00       		.byte	0
+ 1233 00ac 00       		.byte	0
+ 1234 00ad 0E       		.uleb128 0xe
+ 1235 00ae 05       		.uleb128 0x5
+ 1236 00af 00       		.byte	0
+ 1237 00b0 03       		.uleb128 0x3
+ 1238 00b1 0E       		.uleb128 0xe
+ 1239 00b2 3A       		.uleb128 0x3a
+ 1240 00b3 0B       		.uleb128 0xb
+ 1241 00b4 3B       		.uleb128 0x3b
+ 1242 00b5 05       		.uleb128 0x5
+ 1243 00b6 49       		.uleb128 0x49
+ 1244 00b7 13       		.uleb128 0x13
+ 1245 00b8 00       		.byte	0
+ 1246 00b9 00       		.byte	0
+ 1247 00ba 0F       		.uleb128 0xf
+ 1248 00bb 2E       		.uleb128 0x2e
+ 1249 00bc 01       		.byte	0x1
+ 1250 00bd 3F       		.uleb128 0x3f
+ 1251 00be 0C       		.uleb128 0xc
+ 1252 00bf 03       		.uleb128 0x3
+ 1253 00c0 0E       		.uleb128 0xe
+ 1254 00c1 3A       		.uleb128 0x3a
+ 1255 00c2 0B       		.uleb128 0xb
+ 1256 00c3 3B       		.uleb128 0x3b
+ 1257 00c4 0B       		.uleb128 0xb
+ 1258 00c5 27       		.uleb128 0x27
+ 1259 00c6 0C       		.uleb128 0xc
+ 1260 00c7 11       		.uleb128 0x11
+ 1261 00c8 01       		.uleb128 0x1
+ 1262 00c9 12       		.uleb128 0x12
+ 1263 00ca 01       		.uleb128 0x1
+ 1264 00cb 40       		.uleb128 0x40
+ 1265 00cc 06       		.uleb128 0x6
+ 1266 00cd 9742     		.uleb128 0x2117
+ 1267 00cf 0C       		.uleb128 0xc
+ 1268 00d0 01       		.uleb128 0x1
+ 1269 00d1 13       		.uleb128 0x13
+ 1270 00d2 00       		.byte	0
+ 1271 00d3 00       		.byte	0
+ 1272 00d4 10       		.uleb128 0x10
+ 1273 00d5 898201   		.uleb128 0x4109
+ 1274 00d8 00       		.byte	0
+ 1275 00d9 11       		.uleb128 0x11
+ 1276 00da 01       		.uleb128 0x1
+ 1277 00db 31       		.uleb128 0x31
+ 1278 00dc 13       		.uleb128 0x13
+ 1279 00dd 00       		.byte	0
+ 1280 00de 00       		.byte	0
+ 1281 00df 11       		.uleb128 0x11
+ 1282 00e0 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 31
+
+
+ 1283 00e1 01       		.byte	0x1
+ 1284 00e2 3F       		.uleb128 0x3f
+ 1285 00e3 0C       		.uleb128 0xc
+ 1286 00e4 03       		.uleb128 0x3
+ 1287 00e5 0E       		.uleb128 0xe
+ 1288 00e6 3A       		.uleb128 0x3a
+ 1289 00e7 0B       		.uleb128 0xb
+ 1290 00e8 3B       		.uleb128 0x3b
+ 1291 00e9 0B       		.uleb128 0xb
+ 1292 00ea 27       		.uleb128 0x27
+ 1293 00eb 0C       		.uleb128 0xc
+ 1294 00ec 11       		.uleb128 0x11
+ 1295 00ed 01       		.uleb128 0x1
+ 1296 00ee 12       		.uleb128 0x12
+ 1297 00ef 01       		.uleb128 0x1
+ 1298 00f0 40       		.uleb128 0x40
+ 1299 00f1 0A       		.uleb128 0xa
+ 1300 00f2 9742     		.uleb128 0x2117
+ 1301 00f4 0C       		.uleb128 0xc
+ 1302 00f5 01       		.uleb128 0x1
+ 1303 00f6 13       		.uleb128 0x13
+ 1304 00f7 00       		.byte	0
+ 1305 00f8 00       		.byte	0
+ 1306 00f9 12       		.uleb128 0x12
+ 1307 00fa 1D       		.uleb128 0x1d
+ 1308 00fb 00       		.byte	0
+ 1309 00fc 31       		.uleb128 0x31
+ 1310 00fd 13       		.uleb128 0x13
+ 1311 00fe 52       		.uleb128 0x52
+ 1312 00ff 01       		.uleb128 0x1
+ 1313 0100 55       		.uleb128 0x55
+ 1314 0101 06       		.uleb128 0x6
+ 1315 0102 58       		.uleb128 0x58
+ 1316 0103 0B       		.uleb128 0xb
+ 1317 0104 59       		.uleb128 0x59
+ 1318 0105 0B       		.uleb128 0xb
+ 1319 0106 00       		.byte	0
+ 1320 0107 00       		.byte	0
+ 1321 0108 13       		.uleb128 0x13
+ 1322 0109 1D       		.uleb128 0x1d
+ 1323 010a 01       		.byte	0x1
+ 1324 010b 31       		.uleb128 0x31
+ 1325 010c 13       		.uleb128 0x13
+ 1326 010d 52       		.uleb128 0x52
+ 1327 010e 01       		.uleb128 0x1
+ 1328 010f 55       		.uleb128 0x55
+ 1329 0110 06       		.uleb128 0x6
+ 1330 0111 58       		.uleb128 0x58
+ 1331 0112 0B       		.uleb128 0xb
+ 1332 0113 59       		.uleb128 0x59
+ 1333 0114 0B       		.uleb128 0xb
+ 1334 0115 01       		.uleb128 0x1
+ 1335 0116 13       		.uleb128 0x13
+ 1336 0117 00       		.byte	0
+ 1337 0118 00       		.byte	0
+ 1338 0119 14       		.uleb128 0x14
+ 1339 011a 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 32
+
+
+ 1340 011b 00       		.byte	0
+ 1341 011c 31       		.uleb128 0x31
+ 1342 011d 13       		.uleb128 0x13
+ 1343 011e 02       		.uleb128 0x2
+ 1344 011f 0A       		.uleb128 0xa
+ 1345 0120 00       		.byte	0
+ 1346 0121 00       		.byte	0
+ 1347 0122 15       		.uleb128 0x15
+ 1348 0123 0B       		.uleb128 0xb
+ 1349 0124 01       		.byte	0x1
+ 1350 0125 55       		.uleb128 0x55
+ 1351 0126 06       		.uleb128 0x6
+ 1352 0127 00       		.byte	0
+ 1353 0128 00       		.byte	0
+ 1354 0129 16       		.uleb128 0x16
+ 1355 012a 34       		.uleb128 0x34
+ 1356 012b 00       		.byte	0
+ 1357 012c 31       		.uleb128 0x31
+ 1358 012d 13       		.uleb128 0x13
+ 1359 012e 02       		.uleb128 0x2
+ 1360 012f 06       		.uleb128 0x6
+ 1361 0130 00       		.byte	0
+ 1362 0131 00       		.byte	0
+ 1363 0132 17       		.uleb128 0x17
+ 1364 0133 05       		.uleb128 0x5
+ 1365 0134 00       		.byte	0
+ 1366 0135 31       		.uleb128 0x31
+ 1367 0136 13       		.uleb128 0x13
+ 1368 0137 1C       		.uleb128 0x1c
+ 1369 0138 0B       		.uleb128 0xb
+ 1370 0139 00       		.byte	0
+ 1371 013a 00       		.byte	0
+ 1372 013b 18       		.uleb128 0x18
+ 1373 013c 05       		.uleb128 0x5
+ 1374 013d 00       		.byte	0
+ 1375 013e 03       		.uleb128 0x3
+ 1376 013f 0E       		.uleb128 0xe
+ 1377 0140 3A       		.uleb128 0x3a
+ 1378 0141 0B       		.uleb128 0xb
+ 1379 0142 3B       		.uleb128 0x3b
+ 1380 0143 0B       		.uleb128 0xb
+ 1381 0144 49       		.uleb128 0x49
+ 1382 0145 13       		.uleb128 0x13
+ 1383 0146 02       		.uleb128 0x2
+ 1384 0147 06       		.uleb128 0x6
+ 1385 0148 00       		.byte	0
+ 1386 0149 00       		.byte	0
+ 1387 014a 19       		.uleb128 0x19
+ 1388 014b 05       		.uleb128 0x5
+ 1389 014c 00       		.byte	0
+ 1390 014d 31       		.uleb128 0x31
+ 1391 014e 13       		.uleb128 0x13
+ 1392 014f 02       		.uleb128 0x2
+ 1393 0150 06       		.uleb128 0x6
+ 1394 0151 00       		.byte	0
+ 1395 0152 00       		.byte	0
+ 1396 0153 1A       		.uleb128 0x1a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 33
+
+
+ 1397 0154 1D       		.uleb128 0x1d
+ 1398 0155 01       		.byte	0x1
+ 1399 0156 31       		.uleb128 0x31
+ 1400 0157 13       		.uleb128 0x13
+ 1401 0158 52       		.uleb128 0x52
+ 1402 0159 01       		.uleb128 0x1
+ 1403 015a 55       		.uleb128 0x55
+ 1404 015b 06       		.uleb128 0x6
+ 1405 015c 58       		.uleb128 0x58
+ 1406 015d 0B       		.uleb128 0xb
+ 1407 015e 59       		.uleb128 0x59
+ 1408 015f 0B       		.uleb128 0xb
+ 1409 0160 00       		.byte	0
+ 1410 0161 00       		.byte	0
+ 1411 0162 1B       		.uleb128 0x1b
+ 1412 0163 05       		.uleb128 0x5
+ 1413 0164 00       		.byte	0
+ 1414 0165 31       		.uleb128 0x31
+ 1415 0166 13       		.uleb128 0x13
+ 1416 0167 00       		.byte	0
+ 1417 0168 00       		.byte	0
+ 1418 0169 1C       		.uleb128 0x1c
+ 1419 016a 34       		.uleb128 0x34
+ 1420 016b 00       		.byte	0
+ 1421 016c 31       		.uleb128 0x31
+ 1422 016d 13       		.uleb128 0x13
+ 1423 016e 02       		.uleb128 0x2
+ 1424 016f 0A       		.uleb128 0xa
+ 1425 0170 00       		.byte	0
+ 1426 0171 00       		.byte	0
+ 1427 0172 1D       		.uleb128 0x1d
+ 1428 0173 2E       		.uleb128 0x2e
+ 1429 0174 01       		.byte	0x1
+ 1430 0175 31       		.uleb128 0x31
+ 1431 0176 13       		.uleb128 0x13
+ 1432 0177 11       		.uleb128 0x11
+ 1433 0178 01       		.uleb128 0x1
+ 1434 0179 12       		.uleb128 0x12
+ 1435 017a 01       		.uleb128 0x1
+ 1436 017b 40       		.uleb128 0x40
+ 1437 017c 0A       		.uleb128 0xa
+ 1438 017d 9742     		.uleb128 0x2117
+ 1439 017f 0C       		.uleb128 0xc
+ 1440 0180 01       		.uleb128 0x1
+ 1441 0181 13       		.uleb128 0x13
+ 1442 0182 00       		.byte	0
+ 1443 0183 00       		.byte	0
+ 1444 0184 1E       		.uleb128 0x1e
+ 1445 0185 2E       		.uleb128 0x2e
+ 1446 0186 01       		.byte	0x1
+ 1447 0187 3F       		.uleb128 0x3f
+ 1448 0188 0C       		.uleb128 0xc
+ 1449 0189 03       		.uleb128 0x3
+ 1450 018a 0E       		.uleb128 0xe
+ 1451 018b 3A       		.uleb128 0x3a
+ 1452 018c 0B       		.uleb128 0xb
+ 1453 018d 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 34
+
+
+ 1454 018e 0B       		.uleb128 0xb
+ 1455 018f 27       		.uleb128 0x27
+ 1456 0190 0C       		.uleb128 0xc
+ 1457 0191 49       		.uleb128 0x49
+ 1458 0192 13       		.uleb128 0x13
+ 1459 0193 11       		.uleb128 0x11
+ 1460 0194 01       		.uleb128 0x1
+ 1461 0195 12       		.uleb128 0x12
+ 1462 0196 01       		.uleb128 0x1
+ 1463 0197 40       		.uleb128 0x40
+ 1464 0198 0A       		.uleb128 0xa
+ 1465 0199 9742     		.uleb128 0x2117
+ 1466 019b 0C       		.uleb128 0xc
+ 1467 019c 01       		.uleb128 0x1
+ 1468 019d 13       		.uleb128 0x13
+ 1469 019e 00       		.byte	0
+ 1470 019f 00       		.byte	0
+ 1471 01a0 1F       		.uleb128 0x1f
+ 1472 01a1 34       		.uleb128 0x34
+ 1473 01a2 00       		.byte	0
+ 1474 01a3 03       		.uleb128 0x3
+ 1475 01a4 0E       		.uleb128 0xe
+ 1476 01a5 3A       		.uleb128 0x3a
+ 1477 01a6 0B       		.uleb128 0xb
+ 1478 01a7 3B       		.uleb128 0x3b
+ 1479 01a8 0B       		.uleb128 0xb
+ 1480 01a9 49       		.uleb128 0x49
+ 1481 01aa 13       		.uleb128 0x13
+ 1482 01ab 02       		.uleb128 0x2
+ 1483 01ac 06       		.uleb128 0x6
+ 1484 01ad 00       		.byte	0
+ 1485 01ae 00       		.byte	0
+ 1486 01af 20       		.uleb128 0x20
+ 1487 01b0 2E       		.uleb128 0x2e
+ 1488 01b1 01       		.byte	0x1
+ 1489 01b2 3F       		.uleb128 0x3f
+ 1490 01b3 0C       		.uleb128 0xc
+ 1491 01b4 03       		.uleb128 0x3
+ 1492 01b5 0E       		.uleb128 0xe
+ 1493 01b6 3A       		.uleb128 0x3a
+ 1494 01b7 0B       		.uleb128 0xb
+ 1495 01b8 3B       		.uleb128 0x3b
+ 1496 01b9 05       		.uleb128 0x5
+ 1497 01ba 27       		.uleb128 0x27
+ 1498 01bb 0C       		.uleb128 0xc
+ 1499 01bc 49       		.uleb128 0x49
+ 1500 01bd 13       		.uleb128 0x13
+ 1501 01be 11       		.uleb128 0x11
+ 1502 01bf 01       		.uleb128 0x1
+ 1503 01c0 12       		.uleb128 0x12
+ 1504 01c1 01       		.uleb128 0x1
+ 1505 01c2 40       		.uleb128 0x40
+ 1506 01c3 0A       		.uleb128 0xa
+ 1507 01c4 9742     		.uleb128 0x2117
+ 1508 01c6 0C       		.uleb128 0xc
+ 1509 01c7 01       		.uleb128 0x1
+ 1510 01c8 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 35
+
+
+ 1511 01c9 00       		.byte	0
+ 1512 01ca 00       		.byte	0
+ 1513 01cb 21       		.uleb128 0x21
+ 1514 01cc 34       		.uleb128 0x34
+ 1515 01cd 00       		.byte	0
+ 1516 01ce 03       		.uleb128 0x3
+ 1517 01cf 0E       		.uleb128 0xe
+ 1518 01d0 3A       		.uleb128 0x3a
+ 1519 01d1 0B       		.uleb128 0xb
+ 1520 01d2 3B       		.uleb128 0x3b
+ 1521 01d3 05       		.uleb128 0x5
+ 1522 01d4 49       		.uleb128 0x49
+ 1523 01d5 13       		.uleb128 0x13
+ 1524 01d6 02       		.uleb128 0x2
+ 1525 01d7 06       		.uleb128 0x6
+ 1526 01d8 00       		.byte	0
+ 1527 01d9 00       		.byte	0
+ 1528 01da 22       		.uleb128 0x22
+ 1529 01db 2E       		.uleb128 0x2e
+ 1530 01dc 00       		.byte	0
+ 1531 01dd 31       		.uleb128 0x31
+ 1532 01de 13       		.uleb128 0x13
+ 1533 01df 11       		.uleb128 0x11
+ 1534 01e0 01       		.uleb128 0x1
+ 1535 01e1 12       		.uleb128 0x12
+ 1536 01e2 01       		.uleb128 0x1
+ 1537 01e3 40       		.uleb128 0x40
+ 1538 01e4 0A       		.uleb128 0xa
+ 1539 01e5 9742     		.uleb128 0x2117
+ 1540 01e7 0C       		.uleb128 0xc
+ 1541 01e8 00       		.byte	0
+ 1542 01e9 00       		.byte	0
+ 1543 01ea 23       		.uleb128 0x23
+ 1544 01eb 2E       		.uleb128 0x2e
+ 1545 01ec 00       		.byte	0
+ 1546 01ed 3F       		.uleb128 0x3f
+ 1547 01ee 0C       		.uleb128 0xc
+ 1548 01ef 03       		.uleb128 0x3
+ 1549 01f0 0E       		.uleb128 0xe
+ 1550 01f1 3A       		.uleb128 0x3a
+ 1551 01f2 0B       		.uleb128 0xb
+ 1552 01f3 3B       		.uleb128 0x3b
+ 1553 01f4 05       		.uleb128 0x5
+ 1554 01f5 27       		.uleb128 0x27
+ 1555 01f6 0C       		.uleb128 0xc
+ 1556 01f7 49       		.uleb128 0x49
+ 1557 01f8 13       		.uleb128 0x13
+ 1558 01f9 11       		.uleb128 0x11
+ 1559 01fa 01       		.uleb128 0x1
+ 1560 01fb 12       		.uleb128 0x12
+ 1561 01fc 01       		.uleb128 0x1
+ 1562 01fd 40       		.uleb128 0x40
+ 1563 01fe 0A       		.uleb128 0xa
+ 1564 01ff 9742     		.uleb128 0x2117
+ 1565 0201 0C       		.uleb128 0xc
+ 1566 0202 00       		.byte	0
+ 1567 0203 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 36
+
+
+ 1568 0204 24       		.uleb128 0x24
+ 1569 0205 2E       		.uleb128 0x2e
+ 1570 0206 00       		.byte	0
+ 1571 0207 3F       		.uleb128 0x3f
+ 1572 0208 0C       		.uleb128 0xc
+ 1573 0209 03       		.uleb128 0x3
+ 1574 020a 0E       		.uleb128 0xe
+ 1575 020b 3A       		.uleb128 0x3a
+ 1576 020c 0B       		.uleb128 0xb
+ 1577 020d 3B       		.uleb128 0x3b
+ 1578 020e 05       		.uleb128 0x5
+ 1579 020f 27       		.uleb128 0x27
+ 1580 0210 0C       		.uleb128 0xc
+ 1581 0211 11       		.uleb128 0x11
+ 1582 0212 01       		.uleb128 0x1
+ 1583 0213 12       		.uleb128 0x12
+ 1584 0214 01       		.uleb128 0x1
+ 1585 0215 40       		.uleb128 0x40
+ 1586 0216 0A       		.uleb128 0xa
+ 1587 0217 9742     		.uleb128 0x2117
+ 1588 0219 0C       		.uleb128 0xc
+ 1589 021a 00       		.byte	0
+ 1590 021b 00       		.byte	0
+ 1591 021c 25       		.uleb128 0x25
+ 1592 021d 13       		.uleb128 0x13
+ 1593 021e 00       		.byte	0
+ 1594 021f 03       		.uleb128 0x3
+ 1595 0220 0E       		.uleb128 0xe
+ 1596 0221 3C       		.uleb128 0x3c
+ 1597 0222 0C       		.uleb128 0xc
+ 1598 0223 00       		.byte	0
+ 1599 0224 00       		.byte	0
+ 1600 0225 26       		.uleb128 0x26
+ 1601 0226 34       		.uleb128 0x34
+ 1602 0227 00       		.byte	0
+ 1603 0228 03       		.uleb128 0x3
+ 1604 0229 0E       		.uleb128 0xe
+ 1605 022a 3A       		.uleb128 0x3a
+ 1606 022b 0B       		.uleb128 0xb
+ 1607 022c 3B       		.uleb128 0x3b
+ 1608 022d 0B       		.uleb128 0xb
+ 1609 022e 49       		.uleb128 0x49
+ 1610 022f 13       		.uleb128 0x13
+ 1611 0230 3F       		.uleb128 0x3f
+ 1612 0231 0C       		.uleb128 0xc
+ 1613 0232 3C       		.uleb128 0x3c
+ 1614 0233 0C       		.uleb128 0xc
+ 1615 0234 00       		.byte	0
+ 1616 0235 00       		.byte	0
+ 1617 0236 27       		.uleb128 0x27
+ 1618 0237 2E       		.uleb128 0x2e
+ 1619 0238 00       		.byte	0
+ 1620 0239 3F       		.uleb128 0x3f
+ 1621 023a 0C       		.uleb128 0xc
+ 1622 023b 03       		.uleb128 0x3
+ 1623 023c 0E       		.uleb128 0xe
+ 1624 023d 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 37
+
+
+ 1625 023e 0B       		.uleb128 0xb
+ 1626 023f 3B       		.uleb128 0x3b
+ 1627 0240 0B       		.uleb128 0xb
+ 1628 0241 27       		.uleb128 0x27
+ 1629 0242 0C       		.uleb128 0xc
+ 1630 0243 3C       		.uleb128 0x3c
+ 1631 0244 0C       		.uleb128 0xc
+ 1632 0245 00       		.byte	0
+ 1633 0246 00       		.byte	0
+ 1634 0247 28       		.uleb128 0x28
+ 1635 0248 2E       		.uleb128 0x2e
+ 1636 0249 01       		.byte	0x1
+ 1637 024a 3F       		.uleb128 0x3f
+ 1638 024b 0C       		.uleb128 0xc
+ 1639 024c 03       		.uleb128 0x3
+ 1640 024d 0E       		.uleb128 0xe
+ 1641 024e 3A       		.uleb128 0x3a
+ 1642 024f 0B       		.uleb128 0xb
+ 1643 0250 3B       		.uleb128 0x3b
+ 1644 0251 0B       		.uleb128 0xb
+ 1645 0252 27       		.uleb128 0x27
+ 1646 0253 0C       		.uleb128 0xc
+ 1647 0254 3C       		.uleb128 0x3c
+ 1648 0255 0C       		.uleb128 0xc
+ 1649 0256 01       		.uleb128 0x1
+ 1650 0257 13       		.uleb128 0x13
+ 1651 0258 00       		.byte	0
+ 1652 0259 00       		.byte	0
+ 1653 025a 29       		.uleb128 0x29
+ 1654 025b 05       		.uleb128 0x5
+ 1655 025c 00       		.byte	0
+ 1656 025d 49       		.uleb128 0x49
+ 1657 025e 13       		.uleb128 0x13
+ 1658 025f 00       		.byte	0
+ 1659 0260 00       		.byte	0
+ 1660 0261 00       		.byte	0
+ 1661              		.section	.debug_loc,"",%progbits
+ 1662              	.Ldebug_loc0:
+ 1663              	.LLST0:
+ 1664 0000 00000000 		.4byte	.LFB3
+ 1665 0004 02000000 		.4byte	.LCFI0
+ 1666 0008 0200     		.2byte	0x2
+ 1667 000a 7D       		.byte	0x7d
+ 1668 000b 00       		.sleb128 0
+ 1669 000c 02000000 		.4byte	.LCFI0
+ 1670 0010 34000000 		.4byte	.LFE3
+ 1671 0014 0200     		.2byte	0x2
+ 1672 0016 7D       		.byte	0x7d
+ 1673 0017 08       		.sleb128 8
+ 1674 0018 00000000 		.4byte	0
+ 1675 001c 00000000 		.4byte	0
+ 1676              	.LLST1:
+ 1677 0020 0C000000 		.4byte	.LVL4
+ 1678 0024 12000000 		.4byte	.LVL6
+ 1679 0028 0100     		.2byte	0x1
+ 1680 002a 52       		.byte	0x52
+ 1681 002b 12000000 		.4byte	.LVL6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 38
+
+
+ 1682 002f 30000000 		.4byte	.LFE0
+ 1683 0033 0600     		.2byte	0x6
+ 1684 0035 11       		.byte	0x11
+ 1685 0036 88DA8380 		.sleb128 -536810232
+ 1685      7E
+ 1686 003b 00000000 		.4byte	0
+ 1687 003f 00000000 		.4byte	0
+ 1688              	.LLST2:
+ 1689 0043 00000000 		.4byte	.LVL7
+ 1690 0047 12000000 		.4byte	.LVL12
+ 1691 004b 0100     		.2byte	0x1
+ 1692 004d 50       		.byte	0x50
+ 1693 004e 12000000 		.4byte	.LVL12
+ 1694 0052 28000000 		.4byte	.LFE1
+ 1695 0056 0900     		.2byte	0x9
+ 1696 0058 11       		.byte	0x11
+ 1697 0059 88DA8380 		.sleb128 -536810232
+ 1697      7E
+ 1698 005e 06       		.byte	0x6
+ 1699 005f 23       		.byte	0x23
+ 1700 0060 4C       		.uleb128 0x4c
+ 1701 0061 00000000 		.4byte	0
+ 1702 0065 00000000 		.4byte	0
+ 1703              	.LLST3:
+ 1704 0069 08000000 		.4byte	.LVL8
+ 1705 006d 12000000 		.4byte	.LVL12
+ 1706 0071 0100     		.2byte	0x1
+ 1707 0073 50       		.byte	0x50
+ 1708 0074 12000000 		.4byte	.LVL12
+ 1709 0078 28000000 		.4byte	.LFE1
+ 1710 007c 0900     		.2byte	0x9
+ 1711 007e 11       		.byte	0x11
+ 1712 007f 88DA8380 		.sleb128 -536810232
+ 1712      7E
+ 1713 0084 06       		.byte	0x6
+ 1714 0085 23       		.byte	0x23
+ 1715 0086 4C       		.uleb128 0x4c
+ 1716 0087 00000000 		.4byte	0
+ 1717 008b 00000000 		.4byte	0
+ 1718              	.LLST4:
+ 1719 008f 0A000000 		.4byte	.LVL9
+ 1720 0093 10000000 		.4byte	.LVL11
+ 1721 0097 0100     		.2byte	0x1
+ 1722 0099 52       		.byte	0x52
+ 1723 009a 10000000 		.4byte	.LVL11
+ 1724 009e 28000000 		.4byte	.LFE1
+ 1725 00a2 0600     		.2byte	0x6
+ 1726 00a4 11       		.byte	0x11
+ 1727 00a5 88DA8380 		.sleb128 -536810232
+ 1727      7E
+ 1728 00aa 00000000 		.4byte	0
+ 1729 00ae 00000000 		.4byte	0
+ 1730              	.LLST5:
+ 1731 00b2 00000000 		.4byte	.LVL17
+ 1732 00b6 02000000 		.4byte	.LVL18
+ 1733 00ba 0600     		.2byte	0x6
+ 1734 00bc 11       		.byte	0x11
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 39
+
+
+ 1735 00bd 88DA8380 		.sleb128 -536810232
+ 1735      7E
+ 1736 00c2 02000000 		.4byte	.LVL18
+ 1737 00c6 0C000000 		.4byte	.LFE5
+ 1738 00ca 0200     		.2byte	0x2
+ 1739 00cc 73       		.byte	0x73
+ 1740 00cd 00       		.sleb128 0
+ 1741 00ce 00000000 		.4byte	0
+ 1742 00d2 00000000 		.4byte	0
+ 1743              	.LLST6:
+ 1744 00d6 00000000 		.4byte	.LVL19
+ 1745 00da 02000000 		.4byte	.LVL20
+ 1746 00de 0100     		.2byte	0x1
+ 1747 00e0 50       		.byte	0x50
+ 1748 00e1 02000000 		.4byte	.LVL20
+ 1749 00e5 10000000 		.4byte	.LFE6
+ 1750 00e9 0400     		.2byte	0x4
+ 1751 00eb F3       		.byte	0xf3
+ 1752 00ec 01       		.uleb128 0x1
+ 1753 00ed 50       		.byte	0x50
+ 1754 00ee 9F       		.byte	0x9f
+ 1755 00ef 00000000 		.4byte	0
+ 1756 00f3 00000000 		.4byte	0
+ 1757              	.LLST7:
+ 1758 00f7 04000000 		.4byte	.LVL21
+ 1759 00fb 06000000 		.4byte	.LVL22
+ 1760 00ff 0500     		.2byte	0x5
+ 1761 0101 70       		.byte	0x70
+ 1762 0102 00       		.sleb128 0
+ 1763 0103 35       		.byte	0x35
+ 1764 0104 25       		.byte	0x25
+ 1765 0105 9F       		.byte	0x9f
+ 1766 0106 00000000 		.4byte	0
+ 1767 010a 00000000 		.4byte	0
+ 1768              		.section	.debug_aranges,"",%progbits
+ 1769 0000 7C000000 		.4byte	0x7c
+ 1770 0004 0200     		.2byte	0x2
+ 1771 0006 00000000 		.4byte	.Ldebug_info0
+ 1772 000a 04       		.byte	0x4
+ 1773 000b 00       		.byte	0
+ 1774 000c 0000     		.2byte	0
+ 1775 000e 0000     		.2byte	0
+ 1776 0010 00000000 		.4byte	.LFB3
+ 1777 0014 34000000 		.4byte	.LFE3-.LFB3
+ 1778 0018 00000000 		.4byte	.LFB0
+ 1779 001c 30000000 		.4byte	.LFE0-.LFB0
+ 1780 0020 00000000 		.4byte	.LFB1
+ 1781 0024 28000000 		.4byte	.LFE1-.LFB1
+ 1782 0028 00000000 		.4byte	.LFB2
+ 1783 002c 1C000000 		.4byte	.LFE2-.LFB2
+ 1784 0030 00000000 		.4byte	.LFB4
+ 1785 0034 0C000000 		.4byte	.LFE4-.LFB4
+ 1786 0038 00000000 		.4byte	.LFB5
+ 1787 003c 0C000000 		.4byte	.LFE5-.LFB5
+ 1788 0040 00000000 		.4byte	.LFB6
+ 1789 0044 10000000 		.4byte	.LFE6-.LFB6
+ 1790 0048 00000000 		.4byte	.LFB7
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 40
+
+
+ 1791 004c 0C000000 		.4byte	.LFE7-.LFB7
+ 1792 0050 00000000 		.4byte	.LFB8
+ 1793 0054 0C000000 		.4byte	.LFE8-.LFB8
+ 1794 0058 00000000 		.4byte	.LFB9
+ 1795 005c 10000000 		.4byte	.LFE9-.LFB9
+ 1796 0060 00000000 		.4byte	.LFB10
+ 1797 0064 0C000000 		.4byte	.LFE10-.LFB10
+ 1798 0068 00000000 		.4byte	.LFB11
+ 1799 006c 0C000000 		.4byte	.LFE11-.LFB11
+ 1800 0070 00000000 		.4byte	.LFB12
+ 1801 0074 0C000000 		.4byte	.LFE12-.LFB12
+ 1802 0078 00000000 		.4byte	0
+ 1803 007c 00000000 		.4byte	0
+ 1804              		.section	.debug_ranges,"",%progbits
+ 1805              	.Ldebug_ranges0:
+ 1806 0000 00000000 		.4byte	.LBB22
+ 1807 0004 02000000 		.4byte	.LBE22
+ 1808 0008 04000000 		.4byte	.LBB29
+ 1809 000c 08000000 		.4byte	.LBE29
+ 1810 0010 00000000 		.4byte	0
+ 1811 0014 00000000 		.4byte	0
+ 1812 0018 02000000 		.4byte	.LBB25
+ 1813 001c 04000000 		.4byte	.LBE25
+ 1814 0020 08000000 		.4byte	.LBB30
+ 1815 0024 0C000000 		.4byte	.LBE30
+ 1816 0028 0E000000 		.4byte	.LBB35
+ 1817 002c 10000000 		.4byte	.LBE35
+ 1818 0030 00000000 		.4byte	0
+ 1819 0034 00000000 		.4byte	0
+ 1820 0038 02000000 		.4byte	.LBB26
+ 1821 003c 04000000 		.4byte	.LBE26
+ 1822 0040 08000000 		.4byte	.LBB27
+ 1823 0044 0C000000 		.4byte	.LBE27
+ 1824 0048 0E000000 		.4byte	.LBB28
+ 1825 004c 10000000 		.4byte	.LBE28
+ 1826 0050 00000000 		.4byte	0
+ 1827 0054 00000000 		.4byte	0
+ 1828 0058 0C000000 		.4byte	.LBB31
+ 1829 005c 0E000000 		.4byte	.LBE31
+ 1830 0060 10000000 		.4byte	.LBB36
+ 1831 0064 12000000 		.4byte	.LBE36
+ 1832 0068 14000000 		.4byte	.LBB40
+ 1833 006c 16000000 		.4byte	.LBE40
+ 1834 0070 00000000 		.4byte	0
+ 1835 0074 00000000 		.4byte	0
+ 1836 0078 12000000 		.4byte	.LBB37
+ 1837 007c 14000000 		.4byte	.LBE37
+ 1838 0080 16000000 		.4byte	.LBB41
+ 1839 0084 30000000 		.4byte	.LBE41
+ 1840 0088 00000000 		.4byte	0
+ 1841 008c 00000000 		.4byte	0
+ 1842 0090 00000000 		.4byte	.LBB42
+ 1843 0094 02000000 		.4byte	.LBE42
+ 1844 0098 04000000 		.4byte	.LBB49
+ 1845 009c 08000000 		.4byte	.LBE49
+ 1846 00a0 00000000 		.4byte	0
+ 1847 00a4 00000000 		.4byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 41
+
+
+ 1848 00a8 02000000 		.4byte	.LBB45
+ 1849 00ac 04000000 		.4byte	.LBE45
+ 1850 00b0 08000000 		.4byte	.LBB50
+ 1851 00b4 0A000000 		.4byte	.LBE50
+ 1852 00b8 0C000000 		.4byte	.LBB54
+ 1853 00bc 0E000000 		.4byte	.LBE54
+ 1854 00c0 00000000 		.4byte	0
+ 1855 00c4 00000000 		.4byte	0
+ 1856 00c8 02000000 		.4byte	.LBB46
+ 1857 00cc 04000000 		.4byte	.LBE46
+ 1858 00d0 08000000 		.4byte	.LBB47
+ 1859 00d4 0A000000 		.4byte	.LBE47
+ 1860 00d8 0C000000 		.4byte	.LBB48
+ 1861 00dc 0E000000 		.4byte	.LBE48
+ 1862 00e0 00000000 		.4byte	0
+ 1863 00e4 00000000 		.4byte	0
+ 1864 00e8 0A000000 		.4byte	.LBB51
+ 1865 00ec 0C000000 		.4byte	.LBE51
+ 1866 00f0 10000000 		.4byte	.LBB58
+ 1867 00f4 14000000 		.4byte	.LBE58
+ 1868 00f8 00000000 		.4byte	0
+ 1869 00fc 00000000 		.4byte	0
+ 1870 0100 0E000000 		.4byte	.LBB55
+ 1871 0104 10000000 		.4byte	.LBE55
+ 1872 0108 14000000 		.4byte	.LBB59
+ 1873 010c 28000000 		.4byte	.LBE59
+ 1874 0110 00000000 		.4byte	0
+ 1875 0114 00000000 		.4byte	0
+ 1876 0118 00000000 		.4byte	.LBB60
+ 1877 011c 02000000 		.4byte	.LBE60
+ 1878 0120 04000000 		.4byte	.LBB66
+ 1879 0124 08000000 		.4byte	.LBE66
+ 1880 0128 00000000 		.4byte	0
+ 1881 012c 00000000 		.4byte	0
+ 1882 0130 02000000 		.4byte	.LBB63
+ 1883 0134 04000000 		.4byte	.LBE63
+ 1884 0138 08000000 		.4byte	.LBB67
+ 1885 013c 1C000000 		.4byte	.LBE67
+ 1886 0140 00000000 		.4byte	0
+ 1887 0144 00000000 		.4byte	0
+ 1888 0148 02000000 		.4byte	.LBB64
+ 1889 014c 04000000 		.4byte	.LBE64
+ 1890 0150 08000000 		.4byte	.LBB65
+ 1891 0154 1C000000 		.4byte	.LBE65
+ 1892 0158 00000000 		.4byte	0
+ 1893 015c 00000000 		.4byte	0
+ 1894 0160 00000000 		.4byte	.LFB3
+ 1895 0164 34000000 		.4byte	.LFE3
+ 1896 0168 00000000 		.4byte	.LFB0
+ 1897 016c 30000000 		.4byte	.LFE0
+ 1898 0170 00000000 		.4byte	.LFB1
+ 1899 0174 28000000 		.4byte	.LFE1
+ 1900 0178 00000000 		.4byte	.LFB2
+ 1901 017c 1C000000 		.4byte	.LFE2
+ 1902 0180 00000000 		.4byte	.LFB4
+ 1903 0184 0C000000 		.4byte	.LFE4
+ 1904 0188 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 42
+
+
+ 1905 018c 0C000000 		.4byte	.LFE5
+ 1906 0190 00000000 		.4byte	.LFB6
+ 1907 0194 10000000 		.4byte	.LFE6
+ 1908 0198 00000000 		.4byte	.LFB7
+ 1909 019c 0C000000 		.4byte	.LFE7
+ 1910 01a0 00000000 		.4byte	.LFB8
+ 1911 01a4 0C000000 		.4byte	.LFE8
+ 1912 01a8 00000000 		.4byte	.LFB9
+ 1913 01ac 10000000 		.4byte	.LFE9
+ 1914 01b0 00000000 		.4byte	.LFB10
+ 1915 01b4 0C000000 		.4byte	.LFE10
+ 1916 01b8 00000000 		.4byte	.LFB11
+ 1917 01bc 0C000000 		.4byte	.LFE11
+ 1918 01c0 00000000 		.4byte	.LFB12
+ 1919 01c4 0C000000 		.4byte	.LFE12
+ 1920 01c8 00000000 		.4byte	0
+ 1921 01cc 00000000 		.4byte	0
+ 1922              		.section	.debug_line,"",%progbits
+ 1923              	.Ldebug_line0:
+ 1924 0000 AB010000 		.section	.debug_str,"MS",%progbits,1
+ 1924      02006C00 
+ 1924      00000201 
+ 1924      FB0E0D00 
+ 1924      01010101 
+ 1925              	.LASF17:
+ 1926 0000 72656733 		.ascii	"reg32\000"
+ 1926      3200
+ 1927              	.LASF44:
+ 1928 0006 6973725F 		.ascii	"isr_CTRL_GetState\000"
+ 1928      4354524C 
+ 1928      5F476574 
+ 1928      53746174 
+ 1928      6500
+ 1929              	.LASF38:
+ 1930 0018 73656E73 		.ascii	"sensor_control\000"
+ 1930      6F725F63 
+ 1930      6F6E7472 
+ 1930      6F6C00
+ 1931              	.LASF23:
+ 1932 0027 6973725F 		.ascii	"isr_CTRL_Disable\000"
+ 1932      4354524C 
+ 1932      5F446973 
+ 1932      61626C65 
+ 1932      00
+ 1933              	.LASF3:
+ 1934 0038 73686F72 		.ascii	"short unsigned int\000"
+ 1934      7420756E 
+ 1934      7369676E 
+ 1934      65642069 
+ 1934      6E7400
+ 1935              	.LASF20:
+ 1936 004b 6973725F 		.ascii	"isr_CTRL_SetPriority\000"
+ 1936      4354524C 
+ 1936      5F536574 
+ 1936      5072696F 
+ 1936      72697479 
+ 1937              	.LASF14:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 43
+
+
+ 1938 0060 666C6F61 		.ascii	"float\000"
+ 1938      7400
+ 1939              	.LASF40:
+ 1940 0066 4D4F544F 		.ascii	"MOTOR_AXIS\000"
+ 1940      525F4158 
+ 1940      495300
+ 1941              	.LASF28:
+ 1942 0071 6973725F 		.ascii	"isr_CTRL_Stop\000"
+ 1942      4354524C 
+ 1942      5F53746F 
+ 1942      7000
+ 1943              	.LASF1:
+ 1944 007f 756E7369 		.ascii	"unsigned char\000"
+ 1944      676E6564 
+ 1944      20636861 
+ 1944      7200
+ 1945              	.LASF29:
+ 1946 008d 6973725F 		.ascii	"isr_CTRL_GetVector\000"
+ 1946      4354524C 
+ 1946      5F476574 
+ 1946      56656374 
+ 1946      6F7200
+ 1947              	.LASF33:
+ 1948 00a0 6973725F 		.ascii	"isr_CTRL_ClearPending\000"
+ 1948      4354524C 
+ 1948      5F436C65 
+ 1948      61725065 
+ 1948      6E64696E 
+ 1949              	.LASF25:
+ 1950 00b6 6973725F 		.ascii	"isr_CTRL_Interrupt\000"
+ 1950      4354524C 
+ 1950      5F496E74 
+ 1950      65727275 
+ 1950      707400
+ 1951              	.LASF9:
+ 1952 00c9 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1952      20756E73 
+ 1952      69676E65 
+ 1952      6420696E 
+ 1952      7400
+ 1953              	.LASF35:
+ 1954 00db 6973725F 		.ascii	"isr_STOP_check_counter\000"
+ 1954      53544F50 
+ 1954      5F636865 
+ 1954      636B5F63 
+ 1954      6F756E74 
+ 1955              	.LASF43:
+ 1956 00f2 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 1956      73657273 
+ 1956      5C477261 
+ 1956      7A69616E 
+ 1956      6F5C4465 
+ 1957 0120 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 1957      525C5665 
+ 1957      72732E30 
+ 1957      2E302D54 
+ 1957      30352032 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 44
+
+
+ 1958 0151 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 1958      65446972 
+ 1958      2E637964 
+ 1958      736E00
+ 1959              	.LASF32:
+ 1960 0160 6973725F 		.ascii	"isr_CTRL_SetPending\000"
+ 1960      4354524C 
+ 1960      5F536574 
+ 1960      50656E64 
+ 1960      696E6700 
+ 1961              	.LASF22:
+ 1962 0174 7072696F 		.ascii	"priority\000"
+ 1962      72697479 
+ 1962      00
+ 1963              	.LASF24:
+ 1964 017d 6973725F 		.ascii	"isr_CTRL_Enable\000"
+ 1964      4354524C 
+ 1964      5F456E61 
+ 1964      626C6500 
+ 1965              	.LASF15:
+ 1966 018d 646F7562 		.ascii	"double\000"
+ 1966      6C6500
+ 1967              	.LASF12:
+ 1968 0194 75696E74 		.ascii	"uint16\000"
+ 1968      313600
+ 1969              	.LASF13:
+ 1970 019b 75696E74 		.ascii	"uint32\000"
+ 1970      333200
+ 1971              	.LASF4:
+ 1972 01a2 756E7369 		.ascii	"unsigned int\000"
+ 1972      676E6564 
+ 1972      20696E74 
+ 1972      00
+ 1973              	.LASF30:
+ 1974 01af 6973725F 		.ascii	"isr_CTRL_GetPriority\000"
+ 1974      4354524C 
+ 1974      5F476574 
+ 1974      5072696F 
+ 1974      72697479 
+ 1975              	.LASF21:
+ 1976 01c4 61646472 		.ascii	"address\000"
+ 1976      65737300 
+ 1977              	.LASF6:
+ 1978 01cc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1978      206C6F6E 
+ 1978      6720756E 
+ 1978      7369676E 
+ 1978      65642069 
+ 1979              	.LASF26:
+ 1980 01e3 6973725F 		.ascii	"isr_CTRL_Start\000"
+ 1980      4354524C 
+ 1980      5F537461 
+ 1980      727400
+ 1981              	.LASF18:
+ 1982 01f2 63796973 		.ascii	"cyisraddress\000"
+ 1982      72616464 
+ 1982      72657373 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 45
+
+
+ 1982      00
+ 1983              	.LASF34:
+ 1984 01ff 6973725F 		.ascii	"isr_START_check_counter\000"
+ 1984      53544152 
+ 1984      545F6368 
+ 1984      65636B5F 
+ 1984      636F756E 
+ 1985              	.LASF16:
+ 1986 0217 72656738 		.ascii	"reg8\000"
+ 1986      00
+ 1987              	.LASF37:
+ 1988 021c 74696C74 		.ascii	"tilt_axis\000"
+ 1988      5F617869 
+ 1988      7300
+ 1989              	.LASF8:
+ 1990 0226 73697A65 		.ascii	"sizetype\000"
+ 1990      74797065 
+ 1990      00
+ 1991              	.LASF5:
+ 1992 022f 6C6F6E67 		.ascii	"long long int\000"
+ 1992      206C6F6E 
+ 1992      6720696E 
+ 1992      7400
+ 1993              	.LASF10:
+ 1994 023d 63686172 		.ascii	"char\000"
+ 1994      00
+ 1995              	.LASF31:
+ 1996 0242 72616D56 		.ascii	"ramVectorTable\000"
+ 1996      6563746F 
+ 1996      72546162 
+ 1996      6C6500
+ 1997              	.LASF2:
+ 1998 0251 73686F72 		.ascii	"short int\000"
+ 1998      7420696E 
+ 1998      7400
+ 1999              	.LASF11:
+ 2000 025b 75696E74 		.ascii	"uint8\000"
+ 2000      3800
+ 2001              	.LASF41:
+ 2002 0261 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2002      4320342E 
+ 2002      372E3320 
+ 2002      32303133 
+ 2002      30333132 
+ 2003 0294 616E6368 		.ascii	"anch revision 196615]\000"
+ 2003      20726576 
+ 2003      6973696F 
+ 2003      6E203139 
+ 2003      36363135 
+ 2004              	.LASF7:
+ 2005 02aa 6C6F6E67 		.ascii	"long int\000"
+ 2005      20696E74 
+ 2005      00
+ 2006              	.LASF36:
+ 2007 02b3 70616E5F 		.ascii	"pan_axis\000"
+ 2007      61786973 
+ 2007      00
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccKn6hpn.s 			page 46
+
+
+ 2008              	.LASF39:
+ 2009 02bc 6D6F746F 		.ascii	"motor_control\000"
+ 2009      725F636F 
+ 2009      6E74726F 
+ 2009      6C00
+ 2010              	.LASF0:
+ 2011 02ca 7369676E 		.ascii	"signed char\000"
+ 2011      65642063 
+ 2011      68617200 
+ 2012              	.LASF42:
+ 2013 02d6 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isr_CTRL.c\000"
+ 2013      6E657261 
+ 2013      7465645F 
+ 2013      536F7572 
+ 2013      63655C50 
+ 2014              	.LASF19:
+ 2015 02fa 6973725F 		.ascii	"isr_CTRL_SetVector\000"
+ 2015      4354524C 
+ 2015      5F536574 
+ 2015      56656374 
+ 2015      6F7200
+ 2016              	.LASF27:
+ 2017 030d 6973725F 		.ascii	"isr_CTRL_StartEx\000"
+ 2017      4354524C 
+ 2017      5F537461 
+ 2017      72744578 
+ 2017      00
+ 2018              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

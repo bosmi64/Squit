@@ -1,0 +1,74 @@
+Last Modified Date & Time: 06/19/2013 14:52:01
+
+Project : HighResDacs_v1_0
+		Schematic : DVDAC_v1_3/DVDAC_v1_3.cysch
+
+		Clk	v 1.50	v 2.0
+		DMA	v 1.50	v 1.70
+
+		Schematic : MIDAC_v1_2/MIDAC_v1_2.cysch
+
+		Dither_PWM	v 2.0	v 2.40
+		Dither_Clk	v 1.50	v 2.0
+
+
+Last Modified Date & Time: 12/30/2014 22:36:15
+
+Project : GoBee-00
+		Schematic : TopDesign
+
+		EXTGYRO_VRATE	v 1.90tv 2.5
+		SENSE_VCC	v 1.90tv 2.5
+		ADXL_Z	v 1.90tv 2.5
+		ADXL_Y	v 1.90tv 2.5
+		ADXL_X	v 1.90tv 2.5
+		EXTGYRO_CS_ST2	v 1.90tv 2.5
+		EXTGYRO_CLK_ST1	v 1.90tv 2.5
+		PSOC_RX	v 1.90tv 2.5
+		PSOC_TX	v 1.90tv 2.5
+		VREF	v 1.90tv 2.5
+		LED_OK	v 1.90tv 2.5
+		EXTGYRO_MOSI	v 1.90tv 2.5
+		EXTGYRO_MISO	v 1.90tv 2.5
+		LED_FAULT	v 1.90tv 2.5
+		V5_PHER_nSHDN	v 1.90tv 2.5
+		V3_nSHDN	v 1.90tv 2.5
+		EXTGYRO_nSHDN	v 1.90tv 2.5
+		LED_FN_GREEN	v 1.90tv 2.5
+		LED_FN_RED	v 1.90tv 2.5
+		EXTGYRO_VRATE_LPF	v 1.90tv 2.5
+		EXTGYRO_VTEMP	v 1.90tv 2.5
+		ADXL_ST	v 1.90tv 2.5
+		nBUTTON_PUSH	v 1.90tv 2.5
+		nBUTTON_CW	v 1.90tv 2.5
+		nBUTTON_CCW	v 1.90tv 2.5
+		BUZ	v 1.90tv 2.5
+		MOT_SLEEPn	v 1.90tv 2.5
+		MOT_FL	v 1.90tv 2.5
+		MOT_IN1	v 1.90tv 2.5
+		MOT_IN2	v 1.90tv 2.5
+		ENCA	v 1.90tv 2.5
+		ENCB	v 1.90tv 2.5
+		ITG_AD0_SDO	v 1.90tv 2.5
+		ITG_SDA_SDI	v 1.90tv 2.5
+		ITG_SCL_SCLK	v 1.90tv 2.5
+		ITG_CS	v 1.90tv 2.5
+		ITG_INT	v 1.90tv 2.5
+		ITG_FSYNC	v 1.90tv 2.5
+		BAT_FAULTn	v 1.90tv 2.5
+		BAT_CHRGn	v 1.90tv 2.5
+		ADC	v 2.30tv 3.10
+		Clock_SPI	v 2.0tv 2.20
+		Clock_CTRL	v 2.0tv 2.20
+		Clock_LED	v 2.0tv 2.20
+		Clock_DGYRO	v 2.0tv 2.20
+		AMuxSeq	v 1.70tv 1.80
+		PWM_MOTOR	v 2.40tv 3.0
+		QuadDec_PAN	v 2.30tv 2.40
+
+Project : GoBee-00
+		Design Wide APIs
+
+		cy_boot	v 3.40	v 4.11
+
+

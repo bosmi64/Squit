@@ -1,0 +1,3571 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"isr_TORQUESTAT.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	TORQUESTAT,32,8
+  19              		.comm	pan_torque_stat,32,8
+  20              		.comm	tilt_torque_stat,32,8
+  21              		.comm	pan_abs_motor_velocity,4,4
+  22              		.comm	tilt_abs_motor_velocity,4,4
+  23              		.section	.text.isr_TORQUESTAT_Start,"ax",%progbits
+  24              		.align	2
+  25              		.global	isr_TORQUESTAT_Start
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	isr_TORQUESTAT_Start, %function
+  29              	isr_TORQUESTAT_Start:
+  30              	.LFB0:
+  31              		.file 1 ".\\Generated_Source\\PSoC5\\isr_TORQUESTAT.c"
+   1:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * File Name: isr_TORQUESTAT.c  
+   3:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+   5:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+   8:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+   9:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+  11:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  18:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  19:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #include <isr_TORQUESTAT.h>
+  22:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  23:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #if !defined(isr_TORQUESTAT__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  25:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *  Place your includes, defines and code here 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 2
+
+
+  27:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* `#START isr_TORQUESTAT_intc` */
+  29:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #include <gobee.h>
+  30:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #include <statistics.h>
+  31:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #include <torquestat.h>
+  32:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  33:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* extern Feedback Encoder structure */
+  34:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct ENCODER pan_feedback_encoder;  	/* PAN Feedback Encoder Parameters & RT Datas	*/
+  35:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct ENCODER tilt_feedback_encoder; 	/* TILT Feedback Encoder Parameters & RT Datas	*/
+  36:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  37:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* extern MOTOR AXIS STRUCTURES */
+  38:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct MOTOR_AXIS pan_axis;				/* PAN  Motor Axis Parameters & RT Datas		*/
+  39:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct MOTOR_AXIS tilt_axis;				/* TILT Motor Axis Parameters & RT Datas		*/
+  40:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	
+  41:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* extern axis TORQUE Estimator	*/
+  42:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** struct TORQUESTAT pan_torque_stat;				/* PAN  Torque Statistics Real Time Datas  	  	*/
+  43:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** struct TORQUESTAT tilt_torque_stat;				/* TILT Torque Statistics Real Time Datas		*/	
+  44:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  45:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* extern axis current and power STATISTICS	*/
+  46:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct STATISTICS pan_current_stat;		/* PAN  Current  Statistic    [A]           (Motor Torq
+  47:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct STATISTICS pan_qpower_stat;		/* PAN  quasi-power Statistic [A * rad/sec] (Motor Power
+  48:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct STATISTICS tilt_current_stat;		/* TILT Current  Statistic    [A]           (Motor Tor
+  49:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** extern struct STATISTICS tilt_qpower_stat;		/* TILT quasi-power Statistic [A * rad/sec] (Motor Powe
+  50:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	
+  51:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* Local Wars */
+  52:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** float pan_abs_motor_velocity;		/* Pan  Motor abs(velocity(t)) calculated @ 3.125Hz sampling rate	*/
+  53:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** float tilt_abs_motor_velocity;		/* Tilt Motor abs(velocity(t)) calculated @ 3.125Hz sampling rate	*
+  54:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	
+  55:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* `#END` */
+  56:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  57:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #ifndef CYINT_IRQ_BASE
+  58:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #define CYINT_IRQ_BASE      16
+  59:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #endif /* CYINT_IRQ_BASE */
+  60:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #ifndef CYINT_VECT_TABLE
+  61:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  62:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** #endif /* CYINT_VECT_TABLE */
+  63:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  64:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /* Declared in startup, used to set unused interrupts to. */
+  65:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** CY_ISR_PROTO(IntDefaultHandler);
+  66:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  67:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  68:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+  69:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_Start
+  70:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+  71:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+  72:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+  73:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *  Set up the interrupt and enable it.
+  74:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+  75:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:  
+  76:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+  77:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+  78:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+  79:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+  80:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+  81:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+  82:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_Start(void)
+  83:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 3
+
+
+  32              		.loc 1 83 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 00AF     		add	r7, sp, #0
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_register 7
+  84:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* For all we know the interrupt is active. */
+  85:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_Disable();
+  44              		.loc 1 85 0
+  45 0004 FFF7FEFF 		bl	isr_TORQUESTAT_Disable
+  86:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  87:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Set the ISR to point to the isr_TORQUESTAT Interrupt. */
+  88:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_SetVector(&isr_TORQUESTAT_Interrupt);
+  46              		.loc 1 88 0
+  47 0008 40F20000 		movw	r0, #:lower16:isr_TORQUESTAT_Interrupt
+  48 000c C0F20000 		movt	r0, #:upper16:isr_TORQUESTAT_Interrupt
+  49 0010 FFF7FEFF 		bl	isr_TORQUESTAT_SetVector
+  89:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  90:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Set the priority. */
+  91:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_SetPriority((uint8)isr_TORQUESTAT_INTC_PRIOR_NUMBER);
+  50              		.loc 1 91 0
+  51 0014 4FF00700 		mov	r0, #7
+  52 0018 FFF7FEFF 		bl	isr_TORQUESTAT_SetPriority
+  92:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  93:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Enable it. */
+  94:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_Enable();
+  53              		.loc 1 94 0
+  54 001c FFF7FEFF 		bl	isr_TORQUESTAT_Enable
+  95:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+  55              		.loc 1 95 0
+  56 0020 80BD     		pop	{r7, pc}
+  57              		.cfi_endproc
+  58              	.LFE0:
+  59              		.size	isr_TORQUESTAT_Start, .-isr_TORQUESTAT_Start
+  60 0022 00BF     		.section	.text.isr_TORQUESTAT_StartEx,"ax",%progbits
+  61              		.align	2
+  62              		.global	isr_TORQUESTAT_StartEx
+  63              		.thumb
+  64              		.thumb_func
+  65              		.type	isr_TORQUESTAT_StartEx, %function
+  66              	isr_TORQUESTAT_StartEx:
+  67              	.LFB1:
+  96:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  97:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+  98:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+  99:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_StartEx
+ 100:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 101:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 102:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 103:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *  Set up the interrupt and enable it.
+ 104:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 4
+
+
+ 105:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:  
+ 106:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 107:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 108:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 109:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 110:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 111:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 112:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_StartEx(cyisraddress address)
+ 113:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+  68              		.loc 1 113 0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 8
+  71              		@ frame_needed = 1, uses_anonymous_args = 0
+  72 0000 80B5     		push	{r7, lr}
+  73              	.LCFI2:
+  74              		.cfi_def_cfa_offset 8
+  75              		.cfi_offset 7, -8
+  76              		.cfi_offset 14, -4
+  77 0002 82B0     		sub	sp, sp, #8
+  78              	.LCFI3:
+  79              		.cfi_def_cfa_offset 16
+  80 0004 00AF     		add	r7, sp, #0
+  81              	.LCFI4:
+  82              		.cfi_def_cfa_register 7
+  83 0006 7860     		str	r0, [r7, #4]
+ 114:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* For all we know the interrupt is active. */
+ 115:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_Disable();
+  84              		.loc 1 115 0
+  85 0008 FFF7FEFF 		bl	isr_TORQUESTAT_Disable
+ 116:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 117:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Set the ISR to point to the isr_TORQUESTAT Interrupt. */
+ 118:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_SetVector(address);
+  86              		.loc 1 118 0
+  87 000c 7868     		ldr	r0, [r7, #4]
+  88 000e FFF7FEFF 		bl	isr_TORQUESTAT_SetVector
+ 119:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 120:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Set the priority. */
+ 121:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_SetPriority((uint8)isr_TORQUESTAT_INTC_PRIOR_NUMBER);
+  89              		.loc 1 121 0
+  90 0012 4FF00700 		mov	r0, #7
+  91 0016 FFF7FEFF 		bl	isr_TORQUESTAT_SetPriority
+ 122:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 123:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Enable it. */
+ 124:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_Enable();
+  92              		.loc 1 124 0
+  93 001a FFF7FEFF 		bl	isr_TORQUESTAT_Enable
+ 125:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+  94              		.loc 1 125 0
+  95 001e 07F10807 		add	r7, r7, #8
+  96 0022 BD46     		mov	sp, r7
+  97 0024 80BD     		pop	{r7, pc}
+  98              		.cfi_endproc
+  99              	.LFE1:
+ 100              		.size	isr_TORQUESTAT_StartEx, .-isr_TORQUESTAT_StartEx
+ 101 0026 00BF     		.section	.text.isr_TORQUESTAT_Stop,"ax",%progbits
+ 102              		.align	2
+ 103              		.global	isr_TORQUESTAT_Stop
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 5
+
+
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.type	isr_TORQUESTAT_Stop, %function
+ 107              	isr_TORQUESTAT_Stop:
+ 108              	.LFB2:
+ 126:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 127:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 128:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 129:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_Stop
+ 130:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 131:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 132:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 133:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Disables and removes the interrupt.
+ 134:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 135:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:  
+ 136:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 137:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 138:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 139:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 140:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 141:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_Stop(void)
+ 142:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 109              		.loc 1 142 0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 1, uses_anonymous_args = 0
+ 113 0000 80B5     		push	{r7, lr}
+ 114              	.LCFI5:
+ 115              		.cfi_def_cfa_offset 8
+ 116              		.cfi_offset 7, -8
+ 117              		.cfi_offset 14, -4
+ 118 0002 00AF     		add	r7, sp, #0
+ 119              	.LCFI6:
+ 120              		.cfi_def_cfa_register 7
+ 143:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Disable this interrupt. */
+ 144:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_Disable();
+ 121              		.loc 1 144 0
+ 122 0004 FFF7FEFF 		bl	isr_TORQUESTAT_Disable
+ 145:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 146:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Set the ISR to point to the passive one. */
+ 147:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     isr_TORQUESTAT_SetVector(&IntDefaultHandler);
+ 123              		.loc 1 147 0
+ 124 0008 40F20000 		movw	r0, #:lower16:IntDefaultHandler
+ 125 000c C0F20000 		movt	r0, #:upper16:IntDefaultHandler
+ 126 0010 FFF7FEFF 		bl	isr_TORQUESTAT_SetVector
+ 148:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 127              		.loc 1 148 0
+ 128 0014 80BD     		pop	{r7, pc}
+ 129              		.cfi_endproc
+ 130              	.LFE2:
+ 131              		.size	isr_TORQUESTAT_Stop, .-isr_TORQUESTAT_Stop
+ 132 0016 00BF     		.section	.text.isr_TORQUESTAT_Interrupt,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	isr_TORQUESTAT_Interrupt
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.type	isr_TORQUESTAT_Interrupt, %function
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 6
+
+
+ 138              	isr_TORQUESTAT_Interrupt:
+ 139              	.LFB3:
+ 149:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 150:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 151:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 152:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_Interrupt
+ 153:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 154:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 155:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 156:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   The default Interrupt Service Routine for isr_TORQUESTAT.
+ 157:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 158:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Add custom code between the coments to keep the next version of this file
+ 159:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   from over writting your code.
+ 160:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 161:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:  
+ 162:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 163:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 164:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 165:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 166:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 167:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** CY_ISR(isr_TORQUESTAT_Interrupt)
+ 168:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 140              		.loc 1 168 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 1, uses_anonymous_args = 0
+ 144 0000 80B5     		push	{r7, lr}
+ 145              	.LCFI7:
+ 146              		.cfi_def_cfa_offset 8
+ 147              		.cfi_offset 7, -8
+ 148              		.cfi_offset 14, -4
+ 149 0002 00AF     		add	r7, sp, #0
+ 150              	.LCFI8:
+ 151              		.cfi_def_cfa_register 7
+ 169:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /*  Place your Interrupt code here. */
+ 170:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* `#START isr_TORQUESTAT_Interrupt` */
+ 171:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	
+ 172:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/********************************************************************/
+ 173:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/* Calculates Pan&Tilt motor abs(velocity) (3.125Hz mean value)		*/
+ 174:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/********************************************************************/	
+ 175:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	pan_abs_motor_velocity  = motor_abs_velocity_sampling(&pan_torque_stat,  pan_axis.mc.slave_enc.pos
+ 152              		.loc 1 175 0
+ 153 0004 40F20003 		movw	r3, #:lower16:pan_axis
+ 154 0008 C0F20003 		movt	r3, #:upper16:pan_axis
+ 155 000c 5B6C     		ldr	r3, [r3, #68]
+ 156 000e 40F20000 		movw	r0, #:lower16:pan_torque_stat
+ 157 0012 C0F20000 		movt	r0, #:upper16:pan_torque_stat
+ 158 0016 1946     		mov	r1, r3
+ 159 0018 FFF7FEFF 		bl	motor_abs_velocity_sampling
+ 160 001c 0246     		mov	r2, r0
+ 161 001e 40F20003 		movw	r3, #:lower16:pan_abs_motor_velocity
+ 162 0022 C0F20003 		movt	r3, #:upper16:pan_abs_motor_velocity
+ 163 0026 1A60     		str	r2, [r3, #0]	@ float
+ 176:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	tilt_abs_motor_velocity = motor_abs_velocity_sampling(&tilt_torque_stat, tilt_axis.mc.slave_enc.po
+ 164              		.loc 1 176 0
+ 165 0028 40F20003 		movw	r3, #:lower16:tilt_axis
+ 166 002c C0F20003 		movt	r3, #:upper16:tilt_axis
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 7
+
+
+ 167 0030 5B6C     		ldr	r3, [r3, #68]
+ 168 0032 40F20000 		movw	r0, #:lower16:tilt_torque_stat
+ 169 0036 C0F20000 		movt	r0, #:upper16:tilt_torque_stat
+ 170 003a 1946     		mov	r1, r3
+ 171 003c FFF7FEFF 		bl	motor_abs_velocity_sampling
+ 172 0040 0246     		mov	r2, r0
+ 173 0042 40F20003 		movw	r3, #:lower16:tilt_abs_motor_velocity
+ 174 0046 C0F20003 		movt	r3, #:upper16:tilt_abs_motor_velocity
+ 175 004a 1A60     		str	r2, [r3, #0]	@ float
+ 177:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 178:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/********************************************************************/
+ 179:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/* Elaborate Pan&Tilt statistics of the current (i(t))				*/
+ 180:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/********************************************************************/
+ 181:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	current_statistics_elab_step(&pan_torque_stat,  &pan_current_stat,  pan_axis.mc.current);
+ 176              		.loc 1 181 0
+ 177 004c 40F20003 		movw	r3, #:lower16:pan_axis
+ 178 0050 C0F20003 		movt	r3, #:upper16:pan_axis
+ 179 0054 9B6F     		ldr	r3, [r3, #120]	@ float
+ 180 0056 40F20000 		movw	r0, #:lower16:pan_torque_stat
+ 181 005a C0F20000 		movt	r0, #:upper16:pan_torque_stat
+ 182 005e 40F20001 		movw	r1, #:lower16:pan_current_stat
+ 183 0062 C0F20001 		movt	r1, #:upper16:pan_current_stat
+ 184 0066 1A46     		mov	r2, r3
+ 185 0068 FFF7FEFF 		bl	current_statistics_elab_step
+ 182:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	current_statistics_elab_step(&tilt_torque_stat, &tilt_current_stat, tilt_axis.mc.current);
+ 186              		.loc 1 182 0
+ 187 006c 40F20003 		movw	r3, #:lower16:tilt_axis
+ 188 0070 C0F20003 		movt	r3, #:upper16:tilt_axis
+ 189 0074 9B6F     		ldr	r3, [r3, #120]	@ float
+ 190 0076 40F20000 		movw	r0, #:lower16:tilt_torque_stat
+ 191 007a C0F20000 		movt	r0, #:upper16:tilt_torque_stat
+ 192 007e 40F20001 		movw	r1, #:lower16:tilt_current_stat
+ 193 0082 C0F20001 		movt	r1, #:upper16:tilt_current_stat
+ 194 0086 1A46     		mov	r2, r3
+ 195 0088 FFF7FEFF 		bl	current_statistics_elab_step
+ 183:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	
+ 184:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/********************************************************************/	
+ 185:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/* Elaborate Pan&Tilt statistics of the quasi-power [A * rad/sec]	*/
+ 186:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	/********************************************************************/
+ 187:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	qpower_statistics_elab_step(&pan_torque_stat,  &pan_qpower_stat,  pan_axis.mc.current,  pan_abs_mo
+ 196              		.loc 1 187 0
+ 197 008c 40F20003 		movw	r3, #:lower16:pan_axis
+ 198 0090 C0F20003 		movt	r3, #:upper16:pan_axis
+ 199 0094 9A6F     		ldr	r2, [r3, #120]	@ float
+ 200 0096 40F20003 		movw	r3, #:lower16:pan_abs_motor_velocity
+ 201 009a C0F20003 		movt	r3, #:upper16:pan_abs_motor_velocity
+ 202 009e 1B68     		ldr	r3, [r3, #0]	@ float
+ 203 00a0 40F20000 		movw	r0, #:lower16:pan_torque_stat
+ 204 00a4 C0F20000 		movt	r0, #:upper16:pan_torque_stat
+ 205 00a8 40F20001 		movw	r1, #:lower16:pan_qpower_stat
+ 206 00ac C0F20001 		movt	r1, #:upper16:pan_qpower_stat
+ 207 00b0 FFF7FEFF 		bl	qpower_statistics_elab_step
+ 188:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 	qpower_statistics_elab_step(&tilt_torque_stat, &tilt_qpower_stat, tilt_axis.mc.current, tilt_abs_m
+ 208              		.loc 1 188 0
+ 209 00b4 40F20003 		movw	r3, #:lower16:tilt_axis
+ 210 00b8 C0F20003 		movt	r3, #:upper16:tilt_axis
+ 211 00bc 9A6F     		ldr	r2, [r3, #120]	@ float
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 8
+
+
+ 212 00be 40F20003 		movw	r3, #:lower16:tilt_abs_motor_velocity
+ 213 00c2 C0F20003 		movt	r3, #:upper16:tilt_abs_motor_velocity
+ 214 00c6 1B68     		ldr	r3, [r3, #0]	@ float
+ 215 00c8 40F20000 		movw	r0, #:lower16:tilt_torque_stat
+ 216 00cc C0F20000 		movt	r0, #:upper16:tilt_torque_stat
+ 217 00d0 40F20001 		movw	r1, #:lower16:tilt_qpower_stat
+ 218 00d4 C0F20001 		movt	r1, #:upper16:tilt_qpower_stat
+ 219 00d8 FFF7FEFF 		bl	qpower_statistics_elab_step
+ 189:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 190:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* `#END` */
+ 191:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 220              		.loc 1 191 0
+ 221 00dc 80BD     		pop	{r7, pc}
+ 222              		.cfi_endproc
+ 223              	.LFE3:
+ 224              		.size	isr_TORQUESTAT_Interrupt, .-isr_TORQUESTAT_Interrupt
+ 225 00de 00BF     		.section	.text.isr_TORQUESTAT_SetVector,"ax",%progbits
+ 226              		.align	2
+ 227              		.global	isr_TORQUESTAT_SetVector
+ 228              		.thumb
+ 229              		.thumb_func
+ 230              		.type	isr_TORQUESTAT_SetVector, %function
+ 231              	isr_TORQUESTAT_SetVector:
+ 232              	.LFB4:
+ 192:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 193:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 194:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 195:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_SetVector
+ 196:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 197:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 198:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 199:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Change the ISR vector for the Interrupt. Note calling isr_TORQUESTAT_Start
+ 200:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   will override any effect this method would have had. To set the vector 
+ 201:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   before the component has been started use isr_TORQUESTAT_StartEx instead.
+ 202:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 203:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 204:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 205:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 206:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 207:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 208:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 209:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 210:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_SetVector(cyisraddress address)
+ 211:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 233              		.loc 1 211 0
+ 234              		.cfi_startproc
+ 235              		@ args = 0, pretend = 0, frame = 16
+ 236              		@ frame_needed = 1, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238 0000 80B4     		push	{r7}
+ 239              	.LCFI9:
+ 240              		.cfi_def_cfa_offset 4
+ 241              		.cfi_offset 7, -4
+ 242 0002 85B0     		sub	sp, sp, #20
+ 243              	.LCFI10:
+ 244              		.cfi_def_cfa_offset 24
+ 245 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 9
+
+
+ 246              	.LCFI11:
+ 247              		.cfi_def_cfa_register 7
+ 248 0006 7860     		str	r0, [r7, #4]
+ 212:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     cyisraddress * ramVectorTable;
+ 213:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 214:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 249              		.loc 1 214 0
+ 250 0008 4EF60853 		movw	r3, #60680
+ 251 000c CEF20003 		movt	r3, 57344
+ 252 0010 1B68     		ldr	r3, [r3, #0]
+ 253 0012 FB60     		str	r3, [r7, #12]
+ 215:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 216:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_TORQUESTAT__INTC_NUMBER] = address;
+ 254              		.loc 1 216 0
+ 255 0014 FB68     		ldr	r3, [r7, #12]
+ 256 0016 03F16003 		add	r3, r3, #96
+ 257 001a 7A68     		ldr	r2, [r7, #4]
+ 258 001c 1A60     		str	r2, [r3, #0]
+ 217:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 259              		.loc 1 217 0
+ 260 001e 07F11407 		add	r7, r7, #20
+ 261 0022 BD46     		mov	sp, r7
+ 262 0024 80BC     		pop	{r7}
+ 263 0026 7047     		bx	lr
+ 264              		.cfi_endproc
+ 265              	.LFE4:
+ 266              		.size	isr_TORQUESTAT_SetVector, .-isr_TORQUESTAT_SetVector
+ 267              		.section	.text.isr_TORQUESTAT_GetVector,"ax",%progbits
+ 268              		.align	2
+ 269              		.global	isr_TORQUESTAT_GetVector
+ 270              		.thumb
+ 271              		.thumb_func
+ 272              		.type	isr_TORQUESTAT_GetVector, %function
+ 273              	isr_TORQUESTAT_GetVector:
+ 274              	.LFB5:
+ 218:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 219:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 220:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 221:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_GetVector
+ 222:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 223:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 224:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 225:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 226:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 227:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 228:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 229:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 230:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 231:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Address of the ISR in the interrupt vector table.
+ 232:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 233:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 234:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** cyisraddress isr_TORQUESTAT_GetVector(void)
+ 235:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 275              		.loc 1 235 0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 8
+ 278              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 10
+
+
+ 279              		@ link register save eliminated.
+ 280 0000 80B4     		push	{r7}
+ 281              	.LCFI12:
+ 282              		.cfi_def_cfa_offset 4
+ 283              		.cfi_offset 7, -4
+ 284 0002 83B0     		sub	sp, sp, #12
+ 285              	.LCFI13:
+ 286              		.cfi_def_cfa_offset 16
+ 287 0004 00AF     		add	r7, sp, #0
+ 288              	.LCFI14:
+ 289              		.cfi_def_cfa_register 7
+ 236:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     cyisraddress * ramVectorTable;
+ 237:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 238:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 290              		.loc 1 238 0
+ 291 0006 4EF60853 		movw	r3, #60680
+ 292 000a CEF20003 		movt	r3, 57344
+ 293 000e 1B68     		ldr	r3, [r3, #0]
+ 294 0010 7B60     		str	r3, [r7, #4]
+ 239:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 240:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_TORQUESTAT__INTC_NUMBER];
+ 295              		.loc 1 240 0
+ 296 0012 7B68     		ldr	r3, [r7, #4]
+ 297 0014 1B6E     		ldr	r3, [r3, #96]
+ 241:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 298              		.loc 1 241 0
+ 299 0016 1846     		mov	r0, r3
+ 300 0018 07F10C07 		add	r7, r7, #12
+ 301 001c BD46     		mov	sp, r7
+ 302 001e 80BC     		pop	{r7}
+ 303 0020 7047     		bx	lr
+ 304              		.cfi_endproc
+ 305              	.LFE5:
+ 306              		.size	isr_TORQUESTAT_GetVector, .-isr_TORQUESTAT_GetVector
+ 307 0022 00BF     		.section	.text.isr_TORQUESTAT_SetPriority,"ax",%progbits
+ 308              		.align	2
+ 309              		.global	isr_TORQUESTAT_SetPriority
+ 310              		.thumb
+ 311              		.thumb_func
+ 312              		.type	isr_TORQUESTAT_SetPriority, %function
+ 313              	isr_TORQUESTAT_SetPriority:
+ 314              	.LFB6:
+ 242:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 243:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 244:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 245:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_SetPriority
+ 246:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 247:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 248:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 249:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Sets the Priority of the Interrupt. Note calling isr_TORQUESTAT_Start
+ 250:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   or isr_TORQUESTAT_StartEx will override any effect this method 
+ 251:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   would have had. This method should only be called after 
+ 252:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   isr_TORQUESTAT_Start or isr_TORQUESTAT_StartEx has been called. To set 
+ 253:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 254:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 255:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 256:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 11
+
+
+ 257:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 258:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 259:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 260:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 261:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 262:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_SetPriority(uint8 priority)
+ 263:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 315              		.loc 1 263 0
+ 316              		.cfi_startproc
+ 317              		@ args = 0, pretend = 0, frame = 8
+ 318              		@ frame_needed = 1, uses_anonymous_args = 0
+ 319              		@ link register save eliminated.
+ 320 0000 80B4     		push	{r7}
+ 321              	.LCFI15:
+ 322              		.cfi_def_cfa_offset 4
+ 323              		.cfi_offset 7, -4
+ 324 0002 83B0     		sub	sp, sp, #12
+ 325              	.LCFI16:
+ 326              		.cfi_def_cfa_offset 16
+ 327 0004 00AF     		add	r7, sp, #0
+ 328              	.LCFI17:
+ 329              		.cfi_def_cfa_register 7
+ 330 0006 0346     		mov	r3, r0
+ 331 0008 FB71     		strb	r3, [r7, #7]
+ 264:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     *isr_TORQUESTAT_INTC_PRIOR = priority << 5;
+ 332              		.loc 1 264 0
+ 333 000a 4EF20843 		movw	r3, #58376
+ 334 000e CEF20003 		movt	r3, 57344
+ 335 0012 FA79     		ldrb	r2, [r7, #7]
+ 336 0014 4FEA4212 		lsl	r2, r2, #5
+ 337 0018 D2B2     		uxtb	r2, r2
+ 338 001a 1A70     		strb	r2, [r3, #0]
+ 265:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 339              		.loc 1 265 0
+ 340 001c 07F10C07 		add	r7, r7, #12
+ 341 0020 BD46     		mov	sp, r7
+ 342 0022 80BC     		pop	{r7}
+ 343 0024 7047     		bx	lr
+ 344              		.cfi_endproc
+ 345              	.LFE6:
+ 346              		.size	isr_TORQUESTAT_SetPriority, .-isr_TORQUESTAT_SetPriority
+ 347 0026 00BF     		.section	.text.isr_TORQUESTAT_GetPriority,"ax",%progbits
+ 348              		.align	2
+ 349              		.global	isr_TORQUESTAT_GetPriority
+ 350              		.thumb
+ 351              		.thumb_func
+ 352              		.type	isr_TORQUESTAT_GetPriority, %function
+ 353              	isr_TORQUESTAT_GetPriority:
+ 354              	.LFB7:
+ 266:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 267:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 268:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 269:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_GetPriority
+ 270:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 271:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 272:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 273:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Gets the Priority of the Interrupt.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 12
+
+
+ 274:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 275:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 276:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 277:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 278:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 279:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 280:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 281:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 282:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** uint8 isr_TORQUESTAT_GetPriority(void)
+ 283:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 355              		.loc 1 283 0
+ 356              		.cfi_startproc
+ 357              		@ args = 0, pretend = 0, frame = 8
+ 358              		@ frame_needed = 1, uses_anonymous_args = 0
+ 359              		@ link register save eliminated.
+ 360 0000 80B4     		push	{r7}
+ 361              	.LCFI18:
+ 362              		.cfi_def_cfa_offset 4
+ 363              		.cfi_offset 7, -4
+ 364 0002 83B0     		sub	sp, sp, #12
+ 365              	.LCFI19:
+ 366              		.cfi_def_cfa_offset 16
+ 367 0004 00AF     		add	r7, sp, #0
+ 368              	.LCFI20:
+ 369              		.cfi_def_cfa_register 7
+ 284:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     uint8 priority;
+ 285:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 286:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 287:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     priority = *isr_TORQUESTAT_INTC_PRIOR >> 5;
+ 370              		.loc 1 287 0
+ 371 0006 4EF20843 		movw	r3, #58376
+ 372 000a CEF20003 		movt	r3, 57344
+ 373 000e 1B78     		ldrb	r3, [r3, #0]
+ 374 0010 DBB2     		uxtb	r3, r3
+ 375 0012 4FEA5313 		lsr	r3, r3, #5
+ 376 0016 FB71     		strb	r3, [r7, #7]
+ 288:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 289:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     return priority;
+ 377              		.loc 1 289 0
+ 378 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 290:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 379              		.loc 1 290 0
+ 380 001a 1846     		mov	r0, r3
+ 381 001c 07F10C07 		add	r7, r7, #12
+ 382 0020 BD46     		mov	sp, r7
+ 383 0022 80BC     		pop	{r7}
+ 384 0024 7047     		bx	lr
+ 385              		.cfi_endproc
+ 386              	.LFE7:
+ 387              		.size	isr_TORQUESTAT_GetPriority, .-isr_TORQUESTAT_GetPriority
+ 388 0026 00BF     		.section	.text.isr_TORQUESTAT_Enable,"ax",%progbits
+ 389              		.align	2
+ 390              		.global	isr_TORQUESTAT_Enable
+ 391              		.thumb
+ 392              		.thumb_func
+ 393              		.type	isr_TORQUESTAT_Enable, %function
+ 394              	isr_TORQUESTAT_Enable:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 13
+
+
+ 395              	.LFB8:
+ 291:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 292:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 293:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 294:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_Enable
+ 295:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 296:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 297:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 298:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Enables the interrupt.
+ 299:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 300:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 301:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 302:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 303:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 304:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 305:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 306:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 307:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_Enable(void)
+ 308:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 396              		.loc 1 308 0
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 1, uses_anonymous_args = 0
+ 400              		@ link register save eliminated.
+ 401 0000 80B4     		push	{r7}
+ 402              	.LCFI21:
+ 403              		.cfi_def_cfa_offset 4
+ 404              		.cfi_offset 7, -4
+ 405 0002 00AF     		add	r7, sp, #0
+ 406              	.LCFI22:
+ 407              		.cfi_def_cfa_register 7
+ 309:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Enable the general interrupt. */
+ 310:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     *isr_TORQUESTAT_INTC_SET_EN = isr_TORQUESTAT__INTC_MASK;
+ 408              		.loc 1 310 0
+ 409 0004 4FF46143 		mov	r3, #57600
+ 410 0008 CEF20003 		movt	r3, 57344
+ 411 000c 4FF48072 		mov	r2, #256
+ 412 0010 1A60     		str	r2, [r3, #0]
+ 311:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 413              		.loc 1 311 0
+ 414 0012 BD46     		mov	sp, r7
+ 415 0014 80BC     		pop	{r7}
+ 416 0016 7047     		bx	lr
+ 417              		.cfi_endproc
+ 418              	.LFE8:
+ 419              		.size	isr_TORQUESTAT_Enable, .-isr_TORQUESTAT_Enable
+ 420              		.section	.text.isr_TORQUESTAT_GetState,"ax",%progbits
+ 421              		.align	2
+ 422              		.global	isr_TORQUESTAT_GetState
+ 423              		.thumb
+ 424              		.thumb_func
+ 425              		.type	isr_TORQUESTAT_GetState, %function
+ 426              	isr_TORQUESTAT_GetState:
+ 427              	.LFB9:
+ 312:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 313:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 314:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 14
+
+
+ 315:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_GetState
+ 316:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 317:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 318:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 319:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 320:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 321:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 322:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 323:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 324:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 325:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   1 if enabled, 0 if disabled.
+ 326:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 327:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 328:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** uint8 isr_TORQUESTAT_GetState(void)
+ 329:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 428              		.loc 1 329 0
+ 429              		.cfi_startproc
+ 430              		@ args = 0, pretend = 0, frame = 0
+ 431              		@ frame_needed = 1, uses_anonymous_args = 0
+ 432              		@ link register save eliminated.
+ 433 0000 80B4     		push	{r7}
+ 434              	.LCFI23:
+ 435              		.cfi_def_cfa_offset 4
+ 436              		.cfi_offset 7, -4
+ 437 0002 00AF     		add	r7, sp, #0
+ 438              	.LCFI24:
+ 439              		.cfi_def_cfa_register 7
+ 330:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Get the state of the general interrupt. */
+ 331:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     return ((*isr_TORQUESTAT_INTC_SET_EN & (uint32)isr_TORQUESTAT__INTC_MASK) != 0u) ? 1u:0u;
+ 440              		.loc 1 331 0
+ 441 0004 4FF46143 		mov	r3, #57600
+ 442 0008 CEF20003 		movt	r3, 57344
+ 443 000c 1B68     		ldr	r3, [r3, #0]
+ 444 000e 03F48073 		and	r3, r3, #256
+ 445 0012 002B     		cmp	r3, #0
+ 446 0014 02D0     		beq	.L13
+ 447              		.loc 1 331 0 is_stmt 0 discriminator 1
+ 448 0016 4FF00103 		mov	r3, #1
+ 449 001a 01E0     		b	.L14
+ 450              	.L13:
+ 451              		.loc 1 331 0 discriminator 2
+ 452 001c 4FF00003 		mov	r3, #0
+ 453              	.L14:
+ 332:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 454              		.loc 1 332 0 is_stmt 1 discriminator 3
+ 455 0020 1846     		mov	r0, r3
+ 456 0022 BD46     		mov	sp, r7
+ 457 0024 80BC     		pop	{r7}
+ 458 0026 7047     		bx	lr
+ 459              		.cfi_endproc
+ 460              	.LFE9:
+ 461              		.size	isr_TORQUESTAT_GetState, .-isr_TORQUESTAT_GetState
+ 462              		.section	.text.isr_TORQUESTAT_Disable,"ax",%progbits
+ 463              		.align	2
+ 464              		.global	isr_TORQUESTAT_Disable
+ 465              		.thumb
+ 466              		.thumb_func
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 15
+
+
+ 467              		.type	isr_TORQUESTAT_Disable, %function
+ 468              	isr_TORQUESTAT_Disable:
+ 469              	.LFB10:
+ 333:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 334:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 335:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 336:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_Disable
+ 337:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 338:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 339:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 340:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Disables the Interrupt.
+ 341:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 342:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 343:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 344:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 345:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 346:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 347:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 348:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 349:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_Disable(void)
+ 350:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 470              		.loc 1 350 0
+ 471              		.cfi_startproc
+ 472              		@ args = 0, pretend = 0, frame = 0
+ 473              		@ frame_needed = 1, uses_anonymous_args = 0
+ 474              		@ link register save eliminated.
+ 475 0000 80B4     		push	{r7}
+ 476              	.LCFI25:
+ 477              		.cfi_def_cfa_offset 4
+ 478              		.cfi_offset 7, -4
+ 479 0002 00AF     		add	r7, sp, #0
+ 480              	.LCFI26:
+ 481              		.cfi_def_cfa_register 7
+ 351:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     /* Disable the general interrupt. */
+ 352:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     *isr_TORQUESTAT_INTC_CLR_EN = isr_TORQUESTAT__INTC_MASK;
+ 482              		.loc 1 352 0
+ 483 0004 4EF28013 		movw	r3, #57728
+ 484 0008 CEF20003 		movt	r3, 57344
+ 485 000c 4FF48072 		mov	r2, #256
+ 486 0010 1A60     		str	r2, [r3, #0]
+ 353:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 487              		.loc 1 353 0
+ 488 0012 BD46     		mov	sp, r7
+ 489 0014 80BC     		pop	{r7}
+ 490 0016 7047     		bx	lr
+ 491              		.cfi_endproc
+ 492              	.LFE10:
+ 493              		.size	isr_TORQUESTAT_Disable, .-isr_TORQUESTAT_Disable
+ 494              		.section	.text.isr_TORQUESTAT_SetPending,"ax",%progbits
+ 495              		.align	2
+ 496              		.global	isr_TORQUESTAT_SetPending
+ 497              		.thumb
+ 498              		.thumb_func
+ 499              		.type	isr_TORQUESTAT_SetPending, %function
+ 500              	isr_TORQUESTAT_SetPending:
+ 501              	.LFB11:
+ 354:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 16
+
+
+ 355:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 356:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 357:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_SetPending
+ 358:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ 359:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 360:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 361:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 362:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   generating the interrupt.
+ 363:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 364:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 365:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 366:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 367:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 368:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 369:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 370:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 371:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_SetPending(void)
+ 372:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 502              		.loc 1 372 0
+ 503              		.cfi_startproc
+ 504              		@ args = 0, pretend = 0, frame = 0
+ 505              		@ frame_needed = 1, uses_anonymous_args = 0
+ 506              		@ link register save eliminated.
+ 507 0000 80B4     		push	{r7}
+ 508              	.LCFI27:
+ 509              		.cfi_def_cfa_offset 4
+ 510              		.cfi_offset 7, -4
+ 511 0002 00AF     		add	r7, sp, #0
+ 512              	.LCFI28:
+ 513              		.cfi_def_cfa_register 7
+ 373:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     *isr_TORQUESTAT_INTC_SET_PD = isr_TORQUESTAT__INTC_MASK;
+ 514              		.loc 1 373 0
+ 515 0004 4FF46243 		mov	r3, #57856
+ 516 0008 CEF20003 		movt	r3, 57344
+ 517 000c 4FF48072 		mov	r2, #256
+ 518 0010 1A60     		str	r2, [r3, #0]
+ 374:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 519              		.loc 1 374 0
+ 520 0012 BD46     		mov	sp, r7
+ 521 0014 80BC     		pop	{r7}
+ 522 0016 7047     		bx	lr
+ 523              		.cfi_endproc
+ 524              	.LFE11:
+ 525              		.size	isr_TORQUESTAT_SetPending, .-isr_TORQUESTAT_SetPending
+ 526              		.section	.text.isr_TORQUESTAT_ClearPending,"ax",%progbits
+ 527              		.align	2
+ 528              		.global	isr_TORQUESTAT_ClearPending
+ 529              		.thumb
+ 530              		.thumb_func
+ 531              		.type	isr_TORQUESTAT_ClearPending, %function
+ 532              	isr_TORQUESTAT_ClearPending:
+ 533              	.LFB12:
+ 375:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 376:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** 
+ 377:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** /*******************************************************************************
+ 378:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Function Name: isr_TORQUESTAT_ClearPending
+ 379:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** ********************************************************************************
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 17
+
+
+ 380:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 381:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Summary:
+ 382:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   Clears a pending interrupt.
+ 383:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 384:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Parameters:
+ 385:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 386:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 387:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** * Return:
+ 388:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *   None
+ 389:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *
+ 390:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** *******************************************************************************/
+ 391:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** void isr_TORQUESTAT_ClearPending(void)
+ 392:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** {
+ 534              		.loc 1 392 0
+ 535              		.cfi_startproc
+ 536              		@ args = 0, pretend = 0, frame = 0
+ 537              		@ frame_needed = 1, uses_anonymous_args = 0
+ 538              		@ link register save eliminated.
+ 539 0000 80B4     		push	{r7}
+ 540              	.LCFI29:
+ 541              		.cfi_def_cfa_offset 4
+ 542              		.cfi_offset 7, -4
+ 543 0002 00AF     		add	r7, sp, #0
+ 544              	.LCFI30:
+ 545              		.cfi_def_cfa_register 7
+ 393:.\Generated_Source\PSoC5/isr_TORQUESTAT.c ****     *isr_TORQUESTAT_INTC_CLR_PD = isr_TORQUESTAT__INTC_MASK;
+ 546              		.loc 1 393 0
+ 547 0004 4EF28023 		movw	r3, #57984
+ 548 0008 CEF20003 		movt	r3, 57344
+ 549 000c 4FF48072 		mov	r2, #256
+ 550 0010 1A60     		str	r2, [r3, #0]
+ 394:.\Generated_Source\PSoC5/isr_TORQUESTAT.c **** }
+ 551              		.loc 1 394 0
+ 552 0012 BD46     		mov	sp, r7
+ 553 0014 80BC     		pop	{r7}
+ 554 0016 7047     		bx	lr
+ 555              		.cfi_endproc
+ 556              	.LFE12:
+ 557              		.size	isr_TORQUESTAT_ClearPending, .-isr_TORQUESTAT_ClearPending
+ 558              		.text
+ 559              	.Letext0:
+ 560              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 561              		.file 3 "./gobee.h"
+ 562              		.file 4 "./statistics.h"
+ 563              		.file 5 "./torquestat.h"
+ 564              		.section	.debug_info,"",%progbits
+ 565              	.Ldebug_info0:
+ 566 0000 CE070000 		.4byte	0x7ce
+ 567 0004 0200     		.2byte	0x2
+ 568 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 569 000a 04       		.byte	0x4
+ 570 000b 01       		.uleb128 0x1
+ 571 000c 25060000 		.4byte	.LASF115
+ 572 0010 01       		.byte	0x1
+ 573 0011 94050000 		.4byte	.LASF116
+ 574 0015 24050000 		.4byte	.LASF117
+ 575 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 18
+
+
+ 576 001d 00000000 		.4byte	0
+ 577 0021 00000000 		.4byte	0
+ 578 0025 00000000 		.4byte	.Ldebug_line0
+ 579 0029 02       		.uleb128 0x2
+ 580 002a 01       		.byte	0x1
+ 581 002b 06       		.byte	0x6
+ 582 002c 06060000 		.4byte	.LASF0
+ 583 0030 02       		.uleb128 0x2
+ 584 0031 01       		.byte	0x1
+ 585 0032 08       		.byte	0x8
+ 586 0033 BE050000 		.4byte	.LASF1
+ 587 0037 02       		.uleb128 0x2
+ 588 0038 02       		.byte	0x2
+ 589 0039 05       		.byte	0x5
+ 590 003a 0E040000 		.4byte	.LASF2
+ 591 003e 02       		.uleb128 0x2
+ 592 003f 02       		.byte	0x2
+ 593 0040 07       		.byte	0x7
+ 594 0041 12060000 		.4byte	.LASF3
+ 595 0045 03       		.uleb128 0x3
+ 596 0046 04       		.byte	0x4
+ 597 0047 05       		.byte	0x5
+ 598 0048 696E7400 		.ascii	"int\000"
+ 599 004c 02       		.uleb128 0x2
+ 600 004d 04       		.byte	0x4
+ 601 004e 07       		.byte	0x7
+ 602 004f 3C000000 		.4byte	.LASF4
+ 603 0053 02       		.uleb128 0x2
+ 604 0054 08       		.byte	0x8
+ 605 0055 05       		.byte	0x5
+ 606 0056 29030000 		.4byte	.LASF5
+ 607 005a 02       		.uleb128 0x2
+ 608 005b 08       		.byte	0x8
+ 609 005c 07       		.byte	0x7
+ 610 005d 73010000 		.4byte	.LASF6
+ 611 0061 02       		.uleb128 0x2
+ 612 0062 04       		.byte	0x4
+ 613 0063 05       		.byte	0x5
+ 614 0064 35040000 		.4byte	.LASF7
+ 615 0068 02       		.uleb128 0x2
+ 616 0069 04       		.byte	0x4
+ 617 006a 07       		.byte	0x7
+ 618 006b A9040000 		.4byte	.LASF8
+ 619 006f 02       		.uleb128 0x2
+ 620 0070 04       		.byte	0x4
+ 621 0071 07       		.byte	0x7
+ 622 0072 CD040000 		.4byte	.LASF9
+ 623 0076 04       		.uleb128 0x4
+ 624 0077 01       		.byte	0x1
+ 625 0078 05       		.uleb128 0x5
+ 626 0079 04       		.byte	0x4
+ 627 007a 76000000 		.4byte	0x76
+ 628 007e 02       		.uleb128 0x2
+ 629 007f 01       		.byte	0x1
+ 630 0080 08       		.byte	0x8
+ 631 0081 84020000 		.4byte	.LASF10
+ 632 0085 06       		.uleb128 0x6
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 19
+
+
+ 633 0086 76060000 		.4byte	.LASF11
+ 634 008a 02       		.byte	0x2
+ 635 008b 5B       		.byte	0x5b
+ 636 008c 30000000 		.4byte	0x30
+ 637 0090 06       		.uleb128 0x6
+ 638 0091 90030000 		.4byte	.LASF12
+ 639 0095 02       		.byte	0x2
+ 640 0096 5D       		.byte	0x5d
+ 641 0097 6F000000 		.4byte	0x6f
+ 642 009b 06       		.uleb128 0x6
+ 643 009c 57000000 		.4byte	.LASF13
+ 644 00a0 02       		.byte	0x2
+ 645 00a1 5F       		.byte	0x5f
+ 646 00a2 37000000 		.4byte	0x37
+ 647 00a6 06       		.uleb128 0x6
+ 648 00a7 66010000 		.4byte	.LASF14
+ 649 00ab 02       		.byte	0x2
+ 650 00ac 60       		.byte	0x60
+ 651 00ad 61000000 		.4byte	0x61
+ 652 00b1 02       		.uleb128 0x2
+ 653 00b2 04       		.byte	0x4
+ 654 00b3 04       		.byte	0x4
+ 655 00b4 60010000 		.4byte	.LASF15
+ 656 00b8 02       		.uleb128 0x2
+ 657 00b9 08       		.byte	0x8
+ 658 00ba 04       		.byte	0x4
+ 659 00bb 7C060000 		.4byte	.LASF16
+ 660 00bf 06       		.uleb128 0x6
+ 661 00c0 DC020000 		.4byte	.LASF17
+ 662 00c4 02       		.byte	0x2
+ 663 00c5 6C       		.byte	0x6c
+ 664 00c6 7E000000 		.4byte	0x7e
+ 665 00ca 06       		.uleb128 0x6
+ 666 00cb 69000000 		.4byte	.LASF18
+ 667 00cf 02       		.byte	0x2
+ 668 00d0 F0       		.byte	0xf0
+ 669 00d1 D5000000 		.4byte	0xd5
+ 670 00d5 07       		.uleb128 0x7
+ 671 00d6 85000000 		.4byte	0x85
+ 672 00da 06       		.uleb128 0x6
+ 673 00db C4030000 		.4byte	.LASF19
+ 674 00df 02       		.byte	0x2
+ 675 00e0 F2       		.byte	0xf2
+ 676 00e1 E5000000 		.4byte	0xe5
+ 677 00e5 07       		.uleb128 0x7
+ 678 00e6 90000000 		.4byte	0x90
+ 679 00ea 08       		.uleb128 0x8
+ 680 00eb 7D030000 		.4byte	.LASF20
+ 681 00ef 02       		.byte	0x2
+ 682 00f0 0201     		.2byte	0x102
+ 683 00f2 78000000 		.4byte	0x78
+ 684 00f6 09       		.uleb128 0x9
+ 685 00f7 04       		.byte	0x4
+ 686 00f8 03       		.byte	0x3
+ 687 00f9 1B01     		.2byte	0x11b
+ 688 00fb 18010000 		.4byte	0x118
+ 689 00ff 0A       		.uleb128 0xa
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 20
+
+
+ 690 0100 D7030000 		.4byte	.LASF21
+ 691 0104 03       		.byte	0x3
+ 692 0105 1D01     		.2byte	0x11d
+ 693 0107 18010000 		.4byte	0x118
+ 694 010b 0A       		.uleb128 0xa
+ 695 010c E3030000 		.4byte	.LASF22
+ 696 0110 03       		.byte	0x3
+ 697 0111 1E01     		.2byte	0x11e
+ 698 0113 B1000000 		.4byte	0xb1
+ 699 0117 00       		.byte	0
+ 700 0118 0B       		.uleb128 0xb
+ 701 0119 BF000000 		.4byte	0xbf
+ 702 011d 28010000 		.4byte	0x128
+ 703 0121 0C       		.uleb128 0xc
+ 704 0122 68000000 		.4byte	0x68
+ 705 0126 03       		.byte	0x3
+ 706 0127 00       		.byte	0
+ 707 0128 08       		.uleb128 0x8
+ 708 0129 CF030000 		.4byte	.LASF23
+ 709 012d 03       		.byte	0x3
+ 710 012e 1F01     		.2byte	0x11f
+ 711 0130 F6000000 		.4byte	0xf6
+ 712 0134 0D       		.uleb128 0xd
+ 713 0135 BE020000 		.4byte	.LASF24
+ 714 0139 04       		.byte	0x4
+ 715 013a 03       		.byte	0x3
+ 716 013b A001     		.2byte	0x1a0
+ 717 013d 51010000 		.4byte	0x151
+ 718 0141 0E       		.uleb128 0xe
+ 719 0142 AC020000 		.4byte	.LASF26
+ 720 0146 03       		.byte	0x3
+ 721 0147 A201     		.2byte	0x1a2
+ 722 0149 A6000000 		.4byte	0xa6
+ 723 014d 02       		.byte	0x2
+ 724 014e 23       		.byte	0x23
+ 725 014f 00       		.uleb128 0
+ 726 0150 00       		.byte	0
+ 727 0151 0D       		.uleb128 0xd
+ 728 0152 91060000 		.4byte	.LASF25
+ 729 0156 14       		.byte	0x14
+ 730 0157 03       		.byte	0x3
+ 731 0158 9901     		.2byte	0x199
+ 732 015a AA010000 		.4byte	0x1aa
+ 733 015e 0E       		.uleb128 0xe
+ 734 015f CC060000 		.4byte	.LASF27
+ 735 0163 03       		.byte	0x3
+ 736 0164 9B01     		.2byte	0x19b
+ 737 0166 A6000000 		.4byte	0xa6
+ 738 016a 02       		.byte	0x2
+ 739 016b 23       		.byte	0x23
+ 740 016c 00       		.uleb128 0
+ 741 016d 0E       		.uleb128 0xe
+ 742 016e A0040000 		.4byte	.LASF28
+ 743 0172 03       		.byte	0x3
+ 744 0173 9C01     		.2byte	0x19c
+ 745 0175 B1000000 		.4byte	0xb1
+ 746 0179 02       		.byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 21
+
+
+ 747 017a 23       		.byte	0x23
+ 748 017b 04       		.uleb128 0x4
+ 749 017c 0E       		.uleb128 0xe
+ 750 017d DD030000 		.4byte	.LASF29
+ 751 0181 03       		.byte	0x3
+ 752 0182 9D01     		.2byte	0x19d
+ 753 0184 B1000000 		.4byte	0xb1
+ 754 0188 02       		.byte	0x2
+ 755 0189 23       		.byte	0x23
+ 756 018a 08       		.uleb128 0x8
+ 757 018b 0E       		.uleb128 0xe
+ 758 018c 9E010000 		.4byte	.LASF30
+ 759 0190 03       		.byte	0x3
+ 760 0191 9E01     		.2byte	0x19e
+ 761 0193 B1000000 		.4byte	0xb1
+ 762 0197 02       		.byte	0x2
+ 763 0198 23       		.byte	0x23
+ 764 0199 0C       		.uleb128 0xc
+ 765 019a 0E       		.uleb128 0xe
+ 766 019b 5C030000 		.4byte	.LASF31
+ 767 019f 03       		.byte	0x3
+ 768 01a0 A601     		.2byte	0x1a6
+ 769 01a2 34010000 		.4byte	0x134
+ 770 01a6 02       		.byte	0x2
+ 771 01a7 23       		.byte	0x23
+ 772 01a8 10       		.uleb128 0x10
+ 773 01a9 00       		.byte	0
+ 774 01aa 0D       		.uleb128 0xd
+ 775 01ab 15030000 		.4byte	.LASF32
+ 776 01af 0C       		.byte	0xc
+ 777 01b0 03       		.byte	0x3
+ 778 01b1 EE01     		.2byte	0x1ee
+ 779 01b3 F4010000 		.4byte	0x1f4
+ 780 01b7 0E       		.uleb128 0xe
+ 781 01b8 91010000 		.4byte	.LASF33
+ 782 01bc 03       		.byte	0x3
+ 783 01bd F001     		.2byte	0x1f0
+ 784 01bf 85000000 		.4byte	0x85
+ 785 01c3 02       		.byte	0x2
+ 786 01c4 23       		.byte	0x23
+ 787 01c5 00       		.uleb128 0
+ 788 01c6 0E       		.uleb128 0xe
+ 789 01c7 55010000 		.4byte	.LASF34
+ 790 01cb 03       		.byte	0x3
+ 791 01cc F401     		.2byte	0x1f4
+ 792 01ce 85000000 		.4byte	0x85
+ 793 01d2 02       		.byte	0x2
+ 794 01d3 23       		.byte	0x23
+ 795 01d4 01       		.uleb128 0x1
+ 796 01d5 0E       		.uleb128 0xe
+ 797 01d6 7B040000 		.4byte	.LASF35
+ 798 01da 03       		.byte	0x3
+ 799 01db FA01     		.2byte	0x1fa
+ 800 01dd B1000000 		.4byte	0xb1
+ 801 01e1 02       		.byte	0x2
+ 802 01e2 23       		.byte	0x23
+ 803 01e3 04       		.uleb128 0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 22
+
+
+ 804 01e4 0E       		.uleb128 0xe
+ 805 01e5 28000000 		.4byte	.LASF36
+ 806 01e9 03       		.byte	0x3
+ 807 01ea FB01     		.2byte	0x1fb
+ 808 01ec B1000000 		.4byte	0xb1
+ 809 01f0 02       		.byte	0x2
+ 810 01f1 23       		.byte	0x23
+ 811 01f2 08       		.uleb128 0x8
+ 812 01f3 00       		.byte	0
+ 813 01f4 0D       		.uleb128 0xd
+ 814 01f5 37030000 		.4byte	.LASF37
+ 815 01f9 28       		.byte	0x28
+ 816 01fa 03       		.byte	0x3
+ 817 01fb 0002     		.2byte	0x200
+ 818 01fd A7020000 		.4byte	0x2a7
+ 819 0201 0E       		.uleb128 0xe
+ 820 0202 AC020000 		.4byte	.LASF26
+ 821 0206 03       		.byte	0x3
+ 822 0207 0202     		.2byte	0x202
+ 823 0209 28010000 		.4byte	0x128
+ 824 020d 02       		.byte	0x2
+ 825 020e 23       		.byte	0x23
+ 826 020f 00       		.uleb128 0
+ 827 0210 0E       		.uleb128 0xe
+ 828 0211 57040000 		.4byte	.LASF38
+ 829 0215 03       		.byte	0x3
+ 830 0216 0802     		.2byte	0x208
+ 831 0218 85000000 		.4byte	0x85
+ 832 021c 02       		.byte	0x2
+ 833 021d 23       		.byte	0x23
+ 834 021e 04       		.uleb128 0x4
+ 835 021f 0F       		.uleb128 0xf
+ 836 0220 4B706600 		.ascii	"Kpf\000"
+ 837 0224 03       		.byte	0x3
+ 838 0225 0C02     		.2byte	0x20c
+ 839 0227 28010000 		.4byte	0x128
+ 840 022b 02       		.byte	0x2
+ 841 022c 23       		.byte	0x23
+ 842 022d 08       		.uleb128 0x8
+ 843 022e 0F       		.uleb128 0xf
+ 844 022f 4B646600 		.ascii	"Kdf\000"
+ 845 0233 03       		.byte	0x3
+ 846 0234 0E02     		.2byte	0x20e
+ 847 0236 28010000 		.4byte	0x128
+ 848 023a 02       		.byte	0x2
+ 849 023b 23       		.byte	0x23
+ 850 023c 0C       		.uleb128 0xc
+ 851 023d 0F       		.uleb128 0xf
+ 852 023e 4B696600 		.ascii	"Kif\000"
+ 853 0242 03       		.byte	0x3
+ 854 0243 1002     		.2byte	0x210
+ 855 0245 28010000 		.4byte	0x128
+ 856 0249 02       		.byte	0x2
+ 857 024a 23       		.byte	0x23
+ 858 024b 10       		.uleb128 0x10
+ 859 024c 0E       		.uleb128 0xe
+ 860 024d A7020000 		.4byte	.LASF39
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 23
+
+
+ 861 0251 03       		.byte	0x3
+ 862 0252 1202     		.2byte	0x212
+ 863 0254 28010000 		.4byte	0x128
+ 864 0258 02       		.byte	0x2
+ 865 0259 23       		.byte	0x23
+ 866 025a 14       		.uleb128 0x14
+ 867 025b 0E       		.uleb128 0xe
+ 868 025c 0B020000 		.4byte	.LASF40
+ 869 0260 03       		.byte	0x3
+ 870 0261 1602     		.2byte	0x216
+ 871 0263 28010000 		.4byte	0x128
+ 872 0267 02       		.byte	0x2
+ 873 0268 23       		.byte	0x23
+ 874 0269 18       		.uleb128 0x18
+ 875 026a 0E       		.uleb128 0xe
+ 876 026b D4010000 		.4byte	.LASF41
+ 877 026f 03       		.byte	0x3
+ 878 0270 1802     		.2byte	0x218
+ 879 0272 28010000 		.4byte	0x128
+ 880 0276 02       		.byte	0x2
+ 881 0277 23       		.byte	0x23
+ 882 0278 1C       		.uleb128 0x1c
+ 883 0279 0E       		.uleb128 0xe
+ 884 027a 69040000 		.4byte	.LASF42
+ 885 027e 03       		.byte	0x3
+ 886 027f 1A02     		.2byte	0x21a
+ 887 0281 85000000 		.4byte	0x85
+ 888 0285 02       		.byte	0x2
+ 889 0286 23       		.byte	0x23
+ 890 0287 20       		.uleb128 0x20
+ 891 0288 0E       		.uleb128 0xe
+ 892 0289 83060000 		.4byte	.LASF43
+ 893 028d 03       		.byte	0x3
+ 894 028e 1E02     		.2byte	0x21e
+ 895 0290 85000000 		.4byte	0x85
+ 896 0294 02       		.byte	0x2
+ 897 0295 23       		.byte	0x23
+ 898 0296 21       		.uleb128 0x21
+ 899 0297 0E       		.uleb128 0xe
+ 900 0298 F1040000 		.4byte	.LASF44
+ 901 029c 03       		.byte	0x3
+ 902 029d 2202     		.2byte	0x222
+ 903 029f 28010000 		.4byte	0x128
+ 904 02a3 02       		.byte	0x2
+ 905 02a4 23       		.byte	0x23
+ 906 02a5 24       		.uleb128 0x24
+ 907 02a6 00       		.byte	0
+ 908 02a7 0D       		.uleb128 0xd
+ 909 02a8 9F020000 		.4byte	.LASF45
+ 910 02ac 50       		.byte	0x50
+ 911 02ad 03       		.byte	0x3
+ 912 02ae 2802     		.2byte	0x228
+ 913 02b0 B4030000 		.4byte	0x3b4
+ 914 02b4 0E       		.uleb128 0xe
+ 915 02b5 62030000 		.4byte	.LASF46
+ 916 02b9 03       		.byte	0x3
+ 917 02ba 2A02     		.2byte	0x22a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 24
+
+
+ 918 02bc A6000000 		.4byte	0xa6
+ 919 02c0 02       		.byte	0x2
+ 920 02c1 23       		.byte	0x23
+ 921 02c2 00       		.uleb128 0
+ 922 02c3 0E       		.uleb128 0xe
+ 923 02c4 AF010000 		.4byte	.LASF47
+ 924 02c8 03       		.byte	0x3
+ 925 02c9 2B02     		.2byte	0x22b
+ 926 02cb A6000000 		.4byte	0xa6
+ 927 02cf 02       		.byte	0x2
+ 928 02d0 23       		.byte	0x23
+ 929 02d1 04       		.uleb128 0x4
+ 930 02d2 0E       		.uleb128 0xe
+ 931 02d3 4E020000 		.4byte	.LASF48
+ 932 02d7 03       		.byte	0x3
+ 933 02d8 3002     		.2byte	0x230
+ 934 02da A6000000 		.4byte	0xa6
+ 935 02de 02       		.byte	0x2
+ 936 02df 23       		.byte	0x23
+ 937 02e0 08       		.uleb128 0x8
+ 938 02e1 0E       		.uleb128 0xe
+ 939 02e2 76000000 		.4byte	.LASF49
+ 940 02e6 03       		.byte	0x3
+ 941 02e7 3102     		.2byte	0x231
+ 942 02e9 A6000000 		.4byte	0xa6
+ 943 02ed 02       		.byte	0x2
+ 944 02ee 23       		.byte	0x23
+ 945 02ef 0C       		.uleb128 0xc
+ 946 02f0 0E       		.uleb128 0xe
+ 947 02f1 E7040000 		.4byte	.LASF50
+ 948 02f5 03       		.byte	0x3
+ 949 02f6 3602     		.2byte	0x236
+ 950 02f8 51010000 		.4byte	0x151
+ 951 02fc 02       		.byte	0x2
+ 952 02fd 23       		.byte	0x23
+ 953 02fe 10       		.uleb128 0x10
+ 954 02ff 0E       		.uleb128 0xe
+ 955 0300 AA000000 		.4byte	.LASF51
+ 956 0304 03       		.byte	0x3
+ 957 0305 3802     		.2byte	0x238
+ 958 0307 B1000000 		.4byte	0xb1
+ 959 030b 02       		.byte	0x2
+ 960 030c 23       		.byte	0x23
+ 961 030d 24       		.uleb128 0x24
+ 962 030e 0E       		.uleb128 0xe
+ 963 030f DB050000 		.4byte	.LASF52
+ 964 0313 03       		.byte	0x3
+ 965 0314 3902     		.2byte	0x239
+ 966 0316 B1000000 		.4byte	0xb1
+ 967 031a 02       		.byte	0x2
+ 968 031b 23       		.byte	0x23
+ 969 031c 28       		.uleb128 0x28
+ 970 031d 0E       		.uleb128 0xe
+ 971 031e 6C010000 		.4byte	.LASF53
+ 972 0322 03       		.byte	0x3
+ 973 0323 3A02     		.2byte	0x23a
+ 974 0325 B1000000 		.4byte	0xb1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 25
+
+
+ 975 0329 02       		.byte	0x2
+ 976 032a 23       		.byte	0x23
+ 977 032b 2C       		.uleb128 0x2c
+ 978 032c 0E       		.uleb128 0xe
+ 979 032d 8A010000 		.4byte	.LASF54
+ 980 0331 03       		.byte	0x3
+ 981 0332 3B02     		.2byte	0x23b
+ 982 0334 B1000000 		.4byte	0xb1
+ 983 0338 02       		.byte	0x2
+ 984 0339 23       		.byte	0x23
+ 985 033a 30       		.uleb128 0x30
+ 986 033b 0E       		.uleb128 0xe
+ 987 033c 8E000000 		.4byte	.LASF55
+ 988 0340 03       		.byte	0x3
+ 989 0341 3C02     		.2byte	0x23c
+ 990 0343 B1000000 		.4byte	0xb1
+ 991 0347 02       		.byte	0x2
+ 992 0348 23       		.byte	0x23
+ 993 0349 34       		.uleb128 0x34
+ 994 034a 0E       		.uleb128 0xe
+ 995 034b 18040000 		.4byte	.LASF56
+ 996 034f 03       		.byte	0x3
+ 997 0350 3D02     		.2byte	0x23d
+ 998 0352 B1000000 		.4byte	0xb1
+ 999 0356 02       		.byte	0x2
+ 1000 0357 23       		.byte	0x23
+ 1001 0358 38       		.uleb128 0x38
+ 1002 0359 0E       		.uleb128 0xe
+ 1003 035a 97030000 		.4byte	.LASF57
+ 1004 035e 03       		.byte	0x3
+ 1005 035f 3F02     		.2byte	0x23f
+ 1006 0361 B1000000 		.4byte	0xb1
+ 1007 0365 02       		.byte	0x2
+ 1008 0366 23       		.byte	0x23
+ 1009 0367 3C       		.uleb128 0x3c
+ 1010 0368 0E       		.uleb128 0xe
+ 1011 0369 6E000000 		.4byte	.LASF58
+ 1012 036d 03       		.byte	0x3
+ 1013 036e 4002     		.2byte	0x240
+ 1014 0370 9B000000 		.4byte	0x9b
+ 1015 0374 02       		.byte	0x2
+ 1016 0375 23       		.byte	0x23
+ 1017 0376 40       		.uleb128 0x40
+ 1018 0377 0E       		.uleb128 0xe
+ 1019 0378 28040000 		.4byte	.LASF59
+ 1020 037c 03       		.byte	0x3
+ 1021 037d 4102     		.2byte	0x241
+ 1022 037f 9B000000 		.4byte	0x9b
+ 1023 0383 02       		.byte	0x2
+ 1024 0384 23       		.byte	0x23
+ 1025 0385 42       		.uleb128 0x42
+ 1026 0386 0E       		.uleb128 0xe
+ 1027 0387 6E060000 		.4byte	.LASF60
+ 1028 038b 03       		.byte	0x3
+ 1029 038c 4302     		.2byte	0x243
+ 1030 038e B1000000 		.4byte	0xb1
+ 1031 0392 02       		.byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 26
+
+
+ 1032 0393 23       		.byte	0x23
+ 1033 0394 44       		.uleb128 0x44
+ 1034 0395 0E       		.uleb128 0xe
+ 1035 0396 1C000000 		.4byte	.LASF61
+ 1036 039a 03       		.byte	0x3
+ 1037 039b 4502     		.2byte	0x245
+ 1038 039d B1000000 		.4byte	0xb1
+ 1039 03a1 02       		.byte	0x2
+ 1040 03a2 23       		.byte	0x23
+ 1041 03a3 48       		.uleb128 0x48
+ 1042 03a4 0E       		.uleb128 0xe
+ 1043 03a5 C7010000 		.4byte	.LASF62
+ 1044 03a9 03       		.byte	0x3
+ 1045 03aa 4602     		.2byte	0x246
+ 1046 03ac 85000000 		.4byte	0x85
+ 1047 03b0 02       		.byte	0x2
+ 1048 03b1 23       		.byte	0x23
+ 1049 03b2 4C       		.uleb128 0x4c
+ 1050 03b3 00       		.byte	0
+ 1051 03b4 0D       		.uleb128 0xd
+ 1052 03b5 19010000 		.4byte	.LASF63
+ 1053 03b9 0C       		.byte	0xc
+ 1054 03ba 03       		.byte	0x3
+ 1055 03bb 4A02     		.2byte	0x24a
+ 1056 03bd EF030000 		.4byte	0x3ef
+ 1057 03c1 0E       		.uleb128 0xe
+ 1058 03c2 B7020000 		.4byte	.LASF64
+ 1059 03c6 03       		.byte	0x3
+ 1060 03c7 4C02     		.2byte	0x24c
+ 1061 03c9 85000000 		.4byte	0x85
+ 1062 03cd 02       		.byte	0x2
+ 1063 03ce 23       		.byte	0x23
+ 1064 03cf 00       		.uleb128 0
+ 1065 03d0 0E       		.uleb128 0xe
+ 1066 03d1 00000000 		.4byte	.LASF65
+ 1067 03d5 03       		.byte	0x3
+ 1068 03d6 4D02     		.2byte	0x24d
+ 1069 03d8 B1000000 		.4byte	0xb1
+ 1070 03dc 02       		.byte	0x2
+ 1071 03dd 23       		.byte	0x23
+ 1072 03de 04       		.uleb128 0x4
+ 1073 03df 0E       		.uleb128 0xe
+ 1074 03e0 99060000 		.4byte	.LASF66
+ 1075 03e4 03       		.byte	0x3
+ 1076 03e5 4E02     		.2byte	0x24e
+ 1077 03e7 B1000000 		.4byte	0xb1
+ 1078 03eb 02       		.byte	0x2
+ 1079 03ec 23       		.byte	0x23
+ 1080 03ed 08       		.uleb128 0x8
+ 1081 03ee 00       		.byte	0
+ 1082 03ef 0D       		.uleb128 0xd
+ 1083 03f0 A0030000 		.4byte	.LASF67
+ 1084 03f4 90       		.byte	0x90
+ 1085 03f5 03       		.byte	0x3
+ 1086 03f6 EB01     		.2byte	0x1eb
+ 1087 03f8 38040000 		.4byte	0x438
+ 1088 03fc 0E       		.uleb128 0xe
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 27
+
+
+ 1089 03fd 76030000 		.4byte	.LASF68
+ 1090 0401 03       		.byte	0x3
+ 1091 0402 FD01     		.2byte	0x1fd
+ 1092 0404 AA010000 		.4byte	0x1aa
+ 1093 0408 02       		.byte	0x2
+ 1094 0409 23       		.byte	0x23
+ 1095 040a 00       		.uleb128 0
+ 1096 040b 0E       		.uleb128 0xe
+ 1097 040c 5C030000 		.4byte	.LASF31
+ 1098 0410 03       		.byte	0x3
+ 1099 0411 2402     		.2byte	0x224
+ 1100 0413 F4010000 		.4byte	0x1f4
+ 1101 0417 02       		.byte	0x2
+ 1102 0418 23       		.byte	0x23
+ 1103 0419 0C       		.uleb128 0xc
+ 1104 041a 0F       		.uleb128 0xf
+ 1105 041b 6D6300   		.ascii	"mc\000"
+ 1106 041e 03       		.byte	0x3
+ 1107 041f 4702     		.2byte	0x247
+ 1108 0421 A7020000 		.4byte	0x2a7
+ 1109 0425 02       		.byte	0x2
+ 1110 0426 23       		.byte	0x23
+ 1111 0427 34       		.uleb128 0x34
+ 1112 0428 0F       		.uleb128 0xf
+ 1113 0429 6C6300   		.ascii	"lc\000"
+ 1114 042c 03       		.byte	0x3
+ 1115 042d 4F02     		.2byte	0x24f
+ 1116 042f B4030000 		.4byte	0x3b4
+ 1117 0433 03       		.byte	0x3
+ 1118 0434 23       		.byte	0x23
+ 1119 0435 8401     		.uleb128 0x84
+ 1120 0437 00       		.byte	0
+ 1121 0438 10       		.uleb128 0x10
+ 1122 0439 03040000 		.4byte	.LASF69
+ 1123 043d 30       		.byte	0x30
+ 1124 043e 04       		.byte	0x4
+ 1125 043f 18       		.byte	0x18
+ 1126 0440 EC040000 		.4byte	0x4ec
+ 1127 0444 11       		.uleb128 0x11
+ 1128 0445 23030000 		.4byte	.LASF70
+ 1129 0449 04       		.byte	0x4
+ 1130 044a 1A       		.byte	0x1a
+ 1131 044b 85000000 		.4byte	0x85
+ 1132 044f 02       		.byte	0x2
+ 1133 0450 23       		.byte	0x23
+ 1134 0451 00       		.uleb128 0
+ 1135 0452 11       		.uleb128 0x11
+ 1136 0453 C7060000 		.4byte	.LASF71
+ 1137 0457 04       		.byte	0x4
+ 1138 0458 1C       		.byte	0x1c
+ 1139 0459 B1000000 		.4byte	0xb1
+ 1140 045d 02       		.byte	0x2
+ 1141 045e 23       		.byte	0x23
+ 1142 045f 04       		.uleb128 0x4
+ 1143 0460 11       		.uleb128 0x11
+ 1144 0461 16050000 		.4byte	.LASF72
+ 1145 0465 04       		.byte	0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 28
+
+
+ 1146 0466 1D       		.byte	0x1d
+ 1147 0467 B1000000 		.4byte	0xb1
+ 1148 046b 02       		.byte	0x2
+ 1149 046c 23       		.byte	0x23
+ 1150 046d 08       		.uleb128 0x8
+ 1151 046e 12       		.uleb128 0x12
+ 1152 046f 6D696E00 		.ascii	"min\000"
+ 1153 0473 04       		.byte	0x4
+ 1154 0474 1E       		.byte	0x1e
+ 1155 0475 B1000000 		.4byte	0xb1
+ 1156 0479 02       		.byte	0x2
+ 1157 047a 23       		.byte	0x23
+ 1158 047b 0C       		.uleb128 0xc
+ 1159 047c 12       		.uleb128 0x12
+ 1160 047d 6D617800 		.ascii	"max\000"
+ 1161 0481 04       		.byte	0x4
+ 1162 0482 1F       		.byte	0x1f
+ 1163 0483 B1000000 		.4byte	0xb1
+ 1164 0487 02       		.byte	0x2
+ 1165 0488 23       		.byte	0x23
+ 1166 0489 10       		.uleb128 0x10
+ 1167 048a 11       		.uleb128 0x11
+ 1168 048b 8A030000 		.4byte	.LASF73
+ 1169 048f 04       		.byte	0x4
+ 1170 0490 20       		.byte	0x20
+ 1171 0491 B1000000 		.4byte	0xb1
+ 1172 0495 02       		.byte	0x2
+ 1173 0496 23       		.byte	0x23
+ 1174 0497 14       		.uleb128 0x14
+ 1175 0498 11       		.uleb128 0x11
+ 1176 0499 3E030000 		.4byte	.LASF74
+ 1177 049d 04       		.byte	0x4
+ 1178 049e 21       		.byte	0x21
+ 1179 049f B1000000 		.4byte	0xb1
+ 1180 04a3 02       		.byte	0x2
+ 1181 04a4 23       		.byte	0x23
+ 1182 04a5 18       		.uleb128 0x18
+ 1183 04a6 12       		.uleb128 0x12
+ 1184 04a7 516B00   		.ascii	"Qk\000"
+ 1185 04aa 04       		.byte	0x4
+ 1186 04ab 22       		.byte	0x22
+ 1187 04ac B1000000 		.4byte	0xb1
+ 1188 04b0 02       		.byte	0x2
+ 1189 04b1 23       		.byte	0x23
+ 1190 04b2 1C       		.uleb128 0x1c
+ 1191 04b3 11       		.uleb128 0x11
+ 1192 04b4 5D000000 		.4byte	.LASF75
+ 1193 04b8 04       		.byte	0x4
+ 1194 04b9 23       		.byte	0x23
+ 1195 04ba B1000000 		.4byte	0xb1
+ 1196 04be 02       		.byte	0x2
+ 1197 04bf 23       		.byte	0x23
+ 1198 04c0 20       		.uleb128 0x20
+ 1199 04c1 11       		.uleb128 0x11
+ 1200 04c2 13000000 		.4byte	.LASF76
+ 1201 04c6 04       		.byte	0x4
+ 1202 04c7 24       		.byte	0x24
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 29
+
+
+ 1203 04c8 B1000000 		.4byte	0xb1
+ 1204 04cc 02       		.byte	0x2
+ 1205 04cd 23       		.byte	0x23
+ 1206 04ce 24       		.uleb128 0x24
+ 1207 04cf 11       		.uleb128 0x11
+ 1208 04d0 49000000 		.4byte	.LASF77
+ 1209 04d4 04       		.byte	0x4
+ 1210 04d5 26       		.byte	0x26
+ 1211 04d6 90000000 		.4byte	0x90
+ 1212 04da 02       		.byte	0x2
+ 1213 04db 23       		.byte	0x23
+ 1214 04dc 28       		.uleb128 0x28
+ 1215 04dd 11       		.uleb128 0x11
+ 1216 04de CA030000 		.4byte	.LASF78
+ 1217 04e2 04       		.byte	0x4
+ 1218 04e3 28       		.byte	0x28
+ 1219 04e4 90000000 		.4byte	0x90
+ 1220 04e8 02       		.byte	0x2
+ 1221 04e9 23       		.byte	0x23
+ 1222 04ea 2C       		.uleb128 0x2c
+ 1223 04eb 00       		.byte	0
+ 1224 04ec 10       		.uleb128 0x10
+ 1225 04ed FC050000 		.4byte	.LASF79
+ 1226 04f1 08       		.byte	0x8
+ 1227 04f2 05       		.byte	0x5
+ 1228 04f3 8C       		.byte	0x8c
+ 1229 04f4 15050000 		.4byte	0x515
+ 1230 04f8 11       		.uleb128 0x11
+ 1231 04f9 6F040000 		.4byte	.LASF80
+ 1232 04fd 05       		.byte	0x5
+ 1233 04fe 8E       		.byte	0x8e
+ 1234 04ff B1000000 		.4byte	0xb1
+ 1235 0503 02       		.byte	0x2
+ 1236 0504 23       		.byte	0x23
+ 1237 0505 00       		.uleb128 0
+ 1238 0506 11       		.uleb128 0x11
+ 1239 0507 F2020000 		.4byte	.LASF81
+ 1240 050b 05       		.byte	0x5
+ 1241 050c 8F       		.byte	0x8f
+ 1242 050d B1000000 		.4byte	0xb1
+ 1243 0511 02       		.byte	0x2
+ 1244 0512 23       		.byte	0x23
+ 1245 0513 04       		.uleb128 0x4
+ 1246 0514 00       		.byte	0
+ 1247 0515 10       		.uleb128 0x10
+ 1248 0516 A1000000 		.4byte	.LASF82
+ 1249 051a 08       		.byte	0x8
+ 1250 051b 05       		.byte	0x5
+ 1251 051c 92       		.byte	0x92
+ 1252 051d 3E050000 		.4byte	0x53e
+ 1253 0521 11       		.uleb128 0x11
+ 1254 0522 FB020000 		.4byte	.LASF83
+ 1255 0526 05       		.byte	0x5
+ 1256 0527 94       		.byte	0x94
+ 1257 0528 B1000000 		.4byte	0xb1
+ 1258 052c 02       		.byte	0x2
+ 1259 052d 23       		.byte	0x23
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 30
+
+
+ 1260 052e 00       		.uleb128 0
+ 1261 052f 11       		.uleb128 0x11
+ 1262 0530 DE000000 		.4byte	.LASF84
+ 1263 0534 05       		.byte	0x5
+ 1264 0535 95       		.byte	0x95
+ 1265 0536 A6000000 		.4byte	0xa6
+ 1266 053a 02       		.byte	0x2
+ 1267 053b 23       		.byte	0x23
+ 1268 053c 04       		.uleb128 0x4
+ 1269 053d 00       		.byte	0
+ 1270 053e 10       		.uleb128 0x10
+ 1271 053f 0B050000 		.4byte	.LASF85
+ 1272 0543 20       		.byte	0x20
+ 1273 0544 05       		.byte	0x5
+ 1274 0545 87       		.byte	0x87
+ 1275 0546 83050000 		.4byte	0x583
+ 1276 054a 11       		.uleb128 0x11
+ 1277 054b 8F040000 		.4byte	.LASF86
+ 1278 054f 05       		.byte	0x5
+ 1279 0550 89       		.byte	0x89
+ 1280 0551 B8000000 		.4byte	0xb8
+ 1281 0555 02       		.byte	0x2
+ 1282 0556 23       		.byte	0x23
+ 1283 0557 00       		.uleb128 0
+ 1284 0558 11       		.uleb128 0x11
+ 1285 0559 62020000 		.4byte	.LASF87
+ 1286 055d 05       		.byte	0x5
+ 1287 055e 8A       		.byte	0x8a
+ 1288 055f B1000000 		.4byte	0xb1
+ 1289 0563 02       		.byte	0x2
+ 1290 0564 23       		.byte	0x23
+ 1291 0565 08       		.uleb128 0x8
+ 1292 0566 11       		.uleb128 0x11
+ 1293 0567 AB030000 		.4byte	.LASF88
+ 1294 056b 05       		.byte	0x5
+ 1295 056c 90       		.byte	0x90
+ 1296 056d EC040000 		.4byte	0x4ec
+ 1297 0571 02       		.byte	0x2
+ 1298 0572 23       		.byte	0x23
+ 1299 0573 0C       		.uleb128 0xc
+ 1300 0574 11       		.uleb128 0x11
+ 1301 0575 1D030000 		.4byte	.LASF89
+ 1302 0579 05       		.byte	0x5
+ 1303 057a 96       		.byte	0x96
+ 1304 057b 15050000 		.4byte	0x515
+ 1305 057f 02       		.byte	0x2
+ 1306 0580 23       		.byte	0x23
+ 1307 0581 14       		.uleb128 0x14
+ 1308 0582 00       		.byte	0
+ 1309 0583 13       		.uleb128 0x13
+ 1310 0584 01       		.byte	0x1
+ 1311 0585 C9000000 		.4byte	.LASF90
+ 1312 0589 01       		.byte	0x1
+ 1313 058a 52       		.byte	0x52
+ 1314 058b 01       		.byte	0x1
+ 1315 058c 00000000 		.4byte	.LFB0
+ 1316 0590 22000000 		.4byte	.LFE0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 31
+
+
+ 1317 0594 00000000 		.4byte	.LLST0
+ 1318 0598 01       		.byte	0x1
+ 1319 0599 14       		.uleb128 0x14
+ 1320 059a 01       		.byte	0x1
+ 1321 059b 45030000 		.4byte	.LASF93
+ 1322 059f 01       		.byte	0x1
+ 1323 05a0 70       		.byte	0x70
+ 1324 05a1 01       		.byte	0x1
+ 1325 05a2 00000000 		.4byte	.LFB1
+ 1326 05a6 26000000 		.4byte	.LFE1
+ 1327 05aa 2C000000 		.4byte	.LLST1
+ 1328 05ae 01       		.byte	0x1
+ 1329 05af C2050000 		.4byte	0x5c2
+ 1330 05b3 15       		.uleb128 0x15
+ 1331 05b4 DF040000 		.4byte	.LASF95
+ 1332 05b8 01       		.byte	0x1
+ 1333 05b9 70       		.byte	0x70
+ 1334 05ba EA000000 		.4byte	0xea
+ 1335 05be 02       		.byte	0x2
+ 1336 05bf 91       		.byte	0x91
+ 1337 05c0 74       		.sleb128 -12
+ 1338 05c1 00       		.byte	0
+ 1339 05c2 13       		.uleb128 0x13
+ 1340 05c3 01       		.byte	0x1
+ 1341 05c4 70020000 		.4byte	.LASF91
+ 1342 05c8 01       		.byte	0x1
+ 1343 05c9 8D       		.byte	0x8d
+ 1344 05ca 01       		.byte	0x1
+ 1345 05cb 00000000 		.4byte	.LFB2
+ 1346 05cf 16000000 		.4byte	.LFE2
+ 1347 05d3 64000000 		.4byte	.LLST2
+ 1348 05d7 01       		.byte	0x1
+ 1349 05d8 13       		.uleb128 0x13
+ 1350 05d9 01       		.byte	0x1
+ 1351 05da EF000000 		.4byte	.LASF92
+ 1352 05de 01       		.byte	0x1
+ 1353 05df A7       		.byte	0xa7
+ 1354 05e0 01       		.byte	0x1
+ 1355 05e1 00000000 		.4byte	.LFB3
+ 1356 05e5 DE000000 		.4byte	.LFE3
+ 1357 05e9 90000000 		.4byte	.LLST3
+ 1358 05ed 01       		.byte	0x1
+ 1359 05ee 16       		.uleb128 0x16
+ 1360 05ef 01       		.byte	0x1
+ 1361 05f0 B0000000 		.4byte	.LASF94
+ 1362 05f4 01       		.byte	0x1
+ 1363 05f5 D2       		.byte	0xd2
+ 1364 05f6 01       		.byte	0x1
+ 1365 05f7 00000000 		.4byte	.LFB4
+ 1366 05fb 28000000 		.4byte	.LFE4
+ 1367 05ff BC000000 		.4byte	.LLST4
+ 1368 0603 01       		.byte	0x1
+ 1369 0604 25060000 		.4byte	0x625
+ 1370 0608 15       		.uleb128 0x15
+ 1371 0609 DF040000 		.4byte	.LASF95
+ 1372 060d 01       		.byte	0x1
+ 1373 060e D2       		.byte	0xd2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 32
+
+
+ 1374 060f EA000000 		.4byte	0xea
+ 1375 0613 02       		.byte	0x2
+ 1376 0614 91       		.byte	0x91
+ 1377 0615 6C       		.sleb128 -20
+ 1378 0616 17       		.uleb128 0x17
+ 1379 0617 CC050000 		.4byte	.LASF96
+ 1380 061b 01       		.byte	0x1
+ 1381 061c D4       		.byte	0xd4
+ 1382 061d 25060000 		.4byte	0x625
+ 1383 0621 02       		.byte	0x2
+ 1384 0622 91       		.byte	0x91
+ 1385 0623 74       		.sleb128 -12
+ 1386 0624 00       		.byte	0
+ 1387 0625 05       		.uleb128 0x5
+ 1388 0626 04       		.byte	0x4
+ 1389 0627 EA000000 		.4byte	0xea
+ 1390 062b 18       		.uleb128 0x18
+ 1391 062c 01       		.byte	0x1
+ 1392 062d 3E040000 		.4byte	.LASF99
+ 1393 0631 01       		.byte	0x1
+ 1394 0632 EA       		.byte	0xea
+ 1395 0633 01       		.byte	0x1
+ 1396 0634 EA000000 		.4byte	0xea
+ 1397 0638 00000000 		.4byte	.LFB5
+ 1398 063c 22000000 		.4byte	.LFE5
+ 1399 0640 F4000000 		.4byte	.LLST5
+ 1400 0644 01       		.byte	0x1
+ 1401 0645 58060000 		.4byte	0x658
+ 1402 0649 17       		.uleb128 0x17
+ 1403 064a CC050000 		.4byte	.LASF96
+ 1404 064e 01       		.byte	0x1
+ 1405 064f EC       		.byte	0xec
+ 1406 0650 25060000 		.4byte	0x625
+ 1407 0654 02       		.byte	0x2
+ 1408 0655 91       		.byte	0x91
+ 1409 0656 74       		.sleb128 -12
+ 1410 0657 00       		.byte	0
+ 1411 0658 19       		.uleb128 0x19
+ 1412 0659 01       		.byte	0x1
+ 1413 065a E8030000 		.4byte	.LASF97
+ 1414 065e 01       		.byte	0x1
+ 1415 065f 0601     		.2byte	0x106
+ 1416 0661 01       		.byte	0x1
+ 1417 0662 00000000 		.4byte	.LFB6
+ 1418 0666 26000000 		.4byte	.LFE6
+ 1419 066a 2C010000 		.4byte	.LLST6
+ 1420 066e 01       		.byte	0x1
+ 1421 066f 83060000 		.4byte	0x683
+ 1422 0673 1A       		.uleb128 0x1a
+ 1423 0674 60040000 		.4byte	.LASF98
+ 1424 0678 01       		.byte	0x1
+ 1425 0679 0601     		.2byte	0x106
+ 1426 067b 85000000 		.4byte	0x85
+ 1427 067f 02       		.byte	0x2
+ 1428 0680 91       		.byte	0x91
+ 1429 0681 77       		.sleb128 -9
+ 1430 0682 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 33
+
+
+ 1431 0683 1B       		.uleb128 0x1b
+ 1432 0684 01       		.byte	0x1
+ 1433 0685 B2040000 		.4byte	.LASF100
+ 1434 0689 01       		.byte	0x1
+ 1435 068a 1A01     		.2byte	0x11a
+ 1436 068c 01       		.byte	0x1
+ 1437 068d 85000000 		.4byte	0x85
+ 1438 0691 00000000 		.4byte	.LFB7
+ 1439 0695 26000000 		.4byte	.LFE7
+ 1440 0699 64010000 		.4byte	.LLST7
+ 1441 069d 01       		.byte	0x1
+ 1442 069e B2060000 		.4byte	0x6b2
+ 1443 06a2 1C       		.uleb128 0x1c
+ 1444 06a3 60040000 		.4byte	.LASF98
+ 1445 06a7 01       		.byte	0x1
+ 1446 06a8 1C01     		.2byte	0x11c
+ 1447 06aa 85000000 		.4byte	0x85
+ 1448 06ae 02       		.byte	0x2
+ 1449 06af 91       		.byte	0x91
+ 1450 06b0 77       		.sleb128 -9
+ 1451 06b1 00       		.byte	0
+ 1452 06b2 1D       		.uleb128 0x1d
+ 1453 06b3 01       		.byte	0x1
+ 1454 06b4 89020000 		.4byte	.LASF101
+ 1455 06b8 01       		.byte	0x1
+ 1456 06b9 3301     		.2byte	0x133
+ 1457 06bb 01       		.byte	0x1
+ 1458 06bc 00000000 		.4byte	.LFB8
+ 1459 06c0 18000000 		.4byte	.LFE8
+ 1460 06c4 9C010000 		.4byte	.LLST8
+ 1461 06c8 01       		.byte	0x1
+ 1462 06c9 1E       		.uleb128 0x1e
+ 1463 06ca 01       		.byte	0x1
+ 1464 06cb 26010000 		.4byte	.LASF118
+ 1465 06cf 01       		.byte	0x1
+ 1466 06d0 4801     		.2byte	0x148
+ 1467 06d2 01       		.byte	0x1
+ 1468 06d3 85000000 		.4byte	0x85
+ 1469 06d7 00000000 		.4byte	.LFB9
+ 1470 06db 28000000 		.4byte	.LFE9
+ 1471 06df C8010000 		.4byte	.LLST9
+ 1472 06e3 01       		.byte	0x1
+ 1473 06e4 1D       		.uleb128 0x1d
+ 1474 06e5 01       		.byte	0x1
+ 1475 06e6 3E010000 		.4byte	.LASF102
+ 1476 06ea 01       		.byte	0x1
+ 1477 06eb 5D01     		.2byte	0x15d
+ 1478 06ed 01       		.byte	0x1
+ 1479 06ee 00000000 		.4byte	.LFB10
+ 1480 06f2 18000000 		.4byte	.LFE10
+ 1481 06f6 F4010000 		.4byte	.LLST10
+ 1482 06fa 01       		.byte	0x1
+ 1483 06fb 1D       		.uleb128 0x1d
+ 1484 06fc 01       		.byte	0x1
+ 1485 06fd AD060000 		.4byte	.LASF103
+ 1486 0701 01       		.byte	0x1
+ 1487 0702 7301     		.2byte	0x173
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 34
+
+
+ 1488 0704 01       		.byte	0x1
+ 1489 0705 00000000 		.4byte	.LFB11
+ 1490 0709 18000000 		.4byte	.LFE11
+ 1491 070d 20020000 		.4byte	.LLST11
+ 1492 0711 01       		.byte	0x1
+ 1493 0712 1D       		.uleb128 0x1d
+ 1494 0713 01       		.byte	0x1
+ 1495 0714 10020000 		.4byte	.LASF104
+ 1496 0718 01       		.byte	0x1
+ 1497 0719 8701     		.2byte	0x187
+ 1498 071b 01       		.byte	0x1
+ 1499 071c 00000000 		.4byte	.LFB12
+ 1500 0720 18000000 		.4byte	.LFE12
+ 1501 0724 4C020000 		.4byte	.LLST12
+ 1502 0728 01       		.byte	0x1
+ 1503 0729 1F       		.uleb128 0x1f
+ 1504 072a 0B050000 		.4byte	.LASF85
+ 1505 072e 05       		.byte	0x5
+ 1506 072f 97       		.byte	0x97
+ 1507 0730 3E050000 		.4byte	0x53e
+ 1508 0734 01       		.byte	0x1
+ 1509 0735 05       		.byte	0x5
+ 1510 0736 03       		.byte	0x3
+ 1511 0737 00000000 		.4byte	TORQUESTAT
+ 1512 073b 20       		.uleb128 0x20
+ 1513 073c 02020000 		.4byte	.LASF105
+ 1514 0740 01       		.byte	0x1
+ 1515 0741 26       		.byte	0x26
+ 1516 0742 EF030000 		.4byte	0x3ef
+ 1517 0746 01       		.byte	0x1
+ 1518 0747 01       		.byte	0x1
+ 1519 0748 20       		.uleb128 0x20
+ 1520 0749 44020000 		.4byte	.LASF106
+ 1521 074d 01       		.byte	0x1
+ 1522 074e 27       		.byte	0x27
+ 1523 074f EF030000 		.4byte	0x3ef
+ 1524 0753 01       		.byte	0x1
+ 1525 0754 01       		.byte	0x1
+ 1526 0755 1F       		.uleb128 0x1f
+ 1527 0756 E2020000 		.4byte	.LASF107
+ 1528 075a 01       		.byte	0x1
+ 1529 075b 2A       		.byte	0x2a
+ 1530 075c 3E050000 		.4byte	0x53e
+ 1531 0760 01       		.byte	0x1
+ 1532 0761 05       		.byte	0x5
+ 1533 0762 03       		.byte	0x3
+ 1534 0763 00000000 		.4byte	pan_torque_stat
+ 1535 0767 1F       		.uleb128 0x1f
+ 1536 0768 F1010000 		.4byte	.LASF108
+ 1537 076c 01       		.byte	0x1
+ 1538 076d 2B       		.byte	0x2b
+ 1539 076e 3E050000 		.4byte	0x53e
+ 1540 0772 01       		.byte	0x1
+ 1541 0773 05       		.byte	0x5
+ 1542 0774 03       		.byte	0x3
+ 1543 0775 00000000 		.4byte	tilt_torque_stat
+ 1544 0779 20       		.uleb128 0x20
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 35
+
+
+ 1545 077a 08010000 		.4byte	.LASF109
+ 1546 077e 01       		.byte	0x1
+ 1547 077f 2E       		.byte	0x2e
+ 1548 0780 38040000 		.4byte	0x438
+ 1549 0784 01       		.byte	0x1
+ 1550 0785 01       		.byte	0x1
+ 1551 0786 20       		.uleb128 0x20
+ 1552 0787 CC020000 		.4byte	.LASF110
+ 1553 078b 01       		.byte	0x1
+ 1554 078c 2F       		.byte	0x2f
+ 1555 078d 38040000 		.4byte	0x438
+ 1556 0791 01       		.byte	0x1
+ 1557 0792 01       		.byte	0x1
+ 1558 0793 20       		.uleb128 0x20
+ 1559 0794 B2030000 		.4byte	.LASF111
+ 1560 0798 01       		.byte	0x1
+ 1561 0799 30       		.byte	0x30
+ 1562 079a 38040000 		.4byte	0x438
+ 1563 079e 01       		.byte	0x1
+ 1564 079f 01       		.byte	0x1
+ 1565 07a0 20       		.uleb128 0x20
+ 1566 07a1 E0010000 		.4byte	.LASF112
+ 1567 07a5 01       		.byte	0x1
+ 1568 07a6 31       		.byte	0x31
+ 1569 07a7 38040000 		.4byte	0x438
+ 1570 07ab 01       		.byte	0x1
+ 1571 07ac 01       		.byte	0x1
+ 1572 07ad 1F       		.uleb128 0x1f
+ 1573 07ae E5050000 		.4byte	.LASF113
+ 1574 07b2 01       		.byte	0x1
+ 1575 07b3 34       		.byte	0x34
+ 1576 07b4 B1000000 		.4byte	0xb1
+ 1577 07b8 01       		.byte	0x1
+ 1578 07b9 05       		.byte	0x5
+ 1579 07ba 03       		.byte	0x3
+ 1580 07bb 00000000 		.4byte	pan_abs_motor_velocity
+ 1581 07bf 1F       		.uleb128 0x1f
+ 1582 07c0 2C020000 		.4byte	.LASF114
+ 1583 07c4 01       		.byte	0x1
+ 1584 07c5 35       		.byte	0x35
+ 1585 07c6 B1000000 		.4byte	0xb1
+ 1586 07ca 01       		.byte	0x1
+ 1587 07cb 05       		.byte	0x5
+ 1588 07cc 03       		.byte	0x3
+ 1589 07cd 00000000 		.4byte	tilt_abs_motor_velocity
+ 1590 07d1 00       		.byte	0
+ 1591              		.section	.debug_abbrev,"",%progbits
+ 1592              	.Ldebug_abbrev0:
+ 1593 0000 01       		.uleb128 0x1
+ 1594 0001 11       		.uleb128 0x11
+ 1595 0002 01       		.byte	0x1
+ 1596 0003 25       		.uleb128 0x25
+ 1597 0004 0E       		.uleb128 0xe
+ 1598 0005 13       		.uleb128 0x13
+ 1599 0006 0B       		.uleb128 0xb
+ 1600 0007 03       		.uleb128 0x3
+ 1601 0008 0E       		.uleb128 0xe
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 36
+
+
+ 1602 0009 1B       		.uleb128 0x1b
+ 1603 000a 0E       		.uleb128 0xe
+ 1604 000b 55       		.uleb128 0x55
+ 1605 000c 06       		.uleb128 0x6
+ 1606 000d 11       		.uleb128 0x11
+ 1607 000e 01       		.uleb128 0x1
+ 1608 000f 52       		.uleb128 0x52
+ 1609 0010 01       		.uleb128 0x1
+ 1610 0011 10       		.uleb128 0x10
+ 1611 0012 06       		.uleb128 0x6
+ 1612 0013 00       		.byte	0
+ 1613 0014 00       		.byte	0
+ 1614 0015 02       		.uleb128 0x2
+ 1615 0016 24       		.uleb128 0x24
+ 1616 0017 00       		.byte	0
+ 1617 0018 0B       		.uleb128 0xb
+ 1618 0019 0B       		.uleb128 0xb
+ 1619 001a 3E       		.uleb128 0x3e
+ 1620 001b 0B       		.uleb128 0xb
+ 1621 001c 03       		.uleb128 0x3
+ 1622 001d 0E       		.uleb128 0xe
+ 1623 001e 00       		.byte	0
+ 1624 001f 00       		.byte	0
+ 1625 0020 03       		.uleb128 0x3
+ 1626 0021 24       		.uleb128 0x24
+ 1627 0022 00       		.byte	0
+ 1628 0023 0B       		.uleb128 0xb
+ 1629 0024 0B       		.uleb128 0xb
+ 1630 0025 3E       		.uleb128 0x3e
+ 1631 0026 0B       		.uleb128 0xb
+ 1632 0027 03       		.uleb128 0x3
+ 1633 0028 08       		.uleb128 0x8
+ 1634 0029 00       		.byte	0
+ 1635 002a 00       		.byte	0
+ 1636 002b 04       		.uleb128 0x4
+ 1637 002c 15       		.uleb128 0x15
+ 1638 002d 00       		.byte	0
+ 1639 002e 27       		.uleb128 0x27
+ 1640 002f 0C       		.uleb128 0xc
+ 1641 0030 00       		.byte	0
+ 1642 0031 00       		.byte	0
+ 1643 0032 05       		.uleb128 0x5
+ 1644 0033 0F       		.uleb128 0xf
+ 1645 0034 00       		.byte	0
+ 1646 0035 0B       		.uleb128 0xb
+ 1647 0036 0B       		.uleb128 0xb
+ 1648 0037 49       		.uleb128 0x49
+ 1649 0038 13       		.uleb128 0x13
+ 1650 0039 00       		.byte	0
+ 1651 003a 00       		.byte	0
+ 1652 003b 06       		.uleb128 0x6
+ 1653 003c 16       		.uleb128 0x16
+ 1654 003d 00       		.byte	0
+ 1655 003e 03       		.uleb128 0x3
+ 1656 003f 0E       		.uleb128 0xe
+ 1657 0040 3A       		.uleb128 0x3a
+ 1658 0041 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 37
+
+
+ 1659 0042 3B       		.uleb128 0x3b
+ 1660 0043 0B       		.uleb128 0xb
+ 1661 0044 49       		.uleb128 0x49
+ 1662 0045 13       		.uleb128 0x13
+ 1663 0046 00       		.byte	0
+ 1664 0047 00       		.byte	0
+ 1665 0048 07       		.uleb128 0x7
+ 1666 0049 35       		.uleb128 0x35
+ 1667 004a 00       		.byte	0
+ 1668 004b 49       		.uleb128 0x49
+ 1669 004c 13       		.uleb128 0x13
+ 1670 004d 00       		.byte	0
+ 1671 004e 00       		.byte	0
+ 1672 004f 08       		.uleb128 0x8
+ 1673 0050 16       		.uleb128 0x16
+ 1674 0051 00       		.byte	0
+ 1675 0052 03       		.uleb128 0x3
+ 1676 0053 0E       		.uleb128 0xe
+ 1677 0054 3A       		.uleb128 0x3a
+ 1678 0055 0B       		.uleb128 0xb
+ 1679 0056 3B       		.uleb128 0x3b
+ 1680 0057 05       		.uleb128 0x5
+ 1681 0058 49       		.uleb128 0x49
+ 1682 0059 13       		.uleb128 0x13
+ 1683 005a 00       		.byte	0
+ 1684 005b 00       		.byte	0
+ 1685 005c 09       		.uleb128 0x9
+ 1686 005d 17       		.uleb128 0x17
+ 1687 005e 01       		.byte	0x1
+ 1688 005f 0B       		.uleb128 0xb
+ 1689 0060 0B       		.uleb128 0xb
+ 1690 0061 3A       		.uleb128 0x3a
+ 1691 0062 0B       		.uleb128 0xb
+ 1692 0063 3B       		.uleb128 0x3b
+ 1693 0064 05       		.uleb128 0x5
+ 1694 0065 01       		.uleb128 0x1
+ 1695 0066 13       		.uleb128 0x13
+ 1696 0067 00       		.byte	0
+ 1697 0068 00       		.byte	0
+ 1698 0069 0A       		.uleb128 0xa
+ 1699 006a 0D       		.uleb128 0xd
+ 1700 006b 00       		.byte	0
+ 1701 006c 03       		.uleb128 0x3
+ 1702 006d 0E       		.uleb128 0xe
+ 1703 006e 3A       		.uleb128 0x3a
+ 1704 006f 0B       		.uleb128 0xb
+ 1705 0070 3B       		.uleb128 0x3b
+ 1706 0071 05       		.uleb128 0x5
+ 1707 0072 49       		.uleb128 0x49
+ 1708 0073 13       		.uleb128 0x13
+ 1709 0074 00       		.byte	0
+ 1710 0075 00       		.byte	0
+ 1711 0076 0B       		.uleb128 0xb
+ 1712 0077 01       		.uleb128 0x1
+ 1713 0078 01       		.byte	0x1
+ 1714 0079 49       		.uleb128 0x49
+ 1715 007a 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 38
+
+
+ 1716 007b 01       		.uleb128 0x1
+ 1717 007c 13       		.uleb128 0x13
+ 1718 007d 00       		.byte	0
+ 1719 007e 00       		.byte	0
+ 1720 007f 0C       		.uleb128 0xc
+ 1721 0080 21       		.uleb128 0x21
+ 1722 0081 00       		.byte	0
+ 1723 0082 49       		.uleb128 0x49
+ 1724 0083 13       		.uleb128 0x13
+ 1725 0084 2F       		.uleb128 0x2f
+ 1726 0085 0B       		.uleb128 0xb
+ 1727 0086 00       		.byte	0
+ 1728 0087 00       		.byte	0
+ 1729 0088 0D       		.uleb128 0xd
+ 1730 0089 13       		.uleb128 0x13
+ 1731 008a 01       		.byte	0x1
+ 1732 008b 03       		.uleb128 0x3
+ 1733 008c 0E       		.uleb128 0xe
+ 1734 008d 0B       		.uleb128 0xb
+ 1735 008e 0B       		.uleb128 0xb
+ 1736 008f 3A       		.uleb128 0x3a
+ 1737 0090 0B       		.uleb128 0xb
+ 1738 0091 3B       		.uleb128 0x3b
+ 1739 0092 05       		.uleb128 0x5
+ 1740 0093 01       		.uleb128 0x1
+ 1741 0094 13       		.uleb128 0x13
+ 1742 0095 00       		.byte	0
+ 1743 0096 00       		.byte	0
+ 1744 0097 0E       		.uleb128 0xe
+ 1745 0098 0D       		.uleb128 0xd
+ 1746 0099 00       		.byte	0
+ 1747 009a 03       		.uleb128 0x3
+ 1748 009b 0E       		.uleb128 0xe
+ 1749 009c 3A       		.uleb128 0x3a
+ 1750 009d 0B       		.uleb128 0xb
+ 1751 009e 3B       		.uleb128 0x3b
+ 1752 009f 05       		.uleb128 0x5
+ 1753 00a0 49       		.uleb128 0x49
+ 1754 00a1 13       		.uleb128 0x13
+ 1755 00a2 38       		.uleb128 0x38
+ 1756 00a3 0A       		.uleb128 0xa
+ 1757 00a4 00       		.byte	0
+ 1758 00a5 00       		.byte	0
+ 1759 00a6 0F       		.uleb128 0xf
+ 1760 00a7 0D       		.uleb128 0xd
+ 1761 00a8 00       		.byte	0
+ 1762 00a9 03       		.uleb128 0x3
+ 1763 00aa 08       		.uleb128 0x8
+ 1764 00ab 3A       		.uleb128 0x3a
+ 1765 00ac 0B       		.uleb128 0xb
+ 1766 00ad 3B       		.uleb128 0x3b
+ 1767 00ae 05       		.uleb128 0x5
+ 1768 00af 49       		.uleb128 0x49
+ 1769 00b0 13       		.uleb128 0x13
+ 1770 00b1 38       		.uleb128 0x38
+ 1771 00b2 0A       		.uleb128 0xa
+ 1772 00b3 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 39
+
+
+ 1773 00b4 00       		.byte	0
+ 1774 00b5 10       		.uleb128 0x10
+ 1775 00b6 13       		.uleb128 0x13
+ 1776 00b7 01       		.byte	0x1
+ 1777 00b8 03       		.uleb128 0x3
+ 1778 00b9 0E       		.uleb128 0xe
+ 1779 00ba 0B       		.uleb128 0xb
+ 1780 00bb 0B       		.uleb128 0xb
+ 1781 00bc 3A       		.uleb128 0x3a
+ 1782 00bd 0B       		.uleb128 0xb
+ 1783 00be 3B       		.uleb128 0x3b
+ 1784 00bf 0B       		.uleb128 0xb
+ 1785 00c0 01       		.uleb128 0x1
+ 1786 00c1 13       		.uleb128 0x13
+ 1787 00c2 00       		.byte	0
+ 1788 00c3 00       		.byte	0
+ 1789 00c4 11       		.uleb128 0x11
+ 1790 00c5 0D       		.uleb128 0xd
+ 1791 00c6 00       		.byte	0
+ 1792 00c7 03       		.uleb128 0x3
+ 1793 00c8 0E       		.uleb128 0xe
+ 1794 00c9 3A       		.uleb128 0x3a
+ 1795 00ca 0B       		.uleb128 0xb
+ 1796 00cb 3B       		.uleb128 0x3b
+ 1797 00cc 0B       		.uleb128 0xb
+ 1798 00cd 49       		.uleb128 0x49
+ 1799 00ce 13       		.uleb128 0x13
+ 1800 00cf 38       		.uleb128 0x38
+ 1801 00d0 0A       		.uleb128 0xa
+ 1802 00d1 00       		.byte	0
+ 1803 00d2 00       		.byte	0
+ 1804 00d3 12       		.uleb128 0x12
+ 1805 00d4 0D       		.uleb128 0xd
+ 1806 00d5 00       		.byte	0
+ 1807 00d6 03       		.uleb128 0x3
+ 1808 00d7 08       		.uleb128 0x8
+ 1809 00d8 3A       		.uleb128 0x3a
+ 1810 00d9 0B       		.uleb128 0xb
+ 1811 00da 3B       		.uleb128 0x3b
+ 1812 00db 0B       		.uleb128 0xb
+ 1813 00dc 49       		.uleb128 0x49
+ 1814 00dd 13       		.uleb128 0x13
+ 1815 00de 38       		.uleb128 0x38
+ 1816 00df 0A       		.uleb128 0xa
+ 1817 00e0 00       		.byte	0
+ 1818 00e1 00       		.byte	0
+ 1819 00e2 13       		.uleb128 0x13
+ 1820 00e3 2E       		.uleb128 0x2e
+ 1821 00e4 00       		.byte	0
+ 1822 00e5 3F       		.uleb128 0x3f
+ 1823 00e6 0C       		.uleb128 0xc
+ 1824 00e7 03       		.uleb128 0x3
+ 1825 00e8 0E       		.uleb128 0xe
+ 1826 00e9 3A       		.uleb128 0x3a
+ 1827 00ea 0B       		.uleb128 0xb
+ 1828 00eb 3B       		.uleb128 0x3b
+ 1829 00ec 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 40
+
+
+ 1830 00ed 27       		.uleb128 0x27
+ 1831 00ee 0C       		.uleb128 0xc
+ 1832 00ef 11       		.uleb128 0x11
+ 1833 00f0 01       		.uleb128 0x1
+ 1834 00f1 12       		.uleb128 0x12
+ 1835 00f2 01       		.uleb128 0x1
+ 1836 00f3 40       		.uleb128 0x40
+ 1837 00f4 06       		.uleb128 0x6
+ 1838 00f5 9642     		.uleb128 0x2116
+ 1839 00f7 0C       		.uleb128 0xc
+ 1840 00f8 00       		.byte	0
+ 1841 00f9 00       		.byte	0
+ 1842 00fa 14       		.uleb128 0x14
+ 1843 00fb 2E       		.uleb128 0x2e
+ 1844 00fc 01       		.byte	0x1
+ 1845 00fd 3F       		.uleb128 0x3f
+ 1846 00fe 0C       		.uleb128 0xc
+ 1847 00ff 03       		.uleb128 0x3
+ 1848 0100 0E       		.uleb128 0xe
+ 1849 0101 3A       		.uleb128 0x3a
+ 1850 0102 0B       		.uleb128 0xb
+ 1851 0103 3B       		.uleb128 0x3b
+ 1852 0104 0B       		.uleb128 0xb
+ 1853 0105 27       		.uleb128 0x27
+ 1854 0106 0C       		.uleb128 0xc
+ 1855 0107 11       		.uleb128 0x11
+ 1856 0108 01       		.uleb128 0x1
+ 1857 0109 12       		.uleb128 0x12
+ 1858 010a 01       		.uleb128 0x1
+ 1859 010b 40       		.uleb128 0x40
+ 1860 010c 06       		.uleb128 0x6
+ 1861 010d 9642     		.uleb128 0x2116
+ 1862 010f 0C       		.uleb128 0xc
+ 1863 0110 01       		.uleb128 0x1
+ 1864 0111 13       		.uleb128 0x13
+ 1865 0112 00       		.byte	0
+ 1866 0113 00       		.byte	0
+ 1867 0114 15       		.uleb128 0x15
+ 1868 0115 05       		.uleb128 0x5
+ 1869 0116 00       		.byte	0
+ 1870 0117 03       		.uleb128 0x3
+ 1871 0118 0E       		.uleb128 0xe
+ 1872 0119 3A       		.uleb128 0x3a
+ 1873 011a 0B       		.uleb128 0xb
+ 1874 011b 3B       		.uleb128 0x3b
+ 1875 011c 0B       		.uleb128 0xb
+ 1876 011d 49       		.uleb128 0x49
+ 1877 011e 13       		.uleb128 0x13
+ 1878 011f 02       		.uleb128 0x2
+ 1879 0120 0A       		.uleb128 0xa
+ 1880 0121 00       		.byte	0
+ 1881 0122 00       		.byte	0
+ 1882 0123 16       		.uleb128 0x16
+ 1883 0124 2E       		.uleb128 0x2e
+ 1884 0125 01       		.byte	0x1
+ 1885 0126 3F       		.uleb128 0x3f
+ 1886 0127 0C       		.uleb128 0xc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 41
+
+
+ 1887 0128 03       		.uleb128 0x3
+ 1888 0129 0E       		.uleb128 0xe
+ 1889 012a 3A       		.uleb128 0x3a
+ 1890 012b 0B       		.uleb128 0xb
+ 1891 012c 3B       		.uleb128 0x3b
+ 1892 012d 0B       		.uleb128 0xb
+ 1893 012e 27       		.uleb128 0x27
+ 1894 012f 0C       		.uleb128 0xc
+ 1895 0130 11       		.uleb128 0x11
+ 1896 0131 01       		.uleb128 0x1
+ 1897 0132 12       		.uleb128 0x12
+ 1898 0133 01       		.uleb128 0x1
+ 1899 0134 40       		.uleb128 0x40
+ 1900 0135 06       		.uleb128 0x6
+ 1901 0136 9742     		.uleb128 0x2117
+ 1902 0138 0C       		.uleb128 0xc
+ 1903 0139 01       		.uleb128 0x1
+ 1904 013a 13       		.uleb128 0x13
+ 1905 013b 00       		.byte	0
+ 1906 013c 00       		.byte	0
+ 1907 013d 17       		.uleb128 0x17
+ 1908 013e 34       		.uleb128 0x34
+ 1909 013f 00       		.byte	0
+ 1910 0140 03       		.uleb128 0x3
+ 1911 0141 0E       		.uleb128 0xe
+ 1912 0142 3A       		.uleb128 0x3a
+ 1913 0143 0B       		.uleb128 0xb
+ 1914 0144 3B       		.uleb128 0x3b
+ 1915 0145 0B       		.uleb128 0xb
+ 1916 0146 49       		.uleb128 0x49
+ 1917 0147 13       		.uleb128 0x13
+ 1918 0148 02       		.uleb128 0x2
+ 1919 0149 0A       		.uleb128 0xa
+ 1920 014a 00       		.byte	0
+ 1921 014b 00       		.byte	0
+ 1922 014c 18       		.uleb128 0x18
+ 1923 014d 2E       		.uleb128 0x2e
+ 1924 014e 01       		.byte	0x1
+ 1925 014f 3F       		.uleb128 0x3f
+ 1926 0150 0C       		.uleb128 0xc
+ 1927 0151 03       		.uleb128 0x3
+ 1928 0152 0E       		.uleb128 0xe
+ 1929 0153 3A       		.uleb128 0x3a
+ 1930 0154 0B       		.uleb128 0xb
+ 1931 0155 3B       		.uleb128 0x3b
+ 1932 0156 0B       		.uleb128 0xb
+ 1933 0157 27       		.uleb128 0x27
+ 1934 0158 0C       		.uleb128 0xc
+ 1935 0159 49       		.uleb128 0x49
+ 1936 015a 13       		.uleb128 0x13
+ 1937 015b 11       		.uleb128 0x11
+ 1938 015c 01       		.uleb128 0x1
+ 1939 015d 12       		.uleb128 0x12
+ 1940 015e 01       		.uleb128 0x1
+ 1941 015f 40       		.uleb128 0x40
+ 1942 0160 06       		.uleb128 0x6
+ 1943 0161 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 42
+
+
+ 1944 0163 0C       		.uleb128 0xc
+ 1945 0164 01       		.uleb128 0x1
+ 1946 0165 13       		.uleb128 0x13
+ 1947 0166 00       		.byte	0
+ 1948 0167 00       		.byte	0
+ 1949 0168 19       		.uleb128 0x19
+ 1950 0169 2E       		.uleb128 0x2e
+ 1951 016a 01       		.byte	0x1
+ 1952 016b 3F       		.uleb128 0x3f
+ 1953 016c 0C       		.uleb128 0xc
+ 1954 016d 03       		.uleb128 0x3
+ 1955 016e 0E       		.uleb128 0xe
+ 1956 016f 3A       		.uleb128 0x3a
+ 1957 0170 0B       		.uleb128 0xb
+ 1958 0171 3B       		.uleb128 0x3b
+ 1959 0172 05       		.uleb128 0x5
+ 1960 0173 27       		.uleb128 0x27
+ 1961 0174 0C       		.uleb128 0xc
+ 1962 0175 11       		.uleb128 0x11
+ 1963 0176 01       		.uleb128 0x1
+ 1964 0177 12       		.uleb128 0x12
+ 1965 0178 01       		.uleb128 0x1
+ 1966 0179 40       		.uleb128 0x40
+ 1967 017a 06       		.uleb128 0x6
+ 1968 017b 9742     		.uleb128 0x2117
+ 1969 017d 0C       		.uleb128 0xc
+ 1970 017e 01       		.uleb128 0x1
+ 1971 017f 13       		.uleb128 0x13
+ 1972 0180 00       		.byte	0
+ 1973 0181 00       		.byte	0
+ 1974 0182 1A       		.uleb128 0x1a
+ 1975 0183 05       		.uleb128 0x5
+ 1976 0184 00       		.byte	0
+ 1977 0185 03       		.uleb128 0x3
+ 1978 0186 0E       		.uleb128 0xe
+ 1979 0187 3A       		.uleb128 0x3a
+ 1980 0188 0B       		.uleb128 0xb
+ 1981 0189 3B       		.uleb128 0x3b
+ 1982 018a 05       		.uleb128 0x5
+ 1983 018b 49       		.uleb128 0x49
+ 1984 018c 13       		.uleb128 0x13
+ 1985 018d 02       		.uleb128 0x2
+ 1986 018e 0A       		.uleb128 0xa
+ 1987 018f 00       		.byte	0
+ 1988 0190 00       		.byte	0
+ 1989 0191 1B       		.uleb128 0x1b
+ 1990 0192 2E       		.uleb128 0x2e
+ 1991 0193 01       		.byte	0x1
+ 1992 0194 3F       		.uleb128 0x3f
+ 1993 0195 0C       		.uleb128 0xc
+ 1994 0196 03       		.uleb128 0x3
+ 1995 0197 0E       		.uleb128 0xe
+ 1996 0198 3A       		.uleb128 0x3a
+ 1997 0199 0B       		.uleb128 0xb
+ 1998 019a 3B       		.uleb128 0x3b
+ 1999 019b 05       		.uleb128 0x5
+ 2000 019c 27       		.uleb128 0x27
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 43
+
+
+ 2001 019d 0C       		.uleb128 0xc
+ 2002 019e 49       		.uleb128 0x49
+ 2003 019f 13       		.uleb128 0x13
+ 2004 01a0 11       		.uleb128 0x11
+ 2005 01a1 01       		.uleb128 0x1
+ 2006 01a2 12       		.uleb128 0x12
+ 2007 01a3 01       		.uleb128 0x1
+ 2008 01a4 40       		.uleb128 0x40
+ 2009 01a5 06       		.uleb128 0x6
+ 2010 01a6 9742     		.uleb128 0x2117
+ 2011 01a8 0C       		.uleb128 0xc
+ 2012 01a9 01       		.uleb128 0x1
+ 2013 01aa 13       		.uleb128 0x13
+ 2014 01ab 00       		.byte	0
+ 2015 01ac 00       		.byte	0
+ 2016 01ad 1C       		.uleb128 0x1c
+ 2017 01ae 34       		.uleb128 0x34
+ 2018 01af 00       		.byte	0
+ 2019 01b0 03       		.uleb128 0x3
+ 2020 01b1 0E       		.uleb128 0xe
+ 2021 01b2 3A       		.uleb128 0x3a
+ 2022 01b3 0B       		.uleb128 0xb
+ 2023 01b4 3B       		.uleb128 0x3b
+ 2024 01b5 05       		.uleb128 0x5
+ 2025 01b6 49       		.uleb128 0x49
+ 2026 01b7 13       		.uleb128 0x13
+ 2027 01b8 02       		.uleb128 0x2
+ 2028 01b9 0A       		.uleb128 0xa
+ 2029 01ba 00       		.byte	0
+ 2030 01bb 00       		.byte	0
+ 2031 01bc 1D       		.uleb128 0x1d
+ 2032 01bd 2E       		.uleb128 0x2e
+ 2033 01be 00       		.byte	0
+ 2034 01bf 3F       		.uleb128 0x3f
+ 2035 01c0 0C       		.uleb128 0xc
+ 2036 01c1 03       		.uleb128 0x3
+ 2037 01c2 0E       		.uleb128 0xe
+ 2038 01c3 3A       		.uleb128 0x3a
+ 2039 01c4 0B       		.uleb128 0xb
+ 2040 01c5 3B       		.uleb128 0x3b
+ 2041 01c6 05       		.uleb128 0x5
+ 2042 01c7 27       		.uleb128 0x27
+ 2043 01c8 0C       		.uleb128 0xc
+ 2044 01c9 11       		.uleb128 0x11
+ 2045 01ca 01       		.uleb128 0x1
+ 2046 01cb 12       		.uleb128 0x12
+ 2047 01cc 01       		.uleb128 0x1
+ 2048 01cd 40       		.uleb128 0x40
+ 2049 01ce 06       		.uleb128 0x6
+ 2050 01cf 9742     		.uleb128 0x2117
+ 2051 01d1 0C       		.uleb128 0xc
+ 2052 01d2 00       		.byte	0
+ 2053 01d3 00       		.byte	0
+ 2054 01d4 1E       		.uleb128 0x1e
+ 2055 01d5 2E       		.uleb128 0x2e
+ 2056 01d6 00       		.byte	0
+ 2057 01d7 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 44
+
+
+ 2058 01d8 0C       		.uleb128 0xc
+ 2059 01d9 03       		.uleb128 0x3
+ 2060 01da 0E       		.uleb128 0xe
+ 2061 01db 3A       		.uleb128 0x3a
+ 2062 01dc 0B       		.uleb128 0xb
+ 2063 01dd 3B       		.uleb128 0x3b
+ 2064 01de 05       		.uleb128 0x5
+ 2065 01df 27       		.uleb128 0x27
+ 2066 01e0 0C       		.uleb128 0xc
+ 2067 01e1 49       		.uleb128 0x49
+ 2068 01e2 13       		.uleb128 0x13
+ 2069 01e3 11       		.uleb128 0x11
+ 2070 01e4 01       		.uleb128 0x1
+ 2071 01e5 12       		.uleb128 0x12
+ 2072 01e6 01       		.uleb128 0x1
+ 2073 01e7 40       		.uleb128 0x40
+ 2074 01e8 06       		.uleb128 0x6
+ 2075 01e9 9742     		.uleb128 0x2117
+ 2076 01eb 0C       		.uleb128 0xc
+ 2077 01ec 00       		.byte	0
+ 2078 01ed 00       		.byte	0
+ 2079 01ee 1F       		.uleb128 0x1f
+ 2080 01ef 34       		.uleb128 0x34
+ 2081 01f0 00       		.byte	0
+ 2082 01f1 03       		.uleb128 0x3
+ 2083 01f2 0E       		.uleb128 0xe
+ 2084 01f3 3A       		.uleb128 0x3a
+ 2085 01f4 0B       		.uleb128 0xb
+ 2086 01f5 3B       		.uleb128 0x3b
+ 2087 01f6 0B       		.uleb128 0xb
+ 2088 01f7 49       		.uleb128 0x49
+ 2089 01f8 13       		.uleb128 0x13
+ 2090 01f9 3F       		.uleb128 0x3f
+ 2091 01fa 0C       		.uleb128 0xc
+ 2092 01fb 02       		.uleb128 0x2
+ 2093 01fc 0A       		.uleb128 0xa
+ 2094 01fd 00       		.byte	0
+ 2095 01fe 00       		.byte	0
+ 2096 01ff 20       		.uleb128 0x20
+ 2097 0200 34       		.uleb128 0x34
+ 2098 0201 00       		.byte	0
+ 2099 0202 03       		.uleb128 0x3
+ 2100 0203 0E       		.uleb128 0xe
+ 2101 0204 3A       		.uleb128 0x3a
+ 2102 0205 0B       		.uleb128 0xb
+ 2103 0206 3B       		.uleb128 0x3b
+ 2104 0207 0B       		.uleb128 0xb
+ 2105 0208 49       		.uleb128 0x49
+ 2106 0209 13       		.uleb128 0x13
+ 2107 020a 3F       		.uleb128 0x3f
+ 2108 020b 0C       		.uleb128 0xc
+ 2109 020c 3C       		.uleb128 0x3c
+ 2110 020d 0C       		.uleb128 0xc
+ 2111 020e 00       		.byte	0
+ 2112 020f 00       		.byte	0
+ 2113 0210 00       		.byte	0
+ 2114              		.section	.debug_loc,"",%progbits
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 45
+
+
+ 2115              	.Ldebug_loc0:
+ 2116              	.LLST0:
+ 2117 0000 00000000 		.4byte	.LFB0
+ 2118 0004 02000000 		.4byte	.LCFI0
+ 2119 0008 0200     		.2byte	0x2
+ 2120 000a 7D       		.byte	0x7d
+ 2121 000b 00       		.sleb128 0
+ 2122 000c 02000000 		.4byte	.LCFI0
+ 2123 0010 04000000 		.4byte	.LCFI1
+ 2124 0014 0200     		.2byte	0x2
+ 2125 0016 7D       		.byte	0x7d
+ 2126 0017 08       		.sleb128 8
+ 2127 0018 04000000 		.4byte	.LCFI1
+ 2128 001c 22000000 		.4byte	.LFE0
+ 2129 0020 0200     		.2byte	0x2
+ 2130 0022 77       		.byte	0x77
+ 2131 0023 08       		.sleb128 8
+ 2132 0024 00000000 		.4byte	0
+ 2133 0028 00000000 		.4byte	0
+ 2134              	.LLST1:
+ 2135 002c 00000000 		.4byte	.LFB1
+ 2136 0030 02000000 		.4byte	.LCFI2
+ 2137 0034 0200     		.2byte	0x2
+ 2138 0036 7D       		.byte	0x7d
+ 2139 0037 00       		.sleb128 0
+ 2140 0038 02000000 		.4byte	.LCFI2
+ 2141 003c 04000000 		.4byte	.LCFI3
+ 2142 0040 0200     		.2byte	0x2
+ 2143 0042 7D       		.byte	0x7d
+ 2144 0043 08       		.sleb128 8
+ 2145 0044 04000000 		.4byte	.LCFI3
+ 2146 0048 06000000 		.4byte	.LCFI4
+ 2147 004c 0200     		.2byte	0x2
+ 2148 004e 7D       		.byte	0x7d
+ 2149 004f 10       		.sleb128 16
+ 2150 0050 06000000 		.4byte	.LCFI4
+ 2151 0054 26000000 		.4byte	.LFE1
+ 2152 0058 0200     		.2byte	0x2
+ 2153 005a 77       		.byte	0x77
+ 2154 005b 10       		.sleb128 16
+ 2155 005c 00000000 		.4byte	0
+ 2156 0060 00000000 		.4byte	0
+ 2157              	.LLST2:
+ 2158 0064 00000000 		.4byte	.LFB2
+ 2159 0068 02000000 		.4byte	.LCFI5
+ 2160 006c 0200     		.2byte	0x2
+ 2161 006e 7D       		.byte	0x7d
+ 2162 006f 00       		.sleb128 0
+ 2163 0070 02000000 		.4byte	.LCFI5
+ 2164 0074 04000000 		.4byte	.LCFI6
+ 2165 0078 0200     		.2byte	0x2
+ 2166 007a 7D       		.byte	0x7d
+ 2167 007b 08       		.sleb128 8
+ 2168 007c 04000000 		.4byte	.LCFI6
+ 2169 0080 16000000 		.4byte	.LFE2
+ 2170 0084 0200     		.2byte	0x2
+ 2171 0086 77       		.byte	0x77
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 46
+
+
+ 2172 0087 08       		.sleb128 8
+ 2173 0088 00000000 		.4byte	0
+ 2174 008c 00000000 		.4byte	0
+ 2175              	.LLST3:
+ 2176 0090 00000000 		.4byte	.LFB3
+ 2177 0094 02000000 		.4byte	.LCFI7
+ 2178 0098 0200     		.2byte	0x2
+ 2179 009a 7D       		.byte	0x7d
+ 2180 009b 00       		.sleb128 0
+ 2181 009c 02000000 		.4byte	.LCFI7
+ 2182 00a0 04000000 		.4byte	.LCFI8
+ 2183 00a4 0200     		.2byte	0x2
+ 2184 00a6 7D       		.byte	0x7d
+ 2185 00a7 08       		.sleb128 8
+ 2186 00a8 04000000 		.4byte	.LCFI8
+ 2187 00ac DE000000 		.4byte	.LFE3
+ 2188 00b0 0200     		.2byte	0x2
+ 2189 00b2 77       		.byte	0x77
+ 2190 00b3 08       		.sleb128 8
+ 2191 00b4 00000000 		.4byte	0
+ 2192 00b8 00000000 		.4byte	0
+ 2193              	.LLST4:
+ 2194 00bc 00000000 		.4byte	.LFB4
+ 2195 00c0 02000000 		.4byte	.LCFI9
+ 2196 00c4 0200     		.2byte	0x2
+ 2197 00c6 7D       		.byte	0x7d
+ 2198 00c7 00       		.sleb128 0
+ 2199 00c8 02000000 		.4byte	.LCFI9
+ 2200 00cc 04000000 		.4byte	.LCFI10
+ 2201 00d0 0200     		.2byte	0x2
+ 2202 00d2 7D       		.byte	0x7d
+ 2203 00d3 04       		.sleb128 4
+ 2204 00d4 04000000 		.4byte	.LCFI10
+ 2205 00d8 06000000 		.4byte	.LCFI11
+ 2206 00dc 0200     		.2byte	0x2
+ 2207 00de 7D       		.byte	0x7d
+ 2208 00df 18       		.sleb128 24
+ 2209 00e0 06000000 		.4byte	.LCFI11
+ 2210 00e4 28000000 		.4byte	.LFE4
+ 2211 00e8 0200     		.2byte	0x2
+ 2212 00ea 77       		.byte	0x77
+ 2213 00eb 18       		.sleb128 24
+ 2214 00ec 00000000 		.4byte	0
+ 2215 00f0 00000000 		.4byte	0
+ 2216              	.LLST5:
+ 2217 00f4 00000000 		.4byte	.LFB5
+ 2218 00f8 02000000 		.4byte	.LCFI12
+ 2219 00fc 0200     		.2byte	0x2
+ 2220 00fe 7D       		.byte	0x7d
+ 2221 00ff 00       		.sleb128 0
+ 2222 0100 02000000 		.4byte	.LCFI12
+ 2223 0104 04000000 		.4byte	.LCFI13
+ 2224 0108 0200     		.2byte	0x2
+ 2225 010a 7D       		.byte	0x7d
+ 2226 010b 04       		.sleb128 4
+ 2227 010c 04000000 		.4byte	.LCFI13
+ 2228 0110 06000000 		.4byte	.LCFI14
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 47
+
+
+ 2229 0114 0200     		.2byte	0x2
+ 2230 0116 7D       		.byte	0x7d
+ 2231 0117 10       		.sleb128 16
+ 2232 0118 06000000 		.4byte	.LCFI14
+ 2233 011c 22000000 		.4byte	.LFE5
+ 2234 0120 0200     		.2byte	0x2
+ 2235 0122 77       		.byte	0x77
+ 2236 0123 10       		.sleb128 16
+ 2237 0124 00000000 		.4byte	0
+ 2238 0128 00000000 		.4byte	0
+ 2239              	.LLST6:
+ 2240 012c 00000000 		.4byte	.LFB6
+ 2241 0130 02000000 		.4byte	.LCFI15
+ 2242 0134 0200     		.2byte	0x2
+ 2243 0136 7D       		.byte	0x7d
+ 2244 0137 00       		.sleb128 0
+ 2245 0138 02000000 		.4byte	.LCFI15
+ 2246 013c 04000000 		.4byte	.LCFI16
+ 2247 0140 0200     		.2byte	0x2
+ 2248 0142 7D       		.byte	0x7d
+ 2249 0143 04       		.sleb128 4
+ 2250 0144 04000000 		.4byte	.LCFI16
+ 2251 0148 06000000 		.4byte	.LCFI17
+ 2252 014c 0200     		.2byte	0x2
+ 2253 014e 7D       		.byte	0x7d
+ 2254 014f 10       		.sleb128 16
+ 2255 0150 06000000 		.4byte	.LCFI17
+ 2256 0154 26000000 		.4byte	.LFE6
+ 2257 0158 0200     		.2byte	0x2
+ 2258 015a 77       		.byte	0x77
+ 2259 015b 10       		.sleb128 16
+ 2260 015c 00000000 		.4byte	0
+ 2261 0160 00000000 		.4byte	0
+ 2262              	.LLST7:
+ 2263 0164 00000000 		.4byte	.LFB7
+ 2264 0168 02000000 		.4byte	.LCFI18
+ 2265 016c 0200     		.2byte	0x2
+ 2266 016e 7D       		.byte	0x7d
+ 2267 016f 00       		.sleb128 0
+ 2268 0170 02000000 		.4byte	.LCFI18
+ 2269 0174 04000000 		.4byte	.LCFI19
+ 2270 0178 0200     		.2byte	0x2
+ 2271 017a 7D       		.byte	0x7d
+ 2272 017b 04       		.sleb128 4
+ 2273 017c 04000000 		.4byte	.LCFI19
+ 2274 0180 06000000 		.4byte	.LCFI20
+ 2275 0184 0200     		.2byte	0x2
+ 2276 0186 7D       		.byte	0x7d
+ 2277 0187 10       		.sleb128 16
+ 2278 0188 06000000 		.4byte	.LCFI20
+ 2279 018c 26000000 		.4byte	.LFE7
+ 2280 0190 0200     		.2byte	0x2
+ 2281 0192 77       		.byte	0x77
+ 2282 0193 10       		.sleb128 16
+ 2283 0194 00000000 		.4byte	0
+ 2284 0198 00000000 		.4byte	0
+ 2285              	.LLST8:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 48
+
+
+ 2286 019c 00000000 		.4byte	.LFB8
+ 2287 01a0 02000000 		.4byte	.LCFI21
+ 2288 01a4 0200     		.2byte	0x2
+ 2289 01a6 7D       		.byte	0x7d
+ 2290 01a7 00       		.sleb128 0
+ 2291 01a8 02000000 		.4byte	.LCFI21
+ 2292 01ac 04000000 		.4byte	.LCFI22
+ 2293 01b0 0200     		.2byte	0x2
+ 2294 01b2 7D       		.byte	0x7d
+ 2295 01b3 04       		.sleb128 4
+ 2296 01b4 04000000 		.4byte	.LCFI22
+ 2297 01b8 18000000 		.4byte	.LFE8
+ 2298 01bc 0200     		.2byte	0x2
+ 2299 01be 77       		.byte	0x77
+ 2300 01bf 04       		.sleb128 4
+ 2301 01c0 00000000 		.4byte	0
+ 2302 01c4 00000000 		.4byte	0
+ 2303              	.LLST9:
+ 2304 01c8 00000000 		.4byte	.LFB9
+ 2305 01cc 02000000 		.4byte	.LCFI23
+ 2306 01d0 0200     		.2byte	0x2
+ 2307 01d2 7D       		.byte	0x7d
+ 2308 01d3 00       		.sleb128 0
+ 2309 01d4 02000000 		.4byte	.LCFI23
+ 2310 01d8 04000000 		.4byte	.LCFI24
+ 2311 01dc 0200     		.2byte	0x2
+ 2312 01de 7D       		.byte	0x7d
+ 2313 01df 04       		.sleb128 4
+ 2314 01e0 04000000 		.4byte	.LCFI24
+ 2315 01e4 28000000 		.4byte	.LFE9
+ 2316 01e8 0200     		.2byte	0x2
+ 2317 01ea 77       		.byte	0x77
+ 2318 01eb 04       		.sleb128 4
+ 2319 01ec 00000000 		.4byte	0
+ 2320 01f0 00000000 		.4byte	0
+ 2321              	.LLST10:
+ 2322 01f4 00000000 		.4byte	.LFB10
+ 2323 01f8 02000000 		.4byte	.LCFI25
+ 2324 01fc 0200     		.2byte	0x2
+ 2325 01fe 7D       		.byte	0x7d
+ 2326 01ff 00       		.sleb128 0
+ 2327 0200 02000000 		.4byte	.LCFI25
+ 2328 0204 04000000 		.4byte	.LCFI26
+ 2329 0208 0200     		.2byte	0x2
+ 2330 020a 7D       		.byte	0x7d
+ 2331 020b 04       		.sleb128 4
+ 2332 020c 04000000 		.4byte	.LCFI26
+ 2333 0210 18000000 		.4byte	.LFE10
+ 2334 0214 0200     		.2byte	0x2
+ 2335 0216 77       		.byte	0x77
+ 2336 0217 04       		.sleb128 4
+ 2337 0218 00000000 		.4byte	0
+ 2338 021c 00000000 		.4byte	0
+ 2339              	.LLST11:
+ 2340 0220 00000000 		.4byte	.LFB11
+ 2341 0224 02000000 		.4byte	.LCFI27
+ 2342 0228 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 49
+
+
+ 2343 022a 7D       		.byte	0x7d
+ 2344 022b 00       		.sleb128 0
+ 2345 022c 02000000 		.4byte	.LCFI27
+ 2346 0230 04000000 		.4byte	.LCFI28
+ 2347 0234 0200     		.2byte	0x2
+ 2348 0236 7D       		.byte	0x7d
+ 2349 0237 04       		.sleb128 4
+ 2350 0238 04000000 		.4byte	.LCFI28
+ 2351 023c 18000000 		.4byte	.LFE11
+ 2352 0240 0200     		.2byte	0x2
+ 2353 0242 77       		.byte	0x77
+ 2354 0243 04       		.sleb128 4
+ 2355 0244 00000000 		.4byte	0
+ 2356 0248 00000000 		.4byte	0
+ 2357              	.LLST12:
+ 2358 024c 00000000 		.4byte	.LFB12
+ 2359 0250 02000000 		.4byte	.LCFI29
+ 2360 0254 0200     		.2byte	0x2
+ 2361 0256 7D       		.byte	0x7d
+ 2362 0257 00       		.sleb128 0
+ 2363 0258 02000000 		.4byte	.LCFI29
+ 2364 025c 04000000 		.4byte	.LCFI30
+ 2365 0260 0200     		.2byte	0x2
+ 2366 0262 7D       		.byte	0x7d
+ 2367 0263 04       		.sleb128 4
+ 2368 0264 04000000 		.4byte	.LCFI30
+ 2369 0268 18000000 		.4byte	.LFE12
+ 2370 026c 0200     		.2byte	0x2
+ 2371 026e 77       		.byte	0x77
+ 2372 026f 04       		.sleb128 4
+ 2373 0270 00000000 		.4byte	0
+ 2374 0274 00000000 		.4byte	0
+ 2375              		.section	.debug_aranges,"",%progbits
+ 2376 0000 7C000000 		.4byte	0x7c
+ 2377 0004 0200     		.2byte	0x2
+ 2378 0006 00000000 		.4byte	.Ldebug_info0
+ 2379 000a 04       		.byte	0x4
+ 2380 000b 00       		.byte	0
+ 2381 000c 0000     		.2byte	0
+ 2382 000e 0000     		.2byte	0
+ 2383 0010 00000000 		.4byte	.LFB0
+ 2384 0014 22000000 		.4byte	.LFE0-.LFB0
+ 2385 0018 00000000 		.4byte	.LFB1
+ 2386 001c 26000000 		.4byte	.LFE1-.LFB1
+ 2387 0020 00000000 		.4byte	.LFB2
+ 2388 0024 16000000 		.4byte	.LFE2-.LFB2
+ 2389 0028 00000000 		.4byte	.LFB3
+ 2390 002c DE000000 		.4byte	.LFE3-.LFB3
+ 2391 0030 00000000 		.4byte	.LFB4
+ 2392 0034 28000000 		.4byte	.LFE4-.LFB4
+ 2393 0038 00000000 		.4byte	.LFB5
+ 2394 003c 22000000 		.4byte	.LFE5-.LFB5
+ 2395 0040 00000000 		.4byte	.LFB6
+ 2396 0044 26000000 		.4byte	.LFE6-.LFB6
+ 2397 0048 00000000 		.4byte	.LFB7
+ 2398 004c 26000000 		.4byte	.LFE7-.LFB7
+ 2399 0050 00000000 		.4byte	.LFB8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 50
+
+
+ 2400 0054 18000000 		.4byte	.LFE8-.LFB8
+ 2401 0058 00000000 		.4byte	.LFB9
+ 2402 005c 28000000 		.4byte	.LFE9-.LFB9
+ 2403 0060 00000000 		.4byte	.LFB10
+ 2404 0064 18000000 		.4byte	.LFE10-.LFB10
+ 2405 0068 00000000 		.4byte	.LFB11
+ 2406 006c 18000000 		.4byte	.LFE11-.LFB11
+ 2407 0070 00000000 		.4byte	.LFB12
+ 2408 0074 18000000 		.4byte	.LFE12-.LFB12
+ 2409 0078 00000000 		.4byte	0
+ 2410 007c 00000000 		.4byte	0
+ 2411              		.section	.debug_ranges,"",%progbits
+ 2412              	.Ldebug_ranges0:
+ 2413 0000 00000000 		.4byte	.LFB0
+ 2414 0004 22000000 		.4byte	.LFE0
+ 2415 0008 00000000 		.4byte	.LFB1
+ 2416 000c 26000000 		.4byte	.LFE1
+ 2417 0010 00000000 		.4byte	.LFB2
+ 2418 0014 16000000 		.4byte	.LFE2
+ 2419 0018 00000000 		.4byte	.LFB3
+ 2420 001c DE000000 		.4byte	.LFE3
+ 2421 0020 00000000 		.4byte	.LFB4
+ 2422 0024 28000000 		.4byte	.LFE4
+ 2423 0028 00000000 		.4byte	.LFB5
+ 2424 002c 22000000 		.4byte	.LFE5
+ 2425 0030 00000000 		.4byte	.LFB6
+ 2426 0034 26000000 		.4byte	.LFE6
+ 2427 0038 00000000 		.4byte	.LFB7
+ 2428 003c 26000000 		.4byte	.LFE7
+ 2429 0040 00000000 		.4byte	.LFB8
+ 2430 0044 18000000 		.4byte	.LFE8
+ 2431 0048 00000000 		.4byte	.LFB9
+ 2432 004c 28000000 		.4byte	.LFE9
+ 2433 0050 00000000 		.4byte	.LFB10
+ 2434 0054 18000000 		.4byte	.LFE10
+ 2435 0058 00000000 		.4byte	.LFB11
+ 2436 005c 18000000 		.4byte	.LFE11
+ 2437 0060 00000000 		.4byte	.LFB12
+ 2438 0064 18000000 		.4byte	.LFE12
+ 2439 0068 00000000 		.4byte	0
+ 2440 006c 00000000 		.4byte	0
+ 2441              		.section	.debug_line,"",%progbits
+ 2442              	.Ldebug_line0:
+ 2443 0000 91010000 		.section	.debug_str,"MS",%progbits,1
+ 2443      02007E00 
+ 2443      00000201 
+ 2443      FB0E0D00 
+ 2443      01010101 
+ 2444              	.LASF65:
+ 2445 0000 6D617374 		.ascii	"master_limit_delta\000"
+ 2445      65725F6C 
+ 2445      696D6974 
+ 2445      5F64656C 
+ 2445      746100
+ 2446              	.LASF76:
+ 2447 0013 76617269 		.ascii	"variance\000"
+ 2447      616E6365 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 51
+
+
+ 2447      00
+ 2448              	.LASF61:
+ 2449 001c 466C6F61 		.ascii	"Float_ASTIM\000"
+ 2449      745F4153 
+ 2449      54494D00 
+ 2450              	.LASF36:
+ 2451 0028 7265736F 		.ascii	"resolution_rad_step\000"
+ 2451      6C757469 
+ 2451      6F6E5F72 
+ 2451      61645F73 
+ 2451      74657000 
+ 2452              	.LASF4:
+ 2453 003c 756E7369 		.ascii	"unsigned int\000"
+ 2453      676E6564 
+ 2453      20696E74 
+ 2453      00
+ 2454              	.LASF77:
+ 2455 0049 69746572 		.ascii	"iteration_num\000"
+ 2455      6174696F 
+ 2455      6E5F6E75 
+ 2455      6D00
+ 2456              	.LASF13:
+ 2457 0057 696E7431 		.ascii	"int16\000"
+ 2457      3600
+ 2458              	.LASF75:
+ 2459 005d 516B5F70 		.ascii	"Qk_previous\000"
+ 2459      72657669 
+ 2459      6F757300 
+ 2460              	.LASF18:
+ 2461 0069 72656738 		.ascii	"reg8\000"
+ 2461      00
+ 2462              	.LASF58:
+ 2463 006e 70776D5F 		.ascii	"pwm_var\000"
+ 2463      76617200 
+ 2464              	.LASF49:
+ 2465 0076 6D617374 		.ascii	"master_joy_sample_delta\000"
+ 2465      65725F6A 
+ 2465      6F795F73 
+ 2465      616D706C 
+ 2465      655F6465 
+ 2466              	.LASF55:
+ 2467 008e 64657269 		.ascii	"derivative_lowpass\000"
+ 2467      76617469 
+ 2467      76655F6C 
+ 2467      6F777061 
+ 2467      737300
+ 2468              	.LASF82:
+ 2469 00a1 56454C4F 		.ascii	"VELOCALC\000"
+ 2469      43414C43 
+ 2469      00
+ 2470              	.LASF51:
+ 2471 00aa 6572726F 		.ascii	"error\000"
+ 2471      7200
+ 2472              	.LASF94:
+ 2473 00b0 6973725F 		.ascii	"isr_TORQUESTAT_SetVector\000"
+ 2473      544F5251 
+ 2473      55455354 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 52
+
+
+ 2473      41545F53 
+ 2473      65745665 
+ 2474              	.LASF90:
+ 2475 00c9 6973725F 		.ascii	"isr_TORQUESTAT_Start\000"
+ 2475      544F5251 
+ 2475      55455354 
+ 2475      41545F53 
+ 2475      74617274 
+ 2476              	.LASF84:
+ 2477 00de 656E635F 		.ascii	"enc_position_bef\000"
+ 2477      706F7369 
+ 2477      74696F6E 
+ 2477      5F626566 
+ 2477      00
+ 2478              	.LASF92:
+ 2479 00ef 6973725F 		.ascii	"isr_TORQUESTAT_Interrupt\000"
+ 2479      544F5251 
+ 2479      55455354 
+ 2479      41545F49 
+ 2479      6E746572 
+ 2480              	.LASF109:
+ 2481 0108 70616E5F 		.ascii	"pan_current_stat\000"
+ 2481      63757272 
+ 2481      656E745F 
+ 2481      73746174 
+ 2481      00
+ 2482              	.LASF63:
+ 2483 0119 4C494D49 		.ascii	"LIMITCONTROL\000"
+ 2483      54434F4E 
+ 2483      54524F4C 
+ 2483      00
+ 2484              	.LASF118:
+ 2485 0126 6973725F 		.ascii	"isr_TORQUESTAT_GetState\000"
+ 2485      544F5251 
+ 2485      55455354 
+ 2485      41545F47 
+ 2485      65745374 
+ 2486              	.LASF102:
+ 2487 013e 6973725F 		.ascii	"isr_TORQUESTAT_Disable\000"
+ 2487      544F5251 
+ 2487      55455354 
+ 2487      41545F44 
+ 2487      69736162 
+ 2488              	.LASF34:
+ 2489 0155 61737469 		.ascii	"astim_type\000"
+ 2489      6D5F7479 
+ 2489      706500
+ 2490              	.LASF15:
+ 2491 0160 666C6F61 		.ascii	"float\000"
+ 2491      7400
+ 2492              	.LASF14:
+ 2493 0166 696E7433 		.ascii	"int32\000"
+ 2493      3200
+ 2494              	.LASF53:
+ 2495 016c 69657272 		.ascii	"ierror\000"
+ 2495      6F7200
+ 2496              	.LASF6:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 53
+
+
+ 2497 0173 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2497      206C6F6E 
+ 2497      6720756E 
+ 2497      7369676E 
+ 2497      65642069 
+ 2498              	.LASF54:
+ 2499 018a 64657272 		.ascii	"derror\000"
+ 2499      6F7200
+ 2500              	.LASF33:
+ 2501 0191 61737469 		.ascii	"astim_enable\000"
+ 2501      6D5F656E 
+ 2501      61626C65 
+ 2501      00
+ 2502              	.LASF30:
+ 2503 019e 616E6775 		.ascii	"angular_velocity\000"
+ 2503      6C61725F 
+ 2503      76656C6F 
+ 2503      63697479 
+ 2503      00
+ 2504              	.LASF47:
+ 2505 01af 6D617374 		.ascii	"master_enc_sample_delta\000"
+ 2505      65725F65 
+ 2505      6E635F73 
+ 2505      616D706C 
+ 2505      655F6465 
+ 2506              	.LASF62:
+ 2507 01c7 61737469 		.ascii	"astim_ZCsync\000"
+ 2507      6D5F5A43 
+ 2507      73796E63 
+ 2507      00
+ 2508              	.LASF41:
+ 2509 01d4 4761696E 		.ascii	"Gain_ANAOUT\000"
+ 2509      5F414E41 
+ 2509      4F555400 
+ 2510              	.LASF112:
+ 2511 01e0 74696C74 		.ascii	"tilt_qpower_stat\000"
+ 2511      5F71706F 
+ 2511      7765725F 
+ 2511      73746174 
+ 2511      00
+ 2512              	.LASF108:
+ 2513 01f1 74696C74 		.ascii	"tilt_torque_stat\000"
+ 2513      5F746F72 
+ 2513      7175655F 
+ 2513      73746174 
+ 2513      00
+ 2514              	.LASF105:
+ 2515 0202 70616E5F 		.ascii	"pan_axis\000"
+ 2515      61786973 
+ 2515      00
+ 2516              	.LASF40:
+ 2517 020b 4B6F7066 		.ascii	"Kopf\000"
+ 2517      00
+ 2518              	.LASF104:
+ 2519 0210 6973725F 		.ascii	"isr_TORQUESTAT_ClearPending\000"
+ 2519      544F5251 
+ 2519      55455354 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 54
+
+
+ 2519      41545F43 
+ 2519      6C656172 
+ 2520              	.LASF114:
+ 2521 022c 74696C74 		.ascii	"tilt_abs_motor_velocity\000"
+ 2521      5F616273 
+ 2521      5F6D6F74 
+ 2521      6F725F76 
+ 2521      656C6F63 
+ 2522              	.LASF106:
+ 2523 0244 74696C74 		.ascii	"tilt_axis\000"
+ 2523      5F617869 
+ 2523      7300
+ 2524              	.LASF48:
+ 2525 024e 6D617374 		.ascii	"master_joy_position\000"
+ 2525      65725F6A 
+ 2525      6F795F70 
+ 2525      6F736974 
+ 2525      696F6E00 
+ 2526              	.LASF87:
+ 2527 0262 6162735F 		.ascii	"abs_current_t\000"
+ 2527      63757272 
+ 2527      656E745F 
+ 2527      7400
+ 2528              	.LASF91:
+ 2529 0270 6973725F 		.ascii	"isr_TORQUESTAT_Stop\000"
+ 2529      544F5251 
+ 2529      55455354 
+ 2529      41545F53 
+ 2529      746F7000 
+ 2530              	.LASF10:
+ 2531 0284 63686172 		.ascii	"char\000"
+ 2531      00
+ 2532              	.LASF101:
+ 2533 0289 6973725F 		.ascii	"isr_TORQUESTAT_Enable\000"
+ 2533      544F5251 
+ 2533      55455354 
+ 2533      41545F45 
+ 2533      6E61626C 
+ 2534              	.LASF45:
+ 2535 029f 4D434441 		.ascii	"MCDATAS\000"
+ 2535      54415300 
+ 2536              	.LASF39:
+ 2537 02a7 4B736966 		.ascii	"Ksif\000"
+ 2537      00
+ 2538              	.LASF26:
+ 2539 02ac 7265736F 		.ascii	"resolution\000"
+ 2539      6C757469 
+ 2539      6F6E00
+ 2540              	.LASF64:
+ 2541 02b7 73746174 		.ascii	"status\000"
+ 2541      757300
+ 2542              	.LASF24:
+ 2543 02be 454E435F 		.ascii	"ENC_PARAMETER\000"
+ 2543      50415241 
+ 2543      4D455445 
+ 2543      5200
+ 2544              	.LASF110:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 55
+
+
+ 2545 02cc 70616E5F 		.ascii	"pan_qpower_stat\000"
+ 2545      71706F77 
+ 2545      65725F73 
+ 2545      74617400 
+ 2546              	.LASF17:
+ 2547 02dc 63686172 		.ascii	"char8\000"
+ 2547      3800
+ 2548              	.LASF107:
+ 2549 02e2 70616E5F 		.ascii	"pan_torque_stat\000"
+ 2549      746F7271 
+ 2549      75655F73 
+ 2549      74617400 
+ 2550              	.LASF81:
+ 2551 02f2 71706F77 		.ascii	"qpower_t\000"
+ 2551      65725F74 
+ 2551      00
+ 2552              	.LASF83:
+ 2553 02fb 61637475 		.ascii	"actual_abs_motor_velocity\000"
+ 2553      616C5F61 
+ 2553      62735F6D 
+ 2553      6F746F72 
+ 2553      5F76656C 
+ 2554              	.LASF32:
+ 2555 0315 56504152 		.ascii	"VPARAMS\000"
+ 2555      414D5300 
+ 2556              	.LASF89:
+ 2557 031d 7663616C 		.ascii	"vcalc\000"
+ 2557      6300
+ 2558              	.LASF70:
+ 2559 0323 6D657373 		.ascii	"messg\000"
+ 2559      6700
+ 2560              	.LASF5:
+ 2561 0329 6C6F6E67 		.ascii	"long long int\000"
+ 2561      206C6F6E 
+ 2561      6720696E 
+ 2561      7400
+ 2562              	.LASF37:
+ 2563 0337 50415241 		.ascii	"PARAMS\000"
+ 2563      4D5300
+ 2564              	.LASF74:
+ 2565 033e 73636172 		.ascii	"scarto\000"
+ 2565      746F00
+ 2566              	.LASF93:
+ 2567 0345 6973725F 		.ascii	"isr_TORQUESTAT_StartEx\000"
+ 2567      544F5251 
+ 2567      55455354 
+ 2567      41545F53 
+ 2567      74617274 
+ 2568              	.LASF31:
+ 2569 035c 70617261 		.ascii	"param\000"
+ 2569      6D00
+ 2570              	.LASF46:
+ 2571 0362 6D617374 		.ascii	"master_enc_position\000"
+ 2571      65725F65 
+ 2571      6E635F70 
+ 2571      6F736974 
+ 2571      696F6E00 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 56
+
+
+ 2572              	.LASF68:
+ 2573 0376 76706172 		.ascii	"vparam\000"
+ 2573      616D00
+ 2574              	.LASF20:
+ 2575 037d 63796973 		.ascii	"cyisraddress\000"
+ 2575      72616464 
+ 2575      72657373 
+ 2575      00
+ 2576              	.LASF73:
+ 2577 038a 72616E67 		.ascii	"range\000"
+ 2577      6500
+ 2578              	.LASF12:
+ 2579 0390 75696E74 		.ascii	"uint32\000"
+ 2579      333200
+ 2580              	.LASF57:
+ 2581 0397 6374726C 		.ascii	"ctrl_var\000"
+ 2581      5F766172 
+ 2581      00
+ 2582              	.LASF67:
+ 2583 03a0 4D4F544F 		.ascii	"MOTOR_AXIS\000"
+ 2583      525F4158 
+ 2583      495300
+ 2584              	.LASF88:
+ 2585 03ab 70776361 		.ascii	"pwcalc\000"
+ 2585      6C6300
+ 2586              	.LASF111:
+ 2587 03b2 74696C74 		.ascii	"tilt_current_stat\000"
+ 2587      5F637572 
+ 2587      72656E74 
+ 2587      5F737461 
+ 2587      7400
+ 2588              	.LASF19:
+ 2589 03c4 72656733 		.ascii	"reg32\000"
+ 2589      3200
+ 2590              	.LASF78:
+ 2591 03ca 7469636B 		.ascii	"tick\000"
+ 2591      00
+ 2592              	.LASF23:
+ 2593 03cf 666C6F61 		.ascii	"floatEE\000"
+ 2593      74454500 
+ 2594              	.LASF21:
+ 2595 03d7 66627974 		.ascii	"fbyte\000"
+ 2595      6500
+ 2596              	.LASF29:
+ 2597 03dd 616E676C 		.ascii	"angle\000"
+ 2597      6500
+ 2598              	.LASF22:
+ 2599 03e3 666E756D 		.ascii	"fnum\000"
+ 2599      00
+ 2600              	.LASF97:
+ 2601 03e8 6973725F 		.ascii	"isr_TORQUESTAT_SetPriority\000"
+ 2601      544F5251 
+ 2601      55455354 
+ 2601      41545F53 
+ 2601      65745072 
+ 2602              	.LASF69:
+ 2603 0403 53544154 		.ascii	"STATISTICS\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 57
+
+
+ 2603      49535449 
+ 2603      435300
+ 2604              	.LASF2:
+ 2605 040e 73686F72 		.ascii	"short int\000"
+ 2605      7420696E 
+ 2605      7400
+ 2606              	.LASF56:
+ 2607 0418 64656164 		.ascii	"deadband_factor\000"
+ 2607      62616E64 
+ 2607      5F666163 
+ 2607      746F7200 
+ 2608              	.LASF59:
+ 2609 0428 70776D5F 		.ascii	"pwm_test_var\000"
+ 2609      74657374 
+ 2609      5F766172 
+ 2609      00
+ 2610              	.LASF7:
+ 2611 0435 6C6F6E67 		.ascii	"long int\000"
+ 2611      20696E74 
+ 2611      00
+ 2612              	.LASF99:
+ 2613 043e 6973725F 		.ascii	"isr_TORQUESTAT_GetVector\000"
+ 2613      544F5251 
+ 2613      55455354 
+ 2613      41545F47 
+ 2613      65745665 
+ 2614              	.LASF38:
+ 2615 0457 706F6C61 		.ascii	"polarity\000"
+ 2615      72697479 
+ 2615      00
+ 2616              	.LASF98:
+ 2617 0460 7072696F 		.ascii	"priority\000"
+ 2617      72697479 
+ 2617      00
+ 2618              	.LASF42:
+ 2619 0469 636F6C6F 		.ascii	"color\000"
+ 2619      7200
+ 2620              	.LASF80:
+ 2621 046f 6162735F 		.ascii	"abs_omega_t\000"
+ 2621      6F6D6567 
+ 2621      615F7400 
+ 2622              	.LASF35:
+ 2623 047b 7265736F 		.ascii	"resolution_step_deg\000"
+ 2623      6C757469 
+ 2623      6F6E5F73 
+ 2623      7465705F 
+ 2623      64656700 
+ 2624              	.LASF86:
+ 2625 048f 63757272 		.ascii	"current_integral\000"
+ 2625      656E745F 
+ 2625      696E7465 
+ 2625      6772616C 
+ 2625      00
+ 2626              	.LASF28:
+ 2627 04a0 76656C6F 		.ascii	"velocity\000"
+ 2627      63697479 
+ 2627      00
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 58
+
+
+ 2628              	.LASF8:
+ 2629 04a9 73697A65 		.ascii	"sizetype\000"
+ 2629      74797065 
+ 2629      00
+ 2630              	.LASF100:
+ 2631 04b2 6973725F 		.ascii	"isr_TORQUESTAT_GetPriority\000"
+ 2631      544F5251 
+ 2631      55455354 
+ 2631      41545F47 
+ 2631      65745072 
+ 2632              	.LASF9:
+ 2633 04cd 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2633      20756E73 
+ 2633      69676E65 
+ 2633      6420696E 
+ 2633      7400
+ 2634              	.LASF95:
+ 2635 04df 61646472 		.ascii	"address\000"
+ 2635      65737300 
+ 2636              	.LASF50:
+ 2637 04e7 736C6176 		.ascii	"slave_enc\000"
+ 2637      655F656E 
+ 2637      6300
+ 2638              	.LASF44:
+ 2639 04f1 6C696D69 		.ascii	"limit_deceleration_factor\000"
+ 2639      745F6465 
+ 2639      63656C65 
+ 2639      72617469 
+ 2639      6F6E5F66 
+ 2640              	.LASF85:
+ 2641 050b 544F5251 		.ascii	"TORQUESTAT\000"
+ 2641      55455354 
+ 2641      415400
+ 2642              	.LASF72:
+ 2643 0516 6D65616E 		.ascii	"mean_previous\000"
+ 2643      5F707265 
+ 2643      76696F75 
+ 2643      7300
+ 2644              	.LASF117:
+ 2645 0524 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 2645      73657273 
+ 2645      5C477261 
+ 2645      7A69616E 
+ 2645      6F20472E 
+ 2646 0553 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 2646      5C535155 
+ 2646      49545C56 
+ 2646      6572732E 
+ 2646      302E302D 
+ 2647 0583 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 2647      2D50726F 
+ 2647      746F2E63 
+ 2647      7964736E 
+ 2647      00
+ 2648              	.LASF116:
+ 2649 0594 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isr_TORQUESTAT.c\000"
+ 2649      6E657261 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 59
+
+
+ 2649      7465645F 
+ 2649      536F7572 
+ 2649      63655C50 
+ 2650              	.LASF1:
+ 2651 05be 756E7369 		.ascii	"unsigned char\000"
+ 2651      676E6564 
+ 2651      20636861 
+ 2651      7200
+ 2652              	.LASF96:
+ 2653 05cc 72616D56 		.ascii	"ramVectorTable\000"
+ 2653      6563746F 
+ 2653      72546162 
+ 2653      6C6500
+ 2654              	.LASF52:
+ 2655 05db 6572726F 		.ascii	"error_bef\000"
+ 2655      725F6265 
+ 2655      6600
+ 2656              	.LASF113:
+ 2657 05e5 70616E5F 		.ascii	"pan_abs_motor_velocity\000"
+ 2657      6162735F 
+ 2657      6D6F746F 
+ 2657      725F7665 
+ 2657      6C6F6369 
+ 2658              	.LASF79:
+ 2659 05fc 504F5745 		.ascii	"POWERCALC\000"
+ 2659      5243414C 
+ 2659      4300
+ 2660              	.LASF0:
+ 2661 0606 7369676E 		.ascii	"signed char\000"
+ 2661      65642063 
+ 2661      68617200 
+ 2662              	.LASF3:
+ 2663 0612 73686F72 		.ascii	"short unsigned int\000"
+ 2663      7420756E 
+ 2663      7369676E 
+ 2663      65642069 
+ 2663      6E7400
+ 2664              	.LASF115:
+ 2665 0625 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2665      4320342E 
+ 2665      372E3320 
+ 2665      32303133 
+ 2665      30333132 
+ 2666 0658 616E6368 		.ascii	"anch revision 196615]\000"
+ 2666      20726576 
+ 2666      6973696F 
+ 2666      6E203139 
+ 2666      36363135 
+ 2667              	.LASF60:
+ 2668 066e 63757272 		.ascii	"current\000"
+ 2668      656E7400 
+ 2669              	.LASF11:
+ 2670 0676 75696E74 		.ascii	"uint8\000"
+ 2670      3800
+ 2671              	.LASF16:
+ 2672 067c 646F7562 		.ascii	"double\000"
+ 2672      6C6500
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc4qieAN.s 			page 60
+
+
+ 2673              	.LASF43:
+ 2674 0683 6C696D69 		.ascii	"limit_control\000"
+ 2674      745F636F 
+ 2674      6E74726F 
+ 2674      6C00
+ 2675              	.LASF25:
+ 2676 0691 454E434F 		.ascii	"ENCODER\000"
+ 2676      44455200 
+ 2677              	.LASF66:
+ 2678 0699 64656365 		.ascii	"deceleration_factor\000"
+ 2678      6C657261 
+ 2678      74696F6E 
+ 2678      5F666163 
+ 2678      746F7200 
+ 2679              	.LASF103:
+ 2680 06ad 6973725F 		.ascii	"isr_TORQUESTAT_SetPending\000"
+ 2680      544F5251 
+ 2680      55455354 
+ 2680      41545F53 
+ 2680      65745065 
+ 2681              	.LASF71:
+ 2682 06c7 6D65616E 		.ascii	"mean\000"
+ 2682      00
+ 2683              	.LASF27:
+ 2684 06cc 706F7369 		.ascii	"position\000"
+ 2684      74696F6E 
+ 2684      00
+ 2685              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

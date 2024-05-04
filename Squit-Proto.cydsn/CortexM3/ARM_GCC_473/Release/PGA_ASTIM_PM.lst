@@ -1,0 +1,917 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"PGA_ASTIM_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.PGA_ASTIM_SaveConfig,"ax",%progbits
+  19              		.align	1
+  20              		.global	PGA_ASTIM_SaveConfig
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	PGA_ASTIM_SaveConfig, %function
+  24              	PGA_ASTIM_SaveConfig:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\PGA_ASTIM_PM.c"
+   1:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * File Name: PGA_ASTIM_PM.c  
+   3:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Version 2.0
+   4:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+   5:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  This file provides the power manager source code to the API for PGA 
+   7:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  Component.
+   8:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+   9:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  11:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  18:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** #include "PGA_ASTIM.h"
+  19:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  20:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** static PGA_ASTIM_BACKUP_STRUCT  PGA_ASTIM_backup;
+  21:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  22:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  23:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** /*******************************************************************************
+  24:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Function Name: PGA_ASTIM_SaveConfig
+  25:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** ********************************************************************************
+  26:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  27:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Summary:
+  28:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  Save the current user register configuration.
+  29:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  30:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Parameters:
+  31:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  void
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  33:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Return:
+  34:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  void
+  35:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  36:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** void PGA_ASTIM_SaveConfig(void) 
+  38:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** {
+  27              		.loc 1 38 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 7047     		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE0:
+  35              		.size	PGA_ASTIM_SaveConfig, .-PGA_ASTIM_SaveConfig
+  36              		.section	.text.PGA_ASTIM_RestoreConfig,"ax",%progbits
+  37              		.align	1
+  38              		.global	PGA_ASTIM_RestoreConfig
+  39              		.thumb
+  40              		.thumb_func
+  41              		.type	PGA_ASTIM_RestoreConfig, %function
+  42              	PGA_ASTIM_RestoreConfig:
+  43              	.LFB1:
+  39:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     /* Nothing to save as registers are System reset on retention flops */
+  40:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** }
+  41:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  42:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  43:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** /*******************************************************************************  
+  44:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Function Name: PGA_ASTIM_RestoreConfig
+  45:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  47:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Summary:
+  48:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  Restore the register configurations.
+  49:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  50:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Parameters:
+  51:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  void
+  52:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  53:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Return:
+  54:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  void
+  55:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  56:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** void PGA_ASTIM_RestoreConfig(void) 
+  58:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** {
+  44              		.loc 1 58 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	PGA_ASTIM_RestoreConfig, .-PGA_ASTIM_RestoreConfig
+  53              		.section	.text.PGA_ASTIM_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	PGA_ASTIM_Sleep
+  56              		.thumb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 3
+
+
+  57              		.thumb_func
+  58              		.type	PGA_ASTIM_Sleep, %function
+  59              	PGA_ASTIM_Sleep:
+  60              	.LFB2:
+  59:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     /* Nothing to restore */
+  60:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** }
+  61:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  62:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+  63:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** /*******************************************************************************   
+  64:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Function Name: PGA_ASTIM_Sleep
+  65:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** ********************************************************************************
+  66:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  67:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Summary:
+  68:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  Disables block's operation and saves its configuration. Should be called 
+  69:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  just prior to entering sleep.
+  70:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  71:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Parameters:
+  72:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  None
+  73:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  74:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Return:
+  75:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  None
+  76:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  77:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Global variables:
+  78:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  PGA_ASTIM_backup: The structure field 'enableState' is modified 
+  79:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+  80:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+  81:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *******************************************************************************/
+  82:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** void PGA_ASTIM_Sleep(void) 
+  83:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** {
+  61              		.loc 1 83 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  84:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     /* Save PGA enable state */
+  85:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     if((PGA_ASTIM_PM_ACT_CFG_REG & PGA_ASTIM_ACT_PWR_EN) != 0u)
+  66              		.loc 1 85 0
+  67 0000 054B     		ldr	r3, .L6
+  68 0002 0649     		ldr	r1, .L6+4
+  69 0004 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  70 0006 10F00402 		ands	r2, r0, #4
+  71 000a 03D0     		beq	.L4
+  86:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     {
+  87:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         /* Component is enabled */
+  88:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_backup.enableState = 1u;
+  72              		.loc 1 88 0
+  73 000c 0123     		movs	r3, #1
+  74 000e 0B70     		strb	r3, [r1, #0]
+  89:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         /* Stop the configuration */
+  90:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_Stop();
+  91:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     }
+  92:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     else
+  93:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     {
+  94:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         /* Component is disabled */
+  95:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_backup.enableState = 0u;
+  96:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     }
+  97:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     /* Save the configuration */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 4
+
+
+  98:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     PGA_ASTIM_SaveConfig();
+  99:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** }
+  75              		.loc 1 99 0
+  90:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_Stop();
+  76              		.loc 1 90 0
+  77 0010 FFF7FEBF 		b	PGA_ASTIM_Stop
+  78              	.LVL0:
+  79              	.L4:
+  95:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_backup.enableState = 0u;
+  80              		.loc 1 95 0
+  81 0014 0A70     		strb	r2, [r1, #0]
+  82 0016 7047     		bx	lr
+  83              	.L7:
+  84              		.align	2
+  85              	.L6:
+  86 0018 A9430040 		.word	1073759145
+  87 001c 00000000 		.word	.LANCHOR0
+  88              		.cfi_endproc
+  89              	.LFE2:
+  90              		.size	PGA_ASTIM_Sleep, .-PGA_ASTIM_Sleep
+  91              		.section	.text.PGA_ASTIM_Wakeup,"ax",%progbits
+  92              		.align	1
+  93              		.global	PGA_ASTIM_Wakeup
+  94              		.thumb
+  95              		.thumb_func
+  96              		.type	PGA_ASTIM_Wakeup, %function
+  97              	PGA_ASTIM_Wakeup:
+  98              	.LFB3:
+ 100:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+ 101:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** 
+ 102:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** /*******************************************************************************
+ 103:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Function Name: PGA_ASTIM_Wakeup
+ 104:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** ********************************************************************************
+ 105:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+ 106:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Summary:
+ 107:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  Enables block's operation and restores its configuration. Should be called
+ 108:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  just after awaking from sleep.
+ 109:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+ 110:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Parameters:
+ 111:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  None
+ 112:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+ 113:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Return:
+ 114:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  void
+ 115:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *
+ 116:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * Global variables:
+ 117:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  PGA_ASTIM_backup: The structure field 'enableState' is used to 
+ 118:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 119:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** * 
+ 120:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** *******************************************************************************/
+ 121:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** void PGA_ASTIM_Wakeup(void) 
+ 122:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** {
+  99              		.loc 1 122 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 123:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     /* Restore the configurations */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 5
+
+
+ 124:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     PGA_ASTIM_RestoreConfig();
+ 125:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****      /* Enables the component operation */
+ 126:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     if(PGA_ASTIM_backup.enableState == 1u)
+ 104              		.loc 1 126 0
+ 105 0000 034B     		ldr	r3, .L10
+ 106 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 107 0004 0128     		cmp	r0, #1
+ 108 0006 01D1     		bne	.L8
+ 127:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     {
+ 128:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_Enable();
+ 129:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****     } /* Do nothing if component was disable before */
+ 130:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c **** }
+ 109              		.loc 1 130 0
+ 128:.\Generated_Source\PSoC5/PGA_ASTIM_PM.c ****         PGA_ASTIM_Enable();
+ 110              		.loc 1 128 0
+ 111 0008 FFF7FEBF 		b	PGA_ASTIM_Enable
+ 112              	.LVL1:
+ 113              	.L8:
+ 114 000c 7047     		bx	lr
+ 115              	.L11:
+ 116 000e 00BF     		.align	2
+ 117              	.L10:
+ 118 0010 00000000 		.word	.LANCHOR0
+ 119              		.cfi_endproc
+ 120              	.LFE3:
+ 121              		.size	PGA_ASTIM_Wakeup, .-PGA_ASTIM_Wakeup
+ 122              		.bss
+ 123              		.set	.LANCHOR0,. + 0
+ 124              		.type	PGA_ASTIM_backup, %object
+ 125              		.size	PGA_ASTIM_backup, 4
+ 126              	PGA_ASTIM_backup:
+ 127 0000 00000000 		.space	4
+ 128              		.text
+ 129              	.Letext0:
+ 130              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 131              		.file 3 ".\\Generated_Source\\PSoC5\\PGA_ASTIM.h"
+ 132              		.section	.debug_info,"",%progbits
+ 133              	.Ldebug_info0:
+ 134 0000 92010000 		.4byte	0x192
+ 135 0004 0200     		.2byte	0x2
+ 136 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 137 000a 04       		.byte	0x4
+ 138 000b 01       		.uleb128 0x1
+ 139 000c C1010000 		.4byte	.LASF26
+ 140 0010 01       		.byte	0x1
+ 141 0011 20000000 		.4byte	.LASF27
+ 142 0015 A1000000 		.4byte	.LASF28
+ 143 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 144 001d 00000000 		.4byte	0
+ 145 0021 00000000 		.4byte	0
+ 146 0025 00000000 		.4byte	.Ldebug_line0
+ 147 0029 02       		.uleb128 0x2
+ 148 002a 01       		.byte	0x1
+ 149 002b 06       		.byte	0x6
+ 150 002c 1F020000 		.4byte	.LASF0
+ 151 0030 02       		.uleb128 0x2
+ 152 0031 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 6
+
+
+ 153 0032 08       		.byte	0x8
+ 154 0033 6C000000 		.4byte	.LASF1
+ 155 0037 02       		.uleb128 0x2
+ 156 0038 02       		.byte	0x2
+ 157 0039 05       		.byte	0x5
+ 158 003a B1010000 		.4byte	.LASF2
+ 159 003e 02       		.uleb128 0x2
+ 160 003f 02       		.byte	0x2
+ 161 0040 07       		.byte	0x7
+ 162 0041 2B020000 		.4byte	.LASF3
+ 163 0045 02       		.uleb128 0x2
+ 164 0046 04       		.byte	0x4
+ 165 0047 05       		.byte	0x5
+ 166 0048 0A020000 		.4byte	.LASF4
+ 167 004c 02       		.uleb128 0x2
+ 168 004d 04       		.byte	0x4
+ 169 004e 07       		.byte	0x7
+ 170 004f 7F000000 		.4byte	.LASF5
+ 171 0053 02       		.uleb128 0x2
+ 172 0054 08       		.byte	0x8
+ 173 0055 05       		.byte	0x5
+ 174 0056 95010000 		.4byte	.LASF6
+ 175 005a 02       		.uleb128 0x2
+ 176 005b 08       		.byte	0x8
+ 177 005c 07       		.byte	0x7
+ 178 005d 5D010000 		.4byte	.LASF7
+ 179 0061 03       		.uleb128 0x3
+ 180 0062 04       		.byte	0x4
+ 181 0063 05       		.byte	0x5
+ 182 0064 696E7400 		.ascii	"int\000"
+ 183 0068 02       		.uleb128 0x2
+ 184 0069 04       		.byte	0x4
+ 185 006a 07       		.byte	0x7
+ 186 006b 38010000 		.4byte	.LASF8
+ 187 006f 04       		.uleb128 0x4
+ 188 0070 BB010000 		.4byte	.LASF12
+ 189 0074 02       		.byte	0x2
+ 190 0075 5B       		.byte	0x5b
+ 191 0076 30000000 		.4byte	0x30
+ 192 007a 02       		.uleb128 0x2
+ 193 007b 04       		.byte	0x4
+ 194 007c 04       		.byte	0x4
+ 195 007d 51000000 		.4byte	.LASF9
+ 196 0081 02       		.uleb128 0x2
+ 197 0082 08       		.byte	0x8
+ 198 0083 04       		.byte	0x4
+ 199 0084 20010000 		.4byte	.LASF10
+ 200 0088 02       		.uleb128 0x2
+ 201 0089 01       		.byte	0x1
+ 202 008a 08       		.byte	0x8
+ 203 008b AC010000 		.4byte	.LASF11
+ 204 008f 04       		.uleb128 0x4
+ 205 0090 7A000000 		.4byte	.LASF13
+ 206 0094 02       		.byte	0x2
+ 207 0095 F0       		.byte	0xf0
+ 208 0096 9A000000 		.4byte	0x9a
+ 209 009a 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 7
+
+
+ 210 009b 6F000000 		.4byte	0x6f
+ 211 009f 02       		.uleb128 0x2
+ 212 00a0 04       		.byte	0x4
+ 213 00a1 07       		.byte	0x7
+ 214 00a2 8C010000 		.4byte	.LASF14
+ 215 00a6 06       		.uleb128 0x6
+ 216 00a7 04       		.byte	0x4
+ 217 00a8 03       		.byte	0x3
+ 218 00a9 2D       		.byte	0x2d
+ 219 00aa E7000000 		.4byte	0xe7
+ 220 00ae 07       		.uleb128 0x7
+ 221 00af 13020000 		.4byte	.LASF15
+ 222 00b3 03       		.byte	0x3
+ 223 00b4 2F       		.byte	0x2f
+ 224 00b5 6F000000 		.4byte	0x6f
+ 225 00b9 02       		.byte	0x2
+ 226 00ba 23       		.byte	0x23
+ 227 00bb 00       		.uleb128 0
+ 228 00bc 07       		.uleb128 0x7
+ 229 00bd A3010000 		.4byte	.LASF16
+ 230 00c1 03       		.byte	0x3
+ 231 00c2 30       		.byte	0x30
+ 232 00c3 6F000000 		.4byte	0x6f
+ 233 00c7 02       		.byte	0x2
+ 234 00c8 23       		.byte	0x23
+ 235 00c9 01       		.uleb128 0x1
+ 236 00ca 07       		.uleb128 0x7
+ 237 00cb 3E020000 		.4byte	.LASF17
+ 238 00cf 03       		.byte	0x3
+ 239 00d0 31       		.byte	0x31
+ 240 00d1 6F000000 		.4byte	0x6f
+ 241 00d5 02       		.byte	0x2
+ 242 00d6 23       		.byte	0x23
+ 243 00d7 02       		.uleb128 0x2
+ 244 00d8 07       		.uleb128 0x7
+ 245 00d9 48000000 		.4byte	.LASF18
+ 246 00dd 03       		.byte	0x3
+ 247 00de 32       		.byte	0x32
+ 248 00df 6F000000 		.4byte	0x6f
+ 249 00e3 02       		.byte	0x2
+ 250 00e4 23       		.byte	0x23
+ 251 00e5 03       		.uleb128 0x3
+ 252 00e6 00       		.byte	0
+ 253 00e7 04       		.uleb128 0x4
+ 254 00e8 45010000 		.4byte	.LASF19
+ 255 00ec 03       		.byte	0x3
+ 256 00ed 33       		.byte	0x33
+ 257 00ee A6000000 		.4byte	0xa6
+ 258 00f2 08       		.uleb128 0x8
+ 259 00f3 01       		.byte	0x1
+ 260 00f4 57000000 		.4byte	.LASF20
+ 261 00f8 01       		.byte	0x1
+ 262 00f9 25       		.byte	0x25
+ 263 00fa 01       		.byte	0x1
+ 264 00fb 01       		.byte	0x1
+ 265 00fc 08       		.uleb128 0x8
+ 266 00fd 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 8
+
+
+ 267 00fe 74010000 		.4byte	.LASF21
+ 268 0102 01       		.byte	0x1
+ 269 0103 39       		.byte	0x39
+ 270 0104 01       		.byte	0x1
+ 271 0105 01       		.byte	0x1
+ 272 0106 09       		.uleb128 0x9
+ 273 0107 F2000000 		.4byte	0xf2
+ 274 010b 00000000 		.4byte	.LFB0
+ 275 010f 02000000 		.4byte	.LFE0
+ 276 0113 02       		.byte	0x2
+ 277 0114 7D       		.byte	0x7d
+ 278 0115 00       		.sleb128 0
+ 279 0116 01       		.byte	0x1
+ 280 0117 09       		.uleb128 0x9
+ 281 0118 FC000000 		.4byte	0xfc
+ 282 011c 00000000 		.4byte	.LFB1
+ 283 0120 02000000 		.4byte	.LFE1
+ 284 0124 02       		.byte	0x2
+ 285 0125 7D       		.byte	0x7d
+ 286 0126 00       		.sleb128 0
+ 287 0127 01       		.byte	0x1
+ 288 0128 0A       		.uleb128 0xa
+ 289 0129 01       		.byte	0x1
+ 290 012a 91000000 		.4byte	.LASF22
+ 291 012e 01       		.byte	0x1
+ 292 012f 52       		.byte	0x52
+ 293 0130 01       		.byte	0x1
+ 294 0131 00000000 		.4byte	.LFB2
+ 295 0135 20000000 		.4byte	.LFE2
+ 296 0139 02       		.byte	0x2
+ 297 013a 7D       		.byte	0x7d
+ 298 013b 00       		.sleb128 0
+ 299 013c 01       		.byte	0x1
+ 300 013d 4C010000 		.4byte	0x14c
+ 301 0141 0B       		.uleb128 0xb
+ 302 0142 14000000 		.4byte	.LVL0
+ 303 0146 01       		.byte	0x1
+ 304 0147 81010000 		.4byte	0x181
+ 305 014b 00       		.byte	0
+ 306 014c 0A       		.uleb128 0xa
+ 307 014d 01       		.byte	0x1
+ 308 014e 27010000 		.4byte	.LASF23
+ 309 0152 01       		.byte	0x1
+ 310 0153 79       		.byte	0x79
+ 311 0154 01       		.byte	0x1
+ 312 0155 00000000 		.4byte	.LFB3
+ 313 0159 14000000 		.4byte	.LFE3
+ 314 015d 02       		.byte	0x2
+ 315 015e 7D       		.byte	0x7d
+ 316 015f 00       		.sleb128 0
+ 317 0160 01       		.byte	0x1
+ 318 0161 70010000 		.4byte	0x170
+ 319 0165 0B       		.uleb128 0xb
+ 320 0166 0C000000 		.4byte	.LVL1
+ 321 016a 01       		.byte	0x1
+ 322 016b 8B010000 		.4byte	0x18b
+ 323 016f 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 9
+
+
+ 324 0170 0C       		.uleb128 0xc
+ 325 0171 0F010000 		.4byte	.LASF29
+ 326 0175 01       		.byte	0x1
+ 327 0176 14       		.byte	0x14
+ 328 0177 E7000000 		.4byte	0xe7
+ 329 017b 05       		.byte	0x5
+ 330 017c 03       		.byte	0x3
+ 331 017d 00000000 		.4byte	PGA_ASTIM_backup
+ 332 0181 0D       		.uleb128 0xd
+ 333 0182 01       		.byte	0x1
+ 334 0183 00000000 		.4byte	.LASF24
+ 335 0187 03       		.byte	0x3
+ 336 0188 3F       		.byte	0x3f
+ 337 0189 01       		.byte	0x1
+ 338 018a 01       		.byte	0x1
+ 339 018b 0D       		.uleb128 0xd
+ 340 018c 01       		.byte	0x1
+ 341 018d 0F000000 		.4byte	.LASF25
+ 342 0191 03       		.byte	0x3
+ 343 0192 47       		.byte	0x47
+ 344 0193 01       		.byte	0x1
+ 345 0194 01       		.byte	0x1
+ 346 0195 00       		.byte	0
+ 347              		.section	.debug_abbrev,"",%progbits
+ 348              	.Ldebug_abbrev0:
+ 349 0000 01       		.uleb128 0x1
+ 350 0001 11       		.uleb128 0x11
+ 351 0002 01       		.byte	0x1
+ 352 0003 25       		.uleb128 0x25
+ 353 0004 0E       		.uleb128 0xe
+ 354 0005 13       		.uleb128 0x13
+ 355 0006 0B       		.uleb128 0xb
+ 356 0007 03       		.uleb128 0x3
+ 357 0008 0E       		.uleb128 0xe
+ 358 0009 1B       		.uleb128 0x1b
+ 359 000a 0E       		.uleb128 0xe
+ 360 000b 55       		.uleb128 0x55
+ 361 000c 06       		.uleb128 0x6
+ 362 000d 11       		.uleb128 0x11
+ 363 000e 01       		.uleb128 0x1
+ 364 000f 52       		.uleb128 0x52
+ 365 0010 01       		.uleb128 0x1
+ 366 0011 10       		.uleb128 0x10
+ 367 0012 06       		.uleb128 0x6
+ 368 0013 00       		.byte	0
+ 369 0014 00       		.byte	0
+ 370 0015 02       		.uleb128 0x2
+ 371 0016 24       		.uleb128 0x24
+ 372 0017 00       		.byte	0
+ 373 0018 0B       		.uleb128 0xb
+ 374 0019 0B       		.uleb128 0xb
+ 375 001a 3E       		.uleb128 0x3e
+ 376 001b 0B       		.uleb128 0xb
+ 377 001c 03       		.uleb128 0x3
+ 378 001d 0E       		.uleb128 0xe
+ 379 001e 00       		.byte	0
+ 380 001f 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 10
+
+
+ 381 0020 03       		.uleb128 0x3
+ 382 0021 24       		.uleb128 0x24
+ 383 0022 00       		.byte	0
+ 384 0023 0B       		.uleb128 0xb
+ 385 0024 0B       		.uleb128 0xb
+ 386 0025 3E       		.uleb128 0x3e
+ 387 0026 0B       		.uleb128 0xb
+ 388 0027 03       		.uleb128 0x3
+ 389 0028 08       		.uleb128 0x8
+ 390 0029 00       		.byte	0
+ 391 002a 00       		.byte	0
+ 392 002b 04       		.uleb128 0x4
+ 393 002c 16       		.uleb128 0x16
+ 394 002d 00       		.byte	0
+ 395 002e 03       		.uleb128 0x3
+ 396 002f 0E       		.uleb128 0xe
+ 397 0030 3A       		.uleb128 0x3a
+ 398 0031 0B       		.uleb128 0xb
+ 399 0032 3B       		.uleb128 0x3b
+ 400 0033 0B       		.uleb128 0xb
+ 401 0034 49       		.uleb128 0x49
+ 402 0035 13       		.uleb128 0x13
+ 403 0036 00       		.byte	0
+ 404 0037 00       		.byte	0
+ 405 0038 05       		.uleb128 0x5
+ 406 0039 35       		.uleb128 0x35
+ 407 003a 00       		.byte	0
+ 408 003b 49       		.uleb128 0x49
+ 409 003c 13       		.uleb128 0x13
+ 410 003d 00       		.byte	0
+ 411 003e 00       		.byte	0
+ 412 003f 06       		.uleb128 0x6
+ 413 0040 13       		.uleb128 0x13
+ 414 0041 01       		.byte	0x1
+ 415 0042 0B       		.uleb128 0xb
+ 416 0043 0B       		.uleb128 0xb
+ 417 0044 3A       		.uleb128 0x3a
+ 418 0045 0B       		.uleb128 0xb
+ 419 0046 3B       		.uleb128 0x3b
+ 420 0047 0B       		.uleb128 0xb
+ 421 0048 01       		.uleb128 0x1
+ 422 0049 13       		.uleb128 0x13
+ 423 004a 00       		.byte	0
+ 424 004b 00       		.byte	0
+ 425 004c 07       		.uleb128 0x7
+ 426 004d 0D       		.uleb128 0xd
+ 427 004e 00       		.byte	0
+ 428 004f 03       		.uleb128 0x3
+ 429 0050 0E       		.uleb128 0xe
+ 430 0051 3A       		.uleb128 0x3a
+ 431 0052 0B       		.uleb128 0xb
+ 432 0053 3B       		.uleb128 0x3b
+ 433 0054 0B       		.uleb128 0xb
+ 434 0055 49       		.uleb128 0x49
+ 435 0056 13       		.uleb128 0x13
+ 436 0057 38       		.uleb128 0x38
+ 437 0058 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 11
+
+
+ 438 0059 00       		.byte	0
+ 439 005a 00       		.byte	0
+ 440 005b 08       		.uleb128 0x8
+ 441 005c 2E       		.uleb128 0x2e
+ 442 005d 00       		.byte	0
+ 443 005e 3F       		.uleb128 0x3f
+ 444 005f 0C       		.uleb128 0xc
+ 445 0060 03       		.uleb128 0x3
+ 446 0061 0E       		.uleb128 0xe
+ 447 0062 3A       		.uleb128 0x3a
+ 448 0063 0B       		.uleb128 0xb
+ 449 0064 3B       		.uleb128 0x3b
+ 450 0065 0B       		.uleb128 0xb
+ 451 0066 27       		.uleb128 0x27
+ 452 0067 0C       		.uleb128 0xc
+ 453 0068 20       		.uleb128 0x20
+ 454 0069 0B       		.uleb128 0xb
+ 455 006a 00       		.byte	0
+ 456 006b 00       		.byte	0
+ 457 006c 09       		.uleb128 0x9
+ 458 006d 2E       		.uleb128 0x2e
+ 459 006e 00       		.byte	0
+ 460 006f 31       		.uleb128 0x31
+ 461 0070 13       		.uleb128 0x13
+ 462 0071 11       		.uleb128 0x11
+ 463 0072 01       		.uleb128 0x1
+ 464 0073 12       		.uleb128 0x12
+ 465 0074 01       		.uleb128 0x1
+ 466 0075 40       		.uleb128 0x40
+ 467 0076 0A       		.uleb128 0xa
+ 468 0077 9742     		.uleb128 0x2117
+ 469 0079 0C       		.uleb128 0xc
+ 470 007a 00       		.byte	0
+ 471 007b 00       		.byte	0
+ 472 007c 0A       		.uleb128 0xa
+ 473 007d 2E       		.uleb128 0x2e
+ 474 007e 01       		.byte	0x1
+ 475 007f 3F       		.uleb128 0x3f
+ 476 0080 0C       		.uleb128 0xc
+ 477 0081 03       		.uleb128 0x3
+ 478 0082 0E       		.uleb128 0xe
+ 479 0083 3A       		.uleb128 0x3a
+ 480 0084 0B       		.uleb128 0xb
+ 481 0085 3B       		.uleb128 0x3b
+ 482 0086 0B       		.uleb128 0xb
+ 483 0087 27       		.uleb128 0x27
+ 484 0088 0C       		.uleb128 0xc
+ 485 0089 11       		.uleb128 0x11
+ 486 008a 01       		.uleb128 0x1
+ 487 008b 12       		.uleb128 0x12
+ 488 008c 01       		.uleb128 0x1
+ 489 008d 40       		.uleb128 0x40
+ 490 008e 0A       		.uleb128 0xa
+ 491 008f 9742     		.uleb128 0x2117
+ 492 0091 0C       		.uleb128 0xc
+ 493 0092 01       		.uleb128 0x1
+ 494 0093 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 12
+
+
+ 495 0094 00       		.byte	0
+ 496 0095 00       		.byte	0
+ 497 0096 0B       		.uleb128 0xb
+ 498 0097 898201   		.uleb128 0x4109
+ 499 009a 00       		.byte	0
+ 500 009b 11       		.uleb128 0x11
+ 501 009c 01       		.uleb128 0x1
+ 502 009d 9542     		.uleb128 0x2115
+ 503 009f 0C       		.uleb128 0xc
+ 504 00a0 31       		.uleb128 0x31
+ 505 00a1 13       		.uleb128 0x13
+ 506 00a2 00       		.byte	0
+ 507 00a3 00       		.byte	0
+ 508 00a4 0C       		.uleb128 0xc
+ 509 00a5 34       		.uleb128 0x34
+ 510 00a6 00       		.byte	0
+ 511 00a7 03       		.uleb128 0x3
+ 512 00a8 0E       		.uleb128 0xe
+ 513 00a9 3A       		.uleb128 0x3a
+ 514 00aa 0B       		.uleb128 0xb
+ 515 00ab 3B       		.uleb128 0x3b
+ 516 00ac 0B       		.uleb128 0xb
+ 517 00ad 49       		.uleb128 0x49
+ 518 00ae 13       		.uleb128 0x13
+ 519 00af 02       		.uleb128 0x2
+ 520 00b0 0A       		.uleb128 0xa
+ 521 00b1 00       		.byte	0
+ 522 00b2 00       		.byte	0
+ 523 00b3 0D       		.uleb128 0xd
+ 524 00b4 2E       		.uleb128 0x2e
+ 525 00b5 00       		.byte	0
+ 526 00b6 3F       		.uleb128 0x3f
+ 527 00b7 0C       		.uleb128 0xc
+ 528 00b8 03       		.uleb128 0x3
+ 529 00b9 0E       		.uleb128 0xe
+ 530 00ba 3A       		.uleb128 0x3a
+ 531 00bb 0B       		.uleb128 0xb
+ 532 00bc 3B       		.uleb128 0x3b
+ 533 00bd 0B       		.uleb128 0xb
+ 534 00be 27       		.uleb128 0x27
+ 535 00bf 0C       		.uleb128 0xc
+ 536 00c0 3C       		.uleb128 0x3c
+ 537 00c1 0C       		.uleb128 0xc
+ 538 00c2 00       		.byte	0
+ 539 00c3 00       		.byte	0
+ 540 00c4 00       		.byte	0
+ 541              		.section	.debug_aranges,"",%progbits
+ 542 0000 34000000 		.4byte	0x34
+ 543 0004 0200     		.2byte	0x2
+ 544 0006 00000000 		.4byte	.Ldebug_info0
+ 545 000a 04       		.byte	0x4
+ 546 000b 00       		.byte	0
+ 547 000c 0000     		.2byte	0
+ 548 000e 0000     		.2byte	0
+ 549 0010 00000000 		.4byte	.LFB0
+ 550 0014 02000000 		.4byte	.LFE0-.LFB0
+ 551 0018 00000000 		.4byte	.LFB1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 13
+
+
+ 552 001c 02000000 		.4byte	.LFE1-.LFB1
+ 553 0020 00000000 		.4byte	.LFB2
+ 554 0024 20000000 		.4byte	.LFE2-.LFB2
+ 555 0028 00000000 		.4byte	.LFB3
+ 556 002c 14000000 		.4byte	.LFE3-.LFB3
+ 557 0030 00000000 		.4byte	0
+ 558 0034 00000000 		.4byte	0
+ 559              		.section	.debug_ranges,"",%progbits
+ 560              	.Ldebug_ranges0:
+ 561 0000 00000000 		.4byte	.LFB0
+ 562 0004 02000000 		.4byte	.LFE0
+ 563 0008 00000000 		.4byte	.LFB1
+ 564 000c 02000000 		.4byte	.LFE1
+ 565 0010 00000000 		.4byte	.LFB2
+ 566 0014 20000000 		.4byte	.LFE2
+ 567 0018 00000000 		.4byte	.LFB3
+ 568 001c 14000000 		.4byte	.LFE3
+ 569 0020 00000000 		.4byte	0
+ 570 0024 00000000 		.4byte	0
+ 571              		.section	.debug_line,"",%progbits
+ 572              	.Ldebug_line0:
+ 573 0000 AA000000 		.section	.debug_str,"MS",%progbits,1
+ 573      02005A00 
+ 573      00000201 
+ 573      FB0E0D00 
+ 573      01010101 
+ 574              	.LASF24:
+ 575 0000 5047415F 		.ascii	"PGA_ASTIM_Stop\000"
+ 575      41535449 
+ 575      4D5F5374 
+ 575      6F7000
+ 576              	.LASF25:
+ 577 000f 5047415F 		.ascii	"PGA_ASTIM_Enable\000"
+ 577      41535449 
+ 577      4D5F456E 
+ 577      61626C65 
+ 577      00
+ 578              	.LASF27:
+ 579 0020 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PGA_ASTIM_PM.c\000"
+ 579      6E657261 
+ 579      7465645F 
+ 579      536F7572 
+ 579      63655C50 
+ 580              	.LASF18:
+ 581 0048 73634352 		.ascii	"scCR3Reg\000"
+ 581      33526567 
+ 581      00
+ 582              	.LASF9:
+ 583 0051 666C6F61 		.ascii	"float\000"
+ 583      7400
+ 584              	.LASF20:
+ 585 0057 5047415F 		.ascii	"PGA_ASTIM_SaveConfig\000"
+ 585      41535449 
+ 585      4D5F5361 
+ 585      7665436F 
+ 585      6E666967 
+ 586              	.LASF1:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 14
+
+
+ 587 006c 756E7369 		.ascii	"unsigned char\000"
+ 587      676E6564 
+ 587      20636861 
+ 587      7200
+ 588              	.LASF13:
+ 589 007a 72656738 		.ascii	"reg8\000"
+ 589      00
+ 590              	.LASF5:
+ 591 007f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 591      20756E73 
+ 591      69676E65 
+ 591      6420696E 
+ 591      7400
+ 592              	.LASF22:
+ 593 0091 5047415F 		.ascii	"PGA_ASTIM_Sleep\000"
+ 593      41535449 
+ 593      4D5F536C 
+ 593      65657000 
+ 594              	.LASF28:
+ 595 00a1 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 595      73657273 
+ 595      5C477261 
+ 595      7A69616E 
+ 595      6F5C4465 
+ 596 00cf 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 596      525C5665 
+ 596      72732E30 
+ 596      2E302D54 
+ 596      30352032 
+ 597 0100 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 597      65446972 
+ 597      2E637964 
+ 597      736E00
+ 598              	.LASF29:
+ 599 010f 5047415F 		.ascii	"PGA_ASTIM_backup\000"
+ 599      41535449 
+ 599      4D5F6261 
+ 599      636B7570 
+ 599      00
+ 600              	.LASF10:
+ 601 0120 646F7562 		.ascii	"double\000"
+ 601      6C6500
+ 602              	.LASF23:
+ 603 0127 5047415F 		.ascii	"PGA_ASTIM_Wakeup\000"
+ 603      41535449 
+ 603      4D5F5761 
+ 603      6B657570 
+ 603      00
+ 604              	.LASF8:
+ 605 0138 756E7369 		.ascii	"unsigned int\000"
+ 605      676E6564 
+ 605      20696E74 
+ 605      00
+ 606              	.LASF19:
+ 607 0145 5047415F 		.ascii	"PGA_ASTIM_BACKUP_STRUCT\000"
+ 607      41535449 
+ 607      4D5F4241 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 15
+
+
+ 607      434B5550 
+ 607      5F535452 
+ 608              	.LASF7:
+ 609 015d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 609      206C6F6E 
+ 609      6720756E 
+ 609      7369676E 
+ 609      65642069 
+ 610              	.LASF21:
+ 611 0174 5047415F 		.ascii	"PGA_ASTIM_RestoreConfig\000"
+ 611      41535449 
+ 611      4D5F5265 
+ 611      73746F72 
+ 611      65436F6E 
+ 612              	.LASF14:
+ 613 018c 73697A65 		.ascii	"sizetype\000"
+ 613      74797065 
+ 613      00
+ 614              	.LASF6:
+ 615 0195 6C6F6E67 		.ascii	"long long int\000"
+ 615      206C6F6E 
+ 615      6720696E 
+ 615      7400
+ 616              	.LASF16:
+ 617 01a3 73634352 		.ascii	"scCR1Reg\000"
+ 617      31526567 
+ 617      00
+ 618              	.LASF11:
+ 619 01ac 63686172 		.ascii	"char\000"
+ 619      00
+ 620              	.LASF2:
+ 621 01b1 73686F72 		.ascii	"short int\000"
+ 621      7420696E 
+ 621      7400
+ 622              	.LASF12:
+ 623 01bb 75696E74 		.ascii	"uint8\000"
+ 623      3800
+ 624              	.LASF26:
+ 625 01c1 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 625      4320342E 
+ 625      372E3320 
+ 625      32303133 
+ 625      30333132 
+ 626 01f4 616E6368 		.ascii	"anch revision 196615]\000"
+ 626      20726576 
+ 626      6973696F 
+ 626      6E203139 
+ 626      36363135 
+ 627              	.LASF4:
+ 628 020a 6C6F6E67 		.ascii	"long int\000"
+ 628      20696E74 
+ 628      00
+ 629              	.LASF15:
+ 630 0213 656E6162 		.ascii	"enableState\000"
+ 630      6C655374 
+ 630      61746500 
+ 631              	.LASF0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccp3bJwf.s 			page 16
+
+
+ 632 021f 7369676E 		.ascii	"signed char\000"
+ 632      65642063 
+ 632      68617200 
+ 633              	.LASF3:
+ 634 022b 73686F72 		.ascii	"short unsigned int\000"
+ 634      7420756E 
+ 634      7369676E 
+ 634      65642069 
+ 634      6E7400
+ 635              	.LASF17:
+ 636 023e 73634352 		.ascii	"scCR2Reg\000"
+ 636      32526567 
+ 636      00
+ 637              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

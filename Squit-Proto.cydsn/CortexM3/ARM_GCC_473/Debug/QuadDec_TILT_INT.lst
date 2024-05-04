@@ -1,0 +1,796 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"QuadDec_TILT_INT.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	QuadDec_TILT_count32SoftPart
+  19              		.bss
+  20              		.align	2
+  21              		.type	QuadDec_TILT_count32SoftPart, %object
+  22              		.size	QuadDec_TILT_count32SoftPart, 4
+  23              	QuadDec_TILT_count32SoftPart:
+  24 0000 00000000 		.space	4
+  25              		.section	.text.QuadDec_TILT_ISR,"ax",%progbits
+  26              		.align	2
+  27              		.global	QuadDec_TILT_ISR
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	QuadDec_TILT_ISR, %function
+  31              	QuadDec_TILT_ISR:
+  32              	.LFB0:
+  33              		.file 1 ".\\Generated_Source\\PSoC5\\QuadDec_TILT_INT.c"
+   1:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * File Name: QuadDec_TILT_INT.c
+   3:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Version 2.40
+   4:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+   5:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Description:
+   6:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  This file contains the Interrupt Service Routine (ISR) for the Quadrature
+   7:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  Decoder component.
+   8:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+   9:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Note:
+  10:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  None.
+  11:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+  12:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** ********************************************************************************
+  13:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *******************************************************************************/
+  18:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  19:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** #include "QuadDec_TILT.h"
+  20:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** #include "QuadDec_TILT_PVT.h"
+  21:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  22:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** volatile int32 QuadDec_TILT_count32SoftPart = 0;
+  23:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  24:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 2
+
+
+  25:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * FUNCTION NAME: void QuadDec_TILT_ISR
+  27:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** ********************************************************************************
+  28:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+  29:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Summary:
+  30:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  Interrupt Service Routine for Quadrature Decoder Component.
+  31:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+  32:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Parameters:
+  33:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  None.
+  34:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+  35:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Return:
+  36:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  None.
+  37:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+  38:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** * Global variables:
+  39:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  QuadDec_TILT_count32SoftPart - modified to update hi 16 bit for current
+  40:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  value of the 32-bit counter, when Counter size equal 32-bit.
+  41:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  QuadDec_TILT_swStatus - modified with the updated values of STATUS
+  42:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *  register.
+  43:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *
+  44:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** *******************************************************************************/
+  45:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** CY_ISR( QuadDec_TILT_ISR )
+  46:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** {
+  34              		.loc 1 46 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 8
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38              		@ link register save eliminated.
+  39 0000 80B4     		push	{r7}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 4
+  42              		.cfi_offset 7, -4
+  43 0002 83B0     		sub	sp, sp, #12
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 16
+  46 0004 00AF     		add	r7, sp, #0
+  47              	.LCFI2:
+  48              		.cfi_def_cfa_register 7
+  47:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****    uint8 QuadDec_TILT_swStatus;
+  48:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  49:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****    QuadDec_TILT_swStatus = QuadDec_TILT_STATUS_REG;
+  49              		.loc 1 49 0
+  50 0006 46F26653 		movw	r3, #25958
+  51 000a C4F20003 		movt	r3, 16384
+  52 000e 1B78     		ldrb	r3, [r3, #0]
+  53 0010 FB71     		strb	r3, [r7, #7]
+  50:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  51:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     /* User code required at start of ISR */
+  52:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     /* `#START QuadDec_TILT_ISR_START` */
+  53:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  54:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 	#include <gobee.h>
+  55:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 	
+  56:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 	/* GoBee Faults structure */
+  57:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 	extern struct GOBEE_FAULTS gobeeFaults;		
+  58:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 	
+  59:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     /* `#END` */
+  60:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  61:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     if (0u != (QuadDec_TILT_swStatus & QuadDec_TILT_COUNTER_OVERFLOW))
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 3
+
+
+  54              		.loc 1 61 0
+  55 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  56 0014 03F00103 		and	r3, r3, #1
+  57 0018 002B     		cmp	r3, #0
+  58 001a 0ED0     		beq	.L2
+  62:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     {
+  63:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****         QuadDec_TILT_count32SoftPart += (int32) QuadDec_TILT_COUNTER_MAX_VALUE;
+  59              		.loc 1 63 0
+  60 001c 40F20003 		movw	r3, #:lower16:QuadDec_TILT_count32SoftPart
+  61 0020 C0F20003 		movt	r3, #:upper16:QuadDec_TILT_count32SoftPart
+  62 0024 1B68     		ldr	r3, [r3, #0]
+  63 0026 03F5FF42 		add	r2, r3, #32640
+  64 002a 02F17F02 		add	r2, r2, #127
+  65 002e 40F20003 		movw	r3, #:lower16:QuadDec_TILT_count32SoftPart
+  66 0032 C0F20003 		movt	r3, #:upper16:QuadDec_TILT_count32SoftPart
+  67 0036 1A60     		str	r2, [r3, #0]
+  68 0038 10E0     		b	.L3
+  69              	.L2:
+  64:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     }
+  65:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     else if (0u != (QuadDec_TILT_swStatus & QuadDec_TILT_COUNTER_UNDERFLOW))
+  70              		.loc 1 65 0
+  71 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  72 003c 03F00203 		and	r3, r3, #2
+  73 0040 002B     		cmp	r3, #0
+  74 0042 0BD0     		beq	.L3
+  66:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     {
+  67:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****         QuadDec_TILT_count32SoftPart -= (int32) QuadDec_TILT_COUNTER_INIT_VALUE;
+  75              		.loc 1 67 0
+  76 0044 40F20003 		movw	r3, #:lower16:QuadDec_TILT_count32SoftPart
+  77 0048 C0F20003 		movt	r3, #:upper16:QuadDec_TILT_count32SoftPart
+  78 004c 1B68     		ldr	r3, [r3, #0]
+  79 004e A3F50042 		sub	r2, r3, #32768
+  80 0052 40F20003 		movw	r3, #:lower16:QuadDec_TILT_count32SoftPart
+  81 0056 C0F20003 		movt	r3, #:upper16:QuadDec_TILT_count32SoftPart
+  82 005a 1A60     		str	r2, [r3, #0]
+  83              	.L3:
+  68:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     }
+  69:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     else
+  70:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     {
+  71:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****         /* Nothing to do here */
+  72:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     }
+  73:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     
+  74:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     if (0u != (QuadDec_TILT_swStatus & QuadDec_TILT_COUNTER_RESET))
+  84              		.loc 1 74 0
+  85 005c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  86 005e 03F00403 		and	r3, r3, #4
+  87 0062 002B     		cmp	r3, #0
+  88 0064 06D0     		beq	.L4
+  75:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     {
+  76:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****         QuadDec_TILT_count32SoftPart = 0;
+  89              		.loc 1 76 0
+  90 0066 40F20003 		movw	r3, #:lower16:QuadDec_TILT_count32SoftPart
+  91 006a C0F20003 		movt	r3, #:upper16:QuadDec_TILT_count32SoftPart
+  92 006e 4FF00002 		mov	r2, #0
+  93 0072 1A60     		str	r2, [r3, #0]
+  94              	.L4:
+  77:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     }
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 4
+
+
+  78:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     
+  79:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     /* User code required at end of ISR */
+  80:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     /* `#START QuadDec_TILT_ISR_END` */
+  81:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 
+  82:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     if (0u != (QuadDec_TILT_swStatus & QuadDec_TILT_INVALID_IN))
+  95              		.loc 1 82 0
+  96 0074 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  97 0076 03F00803 		and	r3, r3, #8
+  98 007a 002B     		cmp	r3, #0
+  99 007c 06D0     		beq	.L1
+  83:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     {
+  84:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****         gobeeFaults.FbkEncFaults = TILT_FBKENC_INVT_FAULT;
+ 100              		.loc 1 84 0
+ 101 007e 40F20003 		movw	r3, #:lower16:gobeeFaults
+ 102 0082 C0F20003 		movt	r3, #:upper16:gobeeFaults
+ 103 0086 4FF00202 		mov	r2, #2
+ 104 008a 9A70     		strb	r2, [r3, #2]
+ 105              	.L1:
+  85:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     }
+  86:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** 	
+  87:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c ****     /* `#END` */
+  88:.\Generated_Source\PSoC5/QuadDec_TILT_INT.c **** }
+ 106              		.loc 1 88 0
+ 107 008c 07F10C07 		add	r7, r7, #12
+ 108 0090 BD46     		mov	sp, r7
+ 109 0092 80BC     		pop	{r7}
+ 110 0094 7047     		bx	lr
+ 111              		.cfi_endproc
+ 112              	.LFE0:
+ 113              		.size	QuadDec_TILT_ISR, .-QuadDec_TILT_ISR
+ 114 0096 00BF     		.text
+ 115              	.Letext0:
+ 116              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 117              		.file 3 "./gobee.h"
+ 118              		.section	.debug_info,"",%progbits
+ 119              	.Ldebug_info0:
+ 120 0000 5D010000 		.4byte	0x15d
+ 121 0004 0200     		.2byte	0x2
+ 122 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 123 000a 04       		.byte	0x4
+ 124 000b 01       		.uleb128 0x1
+ 125 000c C9000000 		.4byte	.LASF23
+ 126 0010 01       		.byte	0x1
+ 127 0011 41010000 		.4byte	.LASF24
+ 128 0015 32000000 		.4byte	.LASF25
+ 129 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 130 001d 00000000 		.4byte	0
+ 131 0021 00000000 		.4byte	0
+ 132 0025 00000000 		.4byte	.Ldebug_line0
+ 133 0029 02       		.uleb128 0x2
+ 134 002a 01       		.byte	0x1
+ 135 002b 06       		.byte	0x6
+ 136 002c B5010000 		.4byte	.LASF0
+ 137 0030 02       		.uleb128 0x2
+ 138 0031 01       		.byte	0x1
+ 139 0032 08       		.byte	0x8
+ 140 0033 A2000000 		.4byte	.LASF1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 5
+
+
+ 141 0037 02       		.uleb128 0x2
+ 142 0038 02       		.byte	0x2
+ 143 0039 05       		.byte	0x5
+ 144 003a F3010000 		.4byte	.LASF2
+ 145 003e 02       		.uleb128 0x2
+ 146 003f 02       		.byte	0x2
+ 147 0040 07       		.byte	0x7
+ 148 0041 A2010000 		.4byte	.LASF3
+ 149 0045 03       		.uleb128 0x3
+ 150 0046 04       		.byte	0x4
+ 151 0047 05       		.byte	0x5
+ 152 0048 696E7400 		.ascii	"int\000"
+ 153 004c 02       		.uleb128 0x2
+ 154 004d 04       		.byte	0x4
+ 155 004e 07       		.byte	0x7
+ 156 004f 0E000000 		.4byte	.LASF4
+ 157 0053 02       		.uleb128 0x2
+ 158 0054 08       		.byte	0x8
+ 159 0055 05       		.byte	0x5
+ 160 0056 00000000 		.4byte	.LASF5
+ 161 005a 02       		.uleb128 0x2
+ 162 005b 08       		.byte	0x8
+ 163 005c 07       		.byte	0x7
+ 164 005d 2A010000 		.4byte	.LASF6
+ 165 0061 02       		.uleb128 0x2
+ 166 0062 04       		.byte	0x4
+ 167 0063 05       		.byte	0x5
+ 168 0064 8D010000 		.4byte	.LASF7
+ 169 0068 02       		.uleb128 0x2
+ 170 0069 04       		.byte	0x4
+ 171 006a 07       		.byte	0x7
+ 172 006b D9010000 		.4byte	.LASF8
+ 173 006f 02       		.uleb128 0x2
+ 174 0070 04       		.byte	0x4
+ 175 0071 07       		.byte	0x7
+ 176 0072 18010000 		.4byte	.LASF9
+ 177 0076 02       		.uleb128 0x2
+ 178 0077 01       		.byte	0x1
+ 179 0078 08       		.byte	0x8
+ 180 0079 88010000 		.4byte	.LASF10
+ 181 007d 04       		.uleb128 0x4
+ 182 007e 12010000 		.4byte	.LASF11
+ 183 0082 02       		.byte	0x2
+ 184 0083 5B       		.byte	0x5b
+ 185 0084 30000000 		.4byte	0x30
+ 186 0088 04       		.uleb128 0x4
+ 187 0089 FD010000 		.4byte	.LASF12
+ 188 008d 02       		.byte	0x2
+ 189 008e 5C       		.byte	0x5c
+ 190 008f 3E000000 		.4byte	0x3e
+ 191 0093 04       		.uleb128 0x4
+ 192 0094 37020000 		.4byte	.LASF13
+ 193 0098 02       		.byte	0x2
+ 194 0099 60       		.byte	0x60
+ 195 009a 61000000 		.4byte	0x61
+ 196 009e 02       		.uleb128 0x2
+ 197 009f 04       		.byte	0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 6
+
+
+ 198 00a0 04       		.byte	0x4
+ 199 00a1 6D010000 		.4byte	.LASF14
+ 200 00a5 02       		.uleb128 0x2
+ 201 00a6 08       		.byte	0x8
+ 202 00a7 04       		.byte	0x4
+ 203 00a8 9B010000 		.4byte	.LASF15
+ 204 00ac 04       		.uleb128 0x4
+ 205 00ad 96010000 		.4byte	.LASF16
+ 206 00b1 02       		.byte	0x2
+ 207 00b2 F0       		.byte	0xf0
+ 208 00b3 B7000000 		.4byte	0xb7
+ 209 00b7 05       		.uleb128 0x5
+ 210 00b8 7D000000 		.4byte	0x7d
+ 211 00bc 06       		.uleb128 0x6
+ 212 00bd 01       		.byte	0x1
+ 213 00be E2010000 		.4byte	.LASF26
+ 214 00c2 01       		.byte	0x1
+ 215 00c3 2D       		.byte	0x2d
+ 216 00c4 01       		.byte	0x1
+ 217 00c5 00000000 		.4byte	.LFB0
+ 218 00c9 96000000 		.4byte	.LFE0
+ 219 00cd 00000000 		.4byte	.LLST0
+ 220 00d1 01       		.byte	0x1
+ 221 00d2 3C010000 		.4byte	0x13c
+ 222 00d6 07       		.uleb128 0x7
+ 223 00d7 04020000 		.4byte	.LASF27
+ 224 00db 01       		.byte	0x1
+ 225 00dc 2F       		.byte	0x2f
+ 226 00dd 7D000000 		.4byte	0x7d
+ 227 00e1 02       		.byte	0x2
+ 228 00e2 91       		.byte	0x91
+ 229 00e3 77       		.sleb128 -9
+ 230 00e4 08       		.uleb128 0x8
+ 231 00e5 7B010000 		.4byte	.LASF28
+ 232 00e9 06       		.byte	0x6
+ 233 00ea 03       		.byte	0x3
+ 234 00eb 4C01     		.2byte	0x14c
+ 235 00ed 2E010000 		.4byte	0x12e
+ 236 00f1 09       		.uleb128 0x9
+ 237 00f2 73010000 		.4byte	.LASF17
+ 238 00f6 03       		.byte	0x3
+ 239 00f7 4E01     		.2byte	0x14e
+ 240 00f9 88000000 		.4byte	0x88
+ 241 00fd 02       		.byte	0x2
+ 242 00fe 23       		.byte	0x23
+ 243 00ff 00       		.uleb128 0
+ 244 0100 09       		.uleb128 0x9
+ 245 0101 B0000000 		.4byte	.LASF18
+ 246 0105 03       		.byte	0x3
+ 247 0106 4F01     		.2byte	0x14f
+ 248 0108 7D000000 		.4byte	0x7d
+ 249 010c 02       		.byte	0x2
+ 250 010d 23       		.byte	0x23
+ 251 010e 02       		.uleb128 0x2
+ 252 010f 09       		.uleb128 0x9
+ 253 0110 1B000000 		.4byte	.LASF19
+ 254 0114 03       		.byte	0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 7
+
+
+ 255 0115 5101     		.2byte	0x151
+ 256 0117 7D000000 		.4byte	0x7d
+ 257 011b 02       		.byte	0x2
+ 258 011c 23       		.byte	0x23
+ 259 011d 03       		.uleb128 0x3
+ 260 011e 09       		.uleb128 0x9
+ 261 011f C1010000 		.4byte	.LASF20
+ 262 0123 03       		.byte	0x3
+ 263 0124 5201     		.2byte	0x152
+ 264 0126 7D000000 		.4byte	0x7d
+ 265 012a 02       		.byte	0x2
+ 266 012b 23       		.byte	0x23
+ 267 012c 04       		.uleb128 0x4
+ 268 012d 00       		.byte	0
+ 269 012e 0A       		.uleb128 0xa
+ 270 012f BD000000 		.4byte	.LASF21
+ 271 0133 01       		.byte	0x1
+ 272 0134 39       		.byte	0x39
+ 273 0135 E4000000 		.4byte	0xe4
+ 274 0139 01       		.byte	0x1
+ 275 013a 01       		.byte	0x1
+ 276 013b 00       		.byte	0
+ 277 013c 0B       		.uleb128 0xb
+ 278 013d 1A020000 		.4byte	.LASF22
+ 279 0141 01       		.byte	0x1
+ 280 0142 16       		.byte	0x16
+ 281 0143 4E010000 		.4byte	0x14e
+ 282 0147 01       		.byte	0x1
+ 283 0148 05       		.byte	0x5
+ 284 0149 03       		.byte	0x3
+ 285 014a 00000000 		.4byte	QuadDec_TILT_count32SoftPart
+ 286 014e 05       		.uleb128 0x5
+ 287 014f 93000000 		.4byte	0x93
+ 288 0153 0A       		.uleb128 0xa
+ 289 0154 BD000000 		.4byte	.LASF21
+ 290 0158 01       		.byte	0x1
+ 291 0159 39       		.byte	0x39
+ 292 015a E4000000 		.4byte	0xe4
+ 293 015e 01       		.byte	0x1
+ 294 015f 01       		.byte	0x1
+ 295 0160 00       		.byte	0
+ 296              		.section	.debug_abbrev,"",%progbits
+ 297              	.Ldebug_abbrev0:
+ 298 0000 01       		.uleb128 0x1
+ 299 0001 11       		.uleb128 0x11
+ 300 0002 01       		.byte	0x1
+ 301 0003 25       		.uleb128 0x25
+ 302 0004 0E       		.uleb128 0xe
+ 303 0005 13       		.uleb128 0x13
+ 304 0006 0B       		.uleb128 0xb
+ 305 0007 03       		.uleb128 0x3
+ 306 0008 0E       		.uleb128 0xe
+ 307 0009 1B       		.uleb128 0x1b
+ 308 000a 0E       		.uleb128 0xe
+ 309 000b 55       		.uleb128 0x55
+ 310 000c 06       		.uleb128 0x6
+ 311 000d 11       		.uleb128 0x11
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 8
+
+
+ 312 000e 01       		.uleb128 0x1
+ 313 000f 52       		.uleb128 0x52
+ 314 0010 01       		.uleb128 0x1
+ 315 0011 10       		.uleb128 0x10
+ 316 0012 06       		.uleb128 0x6
+ 317 0013 00       		.byte	0
+ 318 0014 00       		.byte	0
+ 319 0015 02       		.uleb128 0x2
+ 320 0016 24       		.uleb128 0x24
+ 321 0017 00       		.byte	0
+ 322 0018 0B       		.uleb128 0xb
+ 323 0019 0B       		.uleb128 0xb
+ 324 001a 3E       		.uleb128 0x3e
+ 325 001b 0B       		.uleb128 0xb
+ 326 001c 03       		.uleb128 0x3
+ 327 001d 0E       		.uleb128 0xe
+ 328 001e 00       		.byte	0
+ 329 001f 00       		.byte	0
+ 330 0020 03       		.uleb128 0x3
+ 331 0021 24       		.uleb128 0x24
+ 332 0022 00       		.byte	0
+ 333 0023 0B       		.uleb128 0xb
+ 334 0024 0B       		.uleb128 0xb
+ 335 0025 3E       		.uleb128 0x3e
+ 336 0026 0B       		.uleb128 0xb
+ 337 0027 03       		.uleb128 0x3
+ 338 0028 08       		.uleb128 0x8
+ 339 0029 00       		.byte	0
+ 340 002a 00       		.byte	0
+ 341 002b 04       		.uleb128 0x4
+ 342 002c 16       		.uleb128 0x16
+ 343 002d 00       		.byte	0
+ 344 002e 03       		.uleb128 0x3
+ 345 002f 0E       		.uleb128 0xe
+ 346 0030 3A       		.uleb128 0x3a
+ 347 0031 0B       		.uleb128 0xb
+ 348 0032 3B       		.uleb128 0x3b
+ 349 0033 0B       		.uleb128 0xb
+ 350 0034 49       		.uleb128 0x49
+ 351 0035 13       		.uleb128 0x13
+ 352 0036 00       		.byte	0
+ 353 0037 00       		.byte	0
+ 354 0038 05       		.uleb128 0x5
+ 355 0039 35       		.uleb128 0x35
+ 356 003a 00       		.byte	0
+ 357 003b 49       		.uleb128 0x49
+ 358 003c 13       		.uleb128 0x13
+ 359 003d 00       		.byte	0
+ 360 003e 00       		.byte	0
+ 361 003f 06       		.uleb128 0x6
+ 362 0040 2E       		.uleb128 0x2e
+ 363 0041 01       		.byte	0x1
+ 364 0042 3F       		.uleb128 0x3f
+ 365 0043 0C       		.uleb128 0xc
+ 366 0044 03       		.uleb128 0x3
+ 367 0045 0E       		.uleb128 0xe
+ 368 0046 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 9
+
+
+ 369 0047 0B       		.uleb128 0xb
+ 370 0048 3B       		.uleb128 0x3b
+ 371 0049 0B       		.uleb128 0xb
+ 372 004a 27       		.uleb128 0x27
+ 373 004b 0C       		.uleb128 0xc
+ 374 004c 11       		.uleb128 0x11
+ 375 004d 01       		.uleb128 0x1
+ 376 004e 12       		.uleb128 0x12
+ 377 004f 01       		.uleb128 0x1
+ 378 0050 40       		.uleb128 0x40
+ 379 0051 06       		.uleb128 0x6
+ 380 0052 9742     		.uleb128 0x2117
+ 381 0054 0C       		.uleb128 0xc
+ 382 0055 01       		.uleb128 0x1
+ 383 0056 13       		.uleb128 0x13
+ 384 0057 00       		.byte	0
+ 385 0058 00       		.byte	0
+ 386 0059 07       		.uleb128 0x7
+ 387 005a 34       		.uleb128 0x34
+ 388 005b 00       		.byte	0
+ 389 005c 03       		.uleb128 0x3
+ 390 005d 0E       		.uleb128 0xe
+ 391 005e 3A       		.uleb128 0x3a
+ 392 005f 0B       		.uleb128 0xb
+ 393 0060 3B       		.uleb128 0x3b
+ 394 0061 0B       		.uleb128 0xb
+ 395 0062 49       		.uleb128 0x49
+ 396 0063 13       		.uleb128 0x13
+ 397 0064 02       		.uleb128 0x2
+ 398 0065 0A       		.uleb128 0xa
+ 399 0066 00       		.byte	0
+ 400 0067 00       		.byte	0
+ 401 0068 08       		.uleb128 0x8
+ 402 0069 13       		.uleb128 0x13
+ 403 006a 01       		.byte	0x1
+ 404 006b 03       		.uleb128 0x3
+ 405 006c 0E       		.uleb128 0xe
+ 406 006d 0B       		.uleb128 0xb
+ 407 006e 0B       		.uleb128 0xb
+ 408 006f 3A       		.uleb128 0x3a
+ 409 0070 0B       		.uleb128 0xb
+ 410 0071 3B       		.uleb128 0x3b
+ 411 0072 05       		.uleb128 0x5
+ 412 0073 01       		.uleb128 0x1
+ 413 0074 13       		.uleb128 0x13
+ 414 0075 00       		.byte	0
+ 415 0076 00       		.byte	0
+ 416 0077 09       		.uleb128 0x9
+ 417 0078 0D       		.uleb128 0xd
+ 418 0079 00       		.byte	0
+ 419 007a 03       		.uleb128 0x3
+ 420 007b 0E       		.uleb128 0xe
+ 421 007c 3A       		.uleb128 0x3a
+ 422 007d 0B       		.uleb128 0xb
+ 423 007e 3B       		.uleb128 0x3b
+ 424 007f 05       		.uleb128 0x5
+ 425 0080 49       		.uleb128 0x49
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 10
+
+
+ 426 0081 13       		.uleb128 0x13
+ 427 0082 38       		.uleb128 0x38
+ 428 0083 0A       		.uleb128 0xa
+ 429 0084 00       		.byte	0
+ 430 0085 00       		.byte	0
+ 431 0086 0A       		.uleb128 0xa
+ 432 0087 34       		.uleb128 0x34
+ 433 0088 00       		.byte	0
+ 434 0089 03       		.uleb128 0x3
+ 435 008a 0E       		.uleb128 0xe
+ 436 008b 3A       		.uleb128 0x3a
+ 437 008c 0B       		.uleb128 0xb
+ 438 008d 3B       		.uleb128 0x3b
+ 439 008e 0B       		.uleb128 0xb
+ 440 008f 49       		.uleb128 0x49
+ 441 0090 13       		.uleb128 0x13
+ 442 0091 3F       		.uleb128 0x3f
+ 443 0092 0C       		.uleb128 0xc
+ 444 0093 3C       		.uleb128 0x3c
+ 445 0094 0C       		.uleb128 0xc
+ 446 0095 00       		.byte	0
+ 447 0096 00       		.byte	0
+ 448 0097 0B       		.uleb128 0xb
+ 449 0098 34       		.uleb128 0x34
+ 450 0099 00       		.byte	0
+ 451 009a 03       		.uleb128 0x3
+ 452 009b 0E       		.uleb128 0xe
+ 453 009c 3A       		.uleb128 0x3a
+ 454 009d 0B       		.uleb128 0xb
+ 455 009e 3B       		.uleb128 0x3b
+ 456 009f 0B       		.uleb128 0xb
+ 457 00a0 49       		.uleb128 0x49
+ 458 00a1 13       		.uleb128 0x13
+ 459 00a2 3F       		.uleb128 0x3f
+ 460 00a3 0C       		.uleb128 0xc
+ 461 00a4 02       		.uleb128 0x2
+ 462 00a5 0A       		.uleb128 0xa
+ 463 00a6 00       		.byte	0
+ 464 00a7 00       		.byte	0
+ 465 00a8 00       		.byte	0
+ 466              		.section	.debug_loc,"",%progbits
+ 467              	.Ldebug_loc0:
+ 468              	.LLST0:
+ 469 0000 00000000 		.4byte	.LFB0
+ 470 0004 02000000 		.4byte	.LCFI0
+ 471 0008 0200     		.2byte	0x2
+ 472 000a 7D       		.byte	0x7d
+ 473 000b 00       		.sleb128 0
+ 474 000c 02000000 		.4byte	.LCFI0
+ 475 0010 04000000 		.4byte	.LCFI1
+ 476 0014 0200     		.2byte	0x2
+ 477 0016 7D       		.byte	0x7d
+ 478 0017 04       		.sleb128 4
+ 479 0018 04000000 		.4byte	.LCFI1
+ 480 001c 06000000 		.4byte	.LCFI2
+ 481 0020 0200     		.2byte	0x2
+ 482 0022 7D       		.byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 11
+
+
+ 483 0023 10       		.sleb128 16
+ 484 0024 06000000 		.4byte	.LCFI2
+ 485 0028 96000000 		.4byte	.LFE0
+ 486 002c 0200     		.2byte	0x2
+ 487 002e 77       		.byte	0x77
+ 488 002f 10       		.sleb128 16
+ 489 0030 00000000 		.4byte	0
+ 490 0034 00000000 		.4byte	0
+ 491              		.section	.debug_aranges,"",%progbits
+ 492 0000 1C000000 		.4byte	0x1c
+ 493 0004 0200     		.2byte	0x2
+ 494 0006 00000000 		.4byte	.Ldebug_info0
+ 495 000a 04       		.byte	0x4
+ 496 000b 00       		.byte	0
+ 497 000c 0000     		.2byte	0
+ 498 000e 0000     		.2byte	0
+ 499 0010 00000000 		.4byte	.LFB0
+ 500 0014 96000000 		.4byte	.LFE0-.LFB0
+ 501 0018 00000000 		.4byte	0
+ 502 001c 00000000 		.4byte	0
+ 503              		.section	.debug_ranges,"",%progbits
+ 504              	.Ldebug_ranges0:
+ 505 0000 00000000 		.4byte	.LFB0
+ 506 0004 96000000 		.4byte	.LFE0
+ 507 0008 00000000 		.4byte	0
+ 508 000c 00000000 		.4byte	0
+ 509              		.section	.debug_line,"",%progbits
+ 510              	.Ldebug_line0:
+ 511 0000 7D000000 		.section	.debug_str,"MS",%progbits,1
+ 511      02005C00 
+ 511      00000201 
+ 511      FB0E0D00 
+ 511      01010101 
+ 512              	.LASF5:
+ 513 0000 6C6F6E67 		.ascii	"long long int\000"
+ 513      206C6F6E 
+ 513      6720696E 
+ 513      7400
+ 514              	.LASF4:
+ 515 000e 756E7369 		.ascii	"unsigned int\000"
+ 515      676E6564 
+ 515      20696E74 
+ 515      00
+ 516              	.LASF19:
+ 517 001b 70616E5F 		.ascii	"pan_FE_FAULT_prescaler\000"
+ 517      46455F46 
+ 517      41554C54 
+ 517      5F707265 
+ 517      7363616C 
+ 518              	.LASF25:
+ 519 0032 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 519      73657273 
+ 519      5C477261 
+ 519      7A69616E 
+ 519      6F20472E 
+ 520 0061 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 520      5C535155 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 12
+
+
+ 520      49545C56 
+ 520      6572732E 
+ 520      302E302D 
+ 521 0091 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 521      2D50726F 
+ 521      746F2E63 
+ 521      7964736E 
+ 521      00
+ 522              	.LASF1:
+ 523 00a2 756E7369 		.ascii	"unsigned char\000"
+ 523      676E6564 
+ 523      20636861 
+ 523      7200
+ 524              	.LASF18:
+ 525 00b0 46626B45 		.ascii	"FbkEncFaults\000"
+ 525      6E634661 
+ 525      756C7473 
+ 525      00
+ 526              	.LASF21:
+ 527 00bd 676F6265 		.ascii	"gobeeFaults\000"
+ 527      65466175 
+ 527      6C747300 
+ 528              	.LASF23:
+ 529 00c9 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 529      4320342E 
+ 529      372E3320 
+ 529      32303133 
+ 529      30333132 
+ 530 00fc 616E6368 		.ascii	"anch revision 196615]\000"
+ 530      20726576 
+ 530      6973696F 
+ 530      6E203139 
+ 530      36363135 
+ 531              	.LASF11:
+ 532 0112 75696E74 		.ascii	"uint8\000"
+ 532      3800
+ 533              	.LASF9:
+ 534 0118 6C6F6E67 		.ascii	"long unsigned int\000"
+ 534      20756E73 
+ 534      69676E65 
+ 534      6420696E 
+ 534      7400
+ 535              	.LASF6:
+ 536 012a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 536      206C6F6E 
+ 536      6720756E 
+ 536      7369676E 
+ 536      65642069 
+ 537              	.LASF24:
+ 538 0141 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\QuadDec_TILT_INT.c\000"
+ 538      6E657261 
+ 538      7465645F 
+ 538      536F7572 
+ 538      63655C50 
+ 539              	.LASF14:
+ 540 016d 666C6F61 		.ascii	"float\000"
+ 540      7400
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 13
+
+
+ 541              	.LASF17:
+ 542 0173 67656E65 		.ascii	"general\000"
+ 542      72616C00 
+ 543              	.LASF28:
+ 544 017b 474F4245 		.ascii	"GOBEE_FAULTS\000"
+ 544      455F4641 
+ 544      554C5453 
+ 544      00
+ 545              	.LASF10:
+ 546 0188 63686172 		.ascii	"char\000"
+ 546      00
+ 547              	.LASF7:
+ 548 018d 6C6F6E67 		.ascii	"long int\000"
+ 548      20696E74 
+ 548      00
+ 549              	.LASF16:
+ 550 0196 72656738 		.ascii	"reg8\000"
+ 550      00
+ 551              	.LASF15:
+ 552 019b 646F7562 		.ascii	"double\000"
+ 552      6C6500
+ 553              	.LASF3:
+ 554 01a2 73686F72 		.ascii	"short unsigned int\000"
+ 554      7420756E 
+ 554      7369676E 
+ 554      65642069 
+ 554      6E7400
+ 555              	.LASF0:
+ 556 01b5 7369676E 		.ascii	"signed char\000"
+ 556      65642063 
+ 556      68617200 
+ 557              	.LASF20:
+ 558 01c1 74696C74 		.ascii	"tilt_FE_FAULT_prescaler\000"
+ 558      5F46455F 
+ 558      4641554C 
+ 558      545F7072 
+ 558      65736361 
+ 559              	.LASF8:
+ 560 01d9 73697A65 		.ascii	"sizetype\000"
+ 560      74797065 
+ 560      00
+ 561              	.LASF26:
+ 562 01e2 51756164 		.ascii	"QuadDec_TILT_ISR\000"
+ 562      4465635F 
+ 562      54494C54 
+ 562      5F495352 
+ 562      00
+ 563              	.LASF2:
+ 564 01f3 73686F72 		.ascii	"short int\000"
+ 564      7420696E 
+ 564      7400
+ 565              	.LASF12:
+ 566 01fd 75696E74 		.ascii	"uint16\000"
+ 566      313600
+ 567              	.LASF27:
+ 568 0204 51756164 		.ascii	"QuadDec_TILT_swStatus\000"
+ 568      4465635F 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccm0qJcb.s 			page 14
+
+
+ 568      54494C54 
+ 568      5F737753 
+ 568      74617475 
+ 569              	.LASF22:
+ 570 021a 51756164 		.ascii	"QuadDec_TILT_count32SoftPart\000"
+ 570      4465635F 
+ 570      54494C54 
+ 570      5F636F75 
+ 570      6E743332 
+ 571              	.LASF13:
+ 572 0237 696E7433 		.ascii	"int32\000"
+ 572      3200
+ 573              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

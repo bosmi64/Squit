@@ -1,0 +1,2662 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"QuadDec_PAN_Cnt16.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.QuadDec_PAN_Cnt16_Enable,"ax",%progbits
+  19              		.align	1
+  20              		.global	QuadDec_PAN_Cnt16_Enable
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	QuadDec_PAN_Cnt16_Enable, %function
+  24              	QuadDec_PAN_Cnt16_Enable:
+  25              	.LFB1:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\QuadDec_PAN_Cnt16.c"
+   1:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * File Name: QuadDec_PAN_Cnt16.c  
+   3:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Version 2.40
+   4:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+   5:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  Description:
+   6:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+   9:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   Note:
+  10:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *     None
+  11:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+  12:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************
+  13:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************/
+  18:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+  19:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #include "QuadDec_PAN_Cnt16.h"
+  20:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+  21:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint8 QuadDec_PAN_Cnt16_initVar = 0u;
+  22:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+  23:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+  24:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+  25:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_Init
+  26:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+  27:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+  28:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *     Initialize to the schematic state
+  29:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * 
+  30:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+  31:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void  
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+  33:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+  34:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+  35:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+  36:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_Init(void) 
+  38:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+  39:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #if (!QuadDec_PAN_Cnt16_UsingFixedFunction && !QuadDec_PAN_Cnt16_ControlRegRemoved)
+  40:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             uint8 ctrl;
+  41:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #endif /* (!QuadDec_PAN_Cnt16_UsingFixedFunction && !QuadDec_PAN_Cnt16_ControlRegRemoved) *
+  42:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+  43:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #if(!QuadDec_PAN_Cnt16_UsingFixedFunction) 
+  44:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Interrupt State Backup for Critical Region*/
+  45:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             uint8 QuadDec_PAN_Cnt16_interruptState;
+  46:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #endif /* (!QuadDec_PAN_Cnt16_UsingFixedFunction) */
+  47:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+  48:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #if (QuadDec_PAN_Cnt16_UsingFixedFunction)
+  49:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_CONTROL &= QuadDec_PAN_Cnt16_CTRL_ENABLE;
+  51:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+  52:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Clear the mode bits for continuous run mode */
+  53:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #if (CY_PSOC5A)
+  54:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 QuadDec_PAN_Cnt16_CONTROL2 &= ((uint8)(~QuadDec_PAN_Cnt16_CTRL_MODE_MASK));
+  55:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #endif /* (CY_PSOC5A) */
+  56:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 QuadDec_PAN_Cnt16_CONTROL3 &= ((uint8)(~QuadDec_PAN_Cnt16_CTRL_MODE_MASK));        
+  58:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+  59:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #if (QuadDec_PAN_Cnt16_RunModeUsed != 0x0u)
+  61:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 QuadDec_PAN_Cnt16_CONTROL |= QuadDec_PAN_Cnt16_ONESHOT;
+  63:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #endif /* (QuadDec_PAN_Cnt16_RunModeUsed != 0x0u) */
+  64:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+  65:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Set the IRQ to use the status register interrupts */
+  66:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_CONTROL2 |= QuadDec_PAN_Cnt16_CTRL2_IRQ_SEL;
+  67:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+  68:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_RT1 &= ((uint8)(~QuadDec_PAN_Cnt16_RT1_MASK));
+  70:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_RT1 |= QuadDec_PAN_Cnt16_SYNC;     
+  71:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                     
+  72:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_RT1 &= ((uint8)(~QuadDec_PAN_Cnt16_SYNCDSI_MASK));
+  74:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_RT1 |= QuadDec_PAN_Cnt16_SYNCDSI_EN;
+  75:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+  76:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #else
+  77:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #if(!QuadDec_PAN_Cnt16_ControlRegRemoved)
+  78:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Set the default compare mode defined in the parameter */
+  79:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             ctrl = QuadDec_PAN_Cnt16_CONTROL & ((uint8)(~QuadDec_PAN_Cnt16_CTRL_CMPMODE_MASK));
+  80:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_CONTROL = ctrl | QuadDec_PAN_Cnt16_DEFAULT_COMPARE_MODE;
+  81:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+  82:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Set the default capture mode defined in the parameter */
+  83:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             ctrl = QuadDec_PAN_Cnt16_CONTROL & ((uint8)(~QuadDec_PAN_Cnt16_CTRL_CAPMODE_MASK));
+  84:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+  85:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #if( 0 != QuadDec_PAN_Cnt16_CAPTURE_MODE_CONF)
+  86:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 QuadDec_PAN_Cnt16_CONTROL = ctrl | QuadDec_PAN_Cnt16_DEFAULT_CAPTURE_MODE;
+  87:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #else
+  88:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 QuadDec_PAN_Cnt16_CONTROL = ctrl;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #endif /* 0 != QuadDec_PAN_Cnt16_CAPTURE_MODE */ 
+  90:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+  91:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             #endif /* (!QuadDec_PAN_Cnt16_ControlRegRemoved) */
+  92:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+  93:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+  94:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         /* Clear all data in the FIFO's */
+  95:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #if (!QuadDec_PAN_Cnt16_UsingFixedFunction)
+  96:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_ClearFIFO();
+  97:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #endif /* (!QuadDec_PAN_Cnt16_UsingFixedFunction) */
+  98:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+  99:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         /* Set Initial values from Configuration */
+ 100:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_WritePeriod(QuadDec_PAN_Cnt16_INIT_PERIOD_VALUE);
+ 101:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #if (!(QuadDec_PAN_Cnt16_UsingFixedFunction && (CY_PSOC5A)))
+ 102:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_WriteCounter(QuadDec_PAN_Cnt16_INIT_COUNTER_VALUE);
+ 103:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #endif /* (!(QuadDec_PAN_Cnt16_UsingFixedFunction && (CY_PSOC5A))) */
+ 104:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_SetInterruptMode(QuadDec_PAN_Cnt16_INIT_INTERRUPTS_MASK);
+ 105:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+ 106:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #if (!QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 107:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Read the status register to clear the unwanted interrupts */
+ 108:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             (void)QuadDec_PAN_Cnt16_ReadStatusRegister();
+ 109:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 110:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_WriteCompare(QuadDec_PAN_Cnt16_INIT_COMPARE_VALUE);
+ 111:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 112:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+ 113:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 114:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Enter Critical Region*/
+ 115:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_interruptState = CyEnterCriticalSection();
+ 116:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+ 117:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_STATUS_AUX_CTRL |= QuadDec_PAN_Cnt16_STATUS_ACTL_INT_EN_MASK;
+ 118:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+ 119:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             /* Exit Critical Region*/
+ 120:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             CyExitCriticalSection(QuadDec_PAN_Cnt16_interruptState);
+ 121:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             
+ 122:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         #endif /* (!QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 123:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 124:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 125:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 126:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 127:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_Enable
+ 128:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 129:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 130:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *     Enable the Counter
+ 131:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * 
+ 132:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 133:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void  
+ 134:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 135:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 136:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 137:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 138:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Side Effects: 
+ 139:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 140:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   on the operation of the counter.
+ 141:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 142:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 143:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_Enable(void) 
+ 144:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+  27              		.loc 1 144 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 4
+
+
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 145:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 146:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if (QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 147:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_GLOBAL_ENABLE |= QuadDec_PAN_Cnt16_BLOCK_EN_MASK;
+ 148:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_GLOBAL_STBY_ENABLE |= QuadDec_PAN_Cnt16_BLOCK_STBY_EN_MASK;
+ 149:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */  
+ 150:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+ 151:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Enable the counter from the control register  */
+ 152:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ 153:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* else make sure reset is clear */
+ 154:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(!QuadDec_PAN_Cnt16_ControlRegRemoved || QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 155:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_CONTROL |= QuadDec_PAN_Cnt16_CTRL_ENABLE;                
+  32              		.loc 1 155 0
+  33 0000 024B     		ldr	r3, .L2
+  34 0002 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  35 0004 42F08000 		orr	r0, r2, #128
+  36 0008 1870     		strb	r0, [r3, #0]
+  37 000a 7047     		bx	lr
+  38              	.L3:
+  39              		.align	2
+  40              	.L2:
+  41 000c 77640040 		.word	1073767543
+  42              		.cfi_endproc
+  43              	.LFE1:
+  44              		.size	QuadDec_PAN_Cnt16_Enable, .-QuadDec_PAN_Cnt16_Enable
+  45              		.section	.text.QuadDec_PAN_Cnt16_Stop,"ax",%progbits
+  46              		.align	1
+  47              		.global	QuadDec_PAN_Cnt16_Stop
+  48              		.thumb
+  49              		.thumb_func
+  50              		.type	QuadDec_PAN_Cnt16_Stop, %function
+  51              	QuadDec_PAN_Cnt16_Stop:
+  52              	.LFB3:
+ 156:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (!QuadDec_PAN_Cnt16_ControlRegRemoved || QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 157:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     
+ 158:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 159:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 160:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 161:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 162:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_Start
+ 163:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 164:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 165:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  Enables the counter for operation 
+ 166:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 167:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 168:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void  
+ 169:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 170:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 171:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 172:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 173:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Global variables:
+ 174:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  QuadDec_PAN_Cnt16_initVar: Is modified when this function is called for the  
+ 175:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   first time. Is used to ensure that initialization happens only once.
+ 176:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 5
+
+
+ 177:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 178:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_Start(void) 
+ 179:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 180:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     if(QuadDec_PAN_Cnt16_initVar == 0u)
+ 181:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     {
+ 182:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_Init();
+ 183:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         
+ 184:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_initVar = 1u; /* Clear this bit for Initialization */        
+ 185:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     }
+ 186:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     
+ 187:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Enable the Counter */
+ 188:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_Enable();        
+ 189:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 190:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 191:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 192:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 193:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_Stop
+ 194:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 195:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 196:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 197:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 198:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 199:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void  
+ 200:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 201:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 202:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 203:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 204:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 205:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *               has no effect on the operation of the counter.
+ 206:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 207:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 208:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_Stop(void) 
+ 209:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+  53              		.loc 1 209 0
+  54              		.cfi_startproc
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+ 210:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Disable Counter */
+ 211:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(!QuadDec_PAN_Cnt16_ControlRegRemoved || QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 212:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_CONTROL &= ((uint8)(~QuadDec_PAN_Cnt16_CTRL_ENABLE));        
+  58              		.loc 1 212 0
+  59 0000 024B     		ldr	r3, .L5
+  60 0002 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  61 0004 02F07F00 		and	r0, r2, #127
+  62 0008 1870     		strb	r0, [r3, #0]
+  63 000a 7047     		bx	lr
+  64              	.L6:
+  65              		.align	2
+  66              	.L5:
+  67 000c 77640040 		.word	1073767543
+  68              		.cfi_endproc
+  69              	.LFE3:
+  70              		.size	QuadDec_PAN_Cnt16_Stop, .-QuadDec_PAN_Cnt16_Stop
+  71              		.section	.text.QuadDec_PAN_Cnt16_SetInterruptMode,"ax",%progbits
+  72              		.align	1
+  73              		.global	QuadDec_PAN_Cnt16_SetInterruptMode
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 6
+
+
+  74              		.thumb
+  75              		.thumb_func
+  76              		.type	QuadDec_PAN_Cnt16_SetInterruptMode, %function
+  77              	QuadDec_PAN_Cnt16_SetInterruptMode:
+  78              	.LFB4:
+ 213:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (!QuadDec_PAN_Cnt16_ControlRegRemoved || QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 214:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     
+ 215:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Globally disable the Fixed Function Block chosen */
+ 216:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if (QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 217:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_GLOBAL_ENABLE &= ((uint8)(~QuadDec_PAN_Cnt16_BLOCK_EN_MASK));
+ 218:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_GLOBAL_STBY_ENABLE &= ((uint8)(~QuadDec_PAN_Cnt16_BLOCK_STBY_EN_MASK));
+ 219:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 220:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 221:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 222:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 223:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 224:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_SetInterruptMode
+ 225:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 226:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 227:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 228:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 229:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 230:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 231:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *                   which will be allowed to generate the counters interrupt.   
+ 232:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 233:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 234:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 235:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 236:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 237:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_SetInterruptMode(uint8 interruptsMask) 
+ 238:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+  79              		.loc 1 238 0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83              		@ link register save eliminated.
+  84              	.LVL0:
+ 239:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_STATUS_MASK = interruptsMask;
+  85              		.loc 1 239 0
+  86 0000 014B     		ldr	r3, .L8
+  87 0002 1870     		strb	r0, [r3, #0]
+  88 0004 7047     		bx	lr
+  89              	.L9:
+  90 0006 00BF     		.align	2
+  91              	.L8:
+  92 0008 86650040 		.word	1073767814
+  93              		.cfi_endproc
+  94              	.LFE4:
+  95              		.size	QuadDec_PAN_Cnt16_SetInterruptMode, .-QuadDec_PAN_Cnt16_SetInterruptMode
+  96              		.section	.text.QuadDec_PAN_Cnt16_ReadStatusRegister,"ax",%progbits
+  97              		.align	1
+  98              		.global	QuadDec_PAN_Cnt16_ReadStatusRegister
+  99              		.thumb
+ 100              		.thumb_func
+ 101              		.type	QuadDec_PAN_Cnt16_ReadStatusRegister, %function
+ 102              	QuadDec_PAN_Cnt16_ReadStatusRegister:
+ 103              	.LFB5:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 7
+
+
+ 240:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 241:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 242:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 243:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 244:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ReadStatusRegister
+ 245:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 246:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 247:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   Reads the status register and returns it's state. This function should use
+ 248:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *       defined types for the bit-field information as the bits in this
+ 249:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *       register may be permuteable.
+ 250:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 251:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 252:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 253:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 254:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 255:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint8) The contents of the status register
+ 256:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 257:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Side Effects:
+ 258:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   Status register bits may be clear on read. 
+ 259:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 260:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 261:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint8   QuadDec_PAN_Cnt16_ReadStatusRegister(void) 
+ 262:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 104              		.loc 1 262 0
+ 105              		.cfi_startproc
+ 106              		@ args = 0, pretend = 0, frame = 0
+ 107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 108              		@ link register save eliminated.
+ 263:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     return QuadDec_PAN_Cnt16_STATUS;
+ 109              		.loc 1 263 0
+ 110 0000 014B     		ldr	r3, .L11
+ 111 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 264:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 112              		.loc 1 264 0
+ 113 0004 7047     		bx	lr
+ 114              	.L12:
+ 115 0006 00BF     		.align	2
+ 116              	.L11:
+ 117 0008 66650040 		.word	1073767782
+ 118              		.cfi_endproc
+ 119              	.LFE5:
+ 120              		.size	QuadDec_PAN_Cnt16_ReadStatusRegister, .-QuadDec_PAN_Cnt16_ReadStatusRegister
+ 121              		.section	.text.QuadDec_PAN_Cnt16_ReadControlRegister,"ax",%progbits
+ 122              		.align	1
+ 123              		.global	QuadDec_PAN_Cnt16_ReadControlRegister
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.type	QuadDec_PAN_Cnt16_ReadControlRegister, %function
+ 127              	QuadDec_PAN_Cnt16_ReadControlRegister:
+ 128              	.LFB6:
+ 265:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 266:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 267:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #if(!QuadDec_PAN_Cnt16_ControlRegRemoved)
+ 268:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 269:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ReadControlRegister
+ 270:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 271:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 8
+
+
+ 272:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   Reads the control register and returns it's state. This function should use
+ 273:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *       defined types for the bit-field information as the bits in this
+ 274:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *       register may be permuteable.
+ 275:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 276:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 277:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 278:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 279:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 280:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint8) The contents of the control register
+ 281:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 282:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 283:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint8   QuadDec_PAN_Cnt16_ReadControlRegister(void) 
+ 284:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 129              		.loc 1 284 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+ 285:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     return QuadDec_PAN_Cnt16_CONTROL;
+ 134              		.loc 1 285 0
+ 135 0000 014B     		ldr	r3, .L14
+ 136 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 286:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 137              		.loc 1 286 0
+ 138 0004 7047     		bx	lr
+ 139              	.L15:
+ 140 0006 00BF     		.align	2
+ 141              	.L14:
+ 142 0008 77640040 		.word	1073767543
+ 143              		.cfi_endproc
+ 144              	.LFE6:
+ 145              		.size	QuadDec_PAN_Cnt16_ReadControlRegister, .-QuadDec_PAN_Cnt16_ReadControlRegister
+ 146              		.section	.text.QuadDec_PAN_Cnt16_WriteControlRegister,"ax",%progbits
+ 147              		.align	1
+ 148              		.global	QuadDec_PAN_Cnt16_WriteControlRegister
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.type	QuadDec_PAN_Cnt16_WriteControlRegister, %function
+ 152              	QuadDec_PAN_Cnt16_WriteControlRegister:
+ 153              	.LFB7:
+ 287:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 288:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 289:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 290:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_WriteControlRegister
+ 291:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 292:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 293:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   Sets the bit-field of the control register.  This function should use
+ 294:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *       defined types for the bit-field information as the bits in this
+ 295:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *       register may be permuteable.
+ 296:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 297:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 298:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 299:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 300:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 301:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint8) The contents of the control register
+ 302:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 303:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 9
+
+
+ 304:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void    QuadDec_PAN_Cnt16_WriteControlRegister(uint8 control) 
+ 305:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 154              		.loc 1 305 0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              		@ link register save eliminated.
+ 159              	.LVL1:
+ 306:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_CONTROL = control;
+ 160              		.loc 1 306 0
+ 161 0000 014B     		ldr	r3, .L17
+ 162 0002 1870     		strb	r0, [r3, #0]
+ 163 0004 7047     		bx	lr
+ 164              	.L18:
+ 165 0006 00BF     		.align	2
+ 166              	.L17:
+ 167 0008 77640040 		.word	1073767543
+ 168              		.cfi_endproc
+ 169              	.LFE7:
+ 170              		.size	QuadDec_PAN_Cnt16_WriteControlRegister, .-QuadDec_PAN_Cnt16_WriteControlRegister
+ 171              		.section	.text.QuadDec_PAN_Cnt16_WriteCounter,"ax",%progbits
+ 172              		.align	1
+ 173              		.global	QuadDec_PAN_Cnt16_WriteCounter
+ 174              		.thumb
+ 175              		.thumb_func
+ 176              		.type	QuadDec_PAN_Cnt16_WriteCounter, %function
+ 177              	QuadDec_PAN_Cnt16_WriteCounter:
+ 178              	.LFB8:
+ 307:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 308:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 309:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #endif  /* (!QuadDec_PAN_Cnt16_ControlRegRemoved) */
+ 310:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 311:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 312:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #if (!(QuadDec_PAN_Cnt16_UsingFixedFunction && (CY_PSOC5A)))
+ 313:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 314:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_WriteCounter
+ 315:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 316:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 317:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   This funtion is used to set the counter to a specific value
+ 318:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 319:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 320:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  counter:  New counter value. 
+ 321:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 322:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 323:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void 
+ 324:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 325:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 326:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_WriteCounter(uint16 counter) \
+ 327:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                                    
+ 328:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 179              		.loc 1 328 0
+ 180              		.cfi_startproc
+ 181              		@ args = 0, pretend = 0, frame = 0
+ 182              		@ frame_needed = 0, uses_anonymous_args = 0
+ 183              		@ link register save eliminated.
+ 184              	.LVL2:
+ 329:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 10
+
+
+ 330:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         /* assert if block is already enabled */
+ 331:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CYASSERT (0u == (QuadDec_PAN_Cnt16_GLOBAL_ENABLE & QuadDec_PAN_Cnt16_BLOCK_EN_MASK));
+ 332:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         /* If block is disabled, enable it and then write the counter */
+ 333:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_GLOBAL_ENABLE |= QuadDec_PAN_Cnt16_BLOCK_EN_MASK;
+ 334:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COUNTER_LSB_PTR, (uint16)counter);
+ 335:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_GLOBAL_ENABLE &= ((uint8)(~QuadDec_PAN_Cnt16_BLOCK_EN_MASK));
+ 336:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #else
+ 337:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COUNTER_LSB_PTR, counter);
+ 185              		.loc 1 337 0
+ 186 0000 014B     		ldr	r3, .L20
+ 187 0002 1880     		strh	r0, [r3, #0]	@ movhi
+ 188 0004 7047     		bx	lr
+ 189              	.L21:
+ 190 0006 00BF     		.align	2
+ 191              	.L20:
+ 192 0008 086A0040 		.word	1073768968
+ 193              		.cfi_endproc
+ 194              	.LFE8:
+ 195              		.size	QuadDec_PAN_Cnt16_WriteCounter, .-QuadDec_PAN_Cnt16_WriteCounter
+ 196              		.section	.text.QuadDec_PAN_Cnt16_ReadCounter,"ax",%progbits
+ 197              		.align	1
+ 198              		.global	QuadDec_PAN_Cnt16_ReadCounter
+ 199              		.thumb
+ 200              		.thumb_func
+ 201              		.type	QuadDec_PAN_Cnt16_ReadCounter, %function
+ 202              	QuadDec_PAN_Cnt16_ReadCounter:
+ 203              	.LFB9:
+ 338:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 339:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 340:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #endif /* (!(QuadDec_PAN_Cnt16_UsingFixedFunction && (CY_PSOC5A))) */
+ 341:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 342:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 343:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 344:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ReadCounter
+ 345:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 346:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 347:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Returns the current value of the counter.  It doesn't matter
+ 348:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * if the counter is enabled or running.
+ 349:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 350:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 351:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void:  
+ 352:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 353:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 354:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint16) The present value of the counter.
+ 355:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 356:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 357:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint16 QuadDec_PAN_Cnt16_ReadCounter(void) 
+ 358:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 204              		.loc 1 358 0
+ 205              		.cfi_startproc
+ 206              		@ args = 0, pretend = 0, frame = 0
+ 207              		@ frame_needed = 0, uses_anonymous_args = 0
+ 208              		@ link register save eliminated.
+ 359:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Force capture by reading Accumulator */
+ 360:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Must first do a software capture to be able to read the counter */
+ 361:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 362:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 11
+
+
+ 363:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 		(void)CY_GET_REG16(QuadDec_PAN_Cnt16_COUNTER_LSB_PTR);
+ 364:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 	#else
+ 365:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 		(void)CY_GET_REG8(QuadDec_PAN_Cnt16_COUNTER_LSB_PTR_8BIT);
+ 366:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 	#endif/* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 367:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     
+ 368:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 369:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 370:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return ((uint16)CY_GET_REG16(QuadDec_PAN_Cnt16_STATICCOUNT_LSB_PTR));
+ 371:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #else
+ 372:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return (CY_GET_REG16(QuadDec_PAN_Cnt16_STATICCOUNT_LSB_PTR));
+ 209              		.loc 1 372 0
+ 210 0000 0248     		ldr	r0, .L23
+ 365:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 		(void)CY_GET_REG8(QuadDec_PAN_Cnt16_COUNTER_LSB_PTR_8BIT);
+ 211              		.loc 1 365 0
+ 212 0002 034B     		ldr	r3, .L23+4
+ 213 0004 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 214              		.loc 1 372 0
+ 215 0006 0188     		ldrh	r1, [r0, #0]
+ 373:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 374:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 216              		.loc 1 374 0
+ 217 0008 88B2     		uxth	r0, r1
+ 218 000a 7047     		bx	lr
+ 219              	.L24:
+ 220              		.align	2
+ 221              	.L23:
+ 222 000c 886A0040 		.word	1073769096
+ 223 0010 04650040 		.word	1073767684
+ 224              		.cfi_endproc
+ 225              	.LFE9:
+ 226              		.size	QuadDec_PAN_Cnt16_ReadCounter, .-QuadDec_PAN_Cnt16_ReadCounter
+ 227              		.section	.text.QuadDec_PAN_Cnt16_ReadCapture,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	QuadDec_PAN_Cnt16_ReadCapture
+ 230              		.thumb
+ 231              		.thumb_func
+ 232              		.type	QuadDec_PAN_Cnt16_ReadCapture, %function
+ 233              	QuadDec_PAN_Cnt16_ReadCapture:
+ 234              	.LFB10:
+ 375:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 376:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 377:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 378:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ReadCapture
+ 379:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 380:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 381:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   This function returns the last value captured.
+ 382:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 383:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 384:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 385:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 386:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 387:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint16) Present Capture value.
+ 388:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 389:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 390:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint16 QuadDec_PAN_Cnt16_ReadCapture(void) 
+ 391:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 235              		.loc 1 391 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 12
+
+
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239              		@ link register save eliminated.
+ 392:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 393:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return ((uint16)CY_GET_REG16(QuadDec_PAN_Cnt16_STATICCOUNT_LSB_PTR));
+ 394:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #else
+ 395:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return (CY_GET_REG16(QuadDec_PAN_Cnt16_STATICCOUNT_LSB_PTR));
+ 240              		.loc 1 395 0
+ 241 0000 014B     		ldr	r3, .L26
+ 242 0002 1888     		ldrh	r0, [r3, #0]
+ 396:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 397:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 243              		.loc 1 397 0
+ 244 0004 80B2     		uxth	r0, r0
+ 245 0006 7047     		bx	lr
+ 246              	.L27:
+ 247              		.align	2
+ 248              	.L26:
+ 249 0008 886A0040 		.word	1073769096
+ 250              		.cfi_endproc
+ 251              	.LFE10:
+ 252              		.size	QuadDec_PAN_Cnt16_ReadCapture, .-QuadDec_PAN_Cnt16_ReadCapture
+ 253              		.section	.text.QuadDec_PAN_Cnt16_WritePeriod,"ax",%progbits
+ 254              		.align	1
+ 255              		.global	QuadDec_PAN_Cnt16_WritePeriod
+ 256              		.thumb
+ 257              		.thumb_func
+ 258              		.type	QuadDec_PAN_Cnt16_WritePeriod, %function
+ 259              	QuadDec_PAN_Cnt16_WritePeriod:
+ 260              	.LFB11:
+ 398:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 399:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 400:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 401:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_WritePeriod
+ 402:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 403:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 404:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Changes the period of the counter.  The new period 
+ 405:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * will be loaded the next time terminal count is detected.
+ 406:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 407:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 408:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  period: (uint16) A value of 0 will result in
+ 409:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *         the counter remaining at zero.  
+ 410:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 411:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 412:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 413:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 414:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 415:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_WritePeriod(uint16 period) 
+ 416:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 261              		.loc 1 416 0
+ 262              		.cfi_startproc
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              		@ link register save eliminated.
+ 266              	.LVL3:
+ 417:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 13
+
+
+ 418:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_PERIOD_LSB_PTR,(uint16)period);
+ 419:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #else
+ 420:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_PERIOD_LSB_PTR, period);
+ 267              		.loc 1 420 0
+ 268 0000 014B     		ldr	r3, .L29
+ 269 0002 1880     		strh	r0, [r3, #0]	@ movhi
+ 270 0004 7047     		bx	lr
+ 271              	.L30:
+ 272 0006 00BF     		.align	2
+ 273              	.L29:
+ 274 0008 486A0040 		.word	1073769032
+ 275              		.cfi_endproc
+ 276              	.LFE11:
+ 277              		.size	QuadDec_PAN_Cnt16_WritePeriod, .-QuadDec_PAN_Cnt16_WritePeriod
+ 278              		.section	.text.QuadDec_PAN_Cnt16_ReadPeriod,"ax",%progbits
+ 279              		.align	1
+ 280              		.global	QuadDec_PAN_Cnt16_ReadPeriod
+ 281              		.thumb
+ 282              		.thumb_func
+ 283              		.type	QuadDec_PAN_Cnt16_ReadPeriod, %function
+ 284              	QuadDec_PAN_Cnt16_ReadPeriod:
+ 285              	.LFB12:
+ 421:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 422:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 423:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 424:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 425:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 426:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ReadPeriod
+ 427:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 428:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 429:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Reads the current period value without affecting counter operation.
+ 430:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 431:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 432:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void:  
+ 433:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 434:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 435:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint16) Present period value.
+ 436:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 437:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 438:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint16 QuadDec_PAN_Cnt16_ReadPeriod(void) 
+ 439:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 286              		.loc 1 439 0
+ 287              		.cfi_startproc
+ 288              		@ args = 0, pretend = 0, frame = 0
+ 289              		@ frame_needed = 0, uses_anonymous_args = 0
+ 290              		@ link register save eliminated.
+ 440:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 441:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return ((uint16)CY_GET_REG16(QuadDec_PAN_Cnt16_PERIOD_LSB_PTR));
+ 442:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #else
+ 443:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return (CY_GET_REG16(QuadDec_PAN_Cnt16_PERIOD_LSB_PTR));
+ 291              		.loc 1 443 0
+ 292 0000 014B     		ldr	r3, .L32
+ 293 0002 1888     		ldrh	r0, [r3, #0]
+ 444:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 445:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 294              		.loc 1 445 0
+ 295 0004 80B2     		uxth	r0, r0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 14
+
+
+ 296 0006 7047     		bx	lr
+ 297              	.L33:
+ 298              		.align	2
+ 299              	.L32:
+ 300 0008 486A0040 		.word	1073769032
+ 301              		.cfi_endproc
+ 302              	.LFE12:
+ 303              		.size	QuadDec_PAN_Cnt16_ReadPeriod, .-QuadDec_PAN_Cnt16_ReadPeriod
+ 304              		.section	.text.QuadDec_PAN_Cnt16_WriteCompare,"ax",%progbits
+ 305              		.align	1
+ 306              		.global	QuadDec_PAN_Cnt16_WriteCompare
+ 307              		.thumb
+ 308              		.thumb_func
+ 309              		.type	QuadDec_PAN_Cnt16_WriteCompare, %function
+ 310              	QuadDec_PAN_Cnt16_WriteCompare:
+ 311              	.LFB13:
+ 446:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 447:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 448:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #if (!QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 449:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 450:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_WriteCompare
+ 451:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 452:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 453:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Changes the compare value.  The compare output will 
+ 454:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * reflect the new value on the next UDB clock.  The compare output will be 
+ 455:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * driven high when the present counter value compares true based on the 
+ 456:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * configured compare mode setting. 
+ 457:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 458:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 459:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  Compare:  New compare value. 
+ 460:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 461:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 462:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 463:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 464:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 465:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_WriteCompare(uint16 compare) \
+ 466:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                                    
+ 467:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 312              		.loc 1 467 0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316              		@ link register save eliminated.
+ 317              	.LVL4:
+ 468:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #if(QuadDec_PAN_Cnt16_UsingFixedFunction)
+ 469:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COMPARE_LSB_PTR, (uint16)compare);
+ 470:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #else
+ 471:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COMPARE_LSB_PTR, compare);
+ 318              		.loc 1 471 0
+ 319 0000 014B     		ldr	r3, .L35
+ 320 0002 1880     		strh	r0, [r3, #0]	@ movhi
+ 321 0004 7047     		bx	lr
+ 322              	.L36:
+ 323 0006 00BF     		.align	2
+ 324              	.L35:
+ 325 0008 686A0040 		.word	1073769064
+ 326              		.cfi_endproc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 15
+
+
+ 327              	.LFE13:
+ 328              		.size	QuadDec_PAN_Cnt16_WriteCompare, .-QuadDec_PAN_Cnt16_WriteCompare
+ 329              		.section	.text.QuadDec_PAN_Cnt16_ReadCompare,"ax",%progbits
+ 330              		.align	1
+ 331              		.global	QuadDec_PAN_Cnt16_ReadCompare
+ 332              		.thumb
+ 333              		.thumb_func
+ 334              		.type	QuadDec_PAN_Cnt16_ReadCompare, %function
+ 335              	QuadDec_PAN_Cnt16_ReadCompare:
+ 336              	.LFB14:
+ 472:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     #endif /* (QuadDec_PAN_Cnt16_UsingFixedFunction) */
+ 473:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 474:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 475:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 476:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 477:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ReadCompare
+ 478:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 479:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 480:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Returns the compare value.
+ 481:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 482:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 483:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void:
+ 484:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 485:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 486:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  (uint16) Present compare value.
+ 487:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 488:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 489:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** uint16 QuadDec_PAN_Cnt16_ReadCompare(void) 
+ 490:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 337              		.loc 1 490 0
+ 338              		.cfi_startproc
+ 339              		@ args = 0, pretend = 0, frame = 0
+ 340              		@ frame_needed = 0, uses_anonymous_args = 0
+ 341              		@ link register save eliminated.
+ 491:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     return (CY_GET_REG16(QuadDec_PAN_Cnt16_COMPARE_LSB_PTR));
+ 342              		.loc 1 491 0
+ 343 0000 014B     		ldr	r3, .L38
+ 344 0002 1888     		ldrh	r0, [r3, #0]
+ 492:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 345              		.loc 1 492 0
+ 346 0004 80B2     		uxth	r0, r0
+ 347 0006 7047     		bx	lr
+ 348              	.L39:
+ 349              		.align	2
+ 350              	.L38:
+ 351 0008 686A0040 		.word	1073769064
+ 352              		.cfi_endproc
+ 353              	.LFE14:
+ 354              		.size	QuadDec_PAN_Cnt16_ReadCompare, .-QuadDec_PAN_Cnt16_ReadCompare
+ 355              		.section	.text.QuadDec_PAN_Cnt16_ClearFIFO,"ax",%progbits
+ 356              		.align	1
+ 357              		.global	QuadDec_PAN_Cnt16_ClearFIFO
+ 358              		.thumb
+ 359              		.thumb_func
+ 360              		.type	QuadDec_PAN_Cnt16_ClearFIFO, %function
+ 361              	QuadDec_PAN_Cnt16_ClearFIFO:
+ 362              	.LFB15:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 16
+
+
+ 493:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 494:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 495:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #if (QuadDec_PAN_Cnt16_COMPARE_MODE_SOFTWARE)
+ 496:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 497:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_SetCompareMode
+ 498:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 499:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 500:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  Sets the software controlled Compare Mode.
+ 501:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 502:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:
+ 503:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  compareMode:  Compare Mode Enumerated Type.
+ 504:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 505:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return:
+ 506:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 507:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 508:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 509:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_SetCompareMode(uint8 compareMode) 
+ 510:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 511:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Clear the compare mode bits in the control register */
+ 512:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_CONTROL &= ((uint8)(~QuadDec_PAN_Cnt16_CTRL_CMPMODE_MASK));
+ 513:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     
+ 514:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Write the new setting */
+ 515:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_CONTROL |= compareMode;
+ 516:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 517:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #endif  /* (QuadDec_PAN_Cnt16_COMPARE_MODE_SOFTWARE) */
+ 518:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 519:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 520:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #if (QuadDec_PAN_Cnt16_CAPTURE_MODE_SOFTWARE)
+ 521:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 522:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_SetCaptureMode
+ 523:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 524:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 525:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  Sets the software controlled Capture Mode.
+ 526:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 527:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:
+ 528:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  captureMode:  Capture Mode Enumerated Type.
+ 529:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 530:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return:
+ 531:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void
+ 532:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 533:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 534:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_SetCaptureMode(uint8 captureMode) 
+ 535:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 536:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Clear the capture mode bits in the control register */
+ 537:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_CONTROL &= ((uint8)(~QuadDec_PAN_Cnt16_CTRL_CAPMODE_MASK));
+ 538:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     
+ 539:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     /* Write the new setting */
+ 540:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_CONTROL |= ((uint8)((uint8)captureMode << QuadDec_PAN_Cnt16_CTRL_CAPMODE0_SHI
+ 541:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 542:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** #endif  /* (QuadDec_PAN_Cnt16_CAPTURE_MODE_SOFTWARE) */
+ 543:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 544:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 545:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** /*******************************************************************************
+ 546:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Function Name: QuadDec_PAN_Cnt16_ClearFIFO
+ 547:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** ********************************************************************************
+ 548:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Summary:
+ 549:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *   This function clears all capture data from the capture FIFO
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 17
+
+
+ 550:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 551:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Parameters:  
+ 552:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  void:
+ 553:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 554:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** * Return: 
+ 555:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *  None
+ 556:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *
+ 557:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** *******************************************************************************/
+ 558:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** void QuadDec_PAN_Cnt16_ClearFIFO(void) 
+ 559:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 363              		.loc 1 559 0
+ 364              		.cfi_startproc
+ 365              		@ args = 0, pretend = 0, frame = 0
+ 366              		@ frame_needed = 0, uses_anonymous_args = 0
+ 367              		@ link register save eliminated.
+ 368              	.L41:
+ 369              	.LBB16:
+ 370              	.LBB17:
+ 263:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     return QuadDec_PAN_Cnt16_STATUS;
+ 371              		.loc 1 263 0 discriminator 1
+ 372 0000 044B     		ldr	r3, .L45
+ 373 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 374              	.LBE17:
+ 375              	.LBE16:
+ 560:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 561:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     while(0u != (QuadDec_PAN_Cnt16_ReadStatusRegister() & QuadDec_PAN_Cnt16_STATUS_FIFONEMP))
+ 376              		.loc 1 561 0 discriminator 1
+ 377 0004 00F04001 		and	r1, r0, #64
+ 378 0008 CAB2     		uxtb	r2, r1
+ 379 000a 12B1     		cbz	r2, .L44
+ 380              	.L42:
+ 381              	.LBB18:
+ 382              	.LBB19:
+ 395:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         return (CY_GET_REG16(QuadDec_PAN_Cnt16_STATICCOUNT_LSB_PTR));
+ 383              		.loc 1 395 0
+ 384 000c 024B     		ldr	r3, .L45+4
+ 385 000e 1B88     		ldrh	r3, [r3, #0]
+ 386 0010 F6E7     		b	.L41
+ 387              	.L44:
+ 388              	.LBE19:
+ 389              	.LBE18:
+ 562:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     {
+ 563:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         (void)QuadDec_PAN_Cnt16_ReadCapture();
+ 564:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     }
+ 565:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** 
+ 566:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 390              		.loc 1 566 0
+ 391 0012 7047     		bx	lr
+ 392              	.L46:
+ 393              		.align	2
+ 394              	.L45:
+ 395 0014 66650040 		.word	1073767782
+ 396 0018 886A0040 		.word	1073769096
+ 397              		.cfi_endproc
+ 398              	.LFE15:
+ 399              		.size	QuadDec_PAN_Cnt16_ClearFIFO, .-QuadDec_PAN_Cnt16_ClearFIFO
+ 400              		.section	.text.QuadDec_PAN_Cnt16_Init,"ax",%progbits
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 18
+
+
+ 401              		.align	1
+ 402              		.global	QuadDec_PAN_Cnt16_Init
+ 403              		.thumb
+ 404              		.thumb_func
+ 405              		.type	QuadDec_PAN_Cnt16_Init, %function
+ 406              	QuadDec_PAN_Cnt16_Init:
+ 407              	.LFB0:
+  38:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 408              		.loc 1 38 0
+ 409              		.cfi_startproc
+ 410              		@ args = 0, pretend = 0, frame = 0
+ 411              		@ frame_needed = 0, uses_anonymous_args = 0
+ 412 0000 08B5     		push	{r3, lr}
+ 413              	.LCFI0:
+ 414              		.cfi_def_cfa_offset 8
+ 415              		.cfi_offset 3, -8
+ 416              		.cfi_offset 14, -4
+  79:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             ctrl = QuadDec_PAN_Cnt16_CONTROL & ((uint8)(~QuadDec_PAN_Cnt16_CTRL_CMPMODE_MASK));
+ 417              		.loc 1 79 0
+ 418 0002 114B     		ldr	r3, .L48
+ 419 0004 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 420 0006 02F0F800 		and	r0, r2, #248
+ 421              	.LVL5:
+  80:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_CONTROL = ctrl | QuadDec_PAN_Cnt16_DEFAULT_COMPARE_MODE;
+ 422              		.loc 1 80 0
+ 423 000a 1870     		strb	r0, [r3, #0]
+  83:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             ctrl = QuadDec_PAN_Cnt16_CONTROL & ((uint8)(~QuadDec_PAN_Cnt16_CTRL_CAPMODE_MASK));
+ 424              		.loc 1 83 0
+ 425 000c 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 426 000e 01F0FC02 		and	r2, r1, #252
+ 427              	.LVL6:
+  88:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****                 QuadDec_PAN_Cnt16_CONTROL = ctrl;
+ 428              		.loc 1 88 0
+ 429 0012 1A70     		strb	r2, [r3, #0]
+  96:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_ClearFIFO();
+ 430              		.loc 1 96 0
+ 431 0014 FFF7FEFF 		bl	QuadDec_PAN_Cnt16_ClearFIFO
+ 432              	.LVL7:
+ 433              	.LBB20:
+ 434              	.LBB21:
+ 420:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_PERIOD_LSB_PTR, period);
+ 435              		.loc 1 420 0
+ 436 0018 0C48     		ldr	r0, .L48+4
+ 437 001a 4FF40043 		mov	r3, #32768
+ 438              	.LBE21:
+ 439              	.LBE20:
+ 440              	.LBB23:
+ 441              	.LBB24:
+ 239:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_STATUS_MASK = interruptsMask;
+ 442              		.loc 1 239 0
+ 443 001e 0C4A     		ldr	r2, .L48+8
+ 444              	.LBE24:
+ 445              	.LBE23:
+ 446              	.LBB27:
+ 447              	.LBB22:
+ 420:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_PERIOD_LSB_PTR, period);
+ 448              		.loc 1 420 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 19
+
+
+ 449 0020 0380     		strh	r3, [r0, #0]	@ movhi
+ 450              	.LVL8:
+ 451              	.LBE22:
+ 452              	.LBE27:
+ 453              	.LBB28:
+ 454              	.LBB25:
+ 239:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_STATUS_MASK = interruptsMask;
+ 455              		.loc 1 239 0
+ 456 0022 0021     		movs	r1, #0
+ 457              	.LBE25:
+ 458              	.LBE28:
+ 459              	.LBB29:
+ 460              	.LBB30:
+ 337:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COUNTER_LSB_PTR, counter);
+ 461              		.loc 1 337 0
+ 462 0024 20F8403C 		strh	r3, [r0, #-64]	@ movhi
+ 463              	.LVL9:
+ 464              	.LBE30:
+ 465              	.LBE29:
+ 466              	.LBB31:
+ 467              	.LBB32:
+ 471:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COMPARE_LSB_PTR, compare);
+ 468              		.loc 1 471 0
+ 469 0028 0A48     		ldr	r0, .L48+12
+ 470              	.LBE32:
+ 471              	.LBE31:
+ 472              	.LBB34:
+ 473              	.LBB26:
+ 239:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_STATUS_MASK = interruptsMask;
+ 474              		.loc 1 239 0
+ 475 002a 1170     		strb	r1, [r2, #0]
+ 476              	.LBE26:
+ 477              	.LBE34:
+ 478              	.LBB35:
+ 479              	.LBB36:
+ 263:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     return QuadDec_PAN_Cnt16_STATUS;
+ 480              		.loc 1 263 0
+ 481 002c 203A     		subs	r2, r2, #32
+ 482 002e 1278     		ldrb	r2, [r2, #0]	@ zero_extendqisi2
+ 483              	.LVL10:
+ 484              	.LBE36:
+ 485              	.LBE35:
+ 486              	.LBB37:
+ 487              	.LBB33:
+ 471:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         CY_SET_REG16(QuadDec_PAN_Cnt16_COMPARE_LSB_PTR, compare);
+ 488              		.loc 1 471 0
+ 489 0030 0380     		strh	r3, [r0, #0]	@ movhi
+ 490              	.LBE33:
+ 491              	.LBE37:
+ 115:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_interruptState = CyEnterCriticalSection();
+ 492              		.loc 1 115 0
+ 493 0032 FFF7FEFF 		bl	CyEnterCriticalSection
+ 494              	.LVL11:
+ 117:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             QuadDec_PAN_Cnt16_STATUS_AUX_CTRL |= QuadDec_PAN_Cnt16_STATUS_ACTL_INT_EN_MASK;
+ 495              		.loc 1 117 0
+ 496 0036 084B     		ldr	r3, .L48+16
+ 497 0038 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 20
+
+
+ 498 003a 41F01002 		orr	r2, r1, #16
+ 499 003e 1A70     		strb	r2, [r3, #0]
+ 123:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 500              		.loc 1 123 0
+ 501 0040 BDE80840 		pop	{r3, lr}
+ 120:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****             CyExitCriticalSection(QuadDec_PAN_Cnt16_interruptState);
+ 502              		.loc 1 120 0
+ 503 0044 FFF7FEBF 		b	CyExitCriticalSection
+ 504              	.LVL12:
+ 505              	.L49:
+ 506              		.align	2
+ 507              	.L48:
+ 508 0048 77640040 		.word	1073767543
+ 509 004c 486A0040 		.word	1073769032
+ 510 0050 86650040 		.word	1073767814
+ 511 0054 686A0040 		.word	1073769064
+ 512 0058 96650040 		.word	1073767830
+ 513              		.cfi_endproc
+ 514              	.LFE0:
+ 515              		.size	QuadDec_PAN_Cnt16_Init, .-QuadDec_PAN_Cnt16_Init
+ 516              		.section	.text.QuadDec_PAN_Cnt16_Start,"ax",%progbits
+ 517              		.align	1
+ 518              		.global	QuadDec_PAN_Cnt16_Start
+ 519              		.thumb
+ 520              		.thumb_func
+ 521              		.type	QuadDec_PAN_Cnt16_Start, %function
+ 522              	QuadDec_PAN_Cnt16_Start:
+ 523              	.LFB2:
+ 179:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** {
+ 524              		.loc 1 179 0
+ 525              		.cfi_startproc
+ 526              		@ args = 0, pretend = 0, frame = 0
+ 527              		@ frame_needed = 0, uses_anonymous_args = 0
+ 528 0000 10B5     		push	{r4, lr}
+ 529              	.LCFI1:
+ 530              		.cfi_def_cfa_offset 8
+ 531              		.cfi_offset 4, -8
+ 532              		.cfi_offset 14, -4
+ 180:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     if(QuadDec_PAN_Cnt16_initVar == 0u)
+ 533              		.loc 1 180 0
+ 534 0002 054C     		ldr	r4, .L52
+ 535 0004 2378     		ldrb	r3, [r4, #0]	@ zero_extendqisi2
+ 536 0006 1BB9     		cbnz	r3, .L51
+ 182:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_Init();
+ 537              		.loc 1 182 0
+ 538 0008 FFF7FEFF 		bl	QuadDec_PAN_Cnt16_Init
+ 539              	.LVL13:
+ 184:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****         QuadDec_PAN_Cnt16_initVar = 1u; /* Clear this bit for Initialization */        
+ 540              		.loc 1 184 0
+ 541 000c 0120     		movs	r0, #1
+ 542 000e 2070     		strb	r0, [r4, #0]
+ 543              	.L51:
+ 189:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c **** }
+ 544              		.loc 1 189 0
+ 545 0010 BDE81040 		pop	{r4, lr}
+ 188:.\Generated_Source\PSoC5/QuadDec_PAN_Cnt16.c ****     QuadDec_PAN_Cnt16_Enable();        
+ 546              		.loc 1 188 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 21
+
+
+ 547 0014 FFF7FEBF 		b	QuadDec_PAN_Cnt16_Enable
+ 548              	.LVL14:
+ 549              	.L53:
+ 550              		.align	2
+ 551              	.L52:
+ 552 0018 00000000 		.word	.LANCHOR0
+ 553              		.cfi_endproc
+ 554              	.LFE2:
+ 555              		.size	QuadDec_PAN_Cnt16_Start, .-QuadDec_PAN_Cnt16_Start
+ 556              		.global	QuadDec_PAN_Cnt16_initVar
+ 557              		.bss
+ 558              		.set	.LANCHOR0,. + 0
+ 559              		.type	QuadDec_PAN_Cnt16_initVar, %object
+ 560              		.size	QuadDec_PAN_Cnt16_initVar, 1
+ 561              	QuadDec_PAN_Cnt16_initVar:
+ 562 0000 00       		.space	1
+ 563              		.text
+ 564              	.Letext0:
+ 565              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 566              		.file 3 ".\\Generated_Source\\PSoC5\\CyLib.h"
+ 567              		.section	.debug_info,"",%progbits
+ 568              	.Ldebug_info0:
+ 569 0000 06040000 		.4byte	0x406
+ 570 0004 0200     		.2byte	0x2
+ 571 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 572 000a 04       		.byte	0x4
+ 573 000b 01       		.uleb128 0x1
+ 574 000c 5A030000 		.4byte	.LASF40
+ 575 0010 01       		.byte	0x1
+ 576 0011 F5000000 		.4byte	.LASF41
+ 577 0015 95010000 		.4byte	.LASF42
+ 578 0019 50000000 		.4byte	.Ldebug_ranges0+0x50
+ 579 001d 00000000 		.4byte	0
+ 580 0021 00000000 		.4byte	0
+ 581 0025 00000000 		.4byte	.Ldebug_line0
+ 582 0029 02       		.uleb128 0x2
+ 583 002a 01       		.byte	0x1
+ 584 002b 06       		.byte	0x6
+ 585 002c CE020000 		.4byte	.LASF0
+ 586 0030 02       		.uleb128 0x2
+ 587 0031 01       		.byte	0x1
+ 588 0032 08       		.byte	0x8
+ 589 0033 44020000 		.4byte	.LASF1
+ 590 0037 02       		.uleb128 0x2
+ 591 0038 02       		.byte	0x2
+ 592 0039 05       		.byte	0x5
+ 593 003a 33030000 		.4byte	.LASF2
+ 594 003e 02       		.uleb128 0x2
+ 595 003f 02       		.byte	0x2
+ 596 0040 07       		.byte	0x7
+ 597 0041 A5000000 		.4byte	.LASF3
+ 598 0045 02       		.uleb128 0x2
+ 599 0046 04       		.byte	0x4
+ 600 0047 05       		.byte	0x5
+ 601 0048 A3030000 		.4byte	.LASF4
+ 602 004c 02       		.uleb128 0x2
+ 603 004d 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 22
+
+
+ 604 004e 07       		.byte	0x7
+ 605 004f 83010000 		.4byte	.LASF5
+ 606 0053 02       		.uleb128 0x2
+ 607 0054 08       		.byte	0x8
+ 608 0055 05       		.byte	0x5
+ 609 0056 E8020000 		.4byte	.LASF6
+ 610 005a 02       		.uleb128 0x2
+ 611 005b 08       		.byte	0x8
+ 612 005c 07       		.byte	0x7
+ 613 005d 30010000 		.4byte	.LASF7
+ 614 0061 03       		.uleb128 0x3
+ 615 0062 04       		.byte	0x4
+ 616 0063 05       		.byte	0x5
+ 617 0064 696E7400 		.ascii	"int\000"
+ 618 0068 02       		.uleb128 0x2
+ 619 0069 04       		.byte	0x4
+ 620 006a 07       		.byte	0x7
+ 621 006b AB020000 		.4byte	.LASF8
+ 622 006f 04       		.uleb128 0x4
+ 623 0070 54030000 		.4byte	.LASF9
+ 624 0074 02       		.byte	0x2
+ 625 0075 5B       		.byte	0x5b
+ 626 0076 30000000 		.4byte	0x30
+ 627 007a 04       		.uleb128 0x4
+ 628 007b 6F020000 		.4byte	.LASF10
+ 629 007f 02       		.byte	0x2
+ 630 0080 5C       		.byte	0x5c
+ 631 0081 3E000000 		.4byte	0x3e
+ 632 0085 02       		.uleb128 0x2
+ 633 0086 04       		.byte	0x4
+ 634 0087 04       		.byte	0x4
+ 635 0088 22010000 		.4byte	.LASF11
+ 636 008c 02       		.uleb128 0x2
+ 637 008d 08       		.byte	0x8
+ 638 008e 04       		.byte	0x4
+ 639 008f B8000000 		.4byte	.LASF12
+ 640 0093 02       		.uleb128 0x2
+ 641 0094 01       		.byte	0x1
+ 642 0095 08       		.byte	0x8
+ 643 0096 AC030000 		.4byte	.LASF13
+ 644 009a 04       		.uleb128 0x4
+ 645 009b DA020000 		.4byte	.LASF14
+ 646 009f 02       		.byte	0x2
+ 647 00a0 F0       		.byte	0xf0
+ 648 00a1 A5000000 		.4byte	0xa5
+ 649 00a5 05       		.uleb128 0x5
+ 650 00a6 6F000000 		.4byte	0x6f
+ 651 00aa 04       		.uleb128 0x4
+ 652 00ab 00000000 		.4byte	.LASF15
+ 653 00af 02       		.byte	0x2
+ 654 00b0 F1       		.byte	0xf1
+ 655 00b1 B5000000 		.4byte	0xb5
+ 656 00b5 05       		.uleb128 0x5
+ 657 00b6 7A000000 		.4byte	0x7a
+ 658 00ba 02       		.uleb128 0x2
+ 659 00bb 04       		.byte	0x4
+ 660 00bc 07       		.byte	0x7
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 23
+
+
+ 661 00bd DF020000 		.4byte	.LASF16
+ 662 00c1 06       		.uleb128 0x6
+ 663 00c2 01       		.byte	0x1
+ 664 00c3 15030000 		.4byte	.LASF17
+ 665 00c7 01       		.byte	0x1
+ 666 00c8 8601     		.2byte	0x186
+ 667 00ca 01       		.byte	0x1
+ 668 00cb 7A000000 		.4byte	0x7a
+ 669 00cf 01       		.byte	0x1
+ 670 00d0 06       		.uleb128 0x6
+ 671 00d1 01       		.byte	0x1
+ 672 00d2 06000000 		.4byte	.LASF18
+ 673 00d6 01       		.byte	0x1
+ 674 00d7 0501     		.2byte	0x105
+ 675 00d9 01       		.byte	0x1
+ 676 00da 6F000000 		.4byte	0x6f
+ 677 00de 01       		.byte	0x1
+ 678 00df 07       		.uleb128 0x7
+ 679 00e0 01       		.byte	0x1
+ 680 00e1 D7000000 		.4byte	.LASF19
+ 681 00e5 01       		.byte	0x1
+ 682 00e6 9F01     		.2byte	0x19f
+ 683 00e8 01       		.byte	0x1
+ 684 00e9 01       		.byte	0x1
+ 685 00ea FB000000 		.4byte	0xfb
+ 686 00ee 08       		.uleb128 0x8
+ 687 00ef 77000000 		.4byte	.LASF21
+ 688 00f3 01       		.byte	0x1
+ 689 00f4 9F01     		.2byte	0x19f
+ 690 00f6 7A000000 		.4byte	0x7a
+ 691 00fa 00       		.byte	0
+ 692 00fb 07       		.uleb128 0x7
+ 693 00fc 01       		.byte	0x1
+ 694 00fd F6020000 		.4byte	.LASF20
+ 695 0101 01       		.byte	0x1
+ 696 0102 4601     		.2byte	0x146
+ 697 0104 01       		.byte	0x1
+ 698 0105 01       		.byte	0x1
+ 699 0106 17010000 		.4byte	0x117
+ 700 010a 08       		.uleb128 0x8
+ 701 010b 28010000 		.4byte	.LASF22
+ 702 010f 01       		.byte	0x1
+ 703 0110 4601     		.2byte	0x146
+ 704 0112 7A000000 		.4byte	0x7a
+ 705 0116 00       		.byte	0
+ 706 0117 09       		.uleb128 0x9
+ 707 0118 01       		.byte	0x1
+ 708 0119 60010000 		.4byte	.LASF23
+ 709 011d 01       		.byte	0x1
+ 710 011e ED       		.byte	0xed
+ 711 011f 01       		.byte	0x1
+ 712 0120 01       		.byte	0x1
+ 713 0121 31010000 		.4byte	0x131
+ 714 0125 0A       		.uleb128 0xa
+ 715 0126 68000000 		.4byte	.LASF24
+ 716 012a 01       		.byte	0x1
+ 717 012b ED       		.byte	0xed
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 24
+
+
+ 718 012c 6F000000 		.4byte	0x6f
+ 719 0130 00       		.byte	0
+ 720 0131 07       		.uleb128 0x7
+ 721 0132 01       		.byte	0x1
+ 722 0133 0B020000 		.4byte	.LASF25
+ 723 0137 01       		.byte	0x1
+ 724 0138 D101     		.2byte	0x1d1
+ 725 013a 01       		.byte	0x1
+ 726 013b 01       		.byte	0x1
+ 727 013c 4D010000 		.4byte	0x14d
+ 728 0140 08       		.uleb128 0x8
+ 729 0141 0C040000 		.4byte	.LASF26
+ 730 0145 01       		.byte	0x1
+ 731 0146 D101     		.2byte	0x1d1
+ 732 0148 7A000000 		.4byte	0x7a
+ 733 014c 00       		.byte	0
+ 734 014d 0B       		.uleb128 0xb
+ 735 014e 01       		.byte	0x1
+ 736 014f 47010000 		.4byte	.LASF27
+ 737 0153 01       		.byte	0x1
+ 738 0154 8F       		.byte	0x8f
+ 739 0155 01       		.byte	0x1
+ 740 0156 00000000 		.4byte	.LFB1
+ 741 015a 10000000 		.4byte	.LFE1
+ 742 015e 02       		.byte	0x2
+ 743 015f 7D       		.byte	0x7d
+ 744 0160 00       		.sleb128 0
+ 745 0161 01       		.byte	0x1
+ 746 0162 0B       		.uleb128 0xb
+ 747 0163 01       		.byte	0x1
+ 748 0164 3D030000 		.4byte	.LASF28
+ 749 0168 01       		.byte	0x1
+ 750 0169 D0       		.byte	0xd0
+ 751 016a 01       		.byte	0x1
+ 752 016b 00000000 		.4byte	.LFB3
+ 753 016f 10000000 		.4byte	.LFE3
+ 754 0173 02       		.byte	0x2
+ 755 0174 7D       		.byte	0x7d
+ 756 0175 00       		.sleb128 0
+ 757 0176 01       		.byte	0x1
+ 758 0177 0C       		.uleb128 0xc
+ 759 0178 17010000 		.4byte	0x117
+ 760 017c 00000000 		.4byte	.LFB4
+ 761 0180 0C000000 		.4byte	.LFE4
+ 762 0184 02       		.byte	0x2
+ 763 0185 7D       		.byte	0x7d
+ 764 0186 00       		.sleb128 0
+ 765 0187 01       		.byte	0x1
+ 766 0188 94010000 		.4byte	0x194
+ 767 018c 0D       		.uleb128 0xd
+ 768 018d 25010000 		.4byte	0x125
+ 769 0191 01       		.byte	0x1
+ 770 0192 50       		.byte	0x50
+ 771 0193 00       		.byte	0
+ 772 0194 0E       		.uleb128 0xe
+ 773 0195 D0000000 		.4byte	0xd0
+ 774 0199 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 25
+
+
+ 775 019d 0C000000 		.4byte	.LFE5
+ 776 01a1 02       		.byte	0x2
+ 777 01a2 7D       		.byte	0x7d
+ 778 01a3 00       		.sleb128 0
+ 779 01a4 01       		.byte	0x1
+ 780 01a5 0F       		.uleb128 0xf
+ 781 01a6 01       		.byte	0x1
+ 782 01a7 C8030000 		.4byte	.LASF29
+ 783 01ab 01       		.byte	0x1
+ 784 01ac 1B01     		.2byte	0x11b
+ 785 01ae 01       		.byte	0x1
+ 786 01af 6F000000 		.4byte	0x6f
+ 787 01b3 00000000 		.4byte	.LFB6
+ 788 01b7 0C000000 		.4byte	.LFE6
+ 789 01bb 02       		.byte	0x2
+ 790 01bc 7D       		.byte	0x7d
+ 791 01bd 00       		.sleb128 0
+ 792 01be 01       		.byte	0x1
+ 793 01bf 10       		.uleb128 0x10
+ 794 01c0 01       		.byte	0x1
+ 795 01c1 7E000000 		.4byte	.LASF33
+ 796 01c5 01       		.byte	0x1
+ 797 01c6 3001     		.2byte	0x130
+ 798 01c8 01       		.byte	0x1
+ 799 01c9 00000000 		.4byte	.LFB7
+ 800 01cd 0C000000 		.4byte	.LFE7
+ 801 01d1 02       		.byte	0x2
+ 802 01d2 7D       		.byte	0x7d
+ 803 01d3 00       		.sleb128 0
+ 804 01d4 01       		.byte	0x1
+ 805 01d5 E8010000 		.4byte	0x1e8
+ 806 01d9 11       		.uleb128 0x11
+ 807 01da 03020000 		.4byte	.LASF43
+ 808 01de 01       		.byte	0x1
+ 809 01df 3001     		.2byte	0x130
+ 810 01e1 6F000000 		.4byte	0x6f
+ 811 01e5 01       		.byte	0x1
+ 812 01e6 50       		.byte	0x50
+ 813 01e7 00       		.byte	0
+ 814 01e8 0C       		.uleb128 0xc
+ 815 01e9 FB000000 		.4byte	0xfb
+ 816 01ed 00000000 		.4byte	.LFB8
+ 817 01f1 0C000000 		.4byte	.LFE8
+ 818 01f5 02       		.byte	0x2
+ 819 01f6 7D       		.byte	0x7d
+ 820 01f7 00       		.sleb128 0
+ 821 01f8 01       		.byte	0x1
+ 822 01f9 05020000 		.4byte	0x205
+ 823 01fd 0D       		.uleb128 0xd
+ 824 01fe 0A010000 		.4byte	0x10a
+ 825 0202 01       		.byte	0x1
+ 826 0203 50       		.byte	0x50
+ 827 0204 00       		.byte	0
+ 828 0205 0F       		.uleb128 0xf
+ 829 0206 01       		.byte	0x1
+ 830 0207 EE030000 		.4byte	.LASF30
+ 831 020b 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 26
+
+
+ 832 020c 6501     		.2byte	0x165
+ 833 020e 01       		.byte	0x1
+ 834 020f 7A000000 		.4byte	0x7a
+ 835 0213 00000000 		.4byte	.LFB9
+ 836 0217 14000000 		.4byte	.LFE9
+ 837 021b 02       		.byte	0x2
+ 838 021c 7D       		.byte	0x7d
+ 839 021d 00       		.sleb128 0
+ 840 021e 01       		.byte	0x1
+ 841 021f 0E       		.uleb128 0xe
+ 842 0220 C1000000 		.4byte	0xc1
+ 843 0224 00000000 		.4byte	.LFB10
+ 844 0228 0C000000 		.4byte	.LFE10
+ 845 022c 02       		.byte	0x2
+ 846 022d 7D       		.byte	0x7d
+ 847 022e 00       		.sleb128 0
+ 848 022f 01       		.byte	0x1
+ 849 0230 0C       		.uleb128 0xc
+ 850 0231 DF000000 		.4byte	0xdf
+ 851 0235 00000000 		.4byte	.LFB11
+ 852 0239 0C000000 		.4byte	.LFE11
+ 853 023d 02       		.byte	0x2
+ 854 023e 7D       		.byte	0x7d
+ 855 023f 00       		.sleb128 0
+ 856 0240 01       		.byte	0x1
+ 857 0241 4D020000 		.4byte	0x24d
+ 858 0245 0D       		.uleb128 0xd
+ 859 0246 EE000000 		.4byte	0xee
+ 860 024a 01       		.byte	0x1
+ 861 024b 50       		.byte	0x50
+ 862 024c 00       		.byte	0
+ 863 024d 0F       		.uleb128 0xf
+ 864 024e 01       		.byte	0x1
+ 865 024f 52020000 		.4byte	.LASF31
+ 866 0253 01       		.byte	0x1
+ 867 0254 B601     		.2byte	0x1b6
+ 868 0256 01       		.byte	0x1
+ 869 0257 7A000000 		.4byte	0x7a
+ 870 025b 00000000 		.4byte	.LFB12
+ 871 025f 0C000000 		.4byte	.LFE12
+ 872 0263 02       		.byte	0x2
+ 873 0264 7D       		.byte	0x7d
+ 874 0265 00       		.sleb128 0
+ 875 0266 01       		.byte	0x1
+ 876 0267 0C       		.uleb128 0xc
+ 877 0268 31010000 		.4byte	0x131
+ 878 026c 00000000 		.4byte	.LFB13
+ 879 0270 0C000000 		.4byte	.LFE13
+ 880 0274 02       		.byte	0x2
+ 881 0275 7D       		.byte	0x7d
+ 882 0276 00       		.sleb128 0
+ 883 0277 01       		.byte	0x1
+ 884 0278 84020000 		.4byte	0x284
+ 885 027c 0D       		.uleb128 0xd
+ 886 027d 40010000 		.4byte	0x140
+ 887 0281 01       		.byte	0x1
+ 888 0282 50       		.byte	0x50
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 27
+
+
+ 889 0283 00       		.byte	0
+ 890 0284 0F       		.uleb128 0xf
+ 891 0285 01       		.byte	0x1
+ 892 0286 8D020000 		.4byte	.LASF32
+ 893 028a 01       		.byte	0x1
+ 894 028b E901     		.2byte	0x1e9
+ 895 028d 01       		.byte	0x1
+ 896 028e 7A000000 		.4byte	0x7a
+ 897 0292 00000000 		.4byte	.LFB14
+ 898 0296 0C000000 		.4byte	.LFE14
+ 899 029a 02       		.byte	0x2
+ 900 029b 7D       		.byte	0x7d
+ 901 029c 00       		.sleb128 0
+ 902 029d 01       		.byte	0x1
+ 903 029e 10       		.uleb128 0x10
+ 904 029f 01       		.byte	0x1
+ 905 02a0 2B000000 		.4byte	.LASF34
+ 906 02a4 01       		.byte	0x1
+ 907 02a5 2E02     		.2byte	0x22e
+ 908 02a7 01       		.byte	0x1
+ 909 02a8 00000000 		.4byte	.LFB15
+ 910 02ac 1C000000 		.4byte	.LFE15
+ 911 02b0 02       		.byte	0x2
+ 912 02b1 7D       		.byte	0x7d
+ 913 02b2 00       		.sleb128 0
+ 914 02b3 01       		.byte	0x1
+ 915 02b4 D9020000 		.4byte	0x2d9
+ 916 02b8 12       		.uleb128 0x12
+ 917 02b9 D0000000 		.4byte	0xd0
+ 918 02bd 00000000 		.4byte	.LBB16
+ 919 02c1 04000000 		.4byte	.LBE16
+ 920 02c5 01       		.byte	0x1
+ 921 02c6 3102     		.2byte	0x231
+ 922 02c8 12       		.uleb128 0x12
+ 923 02c9 C1000000 		.4byte	0xc1
+ 924 02cd 0C000000 		.4byte	.LBB18
+ 925 02d1 12000000 		.4byte	.LBE18
+ 926 02d5 01       		.byte	0x1
+ 927 02d6 3302     		.2byte	0x233
+ 928 02d8 00       		.byte	0
+ 929 02d9 13       		.uleb128 0x13
+ 930 02da 01       		.byte	0x1
+ 931 02db B1030000 		.4byte	.LASF35
+ 932 02df 01       		.byte	0x1
+ 933 02e0 25       		.byte	0x25
+ 934 02e1 01       		.byte	0x1
+ 935 02e2 00000000 		.4byte	.LFB0
+ 936 02e6 5C000000 		.4byte	.LFE0
+ 937 02ea 00000000 		.4byte	.LLST0
+ 938 02ee 01       		.byte	0x1
+ 939 02ef AB030000 		.4byte	0x3ab
+ 940 02f3 14       		.uleb128 0x14
+ 941 02f4 14040000 		.4byte	.LASF36
+ 942 02f8 01       		.byte	0x1
+ 943 02f9 28       		.byte	0x28
+ 944 02fa 6F000000 		.4byte	0x6f
+ 945 02fe 20000000 		.4byte	.LLST1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 28
+
+
+ 946 0302 14       		.uleb128 0x14
+ 947 0303 47000000 		.4byte	.LASF37
+ 948 0307 01       		.byte	0x1
+ 949 0308 2D       		.byte	0x2d
+ 950 0309 6F000000 		.4byte	0x6f
+ 951 030d 3E000000 		.4byte	.LLST2
+ 952 0311 15       		.uleb128 0x15
+ 953 0312 DF000000 		.4byte	0xdf
+ 954 0316 18000000 		.4byte	.LBB20
+ 955 031a 00000000 		.4byte	.Ldebug_ranges0+0
+ 956 031e 01       		.byte	0x1
+ 957 031f 64       		.byte	0x64
+ 958 0320 2D030000 		.4byte	0x32d
+ 959 0324 16       		.uleb128 0x16
+ 960 0325 EE000000 		.4byte	0xee
+ 961 0329 80807E   		.sleb128 -32768
+ 962 032c 00       		.byte	0
+ 963 032d 15       		.uleb128 0x15
+ 964 032e 17010000 		.4byte	0x117
+ 965 0332 1E000000 		.4byte	.LBB23
+ 966 0336 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 967 033a 01       		.byte	0x1
+ 968 033b 68       		.byte	0x68
+ 969 033c 47030000 		.4byte	0x347
+ 970 0340 17       		.uleb128 0x17
+ 971 0341 25010000 		.4byte	0x125
+ 972 0345 00       		.byte	0
+ 973 0346 00       		.byte	0
+ 974 0347 18       		.uleb128 0x18
+ 975 0348 FB000000 		.4byte	0xfb
+ 976 034c 24000000 		.4byte	.LBB29
+ 977 0350 28000000 		.4byte	.LBE29
+ 978 0354 01       		.byte	0x1
+ 979 0355 66       		.byte	0x66
+ 980 0356 63030000 		.4byte	0x363
+ 981 035a 16       		.uleb128 0x16
+ 982 035b 0A010000 		.4byte	0x10a
+ 983 035f 80807E   		.sleb128 -32768
+ 984 0362 00       		.byte	0
+ 985 0363 15       		.uleb128 0x15
+ 986 0364 31010000 		.4byte	0x131
+ 987 0368 28000000 		.4byte	.LBB31
+ 988 036c 38000000 		.4byte	.Ldebug_ranges0+0x38
+ 989 0370 01       		.byte	0x1
+ 990 0371 6E       		.byte	0x6e
+ 991 0372 7F030000 		.4byte	0x37f
+ 992 0376 16       		.uleb128 0x16
+ 993 0377 40010000 		.4byte	0x140
+ 994 037b 80807E   		.sleb128 -32768
+ 995 037e 00       		.byte	0
+ 996 037f 19       		.uleb128 0x19
+ 997 0380 D0000000 		.4byte	0xd0
+ 998 0384 2C000000 		.4byte	.LBB35
+ 999 0388 30000000 		.4byte	.LBE35
+ 1000 038c 01       		.byte	0x1
+ 1001 038d 6C       		.byte	0x6c
+ 1002 038e 1A       		.uleb128 0x1a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 29
+
+
+ 1003 038f 18000000 		.4byte	.LVL7
+ 1004 0393 9E020000 		.4byte	0x29e
+ 1005 0397 1A       		.uleb128 0x1a
+ 1006 0398 36000000 		.4byte	.LVL11
+ 1007 039c EB030000 		.4byte	0x3eb
+ 1008 03a0 1B       		.uleb128 0x1b
+ 1009 03a1 48000000 		.4byte	.LVL12
+ 1010 03a5 01       		.byte	0x1
+ 1011 03a6 F9030000 		.4byte	0x3f9
+ 1012 03aa 00       		.byte	0
+ 1013 03ab 13       		.uleb128 0x13
+ 1014 03ac 01       		.byte	0x1
+ 1015 03ad BF000000 		.4byte	.LASF38
+ 1016 03b1 01       		.byte	0x1
+ 1017 03b2 B2       		.byte	0xb2
+ 1018 03b3 01       		.byte	0x1
+ 1019 03b4 00000000 		.4byte	.LFB2
+ 1020 03b8 1C000000 		.4byte	.LFE2
+ 1021 03bc 51000000 		.4byte	.LLST3
+ 1022 03c0 01       		.byte	0x1
+ 1023 03c1 D9030000 		.4byte	0x3d9
+ 1024 03c5 1A       		.uleb128 0x1a
+ 1025 03c6 0C000000 		.4byte	.LVL13
+ 1026 03ca D9020000 		.4byte	0x2d9
+ 1027 03ce 1B       		.uleb128 0x1b
+ 1028 03cf 18000000 		.4byte	.LVL14
+ 1029 03d3 01       		.byte	0x1
+ 1030 03d4 4D010000 		.4byte	0x14d
+ 1031 03d8 00       		.byte	0
+ 1032 03d9 1C       		.uleb128 0x1c
+ 1033 03da 2A020000 		.4byte	.LASF44
+ 1034 03de 01       		.byte	0x1
+ 1035 03df 15       		.byte	0x15
+ 1036 03e0 6F000000 		.4byte	0x6f
+ 1037 03e4 01       		.byte	0x1
+ 1038 03e5 05       		.byte	0x5
+ 1039 03e6 03       		.byte	0x3
+ 1040 03e7 00000000 		.4byte	QuadDec_PAN_Cnt16_initVar
+ 1041 03eb 1D       		.uleb128 0x1d
+ 1042 03ec 01       		.byte	0x1
+ 1043 03ed 76020000 		.4byte	.LASF39
+ 1044 03f1 03       		.byte	0x3
+ 1045 03f2 7E       		.byte	0x7e
+ 1046 03f3 01       		.byte	0x1
+ 1047 03f4 6F000000 		.4byte	0x6f
+ 1048 03f8 01       		.byte	0x1
+ 1049 03f9 1E       		.uleb128 0x1e
+ 1050 03fa 01       		.byte	0x1
+ 1051 03fb B8020000 		.4byte	.LASF45
+ 1052 03ff 03       		.byte	0x3
+ 1053 0400 7F       		.byte	0x7f
+ 1054 0401 01       		.byte	0x1
+ 1055 0402 01       		.byte	0x1
+ 1056 0403 1F       		.uleb128 0x1f
+ 1057 0404 6F000000 		.4byte	0x6f
+ 1058 0408 00       		.byte	0
+ 1059 0409 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 30
+
+
+ 1060              		.section	.debug_abbrev,"",%progbits
+ 1061              	.Ldebug_abbrev0:
+ 1062 0000 01       		.uleb128 0x1
+ 1063 0001 11       		.uleb128 0x11
+ 1064 0002 01       		.byte	0x1
+ 1065 0003 25       		.uleb128 0x25
+ 1066 0004 0E       		.uleb128 0xe
+ 1067 0005 13       		.uleb128 0x13
+ 1068 0006 0B       		.uleb128 0xb
+ 1069 0007 03       		.uleb128 0x3
+ 1070 0008 0E       		.uleb128 0xe
+ 1071 0009 1B       		.uleb128 0x1b
+ 1072 000a 0E       		.uleb128 0xe
+ 1073 000b 55       		.uleb128 0x55
+ 1074 000c 06       		.uleb128 0x6
+ 1075 000d 11       		.uleb128 0x11
+ 1076 000e 01       		.uleb128 0x1
+ 1077 000f 52       		.uleb128 0x52
+ 1078 0010 01       		.uleb128 0x1
+ 1079 0011 10       		.uleb128 0x10
+ 1080 0012 06       		.uleb128 0x6
+ 1081 0013 00       		.byte	0
+ 1082 0014 00       		.byte	0
+ 1083 0015 02       		.uleb128 0x2
+ 1084 0016 24       		.uleb128 0x24
+ 1085 0017 00       		.byte	0
+ 1086 0018 0B       		.uleb128 0xb
+ 1087 0019 0B       		.uleb128 0xb
+ 1088 001a 3E       		.uleb128 0x3e
+ 1089 001b 0B       		.uleb128 0xb
+ 1090 001c 03       		.uleb128 0x3
+ 1091 001d 0E       		.uleb128 0xe
+ 1092 001e 00       		.byte	0
+ 1093 001f 00       		.byte	0
+ 1094 0020 03       		.uleb128 0x3
+ 1095 0021 24       		.uleb128 0x24
+ 1096 0022 00       		.byte	0
+ 1097 0023 0B       		.uleb128 0xb
+ 1098 0024 0B       		.uleb128 0xb
+ 1099 0025 3E       		.uleb128 0x3e
+ 1100 0026 0B       		.uleb128 0xb
+ 1101 0027 03       		.uleb128 0x3
+ 1102 0028 08       		.uleb128 0x8
+ 1103 0029 00       		.byte	0
+ 1104 002a 00       		.byte	0
+ 1105 002b 04       		.uleb128 0x4
+ 1106 002c 16       		.uleb128 0x16
+ 1107 002d 00       		.byte	0
+ 1108 002e 03       		.uleb128 0x3
+ 1109 002f 0E       		.uleb128 0xe
+ 1110 0030 3A       		.uleb128 0x3a
+ 1111 0031 0B       		.uleb128 0xb
+ 1112 0032 3B       		.uleb128 0x3b
+ 1113 0033 0B       		.uleb128 0xb
+ 1114 0034 49       		.uleb128 0x49
+ 1115 0035 13       		.uleb128 0x13
+ 1116 0036 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 31
+
+
+ 1117 0037 00       		.byte	0
+ 1118 0038 05       		.uleb128 0x5
+ 1119 0039 35       		.uleb128 0x35
+ 1120 003a 00       		.byte	0
+ 1121 003b 49       		.uleb128 0x49
+ 1122 003c 13       		.uleb128 0x13
+ 1123 003d 00       		.byte	0
+ 1124 003e 00       		.byte	0
+ 1125 003f 06       		.uleb128 0x6
+ 1126 0040 2E       		.uleb128 0x2e
+ 1127 0041 00       		.byte	0
+ 1128 0042 3F       		.uleb128 0x3f
+ 1129 0043 0C       		.uleb128 0xc
+ 1130 0044 03       		.uleb128 0x3
+ 1131 0045 0E       		.uleb128 0xe
+ 1132 0046 3A       		.uleb128 0x3a
+ 1133 0047 0B       		.uleb128 0xb
+ 1134 0048 3B       		.uleb128 0x3b
+ 1135 0049 05       		.uleb128 0x5
+ 1136 004a 27       		.uleb128 0x27
+ 1137 004b 0C       		.uleb128 0xc
+ 1138 004c 49       		.uleb128 0x49
+ 1139 004d 13       		.uleb128 0x13
+ 1140 004e 20       		.uleb128 0x20
+ 1141 004f 0B       		.uleb128 0xb
+ 1142 0050 00       		.byte	0
+ 1143 0051 00       		.byte	0
+ 1144 0052 07       		.uleb128 0x7
+ 1145 0053 2E       		.uleb128 0x2e
+ 1146 0054 01       		.byte	0x1
+ 1147 0055 3F       		.uleb128 0x3f
+ 1148 0056 0C       		.uleb128 0xc
+ 1149 0057 03       		.uleb128 0x3
+ 1150 0058 0E       		.uleb128 0xe
+ 1151 0059 3A       		.uleb128 0x3a
+ 1152 005a 0B       		.uleb128 0xb
+ 1153 005b 3B       		.uleb128 0x3b
+ 1154 005c 05       		.uleb128 0x5
+ 1155 005d 27       		.uleb128 0x27
+ 1156 005e 0C       		.uleb128 0xc
+ 1157 005f 20       		.uleb128 0x20
+ 1158 0060 0B       		.uleb128 0xb
+ 1159 0061 01       		.uleb128 0x1
+ 1160 0062 13       		.uleb128 0x13
+ 1161 0063 00       		.byte	0
+ 1162 0064 00       		.byte	0
+ 1163 0065 08       		.uleb128 0x8
+ 1164 0066 05       		.uleb128 0x5
+ 1165 0067 00       		.byte	0
+ 1166 0068 03       		.uleb128 0x3
+ 1167 0069 0E       		.uleb128 0xe
+ 1168 006a 3A       		.uleb128 0x3a
+ 1169 006b 0B       		.uleb128 0xb
+ 1170 006c 3B       		.uleb128 0x3b
+ 1171 006d 05       		.uleb128 0x5
+ 1172 006e 49       		.uleb128 0x49
+ 1173 006f 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 32
+
+
+ 1174 0070 00       		.byte	0
+ 1175 0071 00       		.byte	0
+ 1176 0072 09       		.uleb128 0x9
+ 1177 0073 2E       		.uleb128 0x2e
+ 1178 0074 01       		.byte	0x1
+ 1179 0075 3F       		.uleb128 0x3f
+ 1180 0076 0C       		.uleb128 0xc
+ 1181 0077 03       		.uleb128 0x3
+ 1182 0078 0E       		.uleb128 0xe
+ 1183 0079 3A       		.uleb128 0x3a
+ 1184 007a 0B       		.uleb128 0xb
+ 1185 007b 3B       		.uleb128 0x3b
+ 1186 007c 0B       		.uleb128 0xb
+ 1187 007d 27       		.uleb128 0x27
+ 1188 007e 0C       		.uleb128 0xc
+ 1189 007f 20       		.uleb128 0x20
+ 1190 0080 0B       		.uleb128 0xb
+ 1191 0081 01       		.uleb128 0x1
+ 1192 0082 13       		.uleb128 0x13
+ 1193 0083 00       		.byte	0
+ 1194 0084 00       		.byte	0
+ 1195 0085 0A       		.uleb128 0xa
+ 1196 0086 05       		.uleb128 0x5
+ 1197 0087 00       		.byte	0
+ 1198 0088 03       		.uleb128 0x3
+ 1199 0089 0E       		.uleb128 0xe
+ 1200 008a 3A       		.uleb128 0x3a
+ 1201 008b 0B       		.uleb128 0xb
+ 1202 008c 3B       		.uleb128 0x3b
+ 1203 008d 0B       		.uleb128 0xb
+ 1204 008e 49       		.uleb128 0x49
+ 1205 008f 13       		.uleb128 0x13
+ 1206 0090 00       		.byte	0
+ 1207 0091 00       		.byte	0
+ 1208 0092 0B       		.uleb128 0xb
+ 1209 0093 2E       		.uleb128 0x2e
+ 1210 0094 00       		.byte	0
+ 1211 0095 3F       		.uleb128 0x3f
+ 1212 0096 0C       		.uleb128 0xc
+ 1213 0097 03       		.uleb128 0x3
+ 1214 0098 0E       		.uleb128 0xe
+ 1215 0099 3A       		.uleb128 0x3a
+ 1216 009a 0B       		.uleb128 0xb
+ 1217 009b 3B       		.uleb128 0x3b
+ 1218 009c 0B       		.uleb128 0xb
+ 1219 009d 27       		.uleb128 0x27
+ 1220 009e 0C       		.uleb128 0xc
+ 1221 009f 11       		.uleb128 0x11
+ 1222 00a0 01       		.uleb128 0x1
+ 1223 00a1 12       		.uleb128 0x12
+ 1224 00a2 01       		.uleb128 0x1
+ 1225 00a3 40       		.uleb128 0x40
+ 1226 00a4 0A       		.uleb128 0xa
+ 1227 00a5 9742     		.uleb128 0x2117
+ 1228 00a7 0C       		.uleb128 0xc
+ 1229 00a8 00       		.byte	0
+ 1230 00a9 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 33
+
+
+ 1231 00aa 0C       		.uleb128 0xc
+ 1232 00ab 2E       		.uleb128 0x2e
+ 1233 00ac 01       		.byte	0x1
+ 1234 00ad 31       		.uleb128 0x31
+ 1235 00ae 13       		.uleb128 0x13
+ 1236 00af 11       		.uleb128 0x11
+ 1237 00b0 01       		.uleb128 0x1
+ 1238 00b1 12       		.uleb128 0x12
+ 1239 00b2 01       		.uleb128 0x1
+ 1240 00b3 40       		.uleb128 0x40
+ 1241 00b4 0A       		.uleb128 0xa
+ 1242 00b5 9742     		.uleb128 0x2117
+ 1243 00b7 0C       		.uleb128 0xc
+ 1244 00b8 01       		.uleb128 0x1
+ 1245 00b9 13       		.uleb128 0x13
+ 1246 00ba 00       		.byte	0
+ 1247 00bb 00       		.byte	0
+ 1248 00bc 0D       		.uleb128 0xd
+ 1249 00bd 05       		.uleb128 0x5
+ 1250 00be 00       		.byte	0
+ 1251 00bf 31       		.uleb128 0x31
+ 1252 00c0 13       		.uleb128 0x13
+ 1253 00c1 02       		.uleb128 0x2
+ 1254 00c2 0A       		.uleb128 0xa
+ 1255 00c3 00       		.byte	0
+ 1256 00c4 00       		.byte	0
+ 1257 00c5 0E       		.uleb128 0xe
+ 1258 00c6 2E       		.uleb128 0x2e
+ 1259 00c7 00       		.byte	0
+ 1260 00c8 31       		.uleb128 0x31
+ 1261 00c9 13       		.uleb128 0x13
+ 1262 00ca 11       		.uleb128 0x11
+ 1263 00cb 01       		.uleb128 0x1
+ 1264 00cc 12       		.uleb128 0x12
+ 1265 00cd 01       		.uleb128 0x1
+ 1266 00ce 40       		.uleb128 0x40
+ 1267 00cf 0A       		.uleb128 0xa
+ 1268 00d0 9742     		.uleb128 0x2117
+ 1269 00d2 0C       		.uleb128 0xc
+ 1270 00d3 00       		.byte	0
+ 1271 00d4 00       		.byte	0
+ 1272 00d5 0F       		.uleb128 0xf
+ 1273 00d6 2E       		.uleb128 0x2e
+ 1274 00d7 00       		.byte	0
+ 1275 00d8 3F       		.uleb128 0x3f
+ 1276 00d9 0C       		.uleb128 0xc
+ 1277 00da 03       		.uleb128 0x3
+ 1278 00db 0E       		.uleb128 0xe
+ 1279 00dc 3A       		.uleb128 0x3a
+ 1280 00dd 0B       		.uleb128 0xb
+ 1281 00de 3B       		.uleb128 0x3b
+ 1282 00df 05       		.uleb128 0x5
+ 1283 00e0 27       		.uleb128 0x27
+ 1284 00e1 0C       		.uleb128 0xc
+ 1285 00e2 49       		.uleb128 0x49
+ 1286 00e3 13       		.uleb128 0x13
+ 1287 00e4 11       		.uleb128 0x11
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 34
+
+
+ 1288 00e5 01       		.uleb128 0x1
+ 1289 00e6 12       		.uleb128 0x12
+ 1290 00e7 01       		.uleb128 0x1
+ 1291 00e8 40       		.uleb128 0x40
+ 1292 00e9 0A       		.uleb128 0xa
+ 1293 00ea 9742     		.uleb128 0x2117
+ 1294 00ec 0C       		.uleb128 0xc
+ 1295 00ed 00       		.byte	0
+ 1296 00ee 00       		.byte	0
+ 1297 00ef 10       		.uleb128 0x10
+ 1298 00f0 2E       		.uleb128 0x2e
+ 1299 00f1 01       		.byte	0x1
+ 1300 00f2 3F       		.uleb128 0x3f
+ 1301 00f3 0C       		.uleb128 0xc
+ 1302 00f4 03       		.uleb128 0x3
+ 1303 00f5 0E       		.uleb128 0xe
+ 1304 00f6 3A       		.uleb128 0x3a
+ 1305 00f7 0B       		.uleb128 0xb
+ 1306 00f8 3B       		.uleb128 0x3b
+ 1307 00f9 05       		.uleb128 0x5
+ 1308 00fa 27       		.uleb128 0x27
+ 1309 00fb 0C       		.uleb128 0xc
+ 1310 00fc 11       		.uleb128 0x11
+ 1311 00fd 01       		.uleb128 0x1
+ 1312 00fe 12       		.uleb128 0x12
+ 1313 00ff 01       		.uleb128 0x1
+ 1314 0100 40       		.uleb128 0x40
+ 1315 0101 0A       		.uleb128 0xa
+ 1316 0102 9742     		.uleb128 0x2117
+ 1317 0104 0C       		.uleb128 0xc
+ 1318 0105 01       		.uleb128 0x1
+ 1319 0106 13       		.uleb128 0x13
+ 1320 0107 00       		.byte	0
+ 1321 0108 00       		.byte	0
+ 1322 0109 11       		.uleb128 0x11
+ 1323 010a 05       		.uleb128 0x5
+ 1324 010b 00       		.byte	0
+ 1325 010c 03       		.uleb128 0x3
+ 1326 010d 0E       		.uleb128 0xe
+ 1327 010e 3A       		.uleb128 0x3a
+ 1328 010f 0B       		.uleb128 0xb
+ 1329 0110 3B       		.uleb128 0x3b
+ 1330 0111 05       		.uleb128 0x5
+ 1331 0112 49       		.uleb128 0x49
+ 1332 0113 13       		.uleb128 0x13
+ 1333 0114 02       		.uleb128 0x2
+ 1334 0115 0A       		.uleb128 0xa
+ 1335 0116 00       		.byte	0
+ 1336 0117 00       		.byte	0
+ 1337 0118 12       		.uleb128 0x12
+ 1338 0119 1D       		.uleb128 0x1d
+ 1339 011a 00       		.byte	0
+ 1340 011b 31       		.uleb128 0x31
+ 1341 011c 13       		.uleb128 0x13
+ 1342 011d 11       		.uleb128 0x11
+ 1343 011e 01       		.uleb128 0x1
+ 1344 011f 12       		.uleb128 0x12
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 35
+
+
+ 1345 0120 01       		.uleb128 0x1
+ 1346 0121 58       		.uleb128 0x58
+ 1347 0122 0B       		.uleb128 0xb
+ 1348 0123 59       		.uleb128 0x59
+ 1349 0124 05       		.uleb128 0x5
+ 1350 0125 00       		.byte	0
+ 1351 0126 00       		.byte	0
+ 1352 0127 13       		.uleb128 0x13
+ 1353 0128 2E       		.uleb128 0x2e
+ 1354 0129 01       		.byte	0x1
+ 1355 012a 3F       		.uleb128 0x3f
+ 1356 012b 0C       		.uleb128 0xc
+ 1357 012c 03       		.uleb128 0x3
+ 1358 012d 0E       		.uleb128 0xe
+ 1359 012e 3A       		.uleb128 0x3a
+ 1360 012f 0B       		.uleb128 0xb
+ 1361 0130 3B       		.uleb128 0x3b
+ 1362 0131 0B       		.uleb128 0xb
+ 1363 0132 27       		.uleb128 0x27
+ 1364 0133 0C       		.uleb128 0xc
+ 1365 0134 11       		.uleb128 0x11
+ 1366 0135 01       		.uleb128 0x1
+ 1367 0136 12       		.uleb128 0x12
+ 1368 0137 01       		.uleb128 0x1
+ 1369 0138 40       		.uleb128 0x40
+ 1370 0139 06       		.uleb128 0x6
+ 1371 013a 9742     		.uleb128 0x2117
+ 1372 013c 0C       		.uleb128 0xc
+ 1373 013d 01       		.uleb128 0x1
+ 1374 013e 13       		.uleb128 0x13
+ 1375 013f 00       		.byte	0
+ 1376 0140 00       		.byte	0
+ 1377 0141 14       		.uleb128 0x14
+ 1378 0142 34       		.uleb128 0x34
+ 1379 0143 00       		.byte	0
+ 1380 0144 03       		.uleb128 0x3
+ 1381 0145 0E       		.uleb128 0xe
+ 1382 0146 3A       		.uleb128 0x3a
+ 1383 0147 0B       		.uleb128 0xb
+ 1384 0148 3B       		.uleb128 0x3b
+ 1385 0149 0B       		.uleb128 0xb
+ 1386 014a 49       		.uleb128 0x49
+ 1387 014b 13       		.uleb128 0x13
+ 1388 014c 02       		.uleb128 0x2
+ 1389 014d 06       		.uleb128 0x6
+ 1390 014e 00       		.byte	0
+ 1391 014f 00       		.byte	0
+ 1392 0150 15       		.uleb128 0x15
+ 1393 0151 1D       		.uleb128 0x1d
+ 1394 0152 01       		.byte	0x1
+ 1395 0153 31       		.uleb128 0x31
+ 1396 0154 13       		.uleb128 0x13
+ 1397 0155 52       		.uleb128 0x52
+ 1398 0156 01       		.uleb128 0x1
+ 1399 0157 55       		.uleb128 0x55
+ 1400 0158 06       		.uleb128 0x6
+ 1401 0159 58       		.uleb128 0x58
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 36
+
+
+ 1402 015a 0B       		.uleb128 0xb
+ 1403 015b 59       		.uleb128 0x59
+ 1404 015c 0B       		.uleb128 0xb
+ 1405 015d 01       		.uleb128 0x1
+ 1406 015e 13       		.uleb128 0x13
+ 1407 015f 00       		.byte	0
+ 1408 0160 00       		.byte	0
+ 1409 0161 16       		.uleb128 0x16
+ 1410 0162 05       		.uleb128 0x5
+ 1411 0163 00       		.byte	0
+ 1412 0164 31       		.uleb128 0x31
+ 1413 0165 13       		.uleb128 0x13
+ 1414 0166 1C       		.uleb128 0x1c
+ 1415 0167 0D       		.uleb128 0xd
+ 1416 0168 00       		.byte	0
+ 1417 0169 00       		.byte	0
+ 1418 016a 17       		.uleb128 0x17
+ 1419 016b 05       		.uleb128 0x5
+ 1420 016c 00       		.byte	0
+ 1421 016d 31       		.uleb128 0x31
+ 1422 016e 13       		.uleb128 0x13
+ 1423 016f 1C       		.uleb128 0x1c
+ 1424 0170 0B       		.uleb128 0xb
+ 1425 0171 00       		.byte	0
+ 1426 0172 00       		.byte	0
+ 1427 0173 18       		.uleb128 0x18
+ 1428 0174 1D       		.uleb128 0x1d
+ 1429 0175 01       		.byte	0x1
+ 1430 0176 31       		.uleb128 0x31
+ 1431 0177 13       		.uleb128 0x13
+ 1432 0178 11       		.uleb128 0x11
+ 1433 0179 01       		.uleb128 0x1
+ 1434 017a 12       		.uleb128 0x12
+ 1435 017b 01       		.uleb128 0x1
+ 1436 017c 58       		.uleb128 0x58
+ 1437 017d 0B       		.uleb128 0xb
+ 1438 017e 59       		.uleb128 0x59
+ 1439 017f 0B       		.uleb128 0xb
+ 1440 0180 01       		.uleb128 0x1
+ 1441 0181 13       		.uleb128 0x13
+ 1442 0182 00       		.byte	0
+ 1443 0183 00       		.byte	0
+ 1444 0184 19       		.uleb128 0x19
+ 1445 0185 1D       		.uleb128 0x1d
+ 1446 0186 00       		.byte	0
+ 1447 0187 31       		.uleb128 0x31
+ 1448 0188 13       		.uleb128 0x13
+ 1449 0189 11       		.uleb128 0x11
+ 1450 018a 01       		.uleb128 0x1
+ 1451 018b 12       		.uleb128 0x12
+ 1452 018c 01       		.uleb128 0x1
+ 1453 018d 58       		.uleb128 0x58
+ 1454 018e 0B       		.uleb128 0xb
+ 1455 018f 59       		.uleb128 0x59
+ 1456 0190 0B       		.uleb128 0xb
+ 1457 0191 00       		.byte	0
+ 1458 0192 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 37
+
+
+ 1459 0193 1A       		.uleb128 0x1a
+ 1460 0194 898201   		.uleb128 0x4109
+ 1461 0197 00       		.byte	0
+ 1462 0198 11       		.uleb128 0x11
+ 1463 0199 01       		.uleb128 0x1
+ 1464 019a 31       		.uleb128 0x31
+ 1465 019b 13       		.uleb128 0x13
+ 1466 019c 00       		.byte	0
+ 1467 019d 00       		.byte	0
+ 1468 019e 1B       		.uleb128 0x1b
+ 1469 019f 898201   		.uleb128 0x4109
+ 1470 01a2 00       		.byte	0
+ 1471 01a3 11       		.uleb128 0x11
+ 1472 01a4 01       		.uleb128 0x1
+ 1473 01a5 9542     		.uleb128 0x2115
+ 1474 01a7 0C       		.uleb128 0xc
+ 1475 01a8 31       		.uleb128 0x31
+ 1476 01a9 13       		.uleb128 0x13
+ 1477 01aa 00       		.byte	0
+ 1478 01ab 00       		.byte	0
+ 1479 01ac 1C       		.uleb128 0x1c
+ 1480 01ad 34       		.uleb128 0x34
+ 1481 01ae 00       		.byte	0
+ 1482 01af 03       		.uleb128 0x3
+ 1483 01b0 0E       		.uleb128 0xe
+ 1484 01b1 3A       		.uleb128 0x3a
+ 1485 01b2 0B       		.uleb128 0xb
+ 1486 01b3 3B       		.uleb128 0x3b
+ 1487 01b4 0B       		.uleb128 0xb
+ 1488 01b5 49       		.uleb128 0x49
+ 1489 01b6 13       		.uleb128 0x13
+ 1490 01b7 3F       		.uleb128 0x3f
+ 1491 01b8 0C       		.uleb128 0xc
+ 1492 01b9 02       		.uleb128 0x2
+ 1493 01ba 0A       		.uleb128 0xa
+ 1494 01bb 00       		.byte	0
+ 1495 01bc 00       		.byte	0
+ 1496 01bd 1D       		.uleb128 0x1d
+ 1497 01be 2E       		.uleb128 0x2e
+ 1498 01bf 00       		.byte	0
+ 1499 01c0 3F       		.uleb128 0x3f
+ 1500 01c1 0C       		.uleb128 0xc
+ 1501 01c2 03       		.uleb128 0x3
+ 1502 01c3 0E       		.uleb128 0xe
+ 1503 01c4 3A       		.uleb128 0x3a
+ 1504 01c5 0B       		.uleb128 0xb
+ 1505 01c6 3B       		.uleb128 0x3b
+ 1506 01c7 0B       		.uleb128 0xb
+ 1507 01c8 27       		.uleb128 0x27
+ 1508 01c9 0C       		.uleb128 0xc
+ 1509 01ca 49       		.uleb128 0x49
+ 1510 01cb 13       		.uleb128 0x13
+ 1511 01cc 3C       		.uleb128 0x3c
+ 1512 01cd 0C       		.uleb128 0xc
+ 1513 01ce 00       		.byte	0
+ 1514 01cf 00       		.byte	0
+ 1515 01d0 1E       		.uleb128 0x1e
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 38
+
+
+ 1516 01d1 2E       		.uleb128 0x2e
+ 1517 01d2 01       		.byte	0x1
+ 1518 01d3 3F       		.uleb128 0x3f
+ 1519 01d4 0C       		.uleb128 0xc
+ 1520 01d5 03       		.uleb128 0x3
+ 1521 01d6 0E       		.uleb128 0xe
+ 1522 01d7 3A       		.uleb128 0x3a
+ 1523 01d8 0B       		.uleb128 0xb
+ 1524 01d9 3B       		.uleb128 0x3b
+ 1525 01da 0B       		.uleb128 0xb
+ 1526 01db 27       		.uleb128 0x27
+ 1527 01dc 0C       		.uleb128 0xc
+ 1528 01dd 3C       		.uleb128 0x3c
+ 1529 01de 0C       		.uleb128 0xc
+ 1530 01df 00       		.byte	0
+ 1531 01e0 00       		.byte	0
+ 1532 01e1 1F       		.uleb128 0x1f
+ 1533 01e2 05       		.uleb128 0x5
+ 1534 01e3 00       		.byte	0
+ 1535 01e4 49       		.uleb128 0x49
+ 1536 01e5 13       		.uleb128 0x13
+ 1537 01e6 00       		.byte	0
+ 1538 01e7 00       		.byte	0
+ 1539 01e8 00       		.byte	0
+ 1540              		.section	.debug_loc,"",%progbits
+ 1541              	.Ldebug_loc0:
+ 1542              	.LLST0:
+ 1543 0000 00000000 		.4byte	.LFB0
+ 1544 0004 02000000 		.4byte	.LCFI0
+ 1545 0008 0200     		.2byte	0x2
+ 1546 000a 7D       		.byte	0x7d
+ 1547 000b 00       		.sleb128 0
+ 1548 000c 02000000 		.4byte	.LCFI0
+ 1549 0010 5C000000 		.4byte	.LFE0
+ 1550 0014 0200     		.2byte	0x2
+ 1551 0016 7D       		.byte	0x7d
+ 1552 0017 08       		.sleb128 8
+ 1553 0018 00000000 		.4byte	0
+ 1554 001c 00000000 		.4byte	0
+ 1555              	.LLST1:
+ 1556 0020 0A000000 		.4byte	.LVL5
+ 1557 0024 12000000 		.4byte	.LVL6
+ 1558 0028 0100     		.2byte	0x1
+ 1559 002a 50       		.byte	0x50
+ 1560 002b 12000000 		.4byte	.LVL6
+ 1561 002f 17000000 		.4byte	.LVL7-1
+ 1562 0033 0100     		.2byte	0x1
+ 1563 0035 52       		.byte	0x52
+ 1564 0036 00000000 		.4byte	0
+ 1565 003a 00000000 		.4byte	0
+ 1566              	.LLST2:
+ 1567 003e 36000000 		.4byte	.LVL11
+ 1568 0042 47000000 		.4byte	.LVL12-1
+ 1569 0046 0100     		.2byte	0x1
+ 1570 0048 50       		.byte	0x50
+ 1571 0049 00000000 		.4byte	0
+ 1572 004d 00000000 		.4byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 39
+
+
+ 1573              	.LLST3:
+ 1574 0051 00000000 		.4byte	.LFB2
+ 1575 0055 02000000 		.4byte	.LCFI1
+ 1576 0059 0200     		.2byte	0x2
+ 1577 005b 7D       		.byte	0x7d
+ 1578 005c 00       		.sleb128 0
+ 1579 005d 02000000 		.4byte	.LCFI1
+ 1580 0061 1C000000 		.4byte	.LFE2
+ 1581 0065 0200     		.2byte	0x2
+ 1582 0067 7D       		.byte	0x7d
+ 1583 0068 08       		.sleb128 8
+ 1584 0069 00000000 		.4byte	0
+ 1585 006d 00000000 		.4byte	0
+ 1586              		.section	.debug_aranges,"",%progbits
+ 1587 0000 94000000 		.4byte	0x94
+ 1588 0004 0200     		.2byte	0x2
+ 1589 0006 00000000 		.4byte	.Ldebug_info0
+ 1590 000a 04       		.byte	0x4
+ 1591 000b 00       		.byte	0
+ 1592 000c 0000     		.2byte	0
+ 1593 000e 0000     		.2byte	0
+ 1594 0010 00000000 		.4byte	.LFB1
+ 1595 0014 10000000 		.4byte	.LFE1-.LFB1
+ 1596 0018 00000000 		.4byte	.LFB3
+ 1597 001c 10000000 		.4byte	.LFE3-.LFB3
+ 1598 0020 00000000 		.4byte	.LFB4
+ 1599 0024 0C000000 		.4byte	.LFE4-.LFB4
+ 1600 0028 00000000 		.4byte	.LFB5
+ 1601 002c 0C000000 		.4byte	.LFE5-.LFB5
+ 1602 0030 00000000 		.4byte	.LFB6
+ 1603 0034 0C000000 		.4byte	.LFE6-.LFB6
+ 1604 0038 00000000 		.4byte	.LFB7
+ 1605 003c 0C000000 		.4byte	.LFE7-.LFB7
+ 1606 0040 00000000 		.4byte	.LFB8
+ 1607 0044 0C000000 		.4byte	.LFE8-.LFB8
+ 1608 0048 00000000 		.4byte	.LFB9
+ 1609 004c 14000000 		.4byte	.LFE9-.LFB9
+ 1610 0050 00000000 		.4byte	.LFB10
+ 1611 0054 0C000000 		.4byte	.LFE10-.LFB10
+ 1612 0058 00000000 		.4byte	.LFB11
+ 1613 005c 0C000000 		.4byte	.LFE11-.LFB11
+ 1614 0060 00000000 		.4byte	.LFB12
+ 1615 0064 0C000000 		.4byte	.LFE12-.LFB12
+ 1616 0068 00000000 		.4byte	.LFB13
+ 1617 006c 0C000000 		.4byte	.LFE13-.LFB13
+ 1618 0070 00000000 		.4byte	.LFB14
+ 1619 0074 0C000000 		.4byte	.LFE14-.LFB14
+ 1620 0078 00000000 		.4byte	.LFB15
+ 1621 007c 1C000000 		.4byte	.LFE15-.LFB15
+ 1622 0080 00000000 		.4byte	.LFB0
+ 1623 0084 5C000000 		.4byte	.LFE0-.LFB0
+ 1624 0088 00000000 		.4byte	.LFB2
+ 1625 008c 1C000000 		.4byte	.LFE2-.LFB2
+ 1626 0090 00000000 		.4byte	0
+ 1627 0094 00000000 		.4byte	0
+ 1628              		.section	.debug_ranges,"",%progbits
+ 1629              	.Ldebug_ranges0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 40
+
+
+ 1630 0000 18000000 		.4byte	.LBB20
+ 1631 0004 1E000000 		.4byte	.LBE20
+ 1632 0008 20000000 		.4byte	.LBB27
+ 1633 000c 22000000 		.4byte	.LBE27
+ 1634 0010 00000000 		.4byte	0
+ 1635 0014 00000000 		.4byte	0
+ 1636 0018 1E000000 		.4byte	.LBB23
+ 1637 001c 20000000 		.4byte	.LBE23
+ 1638 0020 22000000 		.4byte	.LBB28
+ 1639 0024 24000000 		.4byte	.LBE28
+ 1640 0028 2A000000 		.4byte	.LBB34
+ 1641 002c 2C000000 		.4byte	.LBE34
+ 1642 0030 00000000 		.4byte	0
+ 1643 0034 00000000 		.4byte	0
+ 1644 0038 28000000 		.4byte	.LBB31
+ 1645 003c 2A000000 		.4byte	.LBE31
+ 1646 0040 30000000 		.4byte	.LBB37
+ 1647 0044 32000000 		.4byte	.LBE37
+ 1648 0048 00000000 		.4byte	0
+ 1649 004c 00000000 		.4byte	0
+ 1650 0050 00000000 		.4byte	.LFB1
+ 1651 0054 10000000 		.4byte	.LFE1
+ 1652 0058 00000000 		.4byte	.LFB3
+ 1653 005c 10000000 		.4byte	.LFE3
+ 1654 0060 00000000 		.4byte	.LFB4
+ 1655 0064 0C000000 		.4byte	.LFE4
+ 1656 0068 00000000 		.4byte	.LFB5
+ 1657 006c 0C000000 		.4byte	.LFE5
+ 1658 0070 00000000 		.4byte	.LFB6
+ 1659 0074 0C000000 		.4byte	.LFE6
+ 1660 0078 00000000 		.4byte	.LFB7
+ 1661 007c 0C000000 		.4byte	.LFE7
+ 1662 0080 00000000 		.4byte	.LFB8
+ 1663 0084 0C000000 		.4byte	.LFE8
+ 1664 0088 00000000 		.4byte	.LFB9
+ 1665 008c 14000000 		.4byte	.LFE9
+ 1666 0090 00000000 		.4byte	.LFB10
+ 1667 0094 0C000000 		.4byte	.LFE10
+ 1668 0098 00000000 		.4byte	.LFB11
+ 1669 009c 0C000000 		.4byte	.LFE11
+ 1670 00a0 00000000 		.4byte	.LFB12
+ 1671 00a4 0C000000 		.4byte	.LFE12
+ 1672 00a8 00000000 		.4byte	.LFB13
+ 1673 00ac 0C000000 		.4byte	.LFE13
+ 1674 00b0 00000000 		.4byte	.LFB14
+ 1675 00b4 0C000000 		.4byte	.LFE14
+ 1676 00b8 00000000 		.4byte	.LFB15
+ 1677 00bc 1C000000 		.4byte	.LFE15
+ 1678 00c0 00000000 		.4byte	.LFB0
+ 1679 00c4 5C000000 		.4byte	.LFE0
+ 1680 00c8 00000000 		.4byte	.LFB2
+ 1681 00cc 1C000000 		.4byte	.LFE2
+ 1682 00d0 00000000 		.4byte	0
+ 1683 00d4 00000000 		.4byte	0
+ 1684              		.section	.debug_line,"",%progbits
+ 1685              	.Ldebug_line0:
+ 1686 0000 CB010000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 41
+
+
+ 1686      02005B00 
+ 1686      00000201 
+ 1686      FB0E0D00 
+ 1686      01010101 
+ 1687              	.LASF15:
+ 1688 0000 72656731 		.ascii	"reg16\000"
+ 1688      3600
+ 1689              	.LASF18:
+ 1690 0006 51756164 		.ascii	"QuadDec_PAN_Cnt16_ReadStatusRegister\000"
+ 1690      4465635F 
+ 1690      50414E5F 
+ 1690      436E7431 
+ 1690      365F5265 
+ 1691              	.LASF34:
+ 1692 002b 51756164 		.ascii	"QuadDec_PAN_Cnt16_ClearFIFO\000"
+ 1692      4465635F 
+ 1692      50414E5F 
+ 1692      436E7431 
+ 1692      365F436C 
+ 1693              	.LASF37:
+ 1694 0047 51756164 		.ascii	"QuadDec_PAN_Cnt16_interruptState\000"
+ 1694      4465635F 
+ 1694      50414E5F 
+ 1694      436E7431 
+ 1694      365F696E 
+ 1695              	.LASF24:
+ 1696 0068 696E7465 		.ascii	"interruptsMask\000"
+ 1696      72727570 
+ 1696      74734D61 
+ 1696      736B00
+ 1697              	.LASF21:
+ 1698 0077 70657269 		.ascii	"period\000"
+ 1698      6F6400
+ 1699              	.LASF33:
+ 1700 007e 51756164 		.ascii	"QuadDec_PAN_Cnt16_WriteControlRegister\000"
+ 1700      4465635F 
+ 1700      50414E5F 
+ 1700      436E7431 
+ 1700      365F5772 
+ 1701              	.LASF3:
+ 1702 00a5 73686F72 		.ascii	"short unsigned int\000"
+ 1702      7420756E 
+ 1702      7369676E 
+ 1702      65642069 
+ 1702      6E7400
+ 1703              	.LASF12:
+ 1704 00b8 646F7562 		.ascii	"double\000"
+ 1704      6C6500
+ 1705              	.LASF38:
+ 1706 00bf 51756164 		.ascii	"QuadDec_PAN_Cnt16_Start\000"
+ 1706      4465635F 
+ 1706      50414E5F 
+ 1706      436E7431 
+ 1706      365F5374 
+ 1707              	.LASF19:
+ 1708 00d7 51756164 		.ascii	"QuadDec_PAN_Cnt16_WritePeriod\000"
+ 1708      4465635F 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 42
+
+
+ 1708      50414E5F 
+ 1708      436E7431 
+ 1708      365F5772 
+ 1709              	.LASF41:
+ 1710 00f5 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\QuadDec_PAN_Cnt16.c\000"
+ 1710      6E657261 
+ 1710      7465645F 
+ 1710      536F7572 
+ 1710      63655C50 
+ 1711              	.LASF11:
+ 1712 0122 666C6F61 		.ascii	"float\000"
+ 1712      7400
+ 1713              	.LASF22:
+ 1714 0128 636F756E 		.ascii	"counter\000"
+ 1714      74657200 
+ 1715              	.LASF7:
+ 1716 0130 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1716      206C6F6E 
+ 1716      6720756E 
+ 1716      7369676E 
+ 1716      65642069 
+ 1717              	.LASF27:
+ 1718 0147 51756164 		.ascii	"QuadDec_PAN_Cnt16_Enable\000"
+ 1718      4465635F 
+ 1718      50414E5F 
+ 1718      436E7431 
+ 1718      365F456E 
+ 1719              	.LASF23:
+ 1720 0160 51756164 		.ascii	"QuadDec_PAN_Cnt16_SetInterruptMode\000"
+ 1720      4465635F 
+ 1720      50414E5F 
+ 1720      436E7431 
+ 1720      365F5365 
+ 1721              	.LASF5:
+ 1722 0183 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1722      20756E73 
+ 1722      69676E65 
+ 1722      6420696E 
+ 1722      7400
+ 1723              	.LASF42:
+ 1724 0195 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 1724      73657273 
+ 1724      5C477261 
+ 1724      7A69616E 
+ 1724      6F5C4465 
+ 1725 01c3 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 1725      525C5665 
+ 1725      72732E30 
+ 1725      2E302D54 
+ 1725      30352032 
+ 1726 01f4 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 1726      65446972 
+ 1726      2E637964 
+ 1726      736E00
+ 1727              	.LASF43:
+ 1728 0203 636F6E74 		.ascii	"control\000"
+ 1728      726F6C00 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 43
+
+
+ 1729              	.LASF25:
+ 1730 020b 51756164 		.ascii	"QuadDec_PAN_Cnt16_WriteCompare\000"
+ 1730      4465635F 
+ 1730      50414E5F 
+ 1730      436E7431 
+ 1730      365F5772 
+ 1731              	.LASF44:
+ 1732 022a 51756164 		.ascii	"QuadDec_PAN_Cnt16_initVar\000"
+ 1732      4465635F 
+ 1732      50414E5F 
+ 1732      436E7431 
+ 1732      365F696E 
+ 1733              	.LASF1:
+ 1734 0244 756E7369 		.ascii	"unsigned char\000"
+ 1734      676E6564 
+ 1734      20636861 
+ 1734      7200
+ 1735              	.LASF31:
+ 1736 0252 51756164 		.ascii	"QuadDec_PAN_Cnt16_ReadPeriod\000"
+ 1736      4465635F 
+ 1736      50414E5F 
+ 1736      436E7431 
+ 1736      365F5265 
+ 1737              	.LASF10:
+ 1738 026f 75696E74 		.ascii	"uint16\000"
+ 1738      313600
+ 1739              	.LASF39:
+ 1740 0276 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1740      74657243 
+ 1740      72697469 
+ 1740      63616C53 
+ 1740      65637469 
+ 1741              	.LASF32:
+ 1742 028d 51756164 		.ascii	"QuadDec_PAN_Cnt16_ReadCompare\000"
+ 1742      4465635F 
+ 1742      50414E5F 
+ 1742      436E7431 
+ 1742      365F5265 
+ 1743              	.LASF8:
+ 1744 02ab 756E7369 		.ascii	"unsigned int\000"
+ 1744      676E6564 
+ 1744      20696E74 
+ 1744      00
+ 1745              	.LASF45:
+ 1746 02b8 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1746      69744372 
+ 1746      69746963 
+ 1746      616C5365 
+ 1746      6374696F 
+ 1747              	.LASF0:
+ 1748 02ce 7369676E 		.ascii	"signed char\000"
+ 1748      65642063 
+ 1748      68617200 
+ 1749              	.LASF14:
+ 1750 02da 72656738 		.ascii	"reg8\000"
+ 1750      00
+ 1751              	.LASF16:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 44
+
+
+ 1752 02df 73697A65 		.ascii	"sizetype\000"
+ 1752      74797065 
+ 1752      00
+ 1753              	.LASF6:
+ 1754 02e8 6C6F6E67 		.ascii	"long long int\000"
+ 1754      206C6F6E 
+ 1754      6720696E 
+ 1754      7400
+ 1755              	.LASF20:
+ 1756 02f6 51756164 		.ascii	"QuadDec_PAN_Cnt16_WriteCounter\000"
+ 1756      4465635F 
+ 1756      50414E5F 
+ 1756      436E7431 
+ 1756      365F5772 
+ 1757              	.LASF17:
+ 1758 0315 51756164 		.ascii	"QuadDec_PAN_Cnt16_ReadCapture\000"
+ 1758      4465635F 
+ 1758      50414E5F 
+ 1758      436E7431 
+ 1758      365F5265 
+ 1759              	.LASF2:
+ 1760 0333 73686F72 		.ascii	"short int\000"
+ 1760      7420696E 
+ 1760      7400
+ 1761              	.LASF28:
+ 1762 033d 51756164 		.ascii	"QuadDec_PAN_Cnt16_Stop\000"
+ 1762      4465635F 
+ 1762      50414E5F 
+ 1762      436E7431 
+ 1762      365F5374 
+ 1763              	.LASF9:
+ 1764 0354 75696E74 		.ascii	"uint8\000"
+ 1764      3800
+ 1765              	.LASF40:
+ 1766 035a 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1766      4320342E 
+ 1766      372E3320 
+ 1766      32303133 
+ 1766      30333132 
+ 1767 038d 616E6368 		.ascii	"anch revision 196615]\000"
+ 1767      20726576 
+ 1767      6973696F 
+ 1767      6E203139 
+ 1767      36363135 
+ 1768              	.LASF4:
+ 1769 03a3 6C6F6E67 		.ascii	"long int\000"
+ 1769      20696E74 
+ 1769      00
+ 1770              	.LASF13:
+ 1771 03ac 63686172 		.ascii	"char\000"
+ 1771      00
+ 1772              	.LASF35:
+ 1773 03b1 51756164 		.ascii	"QuadDec_PAN_Cnt16_Init\000"
+ 1773      4465635F 
+ 1773      50414E5F 
+ 1773      436E7431 
+ 1773      365F496E 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclolgsZ.s 			page 45
+
+
+ 1774              	.LASF29:
+ 1775 03c8 51756164 		.ascii	"QuadDec_PAN_Cnt16_ReadControlRegister\000"
+ 1775      4465635F 
+ 1775      50414E5F 
+ 1775      436E7431 
+ 1775      365F5265 
+ 1776              	.LASF30:
+ 1777 03ee 51756164 		.ascii	"QuadDec_PAN_Cnt16_ReadCounter\000"
+ 1777      4465635F 
+ 1777      50414E5F 
+ 1777      436E7431 
+ 1777      365F5265 
+ 1778              	.LASF26:
+ 1779 040c 636F6D70 		.ascii	"compare\000"
+ 1779      61726500 
+ 1780              	.LASF36:
+ 1781 0414 6374726C 		.ascii	"ctrl\000"
+ 1781      00
+ 1782              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

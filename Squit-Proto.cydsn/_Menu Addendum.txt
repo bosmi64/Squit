@@ -1,0 +1,164 @@
+GoBee 00 Menu' Addendum file
+Rev.0.5
+08/02/2015
+===========================
+===========================
+  
+  /************************************/
+  /*** TEST HW						***/
+  /************************************/
+  SHOW BUT[TONS]: shows SW1 pushbutton
+  SHOW ANA[LOGS]: shows analog inputs as sampled by ADC
+  SHOW S[YS]DYN
+  SHOW A[NALOG]ACC  
+  SHOW ENC[ODER]
+  SHOW MOT[ORSTATUS]
+  SHOW VCC:		  shows battery voltage
+  SHOW A[NALOG]GYRO
+  SHOW [CONTROL|CTRL]
+  
+  TBUZ: tests buzzer sequence
+  
+  TMOTCW  <speed>: tests motor in CW  rotation 0<=speed<=1024
+  TMOTCCW <speed>: tests motor in CCW rotation 0<=speed<=1024
+ 
+  /************************************/
+  /*** MOTOR CONTROL				***/
+  /************************************/
+  DEEN[ERGIZE]
+  EN[ERGIZE]
+  
+  SET POL[ARITY]		pan axix motor polarity
+  SET KP				pan axis motor Kp
+  SET KD				pan axis motor Kd
+  SET KI				pan axis motor Ki 
+  SET KSI				pan axis motor Ksi  
+
+  /************************************/
+  /*** FEEDBACK CONTROL				***/
+  /************************************/  
+  
+  SET [FEEDBAK|FBK]
+  0 --> open loop
+  1 --> agyro rate      (velocity)
+  2 --> digital encoder (position)
+  
+  
+  /************************************/
+  /*** SYSTEM						***/
+  /************************************/
+  BOOT: bootloading start
+  
+  SET AGYROS[ENSIVITY]
+  SET GAMMA
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  /************************************/
+  /*** REAL TIME & PARAMETERS SHOWS ***/
+  /************************************/
+  SHOW ANA[LOGS]: show in tempo reale di tutti gli ingressi analogici
+  SHOW DIGI[TALS]: show in tempo reale di accelerometro, gyro digitale e uscite analogiche
+  SHOW A[NALOG]GYRO: show in tempo reale del Gyro Analogico (valore istantateo [deg/s], medio [deg/s], temperatura in [C])
+  SHOW D[IGITAL]GYRO: show in tempo reale del Gyro Digitale 
+  SHOW [ADIS]16210: show in tempo reale dell'accelerometro/inclinometro digitale (rgatti component)
+  SHOW GY[ROS]: show in real time comparazione angoli stimati dai due gyro
+  SHOW BUT[TON]: show in tempo reale del BUTTON di STABON/STABOFF
+  SHOW S[YS]DYN: show in tempo reale del parametro System Dynamic Acceleration Scalar
+  SHOW P[ARAMS]: show dei parametri di sistema
+ 
+  /**********************************/
+  /*** SETTAGGIO SISTEMA		  ***/
+  /**********************************/
+  
+    SET LINK[TYPE]:
+    0 --> digital link
+	1 --> analog  link
+	
+	SET DIN <0..180> [deg]
+	set maximum sensor output dynamic
+	
+	
+	
+  /**********************************/
+  /*** SETTAGGIO PARAMETRI FILTRI ***/
+  /**********************************/
+  SET KP		
+  SET POLARITY
+
+  SET ALPHA		(coefficiente Filtro di Compensazione)
+  SET BETA		(coefficiente Low Pass Filter Accelerometro Analogico)
+  
+
+  
+  
+  /***************************************/  
+  /*** SELEZIONE TIPO DI COMPENSAZIONE ***/
+  /***************************************/
+  AGYRO  --> compensazione con solo giroscopio analogico
+  DGYRO  --> compensazione con solo giroscopio digitale
+  ACC    --> compensazione con solo accelerometro
+  ALL[D] --> compensazione con accelerometro + giroscopio digitale       (filtro di compensazione)
+  ALLA   --> compensazione con accelerometro + giroscopio analogico      (filtro di compensazione)
+  ALPF 	 --> compensazione con giroscopio analogico + LPF(accelerometro) (filtro di compensazione)
+  ALPFAK --> compensazione con alpha_compensated(giroscopio analogico) + LPF(Accelerometro) (filtro di compensazione)
+  DLPF   --> compensazione con giroscopio digitale + LPF(accelerometro)  (filtro di compensazione) 
+  DLPFAK --> compensazione con alpha_compensated(giroscopio digitale) + LPF(Accelerometro) (filtro di compensazione)
+  NOSTAB --> per disabilitare la stabilizzazione
+  
+  
+  /***************************************/  
+  /*** SELEZIONE TIPO DI STIMA TILT    ***/
+  /***************************************/
+  T[ILT]ZERO		--> TILT Estimation with tilt=0 fixed (rigid body, vertical mount, little angles)
+  T[ILT]X  	   		--> TILT Estimation with sin(x)=x approssimation	
+  T[ILT]LIM    		--> TILT Estimation with sin(x)=x approssimation +-25° limited
+  T[ILT]LAST[GOOD]  --> TILT Estimation with tilt(t*): t*=last t when sqrt(ax^2+ay^2)=g (sin(x)=x appoximation)
+  T[ILT]ADISY		--> TILT Estimation with ADIS16210 Y=TILT (theta) 
+
+
+  /**************************************************/
+  /*** Calcolo del Valor Medio del Gyro Analogico ***/
+  /**************************************************/
+  AGMSTART --> Analog Gyro Mean Calculation Start
+  AGMSTOP  --> Analog Gyro mean Calculation Stop
+
+
+  /**************************************************/
+  /*** Calcolo del Valor Medio del Gyro Digitale ***/
+  /**************************************************/
+  DGMSTART --> Digital Gyro Mean Calculation Start
+  DGMSTOP  --> Digital Gyro mean Calculation Stop
+
+
+  /*************************************/
+  /*** REGOLAZIONE OFFSETS ANALOGICI ***/
+  /*************************************/
+  SET G[YRO]OFFSET -6		/* ANALOG GYRO ADC OFFSET INTEGER COMPENSATION (from -120 to +120) 							*/
+  							/* Il valore intero di offset da compensare si deve leggere col comando SHOW ANALOGS		*/
+							
+  SET AGFINE	-0.002		/* REAL NUMBER ANALOG GYRO NULL OFFSET FINE  COMPENSATION (from -10.0 to +10.0) 			*/
+  SET AGSFINE   0.02		/* REAL NUMBER ANALOG GYRO SCALE (SENSIVITY) OFFSET FINE COMPENSATION (from -0.1 to +0.1)	*/
+
+  SET DGFINE	-0.002		/* REAL NUMBER DIGITAL GYRO NULL OFFSET FINE  COMPENSATION (from -10.0 to +10.0) 			*/
+  
+  
+  
+  
+  SET AA[CC]XOFF[SET]		/* ANALOG ACCELEROMETER X AXIS ADC OFFSET INTEGER COMPENSATION (from -75 to +75) 	*/
+  SET AA[CC]YOFF[SET]		/* ANALOG ACCELEROMETER Y AXIS ADC OFFSET INTEGER COMPENSATION (from -75 to +75) 	*/
+ 
+  ZG     --> per azzerare angle (integrale) e quindi anche la stima di angolo del Gyro.
+  
+  
+  /*************************************/
+  /*** THERMO CONTROL                ***/
+  /*************************************/
+   TH[ERMO]ON	--> Accende il PAD RISCALDANTE!
+   TH[ERMO]OFF	--> Spegne  il PAD RISCALDANTE!
+   

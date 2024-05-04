@@ -1,0 +1,737 @@
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ADXRS453.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	gobee_vparam,0,4
+  19              		.global	__aeabi_i2f
+  20              		.global	__aeabi_fdiv
+  21              		.section	.text.dgyro_SPI32toFloat,"ax",%progbits
+  22              		.align	2
+  23              		.global	dgyro_SPI32toFloat
+  24              		.thumb
+  25              		.thumb_func
+  26              		.type	dgyro_SPI32toFloat, %function
+  27              	dgyro_SPI32toFloat:
+  28              	.LFB56:
+  29              		.file 1 ".\\ADXRS453.c"
+   1:.\ADXRS453.c  **** /* ========================================
+   2:.\ADXRS453.c  ****  *
+   3:.\ADXRS453.c  ****  * ADSRS453 Digital Gyroscope Functions library
+   4:.\ADXRS453.c  ****  *
+   5:.\ADXRS453.c  ****  * Copyright Logic brainstorm, 2013
+   6:.\ADXRS453.c  ****  * All Rights Reserved
+   7:.\ADXRS453.c  ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   8:.\ADXRS453.c  ****  *
+   9:.\ADXRS453.c  ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+  10:.\ADXRS453.c  ****  * WHICH IS THE PROPERTY OF Logic brainstorm.
+  11:.\ADXRS453.c  ****  *
+  12:.\ADXRS453.c  ****  * ========================================
+  13:.\ADXRS453.c  **** */
+  14:.\ADXRS453.c  **** 
+  15:.\ADXRS453.c  **** /* Include files */
+  16:.\ADXRS453.c  **** #include <device.h>
+  17:.\ADXRS453.c  **** #include <gobee.h>
+  18:.\ADXRS453.c  **** #include <gobeelib.h>
+  19:.\ADXRS453.c  **** #include <console.h>
+  20:.\ADXRS453.c  **** 
+  21:.\ADXRS453.c  **** /* External Global Wars */
+  22:.\ADXRS453.c  **** extern struct GOBEE_PARAMS gobee_param;
+  23:.\ADXRS453.c  **** 
+  24:.\ADXRS453.c  **** 
+  25:.\ADXRS453.c  **** // ************************************
+  26:.\ADXRS453.c  **** // *** Low level interface Fuctions ***
+  27:.\ADXRS453.c  **** // ************************************
+  28:.\ADXRS453.c  **** 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 2
+
+
+  29:.\ADXRS453.c  **** /* ADXRS453 Initialization */
+  30:.\ADXRS453.c  **** //void init_ADXRS453(void)
+  31:.\ADXRS453.c  **** //{
+  32:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0xFF);		/* SPI /CS <-- 1 					*/
+  33:.\ADXRS453.c  **** //	SPIM_ADXRS_ClearRxBuffer();				/* Clear Rx Buffer					*/
+  34:.\ADXRS453.c  **** //	SPIM_ADXRS_ClearTxBuffer();				/* Clear Tx Buffer					*/
+  35:.\ADXRS453.c  **** //	SPIM_ADXRS_ClearFIFO();					/* Clear FIFO						*/	
+  36:.\ADXRS453.c  **** //	SPIM_ADXRS_Start();						/* Enable and Start ADXRS453 SPI	*/
+  37:.\ADXRS453.c  **** //}
+  38:.\ADXRS453.c  **** 
+  39:.\ADXRS453.c  **** ///****************************************************************/
+  40:.\ADXRS453.c  **** ///* 32 bit SPI general transaction								*/
+  41:.\ADXRS453.c  **** ///*	 TX_Payload = 32 bit to transmit over SPI					*/
+  42:.\ADXRS453.c  **** ///*   return     = 32 bit SPI response							*/
+  43:.\ADXRS453.c  **** ///*																*/
+  44:.\ADXRS453.c  **** ///*   NO IMPLICIT ERRORS OR PARITY CHECK							*/
+  45:.\ADXRS453.c  **** ///****************************************************************/
+  46:.\ADXRS453.c  **** //
+  47:.\ADXRS453.c  **** //unsigned long int SPIM32_Transaction(unsigned long int TX_Payload)
+  48:.\ADXRS453.c  **** //{
+  49:.\ADXRS453.c  **** //
+  50:.\ADXRS453.c  **** //	//Local vars declaration
+  51:.\ADXRS453.c  **** //	uint16 SPIM_Rx_WordL=0;
+  52:.\ADXRS453.c  **** //	uint16 SPIM_Rx_WordH=0;
+  53:.\ADXRS453.c  **** //	uint16 Payload_Word=0;
+  54:.\ADXRS453.c  **** //	unsigned long int SPIM_Rx_Long=0;		/* 32 bit ADXRS453 SPI Response 					*/
+  55:.\ADXRS453.c  **** //
+  56:.\ADXRS453.c  **** //
+  57:.\ADXRS453.c  **** //	// Function Code
+  58:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0xFF);		/* SPI /CS <-- 1 									*/
+  59:.\ADXRS453.c  **** //	//CyDelayUs(1);							/* 1 usec delay (Tlead = 1/2xtsclk ns min)			*/
+  60:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0x00);		/* SPI /CS <-- 0 									*/	
+  61:.\ADXRS453.c  **** //	
+  62:.\ADXRS453.c  **** //	Payload_Word = (uint16)(TX_Payload >> 16);		/*													*/
+  63:.\ADXRS453.c  **** //	SPIM_ADXRS_WriteTxData(Payload_Word);			/* First Word (High) Transfer						*/
+  64:.\ADXRS453.c  **** //
+  65:.\ADXRS453.c  **** //	CyDelayUs(2);							/* 2 usec delay (Ttd = 0.1usec min)					*/
+  66:.\ADXRS453.c  **** //
+  67:.\ADXRS453.c  **** //	Payload_Word = (uint16)(TX_Payload & 0xFFFF);	/*													*/
+  68:.\ADXRS453.c  **** //	SPIM_ADXRS_WriteTxData(Payload_Word);			/* Second Word (Low) Transfer						*/
+  69:.\ADXRS453.c  **** //
+  70:.\ADXRS453.c  **** //	CyDelayUs(17);							/* 16bit + 1 usec delay	 (Tlag.csmin = 1/2xtsclk ns	min)	*/
+  71:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0xFF);		/* SPI /CS <-- 1 									*/	
+  72:.\ADXRS453.c  **** //	
+  73:.\ADXRS453.c  **** //	SPIM_Rx_WordH = SPIM_ADXRS_ReadRxData();/* SPIM_Rx_WordH <-- first 16 bit of SPI Response	*/
+  74:.\ADXRS453.c  **** //	SPIM_Rx_WordL = SPIM_ADXRS_ReadRxData();/* SPIM_Rx_WordL <-- last 16 bit of SPI Response	*/
+  75:.\ADXRS453.c  **** //	
+  76:.\ADXRS453.c  **** //	SPIM_Rx_Long = ((unsigned long int)SPIM_Rx_WordH << 16) | (unsigned long int)SPIM_Rx_WordL;
+  77:.\ADXRS453.c  **** //	
+  78:.\ADXRS453.c  **** //	return (SPIM_Rx_Long);
+  79:.\ADXRS453.c  **** //}
+  80:.\ADXRS453.c  **** 
+  81:.\ADXRS453.c  **** 
+  82:.\ADXRS453.c  **** ///****************************************************************/
+  83:.\ADXRS453.c  **** ///* 32 bit SPI fixed transaction: Read Sensor Data				*/
+  84:.\ADXRS453.c  **** ///*	 TX_Payload = Read Sensor Data Command						*/
+  85:.\ADXRS453.c  **** ///*   return     = 32 bit Sensor Data SPI response				*/
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 3
+
+
+  86:.\ADXRS453.c  **** ///*																*/
+  87:.\ADXRS453.c  **** ///*   NO IMPLICIT ERRORS OR PARITY CHECK							*/
+  88:.\ADXRS453.c  **** ///****************************************************************/
+  89:.\ADXRS453.c  **** //
+  90:.\ADXRS453.c  **** //unsigned long int SPIM32_ReadSensorData(void)
+  91:.\ADXRS453.c  **** //{
+  92:.\ADXRS453.c  **** //
+  93:.\ADXRS453.c  **** //	//Local vars declaration
+  94:.\ADXRS453.c  **** //	uint16 SPIM_Rx_WordL=0;
+  95:.\ADXRS453.c  **** //	uint16 SPIM_Rx_WordH=0;
+  96:.\ADXRS453.c  **** //	unsigned long int SPIM_Rx_Long=0;		/* 32 bit ADXRS453 SPI Response 					*/
+  97:.\ADXRS453.c  **** //
+  98:.\ADXRS453.c  **** //
+  99:.\ADXRS453.c  **** //	// Function Code
+ 100:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0xFF);		/* SPI /CS <-- 1 									*/
+ 101:.\ADXRS453.c  **** //	//CyDelayUs(0);							/* 0 usec delay (Tlead = 1/2xtsclk ns min)			*/
+ 102:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0x00);		/* SPI /CS <-- 0 									*/	
+ 103:.\ADXRS453.c  **** //	
+ 104:.\ADXRS453.c  **** //	SPIM_ADXRS_WriteTxData(0x2000);			/* First Word (High) Transfer						*/
+ 105:.\ADXRS453.c  **** //											/* Sensor Data Commad bits 31:16					*/
+ 106:.\ADXRS453.c  **** //
+ 107:.\ADXRS453.c  **** //	CyDelayUs(2);							/* 2 usec delay (Ttd = 0.1usec min)					*/
+ 108:.\ADXRS453.c  **** //
+ 109:.\ADXRS453.c  **** //	SPIM_ADXRS_WriteTxData(0x0000);			/* Second Word (Low) Transfer						*/
+ 110:.\ADXRS453.c  **** //											/* Sensor Data Commad bits 15:0						*/	
+ 111:.\ADXRS453.c  **** //
+ 112:.\ADXRS453.c  **** //	CyDelayUs(17);							/* 16bit + 1 usec delay	 (Tlag.csmin = 1/2xtsclk ns	min)	*/
+ 113:.\ADXRS453.c  **** //	Control_Reg_SPIM_ADXRS_Write(0xFF);		/* SPI /CS <-- 1 									*/	
+ 114:.\ADXRS453.c  **** //	
+ 115:.\ADXRS453.c  **** //	SPIM_Rx_WordH = SPIM_ADXRS_ReadRxData();/* SPIM_Rx_WordH <-- first 16 bit of SPI Response	*/
+ 116:.\ADXRS453.c  **** //	SPIM_Rx_WordL = SPIM_ADXRS_ReadRxData();/* SPIM_Rx_WordL <-- last 16 bit of SPI Response	*/
+ 117:.\ADXRS453.c  **** //	
+ 118:.\ADXRS453.c  **** //	SPIM_Rx_Long = ((unsigned long int)SPIM_Rx_WordH << 16) | (unsigned long int)SPIM_Rx_WordL;
+ 119:.\ADXRS453.c  **** //	
+ 120:.\ADXRS453.c  **** //	return (SPIM_Rx_Long);
+ 121:.\ADXRS453.c  **** //}
+ 122:.\ADXRS453.c  **** 
+ 123:.\ADXRS453.c  **** /****************************************************************/
+ 124:.\ADXRS453.c  **** /* 32 bit SPI Response to Gyro Velocity float					*/
+ 125:.\ADXRS453.c  **** /*	 SPIM_Rx_Long = 32 bit Sensor Data from ADXRS453 gyro		*/
+ 126:.\ADXRS453.c  **** /*   return     = (float)gyro angular velocity data [deg/sec]	*/
+ 127:.\ADXRS453.c  **** /*																*/
+ 128:.\ADXRS453.c  **** /*   NO IMPLICIT ERRORS OR PARITY CHECK							*/
+ 129:.\ADXRS453.c  **** /****************************************************************/
+ 130:.\ADXRS453.c  **** 
+ 131:.\ADXRS453.c  **** float dgyro_SPI32toFloat(unsigned long int SPIM_Rx_Long)
+ 132:.\ADXRS453.c  **** {
+  30              		.loc 1 132 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 16
+  33              		@ frame_needed = 1, uses_anonymous_args = 0
+  34 0000 80B5     		push	{r7, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 7, -8
+  38              		.cfi_offset 14, -4
+  39 0002 84B0     		sub	sp, sp, #16
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 4
+
+
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 24
+  42 0004 00AF     		add	r7, sp, #0
+  43              	.LCFI2:
+  44              		.cfi_def_cfa_register 7
+  45 0006 7860     		str	r0, [r7, #4]
+ 133:.\ADXRS453.c  **** 	//Local vars declaration
+ 134:.\ADXRS453.c  **** 	float dgyro_response;	
+ 135:.\ADXRS453.c  **** 	
+ 136:.\ADXRS453.c  **** 	// Function Code
+ 137:.\ADXRS453.c  **** 	dgyro_response = (((float)((int16)(SPIM_Rx_Long >> 10)))/80);	/* Scale Factor = 80 LSB/°sec */
+  46              		.loc 1 137 0
+  47 0008 7B68     		ldr	r3, [r7, #4]
+  48 000a 4FEA9323 		lsr	r3, r3, #10
+  49 000e 9BB2     		uxth	r3, r3
+  50 0010 1BB2     		sxth	r3, r3
+  51 0012 1846     		mov	r0, r3
+  52 0014 FFF7FEFF 		bl	__aeabi_i2f
+  53 0018 0346     		mov	r3, r0
+  54 001a 1846     		mov	r0, r3
+  55 001c 4FF00001 		mov	r1, #0
+  56 0020 C4F2A021 		movt	r1, 17056
+  57 0024 FFF7FEFF 		bl	__aeabi_fdiv
+  58 0028 0346     		mov	r3, r0
+  59 002a FB60     		str	r3, [r7, #12]	@ float
+ 138:.\ADXRS453.c  **** 	
+ 139:.\ADXRS453.c  **** 	return (dgyro_response);
+  60              		.loc 1 139 0
+  61 002c FB68     		ldr	r3, [r7, #12]	@ float
+ 140:.\ADXRS453.c  **** 	
+ 141:.\ADXRS453.c  **** }
+  62              		.loc 1 141 0
+  63 002e 1846     		mov	r0, r3
+  64 0030 07F11007 		add	r7, r7, #16
+  65 0034 BD46     		mov	sp, r7
+  66 0036 80BD     		pop	{r7, pc}
+  67              		.cfi_endproc
+  68              	.LFE56:
+  69              		.size	dgyro_SPI32toFloat, .-dgyro_SPI32toFloat
+  70              		.text
+  71              	.Letext0:
+  72              		.file 2 "c:\\programmi\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4.7.3\\bin\
+  73              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+  74              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+  75              		.file 5 "./gobee.h"
+  76              		.section	.debug_info,"",%progbits
+  77              	.Ldebug_info0:
+  78 0000 06010000 		.4byte	0x106
+  79 0004 0200     		.2byte	0x2
+  80 0006 00000000 		.4byte	.Ldebug_abbrev0
+  81 000a 04       		.byte	0x4
+  82 000b 01       		.uleb128 0x1
+  83 000c 67000000 		.4byte	.LASF17
+  84 0010 01       		.byte	0x1
+  85 0011 49010000 		.4byte	.LASF18
+  86 0015 BD000000 		.4byte	.LASF19
+  87 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 5
+
+
+  88 001d 00000000 		.4byte	0
+  89 0021 00000000 		.4byte	0
+  90 0025 00000000 		.4byte	.Ldebug_line0
+  91 0029 02       		.uleb128 0x2
+  92 002a 01       		.byte	0x1
+  93 002b 06       		.byte	0x6
+  94 002c A0010000 		.4byte	.LASF0
+  95 0030 02       		.uleb128 0x2
+  96 0031 01       		.byte	0x1
+  97 0032 08       		.byte	0x8
+  98 0033 36010000 		.4byte	.LASF1
+  99 0037 02       		.uleb128 0x2
+ 100 0038 02       		.byte	0x2
+ 101 0039 05       		.byte	0x5
+ 102 003a B8010000 		.4byte	.LASF2
+ 103 003e 02       		.uleb128 0x2
+ 104 003f 02       		.byte	0x2
+ 105 0040 07       		.byte	0x7
+ 106 0041 0E000000 		.4byte	.LASF3
+ 107 0045 03       		.uleb128 0x3
+ 108 0046 C2010000 		.4byte	.LASF9
+ 109 004a 02       		.byte	0x2
+ 110 004b 4F       		.byte	0x4f
+ 111 004c 50000000 		.4byte	0x50
+ 112 0050 02       		.uleb128 0x2
+ 113 0051 04       		.byte	0x4
+ 114 0052 05       		.byte	0x5
+ 115 0053 8A010000 		.4byte	.LASF4
+ 116 0057 02       		.uleb128 0x2
+ 117 0058 04       		.byte	0x4
+ 118 0059 07       		.byte	0x7
+ 119 005a 6A010000 		.4byte	.LASF5
+ 120 005e 02       		.uleb128 0x2
+ 121 005f 08       		.byte	0x8
+ 122 0060 05       		.byte	0x5
+ 123 0061 00000000 		.4byte	.LASF6
+ 124 0065 02       		.uleb128 0x2
+ 125 0066 08       		.byte	0x8
+ 126 0067 07       		.byte	0x7
+ 127 0068 50000000 		.4byte	.LASF7
+ 128 006c 04       		.uleb128 0x4
+ 129 006d 04       		.byte	0x4
+ 130 006e 05       		.byte	0x5
+ 131 006f 696E7400 		.ascii	"int\000"
+ 132 0073 02       		.uleb128 0x2
+ 133 0074 04       		.byte	0x4
+ 134 0075 07       		.byte	0x7
+ 135 0076 21000000 		.4byte	.LASF8
+ 136 007a 03       		.uleb128 0x3
+ 137 007b B2010000 		.4byte	.LASF10
+ 138 007f 03       		.byte	0x3
+ 139 0080 5F       		.byte	0x5f
+ 140 0081 37000000 		.4byte	0x37
+ 141 0085 02       		.uleb128 0x2
+ 142 0086 04       		.byte	0x4
+ 143 0087 04       		.byte	0x4
+ 144 0088 AC010000 		.4byte	.LASF11
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 6
+
+
+ 145 008c 02       		.uleb128 0x2
+ 146 008d 08       		.byte	0x8
+ 147 008e 04       		.byte	0x4
+ 148 008f 63010000 		.4byte	.LASF12
+ 149 0093 02       		.uleb128 0x2
+ 150 0094 01       		.byte	0x1
+ 151 0095 08       		.byte	0x8
+ 152 0096 44010000 		.4byte	.LASF13
+ 153 009a 02       		.uleb128 0x2
+ 154 009b 04       		.byte	0x4
+ 155 009c 07       		.byte	0x7
+ 156 009d CA010000 		.4byte	.LASF14
+ 157 00a1 05       		.uleb128 0x5
+ 158 00a2 7C010000 		.4byte	.LASF20
+ 159 00a6 00       		.byte	0
+ 160 00a7 05       		.byte	0x5
+ 161 00a8 D1       		.byte	0xd1
+ 162 00a9 06       		.uleb128 0x6
+ 163 00aa 01       		.byte	0x1
+ 164 00ab 2E000000 		.4byte	.LASF21
+ 165 00af 01       		.byte	0x1
+ 166 00b0 83       		.byte	0x83
+ 167 00b1 01       		.byte	0x1
+ 168 00b2 85000000 		.4byte	0x85
+ 169 00b6 00000000 		.4byte	.LFB56
+ 170 00ba 38000000 		.4byte	.LFE56
+ 171 00be 00000000 		.4byte	.LLST0
+ 172 00c2 01       		.byte	0x1
+ 173 00c3 E4000000 		.4byte	0xe4
+ 174 00c7 07       		.uleb128 0x7
+ 175 00c8 B0000000 		.4byte	.LASF22
+ 176 00cc 01       		.byte	0x1
+ 177 00cd 83       		.byte	0x83
+ 178 00ce 57000000 		.4byte	0x57
+ 179 00d2 02       		.byte	0x2
+ 180 00d3 91       		.byte	0x91
+ 181 00d4 6C       		.sleb128 -20
+ 182 00d5 08       		.uleb128 0x8
+ 183 00d6 41000000 		.4byte	.LASF23
+ 184 00da 01       		.byte	0x1
+ 185 00db 86       		.byte	0x86
+ 186 00dc 85000000 		.4byte	0x85
+ 187 00e0 02       		.byte	0x2
+ 188 00e1 91       		.byte	0x91
+ 189 00e2 74       		.sleb128 -12
+ 190 00e3 00       		.byte	0
+ 191 00e4 09       		.uleb128 0x9
+ 192 00e5 93010000 		.4byte	.LASF15
+ 193 00e9 04       		.byte	0x4
+ 194 00ea 1606     		.2byte	0x616
+ 195 00ec F2000000 		.4byte	0xf2
+ 196 00f0 01       		.byte	0x1
+ 197 00f1 01       		.byte	0x1
+ 198 00f2 0A       		.uleb128 0xa
+ 199 00f3 45000000 		.4byte	0x45
+ 200 00f7 0B       		.uleb128 0xb
+ 201 00f8 56010000 		.4byte	.LASF16
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 7
+
+
+ 202 00fc 05       		.byte	0x5
+ 203 00fd D6       		.byte	0xd6
+ 204 00fe A1000000 		.4byte	0xa1
+ 205 0102 01       		.byte	0x1
+ 206 0103 05       		.byte	0x5
+ 207 0104 03       		.byte	0x3
+ 208 0105 00000000 		.4byte	gobee_vparam
+ 209 0109 00       		.byte	0
+ 210              		.section	.debug_abbrev,"",%progbits
+ 211              	.Ldebug_abbrev0:
+ 212 0000 01       		.uleb128 0x1
+ 213 0001 11       		.uleb128 0x11
+ 214 0002 01       		.byte	0x1
+ 215 0003 25       		.uleb128 0x25
+ 216 0004 0E       		.uleb128 0xe
+ 217 0005 13       		.uleb128 0x13
+ 218 0006 0B       		.uleb128 0xb
+ 219 0007 03       		.uleb128 0x3
+ 220 0008 0E       		.uleb128 0xe
+ 221 0009 1B       		.uleb128 0x1b
+ 222 000a 0E       		.uleb128 0xe
+ 223 000b 55       		.uleb128 0x55
+ 224 000c 06       		.uleb128 0x6
+ 225 000d 11       		.uleb128 0x11
+ 226 000e 01       		.uleb128 0x1
+ 227 000f 52       		.uleb128 0x52
+ 228 0010 01       		.uleb128 0x1
+ 229 0011 10       		.uleb128 0x10
+ 230 0012 06       		.uleb128 0x6
+ 231 0013 00       		.byte	0
+ 232 0014 00       		.byte	0
+ 233 0015 02       		.uleb128 0x2
+ 234 0016 24       		.uleb128 0x24
+ 235 0017 00       		.byte	0
+ 236 0018 0B       		.uleb128 0xb
+ 237 0019 0B       		.uleb128 0xb
+ 238 001a 3E       		.uleb128 0x3e
+ 239 001b 0B       		.uleb128 0xb
+ 240 001c 03       		.uleb128 0x3
+ 241 001d 0E       		.uleb128 0xe
+ 242 001e 00       		.byte	0
+ 243 001f 00       		.byte	0
+ 244 0020 03       		.uleb128 0x3
+ 245 0021 16       		.uleb128 0x16
+ 246 0022 00       		.byte	0
+ 247 0023 03       		.uleb128 0x3
+ 248 0024 0E       		.uleb128 0xe
+ 249 0025 3A       		.uleb128 0x3a
+ 250 0026 0B       		.uleb128 0xb
+ 251 0027 3B       		.uleb128 0x3b
+ 252 0028 0B       		.uleb128 0xb
+ 253 0029 49       		.uleb128 0x49
+ 254 002a 13       		.uleb128 0x13
+ 255 002b 00       		.byte	0
+ 256 002c 00       		.byte	0
+ 257 002d 04       		.uleb128 0x4
+ 258 002e 24       		.uleb128 0x24
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 8
+
+
+ 259 002f 00       		.byte	0
+ 260 0030 0B       		.uleb128 0xb
+ 261 0031 0B       		.uleb128 0xb
+ 262 0032 3E       		.uleb128 0x3e
+ 263 0033 0B       		.uleb128 0xb
+ 264 0034 03       		.uleb128 0x3
+ 265 0035 08       		.uleb128 0x8
+ 266 0036 00       		.byte	0
+ 267 0037 00       		.byte	0
+ 268 0038 05       		.uleb128 0x5
+ 269 0039 13       		.uleb128 0x13
+ 270 003a 00       		.byte	0
+ 271 003b 03       		.uleb128 0x3
+ 272 003c 0E       		.uleb128 0xe
+ 273 003d 0B       		.uleb128 0xb
+ 274 003e 0B       		.uleb128 0xb
+ 275 003f 3A       		.uleb128 0x3a
+ 276 0040 0B       		.uleb128 0xb
+ 277 0041 3B       		.uleb128 0x3b
+ 278 0042 0B       		.uleb128 0xb
+ 279 0043 00       		.byte	0
+ 280 0044 00       		.byte	0
+ 281 0045 06       		.uleb128 0x6
+ 282 0046 2E       		.uleb128 0x2e
+ 283 0047 01       		.byte	0x1
+ 284 0048 3F       		.uleb128 0x3f
+ 285 0049 0C       		.uleb128 0xc
+ 286 004a 03       		.uleb128 0x3
+ 287 004b 0E       		.uleb128 0xe
+ 288 004c 3A       		.uleb128 0x3a
+ 289 004d 0B       		.uleb128 0xb
+ 290 004e 3B       		.uleb128 0x3b
+ 291 004f 0B       		.uleb128 0xb
+ 292 0050 27       		.uleb128 0x27
+ 293 0051 0C       		.uleb128 0xc
+ 294 0052 49       		.uleb128 0x49
+ 295 0053 13       		.uleb128 0x13
+ 296 0054 11       		.uleb128 0x11
+ 297 0055 01       		.uleb128 0x1
+ 298 0056 12       		.uleb128 0x12
+ 299 0057 01       		.uleb128 0x1
+ 300 0058 40       		.uleb128 0x40
+ 301 0059 06       		.uleb128 0x6
+ 302 005a 9642     		.uleb128 0x2116
+ 303 005c 0C       		.uleb128 0xc
+ 304 005d 01       		.uleb128 0x1
+ 305 005e 13       		.uleb128 0x13
+ 306 005f 00       		.byte	0
+ 307 0060 00       		.byte	0
+ 308 0061 07       		.uleb128 0x7
+ 309 0062 05       		.uleb128 0x5
+ 310 0063 00       		.byte	0
+ 311 0064 03       		.uleb128 0x3
+ 312 0065 0E       		.uleb128 0xe
+ 313 0066 3A       		.uleb128 0x3a
+ 314 0067 0B       		.uleb128 0xb
+ 315 0068 3B       		.uleb128 0x3b
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 9
+
+
+ 316 0069 0B       		.uleb128 0xb
+ 317 006a 49       		.uleb128 0x49
+ 318 006b 13       		.uleb128 0x13
+ 319 006c 02       		.uleb128 0x2
+ 320 006d 0A       		.uleb128 0xa
+ 321 006e 00       		.byte	0
+ 322 006f 00       		.byte	0
+ 323 0070 08       		.uleb128 0x8
+ 324 0071 34       		.uleb128 0x34
+ 325 0072 00       		.byte	0
+ 326 0073 03       		.uleb128 0x3
+ 327 0074 0E       		.uleb128 0xe
+ 328 0075 3A       		.uleb128 0x3a
+ 329 0076 0B       		.uleb128 0xb
+ 330 0077 3B       		.uleb128 0x3b
+ 331 0078 0B       		.uleb128 0xb
+ 332 0079 49       		.uleb128 0x49
+ 333 007a 13       		.uleb128 0x13
+ 334 007b 02       		.uleb128 0x2
+ 335 007c 0A       		.uleb128 0xa
+ 336 007d 00       		.byte	0
+ 337 007e 00       		.byte	0
+ 338 007f 09       		.uleb128 0x9
+ 339 0080 34       		.uleb128 0x34
+ 340 0081 00       		.byte	0
+ 341 0082 03       		.uleb128 0x3
+ 342 0083 0E       		.uleb128 0xe
+ 343 0084 3A       		.uleb128 0x3a
+ 344 0085 0B       		.uleb128 0xb
+ 345 0086 3B       		.uleb128 0x3b
+ 346 0087 05       		.uleb128 0x5
+ 347 0088 49       		.uleb128 0x49
+ 348 0089 13       		.uleb128 0x13
+ 349 008a 3F       		.uleb128 0x3f
+ 350 008b 0C       		.uleb128 0xc
+ 351 008c 3C       		.uleb128 0x3c
+ 352 008d 0C       		.uleb128 0xc
+ 353 008e 00       		.byte	0
+ 354 008f 00       		.byte	0
+ 355 0090 0A       		.uleb128 0xa
+ 356 0091 35       		.uleb128 0x35
+ 357 0092 00       		.byte	0
+ 358 0093 49       		.uleb128 0x49
+ 359 0094 13       		.uleb128 0x13
+ 360 0095 00       		.byte	0
+ 361 0096 00       		.byte	0
+ 362 0097 0B       		.uleb128 0xb
+ 363 0098 34       		.uleb128 0x34
+ 364 0099 00       		.byte	0
+ 365 009a 03       		.uleb128 0x3
+ 366 009b 0E       		.uleb128 0xe
+ 367 009c 3A       		.uleb128 0x3a
+ 368 009d 0B       		.uleb128 0xb
+ 369 009e 3B       		.uleb128 0x3b
+ 370 009f 0B       		.uleb128 0xb
+ 371 00a0 49       		.uleb128 0x49
+ 372 00a1 13       		.uleb128 0x13
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 10
+
+
+ 373 00a2 3F       		.uleb128 0x3f
+ 374 00a3 0C       		.uleb128 0xc
+ 375 00a4 02       		.uleb128 0x2
+ 376 00a5 0A       		.uleb128 0xa
+ 377 00a6 00       		.byte	0
+ 378 00a7 00       		.byte	0
+ 379 00a8 00       		.byte	0
+ 380              		.section	.debug_loc,"",%progbits
+ 381              	.Ldebug_loc0:
+ 382              	.LLST0:
+ 383 0000 00000000 		.4byte	.LFB56
+ 384 0004 02000000 		.4byte	.LCFI0
+ 385 0008 0200     		.2byte	0x2
+ 386 000a 7D       		.byte	0x7d
+ 387 000b 00       		.sleb128 0
+ 388 000c 02000000 		.4byte	.LCFI0
+ 389 0010 04000000 		.4byte	.LCFI1
+ 390 0014 0200     		.2byte	0x2
+ 391 0016 7D       		.byte	0x7d
+ 392 0017 08       		.sleb128 8
+ 393 0018 04000000 		.4byte	.LCFI1
+ 394 001c 06000000 		.4byte	.LCFI2
+ 395 0020 0200     		.2byte	0x2
+ 396 0022 7D       		.byte	0x7d
+ 397 0023 18       		.sleb128 24
+ 398 0024 06000000 		.4byte	.LCFI2
+ 399 0028 38000000 		.4byte	.LFE56
+ 400 002c 0200     		.2byte	0x2
+ 401 002e 77       		.byte	0x77
+ 402 002f 18       		.sleb128 24
+ 403 0030 00000000 		.4byte	0
+ 404 0034 00000000 		.4byte	0
+ 405              		.section	.debug_aranges,"",%progbits
+ 406 0000 1C000000 		.4byte	0x1c
+ 407 0004 0200     		.2byte	0x2
+ 408 0006 00000000 		.4byte	.Ldebug_info0
+ 409 000a 04       		.byte	0x4
+ 410 000b 00       		.byte	0
+ 411 000c 0000     		.2byte	0
+ 412 000e 0000     		.2byte	0
+ 413 0010 00000000 		.4byte	.LFB56
+ 414 0014 38000000 		.4byte	.LFE56-.LFB56
+ 415 0018 00000000 		.4byte	0
+ 416 001c 00000000 		.4byte	0
+ 417              		.section	.debug_ranges,"",%progbits
+ 418              	.Ldebug_ranges0:
+ 419 0000 00000000 		.4byte	.LFB56
+ 420 0004 38000000 		.4byte	.LFE56
+ 421 0008 00000000 		.4byte	0
+ 422 000c 00000000 		.4byte	0
+ 423              		.section	.debug_line,"",%progbits
+ 424              	.Ldebug_line0:
+ 425 0000 1A010000 		.section	.debug_str,"MS",%progbits,1
+ 425      02000001 
+ 425      00000201 
+ 425      FB0E0D00 
+ 425      01010101 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 11
+
+
+ 426              	.LASF6:
+ 427 0000 6C6F6E67 		.ascii	"long long int\000"
+ 427      206C6F6E 
+ 427      6720696E 
+ 427      7400
+ 428              	.LASF3:
+ 429 000e 73686F72 		.ascii	"short unsigned int\000"
+ 429      7420756E 
+ 429      7369676E 
+ 429      65642069 
+ 429      6E7400
+ 430              	.LASF8:
+ 431 0021 756E7369 		.ascii	"unsigned int\000"
+ 431      676E6564 
+ 431      20696E74 
+ 431      00
+ 432              	.LASF21:
+ 433 002e 64677972 		.ascii	"dgyro_SPI32toFloat\000"
+ 433      6F5F5350 
+ 433      49333274 
+ 433      6F466C6F 
+ 433      617400
+ 434              	.LASF23:
+ 435 0041 64677972 		.ascii	"dgyro_response\000"
+ 435      6F5F7265 
+ 435      73706F6E 
+ 435      736500
+ 436              	.LASF7:
+ 437 0050 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 437      206C6F6E 
+ 437      6720756E 
+ 437      7369676E 
+ 437      65642069 
+ 438              	.LASF17:
+ 439 0067 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 439      4320342E 
+ 439      372E3320 
+ 439      32303133 
+ 439      30333132 
+ 440 009a 616E6368 		.ascii	"anch revision 196615]\000"
+ 440      20726576 
+ 440      6973696F 
+ 440      6E203139 
+ 440      36363135 
+ 441              	.LASF22:
+ 442 00b0 5350494D 		.ascii	"SPIM_Rx_Long\000"
+ 442      5F52785F 
+ 442      4C6F6E67 
+ 442      00
+ 443              	.LASF19:
+ 444 00bd 433A5C44 		.ascii	"C:\\Documents and Settings\\user\\Documenti\\PSoC C"
+ 444      6F63756D 
+ 444      656E7473 
+ 444      20616E64 
+ 444      20536574 
+ 445 00ec 72656174 		.ascii	"reator\\GOBEE\\Vers.0.0-T42 2015-1002 C3.0 (I2C gro"
+ 445      6F725C47 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 12
+
+
+ 445      4F424545 
+ 445      5C566572 
+ 445      732E302E 
+ 446 011d 6F766520 		.ascii	"ove redo)\\GoBee-00.cydsn\000"
+ 446      7265646F 
+ 446      295C476F 
+ 446      4265652D 
+ 446      30302E63 
+ 447              	.LASF1:
+ 448 0136 756E7369 		.ascii	"unsigned char\000"
+ 448      676E6564 
+ 448      20636861 
+ 448      7200
+ 449              	.LASF13:
+ 450 0144 63686172 		.ascii	"char\000"
+ 450      00
+ 451              	.LASF18:
+ 452 0149 2E5C4144 		.ascii	".\\ADXRS453.c\000"
+ 452      58525334 
+ 452      35332E63 
+ 452      00
+ 453              	.LASF16:
+ 454 0156 676F6265 		.ascii	"gobee_vparam\000"
+ 454      655F7670 
+ 454      6172616D 
+ 454      00
+ 455              	.LASF12:
+ 456 0163 646F7562 		.ascii	"double\000"
+ 456      6C6500
+ 457              	.LASF5:
+ 458 016a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 458      20756E73 
+ 458      69676E65 
+ 458      6420696E 
+ 458      7400
+ 459              	.LASF20:
+ 460 017c 474F4245 		.ascii	"GOBEE_VPARAMS\000"
+ 460      455F5650 
+ 460      4152414D 
+ 460      5300
+ 461              	.LASF4:
+ 462 018a 6C6F6E67 		.ascii	"long int\000"
+ 462      20696E74 
+ 462      00
+ 463              	.LASF15:
+ 464 0193 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 464      52784275 
+ 464      66666572 
+ 464      00
+ 465              	.LASF0:
+ 466 01a0 7369676E 		.ascii	"signed char\000"
+ 466      65642063 
+ 466      68617200 
+ 467              	.LASF11:
+ 468 01ac 666C6F61 		.ascii	"float\000"
+ 468      7400
+ 469              	.LASF10:
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccIKX0Dc.s 			page 13
+
+
+ 470 01b2 696E7431 		.ascii	"int16\000"
+ 470      3600
+ 471              	.LASF2:
+ 472 01b8 73686F72 		.ascii	"short int\000"
+ 472      7420696E 
+ 472      7400
+ 473              	.LASF9:
+ 474 01c2 696E7433 		.ascii	"int32_t\000"
+ 474      325F7400 
+ 475              	.LASF14:
+ 476 01ca 73697A65 		.ascii	"sizetype\000"
+ 476      74797065 
+ 476      00
+ 477              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

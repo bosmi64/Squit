@@ -1,0 +1,948 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"XTR-8LR100.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	UART_LORA_charin,1,1
+  19              		.comm	UART_LORA_RxStatus,1,1
+  20              		.global	CMD_AT
+  21              		.section	.rodata
+  22              		.align	2
+  23              		.type	CMD_AT, %object
+  24              		.size	CMD_AT, 5
+  25              	CMD_AT:
+  26 0000 2B2B2B2B 		.ascii	"++++\000"
+  26      00
+  27              		.global	CMD_AT_SHOWVERSION
+  28 0005 000000   		.align	2
+  29              		.type	CMD_AT_SHOWVERSION, %object
+  30              		.size	CMD_AT_SHOWVERSION, 5
+  31              	CMD_AT_SHOWVERSION:
+  32 0008 41545330 		.ascii	"ATS0\000"
+  32      00
+  33 000d 000000   		.section	.text.sendLoRaATcmd,"ax",%progbits
+  34              		.align	2
+  35              		.global	sendLoRaATcmd
+  36              		.thumb
+  37              		.thumb_func
+  38              		.type	sendLoRaATcmd, %function
+  39              	sendLoRaATcmd:
+  40              	.LFB56:
+  41              		.file 1 ".\\XTR-8LR100.c"
+   1:.\XTR-8LR100.c **** /* ========================================
+   2:.\XTR-8LR100.c ****  *
+   3:.\XTR-8LR100.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\XTR-8LR100.c ****  * All Rights Reserved
+   5:.\XTR-8LR100.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\XTR-8LR100.c ****  *
+   7:.\XTR-8LR100.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\XTR-8LR100.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\XTR-8LR100.c ****  *
+  10:.\XTR-8LR100.c ****  * ========================================
+  11:.\XTR-8LR100.c **** */
+  12:.\XTR-8LR100.c **** 
+  13:.\XTR-8LR100.c **** /* PSOC Include Files */
+  14:.\XTR-8LR100.c **** #include <device.h>
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 2
+
+
+  15:.\XTR-8LR100.c **** #include <gobee.h>
+  16:.\XTR-8LR100.c **** 
+  17:.\XTR-8LR100.c **** /* This PRJ Include Files */
+  18:.\XTR-8LR100.c **** #include <XTR-8LR100.h>
+  19:.\XTR-8LR100.c **** 
+  20:.\XTR-8LR100.c **** /* local wars */
+  21:.\XTR-8LR100.c **** uint8 UART_LORA_charin;						/* Received character from UART WIFI */
+  22:.\XTR-8LR100.c **** uint8 UART_LORA_RxStatus;						/* WIFI UART Rx STATUS 				 */
+  23:.\XTR-8LR100.c **** //uint8 idx=0;
+  24:.\XTR-8LR100.c **** //char  xtrstring[20];
+  25:.\XTR-8LR100.c **** 
+  26:.\XTR-8LR100.c **** /**************************************************************************************************
+  27:.\XTR-8LR100.c **** /**************************************************************************************************
+  28:.\XTR-8LR100.c **** /* XTR-8LR100 command strings definitions 																										*/
+  29:.\XTR-8LR100.c **** /**************************************************************************************************
+  30:.\XTR-8LR100.c **** /**************************************************************************************************
+  31:.\XTR-8LR100.c **** 
+  32:.\XTR-8LR100.c **** //======================================//
+  33:.\XTR-8LR100.c **** // AT									//
+  34:.\XTR-8LR100.c **** //======================================//
+  35:.\XTR-8LR100.c **** const char CMD_AT[ ] 
+  36:.\XTR-8LR100.c **** 	= "++++";					// simple AT
+  37:.\XTR-8LR100.c **** 
+  38:.\XTR-8LR100.c **** 
+  39:.\XTR-8LR100.c **** //======================================//
+  40:.\XTR-8LR100.c **** // Versione dell'XTR-8LR100				//
+  41:.\XTR-8LR100.c **** //======================================//
+  42:.\XTR-8LR100.c **** const char CMD_AT_SHOWVERSION[]
+  43:.\XTR-8LR100.c **** 	= "ATS0";	// show version information
+  44:.\XTR-8LR100.c **** 
+  45:.\XTR-8LR100.c **** 
+  46:.\XTR-8LR100.c **** /**************************************************************************************************
+  47:.\XTR-8LR100.c **** /**************************************************************************************************
+  48:.\XTR-8LR100.c **** /* XTR-8LR100 access functions definitions 																									*/
+  49:.\XTR-8LR100.c **** /**************************************************************************************************
+  50:.\XTR-8LR100.c **** /**************************************************************************************************
+  51:.\XTR-8LR100.c **** void sendLoRaATcmd(const char *cmd)
+  52:.\XTR-8LR100.c **** {
+  42              		.loc 1 52 0
+  43              		.cfi_startproc
+  44              		@ args = 0, pretend = 0, frame = 16
+  45              		@ frame_needed = 1, uses_anonymous_args = 0
+  46 0000 90B5     		push	{r4, r7, lr}
+  47              	.LCFI0:
+  48              		.cfi_def_cfa_offset 12
+  49              		.cfi_offset 4, -12
+  50              		.cfi_offset 7, -8
+  51              		.cfi_offset 14, -4
+  52 0002 85B0     		sub	sp, sp, #20
+  53              	.LCFI1:
+  54              		.cfi_def_cfa_offset 32
+  55 0004 00AF     		add	r7, sp, #0
+  56              	.LCFI2:
+  57              		.cfi_def_cfa_register 7
+  58 0006 7860     		str	r0, [r7, #4]
+  53:.\XTR-8LR100.c **** 	uint8 idx;
+  54:.\XTR-8LR100.c **** 	
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 3
+
+
+  55:.\XTR-8LR100.c **** 	//send string until end
+  56:.\XTR-8LR100.c **** 	for (idx=0;idx<strlen(cmd);idx++)
+  59              		.loc 1 56 0
+  60 0008 4FF00003 		mov	r3, #0
+  61 000c FB73     		strb	r3, [r7, #15]
+  62 000e 0DE0     		b	.L2
+  63              	.L5:
+  57:.\XTR-8LR100.c **** 	{
+  58:.\XTR-8LR100.c **** 		if (cmd[idx] == '\0')
+  64              		.loc 1 58 0
+  65 0010 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  66 0012 7A68     		ldr	r2, [r7, #4]
+  67 0014 D318     		adds	r3, r2, r3
+  68 0016 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  69 0018 002B     		cmp	r3, #0
+  70 001a 0FD0     		beq	.L6
+  71              	.L3:
+  59:.\XTR-8LR100.c **** 			break;
+  60:.\XTR-8LR100.c **** 		
+  61:.\XTR-8LR100.c **** 		//UART_LORA_PutChar((uint8)cmd[idx]);	//UART_LORA <-- string character
+  62:.\XTR-8LR100.c **** 		CyDelay(1);
+  72              		.loc 1 62 0
+  73 001c 4FF00100 		mov	r0, #1
+  74 0020 FFF7FEFF 		bl	CyDelay
+  56:.\XTR-8LR100.c **** 	for (idx=0;idx<strlen(cmd);idx++)
+  75              		.loc 1 56 0
+  76 0024 FB7B     		ldrb	r3, [r7, #15]
+  77 0026 03F10103 		add	r3, r3, #1
+  78 002a FB73     		strb	r3, [r7, #15]
+  79              	.L2:
+  56:.\XTR-8LR100.c **** 	for (idx=0;idx<strlen(cmd);idx++)
+  80              		.loc 1 56 0 is_stmt 0 discriminator 1
+  81 002c FC7B     		ldrb	r4, [r7, #15]	@ zero_extendqisi2
+  82 002e 7868     		ldr	r0, [r7, #4]
+  83 0030 FFF7FEFF 		bl	strlen
+  84 0034 0346     		mov	r3, r0
+  85 0036 9C42     		cmp	r4, r3
+  86 0038 EAD3     		bcc	.L5
+  87 003a 00E0     		b	.L4
+  88              	.L6:
+  59:.\XTR-8LR100.c **** 			break;
+  89              		.loc 1 59 0 is_stmt 1
+  90 003c 00BF     		nop
+  91              	.L4:
+  63:.\XTR-8LR100.c **** 	}
+  64:.\XTR-8LR100.c **** 	
+  65:.\XTR-8LR100.c **** 	//send CR+LF
+  66:.\XTR-8LR100.c **** 	//UART_LORA_PutChar(0x0D);		//cr
+  67:.\XTR-8LR100.c **** 	CyDelay(1);
+  92              		.loc 1 67 0
+  93 003e 4FF00100 		mov	r0, #1
+  94 0042 FFF7FEFF 		bl	CyDelay
+  68:.\XTR-8LR100.c **** 	//UART_LORA_PutChar(0x0A);		//nl	
+  69:.\XTR-8LR100.c **** 	CyDelay(1);
+  95              		.loc 1 69 0
+  96 0046 4FF00100 		mov	r0, #1
+  97 004a FFF7FEFF 		bl	CyDelay
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 4
+
+
+  70:.\XTR-8LR100.c **** 	
+  71:.\XTR-8LR100.c **** 	//result=WaitLoRa_OK(timeout);
+  72:.\XTR-8LR100.c **** 	
+  73:.\XTR-8LR100.c **** 	//return result
+  74:.\XTR-8LR100.c **** 	//   OK
+  75:.\XTR-8LR100.c **** 	//   FAIL
+  76:.\XTR-8LR100.c **** 	//   ERROR
+  77:.\XTR-8LR100.c **** 	//   LORA MODULE NOT CONNECTED
+  78:.\XTR-8LR100.c **** }
+  98              		.loc 1 78 0
+  99 004e 07F11407 		add	r7, r7, #20
+ 100 0052 BD46     		mov	sp, r7
+ 101 0054 90BD     		pop	{r4, r7, pc}
+ 102              		.cfi_endproc
+ 103              	.LFE56:
+ 104              		.size	sendLoRaATcmd, .-sendLoRaATcmd
+ 105 0056 00BF     		.section	.text.UART_LORA_RX_isr_process,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	UART_LORA_RX_isr_process
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.type	UART_LORA_RX_isr_process, %function
+ 111              	UART_LORA_RX_isr_process:
+ 112              	.LFB57:
+  79:.\XTR-8LR100.c **** 
+  80:.\XTR-8LR100.c **** /* isr di ricezione caratteri dall'UART LORA*/
+  81:.\XTR-8LR100.c **** void UART_LORA_RX_isr_process(void)
+  82:.\XTR-8LR100.c **** {
+ 113              		.loc 1 82 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 1, uses_anonymous_args = 0
+ 117              		@ link register save eliminated.
+ 118 0000 80B4     		push	{r7}
+ 119              	.LCFI3:
+ 120              		.cfi_def_cfa_offset 4
+ 121              		.cfi_offset 7, -4
+ 122 0002 00AF     		add	r7, sp, #0
+ 123              	.LCFI4:
+ 124              		.cfi_def_cfa_register 7
+  83:.\XTR-8LR100.c **** 	/* Check for UART LORA RX communication errors			*/
+  84:.\XTR-8LR100.c **** 	//UART_LORA_RxStatus = UART_LORA_ReadRxStatus();
+  85:.\XTR-8LR100.c **** 
+  86:.\XTR-8LR100.c **** #if SYS_FAULTS_LOG_ENABLE
+  87:.\XTR-8LR100.c **** 	if (UART_LORA_RxStatus & (UART_LORA_RX_STS_PAR_ERROR |
+  88:.\XTR-8LR100.c **** 				  			  UART_LORA_RX_STS_STOP_ERROR |
+  89:.\XTR-8LR100.c **** 							  UART_LORA_RX_STS_OVERRUN |
+  90:.\XTR-8LR100.c **** 							  UART_LORA_RX_STS_SOFT_BUFF_OVER))
+  91:.\XTR-8LR100.c **** 	{
+  92:.\XTR-8LR100.c **** 		sysFaults.general = sysFaults.general | GEN_UART_LORA_FAULT;
+  93:.\XTR-8LR100.c **** 		sysFaults.UART_LORA_RxStatusOnError = UART_LORA_RxStatus;		/* SAVE STATUS ON ERROR	*/
+  94:.\XTR-8LR100.c **** 		
+  95:.\XTR-8LR100.c **** 		// FAULT LOG ONE SHOT CONTROL (fault asserted/trigger branch)
+  96:.\XTR-8LR100.c **** 		if (sysFaults.FaultLogOneShotTrigger[GEN_UART_LORA_FAULT_LOG] == ONESHOT_TRIGGER_ENABLED)
+  97:.\XTR-8LR100.c **** 		{
+  98:.\XTR-8LR100.c **** 			sysFaults.FaultLogCounter[GEN_UART_LORA_FAULT_LOG]++;
+  99:.\XTR-8LR100.c **** 			sysFaults.FaultLogOneShotTrigger[GEN_UART_LORA_FAULT_LOG] = ONESHOT_TRIGGER_DISABLED;
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 5
+
+
+ 100:.\XTR-8LR100.c **** 		}		
+ 101:.\XTR-8LR100.c **** 		
+ 102:.\XTR-8LR100.c **** 		// FAULT LOG ONE SHOT CONTROL (fault asserted/trigger branch) - parity error UART_LORA		
+ 103:.\XTR-8LR100.c **** 		if (sysFaults.UART_LORA_RxStatusOnError & UART_LORA_RX_STS_PAR_ERROR)
+ 104:.\XTR-8LR100.c **** 		{
+ 105:.\XTR-8LR100.c **** 			if (sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_ParityError_LOG] == ONESHOT_TRIGGER_ENABLED
+ 106:.\XTR-8LR100.c **** 			{
+ 107:.\XTR-8LR100.c **** 				sysFaults.FaultLogCounter[UART_LORA_FAULT_ParityError_LOG]++;
+ 108:.\XTR-8LR100.c **** 				sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_ParityError_LOG] = ONESHOT_TRIGGER_DISABLED;
+ 109:.\XTR-8LR100.c **** 			}			
+ 110:.\XTR-8LR100.c **** 		}
+ 111:.\XTR-8LR100.c **** 		
+ 112:.\XTR-8LR100.c **** 		// FAULT LOG ONE SHOT CONTROL (fault asserted/trigger branch) - buffer overrun UART_LORA		
+ 113:.\XTR-8LR100.c **** 		if (sysFaults.UART_LORA_RxStatusOnError & UART_LORA_RX_STS_OVERRUN)
+ 114:.\XTR-8LR100.c **** 		{
+ 115:.\XTR-8LR100.c **** 			if (sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_BufferOverrunError_LOG] == ONESHOT_TRIGGER_
+ 116:.\XTR-8LR100.c **** 			{
+ 117:.\XTR-8LR100.c **** 				sysFaults.FaultLogCounter[UART_LORA_FAULT_BufferOverrunError_LOG]++;
+ 118:.\XTR-8LR100.c **** 				sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_BufferOverrunError_LOG] = ONESHOT_TRIGGER_DISA
+ 119:.\XTR-8LR100.c **** 			}			
+ 120:.\XTR-8LR100.c **** 		}
+ 121:.\XTR-8LR100.c **** 
+ 122:.\XTR-8LR100.c **** 		// FAULT LOG ONE SHOT CONTROL (fault asserted/trigger branch) - framing error UART_LORA		
+ 123:.\XTR-8LR100.c **** 		if (sysFaults.UART_LORA_RxStatusOnError & UART_LORA_RX_STS_STOP_ERROR)
+ 124:.\XTR-8LR100.c **** 		{
+ 125:.\XTR-8LR100.c **** 			if (sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_FramingError_LOG] == ONESHOT_TRIGGER_ENABLE
+ 126:.\XTR-8LR100.c **** 			{
+ 127:.\XTR-8LR100.c **** 				sysFaults.FaultLogCounter[UART_LORA_FAULT_FramingError_LOG]++;
+ 128:.\XTR-8LR100.c **** 				sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_FramingError_LOG] = ONESHOT_TRIGGER_DISABLED;
+ 129:.\XTR-8LR100.c **** 			}			
+ 130:.\XTR-8LR100.c **** 		}	
+ 131:.\XTR-8LR100.c **** 		
+ 132:.\XTR-8LR100.c **** 		// FAULT LOG ONE SHOT CONTROL (fault asserted/trigger branch) - FIFO buffer overrun UART_LORA		
+ 133:.\XTR-8LR100.c **** 		if (sysFaults.UART_LORA_RxStatusOnError & UART_LORA_RX_STS_SOFT_BUFF_OVER)
+ 134:.\XTR-8LR100.c **** 		{
+ 135:.\XTR-8LR100.c **** 			if (sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_FIFOBufferOverrunError_LOG] == ONESHOT_TRIG
+ 136:.\XTR-8LR100.c **** 			{
+ 137:.\XTR-8LR100.c **** 				sysFaults.FaultLogCounter[UART_LORA_FAULT_FIFOBufferOverrunError_LOG]++;
+ 138:.\XTR-8LR100.c **** 				sysFaults.FaultLogOneShotTrigger[UART_LORA_FAULT_FIFOBufferOverrunError_LOG] = ONESHOT_TRIGGER_
+ 139:.\XTR-8LR100.c **** 			}			
+ 140:.\XTR-8LR100.c **** 		}				
+ 141:.\XTR-8LR100.c **** 	}
+ 142:.\XTR-8LR100.c **** //	else
+ 143:.\XTR-8LR100.c **** //	{
+ 144:.\XTR-8LR100.c **** 	//	sysFaults.general = sysFaults.general & ~(GEN_UART_LORA_FAULT);	
+ 145:.\XTR-8LR100.c **** //	}
+ 146:.\XTR-8LR100.c **** #endif	//SYS_FAULTS_LOG_ENABLE
+ 147:.\XTR-8LR100.c **** 
+ 148:.\XTR-8LR100.c **** //	do 
+ 149:.\XTR-8LR100.c **** //	{
+ 150:.\XTR-8LR100.c **** //		UART_LORA_RxStatus = UART_LORA_ReadRxStatus();
+ 151:.\XTR-8LR100.c **** //		UART_LORA_charin = UART_LORA_GetChar();
+ 152:.\XTR-8LR100.c **** //	
+ 153:.\XTR-8LR100.c **** //		/* gateway UART LORA --> UART USB			*/
+ 154:.\XTR-8LR100.c **** //		if (UART_LORA_charin != 0)
+ 155:.\XTR-8LR100.c **** //		{
+ 156:.\XTR-8LR100.c **** //			UART_USB_PutChar(UART_LORA_charin);				//send feedback through console
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 6
+
+
+ 157:.\XTR-8LR100.c **** //		}
+ 158:.\XTR-8LR100.c **** //	}
+ 159:.\XTR-8LR100.c **** //	while (UART_LORA_GetRxBufferSize() > 0);
+ 160:.\XTR-8LR100.c **** }	
+ 125              		.loc 1 160 0
+ 126 0004 BD46     		mov	sp, r7
+ 127 0006 80BC     		pop	{r7}
+ 128 0008 7047     		bx	lr
+ 129              		.cfi_endproc
+ 130              	.LFE57:
+ 131              		.size	UART_LORA_RX_isr_process, .-UART_LORA_RX_isr_process
+ 132 000a 00BF     		.text
+ 133              	.Letext0:
+ 134              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 135              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 136              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+ 137              		.section	.debug_info,"",%progbits
+ 138              	.Ldebug_info0:
+ 139 0000 6B010000 		.4byte	0x16b
+ 140 0004 0200     		.2byte	0x2
+ 141 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 142 000a 04       		.byte	0x4
+ 143 000b 01       		.uleb128 0x1
+ 144 000c 06010000 		.4byte	.LASF20
+ 145 0010 01       		.byte	0x1
+ 146 0011 75010000 		.4byte	.LASF21
+ 147 0015 2E000000 		.4byte	.LASF22
+ 148 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 149 001d 00000000 		.4byte	0
+ 150 0021 00000000 		.4byte	0
+ 151 0025 00000000 		.4byte	.Ldebug_line0
+ 152 0029 02       		.uleb128 0x2
+ 153 002a 01       		.byte	0x1
+ 154 002b 06       		.byte	0x6
+ 155 002c A1010000 		.4byte	.LASF0
+ 156 0030 02       		.uleb128 0x2
+ 157 0031 01       		.byte	0x1
+ 158 0032 08       		.byte	0x8
+ 159 0033 62010000 		.4byte	.LASF1
+ 160 0037 02       		.uleb128 0x2
+ 161 0038 02       		.byte	0x2
+ 162 0039 05       		.byte	0x5
+ 163 003a CC010000 		.4byte	.LASF2
+ 164 003e 02       		.uleb128 0x2
+ 165 003f 02       		.byte	0x2
+ 166 0040 07       		.byte	0x7
+ 167 0041 0E000000 		.4byte	.LASF3
+ 168 0045 03       		.uleb128 0x3
+ 169 0046 D6010000 		.4byte	.LASF9
+ 170 004a 02       		.byte	0x2
+ 171 004b 4F       		.byte	0x4f
+ 172 004c 50000000 		.4byte	0x50
+ 173 0050 02       		.uleb128 0x2
+ 174 0051 04       		.byte	0x4
+ 175 0052 05       		.byte	0x5
+ 176 0053 84010000 		.4byte	.LASF4
+ 177 0057 02       		.uleb128 0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 7
+
+
+ 178 0058 04       		.byte	0x4
+ 179 0059 07       		.byte	0x7
+ 180 005a DD000000 		.4byte	.LASF5
+ 181 005e 02       		.uleb128 0x2
+ 182 005f 08       		.byte	0x8
+ 183 0060 05       		.byte	0x5
+ 184 0061 00000000 		.4byte	.LASF6
+ 185 0065 02       		.uleb128 0x2
+ 186 0066 08       		.byte	0x8
+ 187 0067 07       		.byte	0x7
+ 188 0068 EF000000 		.4byte	.LASF7
+ 189 006c 04       		.uleb128 0x4
+ 190 006d 04       		.byte	0x4
+ 191 006e 05       		.byte	0x5
+ 192 006f 696E7400 		.ascii	"int\000"
+ 193 0073 02       		.uleb128 0x2
+ 194 0074 04       		.byte	0x4
+ 195 0075 07       		.byte	0x7
+ 196 0076 21000000 		.4byte	.LASF8
+ 197 007a 03       		.uleb128 0x3
+ 198 007b D7000000 		.4byte	.LASF10
+ 199 007f 03       		.byte	0x3
+ 200 0080 5B       		.byte	0x5b
+ 201 0081 30000000 		.4byte	0x30
+ 202 0085 02       		.uleb128 0x2
+ 203 0086 04       		.byte	0x4
+ 204 0087 04       		.byte	0x4
+ 205 0088 C6010000 		.4byte	.LASF11
+ 206 008c 02       		.uleb128 0x2
+ 207 008d 08       		.byte	0x8
+ 208 008e 04       		.byte	0x4
+ 209 008f 8D010000 		.4byte	.LASF12
+ 210 0093 02       		.uleb128 0x2
+ 211 0094 01       		.byte	0x1
+ 212 0095 08       		.byte	0x8
+ 213 0096 70010000 		.4byte	.LASF13
+ 214 009a 02       		.uleb128 0x2
+ 215 009b 04       		.byte	0x4
+ 216 009c 07       		.byte	0x7
+ 217 009d DE010000 		.4byte	.LASF14
+ 218 00a1 05       		.uleb128 0x5
+ 219 00a2 04       		.byte	0x4
+ 220 00a3 A7000000 		.4byte	0xa7
+ 221 00a7 06       		.uleb128 0x6
+ 222 00a8 93000000 		.4byte	0x93
+ 223 00ac 07       		.uleb128 0x7
+ 224 00ad 01       		.byte	0x1
+ 225 00ae C9000000 		.4byte	.LASF23
+ 226 00b2 01       		.byte	0x1
+ 227 00b3 33       		.byte	0x33
+ 228 00b4 01       		.byte	0x1
+ 229 00b5 00000000 		.4byte	.LFB56
+ 230 00b9 56000000 		.4byte	.LFE56
+ 231 00bd 00000000 		.4byte	.LLST0
+ 232 00c1 01       		.byte	0x1
+ 233 00c2 E3000000 		.4byte	0xe3
+ 234 00c6 08       		.uleb128 0x8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 8
+
+
+ 235 00c7 636D6400 		.ascii	"cmd\000"
+ 236 00cb 01       		.byte	0x1
+ 237 00cc 33       		.byte	0x33
+ 238 00cd A1000000 		.4byte	0xa1
+ 239 00d1 02       		.byte	0x2
+ 240 00d2 91       		.byte	0x91
+ 241 00d3 64       		.sleb128 -28
+ 242 00d4 09       		.uleb128 0x9
+ 243 00d5 69647800 		.ascii	"idx\000"
+ 244 00d9 01       		.byte	0x1
+ 245 00da 35       		.byte	0x35
+ 246 00db 7A000000 		.4byte	0x7a
+ 247 00df 02       		.byte	0x2
+ 248 00e0 91       		.byte	0x91
+ 249 00e1 6F       		.sleb128 -17
+ 250 00e2 00       		.byte	0
+ 251 00e3 0A       		.uleb128 0xa
+ 252 00e4 01       		.byte	0x1
+ 253 00e5 AD010000 		.4byte	.LASF24
+ 254 00e9 01       		.byte	0x1
+ 255 00ea 51       		.byte	0x51
+ 256 00eb 01       		.byte	0x1
+ 257 00ec 00000000 		.4byte	.LFB57
+ 258 00f0 0A000000 		.4byte	.LFE57
+ 259 00f4 38000000 		.4byte	.LLST1
+ 260 00f8 01       		.byte	0x1
+ 261 00f9 0B       		.uleb128 0xb
+ 262 00fa 94010000 		.4byte	.LASF15
+ 263 00fe 04       		.byte	0x4
+ 264 00ff 1606     		.2byte	0x616
+ 265 0101 07010000 		.4byte	0x107
+ 266 0105 01       		.byte	0x1
+ 267 0106 01       		.byte	0x1
+ 268 0107 0C       		.uleb128 0xc
+ 269 0108 45000000 		.4byte	0x45
+ 270 010c 0D       		.uleb128 0xd
+ 271 010d 93000000 		.4byte	0x93
+ 272 0111 1C010000 		.4byte	0x11c
+ 273 0115 0E       		.uleb128 0xe
+ 274 0116 9A000000 		.4byte	0x9a
+ 275 011a 04       		.byte	0x4
+ 276 011b 00       		.byte	0
+ 277 011c 0F       		.uleb128 0xf
+ 278 011d 9E000000 		.4byte	.LASF16
+ 279 0121 01       		.byte	0x1
+ 280 0122 23       		.byte	0x23
+ 281 0123 2E010000 		.4byte	0x12e
+ 282 0127 01       		.byte	0x1
+ 283 0128 05       		.byte	0x5
+ 284 0129 03       		.byte	0x3
+ 285 012a 00000000 		.4byte	CMD_AT
+ 286 012e 06       		.uleb128 0x6
+ 287 012f 0C010000 		.4byte	0x10c
+ 288 0133 0F       		.uleb128 0xf
+ 289 0134 B6000000 		.4byte	.LASF17
+ 290 0138 01       		.byte	0x1
+ 291 0139 2A       		.byte	0x2a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 9
+
+
+ 292 013a 45010000 		.4byte	0x145
+ 293 013e 01       		.byte	0x1
+ 294 013f 05       		.byte	0x5
+ 295 0140 03       		.byte	0x3
+ 296 0141 00000000 		.4byte	CMD_AT_SHOWVERSION
+ 297 0145 06       		.uleb128 0x6
+ 298 0146 0C010000 		.4byte	0x10c
+ 299 014a 0F       		.uleb128 0xf
+ 300 014b A5000000 		.4byte	.LASF18
+ 301 014f 01       		.byte	0x1
+ 302 0150 15       		.byte	0x15
+ 303 0151 7A000000 		.4byte	0x7a
+ 304 0155 01       		.byte	0x1
+ 305 0156 05       		.byte	0x5
+ 306 0157 03       		.byte	0x3
+ 307 0158 00000000 		.4byte	UART_LORA_charin
+ 308 015c 0F       		.uleb128 0xf
+ 309 015d 4F010000 		.4byte	.LASF19
+ 310 0161 01       		.byte	0x1
+ 311 0162 16       		.byte	0x16
+ 312 0163 7A000000 		.4byte	0x7a
+ 313 0167 01       		.byte	0x1
+ 314 0168 05       		.byte	0x5
+ 315 0169 03       		.byte	0x3
+ 316 016a 00000000 		.4byte	UART_LORA_RxStatus
+ 317 016e 00       		.byte	0
+ 318              		.section	.debug_abbrev,"",%progbits
+ 319              	.Ldebug_abbrev0:
+ 320 0000 01       		.uleb128 0x1
+ 321 0001 11       		.uleb128 0x11
+ 322 0002 01       		.byte	0x1
+ 323 0003 25       		.uleb128 0x25
+ 324 0004 0E       		.uleb128 0xe
+ 325 0005 13       		.uleb128 0x13
+ 326 0006 0B       		.uleb128 0xb
+ 327 0007 03       		.uleb128 0x3
+ 328 0008 0E       		.uleb128 0xe
+ 329 0009 1B       		.uleb128 0x1b
+ 330 000a 0E       		.uleb128 0xe
+ 331 000b 55       		.uleb128 0x55
+ 332 000c 06       		.uleb128 0x6
+ 333 000d 11       		.uleb128 0x11
+ 334 000e 01       		.uleb128 0x1
+ 335 000f 52       		.uleb128 0x52
+ 336 0010 01       		.uleb128 0x1
+ 337 0011 10       		.uleb128 0x10
+ 338 0012 06       		.uleb128 0x6
+ 339 0013 00       		.byte	0
+ 340 0014 00       		.byte	0
+ 341 0015 02       		.uleb128 0x2
+ 342 0016 24       		.uleb128 0x24
+ 343 0017 00       		.byte	0
+ 344 0018 0B       		.uleb128 0xb
+ 345 0019 0B       		.uleb128 0xb
+ 346 001a 3E       		.uleb128 0x3e
+ 347 001b 0B       		.uleb128 0xb
+ 348 001c 03       		.uleb128 0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 10
+
+
+ 349 001d 0E       		.uleb128 0xe
+ 350 001e 00       		.byte	0
+ 351 001f 00       		.byte	0
+ 352 0020 03       		.uleb128 0x3
+ 353 0021 16       		.uleb128 0x16
+ 354 0022 00       		.byte	0
+ 355 0023 03       		.uleb128 0x3
+ 356 0024 0E       		.uleb128 0xe
+ 357 0025 3A       		.uleb128 0x3a
+ 358 0026 0B       		.uleb128 0xb
+ 359 0027 3B       		.uleb128 0x3b
+ 360 0028 0B       		.uleb128 0xb
+ 361 0029 49       		.uleb128 0x49
+ 362 002a 13       		.uleb128 0x13
+ 363 002b 00       		.byte	0
+ 364 002c 00       		.byte	0
+ 365 002d 04       		.uleb128 0x4
+ 366 002e 24       		.uleb128 0x24
+ 367 002f 00       		.byte	0
+ 368 0030 0B       		.uleb128 0xb
+ 369 0031 0B       		.uleb128 0xb
+ 370 0032 3E       		.uleb128 0x3e
+ 371 0033 0B       		.uleb128 0xb
+ 372 0034 03       		.uleb128 0x3
+ 373 0035 08       		.uleb128 0x8
+ 374 0036 00       		.byte	0
+ 375 0037 00       		.byte	0
+ 376 0038 05       		.uleb128 0x5
+ 377 0039 0F       		.uleb128 0xf
+ 378 003a 00       		.byte	0
+ 379 003b 0B       		.uleb128 0xb
+ 380 003c 0B       		.uleb128 0xb
+ 381 003d 49       		.uleb128 0x49
+ 382 003e 13       		.uleb128 0x13
+ 383 003f 00       		.byte	0
+ 384 0040 00       		.byte	0
+ 385 0041 06       		.uleb128 0x6
+ 386 0042 26       		.uleb128 0x26
+ 387 0043 00       		.byte	0
+ 388 0044 49       		.uleb128 0x49
+ 389 0045 13       		.uleb128 0x13
+ 390 0046 00       		.byte	0
+ 391 0047 00       		.byte	0
+ 392 0048 07       		.uleb128 0x7
+ 393 0049 2E       		.uleb128 0x2e
+ 394 004a 01       		.byte	0x1
+ 395 004b 3F       		.uleb128 0x3f
+ 396 004c 0C       		.uleb128 0xc
+ 397 004d 03       		.uleb128 0x3
+ 398 004e 0E       		.uleb128 0xe
+ 399 004f 3A       		.uleb128 0x3a
+ 400 0050 0B       		.uleb128 0xb
+ 401 0051 3B       		.uleb128 0x3b
+ 402 0052 0B       		.uleb128 0xb
+ 403 0053 27       		.uleb128 0x27
+ 404 0054 0C       		.uleb128 0xc
+ 405 0055 11       		.uleb128 0x11
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 11
+
+
+ 406 0056 01       		.uleb128 0x1
+ 407 0057 12       		.uleb128 0x12
+ 408 0058 01       		.uleb128 0x1
+ 409 0059 40       		.uleb128 0x40
+ 410 005a 06       		.uleb128 0x6
+ 411 005b 9642     		.uleb128 0x2116
+ 412 005d 0C       		.uleb128 0xc
+ 413 005e 01       		.uleb128 0x1
+ 414 005f 13       		.uleb128 0x13
+ 415 0060 00       		.byte	0
+ 416 0061 00       		.byte	0
+ 417 0062 08       		.uleb128 0x8
+ 418 0063 05       		.uleb128 0x5
+ 419 0064 00       		.byte	0
+ 420 0065 03       		.uleb128 0x3
+ 421 0066 08       		.uleb128 0x8
+ 422 0067 3A       		.uleb128 0x3a
+ 423 0068 0B       		.uleb128 0xb
+ 424 0069 3B       		.uleb128 0x3b
+ 425 006a 0B       		.uleb128 0xb
+ 426 006b 49       		.uleb128 0x49
+ 427 006c 13       		.uleb128 0x13
+ 428 006d 02       		.uleb128 0x2
+ 429 006e 0A       		.uleb128 0xa
+ 430 006f 00       		.byte	0
+ 431 0070 00       		.byte	0
+ 432 0071 09       		.uleb128 0x9
+ 433 0072 34       		.uleb128 0x34
+ 434 0073 00       		.byte	0
+ 435 0074 03       		.uleb128 0x3
+ 436 0075 08       		.uleb128 0x8
+ 437 0076 3A       		.uleb128 0x3a
+ 438 0077 0B       		.uleb128 0xb
+ 439 0078 3B       		.uleb128 0x3b
+ 440 0079 0B       		.uleb128 0xb
+ 441 007a 49       		.uleb128 0x49
+ 442 007b 13       		.uleb128 0x13
+ 443 007c 02       		.uleb128 0x2
+ 444 007d 0A       		.uleb128 0xa
+ 445 007e 00       		.byte	0
+ 446 007f 00       		.byte	0
+ 447 0080 0A       		.uleb128 0xa
+ 448 0081 2E       		.uleb128 0x2e
+ 449 0082 00       		.byte	0
+ 450 0083 3F       		.uleb128 0x3f
+ 451 0084 0C       		.uleb128 0xc
+ 452 0085 03       		.uleb128 0x3
+ 453 0086 0E       		.uleb128 0xe
+ 454 0087 3A       		.uleb128 0x3a
+ 455 0088 0B       		.uleb128 0xb
+ 456 0089 3B       		.uleb128 0x3b
+ 457 008a 0B       		.uleb128 0xb
+ 458 008b 27       		.uleb128 0x27
+ 459 008c 0C       		.uleb128 0xc
+ 460 008d 11       		.uleb128 0x11
+ 461 008e 01       		.uleb128 0x1
+ 462 008f 12       		.uleb128 0x12
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 12
+
+
+ 463 0090 01       		.uleb128 0x1
+ 464 0091 40       		.uleb128 0x40
+ 465 0092 06       		.uleb128 0x6
+ 466 0093 9742     		.uleb128 0x2117
+ 467 0095 0C       		.uleb128 0xc
+ 468 0096 00       		.byte	0
+ 469 0097 00       		.byte	0
+ 470 0098 0B       		.uleb128 0xb
+ 471 0099 34       		.uleb128 0x34
+ 472 009a 00       		.byte	0
+ 473 009b 03       		.uleb128 0x3
+ 474 009c 0E       		.uleb128 0xe
+ 475 009d 3A       		.uleb128 0x3a
+ 476 009e 0B       		.uleb128 0xb
+ 477 009f 3B       		.uleb128 0x3b
+ 478 00a0 05       		.uleb128 0x5
+ 479 00a1 49       		.uleb128 0x49
+ 480 00a2 13       		.uleb128 0x13
+ 481 00a3 3F       		.uleb128 0x3f
+ 482 00a4 0C       		.uleb128 0xc
+ 483 00a5 3C       		.uleb128 0x3c
+ 484 00a6 0C       		.uleb128 0xc
+ 485 00a7 00       		.byte	0
+ 486 00a8 00       		.byte	0
+ 487 00a9 0C       		.uleb128 0xc
+ 488 00aa 35       		.uleb128 0x35
+ 489 00ab 00       		.byte	0
+ 490 00ac 49       		.uleb128 0x49
+ 491 00ad 13       		.uleb128 0x13
+ 492 00ae 00       		.byte	0
+ 493 00af 00       		.byte	0
+ 494 00b0 0D       		.uleb128 0xd
+ 495 00b1 01       		.uleb128 0x1
+ 496 00b2 01       		.byte	0x1
+ 497 00b3 49       		.uleb128 0x49
+ 498 00b4 13       		.uleb128 0x13
+ 499 00b5 01       		.uleb128 0x1
+ 500 00b6 13       		.uleb128 0x13
+ 501 00b7 00       		.byte	0
+ 502 00b8 00       		.byte	0
+ 503 00b9 0E       		.uleb128 0xe
+ 504 00ba 21       		.uleb128 0x21
+ 505 00bb 00       		.byte	0
+ 506 00bc 49       		.uleb128 0x49
+ 507 00bd 13       		.uleb128 0x13
+ 508 00be 2F       		.uleb128 0x2f
+ 509 00bf 0B       		.uleb128 0xb
+ 510 00c0 00       		.byte	0
+ 511 00c1 00       		.byte	0
+ 512 00c2 0F       		.uleb128 0xf
+ 513 00c3 34       		.uleb128 0x34
+ 514 00c4 00       		.byte	0
+ 515 00c5 03       		.uleb128 0x3
+ 516 00c6 0E       		.uleb128 0xe
+ 517 00c7 3A       		.uleb128 0x3a
+ 518 00c8 0B       		.uleb128 0xb
+ 519 00c9 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 13
+
+
+ 520 00ca 0B       		.uleb128 0xb
+ 521 00cb 49       		.uleb128 0x49
+ 522 00cc 13       		.uleb128 0x13
+ 523 00cd 3F       		.uleb128 0x3f
+ 524 00ce 0C       		.uleb128 0xc
+ 525 00cf 02       		.uleb128 0x2
+ 526 00d0 0A       		.uleb128 0xa
+ 527 00d1 00       		.byte	0
+ 528 00d2 00       		.byte	0
+ 529 00d3 00       		.byte	0
+ 530              		.section	.debug_loc,"",%progbits
+ 531              	.Ldebug_loc0:
+ 532              	.LLST0:
+ 533 0000 00000000 		.4byte	.LFB56
+ 534 0004 02000000 		.4byte	.LCFI0
+ 535 0008 0200     		.2byte	0x2
+ 536 000a 7D       		.byte	0x7d
+ 537 000b 00       		.sleb128 0
+ 538 000c 02000000 		.4byte	.LCFI0
+ 539 0010 04000000 		.4byte	.LCFI1
+ 540 0014 0200     		.2byte	0x2
+ 541 0016 7D       		.byte	0x7d
+ 542 0017 0C       		.sleb128 12
+ 543 0018 04000000 		.4byte	.LCFI1
+ 544 001c 06000000 		.4byte	.LCFI2
+ 545 0020 0200     		.2byte	0x2
+ 546 0022 7D       		.byte	0x7d
+ 547 0023 20       		.sleb128 32
+ 548 0024 06000000 		.4byte	.LCFI2
+ 549 0028 56000000 		.4byte	.LFE56
+ 550 002c 0200     		.2byte	0x2
+ 551 002e 77       		.byte	0x77
+ 552 002f 20       		.sleb128 32
+ 553 0030 00000000 		.4byte	0
+ 554 0034 00000000 		.4byte	0
+ 555              	.LLST1:
+ 556 0038 00000000 		.4byte	.LFB57
+ 557 003c 02000000 		.4byte	.LCFI3
+ 558 0040 0200     		.2byte	0x2
+ 559 0042 7D       		.byte	0x7d
+ 560 0043 00       		.sleb128 0
+ 561 0044 02000000 		.4byte	.LCFI3
+ 562 0048 04000000 		.4byte	.LCFI4
+ 563 004c 0200     		.2byte	0x2
+ 564 004e 7D       		.byte	0x7d
+ 565 004f 04       		.sleb128 4
+ 566 0050 04000000 		.4byte	.LCFI4
+ 567 0054 0A000000 		.4byte	.LFE57
+ 568 0058 0200     		.2byte	0x2
+ 569 005a 77       		.byte	0x77
+ 570 005b 04       		.sleb128 4
+ 571 005c 00000000 		.4byte	0
+ 572 0060 00000000 		.4byte	0
+ 573              		.section	.debug_aranges,"",%progbits
+ 574 0000 24000000 		.4byte	0x24
+ 575 0004 0200     		.2byte	0x2
+ 576 0006 00000000 		.4byte	.Ldebug_info0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 14
+
+
+ 577 000a 04       		.byte	0x4
+ 578 000b 00       		.byte	0
+ 579 000c 0000     		.2byte	0
+ 580 000e 0000     		.2byte	0
+ 581 0010 00000000 		.4byte	.LFB56
+ 582 0014 56000000 		.4byte	.LFE56-.LFB56
+ 583 0018 00000000 		.4byte	.LFB57
+ 584 001c 0A000000 		.4byte	.LFE57-.LFB57
+ 585 0020 00000000 		.4byte	0
+ 586 0024 00000000 		.4byte	0
+ 587              		.section	.debug_ranges,"",%progbits
+ 588              	.Ldebug_ranges0:
+ 589 0000 00000000 		.4byte	.LFB56
+ 590 0004 56000000 		.4byte	.LFE56
+ 591 0008 00000000 		.4byte	.LFB57
+ 592 000c 0A000000 		.4byte	.LFE57
+ 593 0010 00000000 		.4byte	0
+ 594 0014 00000000 		.4byte	0
+ 595              		.section	.debug_line,"",%progbits
+ 596              	.Ldebug_line0:
+ 597 0000 3B010000 		.section	.debug_str,"MS",%progbits,1
+ 597      0200FF00 
+ 597      00000201 
+ 597      FB0E0D00 
+ 597      01010101 
+ 598              	.LASF6:
+ 599 0000 6C6F6E67 		.ascii	"long long int\000"
+ 599      206C6F6E 
+ 599      6720696E 
+ 599      7400
+ 600              	.LASF3:
+ 601 000e 73686F72 		.ascii	"short unsigned int\000"
+ 601      7420756E 
+ 601      7369676E 
+ 601      65642069 
+ 601      6E7400
+ 602              	.LASF8:
+ 603 0021 756E7369 		.ascii	"unsigned int\000"
+ 603      676E6564 
+ 603      20696E74 
+ 603      00
+ 604              	.LASF22:
+ 605 002e 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 605      73657273 
+ 605      5C477261 
+ 605      7A69616E 
+ 605      6F20472E 
+ 606 005d 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 606      5C535155 
+ 606      49545C56 
+ 606      6572732E 
+ 606      302E302D 
+ 607 008d 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 607      2D50726F 
+ 607      746F2E63 
+ 607      7964736E 
+ 607      00
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 15
+
+
+ 608              	.LASF16:
+ 609 009e 434D445F 		.ascii	"CMD_AT\000"
+ 609      415400
+ 610              	.LASF18:
+ 611 00a5 55415254 		.ascii	"UART_LORA_charin\000"
+ 611      5F4C4F52 
+ 611      415F6368 
+ 611      6172696E 
+ 611      00
+ 612              	.LASF17:
+ 613 00b6 434D445F 		.ascii	"CMD_AT_SHOWVERSION\000"
+ 613      41545F53 
+ 613      484F5756 
+ 613      45525349 
+ 613      4F4E00
+ 614              	.LASF23:
+ 615 00c9 73656E64 		.ascii	"sendLoRaATcmd\000"
+ 615      4C6F5261 
+ 615      4154636D 
+ 615      6400
+ 616              	.LASF10:
+ 617 00d7 75696E74 		.ascii	"uint8\000"
+ 617      3800
+ 618              	.LASF5:
+ 619 00dd 6C6F6E67 		.ascii	"long unsigned int\000"
+ 619      20756E73 
+ 619      69676E65 
+ 619      6420696E 
+ 619      7400
+ 620              	.LASF7:
+ 621 00ef 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 621      206C6F6E 
+ 621      6720756E 
+ 621      7369676E 
+ 621      65642069 
+ 622              	.LASF20:
+ 623 0106 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 623      4320342E 
+ 623      372E3320 
+ 623      32303133 
+ 623      30333132 
+ 624 0139 616E6368 		.ascii	"anch revision 196615]\000"
+ 624      20726576 
+ 624      6973696F 
+ 624      6E203139 
+ 624      36363135 
+ 625              	.LASF19:
+ 626 014f 55415254 		.ascii	"UART_LORA_RxStatus\000"
+ 626      5F4C4F52 
+ 626      415F5278 
+ 626      53746174 
+ 626      757300
+ 627              	.LASF1:
+ 628 0162 756E7369 		.ascii	"unsigned char\000"
+ 628      676E6564 
+ 628      20636861 
+ 628      7200
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccxpfOGJ.s 			page 16
+
+
+ 629              	.LASF13:
+ 630 0170 63686172 		.ascii	"char\000"
+ 630      00
+ 631              	.LASF21:
+ 632 0175 2E5C5854 		.ascii	".\\XTR-8LR100.c\000"
+ 632      522D384C 
+ 632      52313030 
+ 632      2E6300
+ 633              	.LASF4:
+ 634 0184 6C6F6E67 		.ascii	"long int\000"
+ 634      20696E74 
+ 634      00
+ 635              	.LASF12:
+ 636 018d 646F7562 		.ascii	"double\000"
+ 636      6C6500
+ 637              	.LASF15:
+ 638 0194 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 638      52784275 
+ 638      66666572 
+ 638      00
+ 639              	.LASF0:
+ 640 01a1 7369676E 		.ascii	"signed char\000"
+ 640      65642063 
+ 640      68617200 
+ 641              	.LASF24:
+ 642 01ad 55415254 		.ascii	"UART_LORA_RX_isr_process\000"
+ 642      5F4C4F52 
+ 642      415F5258 
+ 642      5F697372 
+ 642      5F70726F 
+ 643              	.LASF11:
+ 644 01c6 666C6F61 		.ascii	"float\000"
+ 644      7400
+ 645              	.LASF2:
+ 646 01cc 73686F72 		.ascii	"short int\000"
+ 646      7420696E 
+ 646      7400
+ 647              	.LASF9:
+ 648 01d6 696E7433 		.ascii	"int32_t\000"
+ 648      325F7400 
+ 649              	.LASF14:
+ 650 01de 73697A65 		.ascii	"sizetype\000"
+ 650      74797065 
+ 650      00
+ 651              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,1019 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ADC_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.ADC_SaveConfig,"ax",%progbits
+  19              		.align	1
+  20              		.global	ADC_SaveConfig
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	ADC_SaveConfig, %function
+  24              	ADC_SaveConfig:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\ADC_PM.c"
+   1:.\Generated_Source\PSoC5/ADC_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/ADC_PM.c **** * File Name: ADC_PM.c
+   3:.\Generated_Source\PSoC5/ADC_PM.c **** * Version 3.10
+   4:.\Generated_Source\PSoC5/ADC_PM.c **** *
+   5:.\Generated_Source\PSoC5/ADC_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/ADC_PM.c **** *  This file provides the power manager source code to the API for the
+   7:.\Generated_Source\PSoC5/ADC_PM.c **** *  Delta-Sigma ADC Component.
+   8:.\Generated_Source\PSoC5/ADC_PM.c **** *
+   9:.\Generated_Source\PSoC5/ADC_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  11:.\Generated_Source\PSoC5/ADC_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/ADC_PM.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/ADC_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/ADC_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/ADC_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/ADC_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  18:.\Generated_Source\PSoC5/ADC_PM.c **** #include "ADC.h"
+  19:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  20:.\Generated_Source\PSoC5/ADC_PM.c **** static ADC_BACKUP_STRUCT ADC_backup =
+  21:.\Generated_Source\PSoC5/ADC_PM.c **** {
+  22:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_DISABLED,
+  23:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_CFG1_DEC_CR
+  24:.\Generated_Source\PSoC5/ADC_PM.c **** };
+  25:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  26:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  27:.\Generated_Source\PSoC5/ADC_PM.c **** /*******************************************************************************
+  28:.\Generated_Source\PSoC5/ADC_PM.c **** * Function Name: ADC_SaveConfig
+  29:.\Generated_Source\PSoC5/ADC_PM.c **** ********************************************************************************
+  30:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  31:.\Generated_Source\PSoC5/ADC_PM.c **** * Summary:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/ADC_PM.c **** *  Save the register configuration which are not retention.
+  33:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  34:.\Generated_Source\PSoC5/ADC_PM.c **** * Parameters:
+  35:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+  36:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  37:.\Generated_Source\PSoC5/ADC_PM.c **** * Return:
+  38:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+  39:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  40:.\Generated_Source\PSoC5/ADC_PM.c **** * Global variables:
+  41:.\Generated_Source\PSoC5/ADC_PM.c **** *  ADC_backup:  This global structure variable is used to store
+  42:.\Generated_Source\PSoC5/ADC_PM.c **** *  configuration registers which are non retention whenever user wants to go
+  43:.\Generated_Source\PSoC5/ADC_PM.c **** *  sleep mode by calling Sleep() API.
+  44:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  45:.\Generated_Source\PSoC5/ADC_PM.c **** *******************************************************************************/
+  46:.\Generated_Source\PSoC5/ADC_PM.c **** void ADC_SaveConfig(void) 
+  47:.\Generated_Source\PSoC5/ADC_PM.c **** {
+  27              		.loc 1 47 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  48:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_backup.deccr = ADC_DEC_CR_REG;
+  32              		.loc 1 48 0
+  33 0000 024B     		ldr	r3, .L2
+  34 0002 0348     		ldr	r0, .L2+4
+  35 0004 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  36 0006 4270     		strb	r2, [r0, #1]
+  37 0008 7047     		bx	lr
+  38              	.L3:
+  39 000a 00BF     		.align	2
+  40              	.L2:
+  41 000c 004E0040 		.word	1073761792
+  42 0010 00000000 		.word	.LANCHOR0
+  43              		.cfi_endproc
+  44              	.LFE0:
+  45              		.size	ADC_SaveConfig, .-ADC_SaveConfig
+  46              		.section	.text.ADC_RestoreConfig,"ax",%progbits
+  47              		.align	1
+  48              		.global	ADC_RestoreConfig
+  49              		.thumb
+  50              		.thumb_func
+  51              		.type	ADC_RestoreConfig, %function
+  52              	ADC_RestoreConfig:
+  53              	.LFB1:
+  49:.\Generated_Source\PSoC5/ADC_PM.c **** }
+  50:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  51:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  52:.\Generated_Source\PSoC5/ADC_PM.c **** /*******************************************************************************
+  53:.\Generated_Source\PSoC5/ADC_PM.c **** * Function Name: ADC_RestoreConfig
+  54:.\Generated_Source\PSoC5/ADC_PM.c **** ********************************************************************************
+  55:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  56:.\Generated_Source\PSoC5/ADC_PM.c **** * Summary:
+  57:.\Generated_Source\PSoC5/ADC_PM.c **** *  Restore the register configurations which are not retention.
+  58:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  59:.\Generated_Source\PSoC5/ADC_PM.c **** * Parameters:
+  60:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+  61:.\Generated_Source\PSoC5/ADC_PM.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 3
+
+
+  62:.\Generated_Source\PSoC5/ADC_PM.c **** * Return:
+  63:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+  64:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  65:.\Generated_Source\PSoC5/ADC_PM.c **** * Global variables:
+  66:.\Generated_Source\PSoC5/ADC_PM.c **** *  ADC_backup:  This global structure variable is used to restore
+  67:.\Generated_Source\PSoC5/ADC_PM.c **** *  configuration registers which are non retention whenever user wants to switch
+  68:.\Generated_Source\PSoC5/ADC_PM.c **** *  to active power mode by calling Wakeup() API.
+  69:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  70:.\Generated_Source\PSoC5/ADC_PM.c **** *******************************************************************************/
+  71:.\Generated_Source\PSoC5/ADC_PM.c **** void ADC_RestoreConfig(void) 
+  72:.\Generated_Source\PSoC5/ADC_PM.c **** {
+  54              		.loc 1 72 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58              		@ link register save eliminated.
+  73:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_DEC_CR_REG = ADC_backup.deccr;
+  59              		.loc 1 73 0
+  60 0000 024B     		ldr	r3, .L5
+  61 0002 0348     		ldr	r0, .L5+4
+  62 0004 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+  63 0006 0270     		strb	r2, [r0, #0]
+  64 0008 7047     		bx	lr
+  65              	.L6:
+  66 000a 00BF     		.align	2
+  67              	.L5:
+  68 000c 00000000 		.word	.LANCHOR0
+  69 0010 004E0040 		.word	1073761792
+  70              		.cfi_endproc
+  71              	.LFE1:
+  72              		.size	ADC_RestoreConfig, .-ADC_RestoreConfig
+  73              		.section	.text.ADC_Sleep,"ax",%progbits
+  74              		.align	1
+  75              		.global	ADC_Sleep
+  76              		.thumb
+  77              		.thumb_func
+  78              		.type	ADC_Sleep, %function
+  79              	ADC_Sleep:
+  80              	.LFB2:
+  74:.\Generated_Source\PSoC5/ADC_PM.c **** }
+  75:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  76:.\Generated_Source\PSoC5/ADC_PM.c **** 
+  77:.\Generated_Source\PSoC5/ADC_PM.c **** /*******************************************************************************
+  78:.\Generated_Source\PSoC5/ADC_PM.c **** * Function Name: ADC_Sleep
+  79:.\Generated_Source\PSoC5/ADC_PM.c **** ********************************************************************************
+  80:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  81:.\Generated_Source\PSoC5/ADC_PM.c **** * Summary:
+  82:.\Generated_Source\PSoC5/ADC_PM.c **** *  Stops the operation of the block and saves the user configuration.
+  83:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  84:.\Generated_Source\PSoC5/ADC_PM.c **** * Parameters:
+  85:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+  86:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  87:.\Generated_Source\PSoC5/ADC_PM.c **** * Return:
+  88:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+  89:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  90:.\Generated_Source\PSoC5/ADC_PM.c **** * Global variables:
+  91:.\Generated_Source\PSoC5/ADC_PM.c **** *  ADC_backup:  The structure field 'enableState' is modified
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 4
+
+
+  92:.\Generated_Source\PSoC5/ADC_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+  93:.\Generated_Source\PSoC5/ADC_PM.c **** *
+  94:.\Generated_Source\PSoC5/ADC_PM.c **** *******************************************************************************/
+  95:.\Generated_Source\PSoC5/ADC_PM.c **** void ADC_Sleep(void) 
+  96:.\Generated_Source\PSoC5/ADC_PM.c **** {
+  81              		.loc 1 96 0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85 0000 08B5     		push	{r3, lr}
+  86              	.LCFI0:
+  87              		.cfi_def_cfa_offset 8
+  88              		.cfi_offset 3, -8
+  89              		.cfi_offset 14, -4
+  97:.\Generated_Source\PSoC5/ADC_PM.c ****     /* Save ADC enable state */
+  98:.\Generated_Source\PSoC5/ADC_PM.c ****     if((ADC_ACT_PWR_DEC_EN == (ADC_PWRMGR_DEC_REG & ADC_ACT_PWR_DEC_EN)) &&
+  90              		.loc 1 98 0
+  91 0002 0E4B     		ldr	r3, .L21
+  92 0004 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  93 0006 D107     		lsls	r1, r2, #31
+  94 0008 10D5     		bpl	.L8
+  99:.\Generated_Source\PSoC5/ADC_PM.c ****        (ADC_ACT_PWR_DSM_EN == (ADC_PWRMGR_DSM_REG & ADC_ACT_PWR_DSM_EN)))
+  95              		.loc 1 99 0 discriminator 1
+  96 000a 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  98:.\Generated_Source\PSoC5/ADC_PM.c ****     if((ADC_ACT_PWR_DEC_EN == (ADC_PWRMGR_DEC_REG & ADC_ACT_PWR_DEC_EN)) &&
+  97              		.loc 1 98 0 discriminator 1
+  98 000c 00F01001 		and	r1, r0, #16
+  99 0010 CBB2     		uxtb	r3, r1
+ 100 0012 5BB1     		cbz	r3, .L8
+ 100:.\Generated_Source\PSoC5/ADC_PM.c ****     {
+ 101:.\Generated_Source\PSoC5/ADC_PM.c ****         /* Component is enabled */
+ 102:.\Generated_Source\PSoC5/ADC_PM.c ****         ADC_backup.enableState = ADC_ENABLED;
+ 101              		.loc 1 102 0
+ 102 0014 0A49     		ldr	r1, .L21+4
+ 103 0016 0123     		movs	r3, #1
+ 103:.\Generated_Source\PSoC5/ADC_PM.c ****         if((ADC_DEC_CR_REG & ADC_DEC_START_CONV) != 0u)
+ 104              		.loc 1 103 0
+ 105 0018 0A4A     		ldr	r2, .L21+8
+ 102:.\Generated_Source\PSoC5/ADC_PM.c ****         ADC_backup.enableState = ADC_ENABLED;
+ 106              		.loc 1 102 0
+ 107 001a 0B70     		strb	r3, [r1, #0]
+ 108              		.loc 1 103 0
+ 109 001c 1078     		ldrb	r0, [r2, #0]	@ zero_extendqisi2
+ 110 001e C207     		lsls	r2, r0, #31
+ 111 0020 01D5     		bpl	.L9
+ 104:.\Generated_Source\PSoC5/ADC_PM.c ****         {   
+ 105:.\Generated_Source\PSoC5/ADC_PM.c ****             /* Conversion is started */
+ 106:.\Generated_Source\PSoC5/ADC_PM.c ****             ADC_backup.enableState |= ADC_STARTED;
+ 112              		.loc 1 106 0
+ 113 0022 0323     		movs	r3, #3
+ 114 0024 0B70     		strb	r3, [r1, #0]
+ 115              	.L9:
+ 107:.\Generated_Source\PSoC5/ADC_PM.c ****         }
+ 108:.\Generated_Source\PSoC5/ADC_PM.c **** 		
+ 109:.\Generated_Source\PSoC5/ADC_PM.c ****         /* Stop the configuration */
+ 110:.\Generated_Source\PSoC5/ADC_PM.c ****         ADC_Stop();
+ 116              		.loc 1 110 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 5
+
+
+ 117 0026 FFF7FEFF 		bl	ADC_Stop
+ 118              	.LVL0:
+ 119 002a 02E0     		b	.L10
+ 120              	.L8:
+ 111:.\Generated_Source\PSoC5/ADC_PM.c ****     }
+ 112:.\Generated_Source\PSoC5/ADC_PM.c ****     else
+ 113:.\Generated_Source\PSoC5/ADC_PM.c ****     {
+ 114:.\Generated_Source\PSoC5/ADC_PM.c ****         /* Component is disabled */
+ 115:.\Generated_Source\PSoC5/ADC_PM.c ****         ADC_backup.enableState = ADC_DISABLED;
+ 121              		.loc 1 115 0
+ 122 002c 0448     		ldr	r0, .L21+4
+ 123 002e 0022     		movs	r2, #0
+ 124 0030 0270     		strb	r2, [r0, #0]
+ 125              	.L10:
+ 116:.\Generated_Source\PSoC5/ADC_PM.c ****     }
+ 117:.\Generated_Source\PSoC5/ADC_PM.c **** 
+ 118:.\Generated_Source\PSoC5/ADC_PM.c ****     /* Save the user configuration */
+ 119:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_SaveConfig();
+ 120:.\Generated_Source\PSoC5/ADC_PM.c **** }
+ 126              		.loc 1 120 0
+ 127 0032 BDE80840 		pop	{r3, lr}
+ 119:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_SaveConfig();
+ 128              		.loc 1 119 0
+ 129 0036 FFF7FEBF 		b	ADC_SaveConfig
+ 130              	.LVL1:
+ 131              	.L22:
+ 132 003a 00BF     		.align	2
+ 133              	.L21:
+ 134 003c AA430040 		.word	1073759146
+ 135 0040 00000000 		.word	.LANCHOR0
+ 136 0044 004E0040 		.word	1073761792
+ 137              		.cfi_endproc
+ 138              	.LFE2:
+ 139              		.size	ADC_Sleep, .-ADC_Sleep
+ 140              		.section	.text.ADC_Wakeup,"ax",%progbits
+ 141              		.align	1
+ 142              		.global	ADC_Wakeup
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.type	ADC_Wakeup, %function
+ 146              	ADC_Wakeup:
+ 147              	.LFB3:
+ 121:.\Generated_Source\PSoC5/ADC_PM.c **** 
+ 122:.\Generated_Source\PSoC5/ADC_PM.c **** 
+ 123:.\Generated_Source\PSoC5/ADC_PM.c **** /*******************************************************************************
+ 124:.\Generated_Source\PSoC5/ADC_PM.c **** * Function Name: ADC_Wakeup
+ 125:.\Generated_Source\PSoC5/ADC_PM.c **** ********************************************************************************
+ 126:.\Generated_Source\PSoC5/ADC_PM.c **** *
+ 127:.\Generated_Source\PSoC5/ADC_PM.c **** * Summary:
+ 128:.\Generated_Source\PSoC5/ADC_PM.c **** *  Restores the user configuration and enables the power to the block.
+ 129:.\Generated_Source\PSoC5/ADC_PM.c **** *
+ 130:.\Generated_Source\PSoC5/ADC_PM.c **** * Parameters:
+ 131:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+ 132:.\Generated_Source\PSoC5/ADC_PM.c **** *
+ 133:.\Generated_Source\PSoC5/ADC_PM.c **** * Return:
+ 134:.\Generated_Source\PSoC5/ADC_PM.c **** *  None
+ 135:.\Generated_Source\PSoC5/ADC_PM.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 6
+
+
+ 136:.\Generated_Source\PSoC5/ADC_PM.c **** * Global variables:
+ 137:.\Generated_Source\PSoC5/ADC_PM.c **** *  ADC_backup:  The structure field 'enableState' is used to
+ 138:.\Generated_Source\PSoC5/ADC_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 139:.\Generated_Source\PSoC5/ADC_PM.c **** *
+ 140:.\Generated_Source\PSoC5/ADC_PM.c **** *******************************************************************************/
+ 141:.\Generated_Source\PSoC5/ADC_PM.c **** void ADC_Wakeup(void) 
+ 142:.\Generated_Source\PSoC5/ADC_PM.c **** {
+ 148              		.loc 1 142 0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152 0000 10B5     		push	{r4, lr}
+ 153              	.LCFI1:
+ 154              		.cfi_def_cfa_offset 8
+ 155              		.cfi_offset 4, -8
+ 156              		.cfi_offset 14, -4
+ 143:.\Generated_Source\PSoC5/ADC_PM.c ****     /* Restore the configuration */
+ 144:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_RestoreConfig();
+ 145:.\Generated_Source\PSoC5/ADC_PM.c **** 
+ 146:.\Generated_Source\PSoC5/ADC_PM.c ****     /* Enables the component operation */
+ 147:.\Generated_Source\PSoC5/ADC_PM.c ****     if(ADC_backup.enableState != ADC_DISABLED)
+ 157              		.loc 1 147 0
+ 158 0002 084C     		ldr	r4, .L30
+ 144:.\Generated_Source\PSoC5/ADC_PM.c ****     ADC_RestoreConfig();
+ 159              		.loc 1 144 0
+ 160 0004 FFF7FEFF 		bl	ADC_RestoreConfig
+ 161              	.LVL2:
+ 162              		.loc 1 147 0
+ 163 0008 2378     		ldrb	r3, [r4, #0]	@ zero_extendqisi2
+ 164 000a 53B1     		cbz	r3, .L23
+ 148:.\Generated_Source\PSoC5/ADC_PM.c ****     {
+ 149:.\Generated_Source\PSoC5/ADC_PM.c ****         ADC_Enable();
+ 165              		.loc 1 149 0
+ 166 000c FFF7FEFF 		bl	ADC_Enable
+ 167              	.LVL3:
+ 150:.\Generated_Source\PSoC5/ADC_PM.c ****         if((ADC_backup.enableState & ADC_STARTED) != 0u)
+ 168              		.loc 1 150 0
+ 169 0010 2078     		ldrb	r0, [r4, #0]	@ zero_extendqisi2
+ 170 0012 00F00201 		and	r1, r0, #2
+ 171 0016 CAB2     		uxtb	r2, r1
+ 172 0018 1AB1     		cbz	r2, .L23
+ 151:.\Generated_Source\PSoC5/ADC_PM.c ****         {
+ 152:.\Generated_Source\PSoC5/ADC_PM.c ****             ADC_StartConvert();
+ 153:.\Generated_Source\PSoC5/ADC_PM.c ****         }
+ 154:.\Generated_Source\PSoC5/ADC_PM.c ****     } /* Do nothing if component was disable before */
+ 155:.\Generated_Source\PSoC5/ADC_PM.c **** }
+ 173              		.loc 1 155 0
+ 174 001a BDE81040 		pop	{r4, lr}
+ 152:.\Generated_Source\PSoC5/ADC_PM.c ****             ADC_StartConvert();
+ 175              		.loc 1 152 0
+ 176 001e FFF7FEBF 		b	ADC_StartConvert
+ 177              	.LVL4:
+ 178              	.L23:
+ 179 0022 10BD     		pop	{r4, pc}
+ 180              	.L31:
+ 181              		.align	2
+ 182              	.L30:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 7
+
+
+ 183 0024 00000000 		.word	.LANCHOR0
+ 184              		.cfi_endproc
+ 185              	.LFE3:
+ 186              		.size	ADC_Wakeup, .-ADC_Wakeup
+ 187              		.data
+ 188              		.set	.LANCHOR0,. + 0
+ 189              		.type	ADC_backup, %object
+ 190              		.size	ADC_backup, 2
+ 191              	ADC_backup:
+ 192 0000 00       		.byte	0
+ 193 0001 30       		.byte	48
+ 194              		.text
+ 195              	.Letext0:
+ 196              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 197              		.file 3 ".\\Generated_Source\\PSoC5\\ADC.h"
+ 198              		.section	.debug_info,"",%progbits
+ 199              	.Ldebug_info0:
+ 200 0000 91010000 		.4byte	0x191
+ 201 0004 0200     		.2byte	0x2
+ 202 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 203 000a 04       		.byte	0x4
+ 204 000b 01       		.uleb128 0x1
+ 205 000c 2C000000 		.4byte	.LASF25
+ 206 0010 01       		.byte	0x1
+ 207 0011 D3010000 		.4byte	.LASF26
+ 208 0015 C8000000 		.4byte	.LASF27
+ 209 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 210 001d 00000000 		.4byte	0
+ 211 0021 00000000 		.4byte	0
+ 212 0025 00000000 		.4byte	.Ldebug_line0
+ 213 0029 02       		.uleb128 0x2
+ 214 002a 01       		.byte	0x1
+ 215 002b 06       		.byte	0x6
+ 216 002c A5010000 		.4byte	.LASF0
+ 217 0030 02       		.uleb128 0x2
+ 218 0031 01       		.byte	0x1
+ 219 0032 08       		.byte	0x8
+ 220 0033 4E010000 		.4byte	.LASF1
+ 221 0037 02       		.uleb128 0x2
+ 222 0038 02       		.byte	0x2
+ 223 0039 05       		.byte	0x5
+ 224 003a F5010000 		.4byte	.LASF2
+ 225 003e 02       		.uleb128 0x2
+ 226 003f 02       		.byte	0x2
+ 227 0040 07       		.byte	0x7
+ 228 0041 92010000 		.4byte	.LASF3
+ 229 0045 02       		.uleb128 0x2
+ 230 0046 04       		.byte	0x4
+ 231 0047 05       		.byte	0x5
+ 232 0048 76010000 		.4byte	.LASF4
+ 233 004c 02       		.uleb128 0x2
+ 234 004d 04       		.byte	0x4
+ 235 004e 07       		.byte	0x7
+ 236 004f 7B000000 		.4byte	.LASF5
+ 237 0053 02       		.uleb128 0x2
+ 238 0054 08       		.byte	0x8
+ 239 0055 05       		.byte	0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 8
+
+
+ 240 0056 00000000 		.4byte	.LASF6
+ 241 005a 02       		.uleb128 0x2
+ 242 005b 08       		.byte	0x8
+ 243 005c 07       		.byte	0x7
+ 244 005d 8D000000 		.4byte	.LASF7
+ 245 0061 03       		.uleb128 0x3
+ 246 0062 04       		.byte	0x4
+ 247 0063 05       		.byte	0x5
+ 248 0064 696E7400 		.ascii	"int\000"
+ 249 0068 02       		.uleb128 0x2
+ 250 0069 04       		.byte	0x4
+ 251 006a 07       		.byte	0x7
+ 252 006b 19000000 		.4byte	.LASF8
+ 253 006f 04       		.uleb128 0x4
+ 254 0070 75000000 		.4byte	.LASF12
+ 255 0074 02       		.byte	0x2
+ 256 0075 5B       		.byte	0x5b
+ 257 0076 30000000 		.4byte	0x30
+ 258 007a 02       		.uleb128 0x2
+ 259 007b 04       		.byte	0x4
+ 260 007c 04       		.byte	0x4
+ 261 007d CD010000 		.4byte	.LASF9
+ 262 0081 02       		.uleb128 0x2
+ 263 0082 08       		.byte	0x8
+ 264 0083 04       		.byte	0x4
+ 265 0084 8B010000 		.4byte	.LASF10
+ 266 0088 02       		.uleb128 0x2
+ 267 0089 01       		.byte	0x1
+ 268 008a 08       		.byte	0x8
+ 269 008b 5C010000 		.4byte	.LASF11
+ 270 008f 04       		.uleb128 0x4
+ 271 0090 FF010000 		.4byte	.LASF13
+ 272 0094 02       		.byte	0x2
+ 273 0095 F0       		.byte	0xf0
+ 274 0096 9A000000 		.4byte	0x9a
+ 275 009a 05       		.uleb128 0x5
+ 276 009b 6F000000 		.4byte	0x6f
+ 277 009f 02       		.uleb128 0x2
+ 278 00a0 04       		.byte	0x4
+ 279 00a1 07       		.byte	0x7
+ 280 00a2 04020000 		.4byte	.LASF14
+ 281 00a6 06       		.uleb128 0x6
+ 282 00a7 02       		.byte	0x2
+ 283 00a8 03       		.byte	0x3
+ 284 00a9 28       		.byte	0x28
+ 285 00aa CB000000 		.4byte	0xcb
+ 286 00ae 07       		.uleb128 0x7
+ 287 00af 7F010000 		.4byte	.LASF15
+ 288 00b3 03       		.byte	0x3
+ 289 00b4 2A       		.byte	0x2a
+ 290 00b5 6F000000 		.4byte	0x6f
+ 291 00b9 02       		.byte	0x2
+ 292 00ba 23       		.byte	0x23
+ 293 00bb 00       		.uleb128 0
+ 294 00bc 07       		.uleb128 0x7
+ 295 00bd 26000000 		.4byte	.LASF16
+ 296 00c1 03       		.byte	0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 9
+
+
+ 297 00c2 2B       		.byte	0x2b
+ 298 00c3 6F000000 		.4byte	0x6f
+ 299 00c7 02       		.byte	0x2
+ 300 00c8 23       		.byte	0x23
+ 301 00c9 01       		.uleb128 0x1
+ 302 00ca 00       		.byte	0
+ 303 00cb 04       		.uleb128 0x4
+ 304 00cc B6000000 		.4byte	.LASF17
+ 305 00d0 03       		.byte	0x3
+ 306 00d1 2C       		.byte	0x2c
+ 307 00d2 A6000000 		.4byte	0xa6
+ 308 00d6 08       		.uleb128 0x8
+ 309 00d7 01       		.byte	0x1
+ 310 00d8 36010000 		.4byte	.LASF18
+ 311 00dc 01       		.byte	0x1
+ 312 00dd 2E       		.byte	0x2e
+ 313 00de 01       		.byte	0x1
+ 314 00df 00000000 		.4byte	.LFB0
+ 315 00e3 14000000 		.4byte	.LFE0
+ 316 00e7 02       		.byte	0x2
+ 317 00e8 7D       		.byte	0x7d
+ 318 00e9 00       		.sleb128 0
+ 319 00ea 01       		.byte	0x1
+ 320 00eb 08       		.uleb128 0x8
+ 321 00ec 01       		.byte	0x1
+ 322 00ed A4000000 		.4byte	.LASF19
+ 323 00f1 01       		.byte	0x1
+ 324 00f2 47       		.byte	0x47
+ 325 00f3 01       		.byte	0x1
+ 326 00f4 00000000 		.4byte	.LFB1
+ 327 00f8 14000000 		.4byte	.LFE1
+ 328 00fc 02       		.byte	0x2
+ 329 00fd 7D       		.byte	0x7d
+ 330 00fe 00       		.sleb128 0
+ 331 00ff 01       		.byte	0x1
+ 332 0100 09       		.uleb128 0x9
+ 333 0101 01       		.byte	0x1
+ 334 0102 6C010000 		.4byte	.LASF20
+ 335 0106 01       		.byte	0x1
+ 336 0107 5F       		.byte	0x5f
+ 337 0108 01       		.byte	0x1
+ 338 0109 00000000 		.4byte	.LFB2
+ 339 010d 48000000 		.4byte	.LFE2
+ 340 0111 00000000 		.4byte	.LLST0
+ 341 0115 01       		.byte	0x1
+ 342 0116 2E010000 		.4byte	0x12e
+ 343 011a 0A       		.uleb128 0xa
+ 344 011b 2A000000 		.4byte	.LVL0
+ 345 011f 76010000 		.4byte	0x176
+ 346 0123 0B       		.uleb128 0xb
+ 347 0124 3A000000 		.4byte	.LVL1
+ 348 0128 01       		.byte	0x1
+ 349 0129 D6000000 		.4byte	0xd6
+ 350 012d 00       		.byte	0
+ 351 012e 09       		.uleb128 0x9
+ 352 012f 01       		.byte	0x1
+ 353 0130 61010000 		.4byte	.LASF21
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 10
+
+
+ 354 0134 01       		.byte	0x1
+ 355 0135 8D       		.byte	0x8d
+ 356 0136 01       		.byte	0x1
+ 357 0137 00000000 		.4byte	.LFB3
+ 358 013b 28000000 		.4byte	.LFE3
+ 359 013f 20000000 		.4byte	.LLST1
+ 360 0143 01       		.byte	0x1
+ 361 0144 65010000 		.4byte	0x165
+ 362 0148 0A       		.uleb128 0xa
+ 363 0149 08000000 		.4byte	.LVL2
+ 364 014d EB000000 		.4byte	0xeb
+ 365 0151 0A       		.uleb128 0xa
+ 366 0152 10000000 		.4byte	.LVL3
+ 367 0156 80010000 		.4byte	0x180
+ 368 015a 0B       		.uleb128 0xb
+ 369 015b 22000000 		.4byte	.LVL4
+ 370 015f 01       		.byte	0x1
+ 371 0160 8A010000 		.4byte	0x18a
+ 372 0164 00       		.byte	0
+ 373 0165 0C       		.uleb128 0xc
+ 374 0166 0E000000 		.4byte	.LASF28
+ 375 016a 01       		.byte	0x1
+ 376 016b 14       		.byte	0x14
+ 377 016c CB000000 		.4byte	0xcb
+ 378 0170 05       		.byte	0x5
+ 379 0171 03       		.byte	0x3
+ 380 0172 00000000 		.4byte	ADC_backup
+ 381 0176 0D       		.uleb128 0xd
+ 382 0177 01       		.byte	0x1
+ 383 0178 45010000 		.4byte	.LASF22
+ 384 017c 03       		.byte	0x3
+ 385 017d 3B       		.byte	0x3b
+ 386 017e 01       		.byte	0x1
+ 387 017f 01       		.byte	0x1
+ 388 0180 0D       		.uleb128 0xd
+ 389 0181 01       		.byte	0x1
+ 390 0182 B1010000 		.4byte	.LASF23
+ 391 0186 03       		.byte	0x3
+ 392 0187 4D       		.byte	0x4d
+ 393 0188 01       		.byte	0x1
+ 394 0189 01       		.byte	0x1
+ 395 018a 0D       		.uleb128 0xd
+ 396 018b 01       		.byte	0x1
+ 397 018c BC010000 		.4byte	.LASF24
+ 398 0190 03       		.byte	0x3
+ 399 0191 3D       		.byte	0x3d
+ 400 0192 01       		.byte	0x1
+ 401 0193 01       		.byte	0x1
+ 402 0194 00       		.byte	0
+ 403              		.section	.debug_abbrev,"",%progbits
+ 404              	.Ldebug_abbrev0:
+ 405 0000 01       		.uleb128 0x1
+ 406 0001 11       		.uleb128 0x11
+ 407 0002 01       		.byte	0x1
+ 408 0003 25       		.uleb128 0x25
+ 409 0004 0E       		.uleb128 0xe
+ 410 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 11
+
+
+ 411 0006 0B       		.uleb128 0xb
+ 412 0007 03       		.uleb128 0x3
+ 413 0008 0E       		.uleb128 0xe
+ 414 0009 1B       		.uleb128 0x1b
+ 415 000a 0E       		.uleb128 0xe
+ 416 000b 55       		.uleb128 0x55
+ 417 000c 06       		.uleb128 0x6
+ 418 000d 11       		.uleb128 0x11
+ 419 000e 01       		.uleb128 0x1
+ 420 000f 52       		.uleb128 0x52
+ 421 0010 01       		.uleb128 0x1
+ 422 0011 10       		.uleb128 0x10
+ 423 0012 06       		.uleb128 0x6
+ 424 0013 00       		.byte	0
+ 425 0014 00       		.byte	0
+ 426 0015 02       		.uleb128 0x2
+ 427 0016 24       		.uleb128 0x24
+ 428 0017 00       		.byte	0
+ 429 0018 0B       		.uleb128 0xb
+ 430 0019 0B       		.uleb128 0xb
+ 431 001a 3E       		.uleb128 0x3e
+ 432 001b 0B       		.uleb128 0xb
+ 433 001c 03       		.uleb128 0x3
+ 434 001d 0E       		.uleb128 0xe
+ 435 001e 00       		.byte	0
+ 436 001f 00       		.byte	0
+ 437 0020 03       		.uleb128 0x3
+ 438 0021 24       		.uleb128 0x24
+ 439 0022 00       		.byte	0
+ 440 0023 0B       		.uleb128 0xb
+ 441 0024 0B       		.uleb128 0xb
+ 442 0025 3E       		.uleb128 0x3e
+ 443 0026 0B       		.uleb128 0xb
+ 444 0027 03       		.uleb128 0x3
+ 445 0028 08       		.uleb128 0x8
+ 446 0029 00       		.byte	0
+ 447 002a 00       		.byte	0
+ 448 002b 04       		.uleb128 0x4
+ 449 002c 16       		.uleb128 0x16
+ 450 002d 00       		.byte	0
+ 451 002e 03       		.uleb128 0x3
+ 452 002f 0E       		.uleb128 0xe
+ 453 0030 3A       		.uleb128 0x3a
+ 454 0031 0B       		.uleb128 0xb
+ 455 0032 3B       		.uleb128 0x3b
+ 456 0033 0B       		.uleb128 0xb
+ 457 0034 49       		.uleb128 0x49
+ 458 0035 13       		.uleb128 0x13
+ 459 0036 00       		.byte	0
+ 460 0037 00       		.byte	0
+ 461 0038 05       		.uleb128 0x5
+ 462 0039 35       		.uleb128 0x35
+ 463 003a 00       		.byte	0
+ 464 003b 49       		.uleb128 0x49
+ 465 003c 13       		.uleb128 0x13
+ 466 003d 00       		.byte	0
+ 467 003e 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 12
+
+
+ 468 003f 06       		.uleb128 0x6
+ 469 0040 13       		.uleb128 0x13
+ 470 0041 01       		.byte	0x1
+ 471 0042 0B       		.uleb128 0xb
+ 472 0043 0B       		.uleb128 0xb
+ 473 0044 3A       		.uleb128 0x3a
+ 474 0045 0B       		.uleb128 0xb
+ 475 0046 3B       		.uleb128 0x3b
+ 476 0047 0B       		.uleb128 0xb
+ 477 0048 01       		.uleb128 0x1
+ 478 0049 13       		.uleb128 0x13
+ 479 004a 00       		.byte	0
+ 480 004b 00       		.byte	0
+ 481 004c 07       		.uleb128 0x7
+ 482 004d 0D       		.uleb128 0xd
+ 483 004e 00       		.byte	0
+ 484 004f 03       		.uleb128 0x3
+ 485 0050 0E       		.uleb128 0xe
+ 486 0051 3A       		.uleb128 0x3a
+ 487 0052 0B       		.uleb128 0xb
+ 488 0053 3B       		.uleb128 0x3b
+ 489 0054 0B       		.uleb128 0xb
+ 490 0055 49       		.uleb128 0x49
+ 491 0056 13       		.uleb128 0x13
+ 492 0057 38       		.uleb128 0x38
+ 493 0058 0A       		.uleb128 0xa
+ 494 0059 00       		.byte	0
+ 495 005a 00       		.byte	0
+ 496 005b 08       		.uleb128 0x8
+ 497 005c 2E       		.uleb128 0x2e
+ 498 005d 00       		.byte	0
+ 499 005e 3F       		.uleb128 0x3f
+ 500 005f 0C       		.uleb128 0xc
+ 501 0060 03       		.uleb128 0x3
+ 502 0061 0E       		.uleb128 0xe
+ 503 0062 3A       		.uleb128 0x3a
+ 504 0063 0B       		.uleb128 0xb
+ 505 0064 3B       		.uleb128 0x3b
+ 506 0065 0B       		.uleb128 0xb
+ 507 0066 27       		.uleb128 0x27
+ 508 0067 0C       		.uleb128 0xc
+ 509 0068 11       		.uleb128 0x11
+ 510 0069 01       		.uleb128 0x1
+ 511 006a 12       		.uleb128 0x12
+ 512 006b 01       		.uleb128 0x1
+ 513 006c 40       		.uleb128 0x40
+ 514 006d 0A       		.uleb128 0xa
+ 515 006e 9742     		.uleb128 0x2117
+ 516 0070 0C       		.uleb128 0xc
+ 517 0071 00       		.byte	0
+ 518 0072 00       		.byte	0
+ 519 0073 09       		.uleb128 0x9
+ 520 0074 2E       		.uleb128 0x2e
+ 521 0075 01       		.byte	0x1
+ 522 0076 3F       		.uleb128 0x3f
+ 523 0077 0C       		.uleb128 0xc
+ 524 0078 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 13
+
+
+ 525 0079 0E       		.uleb128 0xe
+ 526 007a 3A       		.uleb128 0x3a
+ 527 007b 0B       		.uleb128 0xb
+ 528 007c 3B       		.uleb128 0x3b
+ 529 007d 0B       		.uleb128 0xb
+ 530 007e 27       		.uleb128 0x27
+ 531 007f 0C       		.uleb128 0xc
+ 532 0080 11       		.uleb128 0x11
+ 533 0081 01       		.uleb128 0x1
+ 534 0082 12       		.uleb128 0x12
+ 535 0083 01       		.uleb128 0x1
+ 536 0084 40       		.uleb128 0x40
+ 537 0085 06       		.uleb128 0x6
+ 538 0086 9742     		.uleb128 0x2117
+ 539 0088 0C       		.uleb128 0xc
+ 540 0089 01       		.uleb128 0x1
+ 541 008a 13       		.uleb128 0x13
+ 542 008b 00       		.byte	0
+ 543 008c 00       		.byte	0
+ 544 008d 0A       		.uleb128 0xa
+ 545 008e 898201   		.uleb128 0x4109
+ 546 0091 00       		.byte	0
+ 547 0092 11       		.uleb128 0x11
+ 548 0093 01       		.uleb128 0x1
+ 549 0094 31       		.uleb128 0x31
+ 550 0095 13       		.uleb128 0x13
+ 551 0096 00       		.byte	0
+ 552 0097 00       		.byte	0
+ 553 0098 0B       		.uleb128 0xb
+ 554 0099 898201   		.uleb128 0x4109
+ 555 009c 00       		.byte	0
+ 556 009d 11       		.uleb128 0x11
+ 557 009e 01       		.uleb128 0x1
+ 558 009f 9542     		.uleb128 0x2115
+ 559 00a1 0C       		.uleb128 0xc
+ 560 00a2 31       		.uleb128 0x31
+ 561 00a3 13       		.uleb128 0x13
+ 562 00a4 00       		.byte	0
+ 563 00a5 00       		.byte	0
+ 564 00a6 0C       		.uleb128 0xc
+ 565 00a7 34       		.uleb128 0x34
+ 566 00a8 00       		.byte	0
+ 567 00a9 03       		.uleb128 0x3
+ 568 00aa 0E       		.uleb128 0xe
+ 569 00ab 3A       		.uleb128 0x3a
+ 570 00ac 0B       		.uleb128 0xb
+ 571 00ad 3B       		.uleb128 0x3b
+ 572 00ae 0B       		.uleb128 0xb
+ 573 00af 49       		.uleb128 0x49
+ 574 00b0 13       		.uleb128 0x13
+ 575 00b1 02       		.uleb128 0x2
+ 576 00b2 0A       		.uleb128 0xa
+ 577 00b3 00       		.byte	0
+ 578 00b4 00       		.byte	0
+ 579 00b5 0D       		.uleb128 0xd
+ 580 00b6 2E       		.uleb128 0x2e
+ 581 00b7 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 14
+
+
+ 582 00b8 3F       		.uleb128 0x3f
+ 583 00b9 0C       		.uleb128 0xc
+ 584 00ba 03       		.uleb128 0x3
+ 585 00bb 0E       		.uleb128 0xe
+ 586 00bc 3A       		.uleb128 0x3a
+ 587 00bd 0B       		.uleb128 0xb
+ 588 00be 3B       		.uleb128 0x3b
+ 589 00bf 0B       		.uleb128 0xb
+ 590 00c0 27       		.uleb128 0x27
+ 591 00c1 0C       		.uleb128 0xc
+ 592 00c2 3C       		.uleb128 0x3c
+ 593 00c3 0C       		.uleb128 0xc
+ 594 00c4 00       		.byte	0
+ 595 00c5 00       		.byte	0
+ 596 00c6 00       		.byte	0
+ 597              		.section	.debug_loc,"",%progbits
+ 598              	.Ldebug_loc0:
+ 599              	.LLST0:
+ 600 0000 00000000 		.4byte	.LFB2
+ 601 0004 02000000 		.4byte	.LCFI0
+ 602 0008 0200     		.2byte	0x2
+ 603 000a 7D       		.byte	0x7d
+ 604 000b 00       		.sleb128 0
+ 605 000c 02000000 		.4byte	.LCFI0
+ 606 0010 48000000 		.4byte	.LFE2
+ 607 0014 0200     		.2byte	0x2
+ 608 0016 7D       		.byte	0x7d
+ 609 0017 08       		.sleb128 8
+ 610 0018 00000000 		.4byte	0
+ 611 001c 00000000 		.4byte	0
+ 612              	.LLST1:
+ 613 0020 00000000 		.4byte	.LFB3
+ 614 0024 02000000 		.4byte	.LCFI1
+ 615 0028 0200     		.2byte	0x2
+ 616 002a 7D       		.byte	0x7d
+ 617 002b 00       		.sleb128 0
+ 618 002c 02000000 		.4byte	.LCFI1
+ 619 0030 28000000 		.4byte	.LFE3
+ 620 0034 0200     		.2byte	0x2
+ 621 0036 7D       		.byte	0x7d
+ 622 0037 08       		.sleb128 8
+ 623 0038 00000000 		.4byte	0
+ 624 003c 00000000 		.4byte	0
+ 625              		.section	.debug_aranges,"",%progbits
+ 626 0000 34000000 		.4byte	0x34
+ 627 0004 0200     		.2byte	0x2
+ 628 0006 00000000 		.4byte	.Ldebug_info0
+ 629 000a 04       		.byte	0x4
+ 630 000b 00       		.byte	0
+ 631 000c 0000     		.2byte	0
+ 632 000e 0000     		.2byte	0
+ 633 0010 00000000 		.4byte	.LFB0
+ 634 0014 14000000 		.4byte	.LFE0-.LFB0
+ 635 0018 00000000 		.4byte	.LFB1
+ 636 001c 14000000 		.4byte	.LFE1-.LFB1
+ 637 0020 00000000 		.4byte	.LFB2
+ 638 0024 48000000 		.4byte	.LFE2-.LFB2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 15
+
+
+ 639 0028 00000000 		.4byte	.LFB3
+ 640 002c 28000000 		.4byte	.LFE3-.LFB3
+ 641 0030 00000000 		.4byte	0
+ 642 0034 00000000 		.4byte	0
+ 643              		.section	.debug_ranges,"",%progbits
+ 644              	.Ldebug_ranges0:
+ 645 0000 00000000 		.4byte	.LFB0
+ 646 0004 14000000 		.4byte	.LFE0
+ 647 0008 00000000 		.4byte	.LFB1
+ 648 000c 14000000 		.4byte	.LFE1
+ 649 0010 00000000 		.4byte	.LFB2
+ 650 0014 48000000 		.4byte	.LFE2
+ 651 0018 00000000 		.4byte	.LFB3
+ 652 001c 28000000 		.4byte	.LFE3
+ 653 0020 00000000 		.4byte	0
+ 654 0024 00000000 		.4byte	0
+ 655              		.section	.debug_line,"",%progbits
+ 656              	.Ldebug_line0:
+ 657 0000 B0000000 		.section	.debug_str,"MS",%progbits,1
+ 657      02004E00 
+ 657      00000201 
+ 657      FB0E0D00 
+ 657      01010101 
+ 658              	.LASF6:
+ 659 0000 6C6F6E67 		.ascii	"long long int\000"
+ 659      206C6F6E 
+ 659      6720696E 
+ 659      7400
+ 660              	.LASF28:
+ 661 000e 4144435F 		.ascii	"ADC_backup\000"
+ 661      6261636B 
+ 661      757000
+ 662              	.LASF8:
+ 663 0019 756E7369 		.ascii	"unsigned int\000"
+ 663      676E6564 
+ 663      20696E74 
+ 663      00
+ 664              	.LASF16:
+ 665 0026 64656363 		.ascii	"deccr\000"
+ 665      7200
+ 666              	.LASF25:
+ 667 002c 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 667      4320342E 
+ 667      372E3320 
+ 667      32303133 
+ 667      30333132 
+ 668 005f 616E6368 		.ascii	"anch revision 196615]\000"
+ 668      20726576 
+ 668      6973696F 
+ 668      6E203139 
+ 668      36363135 
+ 669              	.LASF12:
+ 670 0075 75696E74 		.ascii	"uint8\000"
+ 670      3800
+ 671              	.LASF5:
+ 672 007b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 672      20756E73 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 16
+
+
+ 672      69676E65 
+ 672      6420696E 
+ 672      7400
+ 673              	.LASF7:
+ 674 008d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 674      206C6F6E 
+ 674      6720756E 
+ 674      7369676E 
+ 674      65642069 
+ 675              	.LASF19:
+ 676 00a4 4144435F 		.ascii	"ADC_RestoreConfig\000"
+ 676      52657374 
+ 676      6F726543 
+ 676      6F6E6669 
+ 676      6700
+ 677              	.LASF17:
+ 678 00b6 4144435F 		.ascii	"ADC_BACKUP_STRUCT\000"
+ 678      4241434B 
+ 678      55505F53 
+ 678      54525543 
+ 678      5400
+ 679              	.LASF27:
+ 680 00c8 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 680      73657273 
+ 680      5C477261 
+ 680      7A69616E 
+ 680      6F5C4465 
+ 681 00f6 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 681      525C5665 
+ 681      72732E30 
+ 681      2E302D54 
+ 681      30352032 
+ 682 0127 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 682      65446972 
+ 682      2E637964 
+ 682      736E00
+ 683              	.LASF18:
+ 684 0136 4144435F 		.ascii	"ADC_SaveConfig\000"
+ 684      53617665 
+ 684      436F6E66 
+ 684      696700
+ 685              	.LASF22:
+ 686 0145 4144435F 		.ascii	"ADC_Stop\000"
+ 686      53746F70 
+ 686      00
+ 687              	.LASF1:
+ 688 014e 756E7369 		.ascii	"unsigned char\000"
+ 688      676E6564 
+ 688      20636861 
+ 688      7200
+ 689              	.LASF11:
+ 690 015c 63686172 		.ascii	"char\000"
+ 690      00
+ 691              	.LASF21:
+ 692 0161 4144435F 		.ascii	"ADC_Wakeup\000"
+ 692      57616B65 
+ 692      757000
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccvt5nkk.s 			page 17
+
+
+ 693              	.LASF20:
+ 694 016c 4144435F 		.ascii	"ADC_Sleep\000"
+ 694      536C6565 
+ 694      7000
+ 695              	.LASF4:
+ 696 0176 6C6F6E67 		.ascii	"long int\000"
+ 696      20696E74 
+ 696      00
+ 697              	.LASF15:
+ 698 017f 656E6162 		.ascii	"enableState\000"
+ 698      6C655374 
+ 698      61746500 
+ 699              	.LASF10:
+ 700 018b 646F7562 		.ascii	"double\000"
+ 700      6C6500
+ 701              	.LASF3:
+ 702 0192 73686F72 		.ascii	"short unsigned int\000"
+ 702      7420756E 
+ 702      7369676E 
+ 702      65642069 
+ 702      6E7400
+ 703              	.LASF0:
+ 704 01a5 7369676E 		.ascii	"signed char\000"
+ 704      65642063 
+ 704      68617200 
+ 705              	.LASF23:
+ 706 01b1 4144435F 		.ascii	"ADC_Enable\000"
+ 706      456E6162 
+ 706      6C6500
+ 707              	.LASF24:
+ 708 01bc 4144435F 		.ascii	"ADC_StartConvert\000"
+ 708      53746172 
+ 708      74436F6E 
+ 708      76657274 
+ 708      00
+ 709              	.LASF9:
+ 710 01cd 666C6F61 		.ascii	"float\000"
+ 710      7400
+ 711              	.LASF26:
+ 712 01d3 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\ADC_PM.c\000"
+ 712      6E657261 
+ 712      7465645F 
+ 712      536F7572 
+ 712      63655C50 
+ 713              	.LASF2:
+ 714 01f5 73686F72 		.ascii	"short int\000"
+ 714      7420696E 
+ 714      7400
+ 715              	.LASF13:
+ 716 01ff 72656738 		.ascii	"reg8\000"
+ 716      00
+ 717              	.LASF14:
+ 718 0204 73697A65 		.ascii	"sizetype\000"
+ 718      74797065 
+ 718      00
+ 719              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,936 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"PWM_MOTOR_PAN_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.PWM_MOTOR_PAN_SaveConfig,"ax",%progbits
+  19              		.align	1
+  20              		.global	PWM_MOTOR_PAN_SaveConfig
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	PWM_MOTOR_PAN_SaveConfig, %function
+  24              	PWM_MOTOR_PAN_SaveConfig:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\PWM_MOTOR_PAN_PM.c"
+   1:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * File Name: PWM_MOTOR_PAN_PM.c
+   3:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Version 3.0
+   4:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+   5:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  This file provides the power management source code to API for the
+   7:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  PWM.
+   8:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+   9:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  11:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** #include "cytypes.h"
+  18:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** #include "PWM_MOTOR_PAN.h"
+  19:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+  20:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** static PWM_MOTOR_PAN_backupStruct PWM_MOTOR_PAN_backup;
+  21:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+  22:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+  23:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** /*******************************************************************************
+  24:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Function Name: PWM_MOTOR_PAN_SaveConfig
+  25:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** ********************************************************************************
+  26:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  27:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Summary:
+  28:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  Saves the current user configuration of the component.
+  29:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  
+  30:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Parameters:  
+  31:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  33:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Return: 
+  34:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+  35:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  36:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Global variables:
+  37:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  PWM_MOTOR_PAN_backup:  Variables of this global structure are modified to 
+  38:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  store the values of non retention configuration registers when Sleep() API is 
+  39:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  called.
+  40:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  41:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *******************************************************************************/
+  42:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** void PWM_MOTOR_PAN_SaveConfig(void) 
+  43:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** {
+  27              		.loc 1 43 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 7047     		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE0:
+  35              		.size	PWM_MOTOR_PAN_SaveConfig, .-PWM_MOTOR_PAN_SaveConfig
+  36              		.section	.text.PWM_MOTOR_PAN_RestoreConfig,"ax",%progbits
+  37              		.align	1
+  38              		.global	PWM_MOTOR_PAN_RestoreConfig
+  39              		.thumb
+  40              		.thumb_func
+  41              		.type	PWM_MOTOR_PAN_RestoreConfig, %function
+  42              	PWM_MOTOR_PAN_RestoreConfig:
+  43              	.LFB1:
+  44:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     
+  45:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     #if(!PWM_MOTOR_PAN_UsingFixedFunction)
+  46:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #if(!PWM_MOTOR_PAN_PWMModeIsCenterAligned)
+  47:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_backup.PWMPeriod = PWM_MOTOR_PAN_ReadPeriod();
+  48:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #endif /* (!PWM_MOTOR_PAN_PWMModeIsCenterAligned) */
+  49:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         PWM_MOTOR_PAN_backup.PWMUdb = PWM_MOTOR_PAN_ReadCounter();
+  50:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #if (PWM_MOTOR_PAN_UseStatus)
+  51:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_backup.InterruptMaskValue = PWM_MOTOR_PAN_STATUS_MASK;
+  52:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #endif /* (PWM_MOTOR_PAN_UseStatus) */
+  53:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         
+  54:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #if(PWM_MOTOR_PAN_DeadBandMode == PWM_MOTOR_PAN__B_PWM__DBM_256_CLOCKS || \
+  55:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_DeadBandMode == PWM_MOTOR_PAN__B_PWM__DBM_2_4_CLOCKS)
+  56:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_backup.PWMdeadBandValue = PWM_MOTOR_PAN_ReadDeadTime();
+  57:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #endif /*  deadband count is either 2-4 clocks or 256 clocks */
+  58:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         
+  59:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #if(PWM_MOTOR_PAN_KillModeMinTime)
+  60:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****              PWM_MOTOR_PAN_backup.PWMKillCounterPeriod = PWM_MOTOR_PAN_ReadKillTime();
+  61:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #endif /* (PWM_MOTOR_PAN_KillModeMinTime) */
+  62:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         
+  63:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #if(PWM_MOTOR_PAN_UseControl)
+  64:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_backup.PWMControlRegister = PWM_MOTOR_PAN_ReadControlRegister();
+  65:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #endif /* (PWM_MOTOR_PAN_UseControl) */
+  66:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     #endif  /* (!PWM_MOTOR_PAN_UsingFixedFunction) */
+  67:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** }
+  68:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+  69:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+  70:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** /*******************************************************************************
+  71:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Function Name: PWM_MOTOR_PAN_RestoreConfig
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 3
+
+
+  72:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** ********************************************************************************
+  73:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * 
+  74:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Summary:
+  75:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  Restores the current user configuration of the component.
+  76:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  77:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Parameters:  
+  78:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+  79:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  80:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Return: 
+  81:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+  82:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  83:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Global variables:
+  84:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  PWM_MOTOR_PAN_backup:  Variables of this global structure are used to  
+  85:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  restore the values of non retention registers on wakeup from sleep mode.
+  86:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+  87:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *******************************************************************************/
+  88:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** void PWM_MOTOR_PAN_RestoreConfig(void) 
+  89:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** {
+  44              		.loc 1 89 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	PWM_MOTOR_PAN_RestoreConfig, .-PWM_MOTOR_PAN_RestoreConfig
+  53              		.section	.text.PWM_MOTOR_PAN_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	PWM_MOTOR_PAN_Sleep
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	PWM_MOTOR_PAN_Sleep, %function
+  59              	PWM_MOTOR_PAN_Sleep:
+  60              	.LFB2:
+  90:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #if(!PWM_MOTOR_PAN_UsingFixedFunction)
+  91:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #if(!PWM_MOTOR_PAN_PWMModeIsCenterAligned)
+  92:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****                 PWM_MOTOR_PAN_WritePeriod(PWM_MOTOR_PAN_backup.PWMPeriod);
+  93:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #endif /* (!PWM_MOTOR_PAN_PWMModeIsCenterAligned) */
+  94:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_WriteCounter(PWM_MOTOR_PAN_backup.PWMUdb);
+  95:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #if (PWM_MOTOR_PAN_UseStatus)
+  96:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****                 PWM_MOTOR_PAN_STATUS_MASK = PWM_MOTOR_PAN_backup.InterruptMaskValue;
+  97:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #endif /* (PWM_MOTOR_PAN_UseStatus) */
+  98:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             
+  99:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #if(PWM_MOTOR_PAN_DeadBandMode == PWM_MOTOR_PAN__B_PWM__DBM_256_CLOCKS || \
+ 100:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****                 PWM_MOTOR_PAN_DeadBandMode == PWM_MOTOR_PAN__B_PWM__DBM_2_4_CLOCKS)
+ 101:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****                 PWM_MOTOR_PAN_WriteDeadTime(PWM_MOTOR_PAN_backup.PWMdeadBandValue);
+ 102:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #endif /* deadband count is either 2-4 clocks or 256 clocks */
+ 103:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             
+ 104:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #if(PWM_MOTOR_PAN_KillModeMinTime)
+ 105:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****                 PWM_MOTOR_PAN_WriteKillTime(PWM_MOTOR_PAN_backup.PWMKillCounterPeriod);
+ 106:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #endif /* (PWM_MOTOR_PAN_KillModeMinTime) */
+ 107:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             
+ 108:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #if(PWM_MOTOR_PAN_UseControl)
+ 109:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****                 PWM_MOTOR_PAN_WriteControlRegister(PWM_MOTOR_PAN_backup.PWMControlRegister); 
+ 110:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             #endif /* (PWM_MOTOR_PAN_UseControl) */
+ 111:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         #endif  /* (!PWM_MOTOR_PAN_UsingFixedFunction) */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 4
+
+
+ 112:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     }
+ 113:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+ 114:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+ 115:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** /*******************************************************************************
+ 116:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Function Name: PWM_MOTOR_PAN_Sleep
+ 117:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** ********************************************************************************
+ 118:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * 
+ 119:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Summary:
+ 120:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  Disables block's operation and saves the user configuration. Should be called 
+ 121:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  just prior to entering sleep.
+ 122:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  
+ 123:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Parameters:  
+ 124:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+ 125:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+ 126:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Return: 
+ 127:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+ 128:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+ 129:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Global variables:
+ 130:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  PWM_MOTOR_PAN_backup.PWMEnableState:  Is modified depending on the enable 
+ 131:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  state of the block before entering sleep mode.
+ 132:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+ 133:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *******************************************************************************/
+ 134:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** void PWM_MOTOR_PAN_Sleep(void) 
+ 135:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** {
+  61              		.loc 1 135 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+ 136:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     #if(PWM_MOTOR_PAN_UseControl)
+ 137:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         if(PWM_MOTOR_PAN_CTRL_ENABLE == (PWM_MOTOR_PAN_CONTROL & PWM_MOTOR_PAN_CTRL_ENABLE))
+  66              		.loc 1 137 0
+  67 0000 044B     		ldr	r3, .L6
+  68 0002 0549     		ldr	r1, .L6+4
+  69 0004 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  70 0006 10F00102 		ands	r2, r0, #1
+ 138:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         {
+ 139:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             /*Component is enabled */
+ 140:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_backup.PWMEnableState = 1u;
+  71              		.loc 1 140 0
+  72 000a 18BF     		it	ne
+  73 000c 0122     		movne	r2, #1
+ 141:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         }
+ 142:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         else
+ 143:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         {
+ 144:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             /* Component is disabled */
+ 145:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****             PWM_MOTOR_PAN_backup.PWMEnableState = 0u;
+  74              		.loc 1 145 0
+  75 000e 0A70     		strb	r2, [r1, #0]
+ 146:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         }
+ 147:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     #endif /* (PWM_MOTOR_PAN_UseControl) */
+ 148:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+ 149:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     /* Stop component */
+ 150:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     PWM_MOTOR_PAN_Stop();
+ 151:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     
+ 152:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     /* Save registers configuration */
+ 153:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     PWM_MOTOR_PAN_SaveConfig();
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 5
+
+
+ 154:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** }
+  76              		.loc 1 154 0
+ 150:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     PWM_MOTOR_PAN_Stop();
+  77              		.loc 1 150 0
+  78 0010 FFF7FEBF 		b	PWM_MOTOR_PAN_Stop
+  79              	.LVL0:
+  80              	.L7:
+  81              		.align	2
+  82              	.L6:
+  83 0014 0C4F0040 		.word	1073762060
+  84 0018 00000000 		.word	.LANCHOR0
+  85              		.cfi_endproc
+  86              	.LFE2:
+  87              		.size	PWM_MOTOR_PAN_Sleep, .-PWM_MOTOR_PAN_Sleep
+  88              		.section	.text.PWM_MOTOR_PAN_Wakeup,"ax",%progbits
+  89              		.align	1
+  90              		.global	PWM_MOTOR_PAN_Wakeup
+  91              		.thumb
+  92              		.thumb_func
+  93              		.type	PWM_MOTOR_PAN_Wakeup, %function
+  94              	PWM_MOTOR_PAN_Wakeup:
+  95              	.LFB3:
+ 155:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+ 156:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** 
+ 157:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** /*******************************************************************************
+ 158:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Function Name: PWM_MOTOR_PAN_Wakeup
+ 159:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** ********************************************************************************
+ 160:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * 
+ 161:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Summary:
+ 162:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  Restores and enables the user configuration. Should be called just after 
+ 163:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  awaking from sleep.
+ 164:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  
+ 165:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Parameters:  
+ 166:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+ 167:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+ 168:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Return: 
+ 169:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  None
+ 170:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+ 171:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** * Global variables:
+ 172:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  PWM_MOTOR_PAN_backup.pwmEnable:  Is used to restore the enable state of 
+ 173:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *  block on wakeup from sleep mode.
+ 174:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *
+ 175:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** *******************************************************************************/
+ 176:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** void PWM_MOTOR_PAN_Wakeup(void) 
+ 177:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** {
+  96              		.loc 1 177 0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 178:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****      /* Restore registers values */
+ 179:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     PWM_MOTOR_PAN_RestoreConfig();
+ 180:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     
+ 181:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     if(PWM_MOTOR_PAN_backup.PWMEnableState != 0u)
+ 101              		.loc 1 181 0
+ 102 0000 024B     		ldr	r3, .L11
+ 103 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 6
+
+
+ 104 0004 08B1     		cbz	r0, .L8
+ 182:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     {
+ 183:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         /* Enable component's operation */
+ 184:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         PWM_MOTOR_PAN_Enable();
+ 185:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     } /* Do nothing if component's block was disabled before */
+ 186:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****     
+ 187:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c **** }
+ 105              		.loc 1 187 0
+ 184:.\Generated_Source\PSoC5/PWM_MOTOR_PAN_PM.c ****         PWM_MOTOR_PAN_Enable();
+ 106              		.loc 1 184 0
+ 107 0006 FFF7FEBF 		b	PWM_MOTOR_PAN_Enable
+ 108              	.LVL1:
+ 109              	.L8:
+ 110 000a 7047     		bx	lr
+ 111              	.L12:
+ 112              		.align	2
+ 113              	.L11:
+ 114 000c 00000000 		.word	.LANCHOR0
+ 115              		.cfi_endproc
+ 116              	.LFE3:
+ 117              		.size	PWM_MOTOR_PAN_Wakeup, .-PWM_MOTOR_PAN_Wakeup
+ 118              		.bss
+ 119              		.set	.LANCHOR0,. + 0
+ 120              		.type	PWM_MOTOR_PAN_backup, %object
+ 121              		.size	PWM_MOTOR_PAN_backup, 1
+ 122              	PWM_MOTOR_PAN_backup:
+ 123 0000 00       		.space	1
+ 124              		.text
+ 125              	.Letext0:
+ 126              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 127              		.file 3 ".\\Generated_Source\\PSoC5\\PWM_MOTOR_PAN.h"
+ 128              		.section	.debug_info,"",%progbits
+ 129              	.Ldebug_info0:
+ 130 0000 68010000 		.4byte	0x168
+ 131 0004 0200     		.2byte	0x2
+ 132 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 133 000a 04       		.byte	0x4
+ 134 000b 01       		.uleb128 0x1
+ 135 000c 4B000000 		.4byte	.LASF22
+ 136 0010 01       		.byte	0x1
+ 137 0011 08020000 		.4byte	.LASF23
+ 138 0015 D7000000 		.4byte	.LASF24
+ 139 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 140 001d 00000000 		.4byte	0
+ 141 0021 00000000 		.4byte	0
+ 142 0025 00000000 		.4byte	.Ldebug_line0
+ 143 0029 02       		.uleb128 0x2
+ 144 002a 01       		.byte	0x1
+ 145 002b 06       		.byte	0x6
+ 146 002c D0010000 		.4byte	.LASF0
+ 147 0030 02       		.uleb128 0x2
+ 148 0031 01       		.byte	0x1
+ 149 0032 08       		.byte	0x8
+ 150 0033 2A000000 		.4byte	.LASF1
+ 151 0037 02       		.uleb128 0x2
+ 152 0038 02       		.byte	0x2
+ 153 0039 05       		.byte	0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 7
+
+
+ 154 003a FE010000 		.4byte	.LASF2
+ 155 003e 02       		.uleb128 0x2
+ 156 003f 02       		.byte	0x2
+ 157 0040 07       		.byte	0x7
+ 158 0041 BD010000 		.4byte	.LASF3
+ 159 0045 02       		.uleb128 0x2
+ 160 0046 04       		.byte	0x4
+ 161 0047 05       		.byte	0x5
+ 162 0048 7E010000 		.4byte	.LASF4
+ 163 004c 02       		.uleb128 0x2
+ 164 004d 04       		.byte	0x4
+ 165 004e 07       		.byte	0x7
+ 166 004f 9A000000 		.4byte	.LASF5
+ 167 0053 02       		.uleb128 0x2
+ 168 0054 08       		.byte	0x8
+ 169 0055 05       		.byte	0x5
+ 170 0056 00000000 		.4byte	.LASF6
+ 171 005a 02       		.uleb128 0x2
+ 172 005b 08       		.byte	0x8
+ 173 005c 07       		.byte	0x7
+ 174 005d AC000000 		.4byte	.LASF7
+ 175 0061 03       		.uleb128 0x3
+ 176 0062 04       		.byte	0x4
+ 177 0063 05       		.byte	0x5
+ 178 0064 696E7400 		.ascii	"int\000"
+ 179 0068 02       		.uleb128 0x2
+ 180 0069 04       		.byte	0x4
+ 181 006a 07       		.byte	0x7
+ 182 006b 0E000000 		.4byte	.LASF8
+ 183 006f 04       		.uleb128 0x4
+ 184 0070 94000000 		.4byte	.LASF12
+ 185 0074 02       		.byte	0x2
+ 186 0075 5B       		.byte	0x5b
+ 187 0076 30000000 		.4byte	0x30
+ 188 007a 02       		.uleb128 0x2
+ 189 007b 04       		.byte	0x4
+ 190 007c 04       		.byte	0x4
+ 191 007d DC010000 		.4byte	.LASF9
+ 192 0081 02       		.uleb128 0x2
+ 193 0082 08       		.byte	0x8
+ 194 0083 04       		.byte	0x4
+ 195 0084 A1010000 		.4byte	.LASF10
+ 196 0088 02       		.uleb128 0x2
+ 197 0089 01       		.byte	0x1
+ 198 008a 08       		.byte	0x8
+ 199 008b 79010000 		.4byte	.LASF11
+ 200 008f 04       		.uleb128 0x4
+ 201 0090 87010000 		.4byte	.LASF13
+ 202 0094 02       		.byte	0x2
+ 203 0095 F0       		.byte	0xf0
+ 204 0096 9A000000 		.4byte	0x9a
+ 205 009a 05       		.uleb128 0x5
+ 206 009b 6F000000 		.4byte	0x6f
+ 207 009f 02       		.uleb128 0x2
+ 208 00a0 04       		.byte	0x4
+ 209 00a1 07       		.byte	0x7
+ 210 00a2 34020000 		.4byte	.LASF14
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 8
+
+
+ 211 00a6 06       		.uleb128 0x6
+ 212 00a7 01       		.byte	0x1
+ 213 00a8 03       		.byte	0x3
+ 214 00a9 6A       		.byte	0x6a
+ 215 00aa BD000000 		.4byte	0xbd
+ 216 00ae 07       		.uleb128 0x7
+ 217 00af 1B000000 		.4byte	.LASF25
+ 218 00b3 03       		.byte	0x3
+ 219 00b4 6D       		.byte	0x6d
+ 220 00b5 6F000000 		.4byte	0x6f
+ 221 00b9 02       		.byte	0x2
+ 222 00ba 23       		.byte	0x23
+ 223 00bb 00       		.uleb128 0
+ 224 00bc 00       		.byte	0
+ 225 00bd 04       		.uleb128 0x4
+ 226 00be 45010000 		.4byte	.LASF15
+ 227 00c2 03       		.byte	0x3
+ 228 00c3 8A       		.byte	0x8a
+ 229 00c4 A6000000 		.4byte	0xa6
+ 230 00c8 08       		.uleb128 0x8
+ 231 00c9 01       		.byte	0x1
+ 232 00ca 60010000 		.4byte	.LASF16
+ 233 00ce 01       		.byte	0x1
+ 234 00cf 2A       		.byte	0x2a
+ 235 00d0 01       		.byte	0x1
+ 236 00d1 01       		.byte	0x1
+ 237 00d2 08       		.uleb128 0x8
+ 238 00d3 01       		.byte	0x1
+ 239 00d4 E2010000 		.4byte	.LASF17
+ 240 00d8 01       		.byte	0x1
+ 241 00d9 58       		.byte	0x58
+ 242 00da 01       		.byte	0x1
+ 243 00db 01       		.byte	0x1
+ 244 00dc 09       		.uleb128 0x9
+ 245 00dd C8000000 		.4byte	0xc8
+ 246 00e1 00000000 		.4byte	.LFB0
+ 247 00e5 02000000 		.4byte	.LFE0
+ 248 00e9 02       		.byte	0x2
+ 249 00ea 7D       		.byte	0x7d
+ 250 00eb 00       		.sleb128 0
+ 251 00ec 01       		.byte	0x1
+ 252 00ed 09       		.uleb128 0x9
+ 253 00ee D2000000 		.4byte	0xd2
+ 254 00f2 00000000 		.4byte	.LFB1
+ 255 00f6 02000000 		.4byte	.LFE1
+ 256 00fa 02       		.byte	0x2
+ 257 00fb 7D       		.byte	0x7d
+ 258 00fc 00       		.sleb128 0
+ 259 00fd 01       		.byte	0x1
+ 260 00fe 0A       		.uleb128 0xa
+ 261 00ff 01       		.byte	0x1
+ 262 0100 C3000000 		.4byte	.LASF18
+ 263 0104 01       		.byte	0x1
+ 264 0105 86       		.byte	0x86
+ 265 0106 01       		.byte	0x1
+ 266 0107 00000000 		.4byte	.LFB2
+ 267 010b 1C000000 		.4byte	.LFE2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 9
+
+
+ 268 010f 02       		.byte	0x2
+ 269 0110 7D       		.byte	0x7d
+ 270 0111 00       		.sleb128 0
+ 271 0112 01       		.byte	0x1
+ 272 0113 22010000 		.4byte	0x122
+ 273 0117 0B       		.uleb128 0xb
+ 274 0118 14000000 		.4byte	.LVL0
+ 275 011c 01       		.byte	0x1
+ 276 011d 57010000 		.4byte	0x157
+ 277 0121 00       		.byte	0
+ 278 0122 0A       		.uleb128 0xa
+ 279 0123 01       		.byte	0x1
+ 280 0124 3D020000 		.4byte	.LASF19
+ 281 0128 01       		.byte	0x1
+ 282 0129 B0       		.byte	0xb0
+ 283 012a 01       		.byte	0x1
+ 284 012b 00000000 		.4byte	.LFB3
+ 285 012f 10000000 		.4byte	.LFE3
+ 286 0133 02       		.byte	0x2
+ 287 0134 7D       		.byte	0x7d
+ 288 0135 00       		.sleb128 0
+ 289 0136 01       		.byte	0x1
+ 290 0137 46010000 		.4byte	0x146
+ 291 013b 0B       		.uleb128 0xb
+ 292 013c 0A000000 		.4byte	.LVL1
+ 293 0140 01       		.byte	0x1
+ 294 0141 61010000 		.4byte	0x161
+ 295 0145 00       		.byte	0
+ 296 0146 0C       		.uleb128 0xc
+ 297 0147 A8010000 		.4byte	.LASF26
+ 298 014b 01       		.byte	0x1
+ 299 014c 14       		.byte	0x14
+ 300 014d BD000000 		.4byte	0xbd
+ 301 0151 05       		.byte	0x5
+ 302 0152 03       		.byte	0x3
+ 303 0153 00000000 		.4byte	PWM_MOTOR_PAN_backup
+ 304 0157 0D       		.uleb128 0xd
+ 305 0158 01       		.byte	0x1
+ 306 0159 38000000 		.4byte	.LASF20
+ 307 015d 03       		.byte	0x3
+ 308 015e 92       		.byte	0x92
+ 309 015f 01       		.byte	0x1
+ 310 0160 01       		.byte	0x1
+ 311 0161 0D       		.uleb128 0xd
+ 312 0162 01       		.byte	0x1
+ 313 0163 8C010000 		.4byte	.LASF21
+ 314 0167 03       		.byte	0x3
+ 315 0168 D1       		.byte	0xd1
+ 316 0169 01       		.byte	0x1
+ 317 016a 01       		.byte	0x1
+ 318 016b 00       		.byte	0
+ 319              		.section	.debug_abbrev,"",%progbits
+ 320              	.Ldebug_abbrev0:
+ 321 0000 01       		.uleb128 0x1
+ 322 0001 11       		.uleb128 0x11
+ 323 0002 01       		.byte	0x1
+ 324 0003 25       		.uleb128 0x25
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 10
+
+
+ 325 0004 0E       		.uleb128 0xe
+ 326 0005 13       		.uleb128 0x13
+ 327 0006 0B       		.uleb128 0xb
+ 328 0007 03       		.uleb128 0x3
+ 329 0008 0E       		.uleb128 0xe
+ 330 0009 1B       		.uleb128 0x1b
+ 331 000a 0E       		.uleb128 0xe
+ 332 000b 55       		.uleb128 0x55
+ 333 000c 06       		.uleb128 0x6
+ 334 000d 11       		.uleb128 0x11
+ 335 000e 01       		.uleb128 0x1
+ 336 000f 52       		.uleb128 0x52
+ 337 0010 01       		.uleb128 0x1
+ 338 0011 10       		.uleb128 0x10
+ 339 0012 06       		.uleb128 0x6
+ 340 0013 00       		.byte	0
+ 341 0014 00       		.byte	0
+ 342 0015 02       		.uleb128 0x2
+ 343 0016 24       		.uleb128 0x24
+ 344 0017 00       		.byte	0
+ 345 0018 0B       		.uleb128 0xb
+ 346 0019 0B       		.uleb128 0xb
+ 347 001a 3E       		.uleb128 0x3e
+ 348 001b 0B       		.uleb128 0xb
+ 349 001c 03       		.uleb128 0x3
+ 350 001d 0E       		.uleb128 0xe
+ 351 001e 00       		.byte	0
+ 352 001f 00       		.byte	0
+ 353 0020 03       		.uleb128 0x3
+ 354 0021 24       		.uleb128 0x24
+ 355 0022 00       		.byte	0
+ 356 0023 0B       		.uleb128 0xb
+ 357 0024 0B       		.uleb128 0xb
+ 358 0025 3E       		.uleb128 0x3e
+ 359 0026 0B       		.uleb128 0xb
+ 360 0027 03       		.uleb128 0x3
+ 361 0028 08       		.uleb128 0x8
+ 362 0029 00       		.byte	0
+ 363 002a 00       		.byte	0
+ 364 002b 04       		.uleb128 0x4
+ 365 002c 16       		.uleb128 0x16
+ 366 002d 00       		.byte	0
+ 367 002e 03       		.uleb128 0x3
+ 368 002f 0E       		.uleb128 0xe
+ 369 0030 3A       		.uleb128 0x3a
+ 370 0031 0B       		.uleb128 0xb
+ 371 0032 3B       		.uleb128 0x3b
+ 372 0033 0B       		.uleb128 0xb
+ 373 0034 49       		.uleb128 0x49
+ 374 0035 13       		.uleb128 0x13
+ 375 0036 00       		.byte	0
+ 376 0037 00       		.byte	0
+ 377 0038 05       		.uleb128 0x5
+ 378 0039 35       		.uleb128 0x35
+ 379 003a 00       		.byte	0
+ 380 003b 49       		.uleb128 0x49
+ 381 003c 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 11
+
+
+ 382 003d 00       		.byte	0
+ 383 003e 00       		.byte	0
+ 384 003f 06       		.uleb128 0x6
+ 385 0040 13       		.uleb128 0x13
+ 386 0041 01       		.byte	0x1
+ 387 0042 0B       		.uleb128 0xb
+ 388 0043 0B       		.uleb128 0xb
+ 389 0044 3A       		.uleb128 0x3a
+ 390 0045 0B       		.uleb128 0xb
+ 391 0046 3B       		.uleb128 0x3b
+ 392 0047 0B       		.uleb128 0xb
+ 393 0048 01       		.uleb128 0x1
+ 394 0049 13       		.uleb128 0x13
+ 395 004a 00       		.byte	0
+ 396 004b 00       		.byte	0
+ 397 004c 07       		.uleb128 0x7
+ 398 004d 0D       		.uleb128 0xd
+ 399 004e 00       		.byte	0
+ 400 004f 03       		.uleb128 0x3
+ 401 0050 0E       		.uleb128 0xe
+ 402 0051 3A       		.uleb128 0x3a
+ 403 0052 0B       		.uleb128 0xb
+ 404 0053 3B       		.uleb128 0x3b
+ 405 0054 0B       		.uleb128 0xb
+ 406 0055 49       		.uleb128 0x49
+ 407 0056 13       		.uleb128 0x13
+ 408 0057 38       		.uleb128 0x38
+ 409 0058 0A       		.uleb128 0xa
+ 410 0059 00       		.byte	0
+ 411 005a 00       		.byte	0
+ 412 005b 08       		.uleb128 0x8
+ 413 005c 2E       		.uleb128 0x2e
+ 414 005d 00       		.byte	0
+ 415 005e 3F       		.uleb128 0x3f
+ 416 005f 0C       		.uleb128 0xc
+ 417 0060 03       		.uleb128 0x3
+ 418 0061 0E       		.uleb128 0xe
+ 419 0062 3A       		.uleb128 0x3a
+ 420 0063 0B       		.uleb128 0xb
+ 421 0064 3B       		.uleb128 0x3b
+ 422 0065 0B       		.uleb128 0xb
+ 423 0066 27       		.uleb128 0x27
+ 424 0067 0C       		.uleb128 0xc
+ 425 0068 20       		.uleb128 0x20
+ 426 0069 0B       		.uleb128 0xb
+ 427 006a 00       		.byte	0
+ 428 006b 00       		.byte	0
+ 429 006c 09       		.uleb128 0x9
+ 430 006d 2E       		.uleb128 0x2e
+ 431 006e 00       		.byte	0
+ 432 006f 31       		.uleb128 0x31
+ 433 0070 13       		.uleb128 0x13
+ 434 0071 11       		.uleb128 0x11
+ 435 0072 01       		.uleb128 0x1
+ 436 0073 12       		.uleb128 0x12
+ 437 0074 01       		.uleb128 0x1
+ 438 0075 40       		.uleb128 0x40
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 12
+
+
+ 439 0076 0A       		.uleb128 0xa
+ 440 0077 9742     		.uleb128 0x2117
+ 441 0079 0C       		.uleb128 0xc
+ 442 007a 00       		.byte	0
+ 443 007b 00       		.byte	0
+ 444 007c 0A       		.uleb128 0xa
+ 445 007d 2E       		.uleb128 0x2e
+ 446 007e 01       		.byte	0x1
+ 447 007f 3F       		.uleb128 0x3f
+ 448 0080 0C       		.uleb128 0xc
+ 449 0081 03       		.uleb128 0x3
+ 450 0082 0E       		.uleb128 0xe
+ 451 0083 3A       		.uleb128 0x3a
+ 452 0084 0B       		.uleb128 0xb
+ 453 0085 3B       		.uleb128 0x3b
+ 454 0086 0B       		.uleb128 0xb
+ 455 0087 27       		.uleb128 0x27
+ 456 0088 0C       		.uleb128 0xc
+ 457 0089 11       		.uleb128 0x11
+ 458 008a 01       		.uleb128 0x1
+ 459 008b 12       		.uleb128 0x12
+ 460 008c 01       		.uleb128 0x1
+ 461 008d 40       		.uleb128 0x40
+ 462 008e 0A       		.uleb128 0xa
+ 463 008f 9742     		.uleb128 0x2117
+ 464 0091 0C       		.uleb128 0xc
+ 465 0092 01       		.uleb128 0x1
+ 466 0093 13       		.uleb128 0x13
+ 467 0094 00       		.byte	0
+ 468 0095 00       		.byte	0
+ 469 0096 0B       		.uleb128 0xb
+ 470 0097 898201   		.uleb128 0x4109
+ 471 009a 00       		.byte	0
+ 472 009b 11       		.uleb128 0x11
+ 473 009c 01       		.uleb128 0x1
+ 474 009d 9542     		.uleb128 0x2115
+ 475 009f 0C       		.uleb128 0xc
+ 476 00a0 31       		.uleb128 0x31
+ 477 00a1 13       		.uleb128 0x13
+ 478 00a2 00       		.byte	0
+ 479 00a3 00       		.byte	0
+ 480 00a4 0C       		.uleb128 0xc
+ 481 00a5 34       		.uleb128 0x34
+ 482 00a6 00       		.byte	0
+ 483 00a7 03       		.uleb128 0x3
+ 484 00a8 0E       		.uleb128 0xe
+ 485 00a9 3A       		.uleb128 0x3a
+ 486 00aa 0B       		.uleb128 0xb
+ 487 00ab 3B       		.uleb128 0x3b
+ 488 00ac 0B       		.uleb128 0xb
+ 489 00ad 49       		.uleb128 0x49
+ 490 00ae 13       		.uleb128 0x13
+ 491 00af 02       		.uleb128 0x2
+ 492 00b0 0A       		.uleb128 0xa
+ 493 00b1 00       		.byte	0
+ 494 00b2 00       		.byte	0
+ 495 00b3 0D       		.uleb128 0xd
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 13
+
+
+ 496 00b4 2E       		.uleb128 0x2e
+ 497 00b5 00       		.byte	0
+ 498 00b6 3F       		.uleb128 0x3f
+ 499 00b7 0C       		.uleb128 0xc
+ 500 00b8 03       		.uleb128 0x3
+ 501 00b9 0E       		.uleb128 0xe
+ 502 00ba 3A       		.uleb128 0x3a
+ 503 00bb 0B       		.uleb128 0xb
+ 504 00bc 3B       		.uleb128 0x3b
+ 505 00bd 0B       		.uleb128 0xb
+ 506 00be 27       		.uleb128 0x27
+ 507 00bf 0C       		.uleb128 0xc
+ 508 00c0 3C       		.uleb128 0x3c
+ 509 00c1 0C       		.uleb128 0xc
+ 510 00c2 00       		.byte	0
+ 511 00c3 00       		.byte	0
+ 512 00c4 00       		.byte	0
+ 513              		.section	.debug_aranges,"",%progbits
+ 514 0000 34000000 		.4byte	0x34
+ 515 0004 0200     		.2byte	0x2
+ 516 0006 00000000 		.4byte	.Ldebug_info0
+ 517 000a 04       		.byte	0x4
+ 518 000b 00       		.byte	0
+ 519 000c 0000     		.2byte	0
+ 520 000e 0000     		.2byte	0
+ 521 0010 00000000 		.4byte	.LFB0
+ 522 0014 02000000 		.4byte	.LFE0-.LFB0
+ 523 0018 00000000 		.4byte	.LFB1
+ 524 001c 02000000 		.4byte	.LFE1-.LFB1
+ 525 0020 00000000 		.4byte	.LFB2
+ 526 0024 1C000000 		.4byte	.LFE2-.LFB2
+ 527 0028 00000000 		.4byte	.LFB3
+ 528 002c 10000000 		.4byte	.LFE3-.LFB3
+ 529 0030 00000000 		.4byte	0
+ 530 0034 00000000 		.4byte	0
+ 531              		.section	.debug_ranges,"",%progbits
+ 532              	.Ldebug_ranges0:
+ 533 0000 00000000 		.4byte	.LFB0
+ 534 0004 02000000 		.4byte	.LFE0
+ 535 0008 00000000 		.4byte	.LFB1
+ 536 000c 02000000 		.4byte	.LFE1
+ 537 0010 00000000 		.4byte	.LFB2
+ 538 0014 1C000000 		.4byte	.LFE2
+ 539 0018 00000000 		.4byte	.LFB3
+ 540 001c 10000000 		.4byte	.LFE3
+ 541 0020 00000000 		.4byte	0
+ 542 0024 00000000 		.4byte	0
+ 543              		.section	.debug_line,"",%progbits
+ 544              	.Ldebug_line0:
+ 545 0000 B1000000 		.section	.debug_str,"MS",%progbits,1
+ 545      02006200 
+ 545      00000201 
+ 545      FB0E0D00 
+ 545      01010101 
+ 546              	.LASF6:
+ 547 0000 6C6F6E67 		.ascii	"long long int\000"
+ 547      206C6F6E 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 14
+
+
+ 547      6720696E 
+ 547      7400
+ 548              	.LASF8:
+ 549 000e 756E7369 		.ascii	"unsigned int\000"
+ 549      676E6564 
+ 549      20696E74 
+ 549      00
+ 550              	.LASF25:
+ 551 001b 50574D45 		.ascii	"PWMEnableState\000"
+ 551      6E61626C 
+ 551      65537461 
+ 551      746500
+ 552              	.LASF1:
+ 553 002a 756E7369 		.ascii	"unsigned char\000"
+ 553      676E6564 
+ 553      20636861 
+ 553      7200
+ 554              	.LASF20:
+ 555 0038 50574D5F 		.ascii	"PWM_MOTOR_PAN_Stop\000"
+ 555      4D4F544F 
+ 555      525F5041 
+ 555      4E5F5374 
+ 555      6F7000
+ 556              	.LASF22:
+ 557 004b 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 557      4320342E 
+ 557      372E3320 
+ 557      32303133 
+ 557      30333132 
+ 558 007e 616E6368 		.ascii	"anch revision 196615]\000"
+ 558      20726576 
+ 558      6973696F 
+ 558      6E203139 
+ 558      36363135 
+ 559              	.LASF12:
+ 560 0094 75696E74 		.ascii	"uint8\000"
+ 560      3800
+ 561              	.LASF5:
+ 562 009a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 562      20756E73 
+ 562      69676E65 
+ 562      6420696E 
+ 562      7400
+ 563              	.LASF7:
+ 564 00ac 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 564      206C6F6E 
+ 564      6720756E 
+ 564      7369676E 
+ 564      65642069 
+ 565              	.LASF18:
+ 566 00c3 50574D5F 		.ascii	"PWM_MOTOR_PAN_Sleep\000"
+ 566      4D4F544F 
+ 566      525F5041 
+ 566      4E5F536C 
+ 566      65657000 
+ 567              	.LASF24:
+ 568 00d7 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 15
+
+
+ 568      73657273 
+ 568      5C477261 
+ 568      7A69616E 
+ 568      6F5C4465 
+ 569 0105 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 569      525C5665 
+ 569      72732E30 
+ 569      2E302D54 
+ 569      30352032 
+ 570 0136 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 570      65446972 
+ 570      2E637964 
+ 570      736E00
+ 571              	.LASF15:
+ 572 0145 50574D5F 		.ascii	"PWM_MOTOR_PAN_backupStruct\000"
+ 572      4D4F544F 
+ 572      525F5041 
+ 572      4E5F6261 
+ 572      636B7570 
+ 573              	.LASF16:
+ 574 0160 50574D5F 		.ascii	"PWM_MOTOR_PAN_SaveConfig\000"
+ 574      4D4F544F 
+ 574      525F5041 
+ 574      4E5F5361 
+ 574      7665436F 
+ 575              	.LASF11:
+ 576 0179 63686172 		.ascii	"char\000"
+ 576      00
+ 577              	.LASF4:
+ 578 017e 6C6F6E67 		.ascii	"long int\000"
+ 578      20696E74 
+ 578      00
+ 579              	.LASF13:
+ 580 0187 72656738 		.ascii	"reg8\000"
+ 580      00
+ 581              	.LASF21:
+ 582 018c 50574D5F 		.ascii	"PWM_MOTOR_PAN_Enable\000"
+ 582      4D4F544F 
+ 582      525F5041 
+ 582      4E5F456E 
+ 582      61626C65 
+ 583              	.LASF10:
+ 584 01a1 646F7562 		.ascii	"double\000"
+ 584      6C6500
+ 585              	.LASF26:
+ 586 01a8 50574D5F 		.ascii	"PWM_MOTOR_PAN_backup\000"
+ 586      4D4F544F 
+ 586      525F5041 
+ 586      4E5F6261 
+ 586      636B7570 
+ 587              	.LASF3:
+ 588 01bd 73686F72 		.ascii	"short unsigned int\000"
+ 588      7420756E 
+ 588      7369676E 
+ 588      65642069 
+ 588      6E7400
+ 589              	.LASF0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccZGFG8u.s 			page 16
+
+
+ 590 01d0 7369676E 		.ascii	"signed char\000"
+ 590      65642063 
+ 590      68617200 
+ 591              	.LASF9:
+ 592 01dc 666C6F61 		.ascii	"float\000"
+ 592      7400
+ 593              	.LASF17:
+ 594 01e2 50574D5F 		.ascii	"PWM_MOTOR_PAN_RestoreConfig\000"
+ 594      4D4F544F 
+ 594      525F5041 
+ 594      4E5F5265 
+ 594      73746F72 
+ 595              	.LASF2:
+ 596 01fe 73686F72 		.ascii	"short int\000"
+ 596      7420696E 
+ 596      7400
+ 597              	.LASF23:
+ 598 0208 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PWM_MOTOR_PAN_PM.c\000"
+ 598      6E657261 
+ 598      7465645F 
+ 598      536F7572 
+ 598      63655C50 
+ 599              	.LASF14:
+ 600 0234 73697A65 		.ascii	"sizetype\000"
+ 600      74797065 
+ 600      00
+ 601              	.LASF19:
+ 602 023d 50574D5F 		.ascii	"PWM_MOTOR_PAN_Wakeup\000"
+ 602      4D4F544F 
+ 602      525F5041 
+ 602      4E5F5761 
+ 602      6B657570 
+ 603              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

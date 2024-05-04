@@ -1,0 +1,2304 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"sensor_CTRL.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	__aeabi_i2f
+  19              		.global	__aeabi_fmul
+  20              		.global	__aeabi_fadd
+  21              		.global	__aeabi_f2d
+  22              		.global	__aeabi_d2f
+  23              		.global	__aeabi_fsub
+  24              		.global	__aeabi_dmul
+  25              		.global	__aeabi_fcmpge
+  26              		.global	__aeabi_fcmple
+  27              		.global	__aeabi_ui2f
+  28              		.global	__aeabi_fdiv
+  29              		.global	__aeabi_fcmpeq
+  30              		.global	__aeabi_dadd
+  31              		.section	.text.sensor_control,"ax",%progbits
+  32              		.align	1
+  33              		.global	sensor_control
+  34              		.thumb
+  35              		.thumb_func
+  36              		.type	sensor_control, %function
+  37              	sensor_control:
+  38              	.LFB56:
+  39              		.file 1 ".\\sensor_CTRL.c"
+   1:.\sensor_CTRL.c **** /* ========================================
+   2:.\sensor_CTRL.c ****  *
+   3:.\sensor_CTRL.c ****  * Copyright Logic brainstorm, 2015
+   4:.\sensor_CTRL.c ****  * All Rights Reserved
+   5:.\sensor_CTRL.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\sensor_CTRL.c ****  *
+   7:.\sensor_CTRL.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\sensor_CTRL.c ****  * WHICH IS THE PROPERTY OF your logic brainstorm.
+   9:.\sensor_CTRL.c ****  *
+  10:.\sensor_CTRL.c ****  * ========================================
+  11:.\sensor_CTRL.c **** */
+  12:.\sensor_CTRL.c **** 
+  13:.\sensor_CTRL.c **** #include <device.h>
+  14:.\sensor_CTRL.c **** #include <gobee.h>
+  15:.\sensor_CTRL.c **** #include <gobeelib.h>
+  16:.\sensor_CTRL.c **** #include <math.h>
+  17:.\sensor_CTRL.c **** 
+  18:.\sensor_CTRL.c **** /* extern Control Variables */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 2
+
+
+  19:.\sensor_CTRL.c **** extern uint8 machine_state;		/* Machine State Global						*/
+  20:.\sensor_CTRL.c **** 
+  21:.\sensor_CTRL.c **** extern float error;				/* Sensor error(t) 	  						*/
+  22:.\sensor_CTRL.c **** extern float error_lowpass;		/* Sensor error(t) low pass filtered		*/
+  23:.\sensor_CTRL.c **** extern float alpha;				/* low pass filter alpha value				*/
+  24:.\sensor_CTRL.c **** 
+  25:.\sensor_CTRL.c **** extern float error_bef;			/* Sensor error(t-1)  						*/
+  26:.\sensor_CTRL.c **** extern float derror;			/* Sensor d/dt(error)						*/
+  27:.\sensor_CTRL.c **** extern float ierror;			/* Sensor Integral(error(t))				*/
+  28:.\sensor_CTRL.c **** 
+  29:.\sensor_CTRL.c **** extern int16 control_var;		/* cv(t) = Kp*angle(t)			  			*/
+  30:.\sensor_CTRL.c **** extern uint16 angle_var;		/* Angle Compensation DAC variable			*/
+  31:.\sensor_CTRL.c **** extern int16  angle_digi;		/* Angle Compensation SPI variable			*/
+  32:.\sensor_CTRL.c **** 
+  33:.\sensor_CTRL.c **** extern int16 VSenseMAX;			/* Maximum Sensor Array ADC Voltage			*/
+  34:.\sensor_CTRL.c **** extern int16 VSenseSUM;			/* Sum of all Sensor Array ADC Voltage		*/
+  35:.\sensor_CTRL.c **** 
+  36:.\sensor_CTRL.c **** extern int16 Encoder_now;		/* Driver Motor Encoder(t)					*/
+  37:.\sensor_CTRL.c **** extern int16 Encoder_bef;		/* Driver Motor Encoder(t-1)				*/
+  38:.\sensor_CTRL.c **** extern int16 DriveVelocity;		/* Driver Motor Velocity(t)					*/
+  39:.\sensor_CTRL.c **** 
+  40:.\sensor_CTRL.c **** 
+  41:.\sensor_CTRL.c **** /* extern Sensor ADC array */
+  42:.\sensor_CTRL.c **** extern int16 AdcValue[ADC_MUX_LENGHT];
+  43:.\sensor_CTRL.c **** 
+  44:.\sensor_CTRL.c **** 
+  45:.\sensor_CTRL.c **** /* extern Analog ADXL325 3D accelerometer vars) */
+  46:.\sensor_CTRL.c **** struct ANALOG_3D_ACCELEROMETER aacc;
+  47:.\sensor_CTRL.c **** 
+  48:.\sensor_CTRL.c **** //extern signed long system_dynamic_scalar;	/* x_acc_ADC^2 + y_acc_ADC^2 - (1g_ADC)^2	*/
+  49:.\sensor_CTRL.c **** 
+  50:.\sensor_CTRL.c **** extern float angle_estim_analog_gyro;	/* estimated angle [deg] from ADXRS646     (analog gyro) 			*
+  51:.\sensor_CTRL.c **** extern float angle_estim_digital_gyro;	/* estimated angle [deg] from ADXRS453     (digital gyro)			
+  52:.\sensor_CTRL.c **** extern float angle_estim_acc;			/* estimated angle [deg] from ADXL203      (analog accelerometer) 	
+  53:.\sensor_CTRL.c **** extern float angle_estim_acc_last_good;	/* angle(t*) i.e. last good angle before linear acceleratio
+  54:.\sensor_CTRL.c **** extern float angle_estim_acc_lowpass;	/* Low Pass Filtered estimated angle [deg] (analog accelerome
+  55:.\sensor_CTRL.c **** 
+  56:.\sensor_CTRL.c **** 
+  57:.\sensor_CTRL.c **** /* extern ADXRS646 analog gyroscope vars */
+  58:.\sensor_CTRL.c **** //extern int16 gyro_ADC_offset;		/* analog gyroscope ADC offset						*/
+  59:.\sensor_CTRL.c **** //extern int16 gyro_ADC;				/* analog gyroscope ADC value signed				*/
+  60:.\sensor_CTRL.c **** //extern float gyro_scale;			/* gyro scale from ADC to [deg/sec]					*/
+  61:.\sensor_CTRL.c **** //extern float gyro;					/* analog gyroscope float value [deg/sec]			*/
+  62:.\sensor_CTRL.c **** //extern float gyro_lowpass;			/* LPF(analog gyro) float value	[deg/sec]			*/
+  63:.\sensor_CTRL.c **** //extern float int_gyro;				/* analog gyroscope integrated value				*/
+  64:.\sensor_CTRL.c **** //extern float agyro_mean;			/* analog gyro mean_value(t)						*/
+  65:.\sensor_CTRL.c **** //extern float agyro_mean_previous;	/* analog gyro mean_value(t-1)						*/
+  66:.\sensor_CTRL.c **** extern uint32 iteration;			/* analog gyro mean value iteration counter			*/
+  67:.\sensor_CTRL.c **** extern uint8 agyro_messg;			/* analog gyro message passing console --> isr_ctrl	*/
+  68:.\sensor_CTRL.c **** 
+  69:.\sensor_CTRL.c **** /* extern Analog External ADXRS646 gyroscope vars) */
+  70:.\sensor_CTRL.c **** extern struct ANALOG_GYRO agyro;
+  71:.\sensor_CTRL.c **** 
+  72:.\sensor_CTRL.c **** /* extern ADXRS453 digital gyroscope vars	*/
+  73:.\sensor_CTRL.c **** extern float dgyro_rate_float;		/* ADXRS453 Digital Gyro Rate (float) [deg/sec] 	*/
+  74:.\sensor_CTRL.c **** extern float dgyro_mean;			/* digital gyro raw mean_value(t)					*/
+  75:.\sensor_CTRL.c **** extern float dgyro_mean_previous;	/* digital gyro raw mean_value(t-1)					*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 3
+
+
+  76:.\sensor_CTRL.c **** extern float dgyro_mean_of;			/* digital gyro ofsetted mean_value(t)				*/
+  77:.\sensor_CTRL.c **** extern float dgyro_mean_previous_of;/* digital gyro ofsetted mean_value(t-1)			*/
+  78:.\sensor_CTRL.c **** extern uint32 dg_iteration;			/* digital gyro mean value iteration counter		*/
+  79:.\sensor_CTRL.c **** extern uint8 dgyro_messg;			/* digital gyro message passing console --> isr_ctrl*/
+  80:.\sensor_CTRL.c **** 
+  81:.\sensor_CTRL.c **** /* extern estimated control vars */
+  82:.\sensor_CTRL.c **** extern float angle;				/* Complementary Filter Estimated angle float [deg]	*/
+  83:.\sensor_CTRL.c **** extern float angle_lowpass;
+  84:.\sensor_CTRL.c **** extern float angle_estim;	
+  85:.\sensor_CTRL.c **** 
+  86:.\sensor_CTRL.c **** ///* external ITG-3701 digital gyro vars */
+  87:.\sensor_CTRL.c **** //extern float gRes;      				// scale resolutions per LSB for the sensors
+  88:.\sensor_CTRL.c **** //extern int16 gyroCount[3];  			// Stores the 16-bit signed gyro output
+  89:.\sensor_CTRL.c **** //extern float gx, gy, gz; 				// variables to hold latest sensor data values 
+  90:.\sensor_CTRL.c **** //extern float gyroBias[3];			 	// Bias corrections for gyro, accelerometer, and magnetometer
+  91:.\sensor_CTRL.c **** //extern float temperature;          		// Stores the ITG3701yro internal chip temperature in degree
+  92:.\sensor_CTRL.c **** 
+  93:.\sensor_CTRL.c **** /* extern GOBEE param structure */
+  94:.\sensor_CTRL.c **** extern struct GOBEE_PARAMS gobee_param;
+  95:.\sensor_CTRL.c ****  
+  96:.\sensor_CTRL.c **** 
+  97:.\sensor_CTRL.c **** /* Local vars Definition */
+  98:.\sensor_CTRL.c **** uint8 idx = 0;					/* all pourpose index							*/
+  99:.\sensor_CTRL.c **** uint8 dummy = 0;				/* Dummy Local									*/
+ 100:.\sensor_CTRL.c **** uint8 idxMAX = 0;				/* index: Vsense(index)=VSenseMAX				*/
+ 101:.\sensor_CTRL.c **** uint8 QuadDecEvent = 0;			/* Quadrature Encoder Status Register Shadow 	*/
+ 102:.\sensor_CTRL.c **** 
+ 103:.\sensor_CTRL.c **** float dgyro_offset_fine;
+ 104:.\sensor_CTRL.c **** 
+ 105:.\sensor_CTRL.c **** 
+ 106:.\sensor_CTRL.c **** /* GoBee Sensors Sampling & Control */
+ 107:.\sensor_CTRL.c **** void sensor_control(void)
+ 108:.\sensor_CTRL.c **** {
+  40              		.loc 1 108 0
+  41              		.cfi_startproc
+  42              		@ args = 0, pretend = 0, frame = 0
+  43              		@ frame_needed = 0, uses_anonymous_args = 0
+  44 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  45              	.LCFI0:
+  46              		.cfi_def_cfa_offset 32
+  47              		.cfi_offset 3, -32
+  48              		.cfi_offset 4, -28
+  49              		.cfi_offset 5, -24
+  50              		.cfi_offset 6, -20
+  51              		.cfi_offset 7, -16
+  52              		.cfi_offset 8, -12
+  53              		.cfi_offset 9, -8
+  54              		.cfi_offset 14, -4
+ 109:.\sensor_CTRL.c **** 	/************************************************/
+ 110:.\sensor_CTRL.c **** 	/* ADXL325 Accelerometer Sampling and scaling	*/
+ 111:.\sensor_CTRL.c **** 	/************************************************/
+ 112:.\sensor_CTRL.c **** 	/* Sensivity = 174mV/g							*/
+ 113:.\sensor_CTRL.c **** 	/* Zero g    = 1,5V								*/
+ 114:.\sensor_CTRL.c **** 	/*												*/
+ 115:.\sensor_CTRL.c **** 	/* ADC(int16 signed)=(Vin - 2,5V)*4096/5V		*/
+ 116:.\sensor_CTRL.c **** 	/* ADC resolution = 12 bit						*/
+ 117:.\sensor_CTRL.c **** 	/* 												*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 4
+
+
+ 118:.\sensor_CTRL.c **** 	/*  -->       0g  = -819.2	  ADC lsb			*/
+ 119:.\sensor_CTRL.c **** 	/*	-->       1g  = -676.6592 ADC lsb			*/
+ 120:.\sensor_CTRL.c **** 	/*  --> delta(1g) = 142.5408  ADC lsb			*/
+ 121:.\sensor_CTRL.c **** 	/************************************************/
+ 122:.\sensor_CTRL.c **** 	aacc.x_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+ 123:.\sensor_CTRL.c **** 	aacc.y_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+ 124:.\sensor_CTRL.c **** 	aacc.z_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+ 125:.\sensor_CTRL.c **** 	
+ 126:.\sensor_CTRL.c **** 	aacc.x_axis.ADC = AdcValue[ADXL_X] + ADC_ACC_ZERO_OFFSET ;
+  55              		.loc 1 126 0
+  56 0004 7C4B     		ldr	r3, .L25+16
+ 122:.\sensor_CTRL.c **** 	aacc.x_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+  57              		.loc 1 122 0
+  58 0006 7D4C     		ldr	r4, .L25+20
+ 127:.\sensor_CTRL.c **** 	aacc.y_axis.ADC = AdcValue[ADXL_Y] + ADC_ACC_ZERO_OFFSET ;
+  59              		.loc 1 127 0
+  60 0008 B3F80890 		ldrh	r9, [r3, #8]
+ 126:.\sensor_CTRL.c **** 	aacc.x_axis.ADC = AdcValue[ADXL_X] + ADC_ACC_ZERO_OFFSET ;
+  61              		.loc 1 126 0
+  62 000c D888     		ldrh	r0, [r3, #6]
+  63              		.loc 1 127 0
+  64 000e 09F23336 		addw	r6, r9, #819
+ 128:.\sensor_CTRL.c **** 	aacc.z_axis.ADC = AdcValue[ADXL_Z] + ADC_ACC_ZERO_OFFSET ;	
+  65              		.loc 1 128 0
+  66 0012 B3F80A80 		ldrh	r8, [r3, #10]
+ 127:.\sensor_CTRL.c **** 	aacc.y_axis.ADC = AdcValue[ADXL_Y] + ADC_ACC_ZERO_OFFSET ;
+  67              		.loc 1 127 0
+  68 0016 1FFA86F9 		uxth	r9, r6
+ 129:.\sensor_CTRL.c **** 	
+ 130:.\sensor_CTRL.c **** 	aacc.x_axis.acceleration = (float)(aacc.x_axis.ADC + gobee_param.x_acc_ADC_offset) * aacc.x_axis.s
+  69              		.loc 1 130 0
+  70 001a 794E     		ldr	r6, .L25+24
+ 126:.\sensor_CTRL.c **** 	aacc.x_axis.ADC = AdcValue[ADXL_X] + ADC_ACC_ZERO_OFFSET ;
+  71              		.loc 1 126 0
+  72 001c 00F23331 		addw	r1, r0, #819
+  73              		.loc 1 130 0
+  74 0020 B6F91630 		ldrsh	r3, [r6, #22]
+ 122:.\sensor_CTRL.c **** 	aacc.x_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+  75              		.loc 1 122 0
+  76 0024 774D     		ldr	r5, .L25+28
+ 126:.\sensor_CTRL.c **** 	aacc.x_axis.ADC = AdcValue[ADXL_X] + ADC_ACC_ZERO_OFFSET ;
+  77              		.loc 1 126 0
+  78 0026 8AB2     		uxth	r2, r1
+ 128:.\sensor_CTRL.c **** 	aacc.z_axis.ADC = AdcValue[ADXL_Z] + ADC_ACC_ZERO_OFFSET ;	
+  79              		.loc 1 128 0
+  80 0028 08F23337 		addw	r7, r8, #819
+  81              		.loc 1 130 0
+  82 002c 10B2     		sxth	r0, r2
+ 128:.\sensor_CTRL.c **** 	aacc.z_axis.ADC = AdcValue[ADXL_Z] + ADC_ACC_ZERO_OFFSET ;	
+  83              		.loc 1 128 0
+  84 002e 1FFA87F8 		uxth	r8, r7
+  85              		.loc 1 130 0
+  86 0032 C018     		adds	r0, r0, r3
+ 126:.\sensor_CTRL.c **** 	aacc.x_axis.ADC = AdcValue[ADXL_X] + ADC_ACC_ZERO_OFFSET ;
+  87              		.loc 1 126 0
+  88 0034 2280     		strh	r2, [r4, #0]	@ movhi
+ 122:.\sensor_CTRL.c **** 	aacc.x_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 5
+
+
+  89              		.loc 1 122 0
+  90 0036 6560     		str	r5, [r4, #4]	@ float
+ 123:.\sensor_CTRL.c **** 	aacc.y_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+  91              		.loc 1 123 0
+  92 0038 2561     		str	r5, [r4, #16]	@ float
+ 124:.\sensor_CTRL.c **** 	aacc.z_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+  93              		.loc 1 124 0
+  94 003a E561     		str	r5, [r4, #28]	@ float
+ 127:.\sensor_CTRL.c **** 	aacc.y_axis.ADC = AdcValue[ADXL_Y] + ADC_ACC_ZERO_OFFSET ;
+  95              		.loc 1 127 0
+  96 003c A4F80C90 		strh	r9, [r4, #12]	@ movhi
+ 128:.\sensor_CTRL.c **** 	aacc.z_axis.ADC = AdcValue[ADXL_Z] + ADC_ACC_ZERO_OFFSET ;	
+  97              		.loc 1 128 0
+  98 0040 A4F81880 		strh	r8, [r4, #24]	@ movhi
+  99              		.loc 1 130 0
+ 100 0044 FFF7FEFF 		bl	__aeabi_i2f
+ 101              	.LVL0:
+ 102 0048 2946     		mov	r1, r5
+ 103 004a FFF7FEFF 		bl	__aeabi_fmul
+ 104              	.LVL1:
+ 131:.\sensor_CTRL.c **** 	aacc.y_axis.acceleration = (float)(aacc.y_axis.ADC + gobee_param.y_acc_ADC_offset) * aacc.y_axis.s
+ 105              		.loc 1 131 0
+ 106 004e B6F91820 		ldrsh	r2, [r6, #24]
+ 107 0052 0FFA89F1 		sxth	r1, r9
+ 130:.\sensor_CTRL.c **** 	aacc.x_axis.acceleration = (float)(aacc.x_axis.ADC + gobee_param.x_acc_ADC_offset) * aacc.x_axis.s
+ 108              		.loc 1 130 0
+ 109 0056 0746     		mov	r7, r0
+ 110 0058 A060     		str	r0, [r4, #8]	@ float
+ 111              		.loc 1 131 0
+ 112 005a 8818     		adds	r0, r1, r2
+ 113 005c FFF7FEFF 		bl	__aeabi_i2f
+ 114              	.LVL2:
+ 115 0060 2946     		mov	r1, r5
+ 116 0062 FFF7FEFF 		bl	__aeabi_fmul
+ 117              	.LVL3:
+ 132:.\sensor_CTRL.c **** 	aacc.z_axis.acceleration = (float)(aacc.z_axis.ADC + gobee_param.z_acc_ADC_offset) * aacc.z_axis.s
+ 118              		.loc 1 132 0
+ 119 0066 B6F91A60 		ldrsh	r6, [r6, #26]
+ 131:.\sensor_CTRL.c **** 	aacc.y_axis.acceleration = (float)(aacc.y_axis.ADC + gobee_param.y_acc_ADC_offset) * aacc.y_axis.s
+ 120              		.loc 1 131 0
+ 121 006a 6061     		str	r0, [r4, #20]	@ float
+ 122              		.loc 1 132 0
+ 123 006c 0FFA88F0 		sxth	r0, r8
+ 124 0070 8019     		adds	r0, r0, r6
+ 125 0072 FFF7FEFF 		bl	__aeabi_i2f
+ 126              	.LVL4:
+ 127 0076 2946     		mov	r1, r5
+ 128 0078 FFF7FEFF 		bl	__aeabi_fmul
+ 129              	.LVL5:
+ 130 007c 2062     		str	r0, [r4, #32]	@ float
+ 133:.\sensor_CTRL.c **** 
+ 134:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 135:.\sensor_CTRL.c **** 	/* Accelerometer Modulo Calculation		 											*/
+ 136:.\sensor_CTRL.c **** 	/* 																					*/
+ 137:.\sensor_CTRL.c **** 	/*  modulo = sqrt(x_g^2 + y_g^2 + z_g^2)  [g]										*/
+ 138:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 139:.\sensor_CTRL.c **** 	aacc.squared = squaref(aacc.x_axis.acceleration) +					
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 6
+
+
+ 131              		.loc 1 139 0
+ 132 007e 3846     		mov	r0, r7
+ 133 0080 FFF7FEFF 		bl	squaref
+ 134              	.LVL6:
+ 135 0084 0546     		mov	r5, r0
+ 140:.\sensor_CTRL.c **** 				   squaref(aacc.y_axis.acceleration) +		
+ 136              		.loc 1 140 0
+ 137 0086 6069     		ldr	r0, [r4, #20]	@ float
+ 138 0088 FFF7FEFF 		bl	squaref
+ 139              	.LVL7:
+ 140 008c 0146     		mov	r1, r0
+ 139:.\sensor_CTRL.c **** 	aacc.squared = squaref(aacc.x_axis.acceleration) +					
+ 141              		.loc 1 139 0
+ 142 008e 2846     		mov	r0, r5
+ 143 0090 FFF7FEFF 		bl	__aeabi_fadd
+ 144              	.LVL8:
+ 145 0094 0746     		mov	r7, r0
+ 141:.\sensor_CTRL.c **** 				   squaref(aacc.z_axis.acceleration);
+ 146              		.loc 1 141 0
+ 147 0096 206A     		ldr	r0, [r4, #32]	@ float
+ 148 0098 FFF7FEFF 		bl	squaref
+ 149              	.LVL9:
+ 150 009c 0146     		mov	r1, r0
+ 140:.\sensor_CTRL.c **** 				   squaref(aacc.y_axis.acceleration) +		
+ 151              		.loc 1 140 0
+ 152 009e 3846     		mov	r0, r7
+ 153 00a0 FFF7FEFF 		bl	__aeabi_fadd
+ 154              	.LVL10:
+ 139:.\sensor_CTRL.c **** 	aacc.squared = squaref(aacc.x_axis.acceleration) +					
+ 155              		.loc 1 139 0
+ 156 00a4 6062     		str	r0, [r4, #36]	@ float
+ 142:.\sensor_CTRL.c **** 				
+ 143:.\sensor_CTRL.c **** 	aacc.modulo = sqrt((double)aacc.squared);		
+ 157              		.loc 1 143 0
+ 158 00a6 FFF7FEFF 		bl	__aeabi_f2d
+ 159              	.LVL11:
+ 160 00aa FFF7FEFF 		bl	sqrt
+ 161              	.LVL12:
+ 162 00ae FFF7FEFF 		bl	__aeabi_d2f
+ 163              	.LVL13:
+ 144:.\sensor_CTRL.c **** 								
+ 145:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 146:.\sensor_CTRL.c **** 	/* System Dynamic Scalar Calculation	 											*/
+ 147:.\sensor_CTRL.c **** 	/* 																					*/
+ 148:.\sensor_CTRL.c **** 	/*  system dynamic_scalar = x_g^2 + y_g^2 + z_g^2 - (1_g)^2	[g^2]					*/
+ 149:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 150:.\sensor_CTRL.c **** 	aacc.system_dynamic_scalar = aacc.squared - 1;
+ 164              		.loc 1 150 0
+ 165 00b2 4FF07E51 		mov	r1, #1065353216
+ 143:.\sensor_CTRL.c **** 	aacc.modulo = sqrt((double)aacc.squared);		
+ 166              		.loc 1 143 0
+ 167 00b6 A062     		str	r0, [r4, #40]	@ float
+ 168              		.loc 1 150 0
+ 169 00b8 606A     		ldr	r0, [r4, #36]	@ float
+ 170 00ba FFF7FEFF 		bl	__aeabi_fsub
+ 171              	.LVL14:
+ 172 00be E062     		str	r0, [r4, #44]	@ float
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 7
+
+
+ 151:.\sensor_CTRL.c **** 
+ 152:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 153:.\sensor_CTRL.c **** 	/* Euler Phi and Theta angles Calculation (Tilt & Roll)	 							*/
+ 154:.\sensor_CTRL.c **** 	/* 																					*/
+ 155:.\sensor_CTRL.c **** 	/*  with sin(x)=x approximation limited between +-25[deg]							*/
+ 156:.\sensor_CTRL.c **** 	/************************************************************************************/	
+ 157:.\sensor_CTRL.c **** 	aacc.angle_estim_tilt = aacc.y_axis.acceleration * 57.29577951;	/* estimated angle from accelerome
+ 173              		.loc 1 157 0
+ 174 00c0 6069     		ldr	r0, [r4, #20]	@ float
+ 175 00c2 FFF7FEFF 		bl	__aeabi_f2d
+ 176              	.LVL15:
+ 177 00c6 48A3     		adr	r3, .L25
+ 178 00c8 D3E90023 		ldrd	r2, [r3]
+ 179 00cc FFF7FEFF 		bl	__aeabi_dmul
+ 180              	.LVL16:
+ 181 00d0 FFF7FEFF 		bl	__aeabi_d2f
+ 182              	.LVL17:
+ 183 00d4 0646     		mov	r6, r0
+ 184 00d6 2063     		str	r0, [r4, #48]	@ float
+ 158:.\sensor_CTRL.c **** 																	/* 57.29577951 = 180/PI								*/
+ 159:.\sensor_CTRL.c **** 	
+ 160:.\sensor_CTRL.c **** 	aacc.angle_estim_roll = aacc.x_axis.acceleration * 57.29577951;	/* estimated angle from accelerome
+ 185              		.loc 1 160 0
+ 186 00d8 A068     		ldr	r0, [r4, #8]	@ float
+ 187 00da FFF7FEFF 		bl	__aeabi_f2d
+ 188              	.LVL18:
+ 189 00de 42A3     		adr	r3, .L25
+ 190 00e0 D3E90023 		ldrd	r2, [r3]
+ 191 00e4 FFF7FEFF 		bl	__aeabi_dmul
+ 192              	.LVL19:
+ 193 00e8 FFF7FEFF 		bl	__aeabi_d2f
+ 194              	.LVL20:
+ 161:.\sensor_CTRL.c **** 																	/* 57.29577951 = 180/PI								*/	
+ 162:.\sensor_CTRL.c **** 	/* positive tilt +25 [deg] limiting	*/
+ 163:.\sensor_CTRL.c **** 	if (aacc.angle_estim_tilt >= +25.0)
+ 195              		.loc 1 163 0
+ 196 00ec 464F     		ldr	r7, .L25+32
+ 160:.\sensor_CTRL.c **** 	aacc.angle_estim_roll = aacc.x_axis.acceleration * 57.29577951;	/* estimated angle from accelerome
+ 197              		.loc 1 160 0
+ 198 00ee 0546     		mov	r5, r0
+ 199 00f0 6063     		str	r0, [r4, #52]	@ float
+ 200              		.loc 1 163 0
+ 201 00f2 3946     		mov	r1, r7
+ 202 00f4 3046     		mov	r0, r6
+ 203 00f6 FFF7FEFF 		bl	__aeabi_fcmpge
+ 204              	.LVL21:
+ 205 00fa 00B1     		cbz	r0, .L2
+ 164:.\sensor_CTRL.c **** 	{
+ 165:.\sensor_CTRL.c **** 		aacc.angle_estim_tilt = +25.0;
+ 206              		.loc 1 165 0
+ 207 00fc 2763     		str	r7, [r4, #48]	@ float
+ 208              	.L2:
+ 166:.\sensor_CTRL.c **** 	}
+ 167:.\sensor_CTRL.c **** 	
+ 168:.\sensor_CTRL.c **** 	/* negative tilt -25 [deg] limiting	*/
+ 169:.\sensor_CTRL.c **** 	if (aacc.angle_estim_tilt <= -25.0)
+ 209              		.loc 1 169 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 8
+
+
+ 210 00fe 434E     		ldr	r6, .L25+36
+ 211 0100 206B     		ldr	r0, [r4, #48]	@ float
+ 212 0102 3146     		mov	r1, r6
+ 213 0104 FFF7FEFF 		bl	__aeabi_fcmple
+ 214              	.LVL22:
+ 215 0108 08B1     		cbz	r0, .L4
+ 170:.\sensor_CTRL.c **** 	{
+ 171:.\sensor_CTRL.c **** 		aacc.angle_estim_tilt = -25.0;
+ 216              		.loc 1 171 0
+ 217 010a 3C4C     		ldr	r4, .L25+20
+ 218 010c 2663     		str	r6, [r4, #48]	@ float
+ 219              	.L4:
+ 172:.\sensor_CTRL.c **** 	}
+ 173:.\sensor_CTRL.c **** 	
+ 174:.\sensor_CTRL.c **** 	/* positive roll +25 [deg] limiting	*/
+ 175:.\sensor_CTRL.c **** 	if (aacc.angle_estim_roll >= +25.0)
+ 220              		.loc 1 175 0
+ 221 010e 3E4E     		ldr	r6, .L25+32
+ 222 0110 2846     		mov	r0, r5
+ 223 0112 3146     		mov	r1, r6
+ 224 0114 FFF7FEFF 		bl	__aeabi_fcmpge
+ 225              	.LVL23:
+ 226 0118 384B     		ldr	r3, .L25+20
+ 227 011a 00B1     		cbz	r0, .L6
+ 176:.\sensor_CTRL.c **** 	{
+ 177:.\sensor_CTRL.c **** 		aacc.angle_estim_roll = +25.0;
+ 228              		.loc 1 177 0
+ 229 011c 5E63     		str	r6, [r3, #52]	@ float
+ 230              	.L6:
+ 178:.\sensor_CTRL.c **** 	}
+ 179:.\sensor_CTRL.c **** 	
+ 180:.\sensor_CTRL.c **** 	/* negative roll -25 [deg] limiting	*/
+ 181:.\sensor_CTRL.c **** 	if (aacc.angle_estim_roll <= -25.0)
+ 231              		.loc 1 181 0
+ 232 011e 3B4D     		ldr	r5, .L25+36
+ 233 0120 586B     		ldr	r0, [r3, #52]	@ float
+ 234 0122 2946     		mov	r1, r5
+ 235 0124 FFF7FEFF 		bl	__aeabi_fcmple
+ 236              	.LVL24:
+ 237 0128 08B1     		cbz	r0, .L8
+ 182:.\sensor_CTRL.c **** 	{
+ 183:.\sensor_CTRL.c **** 		aacc.angle_estim_roll = -25.0;
+ 238              		.loc 1 183 0
+ 239 012a 3449     		ldr	r1, .L25+20
+ 240 012c 4D63     		str	r5, [r1, #52]	@ float
+ 241              	.L8:
+ 184:.\sensor_CTRL.c **** 	}	
+ 185:.\sensor_CTRL.c **** 
+ 186:.\sensor_CTRL.c **** 	
+ 187:.\sensor_CTRL.c **** //	/************************************************/
+ 188:.\sensor_CTRL.c **** //	/* ADXRS646 Gyroscope Sampling and scaling 		*/
+ 189:.\sensor_CTRL.c **** //	/************************************************/
+ 190:.\sensor_CTRL.c **** //	/* Sensivity = 7,5mV/°/sec @ Vratio=+5V			*/
+ 191:.\sensor_CTRL.c **** //	/*												*/
+ 192:.\sensor_CTRL.c **** //	/* ADC(int16 signed)=(Vin - 2,5V)*4096/5V		*/
+ 193:.\sensor_CTRL.c **** //	/* 												*/
+ 194:.\sensor_CTRL.c **** //	/*	-->  1°/sec = +6							*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 9
+
+
+ 195:.\sensor_CTRL.c **** //	/*  --> -1°/sec = -6							*/
+ 196:.\sensor_CTRL.c **** //	/************************************************/
+ 197:.\sensor_CTRL.c **** //	
+ 198:.\sensor_CTRL.c **** //	agyro.scale = 0.162760416 * gobee_param.ana_gyro_scale_sensivity.fnum;	
+ 199:.\sensor_CTRL.c **** //														/* Attenzione: andrà calibrato sia in offset 	*/
+ 200:.\sensor_CTRL.c **** //														/* che in temperatura anche la scala!!!			*/
+ 201:.\sensor_CTRL.c **** //	
+ 202:.\sensor_CTRL.c **** //
+ 203:.\sensor_CTRL.c **** //	agyro.ADC = AdcValue[EXT_GYRO_RATE_LPF];
+ 204:.\sensor_CTRL.c **** //	agyro.rate = (float) (((float)agyro.ADC) * agyro.scale);				/* [deg/sec]	*/
+ 205:.\sensor_CTRL.c **** //	agyro.rate = (float) (agyro.rate + gobee_param.gyro_offset_fine.fnum);	/* [deg/sec]	*/
+ 206:.\sensor_CTRL.c **** 
+ 207:.\sensor_CTRL.c **** 	/********************************************************************************/
+ 208:.\sensor_CTRL.c **** 	/* Analog Gyro Mean Value Iterative Calculus									*/
+ 209:.\sensor_CTRL.c **** 	/* iteration >= 2																*/
+ 210:.\sensor_CTRL.c **** 	/* Calcola il valor medio del gyro analogico senza tener conto dell'offset fine */
+ 211:.\sensor_CTRL.c **** 	/********************************************************************************/
+ 212:.\sensor_CTRL.c **** 	if (agyro_messg == AGYRO_MEAN_START)
+ 242              		.loc 1 212 0
+ 243 012e 384A     		ldr	r2, .L25+40
+ 244 0130 384C     		ldr	r4, .L25+44
+ 245 0132 1078     		ldrb	r0, [r2, #0]	@ zero_extendqisi2
+ 246 0134 0128     		cmp	r0, #1
+ 247 0136 07D1     		bne	.L10
+ 213:.\sensor_CTRL.c **** 	{
+ 214:.\sensor_CTRL.c **** 		agyro.mean_rate = agyro.rate;
+ 248              		.loc 1 214 0
+ 249 0138 A168     		ldr	r1, [r4, #8]	@ float
+ 215:.\sensor_CTRL.c **** 		agyro.mean_rate_previous = agyro.mean_rate;
+ 216:.\sensor_CTRL.c **** 		iteration = 2;
+ 250              		.loc 1 216 0
+ 251 013a 0220     		movs	r0, #2
+ 214:.\sensor_CTRL.c **** 		agyro.mean_rate = agyro.rate;
+ 252              		.loc 1 214 0
+ 253 013c 2161     		str	r1, [r4, #16]	@ float
+ 215:.\sensor_CTRL.c **** 		agyro.mean_rate_previous = agyro.mean_rate;
+ 254              		.loc 1 215 0
+ 255 013e 6161     		str	r1, [r4, #20]	@ float
+ 256              		.loc 1 216 0
+ 257 0140 354C     		ldr	r4, .L25+48
+ 217:.\sensor_CTRL.c **** 		agyro_messg = AGYRO_MEAN_STARTED;
+ 258              		.loc 1 217 0
+ 259 0142 1070     		strb	r0, [r2, #0]
+ 216:.\sensor_CTRL.c **** 		iteration = 2;
+ 260              		.loc 1 216 0
+ 261 0144 2060     		str	r0, [r4, #0]
+ 262 0146 18E0     		b	.L11
+ 263              	.L10:
+ 218:.\sensor_CTRL.c **** 	}
+ 219:.\sensor_CTRL.c **** 	else
+ 220:.\sensor_CTRL.c **** 		if (agyro_messg != AGYRO_MEAN_STOP)
+ 264              		.loc 1 220 0
+ 265 0148 0328     		cmp	r0, #3
+ 266 014a 16D0     		beq	.L11
+ 221:.\sensor_CTRL.c **** 		{
+ 222:.\sensor_CTRL.c **** 			agyro.mean_rate = (agyro.mean_rate_previous * (iteration - 1) + agyro.rate) / iteration;
+ 267              		.loc 1 222 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 10
+
+
+ 268 014c 324E     		ldr	r6, .L25+48
+ 269 014e 3568     		ldr	r5, [r6, #0]
+ 270 0150 681E     		subs	r0, r5, #1
+ 271 0152 FFF7FEFF 		bl	__aeabi_ui2f
+ 272              	.LVL25:
+ 273 0156 6169     		ldr	r1, [r4, #20]	@ float
+ 274 0158 FFF7FEFF 		bl	__aeabi_fmul
+ 275              	.LVL26:
+ 276 015c A168     		ldr	r1, [r4, #8]	@ float
+ 277 015e FFF7FEFF 		bl	__aeabi_fadd
+ 278              	.LVL27:
+ 279 0162 0746     		mov	r7, r0
+ 280 0164 2846     		mov	r0, r5
+ 281 0166 FFF7FEFF 		bl	__aeabi_ui2f
+ 282              	.LVL28:
+ 283 016a 0146     		mov	r1, r0
+ 284 016c 3846     		mov	r0, r7
+ 285 016e FFF7FEFF 		bl	__aeabi_fdiv
+ 286              	.LVL29:
+ 223:.\sensor_CTRL.c **** 			agyro.mean_rate_previous = agyro.mean_rate;
+ 224:.\sensor_CTRL.c **** 			iteration = iteration + 1;
+ 287              		.loc 1 224 0
+ 288 0172 6B1C     		adds	r3, r5, #1
+ 222:.\sensor_CTRL.c **** 			agyro.mean_rate = (agyro.mean_rate_previous * (iteration - 1) + agyro.rate) / iteration;
+ 289              		.loc 1 222 0
+ 290 0174 2061     		str	r0, [r4, #16]	@ float
+ 223:.\sensor_CTRL.c **** 			agyro.mean_rate_previous = agyro.mean_rate;
+ 291              		.loc 1 223 0
+ 292 0176 6061     		str	r0, [r4, #20]	@ float
+ 293              		.loc 1 224 0
+ 294 0178 3360     		str	r3, [r6, #0]
+ 295              	.L11:
+ 225:.\sensor_CTRL.c **** 		}
+ 226:.\sensor_CTRL.c **** 
+ 227:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 228:.\sensor_CTRL.c **** 	/* analog gyro: Exponential error smoothing function					*/
+ 229:.\sensor_CTRL.c **** 	/* (exactly like RC first order low pass filter) 							*/
+ 230:.\sensor_CTRL.c **** 	/* http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization	*/
+ 231:.\sensor_CTRL.c **** 	/* http://en.wikipedia.org/wiki/Exponential_smoothing						*/
+ 232:.\sensor_CTRL.c **** 	/*																			*/
+ 233:.\sensor_CTRL.c **** 	/* tau = deltaT *(1 - gamma)/gamma											*/
+ 234:.\sensor_CTRL.c **** 	/*       deltaT = 66,7 msec @ 150Hz											*/
+ 235:.\sensor_CTRL.c **** 	/*		 beta  = 0.0005														*/
+ 236:.\sensor_CTRL.c **** 	/*		 --> tau = 13,32 sec (fc = 2 * 3.14 / tau = 0.5Hz)					*/
+ 237:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 238:.\sensor_CTRL.c **** 	/* gamma = 1 TO BYPASS FILTER												*/
+ 239:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 240:.\sensor_CTRL.c **** 	if (gobee_param.gamma.fnum == 1)
+ 296              		.loc 1 240 0
+ 297 017a 214A     		ldr	r2, .L25+24
+ 298 017c 4FF07E51 		mov	r1, #1065353216
+ 299 0180 D568     		ldr	r5, [r2, #12]	@ float
+ 300 0182 244C     		ldr	r4, .L25+44
+ 301 0184 2846     		mov	r0, r5
+ 302 0186 FFF7FEFF 		bl	__aeabi_fcmpeq
+ 303              	.LVL30:
+ 304 018a 10B1     		cbz	r0, .L23
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 11
+
+
+ 241:.\sensor_CTRL.c **** 	{
+ 242:.\sensor_CTRL.c **** 		agyro.rate_lowpass = agyro.rate;
+ 305              		.loc 1 242 0
+ 306 018c A368     		ldr	r3, [r4, #8]	@ float
+ 307 018e E360     		str	r3, [r4, #12]	@ float
+ 308 0190 0DE0     		b	.L14
+ 309              	.L23:
+ 243:.\sensor_CTRL.c **** 	}
+ 244:.\sensor_CTRL.c **** 	else
+ 245:.\sensor_CTRL.c **** 	{
+ 246:.\sensor_CTRL.c **** 		agyro.rate_lowpass = agyro.rate_lowpass + (float)gobee_param.gamma.fnum * (agyro.rate- agyro.rate
+ 310              		.loc 1 246 0
+ 311 0192 E668     		ldr	r6, [r4, #12]	@ float
+ 312 0194 A068     		ldr	r0, [r4, #8]	@ float
+ 313 0196 3146     		mov	r1, r6
+ 314 0198 FFF7FEFF 		bl	__aeabi_fsub
+ 315              	.LVL31:
+ 316 019c 0146     		mov	r1, r0
+ 317 019e 2846     		mov	r0, r5
+ 318 01a0 FFF7FEFF 		bl	__aeabi_fmul
+ 319              	.LVL32:
+ 320 01a4 0146     		mov	r1, r0
+ 321 01a6 3046     		mov	r0, r6
+ 322 01a8 FFF7FEFF 		bl	__aeabi_fadd
+ 323              	.LVL33:
+ 324 01ac E060     		str	r0, [r4, #12]	@ float
+ 325              	.L14:
+ 247:.\sensor_CTRL.c **** 	}
+ 248:.\sensor_CTRL.c **** 
+ 249:.\sensor_CTRL.c **** 	/* Analog Gyro integration step */
+ 250:.\sensor_CTRL.c **** 	agyro.angle = agyro.angle + agyro.rate_lowpass * DeltaT_const;	/* [deg] */		
+ 326              		.loc 1 250 0
+ 327 01ae 194E     		ldr	r6, .L25+44
+ 328 01b0 B069     		ldr	r0, [r6, #24]	@ float
+ 329 01b2 FFF7FEFF 		bl	__aeabi_f2d
+ 330              	.LVL34:
+ 331 01b6 0446     		mov	r4, r0
+ 332 01b8 F068     		ldr	r0, [r6, #12]	@ float
+ 333 01ba 0D46     		mov	r5, r1
+ 334 01bc FFF7FEFF 		bl	__aeabi_f2d
+ 335              	.LVL35:
+ 336 01c0 0BA3     		adr	r3, .L25+8
+ 337 01c2 D3E90023 		ldrd	r2, [r3]
+ 338 01c6 FFF7FEFF 		bl	__aeabi_dmul
+ 339              	.LVL36:
+ 340 01ca 0246     		mov	r2, r0
+ 341 01cc 0B46     		mov	r3, r1
+ 342 01ce 2046     		mov	r0, r4
+ 343 01d0 2946     		mov	r1, r5
+ 344 01d2 FFF7FEFF 		bl	__aeabi_dadd
+ 345              	.LVL37:
+ 346 01d6 FFF7FEFF 		bl	__aeabi_d2f
+ 347              	.LVL38:
+ 251:.\sensor_CTRL.c **** 	angle = agyro.angle;											/* [deg] */
+ 348              		.loc 1 251 0
+ 349 01da 1049     		ldr	r1, .L25+52
+ 250:.\sensor_CTRL.c **** 	agyro.angle = agyro.angle + agyro.rate_lowpass * DeltaT_const;	/* [deg] */		
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 12
+
+
+ 350              		.loc 1 250 0
+ 351 01dc B061     		str	r0, [r6, #24]	@ float
+ 352              		.loc 1 251 0
+ 353 01de 0860     		str	r0, [r1, #0]	@ float
+ 354 01e0 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 355              	.L26:
+ 356 01e4 AFF30080 		.align	3
+ 357              	.L25:
+ 358 01e8 72235D1A 		.word	442311538
+ 359 01ec DCA54C40 		.word	1078765020
+ 360 01f0 A2E46B55 		.word	1433134242
+ 361 01f4 66D8353F 		.word	1060493414
+ 362 01f8 00000000 		.word	AdcValue
+ 363 01fc 00000000 		.word	aacc
+ 364 0200 00000000 		.word	gobee_param
+ 365 0204 93E2E53B 		.word	1004921491
+ 366 0208 0000C841 		.word	1103626240
+ 367 020c 0000C8C1 		.word	-1043857408
+ 368 0210 00000000 		.word	agyro_messg
+ 369 0214 00000000 		.word	agyro
+ 370 0218 00000000 		.word	iteration
+ 371 021c 00000000 		.word	angle
+ 372              		.cfi_endproc
+ 373              	.LFE56:
+ 374              		.size	sensor_control, .-sensor_control
+ 375              		.comm	dgyro_offset_fine,4,4
+ 376              		.global	QuadDecEvent
+ 377              		.global	idxMAX
+ 378              		.global	dummy
+ 379              		.global	idx
+ 380              		.comm	aacc,56,4
+ 381              		.comm	gobee_vparam,0,1
+ 382              		.bss
+ 383              		.type	QuadDecEvent, %object
+ 384              		.size	QuadDecEvent, 1
+ 385              	QuadDecEvent:
+ 386 0000 00       		.space	1
+ 387              		.type	idxMAX, %object
+ 388              		.size	idxMAX, 1
+ 389              	idxMAX:
+ 390 0001 00       		.space	1
+ 391              		.type	dummy, %object
+ 392              		.size	dummy, 1
+ 393              	dummy:
+ 394 0002 00       		.space	1
+ 395              		.type	idx, %object
+ 396              		.size	idx, 1
+ 397              	idx:
+ 398 0003 00       		.space	1
+ 399              		.text
+ 400              	.Letext0:
+ 401              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 402              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 403              		.file 4 "./gobee.h"
+ 404              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 405              		.file 6 "./gobeelib.h"
+ 406              		.file 7 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 13
+
+
+ 407              		.section	.debug_info,"",%progbits
+ 408              	.Ldebug_info0:
+ 409 0000 73050000 		.4byte	0x573
+ 410 0004 0200     		.2byte	0x2
+ 411 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 412 000a 04       		.byte	0x4
+ 413 000b 01       		.uleb128 0x1
+ 414 000c 55020000 		.4byte	.LASF77
+ 415 0010 01       		.byte	0x1
+ 416 0011 BC020000 		.4byte	.LASF78
+ 417 0015 1B030000 		.4byte	.LASF79
+ 418 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 419 001d 00000000 		.4byte	0
+ 420 0021 00000000 		.4byte	0
+ 421 0025 00000000 		.4byte	.Ldebug_line0
+ 422 0029 02       		.uleb128 0x2
+ 423 002a 04       		.byte	0x4
+ 424 002b 04       		.byte	0x4
+ 425 002c 67010000 		.4byte	.LASF0
+ 426 0030 02       		.uleb128 0x2
+ 427 0031 01       		.byte	0x1
+ 428 0032 06       		.byte	0x6
+ 429 0033 05020000 		.4byte	.LASF1
+ 430 0037 02       		.uleb128 0x2
+ 431 0038 01       		.byte	0x1
+ 432 0039 08       		.byte	0x8
+ 433 003a D6010000 		.4byte	.LASF2
+ 434 003e 02       		.uleb128 0x2
+ 435 003f 02       		.byte	0x2
+ 436 0040 05       		.byte	0x5
+ 437 0041 77000000 		.4byte	.LASF3
+ 438 0045 02       		.uleb128 0x2
+ 439 0046 02       		.byte	0x2
+ 440 0047 07       		.byte	0x7
+ 441 0048 9E020000 		.4byte	.LASF4
+ 442 004c 03       		.uleb128 0x3
+ 443 004d CC020000 		.4byte	.LASF10
+ 444 0051 02       		.byte	0x2
+ 445 0052 4F       		.byte	0x4f
+ 446 0053 57000000 		.4byte	0x57
+ 447 0057 02       		.uleb128 0x2
+ 448 0058 04       		.byte	0x4
+ 449 0059 05       		.byte	0x5
+ 450 005a 80010000 		.4byte	.LASF5
+ 451 005e 02       		.uleb128 0x2
+ 452 005f 04       		.byte	0x4
+ 453 0060 07       		.byte	0x7
+ 454 0061 89030000 		.4byte	.LASF6
+ 455 0065 02       		.uleb128 0x2
+ 456 0066 08       		.byte	0x8
+ 457 0067 05       		.byte	0x5
+ 458 0068 6D010000 		.4byte	.LASF7
+ 459 006c 02       		.uleb128 0x2
+ 460 006d 08       		.byte	0x8
+ 461 006e 07       		.byte	0x7
+ 462 006f 11020000 		.4byte	.LASF8
+ 463 0073 04       		.uleb128 0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 14
+
+
+ 464 0074 04       		.byte	0x4
+ 465 0075 05       		.byte	0x5
+ 466 0076 696E7400 		.ascii	"int\000"
+ 467 007a 02       		.uleb128 0x2
+ 468 007b 04       		.byte	0x4
+ 469 007c 07       		.byte	0x7
+ 470 007d 35020000 		.4byte	.LASF9
+ 471 0081 03       		.uleb128 0x3
+ 472 0082 3D010000 		.4byte	.LASF11
+ 473 0086 03       		.byte	0x3
+ 474 0087 5B       		.byte	0x5b
+ 475 0088 37000000 		.4byte	0x37
+ 476 008c 03       		.uleb128 0x3
+ 477 008d 2A010000 		.4byte	.LASF12
+ 478 0091 03       		.byte	0x3
+ 479 0092 5C       		.byte	0x5c
+ 480 0093 45000000 		.4byte	0x45
+ 481 0097 03       		.uleb128 0x3
+ 482 0098 14030000 		.4byte	.LASF13
+ 483 009c 03       		.byte	0x3
+ 484 009d 5D       		.byte	0x5d
+ 485 009e 5E000000 		.4byte	0x5e
+ 486 00a2 03       		.uleb128 0x3
+ 487 00a3 7B010000 		.4byte	.LASF14
+ 488 00a7 03       		.byte	0x3
+ 489 00a8 5E       		.byte	0x5e
+ 490 00a9 30000000 		.4byte	0x30
+ 491 00ad 03       		.uleb128 0x3
+ 492 00ae 37010000 		.4byte	.LASF15
+ 493 00b2 03       		.byte	0x3
+ 494 00b3 5F       		.byte	0x5f
+ 495 00b4 3E000000 		.4byte	0x3e
+ 496 00b8 02       		.uleb128 0x2
+ 497 00b9 08       		.byte	0x8
+ 498 00ba 04       		.byte	0x4
+ 499 00bb 23040000 		.4byte	.LASF16
+ 500 00bf 03       		.uleb128 0x3
+ 501 00c0 D4020000 		.4byte	.LASF17
+ 502 00c4 03       		.byte	0x3
+ 503 00c5 6C       		.byte	0x6c
+ 504 00c6 CA000000 		.4byte	0xca
+ 505 00ca 02       		.uleb128 0x2
+ 506 00cb 01       		.byte	0x1
+ 507 00cc 08       		.byte	0x8
+ 508 00cd B7020000 		.4byte	.LASF18
+ 509 00d1 02       		.uleb128 0x2
+ 510 00d2 04       		.byte	0x4
+ 511 00d3 07       		.byte	0x7
+ 512 00d4 81000000 		.4byte	.LASF19
+ 513 00d8 05       		.uleb128 0x5
+ 514 00d9 04       		.byte	0x4
+ 515 00da 04       		.byte	0x4
+ 516 00db CC       		.byte	0xcc
+ 517 00dc F7000000 		.4byte	0xf7
+ 518 00e0 06       		.uleb128 0x6
+ 519 00e1 4F020000 		.4byte	.LASF20
+ 520 00e5 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 15
+
+
+ 521 00e6 CE       		.byte	0xce
+ 522 00e7 F7000000 		.4byte	0xf7
+ 523 00eb 06       		.uleb128 0x6
+ 524 00ec 37040000 		.4byte	.LASF21
+ 525 00f0 04       		.byte	0x4
+ 526 00f1 CF       		.byte	0xcf
+ 527 00f2 29000000 		.4byte	0x29
+ 528 00f6 00       		.byte	0
+ 529 00f7 07       		.uleb128 0x7
+ 530 00f8 BF000000 		.4byte	0xbf
+ 531 00fc 07010000 		.4byte	0x107
+ 532 0100 08       		.uleb128 0x8
+ 533 0101 D1000000 		.4byte	0xd1
+ 534 0105 03       		.byte	0x3
+ 535 0106 00       		.byte	0
+ 536 0107 03       		.uleb128 0x3
+ 537 0108 B6030000 		.4byte	.LASF22
+ 538 010c 04       		.byte	0x4
+ 539 010d D0       		.byte	0xd0
+ 540 010e D8000000 		.4byte	0xd8
+ 541 0112 09       		.uleb128 0x9
+ 542 0113 CC030000 		.4byte	.LASF80
+ 543 0117 00       		.byte	0
+ 544 0118 04       		.byte	0x4
+ 545 0119 DD       		.byte	0xdd
+ 546 011a 0A       		.uleb128 0xa
+ 547 011b DA020000 		.4byte	.LASF43
+ 548 011f 34       		.byte	0x34
+ 549 0120 04       		.byte	0x4
+ 550 0121 E5       		.byte	0xe5
+ 551 0122 4C020000 		.4byte	0x24c
+ 552 0126 0B       		.uleb128 0xb
+ 553 0127 91000000 		.4byte	.LASF23
+ 554 012b 04       		.byte	0x4
+ 555 012c E7       		.byte	0xe7
+ 556 012d 81000000 		.4byte	0x81
+ 557 0131 02       		.byte	0x2
+ 558 0132 23       		.byte	0x23
+ 559 0133 00       		.uleb128 0
+ 560 0134 0B       		.uleb128 0xb
+ 561 0135 E7020000 		.4byte	.LASF24
+ 562 0139 04       		.byte	0x4
+ 563 013a E9       		.byte	0xe9
+ 564 013b 81000000 		.4byte	0x81
+ 565 013f 02       		.byte	0x2
+ 566 0140 23       		.byte	0x23
+ 567 0141 01       		.uleb128 0x1
+ 568 0142 0B       		.uleb128 0xb
+ 569 0143 48040000 		.4byte	.LASF25
+ 570 0147 04       		.byte	0x4
+ 571 0148 ED       		.byte	0xed
+ 572 0149 81000000 		.4byte	0x81
+ 573 014d 02       		.byte	0x2
+ 574 014e 23       		.byte	0x23
+ 575 014f 02       		.uleb128 0x2
+ 576 0150 0B       		.uleb128 0xb
+ 577 0151 31010000 		.4byte	.LASF26
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 16
+
+
+ 578 0155 04       		.byte	0x4
+ 579 0156 F1       		.byte	0xf1
+ 580 0157 07010000 		.4byte	0x107
+ 581 015b 02       		.byte	0x2
+ 582 015c 23       		.byte	0x23
+ 583 015d 04       		.uleb128 0x4
+ 584 015e 0B       		.uleb128 0xb
+ 585 015f FD020000 		.4byte	.LASF27
+ 586 0163 04       		.byte	0x4
+ 587 0164 F5       		.byte	0xf5
+ 588 0165 07010000 		.4byte	0x107
+ 589 0169 02       		.byte	0x2
+ 590 016a 23       		.byte	0x23
+ 591 016b 08       		.uleb128 0x8
+ 592 016c 0B       		.uleb128 0xb
+ 593 016d C4000000 		.4byte	.LASF28
+ 594 0171 04       		.byte	0x4
+ 595 0172 F9       		.byte	0xf9
+ 596 0173 07010000 		.4byte	0x107
+ 597 0177 02       		.byte	0x2
+ 598 0178 23       		.byte	0x23
+ 599 0179 0C       		.uleb128 0xc
+ 600 017a 0B       		.uleb128 0xb
+ 601 017b 04010000 		.4byte	.LASF29
+ 602 017f 04       		.byte	0x4
+ 603 0180 FD       		.byte	0xfd
+ 604 0181 07010000 		.4byte	0x107
+ 605 0185 02       		.byte	0x2
+ 606 0186 23       		.byte	0x23
+ 607 0187 10       		.uleb128 0x10
+ 608 0188 0C       		.uleb128 0xc
+ 609 0189 E6000000 		.4byte	.LASF30
+ 610 018d 04       		.byte	0x4
+ 611 018e 0301     		.2byte	0x103
+ 612 0190 A2000000 		.4byte	0xa2
+ 613 0194 02       		.byte	0x2
+ 614 0195 23       		.byte	0x23
+ 615 0196 14       		.uleb128 0x14
+ 616 0197 0C       		.uleb128 0xc
+ 617 0198 F0030000 		.4byte	.LASF31
+ 618 019c 04       		.byte	0x4
+ 619 019d 0501     		.2byte	0x105
+ 620 019f AD000000 		.4byte	0xad
+ 621 01a3 02       		.byte	0x2
+ 622 01a4 23       		.byte	0x23
+ 623 01a5 16       		.uleb128 0x16
+ 624 01a6 0C       		.uleb128 0xc
+ 625 01a7 43000000 		.4byte	.LASF32
+ 626 01ab 04       		.byte	0x4
+ 627 01ac 0601     		.2byte	0x106
+ 628 01ae AD000000 		.4byte	0xad
+ 629 01b2 02       		.byte	0x2
+ 630 01b3 23       		.byte	0x23
+ 631 01b4 18       		.uleb128 0x18
+ 632 01b5 0C       		.uleb128 0xc
+ 633 01b6 E4010000 		.4byte	.LASF33
+ 634 01ba 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 17
+
+
+ 635 01bb 0701     		.2byte	0x107
+ 636 01bd AD000000 		.4byte	0xad
+ 637 01c1 02       		.byte	0x2
+ 638 01c2 23       		.byte	0x23
+ 639 01c3 1A       		.uleb128 0x1a
+ 640 01c4 0C       		.uleb128 0xc
+ 641 01c5 DF030000 		.4byte	.LASF34
+ 642 01c9 04       		.byte	0x4
+ 643 01ca 0901     		.2byte	0x109
+ 644 01cc 07010000 		.4byte	0x107
+ 645 01d0 02       		.byte	0x2
+ 646 01d1 23       		.byte	0x23
+ 647 01d2 1C       		.uleb128 0x1c
+ 648 01d3 0C       		.uleb128 0xc
+ 649 01d4 02030000 		.4byte	.LASF35
+ 650 01d8 04       		.byte	0x4
+ 651 01d9 0B01     		.2byte	0x10b
+ 652 01db 07010000 		.4byte	0x107
+ 653 01df 02       		.byte	0x2
+ 654 01e0 23       		.byte	0x23
+ 655 01e1 20       		.uleb128 0x20
+ 656 01e2 0C       		.uleb128 0xc
+ 657 01e3 01040000 		.4byte	.LASF36
+ 658 01e7 04       		.byte	0x4
+ 659 01e8 0D01     		.2byte	0x10d
+ 660 01ea 07010000 		.4byte	0x107
+ 661 01ee 02       		.byte	0x2
+ 662 01ef 23       		.byte	0x23
+ 663 01f0 24       		.uleb128 0x24
+ 664 01f1 0C       		.uleb128 0xc
+ 665 01f2 9F010000 		.4byte	.LASF37
+ 666 01f6 04       		.byte	0x4
+ 667 01f7 1601     		.2byte	0x116
+ 668 01f9 81000000 		.4byte	0x81
+ 669 01fd 02       		.byte	0x2
+ 670 01fe 23       		.byte	0x23
+ 671 01ff 28       		.uleb128 0x28
+ 672 0200 0C       		.uleb128 0xc
+ 673 0201 9B030000 		.4byte	.LASF38
+ 674 0205 04       		.byte	0x4
+ 675 0206 1B01     		.2byte	0x11b
+ 676 0208 81000000 		.4byte	0x81
+ 677 020c 02       		.byte	0x2
+ 678 020d 23       		.byte	0x23
+ 679 020e 29       		.uleb128 0x29
+ 680 020f 0C       		.uleb128 0xc
+ 681 0210 0E000000 		.4byte	.LASF39
+ 682 0214 04       		.byte	0x4
+ 683 0215 1D01     		.2byte	0x11d
+ 684 0217 81000000 		.4byte	0x81
+ 685 021b 02       		.byte	0x2
+ 686 021c 23       		.byte	0x23
+ 687 021d 2A       		.uleb128 0x2a
+ 688 021e 0C       		.uleb128 0xc
+ 689 021f BE030000 		.4byte	.LASF40
+ 690 0223 04       		.byte	0x4
+ 691 0224 2001     		.2byte	0x120
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 18
+
+
+ 692 0226 8C000000 		.4byte	0x8c
+ 693 022a 02       		.byte	0x2
+ 694 022b 23       		.byte	0x23
+ 695 022c 2C       		.uleb128 0x2c
+ 696 022d 0C       		.uleb128 0xc
+ 697 022e CA000000 		.4byte	.LASF41
+ 698 0232 04       		.byte	0x4
+ 699 0233 2401     		.2byte	0x124
+ 700 0235 AD000000 		.4byte	0xad
+ 701 0239 02       		.byte	0x2
+ 702 023a 23       		.byte	0x23
+ 703 023b 2E       		.uleb128 0x2e
+ 704 023c 0C       		.uleb128 0xc
+ 705 023d D5000000 		.4byte	.LASF42
+ 706 0241 04       		.byte	0x4
+ 707 0242 2701     		.2byte	0x127
+ 708 0244 07010000 		.4byte	0x107
+ 709 0248 02       		.byte	0x2
+ 710 0249 23       		.byte	0x23
+ 711 024a 30       		.uleb128 0x30
+ 712 024b 00       		.byte	0
+ 713 024c 0D       		.uleb128 0xd
+ 714 024d A9000000 		.4byte	.LASF44
+ 715 0251 1C       		.byte	0x1c
+ 716 0252 04       		.byte	0x4
+ 717 0253 3301     		.2byte	0x133
+ 718 0255 D2020000 		.4byte	0x2d2
+ 719 0259 0C       		.uleb128 0xc
+ 720 025a 94010000 		.4byte	.LASF45
+ 721 025e 04       		.byte	0x4
+ 722 025f 3601     		.2byte	0x136
+ 723 0261 AD000000 		.4byte	0xad
+ 724 0265 02       		.byte	0x2
+ 725 0266 23       		.byte	0x23
+ 726 0267 00       		.uleb128 0
+ 727 0268 0E       		.uleb128 0xe
+ 728 0269 41444300 		.ascii	"ADC\000"
+ 729 026d 04       		.byte	0x4
+ 730 026e 3701     		.2byte	0x137
+ 731 0270 AD000000 		.4byte	0xad
+ 732 0274 02       		.byte	0x2
+ 733 0275 23       		.byte	0x23
+ 734 0276 02       		.uleb128 0x2
+ 735 0277 0C       		.uleb128 0xc
+ 736 0278 2F020000 		.4byte	.LASF46
+ 737 027c 04       		.byte	0x4
+ 738 027d 3801     		.2byte	0x138
+ 739 027f 29000000 		.4byte	0x29
+ 740 0283 02       		.byte	0x2
+ 741 0284 23       		.byte	0x23
+ 742 0285 04       		.uleb128 0x4
+ 743 0286 0C       		.uleb128 0xc
+ 744 0287 18040000 		.4byte	.LASF47
+ 745 028b 04       		.byte	0x4
+ 746 028c 3901     		.2byte	0x139
+ 747 028e 29000000 		.4byte	0x29
+ 748 0292 02       		.byte	0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 19
+
+
+ 749 0293 23       		.byte	0x23
+ 750 0294 08       		.uleb128 0x8
+ 751 0295 0C       		.uleb128 0xc
+ 752 0296 F7000000 		.4byte	.LASF48
+ 753 029a 04       		.byte	0x4
+ 754 029b 3A01     		.2byte	0x13a
+ 755 029d 29000000 		.4byte	0x29
+ 756 02a1 02       		.byte	0x2
+ 757 02a2 23       		.byte	0x23
+ 758 02a3 0C       		.uleb128 0xc
+ 759 02a4 0C       		.uleb128 0xc
+ 760 02a5 C0010000 		.4byte	.LASF49
+ 761 02a9 04       		.byte	0x4
+ 762 02aa 3B01     		.2byte	0x13b
+ 763 02ac 29000000 		.4byte	0x29
+ 764 02b0 02       		.byte	0x2
+ 765 02b1 23       		.byte	0x23
+ 766 02b2 10       		.uleb128 0x10
+ 767 02b3 0C       		.uleb128 0xc
+ 768 02b4 43010000 		.4byte	.LASF50
+ 769 02b8 04       		.byte	0x4
+ 770 02b9 3C01     		.2byte	0x13c
+ 771 02bb 29000000 		.4byte	0x29
+ 772 02bf 02       		.byte	0x2
+ 773 02c0 23       		.byte	0x23
+ 774 02c1 14       		.uleb128 0x14
+ 775 02c2 0C       		.uleb128 0xc
+ 776 02c3 1D040000 		.4byte	.LASF51
+ 777 02c7 04       		.byte	0x4
+ 778 02c8 3D01     		.2byte	0x13d
+ 779 02ca 29000000 		.4byte	0x29
+ 780 02ce 02       		.byte	0x2
+ 781 02cf 23       		.byte	0x23
+ 782 02d0 18       		.uleb128 0x18
+ 783 02d1 00       		.byte	0
+ 784 02d2 0D       		.uleb128 0xd
+ 785 02d3 07000000 		.4byte	.LASF52
+ 786 02d7 0C       		.byte	0xc
+ 787 02d8 04       		.byte	0x4
+ 788 02d9 4501     		.2byte	0x145
+ 789 02db 0D030000 		.4byte	0x30d
+ 790 02df 0E       		.uleb128 0xe
+ 791 02e0 41444300 		.ascii	"ADC\000"
+ 792 02e4 04       		.byte	0x4
+ 793 02e5 4701     		.2byte	0x147
+ 794 02e7 AD000000 		.4byte	0xad
+ 795 02eb 02       		.byte	0x2
+ 796 02ec 23       		.byte	0x23
+ 797 02ed 00       		.uleb128 0
+ 798 02ee 0C       		.uleb128 0xc
+ 799 02ef 2F020000 		.4byte	.LASF46
+ 800 02f3 04       		.byte	0x4
+ 801 02f4 4901     		.2byte	0x149
+ 802 02f6 29000000 		.4byte	0x29
+ 803 02fa 02       		.byte	0x2
+ 804 02fb 23       		.byte	0x23
+ 805 02fc 04       		.uleb128 0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 20
+
+
+ 806 02fd 0C       		.uleb128 0xc
+ 807 02fe 54000000 		.4byte	.LASF53
+ 808 0302 04       		.byte	0x4
+ 809 0303 4A01     		.2byte	0x14a
+ 810 0305 29000000 		.4byte	0x29
+ 811 0309 02       		.byte	0x2
+ 812 030a 23       		.byte	0x23
+ 813 030b 08       		.uleb128 0x8
+ 814 030c 00       		.byte	0
+ 815 030d 0D       		.uleb128 0xd
+ 816 030e F5010000 		.4byte	.LASF54
+ 817 0312 0C       		.byte	0xc
+ 818 0313 04       		.byte	0x4
+ 819 0314 4D01     		.2byte	0x14d
+ 820 0316 48030000 		.4byte	0x348
+ 821 031a 0E       		.uleb128 0xe
+ 822 031b 41444300 		.ascii	"ADC\000"
+ 823 031f 04       		.byte	0x4
+ 824 0320 4F01     		.2byte	0x14f
+ 825 0322 AD000000 		.4byte	0xad
+ 826 0326 02       		.byte	0x2
+ 827 0327 23       		.byte	0x23
+ 828 0328 00       		.uleb128 0
+ 829 0329 0C       		.uleb128 0xc
+ 830 032a 2F020000 		.4byte	.LASF46
+ 831 032e 04       		.byte	0x4
+ 832 032f 5101     		.2byte	0x151
+ 833 0331 29000000 		.4byte	0x29
+ 834 0335 02       		.byte	0x2
+ 835 0336 23       		.byte	0x23
+ 836 0337 04       		.uleb128 0x4
+ 837 0338 0C       		.uleb128 0xc
+ 838 0339 54000000 		.4byte	.LASF53
+ 839 033d 04       		.byte	0x4
+ 840 033e 5201     		.2byte	0x152
+ 841 0340 29000000 		.4byte	0x29
+ 842 0344 02       		.byte	0x2
+ 843 0345 23       		.byte	0x23
+ 844 0346 08       		.uleb128 0x8
+ 845 0347 00       		.byte	0
+ 846 0348 0D       		.uleb128 0xd
+ 847 0349 00000000 		.4byte	.LASF55
+ 848 034d 0C       		.byte	0xc
+ 849 034e 04       		.byte	0x4
+ 850 034f 5501     		.2byte	0x155
+ 851 0351 83030000 		.4byte	0x383
+ 852 0355 0E       		.uleb128 0xe
+ 853 0356 41444300 		.ascii	"ADC\000"
+ 854 035a 04       		.byte	0x4
+ 855 035b 5701     		.2byte	0x157
+ 856 035d AD000000 		.4byte	0xad
+ 857 0361 02       		.byte	0x2
+ 858 0362 23       		.byte	0x23
+ 859 0363 00       		.uleb128 0
+ 860 0364 0C       		.uleb128 0xc
+ 861 0365 2F020000 		.4byte	.LASF46
+ 862 0369 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 21
+
+
+ 863 036a 5901     		.2byte	0x159
+ 864 036c 29000000 		.4byte	0x29
+ 865 0370 02       		.byte	0x2
+ 866 0371 23       		.byte	0x23
+ 867 0372 04       		.uleb128 0x4
+ 868 0373 0C       		.uleb128 0xc
+ 869 0374 54000000 		.4byte	.LASF53
+ 870 0378 04       		.byte	0x4
+ 871 0379 5A01     		.2byte	0x15a
+ 872 037b 29000000 		.4byte	0x29
+ 873 037f 02       		.byte	0x2
+ 874 0380 23       		.byte	0x23
+ 875 0381 08       		.uleb128 0x8
+ 876 0382 00       		.byte	0
+ 877 0383 0D       		.uleb128 0xd
+ 878 0384 A8010000 		.4byte	.LASF56
+ 879 0388 38       		.byte	0x38
+ 880 0389 04       		.byte	0x4
+ 881 038a 4201     		.2byte	0x142
+ 882 038c 09040000 		.4byte	0x409
+ 883 0390 0C       		.uleb128 0xc
+ 884 0391 3C000000 		.4byte	.LASF57
+ 885 0395 04       		.byte	0x4
+ 886 0396 4B01     		.2byte	0x14b
+ 887 0398 D2020000 		.4byte	0x2d2
+ 888 039c 02       		.byte	0x2
+ 889 039d 23       		.byte	0x23
+ 890 039e 00       		.uleb128 0
+ 891 039f 0C       		.uleb128 0xc
+ 892 03a0 8A000000 		.4byte	.LASF58
+ 893 03a4 04       		.byte	0x4
+ 894 03a5 5301     		.2byte	0x153
+ 895 03a7 0D030000 		.4byte	0x30d
+ 896 03ab 02       		.byte	0x2
+ 897 03ac 23       		.byte	0x23
+ 898 03ad 0C       		.uleb128 0xc
+ 899 03ae 0C       		.uleb128 0xc
+ 900 03af 28020000 		.4byte	.LASF59
+ 901 03b3 04       		.byte	0x4
+ 902 03b4 5B01     		.2byte	0x15b
+ 903 03b6 48030000 		.4byte	0x348
+ 904 03ba 02       		.byte	0x2
+ 905 03bb 23       		.byte	0x23
+ 906 03bc 18       		.uleb128 0x18
+ 907 03bd 0C       		.uleb128 0xc
+ 908 03be 9A000000 		.4byte	.LASF60
+ 909 03c2 04       		.byte	0x4
+ 910 03c3 5D01     		.2byte	0x15d
+ 911 03c5 29000000 		.4byte	0x29
+ 912 03c9 02       		.byte	0x2
+ 913 03ca 23       		.byte	0x23
+ 914 03cb 24       		.uleb128 0x24
+ 915 03cc 0C       		.uleb128 0xc
+ 916 03cd A2000000 		.4byte	.LASF61
+ 917 03d1 04       		.byte	0x4
+ 918 03d2 5E01     		.2byte	0x15e
+ 919 03d4 29000000 		.4byte	0x29
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 22
+
+
+ 920 03d8 02       		.byte	0x2
+ 921 03d9 23       		.byte	0x23
+ 922 03da 28       		.uleb128 0x28
+ 923 03db 0C       		.uleb128 0xc
+ 924 03dc 61000000 		.4byte	.LASF62
+ 925 03e0 04       		.byte	0x4
+ 926 03e1 5F01     		.2byte	0x15f
+ 927 03e3 29000000 		.4byte	0x29
+ 928 03e7 02       		.byte	0x2
+ 929 03e8 23       		.byte	0x23
+ 930 03e9 2C       		.uleb128 0x2c
+ 931 03ea 0C       		.uleb128 0xc
+ 932 03eb 56010000 		.4byte	.LASF63
+ 933 03ef 04       		.byte	0x4
+ 934 03f0 6101     		.2byte	0x161
+ 935 03f2 29000000 		.4byte	0x29
+ 936 03f6 02       		.byte	0x2
+ 937 03f7 23       		.byte	0x23
+ 938 03f8 30       		.uleb128 0x30
+ 939 03f9 0C       		.uleb128 0xc
+ 940 03fa 24000000 		.4byte	.LASF64
+ 941 03fe 04       		.byte	0x4
+ 942 03ff 6201     		.2byte	0x162
+ 943 0401 29000000 		.4byte	0x29
+ 944 0405 02       		.byte	0x2
+ 945 0406 23       		.byte	0x23
+ 946 0407 34       		.uleb128 0x34
+ 947 0408 00       		.byte	0
+ 948 0409 02       		.uleb128 0x2
+ 949 040a 08       		.byte	0x8
+ 950 040b 04       		.byte	0x4
+ 951 040c CA010000 		.4byte	.LASF65
+ 952 0410 0F       		.uleb128 0xf
+ 953 0411 01       		.byte	0x1
+ 954 0412 B5000000 		.4byte	.LASF81
+ 955 0416 01       		.byte	0x1
+ 956 0417 6B       		.byte	0x6b
+ 957 0418 01       		.byte	0x1
+ 958 0419 00000000 		.4byte	.LFB56
+ 959 041d 20020000 		.4byte	.LFE56
+ 960 0421 00000000 		.4byte	.LLST0
+ 961 0425 01       		.byte	0x1
+ 962 0426 5B040000 		.4byte	0x45b
+ 963 042a 10       		.uleb128 0x10
+ 964 042b 84000000 		.4byte	.LVL6
+ 965 042f 4A050000 		.4byte	0x54a
+ 966 0433 3F040000 		.4byte	0x43f
+ 967 0437 11       		.uleb128 0x11
+ 968 0438 01       		.byte	0x1
+ 969 0439 50       		.byte	0x50
+ 970 043a 03       		.byte	0x3
+ 971 043b F5       		.byte	0xf5
+ 972 043c 07       		.uleb128 0x7
+ 973 043d 29       		.uleb128 0x29
+ 974 043e 00       		.byte	0
+ 975 043f 12       		.uleb128 0x12
+ 976 0440 8C000000 		.4byte	.LVL7
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 23
+
+
+ 977 0444 4A050000 		.4byte	0x54a
+ 978 0448 12       		.uleb128 0x12
+ 979 0449 9C000000 		.4byte	.LVL9
+ 980 044d 4A050000 		.4byte	0x54a
+ 981 0451 12       		.uleb128 0x12
+ 982 0452 AE000000 		.4byte	.LVL12
+ 983 0456 62050000 		.4byte	0x562
+ 984 045a 00       		.byte	0
+ 985 045b 13       		.uleb128 0x13
+ 986 045c 2A040000 		.4byte	.LASF66
+ 987 0460 05       		.byte	0x5
+ 988 0461 1606     		.2byte	0x616
+ 989 0463 69040000 		.4byte	0x469
+ 990 0467 01       		.byte	0x1
+ 991 0468 01       		.byte	0x1
+ 992 0469 14       		.uleb128 0x14
+ 993 046a 4C000000 		.4byte	0x4c
+ 994 046e 15       		.uleb128 0x15
+ 995 046f 42020000 		.4byte	.LASF67
+ 996 0473 04       		.byte	0x4
+ 997 0474 E2       		.byte	0xe2
+ 998 0475 12010000 		.4byte	0x112
+ 999 0479 01       		.byte	0x1
+ 1000 047a 05       		.byte	0x5
+ 1001 047b 03       		.byte	0x3
+ 1002 047c 00000000 		.4byte	gobee_vparam
+ 1003 0480 07       		.uleb128 0x7
+ 1004 0481 AD000000 		.4byte	0xad
+ 1005 0485 90040000 		.4byte	0x490
+ 1006 0489 08       		.uleb128 0x8
+ 1007 048a D1000000 		.4byte	0xd1
+ 1008 048e 07       		.byte	0x7
+ 1009 048f 00       		.byte	0
+ 1010 0490 16       		.uleb128 0x16
+ 1011 0491 FC010000 		.4byte	.LASF68
+ 1012 0495 01       		.byte	0x1
+ 1013 0496 2A       		.byte	0x2a
+ 1014 0497 80040000 		.4byte	0x480
+ 1015 049b 01       		.byte	0x1
+ 1016 049c 01       		.byte	0x1
+ 1017 049d 15       		.uleb128 0x15
+ 1018 049e 8F010000 		.4byte	.LASF69
+ 1019 04a2 01       		.byte	0x1
+ 1020 04a3 2E       		.byte	0x2e
+ 1021 04a4 83030000 		.4byte	0x383
+ 1022 04a8 01       		.byte	0x1
+ 1023 04a9 05       		.byte	0x5
+ 1024 04aa 03       		.byte	0x3
+ 1025 04ab 00000000 		.4byte	aacc
+ 1026 04af 16       		.uleb128 0x16
+ 1027 04b0 AC030000 		.4byte	.LASF70
+ 1028 04b4 01       		.byte	0x1
+ 1029 04b5 42       		.byte	0x42
+ 1030 04b6 97000000 		.4byte	0x97
+ 1031 04ba 01       		.byte	0x1
+ 1032 04bb 01       		.byte	0x1
+ 1033 04bc 16       		.uleb128 0x16
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 24
+
+
+ 1034 04bd 3C040000 		.4byte	.LASF71
+ 1035 04c1 01       		.byte	0x1
+ 1036 04c2 43       		.byte	0x43
+ 1037 04c3 81000000 		.4byte	0x81
+ 1038 04c7 01       		.byte	0x1
+ 1039 04c8 01       		.byte	0x1
+ 1040 04c9 16       		.uleb128 0x16
+ 1041 04ca B1020000 		.4byte	.LASF72
+ 1042 04ce 01       		.byte	0x1
+ 1043 04cf 46       		.byte	0x46
+ 1044 04d0 4C020000 		.4byte	0x24c
+ 1045 04d4 01       		.byte	0x1
+ 1046 04d5 01       		.byte	0x1
+ 1047 04d6 16       		.uleb128 0x16
+ 1048 04d7 1D040000 		.4byte	.LASF51
+ 1049 04db 01       		.byte	0x1
+ 1050 04dc 52       		.byte	0x52
+ 1051 04dd 29000000 		.4byte	0x29
+ 1052 04e1 01       		.byte	0x1
+ 1053 04e2 01       		.byte	0x1
+ 1054 04e3 16       		.uleb128 0x16
+ 1055 04e4 F1020000 		.4byte	.LASF73
+ 1056 04e8 01       		.byte	0x1
+ 1057 04e9 5E       		.byte	0x5e
+ 1058 04ea 1A010000 		.4byte	0x11a
+ 1059 04ee 01       		.byte	0x1
+ 1060 04ef 01       		.byte	0x1
+ 1061 04f0 17       		.uleb128 0x17
+ 1062 04f1 69647800 		.ascii	"idx\000"
+ 1063 04f5 01       		.byte	0x1
+ 1064 04f6 62       		.byte	0x62
+ 1065 04f7 81000000 		.4byte	0x81
+ 1066 04fb 01       		.byte	0x1
+ 1067 04fc 05       		.byte	0x5
+ 1068 04fd 03       		.byte	0x3
+ 1069 04fe 00000000 		.4byte	idx
+ 1070 0502 15       		.uleb128 0x15
+ 1071 0503 89010000 		.4byte	.LASF74
+ 1072 0507 01       		.byte	0x1
+ 1073 0508 63       		.byte	0x63
+ 1074 0509 81000000 		.4byte	0x81
+ 1075 050d 01       		.byte	0x1
+ 1076 050e 05       		.byte	0x5
+ 1077 050f 03       		.byte	0x3
+ 1078 0510 00000000 		.4byte	dummy
+ 1079 0514 15       		.uleb128 0x15
+ 1080 0515 35000000 		.4byte	.LASF75
+ 1081 0519 01       		.byte	0x1
+ 1082 051a 64       		.byte	0x64
+ 1083 051b 81000000 		.4byte	0x81
+ 1084 051f 01       		.byte	0x1
+ 1085 0520 05       		.byte	0x5
+ 1086 0521 03       		.byte	0x3
+ 1087 0522 00000000 		.4byte	idxMAX
+ 1088 0526 15       		.uleb128 0x15
+ 1089 0527 1D010000 		.4byte	.LASF76
+ 1090 052b 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 25
+
+
+ 1091 052c 65       		.byte	0x65
+ 1092 052d 81000000 		.4byte	0x81
+ 1093 0531 01       		.byte	0x1
+ 1094 0532 05       		.byte	0x5
+ 1095 0533 03       		.byte	0x3
+ 1096 0534 00000000 		.4byte	QuadDecEvent
+ 1097 0538 15       		.uleb128 0x15
+ 1098 0539 02030000 		.4byte	.LASF35
+ 1099 053d 01       		.byte	0x1
+ 1100 053e 67       		.byte	0x67
+ 1101 053f 29000000 		.4byte	0x29
+ 1102 0543 01       		.byte	0x1
+ 1103 0544 05       		.byte	0x5
+ 1104 0545 03       		.byte	0x3
+ 1105 0546 00000000 		.4byte	dgyro_offset_fine
+ 1106 054a 18       		.uleb128 0x18
+ 1107 054b 01       		.byte	0x1
+ 1108 054c 52040000 		.4byte	.LASF82
+ 1109 0550 06       		.byte	0x6
+ 1110 0551 42       		.byte	0x42
+ 1111 0552 01       		.byte	0x1
+ 1112 0553 29000000 		.4byte	0x29
+ 1113 0557 01       		.byte	0x1
+ 1114 0558 62050000 		.4byte	0x562
+ 1115 055c 19       		.uleb128 0x19
+ 1116 055d 29000000 		.4byte	0x29
+ 1117 0561 00       		.byte	0
+ 1118 0562 1A       		.uleb128 0x1a
+ 1119 0563 01       		.byte	0x1
+ 1120 0564 DA030000 		.4byte	.LASF83
+ 1121 0568 07       		.byte	0x7
+ 1122 0569 86       		.byte	0x86
+ 1123 056a 01       		.byte	0x1
+ 1124 056b B8000000 		.4byte	0xb8
+ 1125 056f 01       		.byte	0x1
+ 1126 0570 19       		.uleb128 0x19
+ 1127 0571 B8000000 		.4byte	0xb8
+ 1128 0575 00       		.byte	0
+ 1129 0576 00       		.byte	0
+ 1130              		.section	.debug_abbrev,"",%progbits
+ 1131              	.Ldebug_abbrev0:
+ 1132 0000 01       		.uleb128 0x1
+ 1133 0001 11       		.uleb128 0x11
+ 1134 0002 01       		.byte	0x1
+ 1135 0003 25       		.uleb128 0x25
+ 1136 0004 0E       		.uleb128 0xe
+ 1137 0005 13       		.uleb128 0x13
+ 1138 0006 0B       		.uleb128 0xb
+ 1139 0007 03       		.uleb128 0x3
+ 1140 0008 0E       		.uleb128 0xe
+ 1141 0009 1B       		.uleb128 0x1b
+ 1142 000a 0E       		.uleb128 0xe
+ 1143 000b 55       		.uleb128 0x55
+ 1144 000c 06       		.uleb128 0x6
+ 1145 000d 11       		.uleb128 0x11
+ 1146 000e 01       		.uleb128 0x1
+ 1147 000f 52       		.uleb128 0x52
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 26
+
+
+ 1148 0010 01       		.uleb128 0x1
+ 1149 0011 10       		.uleb128 0x10
+ 1150 0012 06       		.uleb128 0x6
+ 1151 0013 00       		.byte	0
+ 1152 0014 00       		.byte	0
+ 1153 0015 02       		.uleb128 0x2
+ 1154 0016 24       		.uleb128 0x24
+ 1155 0017 00       		.byte	0
+ 1156 0018 0B       		.uleb128 0xb
+ 1157 0019 0B       		.uleb128 0xb
+ 1158 001a 3E       		.uleb128 0x3e
+ 1159 001b 0B       		.uleb128 0xb
+ 1160 001c 03       		.uleb128 0x3
+ 1161 001d 0E       		.uleb128 0xe
+ 1162 001e 00       		.byte	0
+ 1163 001f 00       		.byte	0
+ 1164 0020 03       		.uleb128 0x3
+ 1165 0021 16       		.uleb128 0x16
+ 1166 0022 00       		.byte	0
+ 1167 0023 03       		.uleb128 0x3
+ 1168 0024 0E       		.uleb128 0xe
+ 1169 0025 3A       		.uleb128 0x3a
+ 1170 0026 0B       		.uleb128 0xb
+ 1171 0027 3B       		.uleb128 0x3b
+ 1172 0028 0B       		.uleb128 0xb
+ 1173 0029 49       		.uleb128 0x49
+ 1174 002a 13       		.uleb128 0x13
+ 1175 002b 00       		.byte	0
+ 1176 002c 00       		.byte	0
+ 1177 002d 04       		.uleb128 0x4
+ 1178 002e 24       		.uleb128 0x24
+ 1179 002f 00       		.byte	0
+ 1180 0030 0B       		.uleb128 0xb
+ 1181 0031 0B       		.uleb128 0xb
+ 1182 0032 3E       		.uleb128 0x3e
+ 1183 0033 0B       		.uleb128 0xb
+ 1184 0034 03       		.uleb128 0x3
+ 1185 0035 08       		.uleb128 0x8
+ 1186 0036 00       		.byte	0
+ 1187 0037 00       		.byte	0
+ 1188 0038 05       		.uleb128 0x5
+ 1189 0039 17       		.uleb128 0x17
+ 1190 003a 01       		.byte	0x1
+ 1191 003b 0B       		.uleb128 0xb
+ 1192 003c 0B       		.uleb128 0xb
+ 1193 003d 3A       		.uleb128 0x3a
+ 1194 003e 0B       		.uleb128 0xb
+ 1195 003f 3B       		.uleb128 0x3b
+ 1196 0040 0B       		.uleb128 0xb
+ 1197 0041 01       		.uleb128 0x1
+ 1198 0042 13       		.uleb128 0x13
+ 1199 0043 00       		.byte	0
+ 1200 0044 00       		.byte	0
+ 1201 0045 06       		.uleb128 0x6
+ 1202 0046 0D       		.uleb128 0xd
+ 1203 0047 00       		.byte	0
+ 1204 0048 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 27
+
+
+ 1205 0049 0E       		.uleb128 0xe
+ 1206 004a 3A       		.uleb128 0x3a
+ 1207 004b 0B       		.uleb128 0xb
+ 1208 004c 3B       		.uleb128 0x3b
+ 1209 004d 0B       		.uleb128 0xb
+ 1210 004e 49       		.uleb128 0x49
+ 1211 004f 13       		.uleb128 0x13
+ 1212 0050 00       		.byte	0
+ 1213 0051 00       		.byte	0
+ 1214 0052 07       		.uleb128 0x7
+ 1215 0053 01       		.uleb128 0x1
+ 1216 0054 01       		.byte	0x1
+ 1217 0055 49       		.uleb128 0x49
+ 1218 0056 13       		.uleb128 0x13
+ 1219 0057 01       		.uleb128 0x1
+ 1220 0058 13       		.uleb128 0x13
+ 1221 0059 00       		.byte	0
+ 1222 005a 00       		.byte	0
+ 1223 005b 08       		.uleb128 0x8
+ 1224 005c 21       		.uleb128 0x21
+ 1225 005d 00       		.byte	0
+ 1226 005e 49       		.uleb128 0x49
+ 1227 005f 13       		.uleb128 0x13
+ 1228 0060 2F       		.uleb128 0x2f
+ 1229 0061 0B       		.uleb128 0xb
+ 1230 0062 00       		.byte	0
+ 1231 0063 00       		.byte	0
+ 1232 0064 09       		.uleb128 0x9
+ 1233 0065 13       		.uleb128 0x13
+ 1234 0066 00       		.byte	0
+ 1235 0067 03       		.uleb128 0x3
+ 1236 0068 0E       		.uleb128 0xe
+ 1237 0069 0B       		.uleb128 0xb
+ 1238 006a 0B       		.uleb128 0xb
+ 1239 006b 3A       		.uleb128 0x3a
+ 1240 006c 0B       		.uleb128 0xb
+ 1241 006d 3B       		.uleb128 0x3b
+ 1242 006e 0B       		.uleb128 0xb
+ 1243 006f 00       		.byte	0
+ 1244 0070 00       		.byte	0
+ 1245 0071 0A       		.uleb128 0xa
+ 1246 0072 13       		.uleb128 0x13
+ 1247 0073 01       		.byte	0x1
+ 1248 0074 03       		.uleb128 0x3
+ 1249 0075 0E       		.uleb128 0xe
+ 1250 0076 0B       		.uleb128 0xb
+ 1251 0077 0B       		.uleb128 0xb
+ 1252 0078 3A       		.uleb128 0x3a
+ 1253 0079 0B       		.uleb128 0xb
+ 1254 007a 3B       		.uleb128 0x3b
+ 1255 007b 0B       		.uleb128 0xb
+ 1256 007c 01       		.uleb128 0x1
+ 1257 007d 13       		.uleb128 0x13
+ 1258 007e 00       		.byte	0
+ 1259 007f 00       		.byte	0
+ 1260 0080 0B       		.uleb128 0xb
+ 1261 0081 0D       		.uleb128 0xd
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 28
+
+
+ 1262 0082 00       		.byte	0
+ 1263 0083 03       		.uleb128 0x3
+ 1264 0084 0E       		.uleb128 0xe
+ 1265 0085 3A       		.uleb128 0x3a
+ 1266 0086 0B       		.uleb128 0xb
+ 1267 0087 3B       		.uleb128 0x3b
+ 1268 0088 0B       		.uleb128 0xb
+ 1269 0089 49       		.uleb128 0x49
+ 1270 008a 13       		.uleb128 0x13
+ 1271 008b 38       		.uleb128 0x38
+ 1272 008c 0A       		.uleb128 0xa
+ 1273 008d 00       		.byte	0
+ 1274 008e 00       		.byte	0
+ 1275 008f 0C       		.uleb128 0xc
+ 1276 0090 0D       		.uleb128 0xd
+ 1277 0091 00       		.byte	0
+ 1278 0092 03       		.uleb128 0x3
+ 1279 0093 0E       		.uleb128 0xe
+ 1280 0094 3A       		.uleb128 0x3a
+ 1281 0095 0B       		.uleb128 0xb
+ 1282 0096 3B       		.uleb128 0x3b
+ 1283 0097 05       		.uleb128 0x5
+ 1284 0098 49       		.uleb128 0x49
+ 1285 0099 13       		.uleb128 0x13
+ 1286 009a 38       		.uleb128 0x38
+ 1287 009b 0A       		.uleb128 0xa
+ 1288 009c 00       		.byte	0
+ 1289 009d 00       		.byte	0
+ 1290 009e 0D       		.uleb128 0xd
+ 1291 009f 13       		.uleb128 0x13
+ 1292 00a0 01       		.byte	0x1
+ 1293 00a1 03       		.uleb128 0x3
+ 1294 00a2 0E       		.uleb128 0xe
+ 1295 00a3 0B       		.uleb128 0xb
+ 1296 00a4 0B       		.uleb128 0xb
+ 1297 00a5 3A       		.uleb128 0x3a
+ 1298 00a6 0B       		.uleb128 0xb
+ 1299 00a7 3B       		.uleb128 0x3b
+ 1300 00a8 05       		.uleb128 0x5
+ 1301 00a9 01       		.uleb128 0x1
+ 1302 00aa 13       		.uleb128 0x13
+ 1303 00ab 00       		.byte	0
+ 1304 00ac 00       		.byte	0
+ 1305 00ad 0E       		.uleb128 0xe
+ 1306 00ae 0D       		.uleb128 0xd
+ 1307 00af 00       		.byte	0
+ 1308 00b0 03       		.uleb128 0x3
+ 1309 00b1 08       		.uleb128 0x8
+ 1310 00b2 3A       		.uleb128 0x3a
+ 1311 00b3 0B       		.uleb128 0xb
+ 1312 00b4 3B       		.uleb128 0x3b
+ 1313 00b5 05       		.uleb128 0x5
+ 1314 00b6 49       		.uleb128 0x49
+ 1315 00b7 13       		.uleb128 0x13
+ 1316 00b8 38       		.uleb128 0x38
+ 1317 00b9 0A       		.uleb128 0xa
+ 1318 00ba 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 29
+
+
+ 1319 00bb 00       		.byte	0
+ 1320 00bc 0F       		.uleb128 0xf
+ 1321 00bd 2E       		.uleb128 0x2e
+ 1322 00be 01       		.byte	0x1
+ 1323 00bf 3F       		.uleb128 0x3f
+ 1324 00c0 0C       		.uleb128 0xc
+ 1325 00c1 03       		.uleb128 0x3
+ 1326 00c2 0E       		.uleb128 0xe
+ 1327 00c3 3A       		.uleb128 0x3a
+ 1328 00c4 0B       		.uleb128 0xb
+ 1329 00c5 3B       		.uleb128 0x3b
+ 1330 00c6 0B       		.uleb128 0xb
+ 1331 00c7 27       		.uleb128 0x27
+ 1332 00c8 0C       		.uleb128 0xc
+ 1333 00c9 11       		.uleb128 0x11
+ 1334 00ca 01       		.uleb128 0x1
+ 1335 00cb 12       		.uleb128 0x12
+ 1336 00cc 01       		.uleb128 0x1
+ 1337 00cd 40       		.uleb128 0x40
+ 1338 00ce 06       		.uleb128 0x6
+ 1339 00cf 9642     		.uleb128 0x2116
+ 1340 00d1 0C       		.uleb128 0xc
+ 1341 00d2 01       		.uleb128 0x1
+ 1342 00d3 13       		.uleb128 0x13
+ 1343 00d4 00       		.byte	0
+ 1344 00d5 00       		.byte	0
+ 1345 00d6 10       		.uleb128 0x10
+ 1346 00d7 898201   		.uleb128 0x4109
+ 1347 00da 01       		.byte	0x1
+ 1348 00db 11       		.uleb128 0x11
+ 1349 00dc 01       		.uleb128 0x1
+ 1350 00dd 31       		.uleb128 0x31
+ 1351 00de 13       		.uleb128 0x13
+ 1352 00df 01       		.uleb128 0x1
+ 1353 00e0 13       		.uleb128 0x13
+ 1354 00e1 00       		.byte	0
+ 1355 00e2 00       		.byte	0
+ 1356 00e3 11       		.uleb128 0x11
+ 1357 00e4 8A8201   		.uleb128 0x410a
+ 1358 00e7 00       		.byte	0
+ 1359 00e8 02       		.uleb128 0x2
+ 1360 00e9 0A       		.uleb128 0xa
+ 1361 00ea 9142     		.uleb128 0x2111
+ 1362 00ec 0A       		.uleb128 0xa
+ 1363 00ed 00       		.byte	0
+ 1364 00ee 00       		.byte	0
+ 1365 00ef 12       		.uleb128 0x12
+ 1366 00f0 898201   		.uleb128 0x4109
+ 1367 00f3 00       		.byte	0
+ 1368 00f4 11       		.uleb128 0x11
+ 1369 00f5 01       		.uleb128 0x1
+ 1370 00f6 31       		.uleb128 0x31
+ 1371 00f7 13       		.uleb128 0x13
+ 1372 00f8 00       		.byte	0
+ 1373 00f9 00       		.byte	0
+ 1374 00fa 13       		.uleb128 0x13
+ 1375 00fb 34       		.uleb128 0x34
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 30
+
+
+ 1376 00fc 00       		.byte	0
+ 1377 00fd 03       		.uleb128 0x3
+ 1378 00fe 0E       		.uleb128 0xe
+ 1379 00ff 3A       		.uleb128 0x3a
+ 1380 0100 0B       		.uleb128 0xb
+ 1381 0101 3B       		.uleb128 0x3b
+ 1382 0102 05       		.uleb128 0x5
+ 1383 0103 49       		.uleb128 0x49
+ 1384 0104 13       		.uleb128 0x13
+ 1385 0105 3F       		.uleb128 0x3f
+ 1386 0106 0C       		.uleb128 0xc
+ 1387 0107 3C       		.uleb128 0x3c
+ 1388 0108 0C       		.uleb128 0xc
+ 1389 0109 00       		.byte	0
+ 1390 010a 00       		.byte	0
+ 1391 010b 14       		.uleb128 0x14
+ 1392 010c 35       		.uleb128 0x35
+ 1393 010d 00       		.byte	0
+ 1394 010e 49       		.uleb128 0x49
+ 1395 010f 13       		.uleb128 0x13
+ 1396 0110 00       		.byte	0
+ 1397 0111 00       		.byte	0
+ 1398 0112 15       		.uleb128 0x15
+ 1399 0113 34       		.uleb128 0x34
+ 1400 0114 00       		.byte	0
+ 1401 0115 03       		.uleb128 0x3
+ 1402 0116 0E       		.uleb128 0xe
+ 1403 0117 3A       		.uleb128 0x3a
+ 1404 0118 0B       		.uleb128 0xb
+ 1405 0119 3B       		.uleb128 0x3b
+ 1406 011a 0B       		.uleb128 0xb
+ 1407 011b 49       		.uleb128 0x49
+ 1408 011c 13       		.uleb128 0x13
+ 1409 011d 3F       		.uleb128 0x3f
+ 1410 011e 0C       		.uleb128 0xc
+ 1411 011f 02       		.uleb128 0x2
+ 1412 0120 0A       		.uleb128 0xa
+ 1413 0121 00       		.byte	0
+ 1414 0122 00       		.byte	0
+ 1415 0123 16       		.uleb128 0x16
+ 1416 0124 34       		.uleb128 0x34
+ 1417 0125 00       		.byte	0
+ 1418 0126 03       		.uleb128 0x3
+ 1419 0127 0E       		.uleb128 0xe
+ 1420 0128 3A       		.uleb128 0x3a
+ 1421 0129 0B       		.uleb128 0xb
+ 1422 012a 3B       		.uleb128 0x3b
+ 1423 012b 0B       		.uleb128 0xb
+ 1424 012c 49       		.uleb128 0x49
+ 1425 012d 13       		.uleb128 0x13
+ 1426 012e 3F       		.uleb128 0x3f
+ 1427 012f 0C       		.uleb128 0xc
+ 1428 0130 3C       		.uleb128 0x3c
+ 1429 0131 0C       		.uleb128 0xc
+ 1430 0132 00       		.byte	0
+ 1431 0133 00       		.byte	0
+ 1432 0134 17       		.uleb128 0x17
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 31
+
+
+ 1433 0135 34       		.uleb128 0x34
+ 1434 0136 00       		.byte	0
+ 1435 0137 03       		.uleb128 0x3
+ 1436 0138 08       		.uleb128 0x8
+ 1437 0139 3A       		.uleb128 0x3a
+ 1438 013a 0B       		.uleb128 0xb
+ 1439 013b 3B       		.uleb128 0x3b
+ 1440 013c 0B       		.uleb128 0xb
+ 1441 013d 49       		.uleb128 0x49
+ 1442 013e 13       		.uleb128 0x13
+ 1443 013f 3F       		.uleb128 0x3f
+ 1444 0140 0C       		.uleb128 0xc
+ 1445 0141 02       		.uleb128 0x2
+ 1446 0142 0A       		.uleb128 0xa
+ 1447 0143 00       		.byte	0
+ 1448 0144 00       		.byte	0
+ 1449 0145 18       		.uleb128 0x18
+ 1450 0146 2E       		.uleb128 0x2e
+ 1451 0147 01       		.byte	0x1
+ 1452 0148 3F       		.uleb128 0x3f
+ 1453 0149 0C       		.uleb128 0xc
+ 1454 014a 03       		.uleb128 0x3
+ 1455 014b 0E       		.uleb128 0xe
+ 1456 014c 3A       		.uleb128 0x3a
+ 1457 014d 0B       		.uleb128 0xb
+ 1458 014e 3B       		.uleb128 0x3b
+ 1459 014f 0B       		.uleb128 0xb
+ 1460 0150 27       		.uleb128 0x27
+ 1461 0151 0C       		.uleb128 0xc
+ 1462 0152 49       		.uleb128 0x49
+ 1463 0153 13       		.uleb128 0x13
+ 1464 0154 3C       		.uleb128 0x3c
+ 1465 0155 0C       		.uleb128 0xc
+ 1466 0156 01       		.uleb128 0x1
+ 1467 0157 13       		.uleb128 0x13
+ 1468 0158 00       		.byte	0
+ 1469 0159 00       		.byte	0
+ 1470 015a 19       		.uleb128 0x19
+ 1471 015b 05       		.uleb128 0x5
+ 1472 015c 00       		.byte	0
+ 1473 015d 49       		.uleb128 0x49
+ 1474 015e 13       		.uleb128 0x13
+ 1475 015f 00       		.byte	0
+ 1476 0160 00       		.byte	0
+ 1477 0161 1A       		.uleb128 0x1a
+ 1478 0162 2E       		.uleb128 0x2e
+ 1479 0163 01       		.byte	0x1
+ 1480 0164 3F       		.uleb128 0x3f
+ 1481 0165 0C       		.uleb128 0xc
+ 1482 0166 03       		.uleb128 0x3
+ 1483 0167 0E       		.uleb128 0xe
+ 1484 0168 3A       		.uleb128 0x3a
+ 1485 0169 0B       		.uleb128 0xb
+ 1486 016a 3B       		.uleb128 0x3b
+ 1487 016b 0B       		.uleb128 0xb
+ 1488 016c 27       		.uleb128 0x27
+ 1489 016d 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 32
+
+
+ 1490 016e 49       		.uleb128 0x49
+ 1491 016f 13       		.uleb128 0x13
+ 1492 0170 3C       		.uleb128 0x3c
+ 1493 0171 0C       		.uleb128 0xc
+ 1494 0172 00       		.byte	0
+ 1495 0173 00       		.byte	0
+ 1496 0174 00       		.byte	0
+ 1497              		.section	.debug_loc,"",%progbits
+ 1498              	.Ldebug_loc0:
+ 1499              	.LLST0:
+ 1500 0000 00000000 		.4byte	.LFB56
+ 1501 0004 04000000 		.4byte	.LCFI0
+ 1502 0008 0200     		.2byte	0x2
+ 1503 000a 7D       		.byte	0x7d
+ 1504 000b 00       		.sleb128 0
+ 1505 000c 04000000 		.4byte	.LCFI0
+ 1506 0010 20020000 		.4byte	.LFE56
+ 1507 0014 0200     		.2byte	0x2
+ 1508 0016 7D       		.byte	0x7d
+ 1509 0017 20       		.sleb128 32
+ 1510 0018 00000000 		.4byte	0
+ 1511 001c 00000000 		.4byte	0
+ 1512              		.section	.debug_aranges,"",%progbits
+ 1513 0000 1C000000 		.4byte	0x1c
+ 1514 0004 0200     		.2byte	0x2
+ 1515 0006 00000000 		.4byte	.Ldebug_info0
+ 1516 000a 04       		.byte	0x4
+ 1517 000b 00       		.byte	0
+ 1518 000c 0000     		.2byte	0
+ 1519 000e 0000     		.2byte	0
+ 1520 0010 00000000 		.4byte	.LFB56
+ 1521 0014 20020000 		.4byte	.LFE56-.LFB56
+ 1522 0018 00000000 		.4byte	0
+ 1523 001c 00000000 		.4byte	0
+ 1524              		.section	.debug_ranges,"",%progbits
+ 1525              	.Ldebug_ranges0:
+ 1526 0000 00000000 		.4byte	.LFB56
+ 1527 0004 20020000 		.4byte	.LFE56
+ 1528 0008 00000000 		.4byte	0
+ 1529 000c 00000000 		.4byte	0
+ 1530              		.section	.debug_line,"",%progbits
+ 1531              	.Ldebug_line0:
+ 1532 0000 91010000 		.section	.debug_str,"MS",%progbits,1
+ 1532      02002701 
+ 1532      00000201 
+ 1532      FB0E0D00 
+ 1532      01010101 
+ 1533              	.LASF55:
+ 1534 0000 5A5F4158 		.ascii	"Z_AXIS\000"
+ 1534      495300
+ 1535              	.LASF52:
+ 1536 0007 585F4158 		.ascii	"X_AXIS\000"
+ 1536      495300
+ 1537              	.LASF39:
+ 1538 000e 52544E42 		.ascii	"RTNBC_Function_ENABLE\000"
+ 1538      435F4675 
+ 1538      6E637469 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 33
+
+
+ 1538      6F6E5F45 
+ 1538      4E41424C 
+ 1539              	.LASF64:
+ 1540 0024 616E676C 		.ascii	"angle_estim_roll\000"
+ 1540      655F6573 
+ 1540      74696D5F 
+ 1540      726F6C6C 
+ 1540      00
+ 1541              	.LASF75:
+ 1542 0035 6964784D 		.ascii	"idxMAX\000"
+ 1542      415800
+ 1543              	.LASF57:
+ 1544 003c 785F6178 		.ascii	"x_axis\000"
+ 1544      697300
+ 1545              	.LASF32:
+ 1546 0043 795F6163 		.ascii	"y_acc_ADC_offset\000"
+ 1546      635F4144 
+ 1546      435F6F66 
+ 1546      66736574 
+ 1546      00
+ 1547              	.LASF53:
+ 1548 0054 61636365 		.ascii	"acceleration\000"
+ 1548      6C657261 
+ 1548      74696F6E 
+ 1548      00
+ 1549              	.LASF62:
+ 1550 0061 73797374 		.ascii	"system_dynamic_scalar\000"
+ 1550      656D5F64 
+ 1550      796E616D 
+ 1550      69635F73 
+ 1550      63616C61 
+ 1551              	.LASF3:
+ 1552 0077 73686F72 		.ascii	"short int\000"
+ 1552      7420696E 
+ 1552      7400
+ 1553              	.LASF19:
+ 1554 0081 73697A65 		.ascii	"sizetype\000"
+ 1554      74797065 
+ 1554      00
+ 1555              	.LASF58:
+ 1556 008a 795F6178 		.ascii	"y_axis\000"
+ 1556      697300
+ 1557              	.LASF23:
+ 1558 0091 64697265 		.ascii	"director\000"
+ 1558      63746F72 
+ 1558      00
+ 1559              	.LASF60:
+ 1560 009a 73717561 		.ascii	"squared\000"
+ 1560      72656400 
+ 1561              	.LASF61:
+ 1562 00a2 6D6F6475 		.ascii	"modulo\000"
+ 1562      6C6F00
+ 1563              	.LASF44:
+ 1564 00a9 414E414C 		.ascii	"ANALOG_GYRO\000"
+ 1564      4F475F47 
+ 1564      59524F00 
+ 1565              	.LASF81:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 34
+
+
+ 1566 00b5 73656E73 		.ascii	"sensor_control\000"
+ 1566      6F725F63 
+ 1566      6F6E7472 
+ 1566      6F6C00
+ 1567              	.LASF28:
+ 1568 00c4 67616D6D 		.ascii	"gamma\000"
+ 1568      6100
+ 1569              	.LASF41:
+ 1570 00ca 45746872 		.ascii	"Ethreshold\000"
+ 1570      6573686F 
+ 1570      6C6400
+ 1571              	.LASF42:
+ 1572 00d5 6A756D70 		.ascii	"jump_g_threshold\000"
+ 1572      5F675F74 
+ 1572      68726573 
+ 1572      686F6C64 
+ 1572      00
+ 1573              	.LASF30:
+ 1574 00e6 61677972 		.ascii	"agyro_ADC_offset\000"
+ 1574      6F5F4144 
+ 1574      435F6F66 
+ 1574      66736574 
+ 1574      00
+ 1575              	.LASF48:
+ 1576 00f7 72617465 		.ascii	"rate_lowpass\000"
+ 1576      5F6C6F77 
+ 1576      70617373 
+ 1576      00
+ 1577              	.LASF29:
+ 1578 0104 616E615F 		.ascii	"ana_gyro_scale_sensivity\000"
+ 1578      6779726F 
+ 1578      5F736361 
+ 1578      6C655F73 
+ 1578      656E7369 
+ 1579              	.LASF76:
+ 1580 011d 51756164 		.ascii	"QuadDecEvent\000"
+ 1580      44656345 
+ 1580      76656E74 
+ 1580      00
+ 1581              	.LASF12:
+ 1582 012a 75696E74 		.ascii	"uint16\000"
+ 1582      313600
+ 1583              	.LASF26:
+ 1584 0131 616C7068 		.ascii	"alpha\000"
+ 1584      6100
+ 1585              	.LASF15:
+ 1586 0137 696E7431 		.ascii	"int16\000"
+ 1586      3600
+ 1587              	.LASF11:
+ 1588 013d 75696E74 		.ascii	"uint8\000"
+ 1588      3800
+ 1589              	.LASF50:
+ 1590 0143 6D65616E 		.ascii	"mean_rate_previous\000"
+ 1590      5F726174 
+ 1590      655F7072 
+ 1590      6576696F 
+ 1590      757300
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 35
+
+
+ 1591              	.LASF63:
+ 1592 0156 616E676C 		.ascii	"angle_estim_tilt\000"
+ 1592      655F6573 
+ 1592      74696D5F 
+ 1592      74696C74 
+ 1592      00
+ 1593              	.LASF0:
+ 1594 0167 666C6F61 		.ascii	"float\000"
+ 1594      7400
+ 1595              	.LASF7:
+ 1596 016d 6C6F6E67 		.ascii	"long long int\000"
+ 1596      206C6F6E 
+ 1596      6720696E 
+ 1596      7400
+ 1597              	.LASF14:
+ 1598 017b 696E7438 		.ascii	"int8\000"
+ 1598      00
+ 1599              	.LASF5:
+ 1600 0180 6C6F6E67 		.ascii	"long int\000"
+ 1600      20696E74 
+ 1600      00
+ 1601              	.LASF74:
+ 1602 0189 64756D6D 		.ascii	"dummy\000"
+ 1602      7900
+ 1603              	.LASF69:
+ 1604 018f 61616363 		.ascii	"aacc\000"
+ 1604      00
+ 1605              	.LASF45:
+ 1606 0194 4144435F 		.ascii	"ADC_offset\000"
+ 1606      6F666673 
+ 1606      657400
+ 1607              	.LASF37:
+ 1608 019f 66656564 		.ascii	"feedback\000"
+ 1608      6261636B 
+ 1608      00
+ 1609              	.LASF56:
+ 1610 01a8 414E414C 		.ascii	"ANALOG_3D_ACCELEROMETER\000"
+ 1610      4F475F33 
+ 1610      445F4143 
+ 1610      43454C45 
+ 1610      524F4D45 
+ 1611              	.LASF49:
+ 1612 01c0 6D65616E 		.ascii	"mean_rate\000"
+ 1612      5F726174 
+ 1612      6500
+ 1613              	.LASF65:
+ 1614 01ca 6C6F6E67 		.ascii	"long double\000"
+ 1614      20646F75 
+ 1614      626C6500 
+ 1615              	.LASF2:
+ 1616 01d6 756E7369 		.ascii	"unsigned char\000"
+ 1616      676E6564 
+ 1616      20636861 
+ 1616      7200
+ 1617              	.LASF33:
+ 1618 01e4 7A5F6163 		.ascii	"z_acc_ADC_offset\000"
+ 1618      635F4144 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 36
+
+
+ 1618      435F6F66 
+ 1618      66736574 
+ 1618      00
+ 1619              	.LASF54:
+ 1620 01f5 595F4158 		.ascii	"Y_AXIS\000"
+ 1620      495300
+ 1621              	.LASF68:
+ 1622 01fc 41646356 		.ascii	"AdcValue\000"
+ 1622      616C7565 
+ 1622      00
+ 1623              	.LASF1:
+ 1624 0205 7369676E 		.ascii	"signed char\000"
+ 1624      65642063 
+ 1624      68617200 
+ 1625              	.LASF8:
+ 1626 0211 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1626      206C6F6E 
+ 1626      6720756E 
+ 1626      7369676E 
+ 1626      65642069 
+ 1627              	.LASF59:
+ 1628 0228 7A5F6178 		.ascii	"z_axis\000"
+ 1628      697300
+ 1629              	.LASF46:
+ 1630 022f 7363616C 		.ascii	"scale\000"
+ 1630      6500
+ 1631              	.LASF9:
+ 1632 0235 756E7369 		.ascii	"unsigned int\000"
+ 1632      676E6564 
+ 1632      20696E74 
+ 1632      00
+ 1633              	.LASF67:
+ 1634 0242 676F6265 		.ascii	"gobee_vparam\000"
+ 1634      655F7670 
+ 1634      6172616D 
+ 1634      00
+ 1635              	.LASF20:
+ 1636 024f 66627974 		.ascii	"fbyte\000"
+ 1636      6500
+ 1637              	.LASF77:
+ 1638 0255 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1638      4320342E 
+ 1638      372E3320 
+ 1638      32303133 
+ 1638      30333132 
+ 1639 0288 616E6368 		.ascii	"anch revision 196615]\000"
+ 1639      20726576 
+ 1639      6973696F 
+ 1639      6E203139 
+ 1639      36363135 
+ 1640              	.LASF4:
+ 1641 029e 73686F72 		.ascii	"short unsigned int\000"
+ 1641      7420756E 
+ 1641      7369676E 
+ 1641      65642069 
+ 1641      6E7400
+ 1642              	.LASF72:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 37
+
+
+ 1643 02b1 61677972 		.ascii	"agyro\000"
+ 1643      6F00
+ 1644              	.LASF18:
+ 1645 02b7 63686172 		.ascii	"char\000"
+ 1645      00
+ 1646              	.LASF78:
+ 1647 02bc 2E5C7365 		.ascii	".\\sensor_CTRL.c\000"
+ 1647      6E736F72 
+ 1647      5F435452 
+ 1647      4C2E6300 
+ 1648              	.LASF10:
+ 1649 02cc 696E7433 		.ascii	"int32_t\000"
+ 1649      325F7400 
+ 1650              	.LASF17:
+ 1651 02d4 63686172 		.ascii	"char8\000"
+ 1651      3800
+ 1652              	.LASF43:
+ 1653 02da 474F4245 		.ascii	"GOBEE_PARAMS\000"
+ 1653      455F5041 
+ 1653      52414D53 
+ 1653      00
+ 1654              	.LASF24:
+ 1655 02e7 6C696E6B 		.ascii	"link_type\000"
+ 1655      5F747970 
+ 1655      6500
+ 1656              	.LASF73:
+ 1657 02f1 676F6265 		.ascii	"gobee_param\000"
+ 1657      655F7061 
+ 1657      72616D00 
+ 1658              	.LASF27:
+ 1659 02fd 62657461 		.ascii	"beta\000"
+ 1659      00
+ 1660              	.LASF35:
+ 1661 0302 64677972 		.ascii	"dgyro_offset_fine\000"
+ 1661      6F5F6F66 
+ 1661      66736574 
+ 1661      5F66696E 
+ 1661      6500
+ 1662              	.LASF13:
+ 1663 0314 75696E74 		.ascii	"uint32\000"
+ 1663      333200
+ 1664              	.LASF79:
+ 1665 031b 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 1665      73657273 
+ 1665      5C477261 
+ 1665      7A69616E 
+ 1665      6F5C4465 
+ 1666 0349 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 1666      525C5665 
+ 1666      72732E30 
+ 1666      2E302D54 
+ 1666      30352032 
+ 1667 037a 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 1667      65446972 
+ 1667      2E637964 
+ 1667      736E00
+ 1668              	.LASF6:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 38
+
+
+ 1669 0389 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1669      20756E73 
+ 1669      69676E65 
+ 1669      6420696E 
+ 1669      7400
+ 1670              	.LASF38:
+ 1671 039b 616E676C 		.ascii	"angle_estimation\000"
+ 1671      655F6573 
+ 1671      74696D61 
+ 1671      74696F6E 
+ 1671      00
+ 1672              	.LASF70:
+ 1673 03ac 69746572 		.ascii	"iteration\000"
+ 1673      6174696F 
+ 1673      6E00
+ 1674              	.LASF22:
+ 1675 03b6 666C6F61 		.ascii	"floatEE\000"
+ 1675      74454500 
+ 1676              	.LASF40:
+ 1677 03be 52544E42 		.ascii	"RTNBCMaxTicks\000"
+ 1677      434D6178 
+ 1677      5469636B 
+ 1677      7300
+ 1678              	.LASF80:
+ 1679 03cc 474F4245 		.ascii	"GOBEE_VPARAMS\000"
+ 1679      455F5650 
+ 1679      4152414D 
+ 1679      5300
+ 1680              	.LASF83:
+ 1681 03da 73717274 		.ascii	"sqrt\000"
+ 1681      00
+ 1682              	.LASF34:
+ 1683 03df 6779726F 		.ascii	"gyro_offset_fine\000"
+ 1683      5F6F6666 
+ 1683      7365745F 
+ 1683      66696E65 
+ 1683      00
+ 1684              	.LASF31:
+ 1685 03f0 785F6163 		.ascii	"x_acc_ADC_offset\000"
+ 1685      635F4144 
+ 1685      435F6F66 
+ 1685      66736574 
+ 1685      00
+ 1686              	.LASF36:
+ 1687 0401 6779726F 		.ascii	"gyro_scale_offset_fine\000"
+ 1687      5F736361 
+ 1687      6C655F6F 
+ 1687      66667365 
+ 1687      745F6669 
+ 1688              	.LASF47:
+ 1689 0418 72617465 		.ascii	"rate\000"
+ 1689      00
+ 1690              	.LASF51:
+ 1691 041d 616E676C 		.ascii	"angle\000"
+ 1691      6500
+ 1692              	.LASF16:
+ 1693 0423 646F7562 		.ascii	"double\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cc0nVCch.s 			page 39
+
+
+ 1693      6C6500
+ 1694              	.LASF66:
+ 1695 042a 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1695      52784275 
+ 1695      66666572 
+ 1695      00
+ 1696              	.LASF21:
+ 1697 0437 666E756D 		.ascii	"fnum\000"
+ 1697      00
+ 1698              	.LASF71:
+ 1699 043c 61677972 		.ascii	"agyro_messg\000"
+ 1699      6F5F6D65 
+ 1699      73736700 
+ 1700              	.LASF25:
+ 1701 0448 6B706C6F 		.ascii	"kplowpass\000"
+ 1701      77706173 
+ 1701      7300
+ 1702              	.LASF82:
+ 1703 0452 73717561 		.ascii	"squaref\000"
+ 1703      72656600 
+ 1704              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

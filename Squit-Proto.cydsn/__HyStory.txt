@@ -1,0 +1,34 @@
+﻿Squit Hystory File
+Rev.0.000
+08/02/2019
+
+	
+
+Squit Vers. 0.0B-T00  2019-0208 (Creator 3.0 - PSOC 5LP)   
+--------------------------------------------------------------------------
+Based on Gobee Director Vers. 0.0B-T34  2019-0124 (Creator 3.0 - PSOC 5LP)   
+--------------------------------------------------------------------------
+[HW]
+- Foglio IMU: eliminato componente RGATTI (lasciati solo i pins)
+- Foglio 4D Display: eliminata UART
+- Foglio PushButton: eliminato Glitch Filter; lasciati pins e registro di ingresso.
+- Foglio Lora: eliminata UART (lasciati solo i pins)
+
+[wide]
+- Eliminati riferimenti a UART LoRa.
+
+[gobee.h]
+- Disabilitata IMU:
+/* PREPROCESSOR SENSORS SELECTION */
+#define ITG_3701_ENABLED	0	/* If defined (1) ITG-3701 is Enabled				*/
+								/* Actually ITG-3701 is DISABLED (0)				*/
+
+#define IMU_UM7_ENABLED		0	/* If defined (1) IMU-UM7 is Enabled				*/
+								/* Actually IMU-UM7 is ENABLED (1)					*/
+
+#define IMU_YAW_ELABORATION   0	/* If defined (1) YAW IMU elaboration is Enabled	*/
+								/* Actually YAW IMU elaboration is DISABLED (0)		*/
+#define IMU_PITCH_ELABORATION 0	/* If defined (1) PITCH IMU elaboration is Enabled	*/
+								/* Actually PITCH IMU elaboration is ENABLED (1)	*/
+#define IMU_ROLL_ELABORATION  0	/* If defined (1) ROLL IMU elaboration is Enabled	*/
+								/* Actually ROLL IMU elaboration is ENABLED (1)		*/

@@ -1,0 +1,2938 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"PWM_MOTOR_TILT.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	PWM_MOTOR_TILT_initVar
+  19              		.bss
+  20              		.type	PWM_MOTOR_TILT_initVar, %object
+  21              		.size	PWM_MOTOR_TILT_initVar, 1
+  22              	PWM_MOTOR_TILT_initVar:
+  23 0000 00       		.space	1
+  24              		.section	.text.PWM_MOTOR_TILT_Start,"ax",%progbits
+  25              		.align	2
+  26              		.global	PWM_MOTOR_TILT_Start
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	PWM_MOTOR_TILT_Start, %function
+  30              	PWM_MOTOR_TILT_Start:
+  31              	.LFB0:
+  32              		.file 1 ".\\Generated_Source\\PSoC5\\PWM_MOTOR_TILT.c"
+   1:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * File Name: PWM_MOTOR_TILT.c  
+   3:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Version 3.0
+   4:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+   5:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Description:
+   6:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  The PWM User Module consist of an 8 or 16-bit counter with two 8 or 16-bit
+   7:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  comparitors. Each instance of this user module is capable of generating
+   8:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  two PWM outputs with the same period. The pulse width is selectable between
+   9:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  1 and 255/65535. The period is selectable between 2 and 255/65536 clocks. 
+  10:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  The compare value output may be configured to be active when the present 
+  11:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  counter is less than or less than/equal to the compare value.
+  12:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  A terminal count output is also provided. It generates a pulse one clock
+  13:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  width wide when the counter is equal to zero.
+  14:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  15:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Note:
+  16:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  17:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************
+  18:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  19:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  20:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  21:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * the software package with which this file was provided.
+  22:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************/
+  23:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  24:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #include "cytypes.h"
+  25:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #include "PWM_MOTOR_TILT.h"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 2
+
+
+  26:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  27:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** uint8 PWM_MOTOR_TILT_initVar = 0u;
+  28:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  29:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  30:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+  31:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Function Name: PWM_MOTOR_TILT_Start
+  32:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************
+  33:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  34:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Summary:
+  35:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  The start function initializes the pwm with the default values, the 
+  36:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  enables the counter to begin counting.  It does not enable interrupts,
+  37:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  the EnableInt command should be called if interrupt generation is required.
+  38:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  39:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Parameters:  
+  40:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None  
+  41:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  42:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Return: 
+  43:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+  44:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  45:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Global variables:
+  46:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  PWM_MOTOR_TILT_initVar: Is modified when this function is called for the 
+  47:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *   first time. Is used to ensure that initialization happens only once.
+  48:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  49:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/
+  50:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** void PWM_MOTOR_TILT_Start(void) 
+  51:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** {
+  33              		.loc 1 51 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_register 7
+  52:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /* If not Initialized then initialize all required hardware and software */
+  53:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     if(PWM_MOTOR_TILT_initVar == 0u)
+  45              		.loc 1 53 0
+  46 0004 40F20003 		movw	r3, #:lower16:PWM_MOTOR_TILT_initVar
+  47 0008 C0F20003 		movt	r3, #:upper16:PWM_MOTOR_TILT_initVar
+  48 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  49 000e 002B     		cmp	r3, #0
+  50 0010 08D1     		bne	.L2
+  54:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+  55:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_Init();
+  51              		.loc 1 55 0
+  52 0012 FFF7FEFF 		bl	PWM_MOTOR_TILT_Init
+  56:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_initVar = 1u;
+  53              		.loc 1 56 0
+  54 0016 40F20003 		movw	r3, #:lower16:PWM_MOTOR_TILT_initVar
+  55 001a C0F20003 		movt	r3, #:upper16:PWM_MOTOR_TILT_initVar
+  56 001e 4FF00102 		mov	r2, #1
+  57 0022 1A70     		strb	r2, [r3, #0]
+  58              	.L2:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 3
+
+
+  57:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+  58:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     PWM_MOTOR_TILT_Enable();
+  59              		.loc 1 58 0
+  60 0024 FFF7FEFF 		bl	PWM_MOTOR_TILT_Enable
+  59:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  60:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
+  61              		.loc 1 60 0
+  62 0028 80BD     		pop	{r7, pc}
+  63              		.cfi_endproc
+  64              	.LFE0:
+  65              		.size	PWM_MOTOR_TILT_Start, .-PWM_MOTOR_TILT_Start
+  66 002a 00BF     		.section	.text.PWM_MOTOR_TILT_Init,"ax",%progbits
+  67              		.align	2
+  68              		.global	PWM_MOTOR_TILT_Init
+  69              		.thumb
+  70              		.thumb_func
+  71              		.type	PWM_MOTOR_TILT_Init, %function
+  72              	PWM_MOTOR_TILT_Init:
+  73              	.LFB1:
+  61:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  62:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+  63:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+  64:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Function Name: PWM_MOTOR_TILT_Init
+  65:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************
+  66:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  67:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Summary:
+  68:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  Initialize component's parameters to the parameters set by user in the 
+  69:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  customizer of the component placed onto schematic. Usually called in 
+  70:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  PWM_MOTOR_TILT_Start().
+  71:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  72:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Parameters:  
+  73:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+  74:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  75:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Return: 
+  76:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+  77:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+  78:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/
+  79:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** void PWM_MOTOR_TILT_Init(void) 
+  80:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** {
+  74              		.loc 1 80 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 8
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78 0000 80B5     		push	{r7, lr}
+  79              	.LCFI2:
+  80              		.cfi_def_cfa_offset 8
+  81              		.cfi_offset 7, -8
+  82              		.cfi_offset 14, -4
+  83 0002 82B0     		sub	sp, sp, #8
+  84              	.LCFI3:
+  85              		.cfi_def_cfa_offset 16
+  86 0004 00AF     		add	r7, sp, #0
+  87              	.LCFI4:
+  88              		.cfi_def_cfa_register 7
+  81:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UsingFixedFunction || PWM_MOTOR_TILT_UseControl)
+  82:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         uint8 ctrl;
+  83:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction || PWM_MOTOR_TILT_UseControl) */
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 4
+
+
+  84:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     
+  85:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if(!PWM_MOTOR_TILT_UsingFixedFunction) 
+  86:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(PWM_MOTOR_TILT_UseStatus)
+  87:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Interrupt State Backup for Critical Region*/
+  88:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             uint8 PWM_MOTOR_TILT_interruptState;
+  89:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UseStatus) */
+  90:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (!PWM_MOTOR_TILT_UsingFixedFunction) */
+  91:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     
+  92:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UsingFixedFunction)
+  93:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* You are allowed to write the compare value (FF only) */
+  94:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_CONTROL |= PWM_MOTOR_TILT_CFG0_MODE;
+  89              		.loc 1 94 0
+  90 0006 44F61873 		movw	r3, #20248
+  91 000a C4F20003 		movt	r3, 16384
+  92 000e 44F61872 		movw	r2, #20248
+  93 0012 C4F20002 		movt	r2, 16384
+  94 0016 1278     		ldrb	r2, [r2, #0]
+  95 0018 D2B2     		uxtb	r2, r2
+  96 001a 42F00202 		orr	r2, r2, #2
+  97 001e D2B2     		uxtb	r2, r2
+  98 0020 1A70     		strb	r2, [r3, #0]
+  95:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_DeadBand2_4)
+  96:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_CONTROL |= PWM_MOTOR_TILT_CFG0_DB;
+  99              		.loc 1 96 0
+ 100 0022 44F61873 		movw	r3, #20248
+ 101 0026 C4F20003 		movt	r3, 16384
+ 102 002a 44F61872 		movw	r2, #20248
+ 103 002e C4F20002 		movt	r2, 16384
+ 104 0032 1278     		ldrb	r2, [r2, #0]
+ 105 0034 D2B2     		uxtb	r2, r2
+ 106 0036 42F02002 		orr	r2, r2, #32
+ 107 003a D2B2     		uxtb	r2, r2
+ 108 003c 1A70     		strb	r2, [r3, #0]
+  97:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_DeadBand2_4) */
+  98:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 
+  99:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         ctrl = PWM_MOTOR_TILT_CONTROL3 & ((uint8 )(~PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK));
+ 109              		.loc 1 99 0
+ 110 003e 44F61A73 		movw	r3, #20250
+ 111 0042 C4F20003 		movt	r3, 16384
+ 112 0046 1B78     		ldrb	r3, [r3, #0]
+ 113 0048 DBB2     		uxtb	r3, r3
+ 114 004a 23F07003 		bic	r3, r3, #112
+ 115 004e FB71     		strb	r3, [r7, #7]
+ 100:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_CONTROL3 = ctrl | PWM_MOTOR_TILT_DEFAULT_COMPARE1_MODE;
+ 116              		.loc 1 100 0
+ 117 0050 44F61A73 		movw	r3, #20250
+ 118 0054 C4F20003 		movt	r3, 16384
+ 119 0058 FA79     		ldrb	r2, [r7, #7]
+ 120 005a 42F01002 		orr	r2, r2, #16
+ 121 005e D2B2     		uxtb	r2, r2
+ 122 0060 1A70     		strb	r2, [r3, #0]
+ 101:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 102:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****          /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+ 103:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_RT1 &= ((uint8)(~PWM_MOTOR_TILT_RT1_MASK));
+ 123              		.loc 1 103 0
+ 124 0062 44F62373 		movw	r3, #20259
+ 125 0066 C4F20003 		movt	r3, 16384
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 5
+
+
+ 126 006a 44F62372 		movw	r2, #20259
+ 127 006e C4F20002 		movt	r2, 16384
+ 128 0072 1278     		ldrb	r2, [r2, #0]
+ 129 0074 D2B2     		uxtb	r2, r2
+ 130 0076 22F03002 		bic	r2, r2, #48
+ 131 007a D2B2     		uxtb	r2, r2
+ 132 007c 1A70     		strb	r2, [r3, #0]
+ 104:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_RT1 |= PWM_MOTOR_TILT_SYNC;     
+ 133              		.loc 1 104 0
+ 134 007e 44F62373 		movw	r3, #20259
+ 135 0082 C4F20003 		movt	r3, 16384
+ 136 0086 44F62372 		movw	r2, #20259
+ 137 008a C4F20002 		movt	r2, 16384
+ 138 008e 1278     		ldrb	r2, [r2, #0]
+ 139 0090 D2B2     		uxtb	r2, r2
+ 140 0092 42F03002 		orr	r2, r2, #48
+ 141 0096 D2B2     		uxtb	r2, r2
+ 142 0098 1A70     		strb	r2, [r3, #0]
+ 105:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 
+ 106:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /*Enable DSI Sync all all inputs of the PWM*/
+ 107:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_RT1 &= ((uint8)(~PWM_MOTOR_TILT_SYNCDSI_MASK));
+ 143              		.loc 1 107 0
+ 144 009a 44F62373 		movw	r3, #20259
+ 145 009e C4F20003 		movt	r3, 16384
+ 146 00a2 44F62372 		movw	r2, #20259
+ 147 00a6 C4F20002 		movt	r2, 16384
+ 148 00aa 1278     		ldrb	r2, [r2, #0]
+ 149 00ac D2B2     		uxtb	r2, r2
+ 150 00ae 22F00F02 		bic	r2, r2, #15
+ 151 00b2 D2B2     		uxtb	r2, r2
+ 152 00b4 1A70     		strb	r2, [r3, #0]
+ 108:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_RT1 |= PWM_MOTOR_TILT_SYNCDSI_EN;
+ 153              		.loc 1 108 0
+ 154 00b6 44F62373 		movw	r3, #20259
+ 155 00ba C4F20003 		movt	r3, 16384
+ 156 00be 44F62372 		movw	r2, #20259
+ 157 00c2 C4F20002 		movt	r2, 16384
+ 158 00c6 1278     		ldrb	r2, [r2, #0]
+ 159 00c8 D2B2     		uxtb	r2, r2
+ 160 00ca 42F00F02 		orr	r2, r2, #15
+ 161 00ce D2B2     		uxtb	r2, r2
+ 162 00d0 1A70     		strb	r2, [r3, #0]
+ 109:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****        
+ 110:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #elif (PWM_MOTOR_TILT_UseControl)
+ 111:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* Set the default compare mode defined in the parameter */
+ 112:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         ctrl = PWM_MOTOR_TILT_CONTROL & ((uint8)(~PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK)) & ((uint8)(~P
+ 113:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_CONTROL = ctrl | PWM_MOTOR_TILT_DEFAULT_COMPARE2_MODE | 
+ 114:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                    PWM_MOTOR_TILT_DEFAULT_COMPARE1_MODE;
+ 115:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 116:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 117:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (!PWM_MOTOR_TILT_UsingFixedFunction)
+ 118:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_Resolution == 8)
+ 119:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Set FIFO 0 to 1 byte register for period*/
+ 120:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_AUX_CONTROLDP0 |= (PWM_MOTOR_TILT_AUX_CTRL_FIFO0_CLR);
+ 121:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else /* (PWM_MOTOR_TILT_Resolution == 16)*/
+ 122:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Set FIFO 0 to 1 byte register for period */
+ 123:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_AUX_CONTROLDP0 |= (PWM_MOTOR_TILT_AUX_CTRL_FIFO0_CLR);
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 6
+
+
+ 124:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_AUX_CONTROLDP1 |= (PWM_MOTOR_TILT_AUX_CTRL_FIFO0_CLR);
+ 125:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_Resolution == 8) */
+ 126:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 127:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_WriteCounter(PWM_MOTOR_TILT_INIT_PERIOD_VALUE);
+ 128:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (!PWM_MOTOR_TILT_UsingFixedFunction) */
+ 129:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 130:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     PWM_MOTOR_TILT_WritePeriod(PWM_MOTOR_TILT_INIT_PERIOD_VALUE);
+ 163              		.loc 1 130 0
+ 164 00d2 4FF48060 		mov	r0, #1024
+ 165 00d6 FFF7FEFF 		bl	PWM_MOTOR_TILT_WritePeriod
+ 131:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 132:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_UseOneCompareMode)
+ 133:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_WriteCompare(PWM_MOTOR_TILT_INIT_COMPARE_VALUE1);
+ 166              		.loc 1 133 0
+ 167 00da 4FF40070 		mov	r0, #512
+ 168 00de FFF7FEFF 		bl	PWM_MOTOR_TILT_WriteCompare
+ 134:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 135:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_WriteCompare1(PWM_MOTOR_TILT_INIT_COMPARE_VALUE1);
+ 136:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_WriteCompare2(PWM_MOTOR_TILT_INIT_COMPARE_VALUE2);
+ 137:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UseOneCompareMode) */
+ 138:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 139:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_KillModeMinTime)
+ 140:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_WriteKillTime(PWM_MOTOR_TILT_MinimumKillTime);
+ 141:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_KillModeMinTime) */
+ 142:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 143:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_DeadBandUsed)
+ 144:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_WriteDeadTime(PWM_MOTOR_TILT_INIT_DEAD_TIME);
+ 169              		.loc 1 144 0
+ 170 00e2 4FF00300 		mov	r0, #3
+ 171 00e6 FFF7FEFF 		bl	PWM_MOTOR_TILT_WriteDeadTime
+ 145:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_DeadBandUsed) */
+ 146:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 147:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UseStatus || PWM_MOTOR_TILT_UsingFixedFunction)
+ 148:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_SetInterruptMode(PWM_MOTOR_TILT_INIT_INTERRUPTS_MODE);
+ 172              		.loc 1 148 0
+ 173 00ea 4FF00000 		mov	r0, #0
+ 174 00ee FFF7FEFF 		bl	PWM_MOTOR_TILT_SetInterruptMode
+ 149:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UseStatus || PWM_MOTOR_TILT_UsingFixedFunction) */
+ 150:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 151:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UsingFixedFunction)
+ 152:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* Globally Enable the Fixed Function Block chosen */
+ 153:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_GLOBAL_ENABLE |= PWM_MOTOR_TILT_BLOCK_EN_MASK;
+ 175              		.loc 1 153 0
+ 176 00f2 44F2A333 		movw	r3, #17315
+ 177 00f6 C4F20003 		movt	r3, 16384
+ 178 00fa 44F2A332 		movw	r2, #17315
+ 179 00fe C4F20002 		movt	r2, 16384
+ 180 0102 1278     		ldrb	r2, [r2, #0]
+ 181 0104 D2B2     		uxtb	r2, r2
+ 182 0106 42F00402 		orr	r2, r2, #4
+ 183 010a D2B2     		uxtb	r2, r2
+ 184 010c 1A70     		strb	r2, [r3, #0]
+ 154:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* Set the Interrupt source to come from the status register */
+ 155:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_CONTROL2 |= PWM_MOTOR_TILT_CTRL2_IRQ_SEL;
+ 185              		.loc 1 155 0
+ 186 010e 44F61973 		movw	r3, #20249
+ 187 0112 C4F20003 		movt	r3, 16384
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 7
+
+
+ 188 0116 44F61972 		movw	r2, #20249
+ 189 011a C4F20002 		movt	r2, 16384
+ 190 011e 1278     		ldrb	r2, [r2, #0]
+ 191 0120 D2B2     		uxtb	r2, r2
+ 192 0122 42F00102 		orr	r2, r2, #1
+ 193 0126 D2B2     		uxtb	r2, r2
+ 194 0128 1A70     		strb	r2, [r3, #0]
+ 156:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #else
+ 157:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(PWM_MOTOR_TILT_UseStatus)
+ 158:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             
+ 159:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 160:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Enter Critical Region*/
+ 161:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_interruptState = CyEnterCriticalSection();
+ 162:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 163:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_STATUS_AUX_CTRL |= PWM_MOTOR_TILT_STATUS_ACTL_INT_EN_MASK;
+ 164:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             
+ 165:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****              /* Exit Critical Region*/
+ 166:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CyExitCriticalSection(PWM_MOTOR_TILT_interruptState);
+ 167:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             
+ 168:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Clear the FIFO to enable the PWM_MOTOR_TILT_STATUS_FIFOFULL
+ 169:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                    bit to be set on FIFO full. */
+ 170:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_ClearFIFO();
+ 171:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UseStatus) */
+ 172:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 173:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
+ 195              		.loc 1 173 0
+ 196 012a 07F10807 		add	r7, r7, #8
+ 197 012e BD46     		mov	sp, r7
+ 198 0130 80BD     		pop	{r7, pc}
+ 199              		.cfi_endproc
+ 200              	.LFE1:
+ 201              		.size	PWM_MOTOR_TILT_Init, .-PWM_MOTOR_TILT_Init
+ 202 0132 00BF     		.section	.text.PWM_MOTOR_TILT_Enable,"ax",%progbits
+ 203              		.align	2
+ 204              		.global	PWM_MOTOR_TILT_Enable
+ 205              		.thumb
+ 206              		.thumb_func
+ 207              		.type	PWM_MOTOR_TILT_Enable, %function
+ 208              	PWM_MOTOR_TILT_Enable:
+ 209              	.LFB2:
+ 174:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 175:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 176:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+ 177:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Function Name: PWM_MOTOR_TILT_Enable
+ 178:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************
+ 179:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 180:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Summary: 
+ 181:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  Enables the PWM block operation
+ 182:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 183:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Parameters:  
+ 184:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+ 185:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 186:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Return: 
+ 187:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+ 188:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 189:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Side Effects: 
+ 190:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  This works only if software enable mode is chosen
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 8
+
+
+ 191:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 192:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/
+ 193:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** void PWM_MOTOR_TILT_Enable(void) 
+ 194:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** {
+ 210              		.loc 1 194 0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 0
+ 213              		@ frame_needed = 1, uses_anonymous_args = 0
+ 214              		@ link register save eliminated.
+ 215 0000 80B4     		push	{r7}
+ 216              	.LCFI5:
+ 217              		.cfi_def_cfa_offset 4
+ 218              		.cfi_offset 7, -4
+ 219 0002 00AF     		add	r7, sp, #0
+ 220              	.LCFI6:
+ 221              		.cfi_def_cfa_register 7
+ 195:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 196:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UsingFixedFunction)
+ 197:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_GLOBAL_ENABLE |= PWM_MOTOR_TILT_BLOCK_EN_MASK;
+ 222              		.loc 1 197 0
+ 223 0004 44F2A333 		movw	r3, #17315
+ 224 0008 C4F20003 		movt	r3, 16384
+ 225 000c 44F2A332 		movw	r2, #17315
+ 226 0010 C4F20002 		movt	r2, 16384
+ 227 0014 1278     		ldrb	r2, [r2, #0]
+ 228 0016 D2B2     		uxtb	r2, r2
+ 229 0018 42F00402 		orr	r2, r2, #4
+ 230 001c D2B2     		uxtb	r2, r2
+ 231 001e 1A70     		strb	r2, [r3, #0]
+ 198:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_GLOBAL_STBY_ENABLE |= PWM_MOTOR_TILT_BLOCK_STBY_EN_MASK;
+ 232              		.loc 1 198 0
+ 233 0020 44F2B333 		movw	r3, #17331
+ 234 0024 C4F20003 		movt	r3, 16384
+ 235 0028 44F2B332 		movw	r2, #17331
+ 236 002c C4F20002 		movt	r2, 16384
+ 237 0030 1278     		ldrb	r2, [r2, #0]
+ 238 0032 D2B2     		uxtb	r2, r2
+ 239 0034 42F00402 		orr	r2, r2, #4
+ 240 0038 D2B2     		uxtb	r2, r2
+ 241 003a 1A70     		strb	r2, [r3, #0]
+ 199:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 200:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     
+ 201:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /* Enable the PWM from the control register  */
+ 202:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UseControl || PWM_MOTOR_TILT_UsingFixedFunction)
+ 203:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_CONTROL |= PWM_MOTOR_TILT_CTRL_ENABLE;
+ 242              		.loc 1 203 0
+ 243 003c 44F61873 		movw	r3, #20248
+ 244 0040 C4F20003 		movt	r3, 16384
+ 245 0044 44F61872 		movw	r2, #20248
+ 246 0048 C4F20002 		movt	r2, 16384
+ 247 004c 1278     		ldrb	r2, [r2, #0]
+ 248 004e D2B2     		uxtb	r2, r2
+ 249 0050 42F00102 		orr	r2, r2, #1
+ 250 0054 D2B2     		uxtb	r2, r2
+ 251 0056 1A70     		strb	r2, [r3, #0]
+ 204:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UseControl || PWM_MOTOR_TILT_UsingFixedFunction) */
+ 205:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 9
+
+
+ 252              		.loc 1 205 0
+ 253 0058 BD46     		mov	sp, r7
+ 254 005a 80BC     		pop	{r7}
+ 255 005c 7047     		bx	lr
+ 256              		.cfi_endproc
+ 257              	.LFE2:
+ 258              		.size	PWM_MOTOR_TILT_Enable, .-PWM_MOTOR_TILT_Enable
+ 259 005e 00BF     		.section	.text.PWM_MOTOR_TILT_Stop,"ax",%progbits
+ 260              		.align	2
+ 261              		.global	PWM_MOTOR_TILT_Stop
+ 262              		.thumb
+ 263              		.thumb_func
+ 264              		.type	PWM_MOTOR_TILT_Stop, %function
+ 265              	PWM_MOTOR_TILT_Stop:
+ 266              	.LFB3:
+ 206:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 207:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 208:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+ 209:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Function Name: PWM_MOTOR_TILT_Stop
+ 210:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************
+ 211:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 212:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Summary:
+ 213:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  The stop function halts the PWM, but does not change any modes or disable
+ 214:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  interrupts.
+ 215:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 216:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Parameters:  
+ 217:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None  
+ 218:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 219:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Return: 
+ 220:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+ 221:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 222:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Side Effects:
+ 223:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  If the Enable mode is set to Hardware only then this function
+ 224:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  has no effect on the operation of the PWM
+ 225:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 226:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/
+ 227:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** void PWM_MOTOR_TILT_Stop(void) 
+ 228:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** {
+ 267              		.loc 1 228 0
+ 268              		.cfi_startproc
+ 269              		@ args = 0, pretend = 0, frame = 0
+ 270              		@ frame_needed = 1, uses_anonymous_args = 0
+ 271              		@ link register save eliminated.
+ 272 0000 80B4     		push	{r7}
+ 273              	.LCFI7:
+ 274              		.cfi_def_cfa_offset 4
+ 275              		.cfi_offset 7, -4
+ 276 0002 00AF     		add	r7, sp, #0
+ 277              	.LCFI8:
+ 278              		.cfi_def_cfa_register 7
+ 229:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UseControl || PWM_MOTOR_TILT_UsingFixedFunction)
+ 230:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_CONTROL &= ((uint8)(~PWM_MOTOR_TILT_CTRL_ENABLE));
+ 279              		.loc 1 230 0
+ 280 0004 44F61873 		movw	r3, #20248
+ 281 0008 C4F20003 		movt	r3, 16384
+ 282 000c 44F61872 		movw	r2, #20248
+ 283 0010 C4F20002 		movt	r2, 16384
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 10
+
+
+ 284 0014 1278     		ldrb	r2, [r2, #0]
+ 285 0016 D2B2     		uxtb	r2, r2
+ 286 0018 22F00102 		bic	r2, r2, #1
+ 287 001c D2B2     		uxtb	r2, r2
+ 288 001e 1A70     		strb	r2, [r3, #0]
+ 231:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UseControl || PWM_MOTOR_TILT_UsingFixedFunction) */
+ 232:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     
+ 233:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /* Globally disable the Fixed Function Block chosen */
+ 234:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UsingFixedFunction)
+ 235:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_GLOBAL_ENABLE &= ((uint8)(~PWM_MOTOR_TILT_BLOCK_EN_MASK));
+ 289              		.loc 1 235 0
+ 290 0020 44F2A333 		movw	r3, #17315
+ 291 0024 C4F20003 		movt	r3, 16384
+ 292 0028 44F2A332 		movw	r2, #17315
+ 293 002c C4F20002 		movt	r2, 16384
+ 294 0030 1278     		ldrb	r2, [r2, #0]
+ 295 0032 D2B2     		uxtb	r2, r2
+ 296 0034 22F00402 		bic	r2, r2, #4
+ 297 0038 D2B2     		uxtb	r2, r2
+ 298 003a 1A70     		strb	r2, [r3, #0]
+ 236:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         PWM_MOTOR_TILT_GLOBAL_STBY_ENABLE &= ((uint8)(~PWM_MOTOR_TILT_BLOCK_STBY_EN_MASK));
+ 299              		.loc 1 236 0
+ 300 003c 44F2B333 		movw	r3, #17331
+ 301 0040 C4F20003 		movt	r3, 16384
+ 302 0044 44F2B332 		movw	r2, #17331
+ 303 0048 C4F20002 		movt	r2, 16384
+ 304 004c 1278     		ldrb	r2, [r2, #0]
+ 305 004e D2B2     		uxtb	r2, r2
+ 306 0050 22F00402 		bic	r2, r2, #4
+ 307 0054 D2B2     		uxtb	r2, r2
+ 308 0056 1A70     		strb	r2, [r3, #0]
+ 237:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 238:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
+ 309              		.loc 1 238 0
+ 310 0058 BD46     		mov	sp, r7
+ 311 005a 80BC     		pop	{r7}
+ 312 005c 7047     		bx	lr
+ 313              		.cfi_endproc
+ 314              	.LFE3:
+ 315              		.size	PWM_MOTOR_TILT_Stop, .-PWM_MOTOR_TILT_Stop
+ 316 005e 00BF     		.section	.text.PWM_MOTOR_TILT_WritePeriod,"ax",%progbits
+ 317              		.align	2
+ 318              		.global	PWM_MOTOR_TILT_WritePeriod
+ 319              		.thumb
+ 320              		.thumb_func
+ 321              		.type	PWM_MOTOR_TILT_WritePeriod, %function
+ 322              	PWM_MOTOR_TILT_WritePeriod:
+ 323              	.LFB4:
+ 239:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 240:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 241:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_UseOneCompareMode)
+ 242:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	#if (PWM_MOTOR_TILT_CompareMode1SW)
+ 243:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 244:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 245:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		/*******************************************************************************
+ 246:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Function Name: PWM_MOTOR_TILT_SetCompareMode
+ 247:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		********************************************************************************
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 11
+
+
+ 248:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* 
+ 249:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Summary:
+ 250:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  This function writes the Compare Mode for the pwm output when in Dither mode,
+ 251:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  Center Align Mode or One Output Mode.
+ 252:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*
+ 253:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Parameters:
+ 254:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 255:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*                defined in the H file as input arguments.
+ 256:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*
+ 257:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Return:
+ 258:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  None
+ 259:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*
+ 260:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*******************************************************************************/
+ 261:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		void PWM_MOTOR_TILT_SetCompareMode(uint8 comparemode) 
+ 262:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		{
+ 263:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 264:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             
+ 265:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #if(0 != PWM_MOTOR_TILT_CTRL_CMPMODE1_SHIFT)
+ 266:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                     uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_MOTOR_TILT_CTRL_CM
+ 267:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #else
+ 268:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                     uint8 comparemodemasked = comparemode;
+ 269:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #endif /* (0 != PWM_MOTOR_TILT_CTRL_CMPMODE1_SHIFT) */
+ 270:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             
+ 271:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	            PWM_MOTOR_TILT_CONTROL3 &= ((uint8)(~PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK)); /*Clear Exis
+ 272:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	            PWM_MOTOR_TILT_CONTROL3 |= comparemodemasked;     
+ 273:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		                
+ 274:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #elif (PWM_MOTOR_TILT_UseControl)
+ 275:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        
+ 276:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #if(0 != PWM_MOTOR_TILT_CTRL_CMPMODE1_SHIFT)
+ 277:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                     uint8 comparemode1masked = ((uint8)((uint8)comparemode << PWM_MOTOR_TILT_CTRL_C
+ 278:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		                                    PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK;
+ 279:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #else
+ 280:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                     uint8 comparemode1masked = comparemode & PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK;    
+ 281:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #endif /* (0 != PWM_MOTOR_TILT_CTRL_CMPMODE1_SHIFT) */
+ 282:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 
+ 283:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #if(0 != PWM_MOTOR_TILT_CTRL_CMPMODE2_SHIFT)                            
+ 284:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		        uint8 comparemode2masked = ((uint8)((uint8)comparemode << PWM_MOTOR_TILT_CTRL_CMPMODE
+ 285:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		                                   PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK;
+ 286:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #else
+ 287:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		        uint8 comparemode2masked = comparemode & PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK;          
+ 288:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 #endif /* (0 != PWM_MOTOR_TILT_CTRL_CMPMODE2_SHIFT) */
+ 289:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 
+ 290:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        /*Clear existing mode */
+ 291:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        PWM_MOTOR_TILT_CONTROL &= ((uint8)(~(PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK | PWM_MOTOR_TILT_C
+ 292:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        PWM_MOTOR_TILT_CONTROL |= (comparemode1masked | comparemode2masked);
+ 293:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        
+ 294:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #else
+ 295:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        uint8 temp = comparemode;
+ 296:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 297:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		}
+ 298:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	#endif /* PWM_MOTOR_TILT_CompareMode1SW */
+ 299:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 300:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #else /* UseOneCompareMode */
+ 301:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 302:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	#if (PWM_MOTOR_TILT_CompareMode1SW)
+ 303:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 304:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 12
+
+
+ 305:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		/*******************************************************************************
+ 306:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Function Name: PWM_MOTOR_TILT_SetCompareMode1
+ 307:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		********************************************************************************
+ 308:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* 
+ 309:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Summary:
+ 310:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  This function writes the Compare Mode for the pwm or pwm1 output
+ 311:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*
+ 312:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Parameters:  
+ 313:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 314:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*                defined in the H file as input arguments.
+ 315:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*
+ 316:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Return: 
+ 317:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*  None
+ 318:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*
+ 319:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		*******************************************************************************/
+ 320:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		void PWM_MOTOR_TILT_SetCompareMode1(uint8 comparemode) 
+ 321:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		{
+ 322:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #if(0 != PWM_MOTOR_TILT_CTRL_CMPMODE1_SHIFT)
+ 323:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_MOTOR_TILT_CTRL_CMPMOD
+ 324:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		                               PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK;
+ 325:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #else
+ 326:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 uint8 comparemodemasked = comparemode & PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK;         
+ 327:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #endif /* (0 != PWM_MOTOR_TILT_CTRL_CMPMODE1_SHIFT) */
+ 328:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                    
+ 329:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #if (PWM_MOTOR_TILT_UseControl)
+ 330:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        PWM_MOTOR_TILT_CONTROL &= ((uint8)(~PWM_MOTOR_TILT_CTRL_CMPMODE1_MASK)); /*Clear existing
+ 331:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		        PWM_MOTOR_TILT_CONTROL |= comparemodemasked;
+ 332:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		    #endif /* (PWM_MOTOR_TILT_UseControl) */
+ 333:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		}
+ 334:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	#endif /* PWM_MOTOR_TILT_CompareMode1SW */
+ 335:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 336:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_CompareMode2SW)
+ 337:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 338:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 339:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 340:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_SetCompareMode2
+ 341:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 342:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 343:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 344:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function writes the Compare Mode for the pwm or pwm2 output
+ 345:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 346:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 347:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 348:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *                defined in the H file as input arguments.
+ 349:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 350:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 351:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 352:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 353:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 354:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_SetCompareMode2(uint8 comparemode) 
+ 355:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 356:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 357:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(0 != PWM_MOTOR_TILT_CTRL_CMPMODE2_SHIFT)
+ 358:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_MOTOR_TILT_CTRL_CMPMODE2_S
+ 359:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                                  PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK;
+ 360:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 361:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             uint8 comparemodemasked = comparemode & PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK;            
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 13
+
+
+ 362:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (0 != PWM_MOTOR_TILT_CTRL_CMPMODE2_SHIFT) */
+ 363:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 364:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_UseControl)
+ 365:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_CONTROL &= ((uint8)(~PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK)); /*Clear existi
+ 366:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_CONTROL |= comparemodemasked;
+ 367:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UseControl) */
+ 368:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 369:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /*PWM_MOTOR_TILT_CompareMode2SW */
+ 370:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 371:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* UseOneCompareMode */
+ 372:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 373:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 374:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (!PWM_MOTOR_TILT_UsingFixedFunction)
+ 375:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 376:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 377:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 378:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_WriteCounter
+ 379:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 380:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 381:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 382:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Writes a new counter value directly to the counter register. This will be 
+ 383:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  implemented for that currently running period and only that period. This API 
+ 384:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  is valid only for UDB implementation and not available for fixed function 
+ 385:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  PWM implementation.    
+ 386:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 387:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 388:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  counter:  The period new period counter value.
+ 389:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 390:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 391:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 392:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 393:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Side Effects: 
+ 394:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The PWM Period will be reloaded when a counter value will be a zero
+ 395:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 396:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 397:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_WriteCounter(uint16 counter) \
+ 398:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                        
+ 399:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 400:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         CY_SET_REG16(PWM_MOTOR_TILT_COUNTER_LSB_PTR, counter);
+ 401:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 402:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 403:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 404:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 405:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadCounter
+ 406:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 407:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 408:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 409:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function returns the current value of the counter.  It doesn't matter
+ 410:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  if the counter is enabled or running.
+ 411:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 412:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 413:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None  
+ 414:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 415:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 416:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The current value of the counter.
+ 417:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 418:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 14
+
+
+ 419:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCounter(void) 
+ 420:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 421:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* Force capture by reading Accumulator */
+ 422:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* Must first do a software capture to be able to read the counter */
+ 423:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 424:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         (void)PWM_MOTOR_TILT_COUNTERCAP_LSB;
+ 425:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 426:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 427:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         return (CY_GET_REG16(PWM_MOTOR_TILT_CAPTURE_LSB_PTR));
+ 428:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 429:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 430:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_UseStatus)
+ 431:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 432:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 433:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /*******************************************************************************
+ 434:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             * Function Name: PWM_MOTOR_TILT_ClearFIFO
+ 435:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             ********************************************************************************
+ 436:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             * 
+ 437:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             * Summary:
+ 438:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *  This function clears all capture data from the capture FIFO
+ 439:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *
+ 440:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             * Parameters:  
+ 441:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *  None
+ 442:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *
+ 443:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             * Return: 
+ 444:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *  None
+ 445:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *
+ 446:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             *******************************************************************************/
+ 447:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             void PWM_MOTOR_TILT_ClearFIFO(void) 
+ 448:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             {
+ 449:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 while(0u != (PWM_MOTOR_TILT_ReadStatusRegister() & PWM_MOTOR_TILT_STATUS_FIFONEMPTY
+ 450:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 {
+ 451:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                     (void)PWM_MOTOR_TILT_ReadCapture();
+ 452:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 }
+ 453:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             }
+ 454:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 455:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* PWM_MOTOR_TILT_UseStatus */
+ 456:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 457:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* !PWM_MOTOR_TILT_UsingFixedFunction */
+ 458:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 459:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 460:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+ 461:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Function Name: PWM_MOTOR_TILT_WritePeriod
+ 462:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************
+ 463:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * 
+ 464:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Summary:
+ 465:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  This function is used to change the period of the counter.  The new period 
+ 466:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  will be loaded the next time terminal count is detected.
+ 467:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 468:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Parameters:  
+ 469:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  period:  Period value. May be between 1 and (2^Resolution)-1.  A value of 0 
+ 470:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *           will result in the counter remaining at zero.
+ 471:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 472:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Return: 
+ 473:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+ 474:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 475:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 15
+
+
+ 476:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** void PWM_MOTOR_TILT_WritePeriod(uint16 period) 
+ 477:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** {
+ 324              		.loc 1 477 0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 8
+ 327              		@ frame_needed = 1, uses_anonymous_args = 0
+ 328              		@ link register save eliminated.
+ 329 0000 80B4     		push	{r7}
+ 330              	.LCFI9:
+ 331              		.cfi_def_cfa_offset 4
+ 332              		.cfi_offset 7, -4
+ 333 0002 83B0     		sub	sp, sp, #12
+ 334              	.LCFI10:
+ 335              		.cfi_def_cfa_offset 16
+ 336 0004 00AF     		add	r7, sp, #0
+ 337              	.LCFI11:
+ 338              		.cfi_def_cfa_register 7
+ 339 0006 0346     		mov	r3, r0
+ 340 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 478:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 479:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         CY_SET_REG16(PWM_MOTOR_TILT_PERIOD_LSB_PTR, (uint16)period);
+ 341              		.loc 1 479 0
+ 342 000a 44F61C73 		movw	r3, #20252
+ 343 000e C4F20003 		movt	r3, 16384
+ 344 0012 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 345 0014 1A80     		strh	r2, [r3, #0]	@ movhi
+ 480:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #else
+ 481:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         CY_SET_REG16(PWM_MOTOR_TILT_PERIOD_LSB_PTR, period);
+ 482:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 483:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
+ 346              		.loc 1 483 0
+ 347 0016 07F10C07 		add	r7, r7, #12
+ 348 001a BD46     		mov	sp, r7
+ 349 001c 80BC     		pop	{r7}
+ 350 001e 7047     		bx	lr
+ 351              		.cfi_endproc
+ 352              	.LFE4:
+ 353              		.size	PWM_MOTOR_TILT_WritePeriod, .-PWM_MOTOR_TILT_WritePeriod
+ 354              		.section	.text.PWM_MOTOR_TILT_WriteCompare,"ax",%progbits
+ 355              		.align	2
+ 356              		.global	PWM_MOTOR_TILT_WriteCompare
+ 357              		.thumb
+ 358              		.thumb_func
+ 359              		.type	PWM_MOTOR_TILT_WriteCompare, %function
+ 360              	PWM_MOTOR_TILT_WriteCompare:
+ 361              	.LFB5:
+ 484:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 485:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_UseOneCompareMode)
+ 486:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 487:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 488:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 489:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_WriteCompare
+ 490:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 491:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 492:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 493:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This funtion is used to change the compare1 value when the PWM is in Dither
+ 494:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  mode. The compare output will reflect the new value on the next UDB clock. 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 16
+
+
+ 495:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The compare output will be driven high when the present counter value is 
+ 496:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  compared to the compare value based on the compare mode defined in 
+ 497:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Dither Mode.
+ 498:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 499:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 500:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  compare:  New compare value.  
+ 501:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 502:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 503:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 504:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 505:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Side Effects:
+ 506:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function is only available if the PWM mode parameter is set to
+ 507:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Dither Mode, Center Aligned Mode or One Output Mode
+ 508:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 509:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 510:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_WriteCompare(uint16 compare) \
+ 511:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                        
+ 512:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {	
+ 362              		.loc 1 512 0
+ 363              		.cfi_startproc
+ 364              		@ args = 0, pretend = 0, frame = 8
+ 365              		@ frame_needed = 1, uses_anonymous_args = 0
+ 366              		@ link register save eliminated.
+ 367 0000 80B4     		push	{r7}
+ 368              	.LCFI12:
+ 369              		.cfi_def_cfa_offset 4
+ 370              		.cfi_offset 7, -4
+ 371 0002 83B0     		sub	sp, sp, #12
+ 372              	.LCFI13:
+ 373              		.cfi_def_cfa_offset 16
+ 374 0004 00AF     		add	r7, sp, #0
+ 375              	.LCFI14:
+ 376              		.cfi_def_cfa_register 7
+ 377 0006 0346     		mov	r3, r0
+ 378 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 513:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		#if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 514:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 			CY_SET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR, (uint16)compare);
+ 379              		.loc 1 514 0
+ 380 000a 44F61E73 		movw	r3, #20254
+ 381 000e C4F20003 		movt	r3, 16384
+ 382 0012 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 383 0014 1A80     		strh	r2, [r3, #0]	@ movhi
+ 515:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		#else
+ 516:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	        CY_SET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR, compare);	
+ 517:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		#endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 518:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 519:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if (PWM_MOTOR_TILT_PWMMode == PWM_MOTOR_TILT__B_PWM__DITHER)
+ 520:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 521:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     			CY_SET_REG16(PWM_MOTOR_TILT_COMPARE2_LSB_PTR, (uint16)(compare + 1u));
+ 522:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		#else
+ 523:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	        CY_SET_REG16(PWM_MOTOR_TILT_COMPARE2_LSB_PTR, (compare + 1u));	
+ 524:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     		#endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 525:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_PWMMode == PWM_MOTOR_TILT__B_PWM__DITHER) */
+ 526:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 384              		.loc 1 526 0
+ 385 0016 07F10C07 		add	r7, r7, #12
+ 386 001a BD46     		mov	sp, r7
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 17
+
+
+ 387 001c 80BC     		pop	{r7}
+ 388 001e 7047     		bx	lr
+ 389              		.cfi_endproc
+ 390              	.LFE5:
+ 391              		.size	PWM_MOTOR_TILT_WriteCompare, .-PWM_MOTOR_TILT_WriteCompare
+ 392              		.section	.text.PWM_MOTOR_TILT_WriteDeadTime,"ax",%progbits
+ 393              		.align	2
+ 394              		.global	PWM_MOTOR_TILT_WriteDeadTime
+ 395              		.thumb
+ 396              		.thumb_func
+ 397              		.type	PWM_MOTOR_TILT_WriteDeadTime, %function
+ 398              	PWM_MOTOR_TILT_WriteDeadTime:
+ 399              	.LFB6:
+ 527:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 528:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 529:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #else
+ 530:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 531:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 532:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 533:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_WriteCompare1
+ 534:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 535:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 536:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 537:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This funtion is used to change the compare1 value.  The compare output will 
+ 538:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  reflect the new value on the next UDB clock.  The compare output will be 
+ 539:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  driven high when the present counter value is less than or less than or 
+ 540:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  equal to the compare register, depending on the mode.
+ 541:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 542:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 543:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  compare:  New compare value.  
+ 544:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 545:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 546:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 547:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 548:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 549:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_WriteCompare1(uint16 compare) \
+ 550:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                         
+ 551:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 552:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 553:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CY_SET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR, (uint16)compare);
+ 554:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 555:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CY_SET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR, compare);
+ 556:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 557:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 558:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 559:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 560:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 561:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_WriteCompare2
+ 562:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 563:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 564:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 565:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This funtion is used to change the compare value, for compare1 output.  
+ 566:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The compare output will reflect the new value on the next UDB clock.  
+ 567:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The compare output will be driven high when the present counter value is 
+ 568:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  less than or less than or equal to the compare register, depending on the 
+ 569:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  mode.
+ 570:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 18
+
+
+ 571:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 572:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  compare:  New compare value.  
+ 573:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 574:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 575:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 576:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 577:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 578:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_WriteCompare2(uint16 compare) \
+ 579:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                         
+ 580:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 581:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 582:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CY_SET_REG16(PWM_MOTOR_TILT_COMPARE2_LSB_PTR, compare);
+ 583:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 584:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CY_SET_REG16(PWM_MOTOR_TILT_COMPARE2_LSB_PTR, compare);
+ 585:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 586:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 587:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* UseOneCompareMode */
+ 588:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 589:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_DeadBandUsed)
+ 590:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 591:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 592:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 593:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_WriteDeadTime
+ 594:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 595:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 596:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 597:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function writes the dead-band counts to the corresponding register
+ 598:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 599:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 600:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  deadtime:  Number of counts for dead time 
+ 601:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 602:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 603:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 604:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 605:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 606:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_WriteDeadTime(uint8 deadtime) 
+ 607:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 400              		.loc 1 607 0
+ 401              		.cfi_startproc
+ 402              		@ args = 0, pretend = 0, frame = 8
+ 403              		@ frame_needed = 1, uses_anonymous_args = 0
+ 404              		@ link register save eliminated.
+ 405 0000 80B4     		push	{r7}
+ 406              	.LCFI15:
+ 407              		.cfi_def_cfa_offset 4
+ 408              		.cfi_offset 7, -4
+ 409 0002 83B0     		sub	sp, sp, #12
+ 410              	.LCFI16:
+ 411              		.cfi_def_cfa_offset 16
+ 412 0004 00AF     		add	r7, sp, #0
+ 413              	.LCFI17:
+ 414              		.cfi_def_cfa_register 7
+ 415 0006 0346     		mov	r3, r0
+ 416 0008 FB71     		strb	r3, [r7, #7]
+ 608:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* If using the Dead Band 1-255 mode then just write the register */
+ 609:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(!PWM_MOTOR_TILT_DeadBand2_4)
+ 610:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CY_SET_REG8(PWM_MOTOR_TILT_DEADBAND_COUNT_PTR, deadtime);
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 19
+
+
+ 611:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 612:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Otherwise the data has to be masked and offset */        
+ 613:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Clear existing data */
+ 614:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_DEADBAND_COUNT &= ((uint8)(~PWM_MOTOR_TILT_DEADBAND_COUNT_MASK));
+ 417              		.loc 1 614 0
+ 418 000a 44F61873 		movw	r3, #20248
+ 419 000e C4F20003 		movt	r3, 16384
+ 420 0012 44F61872 		movw	r2, #20248
+ 421 0016 C4F20002 		movt	r2, 16384
+ 422 001a 1278     		ldrb	r2, [r2, #0]
+ 423 001c D2B2     		uxtb	r2, r2
+ 424 001e 02F03F02 		and	r2, r2, #63
+ 425 0022 D2B2     		uxtb	r2, r2
+ 426 0024 1A70     		strb	r2, [r3, #0]
+ 615:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             
+ 616:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Set new dead time */
+ 617:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #if(PWM_MOTOR_TILT_DEADBAND_COUNT_SHIFT)        
+ 618:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 PWM_MOTOR_TILT_DEADBAND_COUNT |= ((uint8)((uint8)deadtime << PWM_MOTOR_TILT_DEADBAN
+ 427              		.loc 1 618 0
+ 428 0026 44F61873 		movw	r3, #20248
+ 429 002a C4F20003 		movt	r3, 16384
+ 430 002e 44F61872 		movw	r2, #20248
+ 431 0032 C4F20002 		movt	r2, 16384
+ 432 0036 1278     		ldrb	r2, [r2, #0]
+ 433 0038 D2B2     		uxtb	r2, r2
+ 434 003a D1B2     		uxtb	r1, r2
+ 435 003c FA79     		ldrb	r2, [r7, #7]
+ 436 003e 4FEA8212 		lsl	r2, r2, #6
+ 437 0042 D2B2     		uxtb	r2, r2
+ 438 0044 D2B2     		uxtb	r2, r2
+ 439 0046 0A43     		orrs	r2, r2, r1
+ 440 0048 D2B2     		uxtb	r2, r2
+ 441 004a D2B2     		uxtb	r2, r2
+ 442 004c 1A70     		strb	r2, [r3, #0]
+ 619:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                                     PWM_MOTOR_TILT_DEADBAND_COUNT_MASK;
+ 620:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #else
+ 621:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 PWM_MOTOR_TILT_DEADBAND_COUNT |= deadtime & PWM_MOTOR_TILT_DEADBAND_COUNT_MASK;    
+ 622:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #endif /* (PWM_MOTOR_TILT_DEADBAND_COUNT_SHIFT) */
+ 623:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 624:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (!PWM_MOTOR_TILT_DeadBand2_4) */
+ 625:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 443              		.loc 1 625 0
+ 444 004e 07F10C07 		add	r7, r7, #12
+ 445 0052 BD46     		mov	sp, r7
+ 446 0054 80BC     		pop	{r7}
+ 447 0056 7047     		bx	lr
+ 448              		.cfi_endproc
+ 449              	.LFE6:
+ 450              		.size	PWM_MOTOR_TILT_WriteDeadTime, .-PWM_MOTOR_TILT_WriteDeadTime
+ 451              		.section	.text.PWM_MOTOR_TILT_ReadDeadTime,"ax",%progbits
+ 452              		.align	2
+ 453              		.global	PWM_MOTOR_TILT_ReadDeadTime
+ 454              		.thumb
+ 455              		.thumb_func
+ 456              		.type	PWM_MOTOR_TILT_ReadDeadTime, %function
+ 457              	PWM_MOTOR_TILT_ReadDeadTime:
+ 458              	.LFB7:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 20
+
+
+ 626:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 627:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 628:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 629:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadDeadTime
+ 630:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 631:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 632:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 633:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function reads the dead-band counts from the corresponding register
+ 634:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 635:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 636:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 637:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 638:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 639:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Dead Band Counts
+ 640:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 641:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 642:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint8 PWM_MOTOR_TILT_ReadDeadTime(void) 
+ 643:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 459              		.loc 1 643 0
+ 460              		.cfi_startproc
+ 461              		@ args = 0, pretend = 0, frame = 0
+ 462              		@ frame_needed = 1, uses_anonymous_args = 0
+ 463              		@ link register save eliminated.
+ 464 0000 80B4     		push	{r7}
+ 465              	.LCFI18:
+ 466              		.cfi_def_cfa_offset 4
+ 467              		.cfi_offset 7, -4
+ 468 0002 00AF     		add	r7, sp, #0
+ 469              	.LCFI19:
+ 470              		.cfi_def_cfa_register 7
+ 644:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* If using the Dead Band 1-255 mode then just read the register */
+ 645:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(!PWM_MOTOR_TILT_DeadBand2_4)
+ 646:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             return (CY_GET_REG8(PWM_MOTOR_TILT_DEADBAND_COUNT_PTR));
+ 647:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 648:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         
+ 649:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Otherwise the data has to be masked and offset */
+ 650:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #if(PWM_MOTOR_TILT_DEADBAND_COUNT_SHIFT)      
+ 651:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 return ((uint8)(((uint8)(PWM_MOTOR_TILT_DEADBAND_COUNT & PWM_MOTOR_TILT_DEADBAND_CO
+ 471              		.loc 1 651 0
+ 472 0004 44F61873 		movw	r3, #20248
+ 473 0008 C4F20003 		movt	r3, 16384
+ 474 000c 1B78     		ldrb	r3, [r3, #0]
+ 475 000e DBB2     		uxtb	r3, r3
+ 476 0010 4FEA9313 		lsr	r3, r3, #6
+ 477 0014 DBB2     		uxtb	r3, r3
+ 652:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                                                            PWM_MOTOR_TILT_DEADBAND_
+ 653:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #else
+ 654:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                 return (PWM_MOTOR_TILT_DEADBAND_COUNT & PWM_MOTOR_TILT_DEADBAND_COUNT_MASK);
+ 655:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             #endif /* (PWM_MOTOR_TILT_DEADBAND_COUNT_SHIFT) */
+ 656:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (!PWM_MOTOR_TILT_DeadBand2_4) */
+ 657:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 478              		.loc 1 657 0
+ 479 0016 1846     		mov	r0, r3
+ 480 0018 BD46     		mov	sp, r7
+ 481 001a 80BC     		pop	{r7}
+ 482 001c 7047     		bx	lr
+ 483              		.cfi_endproc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 21
+
+
+ 484              	.LFE7:
+ 485              		.size	PWM_MOTOR_TILT_ReadDeadTime, .-PWM_MOTOR_TILT_ReadDeadTime
+ 486 001e 00BF     		.section	.text.PWM_MOTOR_TILT_SetInterruptMode,"ax",%progbits
+ 487              		.align	2
+ 488              		.global	PWM_MOTOR_TILT_SetInterruptMode
+ 489              		.thumb
+ 490              		.thumb_func
+ 491              		.type	PWM_MOTOR_TILT_SetInterruptMode, %function
+ 492              	PWM_MOTOR_TILT_SetInterruptMode:
+ 493              	.LFB8:
+ 658:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* DeadBandUsed */
+ 659:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 660:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_UseStatus || PWM_MOTOR_TILT_UsingFixedFunction)
+ 661:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 662:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 663:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 664:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_SetInterruptMode
+ 665:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 666:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 667:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 668:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function configures the interrupts mask control of theinterrupt 
+ 669:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  source status register.
+ 670:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 671:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 672:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8 interruptMode: Bit field containing the interrupt sources enabled 
+ 673:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 674:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 675:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 676:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 677:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 678:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_SetInterruptMode(uint8 interruptMode)  
+ 679:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 494              		.loc 1 679 0
+ 495              		.cfi_startproc
+ 496              		@ args = 0, pretend = 0, frame = 8
+ 497              		@ frame_needed = 1, uses_anonymous_args = 0
+ 498              		@ link register save eliminated.
+ 499 0000 80B4     		push	{r7}
+ 500              	.LCFI20:
+ 501              		.cfi_def_cfa_offset 4
+ 502              		.cfi_offset 7, -4
+ 503 0002 83B0     		sub	sp, sp, #12
+ 504              	.LCFI21:
+ 505              		.cfi_def_cfa_offset 16
+ 506 0004 00AF     		add	r7, sp, #0
+ 507              	.LCFI22:
+ 508              		.cfi_def_cfa_register 7
+ 509 0006 0346     		mov	r3, r0
+ 510 0008 FB71     		strb	r3, [r7, #7]
+ 680:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	CY_SET_REG8(PWM_MOTOR_TILT_STATUS_MASK_PTR, interruptMode);
+ 511              		.loc 1 680 0
+ 512 000a 44F61B73 		movw	r3, #20251
+ 513 000e C4F20003 		movt	r3, 16384
+ 514 0012 FA79     		ldrb	r2, [r7, #7]
+ 515 0014 1A70     		strb	r2, [r3, #0]
+ 681:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 516              		.loc 1 681 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 22
+
+
+ 517 0016 07F10C07 		add	r7, r7, #12
+ 518 001a BD46     		mov	sp, r7
+ 519 001c 80BC     		pop	{r7}
+ 520 001e 7047     		bx	lr
+ 521              		.cfi_endproc
+ 522              	.LFE8:
+ 523              		.size	PWM_MOTOR_TILT_SetInterruptMode, .-PWM_MOTOR_TILT_SetInterruptMode
+ 524              		.section	.text.PWM_MOTOR_TILT_ReadStatusRegister,"ax",%progbits
+ 525              		.align	2
+ 526              		.global	PWM_MOTOR_TILT_ReadStatusRegister
+ 527              		.thumb
+ 528              		.thumb_func
+ 529              		.type	PWM_MOTOR_TILT_ReadStatusRegister, %function
+ 530              	PWM_MOTOR_TILT_ReadStatusRegister:
+ 531              	.LFB9:
+ 682:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 683:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 684:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 685:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadStatusRegister
+ 686:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 687:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 688:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 689:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This function returns the current state of the status register. 
+ 690:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 691:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 692:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 693:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 694:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 695:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8 : Current status register value. The status register bits are:
+ 696:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [7:6] : Unused(0)
+ 697:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [5]   : Kill event output
+ 698:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [4]   : FIFO not empty
+ 699:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [3]   : FIFO full
+ 700:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [2]   : Terminal count
+ 701:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [1]   : Compare output 2
+ 702:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [0]   : Compare output 1
+ 703:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 704:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
+ 705:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint8 PWM_MOTOR_TILT_ReadStatusRegister(void)   
+ 706:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 532              		.loc 1 706 0
+ 533              		.cfi_startproc
+ 534              		@ args = 0, pretend = 0, frame = 8
+ 535              		@ frame_needed = 1, uses_anonymous_args = 0
+ 536              		@ link register save eliminated.
+ 537 0000 80B4     		push	{r7}
+ 538              	.LCFI23:
+ 539              		.cfi_def_cfa_offset 4
+ 540              		.cfi_offset 7, -4
+ 541 0002 83B0     		sub	sp, sp, #12
+ 542              	.LCFI24:
+ 543              		.cfi_def_cfa_offset 16
+ 544 0004 00AF     		add	r7, sp, #0
+ 545              	.LCFI25:
+ 546              		.cfi_def_cfa_register 7
+ 707:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	uint8 result;
+ 708:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 23
+
+
+ 709:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	result = CY_GET_REG8(PWM_MOTOR_TILT_STATUS_PTR);
+ 547              		.loc 1 709 0
+ 548 0006 44F61B73 		movw	r3, #20251
+ 549 000a C4F20003 		movt	r3, 16384
+ 550 000e 1B78     		ldrb	r3, [r3, #0]
+ 551 0010 FB71     		strb	r3, [r7, #7]
+ 710:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	return (result);
+ 552              		.loc 1 710 0
+ 553 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 711:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 554              		.loc 1 711 0
+ 555 0014 1846     		mov	r0, r3
+ 556 0016 07F10C07 		add	r7, r7, #12
+ 557 001a BD46     		mov	sp, r7
+ 558 001c 80BC     		pop	{r7}
+ 559 001e 7047     		bx	lr
+ 560              		.cfi_endproc
+ 561              	.LFE9:
+ 562              		.size	PWM_MOTOR_TILT_ReadStatusRegister, .-PWM_MOTOR_TILT_ReadStatusRegister
+ 563              		.section	.text.PWM_MOTOR_TILT_ReadControlRegister,"ax",%progbits
+ 564              		.align	2
+ 565              		.global	PWM_MOTOR_TILT_ReadControlRegister
+ 566              		.thumb
+ 567              		.thumb_func
+ 568              		.type	PWM_MOTOR_TILT_ReadControlRegister, %function
+ 569              	PWM_MOTOR_TILT_ReadControlRegister:
+ 570              	.LFB10:
+ 712:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 713:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* (PWM_MOTOR_TILT_UseStatus || PWM_MOTOR_TILT_UsingFixedFunction) */
+ 714:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 715:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 716:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_UseControl)
+ 717:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 718:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 719:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 720:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadControlRegister
+ 721:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 722:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 723:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 724:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Returns the current state of the control register. This API is available 
+ 725:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  only if the control register is not removed.
+ 726:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 727:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 728:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None 
+ 729:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 730:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 731:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8 : Current control register value
+ 732:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 733:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/    
+ 734:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint8 PWM_MOTOR_TILT_ReadControlRegister(void) 
+ 735:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 571              		.loc 1 735 0
+ 572              		.cfi_startproc
+ 573              		@ args = 0, pretend = 0, frame = 8
+ 574              		@ frame_needed = 1, uses_anonymous_args = 0
+ 575              		@ link register save eliminated.
+ 576 0000 80B4     		push	{r7}
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 24
+
+
+ 577              	.LCFI26:
+ 578              		.cfi_def_cfa_offset 4
+ 579              		.cfi_offset 7, -4
+ 580 0002 83B0     		sub	sp, sp, #12
+ 581              	.LCFI27:
+ 582              		.cfi_def_cfa_offset 16
+ 583 0004 00AF     		add	r7, sp, #0
+ 584              	.LCFI28:
+ 585              		.cfi_def_cfa_register 7
+ 736:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	uint8 result;
+ 737:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	
+ 738:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	result = CY_GET_REG8(PWM_MOTOR_TILT_CONTROL_PTR);
+ 586              		.loc 1 738 0
+ 587 0006 44F61873 		movw	r3, #20248
+ 588 000a C4F20003 		movt	r3, 16384
+ 589 000e 1B78     		ldrb	r3, [r3, #0]
+ 590 0010 FB71     		strb	r3, [r7, #7]
+ 739:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	return (result);
+ 591              		.loc 1 739 0
+ 592 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 740:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 593              		.loc 1 740 0
+ 594 0014 1846     		mov	r0, r3
+ 595 0016 07F10C07 		add	r7, r7, #12
+ 596 001a BD46     		mov	sp, r7
+ 597 001c 80BC     		pop	{r7}
+ 598 001e 7047     		bx	lr
+ 599              		.cfi_endproc
+ 600              	.LFE10:
+ 601              		.size	PWM_MOTOR_TILT_ReadControlRegister, .-PWM_MOTOR_TILT_ReadControlRegister
+ 602              		.section	.text.PWM_MOTOR_TILT_WriteControlRegister,"ax",%progbits
+ 603              		.align	2
+ 604              		.global	PWM_MOTOR_TILT_WriteControlRegister
+ 605              		.thumb
+ 606              		.thumb_func
+ 607              		.type	PWM_MOTOR_TILT_WriteControlRegister, %function
+ 608              	PWM_MOTOR_TILT_WriteControlRegister:
+ 609              	.LFB11:
+ 741:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 742:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 743:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 744:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_WriteControlRegister
+ 745:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 746:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 747:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 748:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Sets the bit field of the control register. This API is available only if 
+ 749:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  the control register is not removed.
+ 750:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 751:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 752:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8 control: Control register bit field, The status register bits are:
+ 753:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [7]   : PWM Enable
+ 754:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [6]   : Reset
+ 755:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [5:3] : Compare Mode2
+ 756:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  [2:0] : Compare Mode2
+ 757:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 758:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 759:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 25
+
+
+ 760:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 761:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/  
+ 762:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     void PWM_MOTOR_TILT_WriteControlRegister(uint8 control) 
+ 763:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 610              		.loc 1 763 0
+ 611              		.cfi_startproc
+ 612              		@ args = 0, pretend = 0, frame = 8
+ 613              		@ frame_needed = 1, uses_anonymous_args = 0
+ 614              		@ link register save eliminated.
+ 615 0000 80B4     		push	{r7}
+ 616              	.LCFI29:
+ 617              		.cfi_def_cfa_offset 4
+ 618              		.cfi_offset 7, -4
+ 619 0002 83B0     		sub	sp, sp, #12
+ 620              	.LCFI30:
+ 621              		.cfi_def_cfa_offset 16
+ 622 0004 00AF     		add	r7, sp, #0
+ 623              	.LCFI31:
+ 624              		.cfi_def_cfa_register 7
+ 625 0006 0346     		mov	r3, r0
+ 626 0008 FB71     		strb	r3, [r7, #7]
+ 764:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	CY_SET_REG8(PWM_MOTOR_TILT_CONTROL_PTR, control);
+ 627              		.loc 1 764 0
+ 628 000a 44F61873 		movw	r3, #20248
+ 629 000e C4F20003 		movt	r3, 16384
+ 630 0012 FA79     		ldrb	r2, [r7, #7]
+ 631 0014 1A70     		strb	r2, [r3, #0]
+ 765:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 632              		.loc 1 765 0
+ 633 0016 07F10C07 		add	r7, r7, #12
+ 634 001a BD46     		mov	sp, r7
+ 635 001c 80BC     		pop	{r7}
+ 636 001e 7047     		bx	lr
+ 637              		.cfi_endproc
+ 638              	.LFE11:
+ 639              		.size	PWM_MOTOR_TILT_WriteControlRegister, .-PWM_MOTOR_TILT_WriteControlRegister
+ 640              		.section	.text.PWM_MOTOR_TILT_ReadCompare,"ax",%progbits
+ 641              		.align	2
+ 642              		.global	PWM_MOTOR_TILT_ReadCompare
+ 643              		.thumb
+ 644              		.thumb_func
+ 645              		.type	PWM_MOTOR_TILT_ReadCompare, %function
+ 646              	PWM_MOTOR_TILT_ReadCompare:
+ 647              	.LFB12:
+ 766:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	
+ 767:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* (PWM_MOTOR_TILT_UseControl) */
+ 768:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 769:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 770:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (!PWM_MOTOR_TILT_UsingFixedFunction)
+ 771:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 772:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 773:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 774:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadCapture
+ 775:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 776:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 777:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 778:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Reads the capture value from the capture FIFO.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 26
+
+
+ 779:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 780:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 781:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 782:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 783:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 784:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8/uint16: The current capture value
+ 785:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 786:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/  
+ 787:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCapture(void)  
+ 788:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 789:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	return (CY_GET_REG16(PWM_MOTOR_TILT_CAPTURE_LSB_PTR));
+ 790:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 791:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	
+ 792:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* (!PWM_MOTOR_TILT_UsingFixedFunction) */
+ 793:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 794:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 795:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #if (PWM_MOTOR_TILT_UseOneCompareMode)
+ 796:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 797:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 798:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 799:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadCompare
+ 800:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 801:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 802:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 803:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Reads the compare value for the compare output when the PWM Mode parameter is 
+ 804:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  set to Dither mode, Center Aligned mode, or One Output mode.
+ 805:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 806:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 807:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 808:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 809:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 810:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8/uint16: Current compare value
+ 811:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 812:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/  
+ 813:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCompare(void)  
+ 814:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 648              		.loc 1 814 0
+ 649              		.cfi_startproc
+ 650              		@ args = 0, pretend = 0, frame = 0
+ 651              		@ frame_needed = 1, uses_anonymous_args = 0
+ 652              		@ link register save eliminated.
+ 653 0000 80B4     		push	{r7}
+ 654              	.LCFI32:
+ 655              		.cfi_def_cfa_offset 4
+ 656              		.cfi_offset 7, -4
+ 657 0002 00AF     		add	r7, sp, #0
+ 658              	.LCFI33:
+ 659              		.cfi_def_cfa_register 7
+ 815:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		#if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 816:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             return ((uint16)CY_GET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR));
+ 660              		.loc 1 816 0
+ 661 0004 44F61E73 		movw	r3, #20254
+ 662 0008 C4F20003 		movt	r3, 16384
+ 663 000c 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 664 000e 9BB2     		uxth	r3, r3
+ 817:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
+ 818:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             return (CY_GET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR));
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 27
+
+
+ 819:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 820:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 665              		.loc 1 820 0
+ 666 0010 1846     		mov	r0, r3
+ 667 0012 BD46     		mov	sp, r7
+ 668 0014 80BC     		pop	{r7}
+ 669 0016 7047     		bx	lr
+ 670              		.cfi_endproc
+ 671              	.LFE12:
+ 672              		.size	PWM_MOTOR_TILT_ReadCompare, .-PWM_MOTOR_TILT_ReadCompare
+ 673              		.section	.text.PWM_MOTOR_TILT_ReadPeriod,"ax",%progbits
+ 674              		.align	2
+ 675              		.global	PWM_MOTOR_TILT_ReadPeriod
+ 676              		.thumb
+ 677              		.thumb_func
+ 678              		.type	PWM_MOTOR_TILT_ReadPeriod, %function
+ 679              	PWM_MOTOR_TILT_ReadPeriod:
+ 680              	.LFB13:
+ 821:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 822:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #else
+ 823:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 824:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 825:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 826:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadCompare1
+ 827:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 828:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 829:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 830:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Reads the compare value for the compare1 output.
+ 831:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 832:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 833:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 834:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 835:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 836:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8/uint16: Current compare value.
+ 837:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 838:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/  
+ 839:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCompare1(void) 
+ 840:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 841:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		return (CY_GET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR));
+ 842:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 843:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 844:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 845:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     /*******************************************************************************
+ 846:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Function Name: PWM_MOTOR_TILT_ReadCompare2
+ 847:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     ********************************************************************************
+ 848:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
+ 849:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
+ 850:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Reads the compare value for the compare2 output.
+ 851:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 852:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
+ 853:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
+ 854:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 855:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
+ 856:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  uint8/uint16: Current compare value.
+ 857:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
+ 858:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/  
+ 859:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCompare2(void)  
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 28
+
+
+ 860:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
+ 861:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		return (CY_GET_REG16(PWM_MOTOR_TILT_COMPARE2_LSB_PTR));
+ 862:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
+ 863:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 864:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #endif /* (PWM_MOTOR_TILT_UseOneCompareMode) */
+ 865:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 866:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
+ 867:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** /*******************************************************************************
+ 868:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Function Name: PWM_MOTOR_TILT_ReadPeriod
+ 869:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** ********************************************************************************
+ 870:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * 
+ 871:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Summary:
+ 872:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  Reads the period value used by the PWM hardware.
+ 873:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 874:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Parameters:  
+ 875:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
+ 876:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 877:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Return: 
+ 878:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  uint8/16: Period value
+ 879:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
+ 880:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/ 
+ 881:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** uint16 PWM_MOTOR_TILT_ReadPeriod(void) 
+ 882:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** {
+ 681              		.loc 1 882 0
+ 682              		.cfi_startproc
+ 683              		@ args = 0, pretend = 0, frame = 0
+ 684              		@ frame_needed = 1, uses_anonymous_args = 0
+ 685              		@ link register save eliminated.
+ 686 0000 80B4     		push	{r7}
+ 687              	.LCFI34:
+ 688              		.cfi_def_cfa_offset 4
+ 689              		.cfi_offset 7, -4
+ 690 0002 00AF     		add	r7, sp, #0
+ 691              	.LCFI35:
+ 692              		.cfi_def_cfa_register 7
+ 883:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	#if(PWM_MOTOR_TILT_UsingFixedFunction)
+ 884:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         return ((uint16)CY_GET_REG16(PWM_MOTOR_TILT_PERIOD_LSB_PTR));
+ 693              		.loc 1 884 0
+ 694 0004 44F61C73 		movw	r3, #20252
+ 695 0008 C4F20003 		movt	r3, 16384
+ 696 000c 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 697 000e 9BB2     		uxth	r3, r3
+ 885:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #else
+ 886:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         return (CY_GET_REG16(PWM_MOTOR_TILT_PERIOD_LSB_PTR));
+ 887:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
+ 888:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
+ 698              		.loc 1 888 0
+ 699 0010 1846     		mov	r0, r3
+ 700 0012 BD46     		mov	sp, r7
+ 701 0014 80BC     		pop	{r7}
+ 702 0016 7047     		bx	lr
+ 703              		.cfi_endproc
+ 704              	.LFE13:
+ 705              		.size	PWM_MOTOR_TILT_ReadPeriod, .-PWM_MOTOR_TILT_ReadPeriod
+ 706              		.text
+ 707              	.Letext0:
+ 708              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 29
+
+
+ 709              		.section	.debug_info,"",%progbits
+ 710              	.Ldebug_info0:
+ 711 0000 C1020000 		.4byte	0x2c1
+ 712 0004 0200     		.2byte	0x2
+ 713 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 714 000a 04       		.byte	0x4
+ 715 000b 01       		.uleb128 0x1
+ 716 000c E4020000 		.4byte	.LASF38
+ 717 0010 01       		.byte	0x1
+ 718 0011 8F010000 		.4byte	.LASF39
+ 719 0015 04010000 		.4byte	.LASF40
+ 720 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 721 001d 00000000 		.4byte	0
+ 722 0021 00000000 		.4byte	0
+ 723 0025 00000000 		.4byte	.Ldebug_line0
+ 724 0029 02       		.uleb128 0x2
+ 725 002a 01       		.byte	0x1
+ 726 002b 06       		.byte	0x6
+ 727 002c 4F030000 		.4byte	.LASF0
+ 728 0030 02       		.uleb128 0x2
+ 729 0031 01       		.byte	0x1
+ 730 0032 08       		.byte	0x8
+ 731 0033 72000000 		.4byte	.LASF1
+ 732 0037 02       		.uleb128 0x2
+ 733 0038 02       		.byte	0x2
+ 734 0039 05       		.byte	0x5
+ 735 003a BD020000 		.4byte	.LASF2
+ 736 003e 02       		.uleb128 0x2
+ 737 003f 02       		.byte	0x2
+ 738 0040 07       		.byte	0x7
+ 739 0041 28000000 		.4byte	.LASF3
+ 740 0045 02       		.uleb128 0x2
+ 741 0046 04       		.byte	0x4
+ 742 0047 05       		.byte	0x5
+ 743 0048 41030000 		.4byte	.LASF4
+ 744 004c 02       		.uleb128 0x2
+ 745 004d 04       		.byte	0x4
+ 746 004e 07       		.byte	0x7
+ 747 004f A5000000 		.4byte	.LASF5
+ 748 0053 02       		.uleb128 0x2
+ 749 0054 08       		.byte	0x8
+ 750 0055 05       		.byte	0x5
+ 751 0056 7F020000 		.4byte	.LASF6
+ 752 005a 02       		.uleb128 0x2
+ 753 005b 08       		.byte	0x8
+ 754 005c 07       		.byte	0x7
+ 755 005d EE010000 		.4byte	.LASF7
+ 756 0061 03       		.uleb128 0x3
+ 757 0062 04       		.byte	0x4
+ 758 0063 05       		.byte	0x5
+ 759 0064 696E7400 		.ascii	"int\000"
+ 760 0068 02       		.uleb128 0x2
+ 761 0069 04       		.byte	0x4
+ 762 006a 07       		.byte	0x7
+ 763 006b 3B000000 		.4byte	.LASF8
+ 764 006f 04       		.uleb128 0x4
+ 765 0070 B7000000 		.4byte	.LASF9
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 30
+
+
+ 766 0074 02       		.byte	0x2
+ 767 0075 5B       		.byte	0x5b
+ 768 0076 30000000 		.4byte	0x30
+ 769 007a 04       		.uleb128 0x4
+ 770 007b 74010000 		.4byte	.LASF10
+ 771 007f 02       		.byte	0x2
+ 772 0080 5C       		.byte	0x5c
+ 773 0081 3E000000 		.4byte	0x3e
+ 774 0085 02       		.uleb128 0x2
+ 775 0086 04       		.byte	0x4
+ 776 0087 04       		.byte	0x4
+ 777 0088 48000000 		.4byte	.LASF11
+ 778 008c 02       		.uleb128 0x2
+ 779 008d 08       		.byte	0x8
+ 780 008e 04       		.byte	0x4
+ 781 008f C5000000 		.4byte	.LASF12
+ 782 0093 02       		.uleb128 0x2
+ 783 0094 01       		.byte	0x1
+ 784 0095 08       		.byte	0x8
+ 785 0096 4A030000 		.4byte	.LASF13
+ 786 009a 04       		.uleb128 0x4
+ 787 009b A0000000 		.4byte	.LASF14
+ 788 009f 02       		.byte	0x2
+ 789 00a0 F0       		.byte	0xf0
+ 790 00a1 A5000000 		.4byte	0xa5
+ 791 00a5 05       		.uleb128 0x5
+ 792 00a6 6F000000 		.4byte	0x6f
+ 793 00aa 04       		.uleb128 0x4
+ 794 00ab 00000000 		.4byte	.LASF15
+ 795 00af 02       		.byte	0x2
+ 796 00b0 F1       		.byte	0xf1
+ 797 00b1 B5000000 		.4byte	0xb5
+ 798 00b5 05       		.uleb128 0x5
+ 799 00b6 7A000000 		.4byte	0x7a
+ 800 00ba 02       		.uleb128 0x2
+ 801 00bb 04       		.byte	0x4
+ 802 00bc 07       		.byte	0x7
+ 803 00bd 76020000 		.4byte	.LASF16
+ 804 00c1 06       		.uleb128 0x6
+ 805 00c2 01       		.byte	0x1
+ 806 00c3 CC000000 		.4byte	.LASF17
+ 807 00c7 01       		.byte	0x1
+ 808 00c8 32       		.byte	0x32
+ 809 00c9 01       		.byte	0x1
+ 810 00ca 00000000 		.4byte	.LFB0
+ 811 00ce 2A000000 		.4byte	.LFE0
+ 812 00d2 00000000 		.4byte	.LLST0
+ 813 00d6 01       		.byte	0x1
+ 814 00d7 07       		.uleb128 0x7
+ 815 00d8 01       		.byte	0x1
+ 816 00d9 7B010000 		.4byte	.LASF20
+ 817 00dd 01       		.byte	0x1
+ 818 00de 4F       		.byte	0x4f
+ 819 00df 01       		.byte	0x1
+ 820 00e0 00000000 		.4byte	.LFB1
+ 821 00e4 32010000 		.4byte	.LFE1
+ 822 00e8 2C000000 		.4byte	.LLST1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 31
+
+
+ 823 00ec 01       		.byte	0x1
+ 824 00ed 00010000 		.4byte	0x100
+ 825 00f1 08       		.uleb128 0x8
+ 826 00f2 71020000 		.4byte	.LASF29
+ 827 00f6 01       		.byte	0x1
+ 828 00f7 52       		.byte	0x52
+ 829 00f8 6F000000 		.4byte	0x6f
+ 830 00fc 02       		.byte	0x2
+ 831 00fd 91       		.byte	0x91
+ 832 00fe 77       		.sleb128 -9
+ 833 00ff 00       		.byte	0
+ 834 0100 09       		.uleb128 0x9
+ 835 0101 01       		.byte	0x1
+ 836 0102 1C020000 		.4byte	.LASF18
+ 837 0106 01       		.byte	0x1
+ 838 0107 C1       		.byte	0xc1
+ 839 0108 01       		.byte	0x1
+ 840 0109 00000000 		.4byte	.LFB2
+ 841 010d 5E000000 		.4byte	.LFE2
+ 842 0111 64000000 		.4byte	.LLST2
+ 843 0115 01       		.byte	0x1
+ 844 0116 09       		.uleb128 0x9
+ 845 0117 01       		.byte	0x1
+ 846 0118 2D030000 		.4byte	.LASF19
+ 847 011c 01       		.byte	0x1
+ 848 011d E3       		.byte	0xe3
+ 849 011e 01       		.byte	0x1
+ 850 011f 00000000 		.4byte	.LFB3
+ 851 0123 5E000000 		.4byte	.LFE3
+ 852 0127 90000000 		.4byte	.LLST3
+ 853 012b 01       		.byte	0x1
+ 854 012c 0A       		.uleb128 0xa
+ 855 012d 01       		.byte	0x1
+ 856 012e 06000000 		.4byte	.LASF21
+ 857 0132 01       		.byte	0x1
+ 858 0133 DC01     		.2byte	0x1dc
+ 859 0135 01       		.byte	0x1
+ 860 0136 00000000 		.4byte	.LFB4
+ 861 013a 20000000 		.4byte	.LFE4
+ 862 013e BC000000 		.4byte	.LLST4
+ 863 0142 01       		.byte	0x1
+ 864 0143 57010000 		.4byte	0x157
+ 865 0147 0B       		.uleb128 0xb
+ 866 0148 21000000 		.4byte	.LASF23
+ 867 014c 01       		.byte	0x1
+ 868 014d DC01     		.2byte	0x1dc
+ 869 014f 7A000000 		.4byte	0x7a
+ 870 0153 02       		.byte	0x2
+ 871 0154 91       		.byte	0x91
+ 872 0155 76       		.sleb128 -10
+ 873 0156 00       		.byte	0
+ 874 0157 0A       		.uleb128 0xa
+ 875 0158 01       		.byte	0x1
+ 876 0159 39020000 		.4byte	.LASF22
+ 877 015d 01       		.byte	0x1
+ 878 015e FE01     		.2byte	0x1fe
+ 879 0160 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 32
+
+
+ 880 0161 00000000 		.4byte	.LFB5
+ 881 0165 20000000 		.4byte	.LFE5
+ 882 0169 F4000000 		.4byte	.LLST5
+ 883 016d 01       		.byte	0x1
+ 884 016e 82010000 		.4byte	0x182
+ 885 0172 0B       		.uleb128 0xb
+ 886 0173 5B030000 		.4byte	.LASF24
+ 887 0177 01       		.byte	0x1
+ 888 0178 FE01     		.2byte	0x1fe
+ 889 017a 7A000000 		.4byte	0x7a
+ 890 017e 02       		.byte	0x2
+ 891 017f 91       		.byte	0x91
+ 892 0180 76       		.sleb128 -10
+ 893 0181 00       		.byte	0
+ 894 0182 0A       		.uleb128 0xa
+ 895 0183 01       		.byte	0x1
+ 896 0184 C7020000 		.4byte	.LASF25
+ 897 0188 01       		.byte	0x1
+ 898 0189 5E02     		.2byte	0x25e
+ 899 018b 01       		.byte	0x1
+ 900 018c 00000000 		.4byte	.LFB6
+ 901 0190 58000000 		.4byte	.LFE6
+ 902 0194 2C010000 		.4byte	.LLST6
+ 903 0198 01       		.byte	0x1
+ 904 0199 AD010000 		.4byte	0x1ad
+ 905 019d 0B       		.uleb128 0xb
+ 906 019e 63030000 		.4byte	.LASF26
+ 907 01a2 01       		.byte	0x1
+ 908 01a3 5E02     		.2byte	0x25e
+ 909 01a5 6F000000 		.4byte	0x6f
+ 910 01a9 02       		.byte	0x2
+ 911 01aa 91       		.byte	0x91
+ 912 01ab 77       		.sleb128 -9
+ 913 01ac 00       		.byte	0
+ 914 01ad 0C       		.uleb128 0xc
+ 915 01ae 01       		.byte	0x1
+ 916 01af 55020000 		.4byte	.LASF35
+ 917 01b3 01       		.byte	0x1
+ 918 01b4 8202     		.2byte	0x282
+ 919 01b6 01       		.byte	0x1
+ 920 01b7 6F000000 		.4byte	0x6f
+ 921 01bb 00000000 		.4byte	.LFB7
+ 922 01bf 1E000000 		.4byte	.LFE7
+ 923 01c3 64010000 		.4byte	.LLST7
+ 924 01c7 01       		.byte	0x1
+ 925 01c8 0A       		.uleb128 0xa
+ 926 01c9 01       		.byte	0x1
+ 927 01ca 80000000 		.4byte	.LASF27
+ 928 01ce 01       		.byte	0x1
+ 929 01cf A602     		.2byte	0x2a6
+ 930 01d1 01       		.byte	0x1
+ 931 01d2 00000000 		.4byte	.LFB8
+ 932 01d6 20000000 		.4byte	.LFE8
+ 933 01da 90010000 		.4byte	.LLST8
+ 934 01de 01       		.byte	0x1
+ 935 01df F3010000 		.4byte	0x1f3
+ 936 01e3 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 33
+
+
+ 937 01e4 8D020000 		.4byte	.LASF28
+ 938 01e8 01       		.byte	0x1
+ 939 01e9 A602     		.2byte	0x2a6
+ 940 01eb 6F000000 		.4byte	0x6f
+ 941 01ef 02       		.byte	0x2
+ 942 01f0 91       		.byte	0x91
+ 943 01f1 77       		.sleb128 -9
+ 944 01f2 00       		.byte	0
+ 945 01f3 0D       		.uleb128 0xd
+ 946 01f4 01       		.byte	0x1
+ 947 01f5 9B020000 		.4byte	.LASF31
+ 948 01f9 01       		.byte	0x1
+ 949 01fa C102     		.2byte	0x2c1
+ 950 01fc 01       		.byte	0x1
+ 951 01fd 6F000000 		.4byte	0x6f
+ 952 0201 00000000 		.4byte	.LFB9
+ 953 0205 20000000 		.4byte	.LFE9
+ 954 0209 C8010000 		.4byte	.LLST9
+ 955 020d 01       		.byte	0x1
+ 956 020e 22020000 		.4byte	0x222
+ 957 0212 0E       		.uleb128 0xe
+ 958 0213 32020000 		.4byte	.LASF30
+ 959 0217 01       		.byte	0x1
+ 960 0218 C302     		.2byte	0x2c3
+ 961 021a 6F000000 		.4byte	0x6f
+ 962 021e 02       		.byte	0x2
+ 963 021f 91       		.byte	0x91
+ 964 0220 77       		.sleb128 -9
+ 965 0221 00       		.byte	0
+ 966 0222 0D       		.uleb128 0xd
+ 967 0223 01       		.byte	0x1
+ 968 0224 E1000000 		.4byte	.LASF32
+ 969 0228 01       		.byte	0x1
+ 970 0229 DE02     		.2byte	0x2de
+ 971 022b 01       		.byte	0x1
+ 972 022c 6F000000 		.4byte	0x6f
+ 973 0230 00000000 		.4byte	.LFB10
+ 974 0234 20000000 		.4byte	.LFE10
+ 975 0238 00020000 		.4byte	.LLST10
+ 976 023c 01       		.byte	0x1
+ 977 023d 51020000 		.4byte	0x251
+ 978 0241 0E       		.uleb128 0xe
+ 979 0242 32020000 		.4byte	.LASF30
+ 980 0246 01       		.byte	0x1
+ 981 0247 E002     		.2byte	0x2e0
+ 982 0249 6F000000 		.4byte	0x6f
+ 983 024d 02       		.byte	0x2
+ 984 024e 91       		.byte	0x91
+ 985 024f 77       		.sleb128 -9
+ 986 0250 00       		.byte	0
+ 987 0251 0A       		.uleb128 0xa
+ 988 0252 01       		.byte	0x1
+ 989 0253 4E000000 		.4byte	.LASF33
+ 990 0257 01       		.byte	0x1
+ 991 0258 FA02     		.2byte	0x2fa
+ 992 025a 01       		.byte	0x1
+ 993 025b 00000000 		.4byte	.LFB11
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 34
+
+
+ 994 025f 20000000 		.4byte	.LFE11
+ 995 0263 38020000 		.4byte	.LLST11
+ 996 0267 01       		.byte	0x1
+ 997 0268 7C020000 		.4byte	0x27c
+ 998 026c 0B       		.uleb128 0xb
+ 999 026d BD000000 		.4byte	.LASF34
+ 1000 0271 01       		.byte	0x1
+ 1001 0272 FA02     		.2byte	0x2fa
+ 1002 0274 6F000000 		.4byte	0x6f
+ 1003 0278 02       		.byte	0x2
+ 1004 0279 91       		.byte	0x91
+ 1005 027a 77       		.sleb128 -9
+ 1006 027b 00       		.byte	0
+ 1007 027c 0C       		.uleb128 0xc
+ 1008 027d 01       		.byte	0x1
+ 1009 027e B9010000 		.4byte	.LASF36
+ 1010 0282 01       		.byte	0x1
+ 1011 0283 2D03     		.2byte	0x32d
+ 1012 0285 01       		.byte	0x1
+ 1013 0286 7A000000 		.4byte	0x7a
+ 1014 028a 00000000 		.4byte	.LFB12
+ 1015 028e 18000000 		.4byte	.LFE12
+ 1016 0292 70020000 		.4byte	.LLST12
+ 1017 0296 01       		.byte	0x1
+ 1018 0297 0C       		.uleb128 0xc
+ 1019 0298 01       		.byte	0x1
+ 1020 0299 D4010000 		.4byte	.LASF37
+ 1021 029d 01       		.byte	0x1
+ 1022 029e 7103     		.2byte	0x371
+ 1023 02a0 01       		.byte	0x1
+ 1024 02a1 7A000000 		.4byte	0x7a
+ 1025 02a5 00000000 		.4byte	.LFB13
+ 1026 02a9 18000000 		.4byte	.LFE13
+ 1027 02ad 9C020000 		.4byte	.LLST13
+ 1028 02b1 01       		.byte	0x1
+ 1029 02b2 0F       		.uleb128 0xf
+ 1030 02b3 05020000 		.4byte	.LASF41
+ 1031 02b7 01       		.byte	0x1
+ 1032 02b8 1B       		.byte	0x1b
+ 1033 02b9 6F000000 		.4byte	0x6f
+ 1034 02bd 01       		.byte	0x1
+ 1035 02be 05       		.byte	0x5
+ 1036 02bf 03       		.byte	0x3
+ 1037 02c0 00000000 		.4byte	PWM_MOTOR_TILT_initVar
+ 1038 02c4 00       		.byte	0
+ 1039              		.section	.debug_abbrev,"",%progbits
+ 1040              	.Ldebug_abbrev0:
+ 1041 0000 01       		.uleb128 0x1
+ 1042 0001 11       		.uleb128 0x11
+ 1043 0002 01       		.byte	0x1
+ 1044 0003 25       		.uleb128 0x25
+ 1045 0004 0E       		.uleb128 0xe
+ 1046 0005 13       		.uleb128 0x13
+ 1047 0006 0B       		.uleb128 0xb
+ 1048 0007 03       		.uleb128 0x3
+ 1049 0008 0E       		.uleb128 0xe
+ 1050 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 35
+
+
+ 1051 000a 0E       		.uleb128 0xe
+ 1052 000b 55       		.uleb128 0x55
+ 1053 000c 06       		.uleb128 0x6
+ 1054 000d 11       		.uleb128 0x11
+ 1055 000e 01       		.uleb128 0x1
+ 1056 000f 52       		.uleb128 0x52
+ 1057 0010 01       		.uleb128 0x1
+ 1058 0011 10       		.uleb128 0x10
+ 1059 0012 06       		.uleb128 0x6
+ 1060 0013 00       		.byte	0
+ 1061 0014 00       		.byte	0
+ 1062 0015 02       		.uleb128 0x2
+ 1063 0016 24       		.uleb128 0x24
+ 1064 0017 00       		.byte	0
+ 1065 0018 0B       		.uleb128 0xb
+ 1066 0019 0B       		.uleb128 0xb
+ 1067 001a 3E       		.uleb128 0x3e
+ 1068 001b 0B       		.uleb128 0xb
+ 1069 001c 03       		.uleb128 0x3
+ 1070 001d 0E       		.uleb128 0xe
+ 1071 001e 00       		.byte	0
+ 1072 001f 00       		.byte	0
+ 1073 0020 03       		.uleb128 0x3
+ 1074 0021 24       		.uleb128 0x24
+ 1075 0022 00       		.byte	0
+ 1076 0023 0B       		.uleb128 0xb
+ 1077 0024 0B       		.uleb128 0xb
+ 1078 0025 3E       		.uleb128 0x3e
+ 1079 0026 0B       		.uleb128 0xb
+ 1080 0027 03       		.uleb128 0x3
+ 1081 0028 08       		.uleb128 0x8
+ 1082 0029 00       		.byte	0
+ 1083 002a 00       		.byte	0
+ 1084 002b 04       		.uleb128 0x4
+ 1085 002c 16       		.uleb128 0x16
+ 1086 002d 00       		.byte	0
+ 1087 002e 03       		.uleb128 0x3
+ 1088 002f 0E       		.uleb128 0xe
+ 1089 0030 3A       		.uleb128 0x3a
+ 1090 0031 0B       		.uleb128 0xb
+ 1091 0032 3B       		.uleb128 0x3b
+ 1092 0033 0B       		.uleb128 0xb
+ 1093 0034 49       		.uleb128 0x49
+ 1094 0035 13       		.uleb128 0x13
+ 1095 0036 00       		.byte	0
+ 1096 0037 00       		.byte	0
+ 1097 0038 05       		.uleb128 0x5
+ 1098 0039 35       		.uleb128 0x35
+ 1099 003a 00       		.byte	0
+ 1100 003b 49       		.uleb128 0x49
+ 1101 003c 13       		.uleb128 0x13
+ 1102 003d 00       		.byte	0
+ 1103 003e 00       		.byte	0
+ 1104 003f 06       		.uleb128 0x6
+ 1105 0040 2E       		.uleb128 0x2e
+ 1106 0041 00       		.byte	0
+ 1107 0042 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 36
+
+
+ 1108 0043 0C       		.uleb128 0xc
+ 1109 0044 03       		.uleb128 0x3
+ 1110 0045 0E       		.uleb128 0xe
+ 1111 0046 3A       		.uleb128 0x3a
+ 1112 0047 0B       		.uleb128 0xb
+ 1113 0048 3B       		.uleb128 0x3b
+ 1114 0049 0B       		.uleb128 0xb
+ 1115 004a 27       		.uleb128 0x27
+ 1116 004b 0C       		.uleb128 0xc
+ 1117 004c 11       		.uleb128 0x11
+ 1118 004d 01       		.uleb128 0x1
+ 1119 004e 12       		.uleb128 0x12
+ 1120 004f 01       		.uleb128 0x1
+ 1121 0050 40       		.uleb128 0x40
+ 1122 0051 06       		.uleb128 0x6
+ 1123 0052 9642     		.uleb128 0x2116
+ 1124 0054 0C       		.uleb128 0xc
+ 1125 0055 00       		.byte	0
+ 1126 0056 00       		.byte	0
+ 1127 0057 07       		.uleb128 0x7
+ 1128 0058 2E       		.uleb128 0x2e
+ 1129 0059 01       		.byte	0x1
+ 1130 005a 3F       		.uleb128 0x3f
+ 1131 005b 0C       		.uleb128 0xc
+ 1132 005c 03       		.uleb128 0x3
+ 1133 005d 0E       		.uleb128 0xe
+ 1134 005e 3A       		.uleb128 0x3a
+ 1135 005f 0B       		.uleb128 0xb
+ 1136 0060 3B       		.uleb128 0x3b
+ 1137 0061 0B       		.uleb128 0xb
+ 1138 0062 27       		.uleb128 0x27
+ 1139 0063 0C       		.uleb128 0xc
+ 1140 0064 11       		.uleb128 0x11
+ 1141 0065 01       		.uleb128 0x1
+ 1142 0066 12       		.uleb128 0x12
+ 1143 0067 01       		.uleb128 0x1
+ 1144 0068 40       		.uleb128 0x40
+ 1145 0069 06       		.uleb128 0x6
+ 1146 006a 9642     		.uleb128 0x2116
+ 1147 006c 0C       		.uleb128 0xc
+ 1148 006d 01       		.uleb128 0x1
+ 1149 006e 13       		.uleb128 0x13
+ 1150 006f 00       		.byte	0
+ 1151 0070 00       		.byte	0
+ 1152 0071 08       		.uleb128 0x8
+ 1153 0072 34       		.uleb128 0x34
+ 1154 0073 00       		.byte	0
+ 1155 0074 03       		.uleb128 0x3
+ 1156 0075 0E       		.uleb128 0xe
+ 1157 0076 3A       		.uleb128 0x3a
+ 1158 0077 0B       		.uleb128 0xb
+ 1159 0078 3B       		.uleb128 0x3b
+ 1160 0079 0B       		.uleb128 0xb
+ 1161 007a 49       		.uleb128 0x49
+ 1162 007b 13       		.uleb128 0x13
+ 1163 007c 02       		.uleb128 0x2
+ 1164 007d 0A       		.uleb128 0xa
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 37
+
+
+ 1165 007e 00       		.byte	0
+ 1166 007f 00       		.byte	0
+ 1167 0080 09       		.uleb128 0x9
+ 1168 0081 2E       		.uleb128 0x2e
+ 1169 0082 00       		.byte	0
+ 1170 0083 3F       		.uleb128 0x3f
+ 1171 0084 0C       		.uleb128 0xc
+ 1172 0085 03       		.uleb128 0x3
+ 1173 0086 0E       		.uleb128 0xe
+ 1174 0087 3A       		.uleb128 0x3a
+ 1175 0088 0B       		.uleb128 0xb
+ 1176 0089 3B       		.uleb128 0x3b
+ 1177 008a 0B       		.uleb128 0xb
+ 1178 008b 27       		.uleb128 0x27
+ 1179 008c 0C       		.uleb128 0xc
+ 1180 008d 11       		.uleb128 0x11
+ 1181 008e 01       		.uleb128 0x1
+ 1182 008f 12       		.uleb128 0x12
+ 1183 0090 01       		.uleb128 0x1
+ 1184 0091 40       		.uleb128 0x40
+ 1185 0092 06       		.uleb128 0x6
+ 1186 0093 9742     		.uleb128 0x2117
+ 1187 0095 0C       		.uleb128 0xc
+ 1188 0096 00       		.byte	0
+ 1189 0097 00       		.byte	0
+ 1190 0098 0A       		.uleb128 0xa
+ 1191 0099 2E       		.uleb128 0x2e
+ 1192 009a 01       		.byte	0x1
+ 1193 009b 3F       		.uleb128 0x3f
+ 1194 009c 0C       		.uleb128 0xc
+ 1195 009d 03       		.uleb128 0x3
+ 1196 009e 0E       		.uleb128 0xe
+ 1197 009f 3A       		.uleb128 0x3a
+ 1198 00a0 0B       		.uleb128 0xb
+ 1199 00a1 3B       		.uleb128 0x3b
+ 1200 00a2 05       		.uleb128 0x5
+ 1201 00a3 27       		.uleb128 0x27
+ 1202 00a4 0C       		.uleb128 0xc
+ 1203 00a5 11       		.uleb128 0x11
+ 1204 00a6 01       		.uleb128 0x1
+ 1205 00a7 12       		.uleb128 0x12
+ 1206 00a8 01       		.uleb128 0x1
+ 1207 00a9 40       		.uleb128 0x40
+ 1208 00aa 06       		.uleb128 0x6
+ 1209 00ab 9742     		.uleb128 0x2117
+ 1210 00ad 0C       		.uleb128 0xc
+ 1211 00ae 01       		.uleb128 0x1
+ 1212 00af 13       		.uleb128 0x13
+ 1213 00b0 00       		.byte	0
+ 1214 00b1 00       		.byte	0
+ 1215 00b2 0B       		.uleb128 0xb
+ 1216 00b3 05       		.uleb128 0x5
+ 1217 00b4 00       		.byte	0
+ 1218 00b5 03       		.uleb128 0x3
+ 1219 00b6 0E       		.uleb128 0xe
+ 1220 00b7 3A       		.uleb128 0x3a
+ 1221 00b8 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 38
+
+
+ 1222 00b9 3B       		.uleb128 0x3b
+ 1223 00ba 05       		.uleb128 0x5
+ 1224 00bb 49       		.uleb128 0x49
+ 1225 00bc 13       		.uleb128 0x13
+ 1226 00bd 02       		.uleb128 0x2
+ 1227 00be 0A       		.uleb128 0xa
+ 1228 00bf 00       		.byte	0
+ 1229 00c0 00       		.byte	0
+ 1230 00c1 0C       		.uleb128 0xc
+ 1231 00c2 2E       		.uleb128 0x2e
+ 1232 00c3 00       		.byte	0
+ 1233 00c4 3F       		.uleb128 0x3f
+ 1234 00c5 0C       		.uleb128 0xc
+ 1235 00c6 03       		.uleb128 0x3
+ 1236 00c7 0E       		.uleb128 0xe
+ 1237 00c8 3A       		.uleb128 0x3a
+ 1238 00c9 0B       		.uleb128 0xb
+ 1239 00ca 3B       		.uleb128 0x3b
+ 1240 00cb 05       		.uleb128 0x5
+ 1241 00cc 27       		.uleb128 0x27
+ 1242 00cd 0C       		.uleb128 0xc
+ 1243 00ce 49       		.uleb128 0x49
+ 1244 00cf 13       		.uleb128 0x13
+ 1245 00d0 11       		.uleb128 0x11
+ 1246 00d1 01       		.uleb128 0x1
+ 1247 00d2 12       		.uleb128 0x12
+ 1248 00d3 01       		.uleb128 0x1
+ 1249 00d4 40       		.uleb128 0x40
+ 1250 00d5 06       		.uleb128 0x6
+ 1251 00d6 9742     		.uleb128 0x2117
+ 1252 00d8 0C       		.uleb128 0xc
+ 1253 00d9 00       		.byte	0
+ 1254 00da 00       		.byte	0
+ 1255 00db 0D       		.uleb128 0xd
+ 1256 00dc 2E       		.uleb128 0x2e
+ 1257 00dd 01       		.byte	0x1
+ 1258 00de 3F       		.uleb128 0x3f
+ 1259 00df 0C       		.uleb128 0xc
+ 1260 00e0 03       		.uleb128 0x3
+ 1261 00e1 0E       		.uleb128 0xe
+ 1262 00e2 3A       		.uleb128 0x3a
+ 1263 00e3 0B       		.uleb128 0xb
+ 1264 00e4 3B       		.uleb128 0x3b
+ 1265 00e5 05       		.uleb128 0x5
+ 1266 00e6 27       		.uleb128 0x27
+ 1267 00e7 0C       		.uleb128 0xc
+ 1268 00e8 49       		.uleb128 0x49
+ 1269 00e9 13       		.uleb128 0x13
+ 1270 00ea 11       		.uleb128 0x11
+ 1271 00eb 01       		.uleb128 0x1
+ 1272 00ec 12       		.uleb128 0x12
+ 1273 00ed 01       		.uleb128 0x1
+ 1274 00ee 40       		.uleb128 0x40
+ 1275 00ef 06       		.uleb128 0x6
+ 1276 00f0 9742     		.uleb128 0x2117
+ 1277 00f2 0C       		.uleb128 0xc
+ 1278 00f3 01       		.uleb128 0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 39
+
+
+ 1279 00f4 13       		.uleb128 0x13
+ 1280 00f5 00       		.byte	0
+ 1281 00f6 00       		.byte	0
+ 1282 00f7 0E       		.uleb128 0xe
+ 1283 00f8 34       		.uleb128 0x34
+ 1284 00f9 00       		.byte	0
+ 1285 00fa 03       		.uleb128 0x3
+ 1286 00fb 0E       		.uleb128 0xe
+ 1287 00fc 3A       		.uleb128 0x3a
+ 1288 00fd 0B       		.uleb128 0xb
+ 1289 00fe 3B       		.uleb128 0x3b
+ 1290 00ff 05       		.uleb128 0x5
+ 1291 0100 49       		.uleb128 0x49
+ 1292 0101 13       		.uleb128 0x13
+ 1293 0102 02       		.uleb128 0x2
+ 1294 0103 0A       		.uleb128 0xa
+ 1295 0104 00       		.byte	0
+ 1296 0105 00       		.byte	0
+ 1297 0106 0F       		.uleb128 0xf
+ 1298 0107 34       		.uleb128 0x34
+ 1299 0108 00       		.byte	0
+ 1300 0109 03       		.uleb128 0x3
+ 1301 010a 0E       		.uleb128 0xe
+ 1302 010b 3A       		.uleb128 0x3a
+ 1303 010c 0B       		.uleb128 0xb
+ 1304 010d 3B       		.uleb128 0x3b
+ 1305 010e 0B       		.uleb128 0xb
+ 1306 010f 49       		.uleb128 0x49
+ 1307 0110 13       		.uleb128 0x13
+ 1308 0111 3F       		.uleb128 0x3f
+ 1309 0112 0C       		.uleb128 0xc
+ 1310 0113 02       		.uleb128 0x2
+ 1311 0114 0A       		.uleb128 0xa
+ 1312 0115 00       		.byte	0
+ 1313 0116 00       		.byte	0
+ 1314 0117 00       		.byte	0
+ 1315              		.section	.debug_loc,"",%progbits
+ 1316              	.Ldebug_loc0:
+ 1317              	.LLST0:
+ 1318 0000 00000000 		.4byte	.LFB0
+ 1319 0004 02000000 		.4byte	.LCFI0
+ 1320 0008 0200     		.2byte	0x2
+ 1321 000a 7D       		.byte	0x7d
+ 1322 000b 00       		.sleb128 0
+ 1323 000c 02000000 		.4byte	.LCFI0
+ 1324 0010 04000000 		.4byte	.LCFI1
+ 1325 0014 0200     		.2byte	0x2
+ 1326 0016 7D       		.byte	0x7d
+ 1327 0017 08       		.sleb128 8
+ 1328 0018 04000000 		.4byte	.LCFI1
+ 1329 001c 2A000000 		.4byte	.LFE0
+ 1330 0020 0200     		.2byte	0x2
+ 1331 0022 77       		.byte	0x77
+ 1332 0023 08       		.sleb128 8
+ 1333 0024 00000000 		.4byte	0
+ 1334 0028 00000000 		.4byte	0
+ 1335              	.LLST1:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 40
+
+
+ 1336 002c 00000000 		.4byte	.LFB1
+ 1337 0030 02000000 		.4byte	.LCFI2
+ 1338 0034 0200     		.2byte	0x2
+ 1339 0036 7D       		.byte	0x7d
+ 1340 0037 00       		.sleb128 0
+ 1341 0038 02000000 		.4byte	.LCFI2
+ 1342 003c 04000000 		.4byte	.LCFI3
+ 1343 0040 0200     		.2byte	0x2
+ 1344 0042 7D       		.byte	0x7d
+ 1345 0043 08       		.sleb128 8
+ 1346 0044 04000000 		.4byte	.LCFI3
+ 1347 0048 06000000 		.4byte	.LCFI4
+ 1348 004c 0200     		.2byte	0x2
+ 1349 004e 7D       		.byte	0x7d
+ 1350 004f 10       		.sleb128 16
+ 1351 0050 06000000 		.4byte	.LCFI4
+ 1352 0054 32010000 		.4byte	.LFE1
+ 1353 0058 0200     		.2byte	0x2
+ 1354 005a 77       		.byte	0x77
+ 1355 005b 10       		.sleb128 16
+ 1356 005c 00000000 		.4byte	0
+ 1357 0060 00000000 		.4byte	0
+ 1358              	.LLST2:
+ 1359 0064 00000000 		.4byte	.LFB2
+ 1360 0068 02000000 		.4byte	.LCFI5
+ 1361 006c 0200     		.2byte	0x2
+ 1362 006e 7D       		.byte	0x7d
+ 1363 006f 00       		.sleb128 0
+ 1364 0070 02000000 		.4byte	.LCFI5
+ 1365 0074 04000000 		.4byte	.LCFI6
+ 1366 0078 0200     		.2byte	0x2
+ 1367 007a 7D       		.byte	0x7d
+ 1368 007b 04       		.sleb128 4
+ 1369 007c 04000000 		.4byte	.LCFI6
+ 1370 0080 5E000000 		.4byte	.LFE2
+ 1371 0084 0200     		.2byte	0x2
+ 1372 0086 77       		.byte	0x77
+ 1373 0087 04       		.sleb128 4
+ 1374 0088 00000000 		.4byte	0
+ 1375 008c 00000000 		.4byte	0
+ 1376              	.LLST3:
+ 1377 0090 00000000 		.4byte	.LFB3
+ 1378 0094 02000000 		.4byte	.LCFI7
+ 1379 0098 0200     		.2byte	0x2
+ 1380 009a 7D       		.byte	0x7d
+ 1381 009b 00       		.sleb128 0
+ 1382 009c 02000000 		.4byte	.LCFI7
+ 1383 00a0 04000000 		.4byte	.LCFI8
+ 1384 00a4 0200     		.2byte	0x2
+ 1385 00a6 7D       		.byte	0x7d
+ 1386 00a7 04       		.sleb128 4
+ 1387 00a8 04000000 		.4byte	.LCFI8
+ 1388 00ac 5E000000 		.4byte	.LFE3
+ 1389 00b0 0200     		.2byte	0x2
+ 1390 00b2 77       		.byte	0x77
+ 1391 00b3 04       		.sleb128 4
+ 1392 00b4 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 41
+
+
+ 1393 00b8 00000000 		.4byte	0
+ 1394              	.LLST4:
+ 1395 00bc 00000000 		.4byte	.LFB4
+ 1396 00c0 02000000 		.4byte	.LCFI9
+ 1397 00c4 0200     		.2byte	0x2
+ 1398 00c6 7D       		.byte	0x7d
+ 1399 00c7 00       		.sleb128 0
+ 1400 00c8 02000000 		.4byte	.LCFI9
+ 1401 00cc 04000000 		.4byte	.LCFI10
+ 1402 00d0 0200     		.2byte	0x2
+ 1403 00d2 7D       		.byte	0x7d
+ 1404 00d3 04       		.sleb128 4
+ 1405 00d4 04000000 		.4byte	.LCFI10
+ 1406 00d8 06000000 		.4byte	.LCFI11
+ 1407 00dc 0200     		.2byte	0x2
+ 1408 00de 7D       		.byte	0x7d
+ 1409 00df 10       		.sleb128 16
+ 1410 00e0 06000000 		.4byte	.LCFI11
+ 1411 00e4 20000000 		.4byte	.LFE4
+ 1412 00e8 0200     		.2byte	0x2
+ 1413 00ea 77       		.byte	0x77
+ 1414 00eb 10       		.sleb128 16
+ 1415 00ec 00000000 		.4byte	0
+ 1416 00f0 00000000 		.4byte	0
+ 1417              	.LLST5:
+ 1418 00f4 00000000 		.4byte	.LFB5
+ 1419 00f8 02000000 		.4byte	.LCFI12
+ 1420 00fc 0200     		.2byte	0x2
+ 1421 00fe 7D       		.byte	0x7d
+ 1422 00ff 00       		.sleb128 0
+ 1423 0100 02000000 		.4byte	.LCFI12
+ 1424 0104 04000000 		.4byte	.LCFI13
+ 1425 0108 0200     		.2byte	0x2
+ 1426 010a 7D       		.byte	0x7d
+ 1427 010b 04       		.sleb128 4
+ 1428 010c 04000000 		.4byte	.LCFI13
+ 1429 0110 06000000 		.4byte	.LCFI14
+ 1430 0114 0200     		.2byte	0x2
+ 1431 0116 7D       		.byte	0x7d
+ 1432 0117 10       		.sleb128 16
+ 1433 0118 06000000 		.4byte	.LCFI14
+ 1434 011c 20000000 		.4byte	.LFE5
+ 1435 0120 0200     		.2byte	0x2
+ 1436 0122 77       		.byte	0x77
+ 1437 0123 10       		.sleb128 16
+ 1438 0124 00000000 		.4byte	0
+ 1439 0128 00000000 		.4byte	0
+ 1440              	.LLST6:
+ 1441 012c 00000000 		.4byte	.LFB6
+ 1442 0130 02000000 		.4byte	.LCFI15
+ 1443 0134 0200     		.2byte	0x2
+ 1444 0136 7D       		.byte	0x7d
+ 1445 0137 00       		.sleb128 0
+ 1446 0138 02000000 		.4byte	.LCFI15
+ 1447 013c 04000000 		.4byte	.LCFI16
+ 1448 0140 0200     		.2byte	0x2
+ 1449 0142 7D       		.byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 42
+
+
+ 1450 0143 04       		.sleb128 4
+ 1451 0144 04000000 		.4byte	.LCFI16
+ 1452 0148 06000000 		.4byte	.LCFI17
+ 1453 014c 0200     		.2byte	0x2
+ 1454 014e 7D       		.byte	0x7d
+ 1455 014f 10       		.sleb128 16
+ 1456 0150 06000000 		.4byte	.LCFI17
+ 1457 0154 58000000 		.4byte	.LFE6
+ 1458 0158 0200     		.2byte	0x2
+ 1459 015a 77       		.byte	0x77
+ 1460 015b 10       		.sleb128 16
+ 1461 015c 00000000 		.4byte	0
+ 1462 0160 00000000 		.4byte	0
+ 1463              	.LLST7:
+ 1464 0164 00000000 		.4byte	.LFB7
+ 1465 0168 02000000 		.4byte	.LCFI18
+ 1466 016c 0200     		.2byte	0x2
+ 1467 016e 7D       		.byte	0x7d
+ 1468 016f 00       		.sleb128 0
+ 1469 0170 02000000 		.4byte	.LCFI18
+ 1470 0174 04000000 		.4byte	.LCFI19
+ 1471 0178 0200     		.2byte	0x2
+ 1472 017a 7D       		.byte	0x7d
+ 1473 017b 04       		.sleb128 4
+ 1474 017c 04000000 		.4byte	.LCFI19
+ 1475 0180 1E000000 		.4byte	.LFE7
+ 1476 0184 0200     		.2byte	0x2
+ 1477 0186 77       		.byte	0x77
+ 1478 0187 04       		.sleb128 4
+ 1479 0188 00000000 		.4byte	0
+ 1480 018c 00000000 		.4byte	0
+ 1481              	.LLST8:
+ 1482 0190 00000000 		.4byte	.LFB8
+ 1483 0194 02000000 		.4byte	.LCFI20
+ 1484 0198 0200     		.2byte	0x2
+ 1485 019a 7D       		.byte	0x7d
+ 1486 019b 00       		.sleb128 0
+ 1487 019c 02000000 		.4byte	.LCFI20
+ 1488 01a0 04000000 		.4byte	.LCFI21
+ 1489 01a4 0200     		.2byte	0x2
+ 1490 01a6 7D       		.byte	0x7d
+ 1491 01a7 04       		.sleb128 4
+ 1492 01a8 04000000 		.4byte	.LCFI21
+ 1493 01ac 06000000 		.4byte	.LCFI22
+ 1494 01b0 0200     		.2byte	0x2
+ 1495 01b2 7D       		.byte	0x7d
+ 1496 01b3 10       		.sleb128 16
+ 1497 01b4 06000000 		.4byte	.LCFI22
+ 1498 01b8 20000000 		.4byte	.LFE8
+ 1499 01bc 0200     		.2byte	0x2
+ 1500 01be 77       		.byte	0x77
+ 1501 01bf 10       		.sleb128 16
+ 1502 01c0 00000000 		.4byte	0
+ 1503 01c4 00000000 		.4byte	0
+ 1504              	.LLST9:
+ 1505 01c8 00000000 		.4byte	.LFB9
+ 1506 01cc 02000000 		.4byte	.LCFI23
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 43
+
+
+ 1507 01d0 0200     		.2byte	0x2
+ 1508 01d2 7D       		.byte	0x7d
+ 1509 01d3 00       		.sleb128 0
+ 1510 01d4 02000000 		.4byte	.LCFI23
+ 1511 01d8 04000000 		.4byte	.LCFI24
+ 1512 01dc 0200     		.2byte	0x2
+ 1513 01de 7D       		.byte	0x7d
+ 1514 01df 04       		.sleb128 4
+ 1515 01e0 04000000 		.4byte	.LCFI24
+ 1516 01e4 06000000 		.4byte	.LCFI25
+ 1517 01e8 0200     		.2byte	0x2
+ 1518 01ea 7D       		.byte	0x7d
+ 1519 01eb 10       		.sleb128 16
+ 1520 01ec 06000000 		.4byte	.LCFI25
+ 1521 01f0 20000000 		.4byte	.LFE9
+ 1522 01f4 0200     		.2byte	0x2
+ 1523 01f6 77       		.byte	0x77
+ 1524 01f7 10       		.sleb128 16
+ 1525 01f8 00000000 		.4byte	0
+ 1526 01fc 00000000 		.4byte	0
+ 1527              	.LLST10:
+ 1528 0200 00000000 		.4byte	.LFB10
+ 1529 0204 02000000 		.4byte	.LCFI26
+ 1530 0208 0200     		.2byte	0x2
+ 1531 020a 7D       		.byte	0x7d
+ 1532 020b 00       		.sleb128 0
+ 1533 020c 02000000 		.4byte	.LCFI26
+ 1534 0210 04000000 		.4byte	.LCFI27
+ 1535 0214 0200     		.2byte	0x2
+ 1536 0216 7D       		.byte	0x7d
+ 1537 0217 04       		.sleb128 4
+ 1538 0218 04000000 		.4byte	.LCFI27
+ 1539 021c 06000000 		.4byte	.LCFI28
+ 1540 0220 0200     		.2byte	0x2
+ 1541 0222 7D       		.byte	0x7d
+ 1542 0223 10       		.sleb128 16
+ 1543 0224 06000000 		.4byte	.LCFI28
+ 1544 0228 20000000 		.4byte	.LFE10
+ 1545 022c 0200     		.2byte	0x2
+ 1546 022e 77       		.byte	0x77
+ 1547 022f 10       		.sleb128 16
+ 1548 0230 00000000 		.4byte	0
+ 1549 0234 00000000 		.4byte	0
+ 1550              	.LLST11:
+ 1551 0238 00000000 		.4byte	.LFB11
+ 1552 023c 02000000 		.4byte	.LCFI29
+ 1553 0240 0200     		.2byte	0x2
+ 1554 0242 7D       		.byte	0x7d
+ 1555 0243 00       		.sleb128 0
+ 1556 0244 02000000 		.4byte	.LCFI29
+ 1557 0248 04000000 		.4byte	.LCFI30
+ 1558 024c 0200     		.2byte	0x2
+ 1559 024e 7D       		.byte	0x7d
+ 1560 024f 04       		.sleb128 4
+ 1561 0250 04000000 		.4byte	.LCFI30
+ 1562 0254 06000000 		.4byte	.LCFI31
+ 1563 0258 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 44
+
+
+ 1564 025a 7D       		.byte	0x7d
+ 1565 025b 10       		.sleb128 16
+ 1566 025c 06000000 		.4byte	.LCFI31
+ 1567 0260 20000000 		.4byte	.LFE11
+ 1568 0264 0200     		.2byte	0x2
+ 1569 0266 77       		.byte	0x77
+ 1570 0267 10       		.sleb128 16
+ 1571 0268 00000000 		.4byte	0
+ 1572 026c 00000000 		.4byte	0
+ 1573              	.LLST12:
+ 1574 0270 00000000 		.4byte	.LFB12
+ 1575 0274 02000000 		.4byte	.LCFI32
+ 1576 0278 0200     		.2byte	0x2
+ 1577 027a 7D       		.byte	0x7d
+ 1578 027b 00       		.sleb128 0
+ 1579 027c 02000000 		.4byte	.LCFI32
+ 1580 0280 04000000 		.4byte	.LCFI33
+ 1581 0284 0200     		.2byte	0x2
+ 1582 0286 7D       		.byte	0x7d
+ 1583 0287 04       		.sleb128 4
+ 1584 0288 04000000 		.4byte	.LCFI33
+ 1585 028c 18000000 		.4byte	.LFE12
+ 1586 0290 0200     		.2byte	0x2
+ 1587 0292 77       		.byte	0x77
+ 1588 0293 04       		.sleb128 4
+ 1589 0294 00000000 		.4byte	0
+ 1590 0298 00000000 		.4byte	0
+ 1591              	.LLST13:
+ 1592 029c 00000000 		.4byte	.LFB13
+ 1593 02a0 02000000 		.4byte	.LCFI34
+ 1594 02a4 0200     		.2byte	0x2
+ 1595 02a6 7D       		.byte	0x7d
+ 1596 02a7 00       		.sleb128 0
+ 1597 02a8 02000000 		.4byte	.LCFI34
+ 1598 02ac 04000000 		.4byte	.LCFI35
+ 1599 02b0 0200     		.2byte	0x2
+ 1600 02b2 7D       		.byte	0x7d
+ 1601 02b3 04       		.sleb128 4
+ 1602 02b4 04000000 		.4byte	.LCFI35
+ 1603 02b8 18000000 		.4byte	.LFE13
+ 1604 02bc 0200     		.2byte	0x2
+ 1605 02be 77       		.byte	0x77
+ 1606 02bf 04       		.sleb128 4
+ 1607 02c0 00000000 		.4byte	0
+ 1608 02c4 00000000 		.4byte	0
+ 1609              		.section	.debug_aranges,"",%progbits
+ 1610 0000 84000000 		.4byte	0x84
+ 1611 0004 0200     		.2byte	0x2
+ 1612 0006 00000000 		.4byte	.Ldebug_info0
+ 1613 000a 04       		.byte	0x4
+ 1614 000b 00       		.byte	0
+ 1615 000c 0000     		.2byte	0
+ 1616 000e 0000     		.2byte	0
+ 1617 0010 00000000 		.4byte	.LFB0
+ 1618 0014 2A000000 		.4byte	.LFE0-.LFB0
+ 1619 0018 00000000 		.4byte	.LFB1
+ 1620 001c 32010000 		.4byte	.LFE1-.LFB1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 45
+
+
+ 1621 0020 00000000 		.4byte	.LFB2
+ 1622 0024 5E000000 		.4byte	.LFE2-.LFB2
+ 1623 0028 00000000 		.4byte	.LFB3
+ 1624 002c 5E000000 		.4byte	.LFE3-.LFB3
+ 1625 0030 00000000 		.4byte	.LFB4
+ 1626 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1627 0038 00000000 		.4byte	.LFB5
+ 1628 003c 20000000 		.4byte	.LFE5-.LFB5
+ 1629 0040 00000000 		.4byte	.LFB6
+ 1630 0044 58000000 		.4byte	.LFE6-.LFB6
+ 1631 0048 00000000 		.4byte	.LFB7
+ 1632 004c 1E000000 		.4byte	.LFE7-.LFB7
+ 1633 0050 00000000 		.4byte	.LFB8
+ 1634 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1635 0058 00000000 		.4byte	.LFB9
+ 1636 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1637 0060 00000000 		.4byte	.LFB10
+ 1638 0064 20000000 		.4byte	.LFE10-.LFB10
+ 1639 0068 00000000 		.4byte	.LFB11
+ 1640 006c 20000000 		.4byte	.LFE11-.LFB11
+ 1641 0070 00000000 		.4byte	.LFB12
+ 1642 0074 18000000 		.4byte	.LFE12-.LFB12
+ 1643 0078 00000000 		.4byte	.LFB13
+ 1644 007c 18000000 		.4byte	.LFE13-.LFB13
+ 1645 0080 00000000 		.4byte	0
+ 1646 0084 00000000 		.4byte	0
+ 1647              		.section	.debug_ranges,"",%progbits
+ 1648              	.Ldebug_ranges0:
+ 1649 0000 00000000 		.4byte	.LFB0
+ 1650 0004 2A000000 		.4byte	.LFE0
+ 1651 0008 00000000 		.4byte	.LFB1
+ 1652 000c 32010000 		.4byte	.LFE1
+ 1653 0010 00000000 		.4byte	.LFB2
+ 1654 0014 5E000000 		.4byte	.LFE2
+ 1655 0018 00000000 		.4byte	.LFB3
+ 1656 001c 5E000000 		.4byte	.LFE3
+ 1657 0020 00000000 		.4byte	.LFB4
+ 1658 0024 20000000 		.4byte	.LFE4
+ 1659 0028 00000000 		.4byte	.LFB5
+ 1660 002c 20000000 		.4byte	.LFE5
+ 1661 0030 00000000 		.4byte	.LFB6
+ 1662 0034 58000000 		.4byte	.LFE6
+ 1663 0038 00000000 		.4byte	.LFB7
+ 1664 003c 1E000000 		.4byte	.LFE7
+ 1665 0040 00000000 		.4byte	.LFB8
+ 1666 0044 20000000 		.4byte	.LFE8
+ 1667 0048 00000000 		.4byte	.LFB9
+ 1668 004c 20000000 		.4byte	.LFE9
+ 1669 0050 00000000 		.4byte	.LFB10
+ 1670 0054 20000000 		.4byte	.LFE10
+ 1671 0058 00000000 		.4byte	.LFB11
+ 1672 005c 20000000 		.4byte	.LFE11
+ 1673 0060 00000000 		.4byte	.LFB12
+ 1674 0064 18000000 		.4byte	.LFE12
+ 1675 0068 00000000 		.4byte	.LFB13
+ 1676 006c 18000000 		.4byte	.LFE13
+ 1677 0070 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 46
+
+
+ 1678 0074 00000000 		.4byte	0
+ 1679              		.section	.debug_line,"",%progbits
+ 1680              	.Ldebug_line0:
+ 1681 0000 70010000 		.section	.debug_str,"MS",%progbits,1
+ 1681      02004D00 
+ 1681      00000201 
+ 1681      FB0E0D00 
+ 1681      01010101 
+ 1682              	.LASF15:
+ 1683 0000 72656731 		.ascii	"reg16\000"
+ 1683      3600
+ 1684              	.LASF21:
+ 1685 0006 50574D5F 		.ascii	"PWM_MOTOR_TILT_WritePeriod\000"
+ 1685      4D4F544F 
+ 1685      525F5449 
+ 1685      4C545F57 
+ 1685      72697465 
+ 1686              	.LASF23:
+ 1687 0021 70657269 		.ascii	"period\000"
+ 1687      6F6400
+ 1688              	.LASF3:
+ 1689 0028 73686F72 		.ascii	"short unsigned int\000"
+ 1689      7420756E 
+ 1689      7369676E 
+ 1689      65642069 
+ 1689      6E7400
+ 1690              	.LASF8:
+ 1691 003b 756E7369 		.ascii	"unsigned int\000"
+ 1691      676E6564 
+ 1691      20696E74 
+ 1691      00
+ 1692              	.LASF11:
+ 1693 0048 666C6F61 		.ascii	"float\000"
+ 1693      7400
+ 1694              	.LASF33:
+ 1695 004e 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteControlRegister\000"
+ 1695      4D4F544F 
+ 1695      525F5449 
+ 1695      4C545F57 
+ 1695      72697465 
+ 1696              	.LASF1:
+ 1697 0072 756E7369 		.ascii	"unsigned char\000"
+ 1697      676E6564 
+ 1697      20636861 
+ 1697      7200
+ 1698              	.LASF27:
+ 1699 0080 50574D5F 		.ascii	"PWM_MOTOR_TILT_SetInterruptMode\000"
+ 1699      4D4F544F 
+ 1699      525F5449 
+ 1699      4C545F53 
+ 1699      6574496E 
+ 1700              	.LASF14:
+ 1701 00a0 72656738 		.ascii	"reg8\000"
+ 1701      00
+ 1702              	.LASF5:
+ 1703 00a5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1703      20756E73 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 47
+
+
+ 1703      69676E65 
+ 1703      6420696E 
+ 1703      7400
+ 1704              	.LASF9:
+ 1705 00b7 75696E74 		.ascii	"uint8\000"
+ 1705      3800
+ 1706              	.LASF34:
+ 1707 00bd 636F6E74 		.ascii	"control\000"
+ 1707      726F6C00 
+ 1708              	.LASF12:
+ 1709 00c5 646F7562 		.ascii	"double\000"
+ 1709      6C6500
+ 1710              	.LASF17:
+ 1711 00cc 50574D5F 		.ascii	"PWM_MOTOR_TILT_Start\000"
+ 1711      4D4F544F 
+ 1711      525F5449 
+ 1711      4C545F53 
+ 1711      74617274 
+ 1712              	.LASF32:
+ 1713 00e1 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadControlRegister\000"
+ 1713      4D4F544F 
+ 1713      525F5449 
+ 1713      4C545F52 
+ 1713      65616443 
+ 1714              	.LASF40:
+ 1715 0104 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 1715      73657273 
+ 1715      5C477261 
+ 1715      7A69616E 
+ 1715      6F20472E 
+ 1716 0133 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 1716      5C535155 
+ 1716      49545C56 
+ 1716      6572732E 
+ 1716      302E302D 
+ 1717 0163 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 1717      2D50726F 
+ 1717      746F2E63 
+ 1717      7964736E 
+ 1717      00
+ 1718              	.LASF10:
+ 1719 0174 75696E74 		.ascii	"uint16\000"
+ 1719      313600
+ 1720              	.LASF20:
+ 1721 017b 50574D5F 		.ascii	"PWM_MOTOR_TILT_Init\000"
+ 1721      4D4F544F 
+ 1721      525F5449 
+ 1721      4C545F49 
+ 1721      6E697400 
+ 1722              	.LASF39:
+ 1723 018f 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PWM_MOTOR_TILT.c\000"
+ 1723      6E657261 
+ 1723      7465645F 
+ 1723      536F7572 
+ 1723      63655C50 
+ 1724              	.LASF36:
+ 1725 01b9 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadCompare\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 48
+
+
+ 1725      4D4F544F 
+ 1725      525F5449 
+ 1725      4C545F52 
+ 1725      65616443 
+ 1726              	.LASF37:
+ 1727 01d4 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadPeriod\000"
+ 1727      4D4F544F 
+ 1727      525F5449 
+ 1727      4C545F52 
+ 1727      65616450 
+ 1728              	.LASF7:
+ 1729 01ee 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1729      206C6F6E 
+ 1729      6720756E 
+ 1729      7369676E 
+ 1729      65642069 
+ 1730              	.LASF41:
+ 1731 0205 50574D5F 		.ascii	"PWM_MOTOR_TILT_initVar\000"
+ 1731      4D4F544F 
+ 1731      525F5449 
+ 1731      4C545F69 
+ 1731      6E697456 
+ 1732              	.LASF18:
+ 1733 021c 50574D5F 		.ascii	"PWM_MOTOR_TILT_Enable\000"
+ 1733      4D4F544F 
+ 1733      525F5449 
+ 1733      4C545F45 
+ 1733      6E61626C 
+ 1734              	.LASF30:
+ 1735 0232 72657375 		.ascii	"result\000"
+ 1735      6C7400
+ 1736              	.LASF22:
+ 1737 0239 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteCompare\000"
+ 1737      4D4F544F 
+ 1737      525F5449 
+ 1737      4C545F57 
+ 1737      72697465 
+ 1738              	.LASF35:
+ 1739 0255 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadDeadTime\000"
+ 1739      4D4F544F 
+ 1739      525F5449 
+ 1739      4C545F52 
+ 1739      65616444 
+ 1740              	.LASF29:
+ 1741 0271 6374726C 		.ascii	"ctrl\000"
+ 1741      00
+ 1742              	.LASF16:
+ 1743 0276 73697A65 		.ascii	"sizetype\000"
+ 1743      74797065 
+ 1743      00
+ 1744              	.LASF6:
+ 1745 027f 6C6F6E67 		.ascii	"long long int\000"
+ 1745      206C6F6E 
+ 1745      6720696E 
+ 1745      7400
+ 1746              	.LASF28:
+ 1747 028d 696E7465 		.ascii	"interruptMode\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 49
+
+
+ 1747      72727570 
+ 1747      744D6F64 
+ 1747      6500
+ 1748              	.LASF31:
+ 1749 029b 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadStatusRegister\000"
+ 1749      4D4F544F 
+ 1749      525F5449 
+ 1749      4C545F52 
+ 1749      65616453 
+ 1750              	.LASF2:
+ 1751 02bd 73686F72 		.ascii	"short int\000"
+ 1751      7420696E 
+ 1751      7400
+ 1752              	.LASF25:
+ 1753 02c7 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteDeadTime\000"
+ 1753      4D4F544F 
+ 1753      525F5449 
+ 1753      4C545F57 
+ 1753      72697465 
+ 1754              	.LASF38:
+ 1755 02e4 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1755      4320342E 
+ 1755      372E3320 
+ 1755      32303133 
+ 1755      30333132 
+ 1756 0317 616E6368 		.ascii	"anch revision 196615]\000"
+ 1756      20726576 
+ 1756      6973696F 
+ 1756      6E203139 
+ 1756      36363135 
+ 1757              	.LASF19:
+ 1758 032d 50574D5F 		.ascii	"PWM_MOTOR_TILT_Stop\000"
+ 1758      4D4F544F 
+ 1758      525F5449 
+ 1758      4C545F53 
+ 1758      746F7000 
+ 1759              	.LASF4:
+ 1760 0341 6C6F6E67 		.ascii	"long int\000"
+ 1760      20696E74 
+ 1760      00
+ 1761              	.LASF13:
+ 1762 034a 63686172 		.ascii	"char\000"
+ 1762      00
+ 1763              	.LASF0:
+ 1764 034f 7369676E 		.ascii	"signed char\000"
+ 1764      65642063 
+ 1764      68617200 
+ 1765              	.LASF24:
+ 1766 035b 636F6D70 		.ascii	"compare\000"
+ 1766      61726500 
+ 1767              	.LASF26:
+ 1768 0363 64656164 		.ascii	"deadtime\000"
+ 1768      74696D65 
+ 1768      00
+ 1769              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,2073 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Counter_LED.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.Counter_LED_Enable,"ax",%progbits
+  19              		.align	1
+  20              		.global	Counter_LED_Enable
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	Counter_LED_Enable, %function
+  24              	Counter_LED_Enable:
+  25              	.LFB1:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\Counter_LED.c"
+   1:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/Counter_LED.c **** * File Name: Counter_LED.c  
+   3:.\Generated_Source\PSoC5/Counter_LED.c **** * Version 2.40
+   4:.\Generated_Source\PSoC5/Counter_LED.c **** *
+   5:.\Generated_Source\PSoC5/Counter_LED.c **** *  Description:
+   6:.\Generated_Source\PSoC5/Counter_LED.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:.\Generated_Source\PSoC5/Counter_LED.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:.\Generated_Source\PSoC5/Counter_LED.c **** *
+   9:.\Generated_Source\PSoC5/Counter_LED.c **** *   Note:
+  10:.\Generated_Source\PSoC5/Counter_LED.c **** *     None
+  11:.\Generated_Source\PSoC5/Counter_LED.c **** *
+  12:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************
+  13:.\Generated_Source\PSoC5/Counter_LED.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/Counter_LED.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:.\Generated_Source\PSoC5/Counter_LED.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:.\Generated_Source\PSoC5/Counter_LED.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************/
+  18:.\Generated_Source\PSoC5/Counter_LED.c **** 
+  19:.\Generated_Source\PSoC5/Counter_LED.c **** #include "Counter_LED.h"
+  20:.\Generated_Source\PSoC5/Counter_LED.c **** 
+  21:.\Generated_Source\PSoC5/Counter_LED.c **** uint8 Counter_LED_initVar = 0u;
+  22:.\Generated_Source\PSoC5/Counter_LED.c **** 
+  23:.\Generated_Source\PSoC5/Counter_LED.c **** 
+  24:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+  25:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_Init
+  26:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+  27:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+  28:.\Generated_Source\PSoC5/Counter_LED.c **** *     Initialize to the schematic state
+  29:.\Generated_Source\PSoC5/Counter_LED.c **** * 
+  30:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+  31:.\Generated_Source\PSoC5/Counter_LED.c **** *  void  
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/Counter_LED.c **** *
+  33:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+  34:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+  35:.\Generated_Source\PSoC5/Counter_LED.c **** *
+  36:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_Init(void) 
+  38:.\Generated_Source\PSoC5/Counter_LED.c **** {
+  39:.\Generated_Source\PSoC5/Counter_LED.c ****         #if (!Counter_LED_UsingFixedFunction && !Counter_LED_ControlRegRemoved)
+  40:.\Generated_Source\PSoC5/Counter_LED.c ****             uint8 ctrl;
+  41:.\Generated_Source\PSoC5/Counter_LED.c ****         #endif /* (!Counter_LED_UsingFixedFunction && !Counter_LED_ControlRegRemoved) */
+  42:.\Generated_Source\PSoC5/Counter_LED.c ****         
+  43:.\Generated_Source\PSoC5/Counter_LED.c ****         #if(!Counter_LED_UsingFixedFunction) 
+  44:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Interrupt State Backup for Critical Region*/
+  45:.\Generated_Source\PSoC5/Counter_LED.c ****             uint8 Counter_LED_interruptState;
+  46:.\Generated_Source\PSoC5/Counter_LED.c ****         #endif /* (!Counter_LED_UsingFixedFunction) */
+  47:.\Generated_Source\PSoC5/Counter_LED.c ****         
+  48:.\Generated_Source\PSoC5/Counter_LED.c ****         #if (Counter_LED_UsingFixedFunction)
+  49:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_CONTROL &= Counter_LED_CTRL_ENABLE;
+  51:.\Generated_Source\PSoC5/Counter_LED.c ****             
+  52:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Clear the mode bits for continuous run mode */
+  53:.\Generated_Source\PSoC5/Counter_LED.c ****             #if (CY_PSOC5A)
+  54:.\Generated_Source\PSoC5/Counter_LED.c ****                 Counter_LED_CONTROL2 &= ((uint8)(~Counter_LED_CTRL_MODE_MASK));
+  55:.\Generated_Source\PSoC5/Counter_LED.c ****             #endif /* (CY_PSOC5A) */
+  56:.\Generated_Source\PSoC5/Counter_LED.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:.\Generated_Source\PSoC5/Counter_LED.c ****                 Counter_LED_CONTROL3 &= ((uint8)(~Counter_LED_CTRL_MODE_MASK));                
+  58:.\Generated_Source\PSoC5/Counter_LED.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+  59:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:.\Generated_Source\PSoC5/Counter_LED.c ****             #if (Counter_LED_RunModeUsed != 0x0u)
+  61:.\Generated_Source\PSoC5/Counter_LED.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:.\Generated_Source\PSoC5/Counter_LED.c ****                 Counter_LED_CONTROL |= Counter_LED_ONESHOT;
+  63:.\Generated_Source\PSoC5/Counter_LED.c ****             #endif /* (Counter_LED_RunModeUsed != 0x0u) */
+  64:.\Generated_Source\PSoC5/Counter_LED.c ****             
+  65:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Set the IRQ to use the status register interrupts */
+  66:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_CONTROL2 |= Counter_LED_CTRL2_IRQ_SEL;
+  67:.\Generated_Source\PSoC5/Counter_LED.c ****             
+  68:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 &= ((uint8)(~Counter_LED_RT1_MASK));
+  70:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 |= Counter_LED_SYNC;     
+  71:.\Generated_Source\PSoC5/Counter_LED.c ****                     
+  72:.\Generated_Source\PSoC5/Counter_LED.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 &= ((uint8)(~Counter_LED_SYNCDSI_MASK));
+  74:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 |= Counter_LED_SYNCDSI_EN;
+  75:.\Generated_Source\PSoC5/Counter_LED.c **** 
+  76:.\Generated_Source\PSoC5/Counter_LED.c ****         #else
+  77:.\Generated_Source\PSoC5/Counter_LED.c ****             #if(!Counter_LED_ControlRegRemoved)
+  78:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Set the default compare mode defined in the parameter */
+  79:.\Generated_Source\PSoC5/Counter_LED.c ****             ctrl = Counter_LED_CONTROL & ((uint8)(~Counter_LED_CTRL_CMPMODE_MASK));
+  80:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_CONTROL = ctrl | Counter_LED_DEFAULT_COMPARE_MODE;
+  81:.\Generated_Source\PSoC5/Counter_LED.c ****             
+  82:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Set the default capture mode defined in the parameter */
+  83:.\Generated_Source\PSoC5/Counter_LED.c ****             ctrl = Counter_LED_CONTROL & ((uint8)(~Counter_LED_CTRL_CAPMODE_MASK));
+  84:.\Generated_Source\PSoC5/Counter_LED.c ****             
+  85:.\Generated_Source\PSoC5/Counter_LED.c ****             #if( 0 != Counter_LED_CAPTURE_MODE_CONF)
+  86:.\Generated_Source\PSoC5/Counter_LED.c ****                 Counter_LED_CONTROL = ctrl | Counter_LED_DEFAULT_CAPTURE_MODE;
+  87:.\Generated_Source\PSoC5/Counter_LED.c ****             #else
+  88:.\Generated_Source\PSoC5/Counter_LED.c ****                 Counter_LED_CONTROL = ctrl;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/Counter_LED.c ****             #endif /* 0 != Counter_LED_CAPTURE_MODE */ 
+  90:.\Generated_Source\PSoC5/Counter_LED.c ****             
+  91:.\Generated_Source\PSoC5/Counter_LED.c ****             #endif /* (!Counter_LED_ControlRegRemoved) */
+  92:.\Generated_Source\PSoC5/Counter_LED.c ****         #endif /* (Counter_LED_UsingFixedFunction) */
+  93:.\Generated_Source\PSoC5/Counter_LED.c ****         
+  94:.\Generated_Source\PSoC5/Counter_LED.c ****         /* Clear all data in the FIFO's */
+  95:.\Generated_Source\PSoC5/Counter_LED.c ****         #if (!Counter_LED_UsingFixedFunction)
+  96:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_ClearFIFO();
+  97:.\Generated_Source\PSoC5/Counter_LED.c ****         #endif /* (!Counter_LED_UsingFixedFunction) */
+  98:.\Generated_Source\PSoC5/Counter_LED.c ****         
+  99:.\Generated_Source\PSoC5/Counter_LED.c ****         /* Set Initial values from Configuration */
+ 100:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_WritePeriod(Counter_LED_INIT_PERIOD_VALUE);
+ 101:.\Generated_Source\PSoC5/Counter_LED.c ****         #if (!(Counter_LED_UsingFixedFunction && (CY_PSOC5A)))
+ 102:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_WriteCounter(Counter_LED_INIT_COUNTER_VALUE);
+ 103:.\Generated_Source\PSoC5/Counter_LED.c ****         #endif /* (!(Counter_LED_UsingFixedFunction && (CY_PSOC5A))) */
+ 104:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_SetInterruptMode(Counter_LED_INIT_INTERRUPTS_MASK);
+ 105:.\Generated_Source\PSoC5/Counter_LED.c ****         
+ 106:.\Generated_Source\PSoC5/Counter_LED.c ****         #if (!Counter_LED_UsingFixedFunction)
+ 107:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Read the status register to clear the unwanted interrupts */
+ 108:.\Generated_Source\PSoC5/Counter_LED.c ****             (void)Counter_LED_ReadStatusRegister();
+ 109:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 110:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_WriteCompare(Counter_LED_INIT_COMPARE_VALUE);
+ 111:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 112:.\Generated_Source\PSoC5/Counter_LED.c ****             
+ 113:.\Generated_Source\PSoC5/Counter_LED.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 114:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Enter Critical Region*/
+ 115:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_interruptState = CyEnterCriticalSection();
+ 116:.\Generated_Source\PSoC5/Counter_LED.c ****             
+ 117:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_STATUS_AUX_CTRL |= Counter_LED_STATUS_ACTL_INT_EN_MASK;
+ 118:.\Generated_Source\PSoC5/Counter_LED.c ****             
+ 119:.\Generated_Source\PSoC5/Counter_LED.c ****             /* Exit Critical Region*/
+ 120:.\Generated_Source\PSoC5/Counter_LED.c ****             CyExitCriticalSection(Counter_LED_interruptState);
+ 121:.\Generated_Source\PSoC5/Counter_LED.c ****             
+ 122:.\Generated_Source\PSoC5/Counter_LED.c ****         #endif /* (!Counter_LED_UsingFixedFunction) */
+ 123:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 124:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 125:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 126:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 127:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_Enable
+ 128:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 129:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 130:.\Generated_Source\PSoC5/Counter_LED.c **** *     Enable the Counter
+ 131:.\Generated_Source\PSoC5/Counter_LED.c **** * 
+ 132:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 133:.\Generated_Source\PSoC5/Counter_LED.c **** *  void  
+ 134:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 135:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 136:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 137:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 138:.\Generated_Source\PSoC5/Counter_LED.c **** * Side Effects: 
+ 139:.\Generated_Source\PSoC5/Counter_LED.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 140:.\Generated_Source\PSoC5/Counter_LED.c **** *   on the operation of the counter.
+ 141:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 142:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 143:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_Enable(void) 
+ 144:.\Generated_Source\PSoC5/Counter_LED.c **** {
+  27              		.loc 1 144 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 4
+
+
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 145:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 146:.\Generated_Source\PSoC5/Counter_LED.c ****     #if (Counter_LED_UsingFixedFunction)
+ 147:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_ENABLE |= Counter_LED_BLOCK_EN_MASK;
+  32              		.loc 1 147 0
+  33 0000 074B     		ldr	r3, .L2
+  34 0002 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  35 0004 42F00100 		orr	r0, r2, #1
+  36 0008 1870     		strb	r0, [r3, #0]
+ 148:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_STBY_ENABLE |= Counter_LED_BLOCK_STBY_EN_MASK;
+  37              		.loc 1 148 0
+  38 000a 197C     		ldrb	r1, [r3, #16]	@ zero_extendqisi2
+  39 000c 41F00102 		orr	r2, r1, #1
+  40 0010 1A74     		strb	r2, [r3, #16]
+ 149:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */  
+ 150:.\Generated_Source\PSoC5/Counter_LED.c ****         
+ 151:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Enable the counter from the control register  */
+ 152:.\Generated_Source\PSoC5/Counter_LED.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ 153:.\Generated_Source\PSoC5/Counter_LED.c ****     /* else make sure reset is clear */
+ 154:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(!Counter_LED_ControlRegRemoved || Counter_LED_UsingFixedFunction)
+ 155:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_CONTROL |= Counter_LED_CTRL_ENABLE;                
+  41              		.loc 1 155 0
+  42 0012 044B     		ldr	r3, .L2+4
+  43 0014 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  44 0016 40F00101 		orr	r1, r0, #1
+  45 001a 1970     		strb	r1, [r3, #0]
+  46 001c 7047     		bx	lr
+  47              	.L3:
+  48 001e 00BF     		.align	2
+  49              	.L2:
+  50 0020 A3430040 		.word	1073759139
+  51 0024 004F0040 		.word	1073762048
+  52              		.cfi_endproc
+  53              	.LFE1:
+  54              		.size	Counter_LED_Enable, .-Counter_LED_Enable
+  55              		.section	.text.Counter_LED_Stop,"ax",%progbits
+  56              		.align	1
+  57              		.global	Counter_LED_Stop
+  58              		.thumb
+  59              		.thumb_func
+  60              		.type	Counter_LED_Stop, %function
+  61              	Counter_LED_Stop:
+  62              	.LFB3:
+ 156:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (!Counter_LED_ControlRegRemoved || Counter_LED_UsingFixedFunction) */
+ 157:.\Generated_Source\PSoC5/Counter_LED.c ****     
+ 158:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 159:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 160:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 161:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 162:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_Start
+ 163:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 164:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 165:.\Generated_Source\PSoC5/Counter_LED.c **** *  Enables the counter for operation 
+ 166:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 5
+
+
+ 167:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 168:.\Generated_Source\PSoC5/Counter_LED.c **** *  void  
+ 169:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 170:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 171:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 172:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 173:.\Generated_Source\PSoC5/Counter_LED.c **** * Global variables:
+ 174:.\Generated_Source\PSoC5/Counter_LED.c **** *  Counter_LED_initVar: Is modified when this function is called for the  
+ 175:.\Generated_Source\PSoC5/Counter_LED.c **** *   first time. Is used to ensure that initialization happens only once.
+ 176:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 177:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 178:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_Start(void) 
+ 179:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 180:.\Generated_Source\PSoC5/Counter_LED.c ****     if(Counter_LED_initVar == 0u)
+ 181:.\Generated_Source\PSoC5/Counter_LED.c ****     {
+ 182:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_Init();
+ 183:.\Generated_Source\PSoC5/Counter_LED.c ****         
+ 184:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_initVar = 1u; /* Clear this bit for Initialization */        
+ 185:.\Generated_Source\PSoC5/Counter_LED.c ****     }
+ 186:.\Generated_Source\PSoC5/Counter_LED.c ****     
+ 187:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Enable the Counter */
+ 188:.\Generated_Source\PSoC5/Counter_LED.c ****     Counter_LED_Enable();        
+ 189:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 190:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 191:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 192:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 193:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_Stop
+ 194:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 195:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 196:.\Generated_Source\PSoC5/Counter_LED.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 197:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 198:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 199:.\Generated_Source\PSoC5/Counter_LED.c **** *  void  
+ 200:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 201:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 202:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 203:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 204:.\Generated_Source\PSoC5/Counter_LED.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 205:.\Generated_Source\PSoC5/Counter_LED.c **** *               has no effect on the operation of the counter.
+ 206:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 207:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 208:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_Stop(void) 
+ 209:.\Generated_Source\PSoC5/Counter_LED.c **** {
+  63              		.loc 1 209 0
+  64              		.cfi_startproc
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+ 210:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Disable Counter */
+ 211:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(!Counter_LED_ControlRegRemoved || Counter_LED_UsingFixedFunction)
+ 212:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_CONTROL &= ((uint8)(~Counter_LED_CTRL_ENABLE));        
+  68              		.loc 1 212 0
+  69 0000 074B     		ldr	r3, .L5
+ 213:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (!Counter_LED_ControlRegRemoved || Counter_LED_UsingFixedFunction) */
+ 214:.\Generated_Source\PSoC5/Counter_LED.c ****     
+ 215:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Globally disable the Fixed Function Block chosen */
+ 216:.\Generated_Source\PSoC5/Counter_LED.c ****     #if (Counter_LED_UsingFixedFunction)
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 6
+
+
+ 217:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_ENABLE &= ((uint8)(~Counter_LED_BLOCK_EN_MASK));
+  70              		.loc 1 217 0
+  71 0002 0849     		ldr	r1, .L5+4
+ 212:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_CONTROL &= ((uint8)(~Counter_LED_CTRL_ENABLE));        
+  72              		.loc 1 212 0
+  73 0004 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  74 0006 02F0FE00 		and	r0, r2, #254
+  75 000a 1870     		strb	r0, [r3, #0]
+  76              		.loc 1 217 0
+  77 000c 0B78     		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+  78 000e 03F0FE02 		and	r2, r3, #254
+  79 0012 0A70     		strb	r2, [r1, #0]
+ 218:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_STBY_ENABLE &= ((uint8)(~Counter_LED_BLOCK_STBY_EN_MASK));
+  80              		.loc 1 218 0
+  81 0014 087C     		ldrb	r0, [r1, #16]	@ zero_extendqisi2
+  82 0016 00F0FE03 		and	r3, r0, #254
+  83 001a 0B74     		strb	r3, [r1, #16]
+  84 001c 7047     		bx	lr
+  85              	.L6:
+  86 001e 00BF     		.align	2
+  87              	.L5:
+  88 0020 004F0040 		.word	1073762048
+  89 0024 A3430040 		.word	1073759139
+  90              		.cfi_endproc
+  91              	.LFE3:
+  92              		.size	Counter_LED_Stop, .-Counter_LED_Stop
+  93              		.section	.text.Counter_LED_SetInterruptMode,"ax",%progbits
+  94              		.align	1
+  95              		.global	Counter_LED_SetInterruptMode
+  96              		.thumb
+  97              		.thumb_func
+  98              		.type	Counter_LED_SetInterruptMode, %function
+  99              	Counter_LED_SetInterruptMode:
+ 100              	.LFB4:
+ 219:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */
+ 220:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 221:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 222:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 223:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 224:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_SetInterruptMode
+ 225:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 226:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 227:.\Generated_Source\PSoC5/Counter_LED.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 228:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 229:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 230:.\Generated_Source\PSoC5/Counter_LED.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 231:.\Generated_Source\PSoC5/Counter_LED.c **** *                   which will be allowed to generate the counters interrupt.   
+ 232:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 233:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 234:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 235:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 236:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 237:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_SetInterruptMode(uint8 interruptsMask) 
+ 238:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 101              		.loc 1 238 0
+ 102              		.cfi_startproc
+ 103              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 7
+
+
+ 104              		@ frame_needed = 0, uses_anonymous_args = 0
+ 105              		@ link register save eliminated.
+ 106              	.LVL0:
+ 239:.\Generated_Source\PSoC5/Counter_LED.c ****     Counter_LED_STATUS_MASK = interruptsMask;
+ 107              		.loc 1 239 0
+ 108 0000 014B     		ldr	r3, .L8
+ 109 0002 1870     		strb	r0, [r3, #0]
+ 110 0004 7047     		bx	lr
+ 111              	.L9:
+ 112 0006 00BF     		.align	2
+ 113              	.L8:
+ 114 0008 034F0040 		.word	1073762051
+ 115              		.cfi_endproc
+ 116              	.LFE4:
+ 117              		.size	Counter_LED_SetInterruptMode, .-Counter_LED_SetInterruptMode
+ 118              		.section	.text.Counter_LED_ReadStatusRegister,"ax",%progbits
+ 119              		.align	1
+ 120              		.global	Counter_LED_ReadStatusRegister
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.type	Counter_LED_ReadStatusRegister, %function
+ 124              	Counter_LED_ReadStatusRegister:
+ 125              	.LFB5:
+ 240:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 241:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 242:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 243:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 244:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_ReadStatusRegister
+ 245:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 246:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 247:.\Generated_Source\PSoC5/Counter_LED.c **** *   Reads the status register and returns it's state. This function should use
+ 248:.\Generated_Source\PSoC5/Counter_LED.c **** *       defined types for the bit-field information as the bits in this
+ 249:.\Generated_Source\PSoC5/Counter_LED.c **** *       register may be permuteable.
+ 250:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 251:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 252:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 253:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 254:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 255:.\Generated_Source\PSoC5/Counter_LED.c **** *  (uint8) The contents of the status register
+ 256:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 257:.\Generated_Source\PSoC5/Counter_LED.c **** * Side Effects:
+ 258:.\Generated_Source\PSoC5/Counter_LED.c **** *   Status register bits may be clear on read. 
+ 259:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 260:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 261:.\Generated_Source\PSoC5/Counter_LED.c **** uint8   Counter_LED_ReadStatusRegister(void) 
+ 262:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 126              		.loc 1 262 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 263:.\Generated_Source\PSoC5/Counter_LED.c ****     return Counter_LED_STATUS;
+ 131              		.loc 1 263 0
+ 132 0000 014B     		ldr	r3, .L11
+ 133 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 264:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 134              		.loc 1 264 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 8
+
+
+ 135 0004 7047     		bx	lr
+ 136              	.L12:
+ 137 0006 00BF     		.align	2
+ 138              	.L11:
+ 139 0008 034F0040 		.word	1073762051
+ 140              		.cfi_endproc
+ 141              	.LFE5:
+ 142              		.size	Counter_LED_ReadStatusRegister, .-Counter_LED_ReadStatusRegister
+ 143              		.section	.text.Counter_LED_ReadControlRegister,"ax",%progbits
+ 144              		.align	1
+ 145              		.global	Counter_LED_ReadControlRegister
+ 146              		.thumb
+ 147              		.thumb_func
+ 148              		.type	Counter_LED_ReadControlRegister, %function
+ 149              	Counter_LED_ReadControlRegister:
+ 150              	.LFB6:
+ 265:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 266:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 267:.\Generated_Source\PSoC5/Counter_LED.c **** #if(!Counter_LED_ControlRegRemoved)
+ 268:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 269:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_ReadControlRegister
+ 270:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 271:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 272:.\Generated_Source\PSoC5/Counter_LED.c **** *   Reads the control register and returns it's state. This function should use
+ 273:.\Generated_Source\PSoC5/Counter_LED.c **** *       defined types for the bit-field information as the bits in this
+ 274:.\Generated_Source\PSoC5/Counter_LED.c **** *       register may be permuteable.
+ 275:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 276:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 277:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 278:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 279:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 280:.\Generated_Source\PSoC5/Counter_LED.c **** *  (uint8) The contents of the control register
+ 281:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 282:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 283:.\Generated_Source\PSoC5/Counter_LED.c **** uint8   Counter_LED_ReadControlRegister(void) 
+ 284:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 151              		.loc 1 284 0
+ 152              		.cfi_startproc
+ 153              		@ args = 0, pretend = 0, frame = 0
+ 154              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155              		@ link register save eliminated.
+ 285:.\Generated_Source\PSoC5/Counter_LED.c ****     return Counter_LED_CONTROL;
+ 156              		.loc 1 285 0
+ 157 0000 014B     		ldr	r3, .L14
+ 158 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 286:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 159              		.loc 1 286 0
+ 160 0004 7047     		bx	lr
+ 161              	.L15:
+ 162 0006 00BF     		.align	2
+ 163              	.L14:
+ 164 0008 004F0040 		.word	1073762048
+ 165              		.cfi_endproc
+ 166              	.LFE6:
+ 167              		.size	Counter_LED_ReadControlRegister, .-Counter_LED_ReadControlRegister
+ 168              		.section	.text.Counter_LED_WriteControlRegister,"ax",%progbits
+ 169              		.align	1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 9
+
+
+ 170              		.global	Counter_LED_WriteControlRegister
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.type	Counter_LED_WriteControlRegister, %function
+ 174              	Counter_LED_WriteControlRegister:
+ 175              	.LFB7:
+ 287:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 288:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 289:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 290:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_WriteControlRegister
+ 291:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 292:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 293:.\Generated_Source\PSoC5/Counter_LED.c **** *   Sets the bit-field of the control register.  This function should use
+ 294:.\Generated_Source\PSoC5/Counter_LED.c **** *       defined types for the bit-field information as the bits in this
+ 295:.\Generated_Source\PSoC5/Counter_LED.c **** *       register may be permuteable.
+ 296:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 297:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 298:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 299:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 300:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 301:.\Generated_Source\PSoC5/Counter_LED.c **** *  (uint8) The contents of the control register
+ 302:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 303:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 304:.\Generated_Source\PSoC5/Counter_LED.c **** void    Counter_LED_WriteControlRegister(uint8 control) 
+ 305:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 176              		.loc 1 305 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 181              	.LVL1:
+ 306:.\Generated_Source\PSoC5/Counter_LED.c ****     Counter_LED_CONTROL = control;
+ 182              		.loc 1 306 0
+ 183 0000 014B     		ldr	r3, .L17
+ 184 0002 1870     		strb	r0, [r3, #0]
+ 185 0004 7047     		bx	lr
+ 186              	.L18:
+ 187 0006 00BF     		.align	2
+ 188              	.L17:
+ 189 0008 004F0040 		.word	1073762048
+ 190              		.cfi_endproc
+ 191              	.LFE7:
+ 192              		.size	Counter_LED_WriteControlRegister, .-Counter_LED_WriteControlRegister
+ 193              		.section	.text.Counter_LED_WriteCounter,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	Counter_LED_WriteCounter
+ 196              		.thumb
+ 197              		.thumb_func
+ 198              		.type	Counter_LED_WriteCounter, %function
+ 199              	Counter_LED_WriteCounter:
+ 200              	.LFB8:
+ 307:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 308:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 309:.\Generated_Source\PSoC5/Counter_LED.c **** #endif  /* (!Counter_LED_ControlRegRemoved) */
+ 310:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 311:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 312:.\Generated_Source\PSoC5/Counter_LED.c **** #if (!(Counter_LED_UsingFixedFunction && (CY_PSOC5A)))
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 10
+
+
+ 313:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 314:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_WriteCounter
+ 315:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 316:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 317:.\Generated_Source\PSoC5/Counter_LED.c **** *   This funtion is used to set the counter to a specific value
+ 318:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 319:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 320:.\Generated_Source\PSoC5/Counter_LED.c **** *  counter:  New counter value. 
+ 321:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 322:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 323:.\Generated_Source\PSoC5/Counter_LED.c **** *  void 
+ 324:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 325:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 326:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_WriteCounter(uint8 counter) \
+ 327:.\Generated_Source\PSoC5/Counter_LED.c ****                                    
+ 328:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 201              		.loc 1 328 0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              		@ link register save eliminated.
+ 206              	.LVL2:
+ 329:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(Counter_LED_UsingFixedFunction)
+ 330:.\Generated_Source\PSoC5/Counter_LED.c ****         /* assert if block is already enabled */
+ 331:.\Generated_Source\PSoC5/Counter_LED.c ****         CYASSERT (0u == (Counter_LED_GLOBAL_ENABLE & Counter_LED_BLOCK_EN_MASK));
+ 332:.\Generated_Source\PSoC5/Counter_LED.c ****         /* If block is disabled, enable it and then write the counter */
+ 333:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_ENABLE |= Counter_LED_BLOCK_EN_MASK;
+ 207              		.loc 1 333 0
+ 208 0000 054B     		ldr	r3, .L20
+ 209 0002 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 210 0004 42F00101 		orr	r1, r2, #1
+ 334:.\Generated_Source\PSoC5/Counter_LED.c ****         CY_SET_REG16(Counter_LED_COUNTER_LSB_PTR, (uint16)counter);
+ 211              		.loc 1 334 0
+ 212 0008 044A     		ldr	r2, .L20+4
+ 333:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_ENABLE |= Counter_LED_BLOCK_EN_MASK;
+ 213              		.loc 1 333 0
+ 214 000a 1970     		strb	r1, [r3, #0]
+ 215              		.loc 1 334 0
+ 216 000c 1080     		strh	r0, [r2, #0]	@ movhi
+ 335:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_GLOBAL_ENABLE &= ((uint8)(~Counter_LED_BLOCK_EN_MASK));
+ 217              		.loc 1 335 0
+ 218 000e 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 219              	.LVL3:
+ 220 0010 00F0FE01 		and	r1, r0, #254
+ 221 0014 1970     		strb	r1, [r3, #0]
+ 222 0016 7047     		bx	lr
+ 223              	.L21:
+ 224              		.align	2
+ 225              	.L20:
+ 226 0018 A3430040 		.word	1073759139
+ 227 001c 064F0040 		.word	1073762054
+ 228              		.cfi_endproc
+ 229              	.LFE8:
+ 230              		.size	Counter_LED_WriteCounter, .-Counter_LED_WriteCounter
+ 231              		.section	.text.Counter_LED_Init,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	Counter_LED_Init
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 11
+
+
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.type	Counter_LED_Init, %function
+ 237              	Counter_LED_Init:
+ 238              	.LFB0:
+  38:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 239              		.loc 1 38 0
+ 240              		.cfi_startproc
+ 241              		@ args = 0, pretend = 0, frame = 0
+ 242              		@ frame_needed = 0, uses_anonymous_args = 0
+ 243 0000 08B5     		push	{r3, lr}
+ 244              	.LCFI0:
+ 245              		.cfi_def_cfa_offset 8
+ 246              		.cfi_offset 3, -8
+ 247              		.cfi_offset 14, -4
+  50:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_CONTROL &= Counter_LED_CTRL_ENABLE;
+ 248              		.loc 1 50 0
+ 249 0002 124B     		ldr	r3, .L23
+ 250 0004 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 251 0006 02F00100 		and	r0, r2, #1
+ 252 000a 1870     		strb	r0, [r3, #0]
+  57:.\Generated_Source\PSoC5/Counter_LED.c ****                 Counter_LED_CONTROL3 &= ((uint8)(~Counter_LED_CTRL_MODE_MASK));                
+ 253              		.loc 1 57 0
+ 254 000c 9978     		ldrb	r1, [r3, #2]	@ zero_extendqisi2
+ 255 000e 01F0FC02 		and	r2, r1, #252
+ 256 0012 9A70     		strb	r2, [r3, #2]
+  66:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_CONTROL2 |= Counter_LED_CTRL2_IRQ_SEL;
+ 257              		.loc 1 66 0
+ 258 0014 5878     		ldrb	r0, [r3, #1]	@ zero_extendqisi2
+ 259 0016 40F00101 		orr	r1, r0, #1
+ 260 001a 5970     		strb	r1, [r3, #1]
+  69:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 &= ((uint8)(~Counter_LED_RT1_MASK));
+ 261              		.loc 1 69 0
+ 262 001c DA7A     		ldrb	r2, [r3, #11]	@ zero_extendqisi2
+ 263 001e 02F0CF00 		and	r0, r2, #207
+ 264 0022 D872     		strb	r0, [r3, #11]
+  70:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 |= Counter_LED_SYNC;     
+ 265              		.loc 1 70 0
+ 266 0024 D97A     		ldrb	r1, [r3, #11]	@ zero_extendqisi2
+ 267 0026 41F03002 		orr	r2, r1, #48
+ 268 002a DA72     		strb	r2, [r3, #11]
+  73:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 &= ((uint8)(~Counter_LED_SYNCDSI_MASK));
+ 269              		.loc 1 73 0
+ 270 002c D87A     		ldrb	r0, [r3, #11]	@ zero_extendqisi2
+ 271 002e 00F0F001 		and	r1, r0, #240
+ 272 0032 D972     		strb	r1, [r3, #11]
+  74:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_RT1 |= Counter_LED_SYNCDSI_EN;
+ 273              		.loc 1 74 0
+ 274 0034 DA7A     		ldrb	r2, [r3, #11]	@ zero_extendqisi2
+ 275 0036 42F00F00 		orr	r0, r2, #15
+ 276 003a D872     		strb	r0, [r3, #11]
+ 277              	.LVL4:
+ 278              	.LBB6:
+ 279              	.LBB7:
+ 336:.\Generated_Source\PSoC5/Counter_LED.c ****     #else
+ 337:.\Generated_Source\PSoC5/Counter_LED.c ****         CY_SET_REG8(Counter_LED_COUNTER_LSB_PTR, counter);
+ 338:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 12
+
+
+ 339:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 340:.\Generated_Source\PSoC5/Counter_LED.c **** #endif /* (!(Counter_LED_UsingFixedFunction && (CY_PSOC5A))) */
+ 341:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 342:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 343:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 344:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_ReadCounter
+ 345:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 346:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 347:.\Generated_Source\PSoC5/Counter_LED.c **** * Returns the current value of the counter.  It doesn't matter
+ 348:.\Generated_Source\PSoC5/Counter_LED.c **** * if the counter is enabled or running.
+ 349:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 350:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 351:.\Generated_Source\PSoC5/Counter_LED.c **** *  void:  
+ 352:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 353:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 354:.\Generated_Source\PSoC5/Counter_LED.c **** *  (uint8) The present value of the counter.
+ 355:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 356:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 357:.\Generated_Source\PSoC5/Counter_LED.c **** uint8 Counter_LED_ReadCounter(void) 
+ 358:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 359:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Force capture by reading Accumulator */
+ 360:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Must first do a software capture to be able to read the counter */
+ 361:.\Generated_Source\PSoC5/Counter_LED.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 362:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(Counter_LED_UsingFixedFunction)
+ 363:.\Generated_Source\PSoC5/Counter_LED.c **** 		(void)CY_GET_REG16(Counter_LED_COUNTER_LSB_PTR);
+ 364:.\Generated_Source\PSoC5/Counter_LED.c **** 	#else
+ 365:.\Generated_Source\PSoC5/Counter_LED.c **** 		(void)CY_GET_REG8(Counter_LED_COUNTER_LSB_PTR_8BIT);
+ 366:.\Generated_Source\PSoC5/Counter_LED.c **** 	#endif/* (Counter_LED_UsingFixedFunction) */
+ 367:.\Generated_Source\PSoC5/Counter_LED.c ****     
+ 368:.\Generated_Source\PSoC5/Counter_LED.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 369:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(Counter_LED_UsingFixedFunction)
+ 370:.\Generated_Source\PSoC5/Counter_LED.c ****         return ((uint8)CY_GET_REG16(Counter_LED_STATICCOUNT_LSB_PTR));
+ 371:.\Generated_Source\PSoC5/Counter_LED.c ****     #else
+ 372:.\Generated_Source\PSoC5/Counter_LED.c ****         return (CY_GET_REG8(Counter_LED_STATICCOUNT_LSB_PTR));
+ 373:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */
+ 374:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 375:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 376:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 377:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 378:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_ReadCapture
+ 379:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 380:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 381:.\Generated_Source\PSoC5/Counter_LED.c **** *   This function returns the last value captured.
+ 382:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 383:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 384:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 385:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 386:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 387:.\Generated_Source\PSoC5/Counter_LED.c **** *  (uint8) Present Capture value.
+ 388:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 389:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 390:.\Generated_Source\PSoC5/Counter_LED.c **** uint8 Counter_LED_ReadCapture(void) 
+ 391:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 392:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(Counter_LED_UsingFixedFunction)
+ 393:.\Generated_Source\PSoC5/Counter_LED.c ****         return ((uint8)CY_GET_REG16(Counter_LED_STATICCOUNT_LSB_PTR));
+ 394:.\Generated_Source\PSoC5/Counter_LED.c ****     #else
+ 395:.\Generated_Source\PSoC5/Counter_LED.c ****         return (CY_GET_REG8(Counter_LED_STATICCOUNT_LSB_PTR));
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 13
+
+
+ 396:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */
+ 397:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 398:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 399:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 400:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 401:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_WritePeriod
+ 402:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 403:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 404:.\Generated_Source\PSoC5/Counter_LED.c **** * Changes the period of the counter.  The new period 
+ 405:.\Generated_Source\PSoC5/Counter_LED.c **** * will be loaded the next time terminal count is detected.
+ 406:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 407:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 408:.\Generated_Source\PSoC5/Counter_LED.c **** *  period: (uint8) A value of 0 will result in
+ 409:.\Generated_Source\PSoC5/Counter_LED.c **** *         the counter remaining at zero.  
+ 410:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 411:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 412:.\Generated_Source\PSoC5/Counter_LED.c **** *  void
+ 413:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 414:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 415:.\Generated_Source\PSoC5/Counter_LED.c **** void Counter_LED_WritePeriod(uint8 period) 
+ 416:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 417:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(Counter_LED_UsingFixedFunction)
+ 418:.\Generated_Source\PSoC5/Counter_LED.c ****         CY_SET_REG16(Counter_LED_PERIOD_LSB_PTR,(uint16)period);
+ 280              		.loc 1 418 0
+ 281 003c 1420     		movs	r0, #20
+ 282 003e 9880     		strh	r0, [r3, #4]	@ movhi
+ 283              	.LBE7:
+ 284              	.LBE6:
+ 102:.\Generated_Source\PSoC5/Counter_LED.c ****             Counter_LED_WriteCounter(Counter_LED_INIT_COUNTER_VALUE);
+ 285              		.loc 1 102 0
+ 286 0040 FFF7FEFF 		bl	Counter_LED_WriteCounter
+ 287              	.LVL5:
+ 288              	.LBB8:
+ 289              	.LBB9:
+ 239:.\Generated_Source\PSoC5/Counter_LED.c ****     Counter_LED_STATUS_MASK = interruptsMask;
+ 290              		.loc 1 239 0
+ 291 0044 024B     		ldr	r3, .L23+4
+ 292 0046 0021     		movs	r1, #0
+ 293 0048 1970     		strb	r1, [r3, #0]
+ 294 004a 08BD     		pop	{r3, pc}
+ 295              	.L24:
+ 296              		.align	2
+ 297              	.L23:
+ 298 004c 004F0040 		.word	1073762048
+ 299 0050 034F0040 		.word	1073762051
+ 300              	.LBE9:
+ 301              	.LBE8:
+ 302              		.cfi_endproc
+ 303              	.LFE0:
+ 304              		.size	Counter_LED_Init, .-Counter_LED_Init
+ 305              		.section	.text.Counter_LED_Start,"ax",%progbits
+ 306              		.align	1
+ 307              		.global	Counter_LED_Start
+ 308              		.thumb
+ 309              		.thumb_func
+ 310              		.type	Counter_LED_Start, %function
+ 311              	Counter_LED_Start:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 14
+
+
+ 312              	.LFB2:
+ 179:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 313              		.loc 1 179 0
+ 314              		.cfi_startproc
+ 315              		@ args = 0, pretend = 0, frame = 0
+ 316              		@ frame_needed = 0, uses_anonymous_args = 0
+ 317 0000 10B5     		push	{r4, lr}
+ 318              	.LCFI1:
+ 319              		.cfi_def_cfa_offset 8
+ 320              		.cfi_offset 4, -8
+ 321              		.cfi_offset 14, -4
+ 180:.\Generated_Source\PSoC5/Counter_LED.c ****     if(Counter_LED_initVar == 0u)
+ 322              		.loc 1 180 0
+ 323 0002 054C     		ldr	r4, .L28
+ 324 0004 2378     		ldrb	r3, [r4, #0]	@ zero_extendqisi2
+ 325 0006 1BB9     		cbnz	r3, .L26
+ 182:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_Init();
+ 326              		.loc 1 182 0
+ 327 0008 FFF7FEFF 		bl	Counter_LED_Init
+ 328              	.LVL6:
+ 184:.\Generated_Source\PSoC5/Counter_LED.c ****         Counter_LED_initVar = 1u; /* Clear this bit for Initialization */        
+ 329              		.loc 1 184 0
+ 330 000c 0120     		movs	r0, #1
+ 331 000e 2070     		strb	r0, [r4, #0]
+ 332              	.L26:
+ 189:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 333              		.loc 1 189 0
+ 334 0010 BDE81040 		pop	{r4, lr}
+ 188:.\Generated_Source\PSoC5/Counter_LED.c ****     Counter_LED_Enable();        
+ 335              		.loc 1 188 0
+ 336 0014 FFF7FEBF 		b	Counter_LED_Enable
+ 337              	.LVL7:
+ 338              	.L29:
+ 339              		.align	2
+ 340              	.L28:
+ 341 0018 00000000 		.word	.LANCHOR0
+ 342              		.cfi_endproc
+ 343              	.LFE2:
+ 344              		.size	Counter_LED_Start, .-Counter_LED_Start
+ 345              		.section	.text.Counter_LED_ReadCounter,"ax",%progbits
+ 346              		.align	1
+ 347              		.global	Counter_LED_ReadCounter
+ 348              		.thumb
+ 349              		.thumb_func
+ 350              		.type	Counter_LED_ReadCounter, %function
+ 351              	Counter_LED_ReadCounter:
+ 352              	.LFB9:
+ 358:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 353              		.loc 1 358 0
+ 354              		.cfi_startproc
+ 355              		@ args = 0, pretend = 0, frame = 0
+ 356              		@ frame_needed = 0, uses_anonymous_args = 0
+ 357              		@ link register save eliminated.
+ 370:.\Generated_Source\PSoC5/Counter_LED.c ****         return ((uint8)CY_GET_REG16(Counter_LED_STATICCOUNT_LSB_PTR));
+ 358              		.loc 1 370 0
+ 359 0000 0248     		ldr	r0, .L31
+ 363:.\Generated_Source\PSoC5/Counter_LED.c **** 		(void)CY_GET_REG16(Counter_LED_COUNTER_LSB_PTR);
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 15
+
+
+ 360              		.loc 1 363 0
+ 361 0002 034B     		ldr	r3, .L31+4
+ 362 0004 1B88     		ldrh	r3, [r3, #0]
+ 370:.\Generated_Source\PSoC5/Counter_LED.c ****         return ((uint8)CY_GET_REG16(Counter_LED_STATICCOUNT_LSB_PTR));
+ 363              		.loc 1 370 0
+ 364 0006 0188     		ldrh	r1, [r0, #0]
+ 374:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 365              		.loc 1 374 0
+ 366 0008 C8B2     		uxtb	r0, r1
+ 367 000a 7047     		bx	lr
+ 368              	.L32:
+ 369              		.align	2
+ 370              	.L31:
+ 371 000c 084F0040 		.word	1073762056
+ 372 0010 064F0040 		.word	1073762054
+ 373              		.cfi_endproc
+ 374              	.LFE9:
+ 375              		.size	Counter_LED_ReadCounter, .-Counter_LED_ReadCounter
+ 376              		.section	.text.Counter_LED_ReadCapture,"ax",%progbits
+ 377              		.align	1
+ 378              		.global	Counter_LED_ReadCapture
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.type	Counter_LED_ReadCapture, %function
+ 382              	Counter_LED_ReadCapture:
+ 383              	.LFB10:
+ 391:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 384              		.loc 1 391 0
+ 385              		.cfi_startproc
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 0, uses_anonymous_args = 0
+ 388              		@ link register save eliminated.
+ 393:.\Generated_Source\PSoC5/Counter_LED.c ****         return ((uint8)CY_GET_REG16(Counter_LED_STATICCOUNT_LSB_PTR));
+ 389              		.loc 1 393 0
+ 390 0000 014B     		ldr	r3, .L34
+ 391 0002 1888     		ldrh	r0, [r3, #0]
+ 397:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 392              		.loc 1 397 0
+ 393 0004 C0B2     		uxtb	r0, r0
+ 394 0006 7047     		bx	lr
+ 395              	.L35:
+ 396              		.align	2
+ 397              	.L34:
+ 398 0008 084F0040 		.word	1073762056
+ 399              		.cfi_endproc
+ 400              	.LFE10:
+ 401              		.size	Counter_LED_ReadCapture, .-Counter_LED_ReadCapture
+ 402              		.section	.text.Counter_LED_WritePeriod,"ax",%progbits
+ 403              		.align	1
+ 404              		.global	Counter_LED_WritePeriod
+ 405              		.thumb
+ 406              		.thumb_func
+ 407              		.type	Counter_LED_WritePeriod, %function
+ 408              	Counter_LED_WritePeriod:
+ 409              	.LFB11:
+ 416:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 410              		.loc 1 416 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 16
+
+
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414              		@ link register save eliminated.
+ 415              	.LVL8:
+ 416              		.loc 1 418 0
+ 417 0000 014B     		ldr	r3, .L37
+ 418 0002 1880     		strh	r0, [r3, #0]	@ movhi
+ 419 0004 7047     		bx	lr
+ 420              	.L38:
+ 421 0006 00BF     		.align	2
+ 422              	.L37:
+ 423 0008 044F0040 		.word	1073762052
+ 424              		.cfi_endproc
+ 425              	.LFE11:
+ 426              		.size	Counter_LED_WritePeriod, .-Counter_LED_WritePeriod
+ 427              		.section	.text.Counter_LED_ReadPeriod,"ax",%progbits
+ 428              		.align	1
+ 429              		.global	Counter_LED_ReadPeriod
+ 430              		.thumb
+ 431              		.thumb_func
+ 432              		.type	Counter_LED_ReadPeriod, %function
+ 433              	Counter_LED_ReadPeriod:
+ 434              	.LFB12:
+ 419:.\Generated_Source\PSoC5/Counter_LED.c ****     #else
+ 420:.\Generated_Source\PSoC5/Counter_LED.c ****         CY_SET_REG8(Counter_LED_PERIOD_LSB_PTR, period);
+ 421:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */
+ 422:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 423:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 424:.\Generated_Source\PSoC5/Counter_LED.c **** 
+ 425:.\Generated_Source\PSoC5/Counter_LED.c **** /*******************************************************************************
+ 426:.\Generated_Source\PSoC5/Counter_LED.c **** * Function Name: Counter_LED_ReadPeriod
+ 427:.\Generated_Source\PSoC5/Counter_LED.c **** ********************************************************************************
+ 428:.\Generated_Source\PSoC5/Counter_LED.c **** * Summary:
+ 429:.\Generated_Source\PSoC5/Counter_LED.c **** * Reads the current period value without affecting counter operation.
+ 430:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 431:.\Generated_Source\PSoC5/Counter_LED.c **** * Parameters:  
+ 432:.\Generated_Source\PSoC5/Counter_LED.c **** *  void:  
+ 433:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 434:.\Generated_Source\PSoC5/Counter_LED.c **** * Return: 
+ 435:.\Generated_Source\PSoC5/Counter_LED.c **** *  (uint8) Present period value.
+ 436:.\Generated_Source\PSoC5/Counter_LED.c **** *
+ 437:.\Generated_Source\PSoC5/Counter_LED.c **** *******************************************************************************/
+ 438:.\Generated_Source\PSoC5/Counter_LED.c **** uint8 Counter_LED_ReadPeriod(void) 
+ 439:.\Generated_Source\PSoC5/Counter_LED.c **** {
+ 435              		.loc 1 439 0
+ 436              		.cfi_startproc
+ 437              		@ args = 0, pretend = 0, frame = 0
+ 438              		@ frame_needed = 0, uses_anonymous_args = 0
+ 439              		@ link register save eliminated.
+ 440:.\Generated_Source\PSoC5/Counter_LED.c ****     #if(Counter_LED_UsingFixedFunction)
+ 441:.\Generated_Source\PSoC5/Counter_LED.c ****         return ((uint8)CY_GET_REG16(Counter_LED_PERIOD_LSB_PTR));
+ 440              		.loc 1 441 0
+ 441 0000 014B     		ldr	r3, .L40
+ 442 0002 1888     		ldrh	r0, [r3, #0]
+ 442:.\Generated_Source\PSoC5/Counter_LED.c ****     #else
+ 443:.\Generated_Source\PSoC5/Counter_LED.c ****         return (CY_GET_REG8(Counter_LED_PERIOD_LSB_PTR));
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 17
+
+
+ 444:.\Generated_Source\PSoC5/Counter_LED.c ****     #endif /* (Counter_LED_UsingFixedFunction) */
+ 445:.\Generated_Source\PSoC5/Counter_LED.c **** }
+ 443              		.loc 1 445 0
+ 444 0004 C0B2     		uxtb	r0, r0
+ 445 0006 7047     		bx	lr
+ 446              	.L41:
+ 447              		.align	2
+ 448              	.L40:
+ 449 0008 044F0040 		.word	1073762052
+ 450              		.cfi_endproc
+ 451              	.LFE12:
+ 452              		.size	Counter_LED_ReadPeriod, .-Counter_LED_ReadPeriod
+ 453              		.global	Counter_LED_initVar
+ 454              		.bss
+ 455              		.set	.LANCHOR0,. + 0
+ 456              		.type	Counter_LED_initVar, %object
+ 457              		.size	Counter_LED_initVar, 1
+ 458              	Counter_LED_initVar:
+ 459 0000 00       		.space	1
+ 460              		.text
+ 461              	.Letext0:
+ 462              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 463              		.section	.debug_info,"",%progbits
+ 464              	.Ldebug_info0:
+ 465 0000 CC020000 		.4byte	0x2cc
+ 466 0004 0200     		.2byte	0x2
+ 467 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 468 000a 04       		.byte	0x4
+ 469 000b 01       		.uleb128 0x1
+ 470 000c 95020000 		.4byte	.LASF34
+ 471 0010 01       		.byte	0x1
+ 472 0011 68020000 		.4byte	.LASF35
+ 473 0015 F4000000 		.4byte	.LASF36
+ 474 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 475 001d 00000000 		.4byte	0
+ 476 0021 00000000 		.4byte	0
+ 477 0025 00000000 		.4byte	.Ldebug_line0
+ 478 0029 02       		.uleb128 0x2
+ 479 002a 01       		.byte	0x1
+ 480 002b 06       		.byte	0x6
+ 481 002c FF020000 		.4byte	.LASF0
+ 482 0030 02       		.uleb128 0x2
+ 483 0031 01       		.byte	0x1
+ 484 0032 08       		.byte	0x8
+ 485 0033 CF000000 		.4byte	.LASF1
+ 486 0037 02       		.uleb128 0x2
+ 487 0038 02       		.byte	0x2
+ 488 0039 05       		.byte	0x5
+ 489 003a 5E020000 		.4byte	.LASF2
+ 490 003e 02       		.uleb128 0x2
+ 491 003f 02       		.byte	0x2
+ 492 0040 07       		.byte	0x7
+ 493 0041 6C000000 		.4byte	.LASF3
+ 494 0045 02       		.uleb128 0x2
+ 495 0046 04       		.byte	0x4
+ 496 0047 05       		.byte	0x5
+ 497 0048 DE020000 		.4byte	.LASF4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 18
+
+
+ 498 004c 02       		.uleb128 0x2
+ 499 004d 04       		.byte	0x4
+ 500 004e 07       		.byte	0x7
+ 501 004f E2000000 		.4byte	.LASF5
+ 502 0053 02       		.uleb128 0x2
+ 503 0054 08       		.byte	0x8
+ 504 0055 05       		.byte	0x5
+ 505 0056 4B020000 		.4byte	.LASF6
+ 506 005a 02       		.uleb128 0x2
+ 507 005b 08       		.byte	0x8
+ 508 005c 07       		.byte	0x7
+ 509 005d EF010000 		.4byte	.LASF7
+ 510 0061 03       		.uleb128 0x3
+ 511 0062 04       		.byte	0x4
+ 512 0063 05       		.byte	0x5
+ 513 0064 696E7400 		.ascii	"int\000"
+ 514 0068 02       		.uleb128 0x2
+ 515 0069 04       		.byte	0x4
+ 516 006a 07       		.byte	0x7
+ 517 006b E2010000 		.4byte	.LASF8
+ 518 006f 04       		.uleb128 0x4
+ 519 0070 8F020000 		.4byte	.LASF9
+ 520 0074 02       		.byte	0x2
+ 521 0075 5B       		.byte	0x5b
+ 522 0076 30000000 		.4byte	0x30
+ 523 007a 04       		.uleb128 0x4
+ 524 007b B3010000 		.4byte	.LASF10
+ 525 007f 02       		.byte	0x2
+ 526 0080 5C       		.byte	0x5c
+ 527 0081 3E000000 		.4byte	0x3e
+ 528 0085 02       		.uleb128 0x2
+ 529 0086 04       		.byte	0x4
+ 530 0087 04       		.byte	0x4
+ 531 0088 A2000000 		.4byte	.LASF11
+ 532 008c 02       		.uleb128 0x2
+ 533 008d 08       		.byte	0x8
+ 534 008e 04       		.byte	0x4
+ 535 008f AC010000 		.4byte	.LASF12
+ 536 0093 02       		.uleb128 0x2
+ 537 0094 01       		.byte	0x1
+ 538 0095 08       		.byte	0x8
+ 539 0096 59020000 		.4byte	.LASF13
+ 540 009a 04       		.uleb128 0x4
+ 541 009b DD000000 		.4byte	.LASF14
+ 542 009f 02       		.byte	0x2
+ 543 00a0 F0       		.byte	0xf0
+ 544 00a1 A5000000 		.4byte	0xa5
+ 545 00a5 05       		.uleb128 0x5
+ 546 00a6 6F000000 		.4byte	0x6f
+ 547 00aa 04       		.uleb128 0x4
+ 548 00ab 00000000 		.4byte	.LASF15
+ 549 00af 02       		.byte	0x2
+ 550 00b0 F1       		.byte	0xf1
+ 551 00b1 B5000000 		.4byte	0xb5
+ 552 00b5 05       		.uleb128 0x5
+ 553 00b6 7A000000 		.4byte	0x7a
+ 554 00ba 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 19
+
+
+ 555 00bb 04       		.byte	0x4
+ 556 00bc 07       		.byte	0x7
+ 557 00bd 23020000 		.4byte	.LASF16
+ 558 00c1 06       		.uleb128 0x6
+ 559 00c2 01       		.byte	0x1
+ 560 00c3 26000000 		.4byte	.LASF17
+ 561 00c7 01       		.byte	0x1
+ 562 00c8 9F01     		.2byte	0x19f
+ 563 00ca 01       		.byte	0x1
+ 564 00cb 01       		.byte	0x1
+ 565 00cc DD000000 		.4byte	0xdd
+ 566 00d0 07       		.uleb128 0x7
+ 567 00d1 65000000 		.4byte	.LASF19
+ 568 00d5 01       		.byte	0x1
+ 569 00d6 9F01     		.2byte	0x19f
+ 570 00d8 6F000000 		.4byte	0x6f
+ 571 00dc 00       		.byte	0
+ 572 00dd 08       		.uleb128 0x8
+ 573 00de 01       		.byte	0x1
+ 574 00df 06020000 		.4byte	.LASF18
+ 575 00e3 01       		.byte	0x1
+ 576 00e4 ED       		.byte	0xed
+ 577 00e5 01       		.byte	0x1
+ 578 00e6 01       		.byte	0x1
+ 579 00e7 F7000000 		.4byte	0xf7
+ 580 00eb 09       		.uleb128 0x9
+ 581 00ec 56000000 		.4byte	.LASF20
+ 582 00f0 01       		.byte	0x1
+ 583 00f1 ED       		.byte	0xed
+ 584 00f2 6F000000 		.4byte	0x6f
+ 585 00f6 00       		.byte	0
+ 586 00f7 0A       		.uleb128 0xa
+ 587 00f8 01       		.byte	0x1
+ 588 00f9 A8000000 		.4byte	.LASF21
+ 589 00fd 01       		.byte	0x1
+ 590 00fe 8F       		.byte	0x8f
+ 591 00ff 01       		.byte	0x1
+ 592 0100 00000000 		.4byte	.LFB1
+ 593 0104 28000000 		.4byte	.LFE1
+ 594 0108 02       		.byte	0x2
+ 595 0109 7D       		.byte	0x7d
+ 596 010a 00       		.sleb128 0
+ 597 010b 01       		.byte	0x1
+ 598 010c 0A       		.uleb128 0xa
+ 599 010d 01       		.byte	0x1
+ 600 010e D1010000 		.4byte	.LASF22
+ 601 0112 01       		.byte	0x1
+ 602 0113 D0       		.byte	0xd0
+ 603 0114 01       		.byte	0x1
+ 604 0115 00000000 		.4byte	.LFB3
+ 605 0119 28000000 		.4byte	.LFE3
+ 606 011d 02       		.byte	0x2
+ 607 011e 7D       		.byte	0x7d
+ 608 011f 00       		.sleb128 0
+ 609 0120 01       		.byte	0x1
+ 610 0121 0B       		.uleb128 0xb
+ 611 0122 DD000000 		.4byte	0xdd
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 20
+
+
+ 612 0126 00000000 		.4byte	.LFB4
+ 613 012a 0C000000 		.4byte	.LFE4
+ 614 012e 02       		.byte	0x2
+ 615 012f 7D       		.byte	0x7d
+ 616 0130 00       		.sleb128 0
+ 617 0131 01       		.byte	0x1
+ 618 0132 3E010000 		.4byte	0x13e
+ 619 0136 0C       		.uleb128 0xc
+ 620 0137 EB000000 		.4byte	0xeb
+ 621 013b 01       		.byte	0x1
+ 622 013c 50       		.byte	0x50
+ 623 013d 00       		.byte	0
+ 624 013e 0D       		.uleb128 0xd
+ 625 013f 01       		.byte	0x1
+ 626 0140 2C020000 		.4byte	.LASF23
+ 627 0144 01       		.byte	0x1
+ 628 0145 0501     		.2byte	0x105
+ 629 0147 01       		.byte	0x1
+ 630 0148 6F000000 		.4byte	0x6f
+ 631 014c 00000000 		.4byte	.LFB5
+ 632 0150 0C000000 		.4byte	.LFE5
+ 633 0154 02       		.byte	0x2
+ 634 0155 7D       		.byte	0x7d
+ 635 0156 00       		.sleb128 0
+ 636 0157 01       		.byte	0x1
+ 637 0158 0D       		.uleb128 0xd
+ 638 0159 01       		.byte	0x1
+ 639 015a 06000000 		.4byte	.LASF24
+ 640 015e 01       		.byte	0x1
+ 641 015f 1B01     		.2byte	0x11b
+ 642 0161 01       		.byte	0x1
+ 643 0162 6F000000 		.4byte	0x6f
+ 644 0166 00000000 		.4byte	.LFB6
+ 645 016a 0C000000 		.4byte	.LFE6
+ 646 016e 02       		.byte	0x2
+ 647 016f 7D       		.byte	0x7d
+ 648 0170 00       		.sleb128 0
+ 649 0171 01       		.byte	0x1
+ 650 0172 0E       		.uleb128 0xe
+ 651 0173 01       		.byte	0x1
+ 652 0174 6A010000 		.4byte	.LASF25
+ 653 0178 01       		.byte	0x1
+ 654 0179 3001     		.2byte	0x130
+ 655 017b 01       		.byte	0x1
+ 656 017c 00000000 		.4byte	.LFB7
+ 657 0180 0C000000 		.4byte	.LFE7
+ 658 0184 02       		.byte	0x2
+ 659 0185 7D       		.byte	0x7d
+ 660 0186 00       		.sleb128 0
+ 661 0187 01       		.byte	0x1
+ 662 0188 9B010000 		.4byte	0x19b
+ 663 018c 0F       		.uleb128 0xf
+ 664 018d 62010000 		.4byte	.LASF27
+ 665 0191 01       		.byte	0x1
+ 666 0192 3001     		.2byte	0x130
+ 667 0194 6F000000 		.4byte	0x6f
+ 668 0198 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 21
+
+
+ 669 0199 50       		.byte	0x50
+ 670 019a 00       		.byte	0
+ 671 019b 0E       		.uleb128 0xe
+ 672 019c 01       		.byte	0x1
+ 673 019d 8B010000 		.4byte	.LASF26
+ 674 01a1 01       		.byte	0x1
+ 675 01a2 4601     		.2byte	0x146
+ 676 01a4 01       		.byte	0x1
+ 677 01a5 00000000 		.4byte	.LFB8
+ 678 01a9 20000000 		.4byte	.LFE8
+ 679 01ad 02       		.byte	0x2
+ 680 01ae 7D       		.byte	0x7d
+ 681 01af 00       		.sleb128 0
+ 682 01b0 01       		.byte	0x1
+ 683 01b1 C6010000 		.4byte	0x1c6
+ 684 01b5 10       		.uleb128 0x10
+ 685 01b6 A4010000 		.4byte	.LASF28
+ 686 01ba 01       		.byte	0x1
+ 687 01bb 4601     		.2byte	0x146
+ 688 01bd 6F000000 		.4byte	0x6f
+ 689 01c1 00000000 		.4byte	.LLST0
+ 690 01c5 00       		.byte	0
+ 691 01c6 11       		.uleb128 0x11
+ 692 01c7 01       		.byte	0x1
+ 693 01c8 7F000000 		.4byte	.LASF29
+ 694 01cc 01       		.byte	0x1
+ 695 01cd 25       		.byte	0x25
+ 696 01ce 01       		.byte	0x1
+ 697 01cf 00000000 		.4byte	.LFB0
+ 698 01d3 54000000 		.4byte	.LFE0
+ 699 01d7 21000000 		.4byte	.LLST1
+ 700 01db 01       		.byte	0x1
+ 701 01dc 24020000 		.4byte	0x224
+ 702 01e0 12       		.uleb128 0x12
+ 703 01e1 C1000000 		.4byte	0xc1
+ 704 01e5 3C000000 		.4byte	.LBB6
+ 705 01e9 40000000 		.4byte	.LBE6
+ 706 01ed 01       		.byte	0x1
+ 707 01ee 64       		.byte	0x64
+ 708 01ef FA010000 		.4byte	0x1fa
+ 709 01f3 13       		.uleb128 0x13
+ 710 01f4 D0000000 		.4byte	0xd0
+ 711 01f8 14       		.byte	0x14
+ 712 01f9 00       		.byte	0
+ 713 01fa 12       		.uleb128 0x12
+ 714 01fb DD000000 		.4byte	0xdd
+ 715 01ff 44000000 		.4byte	.LBB8
+ 716 0203 54000000 		.4byte	.LBE8
+ 717 0207 01       		.byte	0x1
+ 718 0208 68       		.byte	0x68
+ 719 0209 14020000 		.4byte	0x214
+ 720 020d 13       		.uleb128 0x13
+ 721 020e EB000000 		.4byte	0xeb
+ 722 0212 00       		.byte	0
+ 723 0213 00       		.byte	0
+ 724 0214 14       		.uleb128 0x14
+ 725 0215 44000000 		.4byte	.LVL5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 22
+
+
+ 726 0219 9B010000 		.4byte	0x19b
+ 727 021d 15       		.uleb128 0x15
+ 728 021e 01       		.byte	0x1
+ 729 021f 50       		.byte	0x50
+ 730 0220 01       		.byte	0x1
+ 731 0221 44       		.byte	0x44
+ 732 0222 00       		.byte	0
+ 733 0223 00       		.byte	0
+ 734 0224 11       		.uleb128 0x11
+ 735 0225 01       		.byte	0x1
+ 736 0226 90000000 		.4byte	.LASF30
+ 737 022a 01       		.byte	0x1
+ 738 022b B2       		.byte	0xb2
+ 739 022c 01       		.byte	0x1
+ 740 022d 00000000 		.4byte	.LFB2
+ 741 0231 1C000000 		.4byte	.LFE2
+ 742 0235 41000000 		.4byte	.LLST2
+ 743 0239 01       		.byte	0x1
+ 744 023a 52020000 		.4byte	0x252
+ 745 023e 16       		.uleb128 0x16
+ 746 023f 0C000000 		.4byte	.LVL6
+ 747 0243 C6010000 		.4byte	0x1c6
+ 748 0247 17       		.uleb128 0x17
+ 749 0248 18000000 		.4byte	.LVL7
+ 750 024c 01       		.byte	0x1
+ 751 024d F7000000 		.4byte	0xf7
+ 752 0251 00       		.byte	0
+ 753 0252 0D       		.uleb128 0xd
+ 754 0253 01       		.byte	0x1
+ 755 0254 E7020000 		.4byte	.LASF31
+ 756 0258 01       		.byte	0x1
+ 757 0259 6501     		.2byte	0x165
+ 758 025b 01       		.byte	0x1
+ 759 025c 6F000000 		.4byte	0x6f
+ 760 0260 00000000 		.4byte	.LFB9
+ 761 0264 14000000 		.4byte	.LFE9
+ 762 0268 02       		.byte	0x2
+ 763 0269 7D       		.byte	0x7d
+ 764 026a 00       		.sleb128 0
+ 765 026b 01       		.byte	0x1
+ 766 026c 0D       		.uleb128 0xd
+ 767 026d 01       		.byte	0x1
+ 768 026e 3E000000 		.4byte	.LASF32
+ 769 0272 01       		.byte	0x1
+ 770 0273 8601     		.2byte	0x186
+ 771 0275 01       		.byte	0x1
+ 772 0276 6F000000 		.4byte	0x6f
+ 773 027a 00000000 		.4byte	.LFB10
+ 774 027e 0C000000 		.4byte	.LFE10
+ 775 0282 02       		.byte	0x2
+ 776 0283 7D       		.byte	0x7d
+ 777 0284 00       		.sleb128 0
+ 778 0285 01       		.byte	0x1
+ 779 0286 0B       		.uleb128 0xb
+ 780 0287 C1000000 		.4byte	0xc1
+ 781 028b 00000000 		.4byte	.LFB11
+ 782 028f 0C000000 		.4byte	.LFE11
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 23
+
+
+ 783 0293 02       		.byte	0x2
+ 784 0294 7D       		.byte	0x7d
+ 785 0295 00       		.sleb128 0
+ 786 0296 01       		.byte	0x1
+ 787 0297 A3020000 		.4byte	0x2a3
+ 788 029b 0C       		.uleb128 0xc
+ 789 029c D0000000 		.4byte	0xd0
+ 790 02a0 01       		.byte	0x1
+ 791 02a1 50       		.byte	0x50
+ 792 02a2 00       		.byte	0
+ 793 02a3 0D       		.uleb128 0xd
+ 794 02a4 01       		.byte	0x1
+ 795 02a5 BA010000 		.4byte	.LASF33
+ 796 02a9 01       		.byte	0x1
+ 797 02aa B601     		.2byte	0x1b6
+ 798 02ac 01       		.byte	0x1
+ 799 02ad 6F000000 		.4byte	0x6f
+ 800 02b1 00000000 		.4byte	.LFB12
+ 801 02b5 0C000000 		.4byte	.LFE12
+ 802 02b9 02       		.byte	0x2
+ 803 02ba 7D       		.byte	0x7d
+ 804 02bb 00       		.sleb128 0
+ 805 02bc 01       		.byte	0x1
+ 806 02bd 18       		.uleb128 0x18
+ 807 02be BB000000 		.4byte	.LASF37
+ 808 02c2 01       		.byte	0x1
+ 809 02c3 15       		.byte	0x15
+ 810 02c4 6F000000 		.4byte	0x6f
+ 811 02c8 01       		.byte	0x1
+ 812 02c9 05       		.byte	0x5
+ 813 02ca 03       		.byte	0x3
+ 814 02cb 00000000 		.4byte	Counter_LED_initVar
+ 815 02cf 00       		.byte	0
+ 816              		.section	.debug_abbrev,"",%progbits
+ 817              	.Ldebug_abbrev0:
+ 818 0000 01       		.uleb128 0x1
+ 819 0001 11       		.uleb128 0x11
+ 820 0002 01       		.byte	0x1
+ 821 0003 25       		.uleb128 0x25
+ 822 0004 0E       		.uleb128 0xe
+ 823 0005 13       		.uleb128 0x13
+ 824 0006 0B       		.uleb128 0xb
+ 825 0007 03       		.uleb128 0x3
+ 826 0008 0E       		.uleb128 0xe
+ 827 0009 1B       		.uleb128 0x1b
+ 828 000a 0E       		.uleb128 0xe
+ 829 000b 55       		.uleb128 0x55
+ 830 000c 06       		.uleb128 0x6
+ 831 000d 11       		.uleb128 0x11
+ 832 000e 01       		.uleb128 0x1
+ 833 000f 52       		.uleb128 0x52
+ 834 0010 01       		.uleb128 0x1
+ 835 0011 10       		.uleb128 0x10
+ 836 0012 06       		.uleb128 0x6
+ 837 0013 00       		.byte	0
+ 838 0014 00       		.byte	0
+ 839 0015 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 24
+
+
+ 840 0016 24       		.uleb128 0x24
+ 841 0017 00       		.byte	0
+ 842 0018 0B       		.uleb128 0xb
+ 843 0019 0B       		.uleb128 0xb
+ 844 001a 3E       		.uleb128 0x3e
+ 845 001b 0B       		.uleb128 0xb
+ 846 001c 03       		.uleb128 0x3
+ 847 001d 0E       		.uleb128 0xe
+ 848 001e 00       		.byte	0
+ 849 001f 00       		.byte	0
+ 850 0020 03       		.uleb128 0x3
+ 851 0021 24       		.uleb128 0x24
+ 852 0022 00       		.byte	0
+ 853 0023 0B       		.uleb128 0xb
+ 854 0024 0B       		.uleb128 0xb
+ 855 0025 3E       		.uleb128 0x3e
+ 856 0026 0B       		.uleb128 0xb
+ 857 0027 03       		.uleb128 0x3
+ 858 0028 08       		.uleb128 0x8
+ 859 0029 00       		.byte	0
+ 860 002a 00       		.byte	0
+ 861 002b 04       		.uleb128 0x4
+ 862 002c 16       		.uleb128 0x16
+ 863 002d 00       		.byte	0
+ 864 002e 03       		.uleb128 0x3
+ 865 002f 0E       		.uleb128 0xe
+ 866 0030 3A       		.uleb128 0x3a
+ 867 0031 0B       		.uleb128 0xb
+ 868 0032 3B       		.uleb128 0x3b
+ 869 0033 0B       		.uleb128 0xb
+ 870 0034 49       		.uleb128 0x49
+ 871 0035 13       		.uleb128 0x13
+ 872 0036 00       		.byte	0
+ 873 0037 00       		.byte	0
+ 874 0038 05       		.uleb128 0x5
+ 875 0039 35       		.uleb128 0x35
+ 876 003a 00       		.byte	0
+ 877 003b 49       		.uleb128 0x49
+ 878 003c 13       		.uleb128 0x13
+ 879 003d 00       		.byte	0
+ 880 003e 00       		.byte	0
+ 881 003f 06       		.uleb128 0x6
+ 882 0040 2E       		.uleb128 0x2e
+ 883 0041 01       		.byte	0x1
+ 884 0042 3F       		.uleb128 0x3f
+ 885 0043 0C       		.uleb128 0xc
+ 886 0044 03       		.uleb128 0x3
+ 887 0045 0E       		.uleb128 0xe
+ 888 0046 3A       		.uleb128 0x3a
+ 889 0047 0B       		.uleb128 0xb
+ 890 0048 3B       		.uleb128 0x3b
+ 891 0049 05       		.uleb128 0x5
+ 892 004a 27       		.uleb128 0x27
+ 893 004b 0C       		.uleb128 0xc
+ 894 004c 20       		.uleb128 0x20
+ 895 004d 0B       		.uleb128 0xb
+ 896 004e 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 25
+
+
+ 897 004f 13       		.uleb128 0x13
+ 898 0050 00       		.byte	0
+ 899 0051 00       		.byte	0
+ 900 0052 07       		.uleb128 0x7
+ 901 0053 05       		.uleb128 0x5
+ 902 0054 00       		.byte	0
+ 903 0055 03       		.uleb128 0x3
+ 904 0056 0E       		.uleb128 0xe
+ 905 0057 3A       		.uleb128 0x3a
+ 906 0058 0B       		.uleb128 0xb
+ 907 0059 3B       		.uleb128 0x3b
+ 908 005a 05       		.uleb128 0x5
+ 909 005b 49       		.uleb128 0x49
+ 910 005c 13       		.uleb128 0x13
+ 911 005d 00       		.byte	0
+ 912 005e 00       		.byte	0
+ 913 005f 08       		.uleb128 0x8
+ 914 0060 2E       		.uleb128 0x2e
+ 915 0061 01       		.byte	0x1
+ 916 0062 3F       		.uleb128 0x3f
+ 917 0063 0C       		.uleb128 0xc
+ 918 0064 03       		.uleb128 0x3
+ 919 0065 0E       		.uleb128 0xe
+ 920 0066 3A       		.uleb128 0x3a
+ 921 0067 0B       		.uleb128 0xb
+ 922 0068 3B       		.uleb128 0x3b
+ 923 0069 0B       		.uleb128 0xb
+ 924 006a 27       		.uleb128 0x27
+ 925 006b 0C       		.uleb128 0xc
+ 926 006c 20       		.uleb128 0x20
+ 927 006d 0B       		.uleb128 0xb
+ 928 006e 01       		.uleb128 0x1
+ 929 006f 13       		.uleb128 0x13
+ 930 0070 00       		.byte	0
+ 931 0071 00       		.byte	0
+ 932 0072 09       		.uleb128 0x9
+ 933 0073 05       		.uleb128 0x5
+ 934 0074 00       		.byte	0
+ 935 0075 03       		.uleb128 0x3
+ 936 0076 0E       		.uleb128 0xe
+ 937 0077 3A       		.uleb128 0x3a
+ 938 0078 0B       		.uleb128 0xb
+ 939 0079 3B       		.uleb128 0x3b
+ 940 007a 0B       		.uleb128 0xb
+ 941 007b 49       		.uleb128 0x49
+ 942 007c 13       		.uleb128 0x13
+ 943 007d 00       		.byte	0
+ 944 007e 00       		.byte	0
+ 945 007f 0A       		.uleb128 0xa
+ 946 0080 2E       		.uleb128 0x2e
+ 947 0081 00       		.byte	0
+ 948 0082 3F       		.uleb128 0x3f
+ 949 0083 0C       		.uleb128 0xc
+ 950 0084 03       		.uleb128 0x3
+ 951 0085 0E       		.uleb128 0xe
+ 952 0086 3A       		.uleb128 0x3a
+ 953 0087 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 26
+
+
+ 954 0088 3B       		.uleb128 0x3b
+ 955 0089 0B       		.uleb128 0xb
+ 956 008a 27       		.uleb128 0x27
+ 957 008b 0C       		.uleb128 0xc
+ 958 008c 11       		.uleb128 0x11
+ 959 008d 01       		.uleb128 0x1
+ 960 008e 12       		.uleb128 0x12
+ 961 008f 01       		.uleb128 0x1
+ 962 0090 40       		.uleb128 0x40
+ 963 0091 0A       		.uleb128 0xa
+ 964 0092 9742     		.uleb128 0x2117
+ 965 0094 0C       		.uleb128 0xc
+ 966 0095 00       		.byte	0
+ 967 0096 00       		.byte	0
+ 968 0097 0B       		.uleb128 0xb
+ 969 0098 2E       		.uleb128 0x2e
+ 970 0099 01       		.byte	0x1
+ 971 009a 31       		.uleb128 0x31
+ 972 009b 13       		.uleb128 0x13
+ 973 009c 11       		.uleb128 0x11
+ 974 009d 01       		.uleb128 0x1
+ 975 009e 12       		.uleb128 0x12
+ 976 009f 01       		.uleb128 0x1
+ 977 00a0 40       		.uleb128 0x40
+ 978 00a1 0A       		.uleb128 0xa
+ 979 00a2 9742     		.uleb128 0x2117
+ 980 00a4 0C       		.uleb128 0xc
+ 981 00a5 01       		.uleb128 0x1
+ 982 00a6 13       		.uleb128 0x13
+ 983 00a7 00       		.byte	0
+ 984 00a8 00       		.byte	0
+ 985 00a9 0C       		.uleb128 0xc
+ 986 00aa 05       		.uleb128 0x5
+ 987 00ab 00       		.byte	0
+ 988 00ac 31       		.uleb128 0x31
+ 989 00ad 13       		.uleb128 0x13
+ 990 00ae 02       		.uleb128 0x2
+ 991 00af 0A       		.uleb128 0xa
+ 992 00b0 00       		.byte	0
+ 993 00b1 00       		.byte	0
+ 994 00b2 0D       		.uleb128 0xd
+ 995 00b3 2E       		.uleb128 0x2e
+ 996 00b4 00       		.byte	0
+ 997 00b5 3F       		.uleb128 0x3f
+ 998 00b6 0C       		.uleb128 0xc
+ 999 00b7 03       		.uleb128 0x3
+ 1000 00b8 0E       		.uleb128 0xe
+ 1001 00b9 3A       		.uleb128 0x3a
+ 1002 00ba 0B       		.uleb128 0xb
+ 1003 00bb 3B       		.uleb128 0x3b
+ 1004 00bc 05       		.uleb128 0x5
+ 1005 00bd 27       		.uleb128 0x27
+ 1006 00be 0C       		.uleb128 0xc
+ 1007 00bf 49       		.uleb128 0x49
+ 1008 00c0 13       		.uleb128 0x13
+ 1009 00c1 11       		.uleb128 0x11
+ 1010 00c2 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 27
+
+
+ 1011 00c3 12       		.uleb128 0x12
+ 1012 00c4 01       		.uleb128 0x1
+ 1013 00c5 40       		.uleb128 0x40
+ 1014 00c6 0A       		.uleb128 0xa
+ 1015 00c7 9742     		.uleb128 0x2117
+ 1016 00c9 0C       		.uleb128 0xc
+ 1017 00ca 00       		.byte	0
+ 1018 00cb 00       		.byte	0
+ 1019 00cc 0E       		.uleb128 0xe
+ 1020 00cd 2E       		.uleb128 0x2e
+ 1021 00ce 01       		.byte	0x1
+ 1022 00cf 3F       		.uleb128 0x3f
+ 1023 00d0 0C       		.uleb128 0xc
+ 1024 00d1 03       		.uleb128 0x3
+ 1025 00d2 0E       		.uleb128 0xe
+ 1026 00d3 3A       		.uleb128 0x3a
+ 1027 00d4 0B       		.uleb128 0xb
+ 1028 00d5 3B       		.uleb128 0x3b
+ 1029 00d6 05       		.uleb128 0x5
+ 1030 00d7 27       		.uleb128 0x27
+ 1031 00d8 0C       		.uleb128 0xc
+ 1032 00d9 11       		.uleb128 0x11
+ 1033 00da 01       		.uleb128 0x1
+ 1034 00db 12       		.uleb128 0x12
+ 1035 00dc 01       		.uleb128 0x1
+ 1036 00dd 40       		.uleb128 0x40
+ 1037 00de 0A       		.uleb128 0xa
+ 1038 00df 9742     		.uleb128 0x2117
+ 1039 00e1 0C       		.uleb128 0xc
+ 1040 00e2 01       		.uleb128 0x1
+ 1041 00e3 13       		.uleb128 0x13
+ 1042 00e4 00       		.byte	0
+ 1043 00e5 00       		.byte	0
+ 1044 00e6 0F       		.uleb128 0xf
+ 1045 00e7 05       		.uleb128 0x5
+ 1046 00e8 00       		.byte	0
+ 1047 00e9 03       		.uleb128 0x3
+ 1048 00ea 0E       		.uleb128 0xe
+ 1049 00eb 3A       		.uleb128 0x3a
+ 1050 00ec 0B       		.uleb128 0xb
+ 1051 00ed 3B       		.uleb128 0x3b
+ 1052 00ee 05       		.uleb128 0x5
+ 1053 00ef 49       		.uleb128 0x49
+ 1054 00f0 13       		.uleb128 0x13
+ 1055 00f1 02       		.uleb128 0x2
+ 1056 00f2 0A       		.uleb128 0xa
+ 1057 00f3 00       		.byte	0
+ 1058 00f4 00       		.byte	0
+ 1059 00f5 10       		.uleb128 0x10
+ 1060 00f6 05       		.uleb128 0x5
+ 1061 00f7 00       		.byte	0
+ 1062 00f8 03       		.uleb128 0x3
+ 1063 00f9 0E       		.uleb128 0xe
+ 1064 00fa 3A       		.uleb128 0x3a
+ 1065 00fb 0B       		.uleb128 0xb
+ 1066 00fc 3B       		.uleb128 0x3b
+ 1067 00fd 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 28
+
+
+ 1068 00fe 49       		.uleb128 0x49
+ 1069 00ff 13       		.uleb128 0x13
+ 1070 0100 02       		.uleb128 0x2
+ 1071 0101 06       		.uleb128 0x6
+ 1072 0102 00       		.byte	0
+ 1073 0103 00       		.byte	0
+ 1074 0104 11       		.uleb128 0x11
+ 1075 0105 2E       		.uleb128 0x2e
+ 1076 0106 01       		.byte	0x1
+ 1077 0107 3F       		.uleb128 0x3f
+ 1078 0108 0C       		.uleb128 0xc
+ 1079 0109 03       		.uleb128 0x3
+ 1080 010a 0E       		.uleb128 0xe
+ 1081 010b 3A       		.uleb128 0x3a
+ 1082 010c 0B       		.uleb128 0xb
+ 1083 010d 3B       		.uleb128 0x3b
+ 1084 010e 0B       		.uleb128 0xb
+ 1085 010f 27       		.uleb128 0x27
+ 1086 0110 0C       		.uleb128 0xc
+ 1087 0111 11       		.uleb128 0x11
+ 1088 0112 01       		.uleb128 0x1
+ 1089 0113 12       		.uleb128 0x12
+ 1090 0114 01       		.uleb128 0x1
+ 1091 0115 40       		.uleb128 0x40
+ 1092 0116 06       		.uleb128 0x6
+ 1093 0117 9742     		.uleb128 0x2117
+ 1094 0119 0C       		.uleb128 0xc
+ 1095 011a 01       		.uleb128 0x1
+ 1096 011b 13       		.uleb128 0x13
+ 1097 011c 00       		.byte	0
+ 1098 011d 00       		.byte	0
+ 1099 011e 12       		.uleb128 0x12
+ 1100 011f 1D       		.uleb128 0x1d
+ 1101 0120 01       		.byte	0x1
+ 1102 0121 31       		.uleb128 0x31
+ 1103 0122 13       		.uleb128 0x13
+ 1104 0123 11       		.uleb128 0x11
+ 1105 0124 01       		.uleb128 0x1
+ 1106 0125 12       		.uleb128 0x12
+ 1107 0126 01       		.uleb128 0x1
+ 1108 0127 58       		.uleb128 0x58
+ 1109 0128 0B       		.uleb128 0xb
+ 1110 0129 59       		.uleb128 0x59
+ 1111 012a 0B       		.uleb128 0xb
+ 1112 012b 01       		.uleb128 0x1
+ 1113 012c 13       		.uleb128 0x13
+ 1114 012d 00       		.byte	0
+ 1115 012e 00       		.byte	0
+ 1116 012f 13       		.uleb128 0x13
+ 1117 0130 05       		.uleb128 0x5
+ 1118 0131 00       		.byte	0
+ 1119 0132 31       		.uleb128 0x31
+ 1120 0133 13       		.uleb128 0x13
+ 1121 0134 1C       		.uleb128 0x1c
+ 1122 0135 0B       		.uleb128 0xb
+ 1123 0136 00       		.byte	0
+ 1124 0137 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 29
+
+
+ 1125 0138 14       		.uleb128 0x14
+ 1126 0139 898201   		.uleb128 0x4109
+ 1127 013c 01       		.byte	0x1
+ 1128 013d 11       		.uleb128 0x11
+ 1129 013e 01       		.uleb128 0x1
+ 1130 013f 31       		.uleb128 0x31
+ 1131 0140 13       		.uleb128 0x13
+ 1132 0141 00       		.byte	0
+ 1133 0142 00       		.byte	0
+ 1134 0143 15       		.uleb128 0x15
+ 1135 0144 8A8201   		.uleb128 0x410a
+ 1136 0147 00       		.byte	0
+ 1137 0148 02       		.uleb128 0x2
+ 1138 0149 0A       		.uleb128 0xa
+ 1139 014a 9142     		.uleb128 0x2111
+ 1140 014c 0A       		.uleb128 0xa
+ 1141 014d 00       		.byte	0
+ 1142 014e 00       		.byte	0
+ 1143 014f 16       		.uleb128 0x16
+ 1144 0150 898201   		.uleb128 0x4109
+ 1145 0153 00       		.byte	0
+ 1146 0154 11       		.uleb128 0x11
+ 1147 0155 01       		.uleb128 0x1
+ 1148 0156 31       		.uleb128 0x31
+ 1149 0157 13       		.uleb128 0x13
+ 1150 0158 00       		.byte	0
+ 1151 0159 00       		.byte	0
+ 1152 015a 17       		.uleb128 0x17
+ 1153 015b 898201   		.uleb128 0x4109
+ 1154 015e 00       		.byte	0
+ 1155 015f 11       		.uleb128 0x11
+ 1156 0160 01       		.uleb128 0x1
+ 1157 0161 9542     		.uleb128 0x2115
+ 1158 0163 0C       		.uleb128 0xc
+ 1159 0164 31       		.uleb128 0x31
+ 1160 0165 13       		.uleb128 0x13
+ 1161 0166 00       		.byte	0
+ 1162 0167 00       		.byte	0
+ 1163 0168 18       		.uleb128 0x18
+ 1164 0169 34       		.uleb128 0x34
+ 1165 016a 00       		.byte	0
+ 1166 016b 03       		.uleb128 0x3
+ 1167 016c 0E       		.uleb128 0xe
+ 1168 016d 3A       		.uleb128 0x3a
+ 1169 016e 0B       		.uleb128 0xb
+ 1170 016f 3B       		.uleb128 0x3b
+ 1171 0170 0B       		.uleb128 0xb
+ 1172 0171 49       		.uleb128 0x49
+ 1173 0172 13       		.uleb128 0x13
+ 1174 0173 3F       		.uleb128 0x3f
+ 1175 0174 0C       		.uleb128 0xc
+ 1176 0175 02       		.uleb128 0x2
+ 1177 0176 0A       		.uleb128 0xa
+ 1178 0177 00       		.byte	0
+ 1179 0178 00       		.byte	0
+ 1180 0179 00       		.byte	0
+ 1181              		.section	.debug_loc,"",%progbits
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 30
+
+
+ 1182              	.Ldebug_loc0:
+ 1183              	.LLST0:
+ 1184 0000 00000000 		.4byte	.LVL2
+ 1185 0004 10000000 		.4byte	.LVL3
+ 1186 0008 0100     		.2byte	0x1
+ 1187 000a 50       		.byte	0x50
+ 1188 000b 10000000 		.4byte	.LVL3
+ 1189 000f 20000000 		.4byte	.LFE8
+ 1190 0013 0400     		.2byte	0x4
+ 1191 0015 F3       		.byte	0xf3
+ 1192 0016 01       		.uleb128 0x1
+ 1193 0017 50       		.byte	0x50
+ 1194 0018 9F       		.byte	0x9f
+ 1195 0019 00000000 		.4byte	0
+ 1196 001d 00000000 		.4byte	0
+ 1197              	.LLST1:
+ 1198 0021 00000000 		.4byte	.LFB0
+ 1199 0025 02000000 		.4byte	.LCFI0
+ 1200 0029 0200     		.2byte	0x2
+ 1201 002b 7D       		.byte	0x7d
+ 1202 002c 00       		.sleb128 0
+ 1203 002d 02000000 		.4byte	.LCFI0
+ 1204 0031 54000000 		.4byte	.LFE0
+ 1205 0035 0200     		.2byte	0x2
+ 1206 0037 7D       		.byte	0x7d
+ 1207 0038 08       		.sleb128 8
+ 1208 0039 00000000 		.4byte	0
+ 1209 003d 00000000 		.4byte	0
+ 1210              	.LLST2:
+ 1211 0041 00000000 		.4byte	.LFB2
+ 1212 0045 02000000 		.4byte	.LCFI1
+ 1213 0049 0200     		.2byte	0x2
+ 1214 004b 7D       		.byte	0x7d
+ 1215 004c 00       		.sleb128 0
+ 1216 004d 02000000 		.4byte	.LCFI1
+ 1217 0051 1C000000 		.4byte	.LFE2
+ 1218 0055 0200     		.2byte	0x2
+ 1219 0057 7D       		.byte	0x7d
+ 1220 0058 08       		.sleb128 8
+ 1221 0059 00000000 		.4byte	0
+ 1222 005d 00000000 		.4byte	0
+ 1223              		.section	.debug_aranges,"",%progbits
+ 1224 0000 7C000000 		.4byte	0x7c
+ 1225 0004 0200     		.2byte	0x2
+ 1226 0006 00000000 		.4byte	.Ldebug_info0
+ 1227 000a 04       		.byte	0x4
+ 1228 000b 00       		.byte	0
+ 1229 000c 0000     		.2byte	0
+ 1230 000e 0000     		.2byte	0
+ 1231 0010 00000000 		.4byte	.LFB1
+ 1232 0014 28000000 		.4byte	.LFE1-.LFB1
+ 1233 0018 00000000 		.4byte	.LFB3
+ 1234 001c 28000000 		.4byte	.LFE3-.LFB3
+ 1235 0020 00000000 		.4byte	.LFB4
+ 1236 0024 0C000000 		.4byte	.LFE4-.LFB4
+ 1237 0028 00000000 		.4byte	.LFB5
+ 1238 002c 0C000000 		.4byte	.LFE5-.LFB5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 31
+
+
+ 1239 0030 00000000 		.4byte	.LFB6
+ 1240 0034 0C000000 		.4byte	.LFE6-.LFB6
+ 1241 0038 00000000 		.4byte	.LFB7
+ 1242 003c 0C000000 		.4byte	.LFE7-.LFB7
+ 1243 0040 00000000 		.4byte	.LFB8
+ 1244 0044 20000000 		.4byte	.LFE8-.LFB8
+ 1245 0048 00000000 		.4byte	.LFB0
+ 1246 004c 54000000 		.4byte	.LFE0-.LFB0
+ 1247 0050 00000000 		.4byte	.LFB2
+ 1248 0054 1C000000 		.4byte	.LFE2-.LFB2
+ 1249 0058 00000000 		.4byte	.LFB9
+ 1250 005c 14000000 		.4byte	.LFE9-.LFB9
+ 1251 0060 00000000 		.4byte	.LFB10
+ 1252 0064 0C000000 		.4byte	.LFE10-.LFB10
+ 1253 0068 00000000 		.4byte	.LFB11
+ 1254 006c 0C000000 		.4byte	.LFE11-.LFB11
+ 1255 0070 00000000 		.4byte	.LFB12
+ 1256 0074 0C000000 		.4byte	.LFE12-.LFB12
+ 1257 0078 00000000 		.4byte	0
+ 1258 007c 00000000 		.4byte	0
+ 1259              		.section	.debug_ranges,"",%progbits
+ 1260              	.Ldebug_ranges0:
+ 1261 0000 00000000 		.4byte	.LFB1
+ 1262 0004 28000000 		.4byte	.LFE1
+ 1263 0008 00000000 		.4byte	.LFB3
+ 1264 000c 28000000 		.4byte	.LFE3
+ 1265 0010 00000000 		.4byte	.LFB4
+ 1266 0014 0C000000 		.4byte	.LFE4
+ 1267 0018 00000000 		.4byte	.LFB5
+ 1268 001c 0C000000 		.4byte	.LFE5
+ 1269 0020 00000000 		.4byte	.LFB6
+ 1270 0024 0C000000 		.4byte	.LFE6
+ 1271 0028 00000000 		.4byte	.LFB7
+ 1272 002c 0C000000 		.4byte	.LFE7
+ 1273 0030 00000000 		.4byte	.LFB8
+ 1274 0034 20000000 		.4byte	.LFE8
+ 1275 0038 00000000 		.4byte	.LFB0
+ 1276 003c 54000000 		.4byte	.LFE0
+ 1277 0040 00000000 		.4byte	.LFB2
+ 1278 0044 1C000000 		.4byte	.LFE2
+ 1279 0048 00000000 		.4byte	.LFB9
+ 1280 004c 14000000 		.4byte	.LFE9
+ 1281 0050 00000000 		.4byte	.LFB10
+ 1282 0054 0C000000 		.4byte	.LFE10
+ 1283 0058 00000000 		.4byte	.LFB11
+ 1284 005c 0C000000 		.4byte	.LFE11
+ 1285 0060 00000000 		.4byte	.LFB12
+ 1286 0064 0C000000 		.4byte	.LFE12
+ 1287 0068 00000000 		.4byte	0
+ 1288 006c 00000000 		.4byte	0
+ 1289              		.section	.debug_line,"",%progbits
+ 1290              	.Ldebug_line0:
+ 1291 0000 5B010000 		.section	.debug_str,"MS",%progbits,1
+ 1291      02004A00 
+ 1291      00000201 
+ 1291      FB0E0D00 
+ 1291      01010101 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 32
+
+
+ 1292              	.LASF15:
+ 1293 0000 72656731 		.ascii	"reg16\000"
+ 1293      3600
+ 1294              	.LASF24:
+ 1295 0006 436F756E 		.ascii	"Counter_LED_ReadControlRegister\000"
+ 1295      7465725F 
+ 1295      4C45445F 
+ 1295      52656164 
+ 1295      436F6E74 
+ 1296              	.LASF17:
+ 1297 0026 436F756E 		.ascii	"Counter_LED_WritePeriod\000"
+ 1297      7465725F 
+ 1297      4C45445F 
+ 1297      57726974 
+ 1297      65506572 
+ 1298              	.LASF32:
+ 1299 003e 436F756E 		.ascii	"Counter_LED_ReadCapture\000"
+ 1299      7465725F 
+ 1299      4C45445F 
+ 1299      52656164 
+ 1299      43617074 
+ 1300              	.LASF20:
+ 1301 0056 696E7465 		.ascii	"interruptsMask\000"
+ 1301      72727570 
+ 1301      74734D61 
+ 1301      736B00
+ 1302              	.LASF19:
+ 1303 0065 70657269 		.ascii	"period\000"
+ 1303      6F6400
+ 1304              	.LASF3:
+ 1305 006c 73686F72 		.ascii	"short unsigned int\000"
+ 1305      7420756E 
+ 1305      7369676E 
+ 1305      65642069 
+ 1305      6E7400
+ 1306              	.LASF29:
+ 1307 007f 436F756E 		.ascii	"Counter_LED_Init\000"
+ 1307      7465725F 
+ 1307      4C45445F 
+ 1307      496E6974 
+ 1307      00
+ 1308              	.LASF30:
+ 1309 0090 436F756E 		.ascii	"Counter_LED_Start\000"
+ 1309      7465725F 
+ 1309      4C45445F 
+ 1309      53746172 
+ 1309      7400
+ 1310              	.LASF11:
+ 1311 00a2 666C6F61 		.ascii	"float\000"
+ 1311      7400
+ 1312              	.LASF21:
+ 1313 00a8 436F756E 		.ascii	"Counter_LED_Enable\000"
+ 1313      7465725F 
+ 1313      4C45445F 
+ 1313      456E6162 
+ 1313      6C6500
+ 1314              	.LASF37:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 33
+
+
+ 1315 00bb 436F756E 		.ascii	"Counter_LED_initVar\000"
+ 1315      7465725F 
+ 1315      4C45445F 
+ 1315      696E6974 
+ 1315      56617200 
+ 1316              	.LASF1:
+ 1317 00cf 756E7369 		.ascii	"unsigned char\000"
+ 1317      676E6564 
+ 1317      20636861 
+ 1317      7200
+ 1318              	.LASF14:
+ 1319 00dd 72656738 		.ascii	"reg8\000"
+ 1319      00
+ 1320              	.LASF5:
+ 1321 00e2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1321      20756E73 
+ 1321      69676E65 
+ 1321      6420696E 
+ 1321      7400
+ 1322              	.LASF36:
+ 1323 00f4 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 1323      73657273 
+ 1323      5C477261 
+ 1323      7A69616E 
+ 1323      6F5C4465 
+ 1324 0122 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 1324      525C5665 
+ 1324      72732E30 
+ 1324      2E302D54 
+ 1324      30352032 
+ 1325 0153 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 1325      65446972 
+ 1325      2E637964 
+ 1325      736E00
+ 1326              	.LASF27:
+ 1327 0162 636F6E74 		.ascii	"control\000"
+ 1327      726F6C00 
+ 1328              	.LASF25:
+ 1329 016a 436F756E 		.ascii	"Counter_LED_WriteControlRegister\000"
+ 1329      7465725F 
+ 1329      4C45445F 
+ 1329      57726974 
+ 1329      65436F6E 
+ 1330              	.LASF26:
+ 1331 018b 436F756E 		.ascii	"Counter_LED_WriteCounter\000"
+ 1331      7465725F 
+ 1331      4C45445F 
+ 1331      57726974 
+ 1331      65436F75 
+ 1332              	.LASF28:
+ 1333 01a4 636F756E 		.ascii	"counter\000"
+ 1333      74657200 
+ 1334              	.LASF12:
+ 1335 01ac 646F7562 		.ascii	"double\000"
+ 1335      6C6500
+ 1336              	.LASF10:
+ 1337 01b3 75696E74 		.ascii	"uint16\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 34
+
+
+ 1337      313600
+ 1338              	.LASF33:
+ 1339 01ba 436F756E 		.ascii	"Counter_LED_ReadPeriod\000"
+ 1339      7465725F 
+ 1339      4C45445F 
+ 1339      52656164 
+ 1339      50657269 
+ 1340              	.LASF22:
+ 1341 01d1 436F756E 		.ascii	"Counter_LED_Stop\000"
+ 1341      7465725F 
+ 1341      4C45445F 
+ 1341      53746F70 
+ 1341      00
+ 1342              	.LASF8:
+ 1343 01e2 756E7369 		.ascii	"unsigned int\000"
+ 1343      676E6564 
+ 1343      20696E74 
+ 1343      00
+ 1344              	.LASF7:
+ 1345 01ef 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1345      206C6F6E 
+ 1345      6720756E 
+ 1345      7369676E 
+ 1345      65642069 
+ 1346              	.LASF18:
+ 1347 0206 436F756E 		.ascii	"Counter_LED_SetInterruptMode\000"
+ 1347      7465725F 
+ 1347      4C45445F 
+ 1347      53657449 
+ 1347      6E746572 
+ 1348              	.LASF16:
+ 1349 0223 73697A65 		.ascii	"sizetype\000"
+ 1349      74797065 
+ 1349      00
+ 1350              	.LASF23:
+ 1351 022c 436F756E 		.ascii	"Counter_LED_ReadStatusRegister\000"
+ 1351      7465725F 
+ 1351      4C45445F 
+ 1351      52656164 
+ 1351      53746174 
+ 1352              	.LASF6:
+ 1353 024b 6C6F6E67 		.ascii	"long long int\000"
+ 1353      206C6F6E 
+ 1353      6720696E 
+ 1353      7400
+ 1354              	.LASF13:
+ 1355 0259 63686172 		.ascii	"char\000"
+ 1355      00
+ 1356              	.LASF2:
+ 1357 025e 73686F72 		.ascii	"short int\000"
+ 1357      7420696E 
+ 1357      7400
+ 1358              	.LASF35:
+ 1359 0268 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Counter_LED.c\000"
+ 1359      6E657261 
+ 1359      7465645F 
+ 1359      536F7572 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccMyfgze.s 			page 35
+
+
+ 1359      63655C50 
+ 1360              	.LASF9:
+ 1361 028f 75696E74 		.ascii	"uint8\000"
+ 1361      3800
+ 1362              	.LASF34:
+ 1363 0295 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1363      4320342E 
+ 1363      372E3320 
+ 1363      32303133 
+ 1363      30333132 
+ 1364 02c8 616E6368 		.ascii	"anch revision 196615]\000"
+ 1364      20726576 
+ 1364      6973696F 
+ 1364      6E203139 
+ 1364      36363135 
+ 1365              	.LASF4:
+ 1366 02de 6C6F6E67 		.ascii	"long int\000"
+ 1366      20696E74 
+ 1366      00
+ 1367              	.LASF31:
+ 1368 02e7 436F756E 		.ascii	"Counter_LED_ReadCounter\000"
+ 1368      7465725F 
+ 1368      4C45445F 
+ 1368      52656164 
+ 1368      436F756E 
+ 1369              	.LASF0:
+ 1370 02ff 7369676E 		.ascii	"signed char\000"
+ 1370      65642063 
+ 1370      68617200 
+ 1371              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

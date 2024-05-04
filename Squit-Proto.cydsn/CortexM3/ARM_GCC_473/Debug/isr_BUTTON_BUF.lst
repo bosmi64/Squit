@@ -1,0 +1,2593 @@
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"isr_BUTTON_BUF.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	gobee_vparam,0,4
+  19              		.global	idxxx
+  20              		.bss
+  21              		.type	idxxx, %object
+  22              		.size	idxxx, 1
+  23              	idxxx:
+  24 0000 00       		.space	1
+  25              		.section	.text.isr_BUTTON_BUF_Start,"ax",%progbits
+  26              		.align	2
+  27              		.global	isr_BUTTON_BUF_Start
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	isr_BUTTON_BUF_Start, %function
+  31              	isr_BUTTON_BUF_Start:
+  32              	.LFB56:
+  33              		.file 1 ".\\Generated_Source\\PSoC5\\isr_BUTTON_BUF.c"
+   1:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * File Name: isr_BUTTON_BUF.c  
+   3:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+   5:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+   8:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+   9:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  11:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  18:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  19:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #include <isr_BUTTON_BUF.h>
+  22:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  23:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #if !defined(isr_BUTTON_BUF__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 2
+
+
+  25:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /* `#START isr_BUTTON_BUF_intc` */
+  29:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	
+  30:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	#include <device.h>
+  31:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	#include <gobee.h>
+  32:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	#include <gobeelib.h>
+  33:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	#include <das.h>
+  34:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	#include <stdio.h>
+  35:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	
+  36:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	/* external global wars */
+  37:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	extern struct DAS_VALUES das;				/* DAS- Digital Acquisition System struct 	 */	
+  38:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	
+  39:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	uint8 idxxx=0;
+  40:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  41:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /* `#END` */
+  42:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  43:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #ifndef CYINT_IRQ_BASE
+  44:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #define CYINT_IRQ_BASE      16
+  45:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #endif /* CYINT_IRQ_BASE */
+  46:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #ifndef CYINT_VECT_TABLE
+  47:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  48:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** #endif /* CYINT_VECT_TABLE */
+  49:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  50:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /* Declared in startup, used to set unused interrupts to. */
+  51:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** CY_ISR_PROTO(IntDefaultHandler);
+  52:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  53:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  54:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+  55:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_Start
+  56:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+  57:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  58:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+  59:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *  Set up the interrupt and enable it.
+  60:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  61:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:  
+  62:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+  63:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  64:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+  65:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+  66:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  67:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+  68:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_Start(void)
+  69:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+  34              		.loc 1 69 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 7, -8
+  42              		.cfi_offset 14, -4
+  43 0002 00AF     		add	r7, sp, #0
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_register 7
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 3
+
+
+  70:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* For all we know the interrupt is active. */
+  71:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_Disable();
+  46              		.loc 1 71 0
+  47 0004 FFF7FEFF 		bl	isr_BUTTON_BUF_Disable
+  72:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  73:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Set the ISR to point to the isr_BUTTON_BUF Interrupt. */
+  74:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_SetVector(&isr_BUTTON_BUF_Interrupt);
+  48              		.loc 1 74 0
+  49 0008 40F20000 		movw	r0, #:lower16:isr_BUTTON_BUF_Interrupt
+  50 000c C0F20000 		movt	r0, #:upper16:isr_BUTTON_BUF_Interrupt
+  51 0010 FFF7FEFF 		bl	isr_BUTTON_BUF_SetVector
+  75:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  76:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Set the priority. */
+  77:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_SetPriority((uint8)isr_BUTTON_BUF_INTC_PRIOR_NUMBER);
+  52              		.loc 1 77 0
+  53 0014 4FF00700 		mov	r0, #7
+  54 0018 FFF7FEFF 		bl	isr_BUTTON_BUF_SetPriority
+  78:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  79:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Enable it. */
+  80:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_Enable();
+  55              		.loc 1 80 0
+  56 001c FFF7FEFF 		bl	isr_BUTTON_BUF_Enable
+  81:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+  57              		.loc 1 81 0
+  58 0020 80BD     		pop	{r7, pc}
+  59              		.cfi_endproc
+  60              	.LFE56:
+  61              		.size	isr_BUTTON_BUF_Start, .-isr_BUTTON_BUF_Start
+  62 0022 00BF     		.section	.text.isr_BUTTON_BUF_StartEx,"ax",%progbits
+  63              		.align	2
+  64              		.global	isr_BUTTON_BUF_StartEx
+  65              		.thumb
+  66              		.thumb_func
+  67              		.type	isr_BUTTON_BUF_StartEx, %function
+  68              	isr_BUTTON_BUF_StartEx:
+  69              	.LFB57:
+  82:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  83:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+  84:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+  85:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_StartEx
+  86:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+  87:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  88:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+  89:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *  Set up the interrupt and enable it.
+  90:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  91:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:  
+  92:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  93:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  94:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+  95:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+  96:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+  97:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+  98:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_StartEx(cyisraddress address)
+  99:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+  70              		.loc 1 99 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 4
+
+
+  73              		@ frame_needed = 1, uses_anonymous_args = 0
+  74 0000 80B5     		push	{r7, lr}
+  75              	.LCFI2:
+  76              		.cfi_def_cfa_offset 8
+  77              		.cfi_offset 7, -8
+  78              		.cfi_offset 14, -4
+  79 0002 82B0     		sub	sp, sp, #8
+  80              	.LCFI3:
+  81              		.cfi_def_cfa_offset 16
+  82 0004 00AF     		add	r7, sp, #0
+  83              	.LCFI4:
+  84              		.cfi_def_cfa_register 7
+  85 0006 7860     		str	r0, [r7, #4]
+ 100:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* For all we know the interrupt is active. */
+ 101:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_Disable();
+  86              		.loc 1 101 0
+  87 0008 FFF7FEFF 		bl	isr_BUTTON_BUF_Disable
+ 102:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 103:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Set the ISR to point to the isr_BUTTON_BUF Interrupt. */
+ 104:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_SetVector(address);
+  88              		.loc 1 104 0
+  89 000c 7868     		ldr	r0, [r7, #4]
+  90 000e FFF7FEFF 		bl	isr_BUTTON_BUF_SetVector
+ 105:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 106:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Set the priority. */
+ 107:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_SetPriority((uint8)isr_BUTTON_BUF_INTC_PRIOR_NUMBER);
+  91              		.loc 1 107 0
+  92 0012 4FF00700 		mov	r0, #7
+  93 0016 FFF7FEFF 		bl	isr_BUTTON_BUF_SetPriority
+ 108:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 109:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Enable it. */
+ 110:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_Enable();
+  94              		.loc 1 110 0
+  95 001a FFF7FEFF 		bl	isr_BUTTON_BUF_Enable
+ 111:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+  96              		.loc 1 111 0
+  97 001e 07F10807 		add	r7, r7, #8
+  98 0022 BD46     		mov	sp, r7
+  99 0024 80BD     		pop	{r7, pc}
+ 100              		.cfi_endproc
+ 101              	.LFE57:
+ 102              		.size	isr_BUTTON_BUF_StartEx, .-isr_BUTTON_BUF_StartEx
+ 103 0026 00BF     		.section	.text.isr_BUTTON_BUF_Stop,"ax",%progbits
+ 104              		.align	2
+ 105              		.global	isr_BUTTON_BUF_Stop
+ 106              		.thumb
+ 107              		.thumb_func
+ 108              		.type	isr_BUTTON_BUF_Stop, %function
+ 109              	isr_BUTTON_BUF_Stop:
+ 110              	.LFB58:
+ 112:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 113:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 114:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 115:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_Stop
+ 116:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 117:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 118:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 5
+
+
+ 119:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Disables and removes the interrupt.
+ 120:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 121:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:  
+ 122:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 123:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 124:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 125:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 126:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 127:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_Stop(void)
+ 128:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 111              		.loc 1 128 0
+ 112              		.cfi_startproc
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 1, uses_anonymous_args = 0
+ 115 0000 80B5     		push	{r7, lr}
+ 116              	.LCFI5:
+ 117              		.cfi_def_cfa_offset 8
+ 118              		.cfi_offset 7, -8
+ 119              		.cfi_offset 14, -4
+ 120 0002 00AF     		add	r7, sp, #0
+ 121              	.LCFI6:
+ 122              		.cfi_def_cfa_register 7
+ 129:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Disable this interrupt. */
+ 130:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_Disable();
+ 123              		.loc 1 130 0
+ 124 0004 FFF7FEFF 		bl	isr_BUTTON_BUF_Disable
+ 131:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 132:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Set the ISR to point to the passive one. */
+ 133:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     isr_BUTTON_BUF_SetVector(&IntDefaultHandler);
+ 125              		.loc 1 133 0
+ 126 0008 40F20000 		movw	r0, #:lower16:IntDefaultHandler
+ 127 000c C0F20000 		movt	r0, #:upper16:IntDefaultHandler
+ 128 0010 FFF7FEFF 		bl	isr_BUTTON_BUF_SetVector
+ 134:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 129              		.loc 1 134 0
+ 130 0014 80BD     		pop	{r7, pc}
+ 131              		.cfi_endproc
+ 132              	.LFE58:
+ 133              		.size	isr_BUTTON_BUF_Stop, .-isr_BUTTON_BUF_Stop
+ 134 0016 00BF     		.section	.rodata
+ 135              		.align	2
+ 136              	.LC0:
+ 137 0000 2A425554 		.ascii	"*BUT --> Inertial Vars Buffering!\015\000"
+ 137      202D2D3E 
+ 137      20496E65 
+ 137      72746961 
+ 137      6C205661 
+ 138 0023 00       		.section	.text.isr_BUTTON_BUF_Interrupt,"ax",%progbits
+ 139              		.align	2
+ 140              		.global	isr_BUTTON_BUF_Interrupt
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.type	isr_BUTTON_BUF_Interrupt, %function
+ 144              	isr_BUTTON_BUF_Interrupt:
+ 145              	.LFB59:
+ 135:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 136:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 6
+
+
+ 137:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 138:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_Interrupt
+ 139:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 140:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 141:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 142:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   The default Interrupt Service Routine for isr_BUTTON_BUF.
+ 143:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 144:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Add custom code between the coments to keep the next version of this file
+ 145:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   from over writting your code.
+ 146:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 147:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:  
+ 148:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 149:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 150:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 151:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 152:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 153:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** CY_ISR(isr_BUTTON_BUF_Interrupt)
+ 154:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 146              		.loc 1 154 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 1, uses_anonymous_args = 0
+ 150 0000 80B5     		push	{r7, lr}
+ 151              	.LCFI7:
+ 152              		.cfi_def_cfa_offset 8
+ 153              		.cfi_offset 7, -8
+ 154              		.cfi_offset 14, -4
+ 155 0002 00AF     		add	r7, sp, #0
+ 156              	.LCFI8:
+ 157              		.cfi_def_cfa_register 7
+ 155:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /*  Place your Interrupt code here. */
+ 156:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* `#START isr_BUTTON_BUF_Interrupt` */
+ 157:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	printf("*BUT --> Inertial Vars Buffering!\r\n");
+ 158              		.loc 1 157 0
+ 159 0004 40F20000 		movw	r0, #:lower16:.LC0
+ 160 0008 C0F20000 		movt	r0, #:upper16:.LC0
+ 161 000c FFF7FEFF 		bl	puts
+ 158:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	
+ 159:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	for (idxxx = 0; idxxx < 8; idxxx++)
+ 162              		.loc 1 159 0
+ 163 0010 40F20003 		movw	r3, #:lower16:idxxx
+ 164 0014 C0F20003 		movt	r3, #:upper16:idxxx
+ 165 0018 4FF00002 		mov	r2, #0
+ 166 001c 1A70     		strb	r2, [r3, #0]
+ 167 001e 1CE0     		b	.L5
+ 168              	.L6:
+ 160:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	{			
+ 161:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 		Control_Reg_BUZ_Write(BUZZER_ON);	/* buzzer on			*/
+ 169              		.loc 1 161 0 discriminator 2
+ 170 0020 4FF00100 		mov	r0, #1
+ 171 0024 FFF7FEFF 		bl	Control_Reg_BUZ_Write
+ 162:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 		CyDelay(25);						/* 40msec sec delay	*/
+ 172              		.loc 1 162 0 discriminator 2
+ 173 0028 4FF01900 		mov	r0, #25
+ 174 002c FFF7FEFF 		bl	CyDelay
+ 163:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 		Control_Reg_BUZ_Write(BUZZER_OFF);	/* buzzer off			*/
+ 175              		.loc 1 163 0 discriminator 2
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 7
+
+
+ 176 0030 4FF00000 		mov	r0, #0
+ 177 0034 FFF7FEFF 		bl	Control_Reg_BUZ_Write
+ 164:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 		CyDelay(25);						/* 40msec sec delay	*/			
+ 178              		.loc 1 164 0 discriminator 2
+ 179 0038 4FF01900 		mov	r0, #25
+ 180 003c FFF7FEFF 		bl	CyDelay
+ 159:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	for (idxxx = 0; idxxx < 8; idxxx++)
+ 181              		.loc 1 159 0 discriminator 2
+ 182 0040 40F20003 		movw	r3, #:lower16:idxxx
+ 183 0044 C0F20003 		movt	r3, #:upper16:idxxx
+ 184 0048 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 185 004a 03F10103 		add	r3, r3, #1
+ 186 004e DAB2     		uxtb	r2, r3
+ 187 0050 40F20003 		movw	r3, #:lower16:idxxx
+ 188 0054 C0F20003 		movt	r3, #:upper16:idxxx
+ 189 0058 1A70     		strb	r2, [r3, #0]
+ 190              	.L5:
+ 159:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	for (idxxx = 0; idxxx < 8; idxxx++)
+ 191              		.loc 1 159 0 is_stmt 0 discriminator 1
+ 192 005a 40F20003 		movw	r3, #:lower16:idxxx
+ 193 005e C0F20003 		movt	r3, #:upper16:idxxx
+ 194 0062 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 195 0064 072B     		cmp	r3, #7
+ 196 0066 DBD9     		bls	.L6
+ 165:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	}	
+ 166:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	
+ 167:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	DASbufferingInit();			/* DAS Buffering Init  */
+ 197              		.loc 1 167 0 is_stmt 1
+ 198 0068 FFF7FEFF 		bl	DASbufferingInit
+ 168:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	DASbufferingStart();		/* DAS Buffering Start */
+ 199              		.loc 1 168 0
+ 200 006c FFF7FEFF 		bl	DASbufferingStart
+ 169:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 			
+ 170:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	das.control = DAS_BUFFERING_GOBEE_IVs_ENABLED;	
+ 201              		.loc 1 170 0
+ 202 0070 40F20003 		movw	r3, #:lower16:das
+ 203 0074 C0F20003 		movt	r3, #:upper16:das
+ 204 0078 4FF00B02 		mov	r2, #11
+ 205 007c 1A71     		strb	r2, [r3, #4]
+ 171:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	
+ 172:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 	isr_DAS_Start();				/* Start DAS ISR	*/
+ 206              		.loc 1 172 0
+ 207 007e FFF7FEFF 		bl	isr_DAS_Start
+ 173:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* `#END` */
+ 174:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 208              		.loc 1 174 0
+ 209 0082 80BD     		pop	{r7, pc}
+ 210              		.cfi_endproc
+ 211              	.LFE59:
+ 212              		.size	isr_BUTTON_BUF_Interrupt, .-isr_BUTTON_BUF_Interrupt
+ 213              		.section	.text.isr_BUTTON_BUF_SetVector,"ax",%progbits
+ 214              		.align	2
+ 215              		.global	isr_BUTTON_BUF_SetVector
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.type	isr_BUTTON_BUF_SetVector, %function
+ 219              	isr_BUTTON_BUF_SetVector:
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 8
+
+
+ 220              	.LFB60:
+ 175:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 176:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 177:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 178:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_SetVector
+ 179:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 180:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 181:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 182:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Change the ISR vector for the Interrupt. Note calling isr_BUTTON_BUF_Start
+ 183:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   will override any effect this method would have had. To set the vector 
+ 184:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   before the component has been started use isr_BUTTON_BUF_StartEx instead.
+ 185:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 186:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 187:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 188:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 189:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 190:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 191:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 192:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 193:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_SetVector(cyisraddress address)
+ 194:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 221              		.loc 1 194 0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 16
+ 224              		@ frame_needed = 1, uses_anonymous_args = 0
+ 225              		@ link register save eliminated.
+ 226 0000 80B4     		push	{r7}
+ 227              	.LCFI9:
+ 228              		.cfi_def_cfa_offset 4
+ 229              		.cfi_offset 7, -4
+ 230 0002 85B0     		sub	sp, sp, #20
+ 231              	.LCFI10:
+ 232              		.cfi_def_cfa_offset 24
+ 233 0004 00AF     		add	r7, sp, #0
+ 234              	.LCFI11:
+ 235              		.cfi_def_cfa_register 7
+ 236 0006 7860     		str	r0, [r7, #4]
+ 195:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     cyisraddress * ramVectorTable;
+ 196:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 197:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 237              		.loc 1 197 0
+ 238 0008 4EF60853 		movw	r3, #60680
+ 239 000c CEF20003 		movt	r3, 57344
+ 240 0010 1B68     		ldr	r3, [r3, #0]
+ 241 0012 FB60     		str	r3, [r7, #12]
+ 198:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 199:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_BUTTON_BUF__INTC_NUMBER] = address;
+ 242              		.loc 1 199 0
+ 243 0014 FB68     		ldr	r3, [r7, #12]
+ 244 0016 03F15003 		add	r3, r3, #80
+ 245 001a 7A68     		ldr	r2, [r7, #4]
+ 246 001c 1A60     		str	r2, [r3, #0]
+ 200:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 247              		.loc 1 200 0
+ 248 001e 07F11407 		add	r7, r7, #20
+ 249 0022 BD46     		mov	sp, r7
+ 250 0024 80BC     		pop	{r7}
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 9
+
+
+ 251 0026 7047     		bx	lr
+ 252              		.cfi_endproc
+ 253              	.LFE60:
+ 254              		.size	isr_BUTTON_BUF_SetVector, .-isr_BUTTON_BUF_SetVector
+ 255              		.section	.text.isr_BUTTON_BUF_GetVector,"ax",%progbits
+ 256              		.align	2
+ 257              		.global	isr_BUTTON_BUF_GetVector
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.type	isr_BUTTON_BUF_GetVector, %function
+ 261              	isr_BUTTON_BUF_GetVector:
+ 262              	.LFB61:
+ 201:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 202:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 203:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 204:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_GetVector
+ 205:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 206:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 207:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 208:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 209:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 210:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 211:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 212:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 213:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 214:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Address of the ISR in the interrupt vector table.
+ 215:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 216:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 217:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** cyisraddress isr_BUTTON_BUF_GetVector(void)
+ 218:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 263              		.loc 1 218 0
+ 264              		.cfi_startproc
+ 265              		@ args = 0, pretend = 0, frame = 8
+ 266              		@ frame_needed = 1, uses_anonymous_args = 0
+ 267              		@ link register save eliminated.
+ 268 0000 80B4     		push	{r7}
+ 269              	.LCFI12:
+ 270              		.cfi_def_cfa_offset 4
+ 271              		.cfi_offset 7, -4
+ 272 0002 83B0     		sub	sp, sp, #12
+ 273              	.LCFI13:
+ 274              		.cfi_def_cfa_offset 16
+ 275 0004 00AF     		add	r7, sp, #0
+ 276              	.LCFI14:
+ 277              		.cfi_def_cfa_register 7
+ 219:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     cyisraddress * ramVectorTable;
+ 220:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 221:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 278              		.loc 1 221 0
+ 279 0006 4EF60853 		movw	r3, #60680
+ 280 000a CEF20003 		movt	r3, 57344
+ 281 000e 1B68     		ldr	r3, [r3, #0]
+ 282 0010 7B60     		str	r3, [r7, #4]
+ 222:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 223:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_BUTTON_BUF__INTC_NUMBER];
+ 283              		.loc 1 223 0
+ 284 0012 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 10
+
+
+ 285 0014 1B6D     		ldr	r3, [r3, #80]
+ 224:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 286              		.loc 1 224 0
+ 287 0016 1846     		mov	r0, r3
+ 288 0018 07F10C07 		add	r7, r7, #12
+ 289 001c BD46     		mov	sp, r7
+ 290 001e 80BC     		pop	{r7}
+ 291 0020 7047     		bx	lr
+ 292              		.cfi_endproc
+ 293              	.LFE61:
+ 294              		.size	isr_BUTTON_BUF_GetVector, .-isr_BUTTON_BUF_GetVector
+ 295 0022 00BF     		.section	.text.isr_BUTTON_BUF_SetPriority,"ax",%progbits
+ 296              		.align	2
+ 297              		.global	isr_BUTTON_BUF_SetPriority
+ 298              		.thumb
+ 299              		.thumb_func
+ 300              		.type	isr_BUTTON_BUF_SetPriority, %function
+ 301              	isr_BUTTON_BUF_SetPriority:
+ 302              	.LFB62:
+ 225:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 226:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 227:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 228:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_SetPriority
+ 229:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 230:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 231:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 232:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Sets the Priority of the Interrupt. Note calling isr_BUTTON_BUF_Start
+ 233:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   or isr_BUTTON_BUF_StartEx will override any effect this method 
+ 234:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   would have had. This method should only be called after 
+ 235:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   isr_BUTTON_BUF_Start or isr_BUTTON_BUF_StartEx has been called. To set 
+ 236:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 237:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 238:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 239:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 240:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 241:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 242:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 243:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 244:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 245:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_SetPriority(uint8 priority)
+ 246:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 303              		.loc 1 246 0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 8
+ 306              		@ frame_needed = 1, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 308 0000 80B4     		push	{r7}
+ 309              	.LCFI15:
+ 310              		.cfi_def_cfa_offset 4
+ 311              		.cfi_offset 7, -4
+ 312 0002 83B0     		sub	sp, sp, #12
+ 313              	.LCFI16:
+ 314              		.cfi_def_cfa_offset 16
+ 315 0004 00AF     		add	r7, sp, #0
+ 316              	.LCFI17:
+ 317              		.cfi_def_cfa_register 7
+ 318 0006 0346     		mov	r3, r0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 11
+
+
+ 319 0008 FB71     		strb	r3, [r7, #7]
+ 247:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     *isr_BUTTON_BUF_INTC_PRIOR = priority << 5;
+ 320              		.loc 1 247 0
+ 321 000a 4EF20443 		movw	r3, #58372
+ 322 000e CEF20003 		movt	r3, 57344
+ 323 0012 FA79     		ldrb	r2, [r7, #7]
+ 324 0014 4FEA4212 		lsl	r2, r2, #5
+ 325 0018 D2B2     		uxtb	r2, r2
+ 326 001a 1A70     		strb	r2, [r3, #0]
+ 248:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 327              		.loc 1 248 0
+ 328 001c 07F10C07 		add	r7, r7, #12
+ 329 0020 BD46     		mov	sp, r7
+ 330 0022 80BC     		pop	{r7}
+ 331 0024 7047     		bx	lr
+ 332              		.cfi_endproc
+ 333              	.LFE62:
+ 334              		.size	isr_BUTTON_BUF_SetPriority, .-isr_BUTTON_BUF_SetPriority
+ 335 0026 00BF     		.section	.text.isr_BUTTON_BUF_GetPriority,"ax",%progbits
+ 336              		.align	2
+ 337              		.global	isr_BUTTON_BUF_GetPriority
+ 338              		.thumb
+ 339              		.thumb_func
+ 340              		.type	isr_BUTTON_BUF_GetPriority, %function
+ 341              	isr_BUTTON_BUF_GetPriority:
+ 342              	.LFB63:
+ 249:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 250:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 251:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 252:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_GetPriority
+ 253:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 254:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 255:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 256:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Gets the Priority of the Interrupt.
+ 257:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 258:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 259:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 260:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 261:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 262:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 263:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 264:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 265:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** uint8 isr_BUTTON_BUF_GetPriority(void)
+ 266:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 343              		.loc 1 266 0
+ 344              		.cfi_startproc
+ 345              		@ args = 0, pretend = 0, frame = 8
+ 346              		@ frame_needed = 1, uses_anonymous_args = 0
+ 347              		@ link register save eliminated.
+ 348 0000 80B4     		push	{r7}
+ 349              	.LCFI18:
+ 350              		.cfi_def_cfa_offset 4
+ 351              		.cfi_offset 7, -4
+ 352 0002 83B0     		sub	sp, sp, #12
+ 353              	.LCFI19:
+ 354              		.cfi_def_cfa_offset 16
+ 355 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 12
+
+
+ 356              	.LCFI20:
+ 357              		.cfi_def_cfa_register 7
+ 267:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     uint8 priority;
+ 268:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 269:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 270:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     priority = *isr_BUTTON_BUF_INTC_PRIOR >> 5;
+ 358              		.loc 1 270 0
+ 359 0006 4EF20443 		movw	r3, #58372
+ 360 000a CEF20003 		movt	r3, 57344
+ 361 000e 1B78     		ldrb	r3, [r3, #0]
+ 362 0010 DBB2     		uxtb	r3, r3
+ 363 0012 4FEA5313 		lsr	r3, r3, #5
+ 364 0016 FB71     		strb	r3, [r7, #7]
+ 271:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 272:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     return priority;
+ 365              		.loc 1 272 0
+ 366 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 273:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 367              		.loc 1 273 0
+ 368 001a 1846     		mov	r0, r3
+ 369 001c 07F10C07 		add	r7, r7, #12
+ 370 0020 BD46     		mov	sp, r7
+ 371 0022 80BC     		pop	{r7}
+ 372 0024 7047     		bx	lr
+ 373              		.cfi_endproc
+ 374              	.LFE63:
+ 375              		.size	isr_BUTTON_BUF_GetPriority, .-isr_BUTTON_BUF_GetPriority
+ 376 0026 00BF     		.section	.text.isr_BUTTON_BUF_Enable,"ax",%progbits
+ 377              		.align	2
+ 378              		.global	isr_BUTTON_BUF_Enable
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.type	isr_BUTTON_BUF_Enable, %function
+ 382              	isr_BUTTON_BUF_Enable:
+ 383              	.LFB64:
+ 274:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 275:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 276:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 277:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_Enable
+ 278:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 279:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 280:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 281:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Enables the interrupt.
+ 282:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 283:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 284:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 285:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 286:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 287:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 288:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 289:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 290:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_Enable(void)
+ 291:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 384              		.loc 1 291 0
+ 385              		.cfi_startproc
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 13
+
+
+ 388              		@ link register save eliminated.
+ 389 0000 80B4     		push	{r7}
+ 390              	.LCFI21:
+ 391              		.cfi_def_cfa_offset 4
+ 392              		.cfi_offset 7, -4
+ 393 0002 00AF     		add	r7, sp, #0
+ 394              	.LCFI22:
+ 395              		.cfi_def_cfa_register 7
+ 292:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Enable the general interrupt. */
+ 293:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     *isr_BUTTON_BUF_INTC_SET_EN = isr_BUTTON_BUF__INTC_MASK;
+ 396              		.loc 1 293 0
+ 397 0004 4FF46143 		mov	r3, #57600
+ 398 0008 CEF20003 		movt	r3, 57344
+ 399 000c 4FF01002 		mov	r2, #16
+ 400 0010 1A60     		str	r2, [r3, #0]
+ 294:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 401              		.loc 1 294 0
+ 402 0012 BD46     		mov	sp, r7
+ 403 0014 80BC     		pop	{r7}
+ 404 0016 7047     		bx	lr
+ 405              		.cfi_endproc
+ 406              	.LFE64:
+ 407              		.size	isr_BUTTON_BUF_Enable, .-isr_BUTTON_BUF_Enable
+ 408              		.section	.text.isr_BUTTON_BUF_GetState,"ax",%progbits
+ 409              		.align	2
+ 410              		.global	isr_BUTTON_BUF_GetState
+ 411              		.thumb
+ 412              		.thumb_func
+ 413              		.type	isr_BUTTON_BUF_GetState, %function
+ 414              	isr_BUTTON_BUF_GetState:
+ 415              	.LFB65:
+ 295:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 296:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 297:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 298:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_GetState
+ 299:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 300:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 301:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 302:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 303:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 304:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 305:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 306:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 307:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 308:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   1 if enabled, 0 if disabled.
+ 309:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 310:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 311:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** uint8 isr_BUTTON_BUF_GetState(void)
+ 312:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 416              		.loc 1 312 0
+ 417              		.cfi_startproc
+ 418              		@ args = 0, pretend = 0, frame = 0
+ 419              		@ frame_needed = 1, uses_anonymous_args = 0
+ 420              		@ link register save eliminated.
+ 421 0000 80B4     		push	{r7}
+ 422              	.LCFI23:
+ 423              		.cfi_def_cfa_offset 4
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 14
+
+
+ 424              		.cfi_offset 7, -4
+ 425 0002 00AF     		add	r7, sp, #0
+ 426              	.LCFI24:
+ 427              		.cfi_def_cfa_register 7
+ 313:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Get the state of the general interrupt. */
+ 314:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     return ((*isr_BUTTON_BUF_INTC_SET_EN & (uint32)isr_BUTTON_BUF__INTC_MASK) != 0u) ? 1u:0u;
+ 428              		.loc 1 314 0
+ 429 0004 4FF46143 		mov	r3, #57600
+ 430 0008 CEF20003 		movt	r3, 57344
+ 431 000c 1B68     		ldr	r3, [r3, #0]
+ 432 000e 03F01003 		and	r3, r3, #16
+ 433 0012 002B     		cmp	r3, #0
+ 434 0014 02D0     		beq	.L15
+ 435              		.loc 1 314 0 is_stmt 0 discriminator 1
+ 436 0016 4FF00103 		mov	r3, #1
+ 437 001a 01E0     		b	.L16
+ 438              	.L15:
+ 439              		.loc 1 314 0 discriminator 2
+ 440 001c 4FF00003 		mov	r3, #0
+ 441              	.L16:
+ 315:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 442              		.loc 1 315 0 is_stmt 1 discriminator 3
+ 443 0020 1846     		mov	r0, r3
+ 444 0022 BD46     		mov	sp, r7
+ 445 0024 80BC     		pop	{r7}
+ 446 0026 7047     		bx	lr
+ 447              		.cfi_endproc
+ 448              	.LFE65:
+ 449              		.size	isr_BUTTON_BUF_GetState, .-isr_BUTTON_BUF_GetState
+ 450              		.section	.text.isr_BUTTON_BUF_Disable,"ax",%progbits
+ 451              		.align	2
+ 452              		.global	isr_BUTTON_BUF_Disable
+ 453              		.thumb
+ 454              		.thumb_func
+ 455              		.type	isr_BUTTON_BUF_Disable, %function
+ 456              	isr_BUTTON_BUF_Disable:
+ 457              	.LFB66:
+ 316:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 317:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 318:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 319:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_Disable
+ 320:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 321:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 322:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 323:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Disables the Interrupt.
+ 324:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 325:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 326:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 327:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 328:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 329:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 330:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 331:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 332:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_Disable(void)
+ 333:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 458              		.loc 1 333 0
+ 459              		.cfi_startproc
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 15
+
+
+ 460              		@ args = 0, pretend = 0, frame = 0
+ 461              		@ frame_needed = 1, uses_anonymous_args = 0
+ 462              		@ link register save eliminated.
+ 463 0000 80B4     		push	{r7}
+ 464              	.LCFI25:
+ 465              		.cfi_def_cfa_offset 4
+ 466              		.cfi_offset 7, -4
+ 467 0002 00AF     		add	r7, sp, #0
+ 468              	.LCFI26:
+ 469              		.cfi_def_cfa_register 7
+ 334:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     /* Disable the general interrupt. */
+ 335:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     *isr_BUTTON_BUF_INTC_CLR_EN = isr_BUTTON_BUF__INTC_MASK;
+ 470              		.loc 1 335 0
+ 471 0004 4EF28013 		movw	r3, #57728
+ 472 0008 CEF20003 		movt	r3, 57344
+ 473 000c 4FF01002 		mov	r2, #16
+ 474 0010 1A60     		str	r2, [r3, #0]
+ 336:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 475              		.loc 1 336 0
+ 476 0012 BD46     		mov	sp, r7
+ 477 0014 80BC     		pop	{r7}
+ 478 0016 7047     		bx	lr
+ 479              		.cfi_endproc
+ 480              	.LFE66:
+ 481              		.size	isr_BUTTON_BUF_Disable, .-isr_BUTTON_BUF_Disable
+ 482              		.section	.text.isr_BUTTON_BUF_SetPending,"ax",%progbits
+ 483              		.align	2
+ 484              		.global	isr_BUTTON_BUF_SetPending
+ 485              		.thumb
+ 486              		.thumb_func
+ 487              		.type	isr_BUTTON_BUF_SetPending, %function
+ 488              	isr_BUTTON_BUF_SetPending:
+ 489              	.LFB67:
+ 337:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 338:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 339:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 340:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_SetPending
+ 341:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 342:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 343:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 344:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 345:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   generating the interrupt.
+ 346:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 347:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 348:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 349:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 350:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 351:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 352:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 353:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 354:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_SetPending(void)
+ 355:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 490              		.loc 1 355 0
+ 491              		.cfi_startproc
+ 492              		@ args = 0, pretend = 0, frame = 0
+ 493              		@ frame_needed = 1, uses_anonymous_args = 0
+ 494              		@ link register save eliminated.
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 16
+
+
+ 495 0000 80B4     		push	{r7}
+ 496              	.LCFI27:
+ 497              		.cfi_def_cfa_offset 4
+ 498              		.cfi_offset 7, -4
+ 499 0002 00AF     		add	r7, sp, #0
+ 500              	.LCFI28:
+ 501              		.cfi_def_cfa_register 7
+ 356:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     *isr_BUTTON_BUF_INTC_SET_PD = isr_BUTTON_BUF__INTC_MASK;
+ 502              		.loc 1 356 0
+ 503 0004 4FF46243 		mov	r3, #57856
+ 504 0008 CEF20003 		movt	r3, 57344
+ 505 000c 4FF01002 		mov	r2, #16
+ 506 0010 1A60     		str	r2, [r3, #0]
+ 357:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 507              		.loc 1 357 0
+ 508 0012 BD46     		mov	sp, r7
+ 509 0014 80BC     		pop	{r7}
+ 510 0016 7047     		bx	lr
+ 511              		.cfi_endproc
+ 512              	.LFE67:
+ 513              		.size	isr_BUTTON_BUF_SetPending, .-isr_BUTTON_BUF_SetPending
+ 514              		.section	.text.isr_BUTTON_BUF_ClearPending,"ax",%progbits
+ 515              		.align	2
+ 516              		.global	isr_BUTTON_BUF_ClearPending
+ 517              		.thumb
+ 518              		.thumb_func
+ 519              		.type	isr_BUTTON_BUF_ClearPending, %function
+ 520              	isr_BUTTON_BUF_ClearPending:
+ 521              	.LFB68:
+ 358:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 359:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** 
+ 360:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** /*******************************************************************************
+ 361:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Function Name: isr_BUTTON_BUF_ClearPending
+ 362:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** ********************************************************************************
+ 363:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 364:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Summary:
+ 365:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   Clears a pending interrupt.
+ 366:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 367:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Parameters:
+ 368:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 369:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 370:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** * Return:
+ 371:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *   None
+ 372:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *
+ 373:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** *******************************************************************************/
+ 374:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** void isr_BUTTON_BUF_ClearPending(void)
+ 375:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** {
+ 522              		.loc 1 375 0
+ 523              		.cfi_startproc
+ 524              		@ args = 0, pretend = 0, frame = 0
+ 525              		@ frame_needed = 1, uses_anonymous_args = 0
+ 526              		@ link register save eliminated.
+ 527 0000 80B4     		push	{r7}
+ 528              	.LCFI29:
+ 529              		.cfi_def_cfa_offset 4
+ 530              		.cfi_offset 7, -4
+ 531 0002 00AF     		add	r7, sp, #0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 17
+
+
+ 532              	.LCFI30:
+ 533              		.cfi_def_cfa_register 7
+ 376:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c ****     *isr_BUTTON_BUF_INTC_CLR_PD = isr_BUTTON_BUF__INTC_MASK;
+ 534              		.loc 1 376 0
+ 535 0004 4EF28023 		movw	r3, #57984
+ 536 0008 CEF20003 		movt	r3, 57344
+ 537 000c 4FF01002 		mov	r2, #16
+ 538 0010 1A60     		str	r2, [r3, #0]
+ 377:.\Generated_Source\PSoC5/isr_BUTTON_BUF.c **** }
+ 539              		.loc 1 377 0
+ 540 0012 BD46     		mov	sp, r7
+ 541 0014 80BC     		pop	{r7}
+ 542 0016 7047     		bx	lr
+ 543              		.cfi_endproc
+ 544              	.LFE68:
+ 545              		.size	isr_BUTTON_BUF_ClearPending, .-isr_BUTTON_BUF_ClearPending
+ 546              		.text
+ 547              	.Letext0:
+ 548              		.file 2 "c:\\programmi\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4.7.3\\bin\
+ 549              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 550              		.file 4 "./das.h"
+ 551              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 552              		.file 6 "./gobee.h"
+ 553              		.section	.debug_info,"",%progbits
+ 554              	.Ldebug_info0:
+ 555 0000 B6030000 		.4byte	0x3b6
+ 556 0004 0200     		.2byte	0x2
+ 557 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 558 000a 04       		.byte	0x4
+ 559 000b 01       		.uleb128 0x1
+ 560 000c F9020000 		.4byte	.LASF50
+ 561 0010 01       		.byte	0x1
+ 562 0011 CB010000 		.4byte	.LASF51
+ 563 0015 B0000000 		.4byte	.LASF52
+ 564 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 565 001d 00000000 		.4byte	0
+ 566 0021 00000000 		.4byte	0
+ 567 0025 00000000 		.4byte	.Ldebug_line0
+ 568 0029 02       		.uleb128 0x2
+ 569 002a 01       		.byte	0x1
+ 570 002b 06       		.byte	0x6
+ 571 002c 8F030000 		.4byte	.LASF0
+ 572 0030 02       		.uleb128 0x2
+ 573 0031 01       		.byte	0x1
+ 574 0032 08       		.byte	0x8
+ 575 0033 53010000 		.4byte	.LASF1
+ 576 0037 02       		.uleb128 0x2
+ 577 0038 02       		.byte	0x2
+ 578 0039 05       		.byte	0x5
+ 579 003a 0A020000 		.4byte	.LASF2
+ 580 003e 02       		.uleb128 0x2
+ 581 003f 02       		.byte	0x2
+ 582 0040 07       		.byte	0x7
+ 583 0041 99010000 		.4byte	.LASF3
+ 584 0045 03       		.uleb128 0x3
+ 585 0046 04       		.byte	0x4
+ 586 0047 05       		.byte	0x5
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 18
+
+
+ 587 0048 696E7400 		.ascii	"int\000"
+ 588 004c 02       		.uleb128 0x2
+ 589 004d 04       		.byte	0x4
+ 590 004e 07       		.byte	0x7
+ 591 004f 24020000 		.4byte	.LASF4
+ 592 0053 02       		.uleb128 0x2
+ 593 0054 08       		.byte	0x8
+ 594 0055 05       		.byte	0x5
+ 595 0056 B1020000 		.4byte	.LASF5
+ 596 005a 02       		.uleb128 0x2
+ 597 005b 08       		.byte	0x8
+ 598 005c 07       		.byte	0x7
+ 599 005d 64020000 		.4byte	.LASF6
+ 600 0061 02       		.uleb128 0x2
+ 601 0062 04       		.byte	0x4
+ 602 0063 05       		.byte	0x5
+ 603 0064 61030000 		.4byte	.LASF7
+ 604 0068 02       		.uleb128 0x2
+ 605 0069 04       		.byte	0x4
+ 606 006a 07       		.byte	0x7
+ 607 006b A8020000 		.4byte	.LASF8
+ 608 006f 02       		.uleb128 0x2
+ 609 0070 04       		.byte	0x4
+ 610 0071 07       		.byte	0x7
+ 611 0072 87010000 		.4byte	.LASF9
+ 612 0076 04       		.uleb128 0x4
+ 613 0077 01       		.byte	0x1
+ 614 0078 05       		.uleb128 0x5
+ 615 0079 04       		.byte	0x4
+ 616 007a 76000000 		.4byte	0x76
+ 617 007e 02       		.uleb128 0x2
+ 618 007f 01       		.byte	0x1
+ 619 0080 08       		.byte	0x8
+ 620 0081 BF020000 		.4byte	.LASF10
+ 621 0085 06       		.uleb128 0x6
+ 622 0086 A0020000 		.4byte	.LASF11
+ 623 008a 02       		.byte	0x2
+ 624 008b 4F       		.byte	0x4f
+ 625 008c 61000000 		.4byte	0x61
+ 626 0090 06       		.uleb128 0x6
+ 627 0091 F3020000 		.4byte	.LASF12
+ 628 0095 03       		.byte	0x3
+ 629 0096 5B       		.byte	0x5b
+ 630 0097 30000000 		.4byte	0x30
+ 631 009b 06       		.uleb128 0x6
+ 632 009c 1D020000 		.4byte	.LASF13
+ 633 00a0 03       		.byte	0x3
+ 634 00a1 5D       		.byte	0x5d
+ 635 00a2 6F000000 		.4byte	0x6f
+ 636 00a6 06       		.uleb128 0x6
+ 637 00a7 81010000 		.4byte	.LASF14
+ 638 00ab 03       		.byte	0x3
+ 639 00ac 5F       		.byte	0x5f
+ 640 00ad 37000000 		.4byte	0x37
+ 641 00b1 02       		.uleb128 0x2
+ 642 00b2 04       		.byte	0x4
+ 643 00b3 04       		.byte	0x4
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 19
+
+
+ 644 00b4 31010000 		.4byte	.LASF15
+ 645 00b8 02       		.uleb128 0x2
+ 646 00b9 08       		.byte	0x8
+ 647 00ba 04       		.byte	0x4
+ 648 00bb 03020000 		.4byte	.LASF16
+ 649 00bf 06       		.uleb128 0x6
+ 650 00c0 61010000 		.4byte	.LASF17
+ 651 00c4 03       		.byte	0x3
+ 652 00c5 F0       		.byte	0xf0
+ 653 00c6 CA000000 		.4byte	0xca
+ 654 00ca 07       		.uleb128 0x7
+ 655 00cb 90000000 		.4byte	0x90
+ 656 00cf 06       		.uleb128 0x6
+ 657 00d0 00000000 		.4byte	.LASF18
+ 658 00d4 03       		.byte	0x3
+ 659 00d5 F2       		.byte	0xf2
+ 660 00d6 DA000000 		.4byte	0xda
+ 661 00da 07       		.uleb128 0x7
+ 662 00db 9B000000 		.4byte	0x9b
+ 663 00df 08       		.uleb128 0x8
+ 664 00e0 88020000 		.4byte	.LASF19
+ 665 00e4 03       		.byte	0x3
+ 666 00e5 0201     		.2byte	0x102
+ 667 00e7 78000000 		.4byte	0x78
+ 668 00eb 09       		.uleb128 0x9
+ 669 00ec AF030000 		.4byte	.LASF53
+ 670 00f0 00       		.byte	0
+ 671 00f1 06       		.byte	0x6
+ 672 00f2 D5       		.byte	0xd5
+ 673 00f3 0A       		.uleb128 0xa
+ 674 00f4 0C000000 		.4byte	.LASF23
+ 675 00f8 08       		.byte	0x8
+ 676 00f9 04       		.byte	0x4
+ 677 00fa 40       		.byte	0x40
+ 678 00fb 2A010000 		.4byte	0x12a
+ 679 00ff 0B       		.uleb128 0xb
+ 680 0100 06000000 		.4byte	.LASF20
+ 681 0104 04       		.byte	0x4
+ 682 0105 42       		.byte	0x42
+ 683 0106 9B000000 		.4byte	0x9b
+ 684 010a 02       		.byte	0x2
+ 685 010b 23       		.byte	0x23
+ 686 010c 00       		.uleb128 0
+ 687 010d 0B       		.uleb128 0xb
+ 688 010e 7B020000 		.4byte	.LASF21
+ 689 0112 04       		.byte	0x4
+ 690 0113 44       		.byte	0x44
+ 691 0114 90000000 		.4byte	0x90
+ 692 0118 02       		.byte	0x2
+ 693 0119 23       		.byte	0x23
+ 694 011a 04       		.uleb128 0x4
+ 695 011b 0B       		.uleb128 0xb
+ 696 011c B4010000 		.4byte	.LASF22
+ 697 0120 04       		.byte	0x4
+ 698 0121 45       		.byte	0x45
+ 699 0122 90000000 		.4byte	0x90
+ 700 0126 02       		.byte	0x2
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 20
+
+
+ 701 0127 23       		.byte	0x23
+ 702 0128 05       		.uleb128 0x5
+ 703 0129 00       		.byte	0
+ 704 012a 0C       		.uleb128 0xc
+ 705 012b 95020000 		.4byte	.LASF24
+ 706 012f 8845     		.2byte	0x4588
+ 707 0131 04       		.byte	0x4
+ 708 0132 33       		.byte	0x33
+ 709 0133 AA010000 		.4byte	0x1aa
+ 710 0137 0B       		.uleb128 0xb
+ 711 0138 06000000 		.4byte	.LASF20
+ 712 013c 04       		.byte	0x4
+ 713 013d 35       		.byte	0x35
+ 714 013e 9B000000 		.4byte	0x9b
+ 715 0142 02       		.byte	0x2
+ 716 0143 23       		.byte	0x23
+ 717 0144 00       		.uleb128 0
+ 718 0145 0B       		.uleb128 0xb
+ 719 0146 AC010000 		.4byte	.LASF25
+ 720 014a 04       		.byte	0x4
+ 721 014b 36       		.byte	0x36
+ 722 014c 90000000 		.4byte	0x90
+ 723 0150 02       		.byte	0x2
+ 724 0151 23       		.byte	0x23
+ 725 0152 04       		.uleb128 0x4
+ 726 0153 0B       		.uleb128 0xb
+ 727 0154 37000000 		.4byte	.LASF26
+ 728 0158 04       		.byte	0x4
+ 729 0159 37       		.byte	0x37
+ 730 015a AA010000 		.4byte	0x1aa
+ 731 015e 02       		.byte	0x2
+ 732 015f 23       		.byte	0x23
+ 733 0160 08       		.uleb128 0x8
+ 734 0161 0B       		.uleb128 0xb
+ 735 0162 80030000 		.4byte	.LASF27
+ 736 0166 04       		.byte	0x4
+ 737 0167 39       		.byte	0x39
+ 738 0168 A6000000 		.4byte	0xa6
+ 739 016c 02       		.byte	0x2
+ 740 016d 23       		.byte	0x23
+ 741 016e 24       		.uleb128 0x24
+ 742 016f 0B       		.uleb128 0xb
+ 743 0170 F5010000 		.4byte	.LASF28
+ 744 0174 04       		.byte	0x4
+ 745 0175 3A       		.byte	0x3a
+ 746 0176 90000000 		.4byte	0x90
+ 747 017a 02       		.byte	0x2
+ 748 017b 23       		.byte	0x23
+ 749 017c 26       		.uleb128 0x26
+ 750 017d 0B       		.uleb128 0xb
+ 751 017e 9B030000 		.4byte	.LASF29
+ 752 0182 04       		.byte	0x4
+ 753 0183 3C       		.byte	0x3c
+ 754 0184 AA010000 		.4byte	0x1aa
+ 755 0188 02       		.byte	0x2
+ 756 0189 23       		.byte	0x23
+ 757 018a 28       		.uleb128 0x28
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 21
+
+
+ 758 018b 0B       		.uleb128 0xb
+ 759 018c EC020000 		.4byte	.LASF30
+ 760 0190 04       		.byte	0x4
+ 761 0191 3D       		.byte	0x3d
+ 762 0192 BA010000 		.4byte	0x1ba
+ 763 0196 02       		.byte	0x2
+ 764 0197 23       		.byte	0x23
+ 765 0198 44       		.uleb128 0x44
+ 766 0199 0B       		.uleb128 0xb
+ 767 019a 54000000 		.4byte	.LASF31
+ 768 019e 04       		.byte	0x4
+ 769 019f 47       		.byte	0x47
+ 770 01a0 F3000000 		.4byte	0xf3
+ 771 01a4 04       		.byte	0x4
+ 772 01a5 23       		.byte	0x23
+ 773 01a6 808B01   		.uleb128 0x4580
+ 774 01a9 00       		.byte	0
+ 775 01aa 0D       		.uleb128 0xd
+ 776 01ab B1000000 		.4byte	0xb1
+ 777 01af BA010000 		.4byte	0x1ba
+ 778 01b3 0E       		.uleb128 0xe
+ 779 01b4 68000000 		.4byte	0x68
+ 780 01b8 06       		.byte	0x6
+ 781 01b9 00       		.byte	0
+ 782 01ba 0D       		.uleb128 0xd
+ 783 01bb B1000000 		.4byte	0xb1
+ 784 01bf D1010000 		.4byte	0x1d1
+ 785 01c3 0E       		.uleb128 0xe
+ 786 01c4 68000000 		.4byte	0x68
+ 787 01c8 06       		.byte	0x6
+ 788 01c9 0F       		.uleb128 0xf
+ 789 01ca 68000000 		.4byte	0x68
+ 790 01ce 7802     		.2byte	0x278
+ 791 01d0 00       		.byte	0
+ 792 01d1 10       		.uleb128 0x10
+ 793 01d2 01       		.byte	0x1
+ 794 01d3 31020000 		.4byte	.LASF32
+ 795 01d7 01       		.byte	0x1
+ 796 01d8 44       		.byte	0x44
+ 797 01d9 01       		.byte	0x1
+ 798 01da 00000000 		.4byte	.LFB56
+ 799 01de 22000000 		.4byte	.LFE56
+ 800 01e2 00000000 		.4byte	.LLST0
+ 801 01e6 01       		.byte	0x1
+ 802 01e7 11       		.uleb128 0x11
+ 803 01e8 01       		.byte	0x1
+ 804 01e9 4A030000 		.4byte	.LASF35
+ 805 01ed 01       		.byte	0x1
+ 806 01ee 62       		.byte	0x62
+ 807 01ef 01       		.byte	0x1
+ 808 01f0 00000000 		.4byte	.LFB57
+ 809 01f4 26000000 		.4byte	.LFE57
+ 810 01f8 2C000000 		.4byte	.LLST1
+ 811 01fc 01       		.byte	0x1
+ 812 01fd 10020000 		.4byte	0x210
+ 813 0201 12       		.uleb128 0x12
+ 814 0202 42030000 		.4byte	.LASF37
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 22
+
+
+ 815 0206 01       		.byte	0x1
+ 816 0207 62       		.byte	0x62
+ 817 0208 DF000000 		.4byte	0xdf
+ 818 020c 02       		.byte	0x2
+ 819 020d 91       		.byte	0x91
+ 820 020e 74       		.sleb128 -12
+ 821 020f 00       		.byte	0
+ 822 0210 10       		.uleb128 0x10
+ 823 0211 01       		.byte	0x1
+ 824 0212 8F000000 		.4byte	.LASF33
+ 825 0216 01       		.byte	0x1
+ 826 0217 7F       		.byte	0x7f
+ 827 0218 01       		.byte	0x1
+ 828 0219 00000000 		.4byte	.LFB58
+ 829 021d 16000000 		.4byte	.LFE58
+ 830 0221 64000000 		.4byte	.LLST2
+ 831 0225 01       		.byte	0x1
+ 832 0226 10       		.uleb128 0x10
+ 833 0227 01       		.byte	0x1
+ 834 0228 76000000 		.4byte	.LASF34
+ 835 022c 01       		.byte	0x1
+ 836 022d 99       		.byte	0x99
+ 837 022e 01       		.byte	0x1
+ 838 022f 00000000 		.4byte	.LFB59
+ 839 0233 84000000 		.4byte	.LFE59
+ 840 0237 90000000 		.4byte	.LLST3
+ 841 023b 01       		.byte	0x1
+ 842 023c 13       		.uleb128 0x13
+ 843 023d 01       		.byte	0x1
+ 844 023e D3020000 		.4byte	.LASF36
+ 845 0242 01       		.byte	0x1
+ 846 0243 C1       		.byte	0xc1
+ 847 0244 01       		.byte	0x1
+ 848 0245 00000000 		.4byte	.LFB60
+ 849 0249 28000000 		.4byte	.LFE60
+ 850 024d BC000000 		.4byte	.LLST4
+ 851 0251 01       		.byte	0x1
+ 852 0252 73020000 		.4byte	0x273
+ 853 0256 12       		.uleb128 0x12
+ 854 0257 42030000 		.4byte	.LASF37
+ 855 025b 01       		.byte	0x1
+ 856 025c C1       		.byte	0xc1
+ 857 025d DF000000 		.4byte	0xdf
+ 858 0261 02       		.byte	0x2
+ 859 0262 91       		.byte	0x91
+ 860 0263 6C       		.sleb128 -20
+ 861 0264 14       		.uleb128 0x14
+ 862 0265 C4020000 		.4byte	.LASF38
+ 863 0269 01       		.byte	0x1
+ 864 026a C3       		.byte	0xc3
+ 865 026b 73020000 		.4byte	0x273
+ 866 026f 02       		.byte	0x2
+ 867 0270 91       		.byte	0x91
+ 868 0271 74       		.sleb128 -12
+ 869 0272 00       		.byte	0
+ 870 0273 05       		.uleb128 0x5
+ 871 0274 04       		.byte	0x4
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 23
+
+
+ 872 0275 DF000000 		.4byte	0xdf
+ 873 0279 15       		.uleb128 0x15
+ 874 027a 01       		.byte	0x1
+ 875 027b 5D000000 		.4byte	.LASF41
+ 876 027f 01       		.byte	0x1
+ 877 0280 D9       		.byte	0xd9
+ 878 0281 01       		.byte	0x1
+ 879 0282 DF000000 		.4byte	0xdf
+ 880 0286 00000000 		.4byte	.LFB61
+ 881 028a 22000000 		.4byte	.LFE61
+ 882 028e F4000000 		.4byte	.LLST5
+ 883 0292 01       		.byte	0x1
+ 884 0293 A6020000 		.4byte	0x2a6
+ 885 0297 14       		.uleb128 0x14
+ 886 0298 C4020000 		.4byte	.LASF38
+ 887 029c 01       		.byte	0x1
+ 888 029d DB       		.byte	0xdb
+ 889 029e 73020000 		.4byte	0x273
+ 890 02a2 02       		.byte	0x2
+ 891 02a3 91       		.byte	0x91
+ 892 02a4 74       		.sleb128 -12
+ 893 02a5 00       		.byte	0
+ 894 02a6 13       		.uleb128 0x13
+ 895 02a7 01       		.byte	0x1
+ 896 02a8 66010000 		.4byte	.LASF39
+ 897 02ac 01       		.byte	0x1
+ 898 02ad F5       		.byte	0xf5
+ 899 02ae 01       		.byte	0x1
+ 900 02af 00000000 		.4byte	.LFB62
+ 901 02b3 26000000 		.4byte	.LFE62
+ 902 02b7 2C010000 		.4byte	.LLST6
+ 903 02bb 01       		.byte	0x1
+ 904 02bc CF020000 		.4byte	0x2cf
+ 905 02c0 12       		.uleb128 0x12
+ 906 02c1 14020000 		.4byte	.LASF40
+ 907 02c5 01       		.byte	0x1
+ 908 02c6 F5       		.byte	0xf5
+ 909 02c7 90000000 		.4byte	0x90
+ 910 02cb 02       		.byte	0x2
+ 911 02cc 91       		.byte	0x91
+ 912 02cd 77       		.sleb128 -9
+ 913 02ce 00       		.byte	0
+ 914 02cf 16       		.uleb128 0x16
+ 915 02d0 01       		.byte	0x1
+ 916 02d1 1C000000 		.4byte	.LASF42
+ 917 02d5 01       		.byte	0x1
+ 918 02d6 0901     		.2byte	0x109
+ 919 02d8 01       		.byte	0x1
+ 920 02d9 90000000 		.4byte	0x90
+ 921 02dd 00000000 		.4byte	.LFB63
+ 922 02e1 26000000 		.4byte	.LFE63
+ 923 02e5 64010000 		.4byte	.LLST7
+ 924 02e9 01       		.byte	0x1
+ 925 02ea FE020000 		.4byte	0x2fe
+ 926 02ee 17       		.uleb128 0x17
+ 927 02ef 14020000 		.4byte	.LASF40
+ 928 02f3 01       		.byte	0x1
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 24
+
+
+ 929 02f4 0B01     		.2byte	0x10b
+ 930 02f6 90000000 		.4byte	0x90
+ 931 02fa 02       		.byte	0x2
+ 932 02fb 91       		.byte	0x91
+ 933 02fc 77       		.sleb128 -9
+ 934 02fd 00       		.byte	0
+ 935 02fe 18       		.uleb128 0x18
+ 936 02ff 01       		.byte	0x1
+ 937 0300 6A030000 		.4byte	.LASF43
+ 938 0304 01       		.byte	0x1
+ 939 0305 2201     		.2byte	0x122
+ 940 0307 01       		.byte	0x1
+ 941 0308 00000000 		.4byte	.LFB64
+ 942 030c 18000000 		.4byte	.LFE64
+ 943 0310 9C010000 		.4byte	.LLST8
+ 944 0314 01       		.byte	0x1
+ 945 0315 19       		.uleb128 0x19
+ 946 0316 01       		.byte	0x1
+ 947 0317 4C020000 		.4byte	.LASF54
+ 948 031b 01       		.byte	0x1
+ 949 031c 3701     		.2byte	0x137
+ 950 031e 01       		.byte	0x1
+ 951 031f 90000000 		.4byte	0x90
+ 952 0323 00000000 		.4byte	.LFB65
+ 953 0327 28000000 		.4byte	.LFE65
+ 954 032b C8010000 		.4byte	.LLST9
+ 955 032f 01       		.byte	0x1
+ 956 0330 18       		.uleb128 0x18
+ 957 0331 01       		.byte	0x1
+ 958 0332 3D000000 		.4byte	.LASF44
+ 959 0336 01       		.byte	0x1
+ 960 0337 4C01     		.2byte	0x14c
+ 961 0339 01       		.byte	0x1
+ 962 033a 00000000 		.4byte	.LFB66
+ 963 033e 18000000 		.4byte	.LFE66
+ 964 0342 F4010000 		.4byte	.LLST10
+ 965 0346 01       		.byte	0x1
+ 966 0347 18       		.uleb128 0x18
+ 967 0348 01       		.byte	0x1
+ 968 0349 BD030000 		.4byte	.LASF45
+ 969 034d 01       		.byte	0x1
+ 970 034e 6201     		.2byte	0x162
+ 971 0350 01       		.byte	0x1
+ 972 0351 00000000 		.4byte	.LFB67
+ 973 0355 18000000 		.4byte	.LFE67
+ 974 0359 20020000 		.4byte	.LLST11
+ 975 035d 01       		.byte	0x1
+ 976 035e 18       		.uleb128 0x18
+ 977 035f 01       		.byte	0x1
+ 978 0360 37010000 		.4byte	.LASF46
+ 979 0364 01       		.byte	0x1
+ 980 0365 7601     		.2byte	0x176
+ 981 0367 01       		.byte	0x1
+ 982 0368 00000000 		.4byte	.LFB68
+ 983 036c 18000000 		.4byte	.LFE68
+ 984 0370 4C020000 		.4byte	.LLST12
+ 985 0374 01       		.byte	0x1
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 25
+
+
+ 986 0375 1A       		.uleb128 0x1a
+ 987 0376 BE010000 		.4byte	.LASF47
+ 988 037a 05       		.byte	0x5
+ 989 037b 1606     		.2byte	0x616
+ 990 037d 83030000 		.4byte	0x383
+ 991 0381 01       		.byte	0x1
+ 992 0382 01       		.byte	0x1
+ 993 0383 07       		.uleb128 0x7
+ 994 0384 85000000 		.4byte	0x85
+ 995 0388 1B       		.uleb128 0x1b
+ 996 0389 A3000000 		.4byte	.LASF48
+ 997 038d 06       		.byte	0x6
+ 998 038e DA       		.byte	0xda
+ 999 038f EB000000 		.4byte	0xeb
+ 1000 0393 01       		.byte	0x1
+ 1001 0394 05       		.byte	0x5
+ 1002 0395 03       		.byte	0x3
+ 1003 0396 00000000 		.4byte	gobee_vparam
+ 1004 039a 1C       		.uleb128 0x1c
+ 1005 039b 64617300 		.ascii	"das\000"
+ 1006 039f 01       		.byte	0x1
+ 1007 03a0 25       		.byte	0x25
+ 1008 03a1 2A010000 		.4byte	0x12a
+ 1009 03a5 01       		.byte	0x1
+ 1010 03a6 01       		.byte	0x1
+ 1011 03a7 1B       		.uleb128 0x1b
+ 1012 03a8 46020000 		.4byte	.LASF49
+ 1013 03ac 01       		.byte	0x1
+ 1014 03ad 27       		.byte	0x27
+ 1015 03ae 90000000 		.4byte	0x90
+ 1016 03b2 01       		.byte	0x1
+ 1017 03b3 05       		.byte	0x5
+ 1018 03b4 03       		.byte	0x3
+ 1019 03b5 00000000 		.4byte	idxxx
+ 1020 03b9 00       		.byte	0
+ 1021              		.section	.debug_abbrev,"",%progbits
+ 1022              	.Ldebug_abbrev0:
+ 1023 0000 01       		.uleb128 0x1
+ 1024 0001 11       		.uleb128 0x11
+ 1025 0002 01       		.byte	0x1
+ 1026 0003 25       		.uleb128 0x25
+ 1027 0004 0E       		.uleb128 0xe
+ 1028 0005 13       		.uleb128 0x13
+ 1029 0006 0B       		.uleb128 0xb
+ 1030 0007 03       		.uleb128 0x3
+ 1031 0008 0E       		.uleb128 0xe
+ 1032 0009 1B       		.uleb128 0x1b
+ 1033 000a 0E       		.uleb128 0xe
+ 1034 000b 55       		.uleb128 0x55
+ 1035 000c 06       		.uleb128 0x6
+ 1036 000d 11       		.uleb128 0x11
+ 1037 000e 01       		.uleb128 0x1
+ 1038 000f 52       		.uleb128 0x52
+ 1039 0010 01       		.uleb128 0x1
+ 1040 0011 10       		.uleb128 0x10
+ 1041 0012 06       		.uleb128 0x6
+ 1042 0013 00       		.byte	0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 26
+
+
+ 1043 0014 00       		.byte	0
+ 1044 0015 02       		.uleb128 0x2
+ 1045 0016 24       		.uleb128 0x24
+ 1046 0017 00       		.byte	0
+ 1047 0018 0B       		.uleb128 0xb
+ 1048 0019 0B       		.uleb128 0xb
+ 1049 001a 3E       		.uleb128 0x3e
+ 1050 001b 0B       		.uleb128 0xb
+ 1051 001c 03       		.uleb128 0x3
+ 1052 001d 0E       		.uleb128 0xe
+ 1053 001e 00       		.byte	0
+ 1054 001f 00       		.byte	0
+ 1055 0020 03       		.uleb128 0x3
+ 1056 0021 24       		.uleb128 0x24
+ 1057 0022 00       		.byte	0
+ 1058 0023 0B       		.uleb128 0xb
+ 1059 0024 0B       		.uleb128 0xb
+ 1060 0025 3E       		.uleb128 0x3e
+ 1061 0026 0B       		.uleb128 0xb
+ 1062 0027 03       		.uleb128 0x3
+ 1063 0028 08       		.uleb128 0x8
+ 1064 0029 00       		.byte	0
+ 1065 002a 00       		.byte	0
+ 1066 002b 04       		.uleb128 0x4
+ 1067 002c 15       		.uleb128 0x15
+ 1068 002d 00       		.byte	0
+ 1069 002e 27       		.uleb128 0x27
+ 1070 002f 0C       		.uleb128 0xc
+ 1071 0030 00       		.byte	0
+ 1072 0031 00       		.byte	0
+ 1073 0032 05       		.uleb128 0x5
+ 1074 0033 0F       		.uleb128 0xf
+ 1075 0034 00       		.byte	0
+ 1076 0035 0B       		.uleb128 0xb
+ 1077 0036 0B       		.uleb128 0xb
+ 1078 0037 49       		.uleb128 0x49
+ 1079 0038 13       		.uleb128 0x13
+ 1080 0039 00       		.byte	0
+ 1081 003a 00       		.byte	0
+ 1082 003b 06       		.uleb128 0x6
+ 1083 003c 16       		.uleb128 0x16
+ 1084 003d 00       		.byte	0
+ 1085 003e 03       		.uleb128 0x3
+ 1086 003f 0E       		.uleb128 0xe
+ 1087 0040 3A       		.uleb128 0x3a
+ 1088 0041 0B       		.uleb128 0xb
+ 1089 0042 3B       		.uleb128 0x3b
+ 1090 0043 0B       		.uleb128 0xb
+ 1091 0044 49       		.uleb128 0x49
+ 1092 0045 13       		.uleb128 0x13
+ 1093 0046 00       		.byte	0
+ 1094 0047 00       		.byte	0
+ 1095 0048 07       		.uleb128 0x7
+ 1096 0049 35       		.uleb128 0x35
+ 1097 004a 00       		.byte	0
+ 1098 004b 49       		.uleb128 0x49
+ 1099 004c 13       		.uleb128 0x13
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 27
+
+
+ 1100 004d 00       		.byte	0
+ 1101 004e 00       		.byte	0
+ 1102 004f 08       		.uleb128 0x8
+ 1103 0050 16       		.uleb128 0x16
+ 1104 0051 00       		.byte	0
+ 1105 0052 03       		.uleb128 0x3
+ 1106 0053 0E       		.uleb128 0xe
+ 1107 0054 3A       		.uleb128 0x3a
+ 1108 0055 0B       		.uleb128 0xb
+ 1109 0056 3B       		.uleb128 0x3b
+ 1110 0057 05       		.uleb128 0x5
+ 1111 0058 49       		.uleb128 0x49
+ 1112 0059 13       		.uleb128 0x13
+ 1113 005a 00       		.byte	0
+ 1114 005b 00       		.byte	0
+ 1115 005c 09       		.uleb128 0x9
+ 1116 005d 13       		.uleb128 0x13
+ 1117 005e 00       		.byte	0
+ 1118 005f 03       		.uleb128 0x3
+ 1119 0060 0E       		.uleb128 0xe
+ 1120 0061 0B       		.uleb128 0xb
+ 1121 0062 0B       		.uleb128 0xb
+ 1122 0063 3A       		.uleb128 0x3a
+ 1123 0064 0B       		.uleb128 0xb
+ 1124 0065 3B       		.uleb128 0x3b
+ 1125 0066 0B       		.uleb128 0xb
+ 1126 0067 00       		.byte	0
+ 1127 0068 00       		.byte	0
+ 1128 0069 0A       		.uleb128 0xa
+ 1129 006a 13       		.uleb128 0x13
+ 1130 006b 01       		.byte	0x1
+ 1131 006c 03       		.uleb128 0x3
+ 1132 006d 0E       		.uleb128 0xe
+ 1133 006e 0B       		.uleb128 0xb
+ 1134 006f 0B       		.uleb128 0xb
+ 1135 0070 3A       		.uleb128 0x3a
+ 1136 0071 0B       		.uleb128 0xb
+ 1137 0072 3B       		.uleb128 0x3b
+ 1138 0073 0B       		.uleb128 0xb
+ 1139 0074 01       		.uleb128 0x1
+ 1140 0075 13       		.uleb128 0x13
+ 1141 0076 00       		.byte	0
+ 1142 0077 00       		.byte	0
+ 1143 0078 0B       		.uleb128 0xb
+ 1144 0079 0D       		.uleb128 0xd
+ 1145 007a 00       		.byte	0
+ 1146 007b 03       		.uleb128 0x3
+ 1147 007c 0E       		.uleb128 0xe
+ 1148 007d 3A       		.uleb128 0x3a
+ 1149 007e 0B       		.uleb128 0xb
+ 1150 007f 3B       		.uleb128 0x3b
+ 1151 0080 0B       		.uleb128 0xb
+ 1152 0081 49       		.uleb128 0x49
+ 1153 0082 13       		.uleb128 0x13
+ 1154 0083 38       		.uleb128 0x38
+ 1155 0084 0A       		.uleb128 0xa
+ 1156 0085 00       		.byte	0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 28
+
+
+ 1157 0086 00       		.byte	0
+ 1158 0087 0C       		.uleb128 0xc
+ 1159 0088 13       		.uleb128 0x13
+ 1160 0089 01       		.byte	0x1
+ 1161 008a 03       		.uleb128 0x3
+ 1162 008b 0E       		.uleb128 0xe
+ 1163 008c 0B       		.uleb128 0xb
+ 1164 008d 05       		.uleb128 0x5
+ 1165 008e 3A       		.uleb128 0x3a
+ 1166 008f 0B       		.uleb128 0xb
+ 1167 0090 3B       		.uleb128 0x3b
+ 1168 0091 0B       		.uleb128 0xb
+ 1169 0092 01       		.uleb128 0x1
+ 1170 0093 13       		.uleb128 0x13
+ 1171 0094 00       		.byte	0
+ 1172 0095 00       		.byte	0
+ 1173 0096 0D       		.uleb128 0xd
+ 1174 0097 01       		.uleb128 0x1
+ 1175 0098 01       		.byte	0x1
+ 1176 0099 49       		.uleb128 0x49
+ 1177 009a 13       		.uleb128 0x13
+ 1178 009b 01       		.uleb128 0x1
+ 1179 009c 13       		.uleb128 0x13
+ 1180 009d 00       		.byte	0
+ 1181 009e 00       		.byte	0
+ 1182 009f 0E       		.uleb128 0xe
+ 1183 00a0 21       		.uleb128 0x21
+ 1184 00a1 00       		.byte	0
+ 1185 00a2 49       		.uleb128 0x49
+ 1186 00a3 13       		.uleb128 0x13
+ 1187 00a4 2F       		.uleb128 0x2f
+ 1188 00a5 0B       		.uleb128 0xb
+ 1189 00a6 00       		.byte	0
+ 1190 00a7 00       		.byte	0
+ 1191 00a8 0F       		.uleb128 0xf
+ 1192 00a9 21       		.uleb128 0x21
+ 1193 00aa 00       		.byte	0
+ 1194 00ab 49       		.uleb128 0x49
+ 1195 00ac 13       		.uleb128 0x13
+ 1196 00ad 2F       		.uleb128 0x2f
+ 1197 00ae 05       		.uleb128 0x5
+ 1198 00af 00       		.byte	0
+ 1199 00b0 00       		.byte	0
+ 1200 00b1 10       		.uleb128 0x10
+ 1201 00b2 2E       		.uleb128 0x2e
+ 1202 00b3 00       		.byte	0
+ 1203 00b4 3F       		.uleb128 0x3f
+ 1204 00b5 0C       		.uleb128 0xc
+ 1205 00b6 03       		.uleb128 0x3
+ 1206 00b7 0E       		.uleb128 0xe
+ 1207 00b8 3A       		.uleb128 0x3a
+ 1208 00b9 0B       		.uleb128 0xb
+ 1209 00ba 3B       		.uleb128 0x3b
+ 1210 00bb 0B       		.uleb128 0xb
+ 1211 00bc 27       		.uleb128 0x27
+ 1212 00bd 0C       		.uleb128 0xc
+ 1213 00be 11       		.uleb128 0x11
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 29
+
+
+ 1214 00bf 01       		.uleb128 0x1
+ 1215 00c0 12       		.uleb128 0x12
+ 1216 00c1 01       		.uleb128 0x1
+ 1217 00c2 40       		.uleb128 0x40
+ 1218 00c3 06       		.uleb128 0x6
+ 1219 00c4 9642     		.uleb128 0x2116
+ 1220 00c6 0C       		.uleb128 0xc
+ 1221 00c7 00       		.byte	0
+ 1222 00c8 00       		.byte	0
+ 1223 00c9 11       		.uleb128 0x11
+ 1224 00ca 2E       		.uleb128 0x2e
+ 1225 00cb 01       		.byte	0x1
+ 1226 00cc 3F       		.uleb128 0x3f
+ 1227 00cd 0C       		.uleb128 0xc
+ 1228 00ce 03       		.uleb128 0x3
+ 1229 00cf 0E       		.uleb128 0xe
+ 1230 00d0 3A       		.uleb128 0x3a
+ 1231 00d1 0B       		.uleb128 0xb
+ 1232 00d2 3B       		.uleb128 0x3b
+ 1233 00d3 0B       		.uleb128 0xb
+ 1234 00d4 27       		.uleb128 0x27
+ 1235 00d5 0C       		.uleb128 0xc
+ 1236 00d6 11       		.uleb128 0x11
+ 1237 00d7 01       		.uleb128 0x1
+ 1238 00d8 12       		.uleb128 0x12
+ 1239 00d9 01       		.uleb128 0x1
+ 1240 00da 40       		.uleb128 0x40
+ 1241 00db 06       		.uleb128 0x6
+ 1242 00dc 9642     		.uleb128 0x2116
+ 1243 00de 0C       		.uleb128 0xc
+ 1244 00df 01       		.uleb128 0x1
+ 1245 00e0 13       		.uleb128 0x13
+ 1246 00e1 00       		.byte	0
+ 1247 00e2 00       		.byte	0
+ 1248 00e3 12       		.uleb128 0x12
+ 1249 00e4 05       		.uleb128 0x5
+ 1250 00e5 00       		.byte	0
+ 1251 00e6 03       		.uleb128 0x3
+ 1252 00e7 0E       		.uleb128 0xe
+ 1253 00e8 3A       		.uleb128 0x3a
+ 1254 00e9 0B       		.uleb128 0xb
+ 1255 00ea 3B       		.uleb128 0x3b
+ 1256 00eb 0B       		.uleb128 0xb
+ 1257 00ec 49       		.uleb128 0x49
+ 1258 00ed 13       		.uleb128 0x13
+ 1259 00ee 02       		.uleb128 0x2
+ 1260 00ef 0A       		.uleb128 0xa
+ 1261 00f0 00       		.byte	0
+ 1262 00f1 00       		.byte	0
+ 1263 00f2 13       		.uleb128 0x13
+ 1264 00f3 2E       		.uleb128 0x2e
+ 1265 00f4 01       		.byte	0x1
+ 1266 00f5 3F       		.uleb128 0x3f
+ 1267 00f6 0C       		.uleb128 0xc
+ 1268 00f7 03       		.uleb128 0x3
+ 1269 00f8 0E       		.uleb128 0xe
+ 1270 00f9 3A       		.uleb128 0x3a
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 30
+
+
+ 1271 00fa 0B       		.uleb128 0xb
+ 1272 00fb 3B       		.uleb128 0x3b
+ 1273 00fc 0B       		.uleb128 0xb
+ 1274 00fd 27       		.uleb128 0x27
+ 1275 00fe 0C       		.uleb128 0xc
+ 1276 00ff 11       		.uleb128 0x11
+ 1277 0100 01       		.uleb128 0x1
+ 1278 0101 12       		.uleb128 0x12
+ 1279 0102 01       		.uleb128 0x1
+ 1280 0103 40       		.uleb128 0x40
+ 1281 0104 06       		.uleb128 0x6
+ 1282 0105 9742     		.uleb128 0x2117
+ 1283 0107 0C       		.uleb128 0xc
+ 1284 0108 01       		.uleb128 0x1
+ 1285 0109 13       		.uleb128 0x13
+ 1286 010a 00       		.byte	0
+ 1287 010b 00       		.byte	0
+ 1288 010c 14       		.uleb128 0x14
+ 1289 010d 34       		.uleb128 0x34
+ 1290 010e 00       		.byte	0
+ 1291 010f 03       		.uleb128 0x3
+ 1292 0110 0E       		.uleb128 0xe
+ 1293 0111 3A       		.uleb128 0x3a
+ 1294 0112 0B       		.uleb128 0xb
+ 1295 0113 3B       		.uleb128 0x3b
+ 1296 0114 0B       		.uleb128 0xb
+ 1297 0115 49       		.uleb128 0x49
+ 1298 0116 13       		.uleb128 0x13
+ 1299 0117 02       		.uleb128 0x2
+ 1300 0118 0A       		.uleb128 0xa
+ 1301 0119 00       		.byte	0
+ 1302 011a 00       		.byte	0
+ 1303 011b 15       		.uleb128 0x15
+ 1304 011c 2E       		.uleb128 0x2e
+ 1305 011d 01       		.byte	0x1
+ 1306 011e 3F       		.uleb128 0x3f
+ 1307 011f 0C       		.uleb128 0xc
+ 1308 0120 03       		.uleb128 0x3
+ 1309 0121 0E       		.uleb128 0xe
+ 1310 0122 3A       		.uleb128 0x3a
+ 1311 0123 0B       		.uleb128 0xb
+ 1312 0124 3B       		.uleb128 0x3b
+ 1313 0125 0B       		.uleb128 0xb
+ 1314 0126 27       		.uleb128 0x27
+ 1315 0127 0C       		.uleb128 0xc
+ 1316 0128 49       		.uleb128 0x49
+ 1317 0129 13       		.uleb128 0x13
+ 1318 012a 11       		.uleb128 0x11
+ 1319 012b 01       		.uleb128 0x1
+ 1320 012c 12       		.uleb128 0x12
+ 1321 012d 01       		.uleb128 0x1
+ 1322 012e 40       		.uleb128 0x40
+ 1323 012f 06       		.uleb128 0x6
+ 1324 0130 9742     		.uleb128 0x2117
+ 1325 0132 0C       		.uleb128 0xc
+ 1326 0133 01       		.uleb128 0x1
+ 1327 0134 13       		.uleb128 0x13
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 31
+
+
+ 1328 0135 00       		.byte	0
+ 1329 0136 00       		.byte	0
+ 1330 0137 16       		.uleb128 0x16
+ 1331 0138 2E       		.uleb128 0x2e
+ 1332 0139 01       		.byte	0x1
+ 1333 013a 3F       		.uleb128 0x3f
+ 1334 013b 0C       		.uleb128 0xc
+ 1335 013c 03       		.uleb128 0x3
+ 1336 013d 0E       		.uleb128 0xe
+ 1337 013e 3A       		.uleb128 0x3a
+ 1338 013f 0B       		.uleb128 0xb
+ 1339 0140 3B       		.uleb128 0x3b
+ 1340 0141 05       		.uleb128 0x5
+ 1341 0142 27       		.uleb128 0x27
+ 1342 0143 0C       		.uleb128 0xc
+ 1343 0144 49       		.uleb128 0x49
+ 1344 0145 13       		.uleb128 0x13
+ 1345 0146 11       		.uleb128 0x11
+ 1346 0147 01       		.uleb128 0x1
+ 1347 0148 12       		.uleb128 0x12
+ 1348 0149 01       		.uleb128 0x1
+ 1349 014a 40       		.uleb128 0x40
+ 1350 014b 06       		.uleb128 0x6
+ 1351 014c 9742     		.uleb128 0x2117
+ 1352 014e 0C       		.uleb128 0xc
+ 1353 014f 01       		.uleb128 0x1
+ 1354 0150 13       		.uleb128 0x13
+ 1355 0151 00       		.byte	0
+ 1356 0152 00       		.byte	0
+ 1357 0153 17       		.uleb128 0x17
+ 1358 0154 34       		.uleb128 0x34
+ 1359 0155 00       		.byte	0
+ 1360 0156 03       		.uleb128 0x3
+ 1361 0157 0E       		.uleb128 0xe
+ 1362 0158 3A       		.uleb128 0x3a
+ 1363 0159 0B       		.uleb128 0xb
+ 1364 015a 3B       		.uleb128 0x3b
+ 1365 015b 05       		.uleb128 0x5
+ 1366 015c 49       		.uleb128 0x49
+ 1367 015d 13       		.uleb128 0x13
+ 1368 015e 02       		.uleb128 0x2
+ 1369 015f 0A       		.uleb128 0xa
+ 1370 0160 00       		.byte	0
+ 1371 0161 00       		.byte	0
+ 1372 0162 18       		.uleb128 0x18
+ 1373 0163 2E       		.uleb128 0x2e
+ 1374 0164 00       		.byte	0
+ 1375 0165 3F       		.uleb128 0x3f
+ 1376 0166 0C       		.uleb128 0xc
+ 1377 0167 03       		.uleb128 0x3
+ 1378 0168 0E       		.uleb128 0xe
+ 1379 0169 3A       		.uleb128 0x3a
+ 1380 016a 0B       		.uleb128 0xb
+ 1381 016b 3B       		.uleb128 0x3b
+ 1382 016c 05       		.uleb128 0x5
+ 1383 016d 27       		.uleb128 0x27
+ 1384 016e 0C       		.uleb128 0xc
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 32
+
+
+ 1385 016f 11       		.uleb128 0x11
+ 1386 0170 01       		.uleb128 0x1
+ 1387 0171 12       		.uleb128 0x12
+ 1388 0172 01       		.uleb128 0x1
+ 1389 0173 40       		.uleb128 0x40
+ 1390 0174 06       		.uleb128 0x6
+ 1391 0175 9742     		.uleb128 0x2117
+ 1392 0177 0C       		.uleb128 0xc
+ 1393 0178 00       		.byte	0
+ 1394 0179 00       		.byte	0
+ 1395 017a 19       		.uleb128 0x19
+ 1396 017b 2E       		.uleb128 0x2e
+ 1397 017c 00       		.byte	0
+ 1398 017d 3F       		.uleb128 0x3f
+ 1399 017e 0C       		.uleb128 0xc
+ 1400 017f 03       		.uleb128 0x3
+ 1401 0180 0E       		.uleb128 0xe
+ 1402 0181 3A       		.uleb128 0x3a
+ 1403 0182 0B       		.uleb128 0xb
+ 1404 0183 3B       		.uleb128 0x3b
+ 1405 0184 05       		.uleb128 0x5
+ 1406 0185 27       		.uleb128 0x27
+ 1407 0186 0C       		.uleb128 0xc
+ 1408 0187 49       		.uleb128 0x49
+ 1409 0188 13       		.uleb128 0x13
+ 1410 0189 11       		.uleb128 0x11
+ 1411 018a 01       		.uleb128 0x1
+ 1412 018b 12       		.uleb128 0x12
+ 1413 018c 01       		.uleb128 0x1
+ 1414 018d 40       		.uleb128 0x40
+ 1415 018e 06       		.uleb128 0x6
+ 1416 018f 9742     		.uleb128 0x2117
+ 1417 0191 0C       		.uleb128 0xc
+ 1418 0192 00       		.byte	0
+ 1419 0193 00       		.byte	0
+ 1420 0194 1A       		.uleb128 0x1a
+ 1421 0195 34       		.uleb128 0x34
+ 1422 0196 00       		.byte	0
+ 1423 0197 03       		.uleb128 0x3
+ 1424 0198 0E       		.uleb128 0xe
+ 1425 0199 3A       		.uleb128 0x3a
+ 1426 019a 0B       		.uleb128 0xb
+ 1427 019b 3B       		.uleb128 0x3b
+ 1428 019c 05       		.uleb128 0x5
+ 1429 019d 49       		.uleb128 0x49
+ 1430 019e 13       		.uleb128 0x13
+ 1431 019f 3F       		.uleb128 0x3f
+ 1432 01a0 0C       		.uleb128 0xc
+ 1433 01a1 3C       		.uleb128 0x3c
+ 1434 01a2 0C       		.uleb128 0xc
+ 1435 01a3 00       		.byte	0
+ 1436 01a4 00       		.byte	0
+ 1437 01a5 1B       		.uleb128 0x1b
+ 1438 01a6 34       		.uleb128 0x34
+ 1439 01a7 00       		.byte	0
+ 1440 01a8 03       		.uleb128 0x3
+ 1441 01a9 0E       		.uleb128 0xe
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 33
+
+
+ 1442 01aa 3A       		.uleb128 0x3a
+ 1443 01ab 0B       		.uleb128 0xb
+ 1444 01ac 3B       		.uleb128 0x3b
+ 1445 01ad 0B       		.uleb128 0xb
+ 1446 01ae 49       		.uleb128 0x49
+ 1447 01af 13       		.uleb128 0x13
+ 1448 01b0 3F       		.uleb128 0x3f
+ 1449 01b1 0C       		.uleb128 0xc
+ 1450 01b2 02       		.uleb128 0x2
+ 1451 01b3 0A       		.uleb128 0xa
+ 1452 01b4 00       		.byte	0
+ 1453 01b5 00       		.byte	0
+ 1454 01b6 1C       		.uleb128 0x1c
+ 1455 01b7 34       		.uleb128 0x34
+ 1456 01b8 00       		.byte	0
+ 1457 01b9 03       		.uleb128 0x3
+ 1458 01ba 08       		.uleb128 0x8
+ 1459 01bb 3A       		.uleb128 0x3a
+ 1460 01bc 0B       		.uleb128 0xb
+ 1461 01bd 3B       		.uleb128 0x3b
+ 1462 01be 0B       		.uleb128 0xb
+ 1463 01bf 49       		.uleb128 0x49
+ 1464 01c0 13       		.uleb128 0x13
+ 1465 01c1 3F       		.uleb128 0x3f
+ 1466 01c2 0C       		.uleb128 0xc
+ 1467 01c3 3C       		.uleb128 0x3c
+ 1468 01c4 0C       		.uleb128 0xc
+ 1469 01c5 00       		.byte	0
+ 1470 01c6 00       		.byte	0
+ 1471 01c7 00       		.byte	0
+ 1472              		.section	.debug_loc,"",%progbits
+ 1473              	.Ldebug_loc0:
+ 1474              	.LLST0:
+ 1475 0000 00000000 		.4byte	.LFB56
+ 1476 0004 02000000 		.4byte	.LCFI0
+ 1477 0008 0200     		.2byte	0x2
+ 1478 000a 7D       		.byte	0x7d
+ 1479 000b 00       		.sleb128 0
+ 1480 000c 02000000 		.4byte	.LCFI0
+ 1481 0010 04000000 		.4byte	.LCFI1
+ 1482 0014 0200     		.2byte	0x2
+ 1483 0016 7D       		.byte	0x7d
+ 1484 0017 08       		.sleb128 8
+ 1485 0018 04000000 		.4byte	.LCFI1
+ 1486 001c 22000000 		.4byte	.LFE56
+ 1487 0020 0200     		.2byte	0x2
+ 1488 0022 77       		.byte	0x77
+ 1489 0023 08       		.sleb128 8
+ 1490 0024 00000000 		.4byte	0
+ 1491 0028 00000000 		.4byte	0
+ 1492              	.LLST1:
+ 1493 002c 00000000 		.4byte	.LFB57
+ 1494 0030 02000000 		.4byte	.LCFI2
+ 1495 0034 0200     		.2byte	0x2
+ 1496 0036 7D       		.byte	0x7d
+ 1497 0037 00       		.sleb128 0
+ 1498 0038 02000000 		.4byte	.LCFI2
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 34
+
+
+ 1499 003c 04000000 		.4byte	.LCFI3
+ 1500 0040 0200     		.2byte	0x2
+ 1501 0042 7D       		.byte	0x7d
+ 1502 0043 08       		.sleb128 8
+ 1503 0044 04000000 		.4byte	.LCFI3
+ 1504 0048 06000000 		.4byte	.LCFI4
+ 1505 004c 0200     		.2byte	0x2
+ 1506 004e 7D       		.byte	0x7d
+ 1507 004f 10       		.sleb128 16
+ 1508 0050 06000000 		.4byte	.LCFI4
+ 1509 0054 26000000 		.4byte	.LFE57
+ 1510 0058 0200     		.2byte	0x2
+ 1511 005a 77       		.byte	0x77
+ 1512 005b 10       		.sleb128 16
+ 1513 005c 00000000 		.4byte	0
+ 1514 0060 00000000 		.4byte	0
+ 1515              	.LLST2:
+ 1516 0064 00000000 		.4byte	.LFB58
+ 1517 0068 02000000 		.4byte	.LCFI5
+ 1518 006c 0200     		.2byte	0x2
+ 1519 006e 7D       		.byte	0x7d
+ 1520 006f 00       		.sleb128 0
+ 1521 0070 02000000 		.4byte	.LCFI5
+ 1522 0074 04000000 		.4byte	.LCFI6
+ 1523 0078 0200     		.2byte	0x2
+ 1524 007a 7D       		.byte	0x7d
+ 1525 007b 08       		.sleb128 8
+ 1526 007c 04000000 		.4byte	.LCFI6
+ 1527 0080 16000000 		.4byte	.LFE58
+ 1528 0084 0200     		.2byte	0x2
+ 1529 0086 77       		.byte	0x77
+ 1530 0087 08       		.sleb128 8
+ 1531 0088 00000000 		.4byte	0
+ 1532 008c 00000000 		.4byte	0
+ 1533              	.LLST3:
+ 1534 0090 00000000 		.4byte	.LFB59
+ 1535 0094 02000000 		.4byte	.LCFI7
+ 1536 0098 0200     		.2byte	0x2
+ 1537 009a 7D       		.byte	0x7d
+ 1538 009b 00       		.sleb128 0
+ 1539 009c 02000000 		.4byte	.LCFI7
+ 1540 00a0 04000000 		.4byte	.LCFI8
+ 1541 00a4 0200     		.2byte	0x2
+ 1542 00a6 7D       		.byte	0x7d
+ 1543 00a7 08       		.sleb128 8
+ 1544 00a8 04000000 		.4byte	.LCFI8
+ 1545 00ac 84000000 		.4byte	.LFE59
+ 1546 00b0 0200     		.2byte	0x2
+ 1547 00b2 77       		.byte	0x77
+ 1548 00b3 08       		.sleb128 8
+ 1549 00b4 00000000 		.4byte	0
+ 1550 00b8 00000000 		.4byte	0
+ 1551              	.LLST4:
+ 1552 00bc 00000000 		.4byte	.LFB60
+ 1553 00c0 02000000 		.4byte	.LCFI9
+ 1554 00c4 0200     		.2byte	0x2
+ 1555 00c6 7D       		.byte	0x7d
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 35
+
+
+ 1556 00c7 00       		.sleb128 0
+ 1557 00c8 02000000 		.4byte	.LCFI9
+ 1558 00cc 04000000 		.4byte	.LCFI10
+ 1559 00d0 0200     		.2byte	0x2
+ 1560 00d2 7D       		.byte	0x7d
+ 1561 00d3 04       		.sleb128 4
+ 1562 00d4 04000000 		.4byte	.LCFI10
+ 1563 00d8 06000000 		.4byte	.LCFI11
+ 1564 00dc 0200     		.2byte	0x2
+ 1565 00de 7D       		.byte	0x7d
+ 1566 00df 18       		.sleb128 24
+ 1567 00e0 06000000 		.4byte	.LCFI11
+ 1568 00e4 28000000 		.4byte	.LFE60
+ 1569 00e8 0200     		.2byte	0x2
+ 1570 00ea 77       		.byte	0x77
+ 1571 00eb 18       		.sleb128 24
+ 1572 00ec 00000000 		.4byte	0
+ 1573 00f0 00000000 		.4byte	0
+ 1574              	.LLST5:
+ 1575 00f4 00000000 		.4byte	.LFB61
+ 1576 00f8 02000000 		.4byte	.LCFI12
+ 1577 00fc 0200     		.2byte	0x2
+ 1578 00fe 7D       		.byte	0x7d
+ 1579 00ff 00       		.sleb128 0
+ 1580 0100 02000000 		.4byte	.LCFI12
+ 1581 0104 04000000 		.4byte	.LCFI13
+ 1582 0108 0200     		.2byte	0x2
+ 1583 010a 7D       		.byte	0x7d
+ 1584 010b 04       		.sleb128 4
+ 1585 010c 04000000 		.4byte	.LCFI13
+ 1586 0110 06000000 		.4byte	.LCFI14
+ 1587 0114 0200     		.2byte	0x2
+ 1588 0116 7D       		.byte	0x7d
+ 1589 0117 10       		.sleb128 16
+ 1590 0118 06000000 		.4byte	.LCFI14
+ 1591 011c 22000000 		.4byte	.LFE61
+ 1592 0120 0200     		.2byte	0x2
+ 1593 0122 77       		.byte	0x77
+ 1594 0123 10       		.sleb128 16
+ 1595 0124 00000000 		.4byte	0
+ 1596 0128 00000000 		.4byte	0
+ 1597              	.LLST6:
+ 1598 012c 00000000 		.4byte	.LFB62
+ 1599 0130 02000000 		.4byte	.LCFI15
+ 1600 0134 0200     		.2byte	0x2
+ 1601 0136 7D       		.byte	0x7d
+ 1602 0137 00       		.sleb128 0
+ 1603 0138 02000000 		.4byte	.LCFI15
+ 1604 013c 04000000 		.4byte	.LCFI16
+ 1605 0140 0200     		.2byte	0x2
+ 1606 0142 7D       		.byte	0x7d
+ 1607 0143 04       		.sleb128 4
+ 1608 0144 04000000 		.4byte	.LCFI16
+ 1609 0148 06000000 		.4byte	.LCFI17
+ 1610 014c 0200     		.2byte	0x2
+ 1611 014e 7D       		.byte	0x7d
+ 1612 014f 10       		.sleb128 16
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 36
+
+
+ 1613 0150 06000000 		.4byte	.LCFI17
+ 1614 0154 26000000 		.4byte	.LFE62
+ 1615 0158 0200     		.2byte	0x2
+ 1616 015a 77       		.byte	0x77
+ 1617 015b 10       		.sleb128 16
+ 1618 015c 00000000 		.4byte	0
+ 1619 0160 00000000 		.4byte	0
+ 1620              	.LLST7:
+ 1621 0164 00000000 		.4byte	.LFB63
+ 1622 0168 02000000 		.4byte	.LCFI18
+ 1623 016c 0200     		.2byte	0x2
+ 1624 016e 7D       		.byte	0x7d
+ 1625 016f 00       		.sleb128 0
+ 1626 0170 02000000 		.4byte	.LCFI18
+ 1627 0174 04000000 		.4byte	.LCFI19
+ 1628 0178 0200     		.2byte	0x2
+ 1629 017a 7D       		.byte	0x7d
+ 1630 017b 04       		.sleb128 4
+ 1631 017c 04000000 		.4byte	.LCFI19
+ 1632 0180 06000000 		.4byte	.LCFI20
+ 1633 0184 0200     		.2byte	0x2
+ 1634 0186 7D       		.byte	0x7d
+ 1635 0187 10       		.sleb128 16
+ 1636 0188 06000000 		.4byte	.LCFI20
+ 1637 018c 26000000 		.4byte	.LFE63
+ 1638 0190 0200     		.2byte	0x2
+ 1639 0192 77       		.byte	0x77
+ 1640 0193 10       		.sleb128 16
+ 1641 0194 00000000 		.4byte	0
+ 1642 0198 00000000 		.4byte	0
+ 1643              	.LLST8:
+ 1644 019c 00000000 		.4byte	.LFB64
+ 1645 01a0 02000000 		.4byte	.LCFI21
+ 1646 01a4 0200     		.2byte	0x2
+ 1647 01a6 7D       		.byte	0x7d
+ 1648 01a7 00       		.sleb128 0
+ 1649 01a8 02000000 		.4byte	.LCFI21
+ 1650 01ac 04000000 		.4byte	.LCFI22
+ 1651 01b0 0200     		.2byte	0x2
+ 1652 01b2 7D       		.byte	0x7d
+ 1653 01b3 04       		.sleb128 4
+ 1654 01b4 04000000 		.4byte	.LCFI22
+ 1655 01b8 18000000 		.4byte	.LFE64
+ 1656 01bc 0200     		.2byte	0x2
+ 1657 01be 77       		.byte	0x77
+ 1658 01bf 04       		.sleb128 4
+ 1659 01c0 00000000 		.4byte	0
+ 1660 01c4 00000000 		.4byte	0
+ 1661              	.LLST9:
+ 1662 01c8 00000000 		.4byte	.LFB65
+ 1663 01cc 02000000 		.4byte	.LCFI23
+ 1664 01d0 0200     		.2byte	0x2
+ 1665 01d2 7D       		.byte	0x7d
+ 1666 01d3 00       		.sleb128 0
+ 1667 01d4 02000000 		.4byte	.LCFI23
+ 1668 01d8 04000000 		.4byte	.LCFI24
+ 1669 01dc 0200     		.2byte	0x2
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 37
+
+
+ 1670 01de 7D       		.byte	0x7d
+ 1671 01df 04       		.sleb128 4
+ 1672 01e0 04000000 		.4byte	.LCFI24
+ 1673 01e4 28000000 		.4byte	.LFE65
+ 1674 01e8 0200     		.2byte	0x2
+ 1675 01ea 77       		.byte	0x77
+ 1676 01eb 04       		.sleb128 4
+ 1677 01ec 00000000 		.4byte	0
+ 1678 01f0 00000000 		.4byte	0
+ 1679              	.LLST10:
+ 1680 01f4 00000000 		.4byte	.LFB66
+ 1681 01f8 02000000 		.4byte	.LCFI25
+ 1682 01fc 0200     		.2byte	0x2
+ 1683 01fe 7D       		.byte	0x7d
+ 1684 01ff 00       		.sleb128 0
+ 1685 0200 02000000 		.4byte	.LCFI25
+ 1686 0204 04000000 		.4byte	.LCFI26
+ 1687 0208 0200     		.2byte	0x2
+ 1688 020a 7D       		.byte	0x7d
+ 1689 020b 04       		.sleb128 4
+ 1690 020c 04000000 		.4byte	.LCFI26
+ 1691 0210 18000000 		.4byte	.LFE66
+ 1692 0214 0200     		.2byte	0x2
+ 1693 0216 77       		.byte	0x77
+ 1694 0217 04       		.sleb128 4
+ 1695 0218 00000000 		.4byte	0
+ 1696 021c 00000000 		.4byte	0
+ 1697              	.LLST11:
+ 1698 0220 00000000 		.4byte	.LFB67
+ 1699 0224 02000000 		.4byte	.LCFI27
+ 1700 0228 0200     		.2byte	0x2
+ 1701 022a 7D       		.byte	0x7d
+ 1702 022b 00       		.sleb128 0
+ 1703 022c 02000000 		.4byte	.LCFI27
+ 1704 0230 04000000 		.4byte	.LCFI28
+ 1705 0234 0200     		.2byte	0x2
+ 1706 0236 7D       		.byte	0x7d
+ 1707 0237 04       		.sleb128 4
+ 1708 0238 04000000 		.4byte	.LCFI28
+ 1709 023c 18000000 		.4byte	.LFE67
+ 1710 0240 0200     		.2byte	0x2
+ 1711 0242 77       		.byte	0x77
+ 1712 0243 04       		.sleb128 4
+ 1713 0244 00000000 		.4byte	0
+ 1714 0248 00000000 		.4byte	0
+ 1715              	.LLST12:
+ 1716 024c 00000000 		.4byte	.LFB68
+ 1717 0250 02000000 		.4byte	.LCFI29
+ 1718 0254 0200     		.2byte	0x2
+ 1719 0256 7D       		.byte	0x7d
+ 1720 0257 00       		.sleb128 0
+ 1721 0258 02000000 		.4byte	.LCFI29
+ 1722 025c 04000000 		.4byte	.LCFI30
+ 1723 0260 0200     		.2byte	0x2
+ 1724 0262 7D       		.byte	0x7d
+ 1725 0263 04       		.sleb128 4
+ 1726 0264 04000000 		.4byte	.LCFI30
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 38
+
+
+ 1727 0268 18000000 		.4byte	.LFE68
+ 1728 026c 0200     		.2byte	0x2
+ 1729 026e 77       		.byte	0x77
+ 1730 026f 04       		.sleb128 4
+ 1731 0270 00000000 		.4byte	0
+ 1732 0274 00000000 		.4byte	0
+ 1733              		.section	.debug_aranges,"",%progbits
+ 1734 0000 7C000000 		.4byte	0x7c
+ 1735 0004 0200     		.2byte	0x2
+ 1736 0006 00000000 		.4byte	.Ldebug_info0
+ 1737 000a 04       		.byte	0x4
+ 1738 000b 00       		.byte	0
+ 1739 000c 0000     		.2byte	0
+ 1740 000e 0000     		.2byte	0
+ 1741 0010 00000000 		.4byte	.LFB56
+ 1742 0014 22000000 		.4byte	.LFE56-.LFB56
+ 1743 0018 00000000 		.4byte	.LFB57
+ 1744 001c 26000000 		.4byte	.LFE57-.LFB57
+ 1745 0020 00000000 		.4byte	.LFB58
+ 1746 0024 16000000 		.4byte	.LFE58-.LFB58
+ 1747 0028 00000000 		.4byte	.LFB59
+ 1748 002c 84000000 		.4byte	.LFE59-.LFB59
+ 1749 0030 00000000 		.4byte	.LFB60
+ 1750 0034 28000000 		.4byte	.LFE60-.LFB60
+ 1751 0038 00000000 		.4byte	.LFB61
+ 1752 003c 22000000 		.4byte	.LFE61-.LFB61
+ 1753 0040 00000000 		.4byte	.LFB62
+ 1754 0044 26000000 		.4byte	.LFE62-.LFB62
+ 1755 0048 00000000 		.4byte	.LFB63
+ 1756 004c 26000000 		.4byte	.LFE63-.LFB63
+ 1757 0050 00000000 		.4byte	.LFB64
+ 1758 0054 18000000 		.4byte	.LFE64-.LFB64
+ 1759 0058 00000000 		.4byte	.LFB65
+ 1760 005c 28000000 		.4byte	.LFE65-.LFB65
+ 1761 0060 00000000 		.4byte	.LFB66
+ 1762 0064 18000000 		.4byte	.LFE66-.LFB66
+ 1763 0068 00000000 		.4byte	.LFB67
+ 1764 006c 18000000 		.4byte	.LFE67-.LFB67
+ 1765 0070 00000000 		.4byte	.LFB68
+ 1766 0074 18000000 		.4byte	.LFE68-.LFB68
+ 1767 0078 00000000 		.4byte	0
+ 1768 007c 00000000 		.4byte	0
+ 1769              		.section	.debug_ranges,"",%progbits
+ 1770              	.Ldebug_ranges0:
+ 1771 0000 00000000 		.4byte	.LFB56
+ 1772 0004 22000000 		.4byte	.LFE56
+ 1773 0008 00000000 		.4byte	.LFB57
+ 1774 000c 26000000 		.4byte	.LFE57
+ 1775 0010 00000000 		.4byte	.LFB58
+ 1776 0014 16000000 		.4byte	.LFE58
+ 1777 0018 00000000 		.4byte	.LFB59
+ 1778 001c 84000000 		.4byte	.LFE59
+ 1779 0020 00000000 		.4byte	.LFB60
+ 1780 0024 28000000 		.4byte	.LFE60
+ 1781 0028 00000000 		.4byte	.LFB61
+ 1782 002c 22000000 		.4byte	.LFE61
+ 1783 0030 00000000 		.4byte	.LFB62
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 39
+
+
+ 1784 0034 26000000 		.4byte	.LFE62
+ 1785 0038 00000000 		.4byte	.LFB63
+ 1786 003c 26000000 		.4byte	.LFE63
+ 1787 0040 00000000 		.4byte	.LFB64
+ 1788 0044 18000000 		.4byte	.LFE64
+ 1789 0048 00000000 		.4byte	.LFB65
+ 1790 004c 28000000 		.4byte	.LFE65
+ 1791 0050 00000000 		.4byte	.LFB66
+ 1792 0054 18000000 		.4byte	.LFE66
+ 1793 0058 00000000 		.4byte	.LFB67
+ 1794 005c 18000000 		.4byte	.LFE67
+ 1795 0060 00000000 		.4byte	.LFB68
+ 1796 0064 18000000 		.4byte	.LFE68
+ 1797 0068 00000000 		.4byte	0
+ 1798 006c 00000000 		.4byte	0
+ 1799              		.section	.debug_line,"",%progbits
+ 1800              	.Ldebug_line0:
+ 1801 0000 3E020000 		.section	.debug_str,"MS",%progbits,1
+ 1801      02000F01 
+ 1801      00000201 
+ 1801      FB0E0D00 
+ 1801      01010101 
+ 1802              	.LASF18:
+ 1803 0000 72656733 		.ascii	"reg32\000"
+ 1803      3200
+ 1804              	.LASF20:
+ 1805 0006 7469636B 		.ascii	"ticks\000"
+ 1805      7300
+ 1806              	.LASF23:
+ 1807 000c 4C4F5645 		.ascii	"LOVELOCK_Values\000"
+ 1807      4C4F434B 
+ 1807      5F56616C 
+ 1807      75657300 
+ 1808              	.LASF42:
+ 1809 001c 6973725F 		.ascii	"isr_BUTTON_BUF_GetPriority\000"
+ 1809      42555454 
+ 1809      4F4E5F42 
+ 1809      55465F47 
+ 1809      65745072 
+ 1810              	.LASF26:
+ 1811 0037 76616C75 		.ascii	"value\000"
+ 1811      6500
+ 1812              	.LASF44:
+ 1813 003d 6973725F 		.ascii	"isr_BUTTON_BUF_Disable\000"
+ 1813      42555454 
+ 1813      4F4E5F42 
+ 1813      55465F44 
+ 1813      69736162 
+ 1814              	.LASF31:
+ 1815 0054 6C6F7665 		.ascii	"lovelock\000"
+ 1815      6C6F636B 
+ 1815      00
+ 1816              	.LASF41:
+ 1817 005d 6973725F 		.ascii	"isr_BUTTON_BUF_GetVector\000"
+ 1817      42555454 
+ 1817      4F4E5F42 
+ 1817      55465F47 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 40
+
+
+ 1817      65745665 
+ 1818              	.LASF34:
+ 1819 0076 6973725F 		.ascii	"isr_BUTTON_BUF_Interrupt\000"
+ 1819      42555454 
+ 1819      4F4E5F42 
+ 1819      55465F49 
+ 1819      6E746572 
+ 1820              	.LASF33:
+ 1821 008f 6973725F 		.ascii	"isr_BUTTON_BUF_Stop\000"
+ 1821      42555454 
+ 1821      4F4E5F42 
+ 1821      55465F53 
+ 1821      746F7000 
+ 1822              	.LASF48:
+ 1823 00a3 676F6265 		.ascii	"gobee_vparam\000"
+ 1823      655F7670 
+ 1823      6172616D 
+ 1823      00
+ 1824              	.LASF52:
+ 1825 00b0 433A5C44 		.ascii	"C:\\Documents and Settings\\user\\Documenti\\PSoC C"
+ 1825      6F63756D 
+ 1825      656E7473 
+ 1825      20616E64 
+ 1825      20536574 
+ 1826 00df 72656174 		.ascii	"reator\\GOBEE DIRECTOR\\Vers.0.0-T00 2016-1021 C3.0"
+ 1826      6F725C47 
+ 1826      4F424545 
+ 1826      20444952 
+ 1826      4543544F 
+ 1827 0110 20284F52 		.ascii	" (ORCAD SYNC III)\\GobeeDir.cydsn\000"
+ 1827      43414420 
+ 1827      53594E43 
+ 1827      20494949 
+ 1827      295C476F 
+ 1828              	.LASF15:
+ 1829 0131 666C6F61 		.ascii	"float\000"
+ 1829      7400
+ 1830              	.LASF46:
+ 1831 0137 6973725F 		.ascii	"isr_BUTTON_BUF_ClearPending\000"
+ 1831      42555454 
+ 1831      4F4E5F42 
+ 1831      55465F43 
+ 1831      6C656172 
+ 1832              	.LASF1:
+ 1833 0153 756E7369 		.ascii	"unsigned char\000"
+ 1833      676E6564 
+ 1833      20636861 
+ 1833      7200
+ 1834              	.LASF17:
+ 1835 0161 72656738 		.ascii	"reg8\000"
+ 1835      00
+ 1836              	.LASF39:
+ 1837 0166 6973725F 		.ascii	"isr_BUTTON_BUF_SetPriority\000"
+ 1837      42555454 
+ 1837      4F4E5F42 
+ 1837      55465F53 
+ 1837      65745072 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 41
+
+
+ 1838              	.LASF14:
+ 1839 0181 696E7431 		.ascii	"int16\000"
+ 1839      3600
+ 1840              	.LASF9:
+ 1841 0187 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1841      20756E73 
+ 1841      69676E65 
+ 1841      6420696E 
+ 1841      7400
+ 1842              	.LASF3:
+ 1843 0199 73686F72 		.ascii	"short unsigned int\000"
+ 1843      7420756E 
+ 1843      7369676E 
+ 1843      65642069 
+ 1843      6E7400
+ 1844              	.LASF25:
+ 1845 01ac 636F6E74 		.ascii	"control\000"
+ 1845      726F6C00 
+ 1846              	.LASF22:
+ 1847 01b4 76696272 		.ascii	"vibration\000"
+ 1847      6174696F 
+ 1847      6E00
+ 1848              	.LASF47:
+ 1849 01be 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1849      52784275 
+ 1849      66666572 
+ 1849      00
+ 1850              	.LASF51:
+ 1851 01cb 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isr_BUTTON_BUF.c\000"
+ 1851      6E657261 
+ 1851      7465645F 
+ 1851      536F7572 
+ 1851      63655C50 
+ 1852              	.LASF28:
+ 1853 01f5 62756666 		.ascii	"buffer_status\000"
+ 1853      65725F73 
+ 1853      74617475 
+ 1853      7300
+ 1854              	.LASF16:
+ 1855 0203 646F7562 		.ascii	"double\000"
+ 1855      6C6500
+ 1856              	.LASF2:
+ 1857 020a 73686F72 		.ascii	"short int\000"
+ 1857      7420696E 
+ 1857      7400
+ 1858              	.LASF40:
+ 1859 0214 7072696F 		.ascii	"priority\000"
+ 1859      72697479 
+ 1859      00
+ 1860              	.LASF13:
+ 1861 021d 75696E74 		.ascii	"uint32\000"
+ 1861      333200
+ 1862              	.LASF4:
+ 1863 0224 756E7369 		.ascii	"unsigned int\000"
+ 1863      676E6564 
+ 1863      20696E74 
+ 1863      00
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 42
+
+
+ 1864              	.LASF32:
+ 1865 0231 6973725F 		.ascii	"isr_BUTTON_BUF_Start\000"
+ 1865      42555454 
+ 1865      4F4E5F42 
+ 1865      55465F53 
+ 1865      74617274 
+ 1866              	.LASF49:
+ 1867 0246 69647878 		.ascii	"idxxx\000"
+ 1867      7800
+ 1868              	.LASF54:
+ 1869 024c 6973725F 		.ascii	"isr_BUTTON_BUF_GetState\000"
+ 1869      42555454 
+ 1869      4F4E5F42 
+ 1869      55465F47 
+ 1869      65745374 
+ 1870              	.LASF6:
+ 1871 0264 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1871      206C6F6E 
+ 1871      6720756E 
+ 1871      7369676E 
+ 1871      65642069 
+ 1872              	.LASF21:
+ 1873 027b 61636365 		.ascii	"acceleration\000"
+ 1873      6C657261 
+ 1873      74696F6E 
+ 1873      00
+ 1874              	.LASF19:
+ 1875 0288 63796973 		.ascii	"cyisraddress\000"
+ 1875      72616464 
+ 1875      72657373 
+ 1875      00
+ 1876              	.LASF24:
+ 1877 0295 4441535F 		.ascii	"DAS_VALUES\000"
+ 1877      56414C55 
+ 1877      455300
+ 1878              	.LASF11:
+ 1879 02a0 696E7433 		.ascii	"int32_t\000"
+ 1879      325F7400 
+ 1880              	.LASF8:
+ 1881 02a8 73697A65 		.ascii	"sizetype\000"
+ 1881      74797065 
+ 1881      00
+ 1882              	.LASF5:
+ 1883 02b1 6C6F6E67 		.ascii	"long long int\000"
+ 1883      206C6F6E 
+ 1883      6720696E 
+ 1883      7400
+ 1884              	.LASF10:
+ 1885 02bf 63686172 		.ascii	"char\000"
+ 1885      00
+ 1886              	.LASF38:
+ 1887 02c4 72616D56 		.ascii	"ramVectorTable\000"
+ 1887      6563746F 
+ 1887      72546162 
+ 1887      6C6500
+ 1888              	.LASF36:
+ 1889 02d3 6973725F 		.ascii	"isr_BUTTON_BUF_SetVector\000"
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 43
+
+
+ 1889      42555454 
+ 1889      4F4E5F42 
+ 1889      55465F53 
+ 1889      65745665 
+ 1890              	.LASF30:
+ 1891 02ec 62756666 		.ascii	"buffer\000"
+ 1891      657200
+ 1892              	.LASF12:
+ 1893 02f3 75696E74 		.ascii	"uint8\000"
+ 1893      3800
+ 1894              	.LASF50:
+ 1895 02f9 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1895      4320342E 
+ 1895      372E3320 
+ 1895      32303133 
+ 1895      30333132 
+ 1896 032c 616E6368 		.ascii	"anch revision 196615]\000"
+ 1896      20726576 
+ 1896      6973696F 
+ 1896      6E203139 
+ 1896      36363135 
+ 1897              	.LASF37:
+ 1898 0342 61646472 		.ascii	"address\000"
+ 1898      65737300 
+ 1899              	.LASF35:
+ 1900 034a 6973725F 		.ascii	"isr_BUTTON_BUF_StartEx\000"
+ 1900      42555454 
+ 1900      4F4E5F42 
+ 1900      55465F53 
+ 1900      74617274 
+ 1901              	.LASF7:
+ 1902 0361 6C6F6E67 		.ascii	"long int\000"
+ 1902      20696E74 
+ 1902      00
+ 1903              	.LASF43:
+ 1904 036a 6973725F 		.ascii	"isr_BUTTON_BUF_Enable\000"
+ 1904      42555454 
+ 1904      4F4E5F42 
+ 1904      55465F45 
+ 1904      6E61626C 
+ 1905              	.LASF27:
+ 1906 0380 62756666 		.ascii	"buffer_counter\000"
+ 1906      65725F63 
+ 1906      6F756E74 
+ 1906      657200
+ 1907              	.LASF0:
+ 1908 038f 7369676E 		.ascii	"signed char\000"
+ 1908      65642063 
+ 1908      68617200 
+ 1909              	.LASF29:
+ 1910 039b 62756666 		.ascii	"buffer_actual_value\000"
+ 1910      65725F61 
+ 1910      63747561 
+ 1910      6C5F7661 
+ 1910      6C756500 
+ 1911              	.LASF53:
+ 1912 03af 474F4245 		.ascii	"GOBEE_VPARAMS\000"
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\ccWxg2ma.s 			page 44
+
+
+ 1912      455F5650 
+ 1912      4152414D 
+ 1912      5300
+ 1913              	.LASF45:
+ 1914 03bd 6973725F 		.ascii	"isr_BUTTON_BUF_SetPending\000"
+ 1914      42555454 
+ 1914      4F4E5F42 
+ 1914      55465F53 
+ 1914      65745065 
+ 1915              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,174 @@
+===========================
+FUTURE DEVELOPMENT
+===========================
+* CORREZIONE SOLITI PROBLEMI ANAPOS
+
+* Passaggio con interpolazione (#PTQI oppure #QEXEC):
+   Vai dalla mano alla ruota passando per il viso, senza fermarsi sul viso.
+	#PTQ 14 0.2 0.2		//vai alla mano (Q14) con un movimento veloce di servizio
+	#PATHEXEC			//(dopo #PTQ è mandatorio #PATHEXEC)
+	#CAMERAON			//accendi la camera
+	#PAUSE 5			//attendi 5 secondi prima di partire
+	#PTQI 11 0.2 3		//vai al   viso  (Q11) in tre secondi 	
+	#PTQI 21 0.2 1		//vai alla ruota (Q21) in tre secondi	
+	#PATHEXEC			//fai il movimento interpolato.
+	
+  Richiede una modifica della macchina a stati clu_sm_exec. 
+  Alla fine del primo movimento:
+  	//goto mover end check
+	if ((clu_sm.status == CLUSM_PGOTO_EXECUTION) ||
+	    (clu_sm.status == CLUSM_TGOTO_EXECUTION) ||
+		(clu_sm.status == CLUSM_PATH_EXECUTION))
+	{	
+		if ((mover_pan.status == MOVER_ENDED) && (mover_tilt.status == MOVER_ENDED))
+		{
+		...
+  ...se il movimento è di tipo interpolato deve caricare la posizione assoluta attuale...
+  	InitPanGotoQPath
+	... oppure...
+	
+	//PAN
+	path[PANPATH].trapezoid[0].param.acc_pc.fnum = acc_loc;										/* [%]     */
+	path[PANPATH].trapezoid[0].param.dec_pc.fnum = acc_loc;										/* [%]     */
+	path[PANPATH].trapezoid[0].param.time_sec.fnum = time_loc;									/* [sec]   */
+	path[PANPATH].trapezoid[0].param.steps = (int32)(-pan_absolute_sensor.position + q[q_table[q_number]].mc.position[PAN_AXIS]); /* [steps] */
+	
+	...(magari sarebbe bello uniformare le due cose: perchè l'hai fatto in due modi diversi?)
+	Al posto di #PATHEXEC potresti fare #QEXEC che fa un singolo GOTOQ se ce ne è uno solo e lo fa interpolato se ce ne sono più di 1.
+
+	
+* Implementazione dei comandi WiFi di camera:
+	#CAMERAON
+	#CAMERAOFF
+  Si può provare ad hackerare un telecomandino WiFi per GoPro collegandolo a J5.
+  J5 riporta dei pin di U22 (BLE) che può fare da bridge diretto dei pin che arrivano dal PSOC 5LP.
+  Ci sono 5 pin disponibili (di cui 2 sono bridgiabili in maniera banale)
+   
+* Modificatori di posizione (!DX, !SX, !UP, !DW)
+   "########################\0"
+ 	#PTQ 14 0.2 0.2 !DX	//vai alla destra della mano (Q14) con un movimento veloce di servizio
+	#PATHEXEC			//
+	...
+
+    "########################\0"
+ 	#PTQ 11 0.2 0.2 !UP	//vai più su del viso (Q11) con un movimento veloce di servizio
+	#PATHEXEC			//
+	...
+	I valori angolari dei modificatori possono essere tabellati o inseriti come parametro (se si suppongono simmetrici bastano 2 parametri)
+	
+* Implementazione dei comadi LORA (modalità Remote Control):
+  	0 EN,DEEN
+  	1 GOTOQ   <q_number>
+  	2 CLUEXEC <clu_number>
+  	3 PAUSEON, PAUSEOFF
+      Alla pressione del bottone di pausa, viene lanciato un PAUSEON: il mover esegue una velocissima decelerazione fino a velocità zero.
+	  Poi, la Gobee sta ferma sino a che il pulsante non viene rilasciato.
+	  Quando il pulsante viene rilasciato, la Gobee completa il movimento (o la CLU).
+  	4 SET ADJQ <q_number>
+	  
+* Ottimizzazione occupazione di memoria della CLU.
+   Adesso 1 CLU occupa 16x25 = 400 byte 
+   	clu[0..MAX_CLU_NUMBER-1][0..MAX_CLU_STEPS-1] = "CLU_CMDSTRING_SIZE chars"
+
+	MAX_CLU_NUMBER 	   	50
+	MAX_CLU_STEPS 	   	16
+	CLU_CMDSTRING_SIZE 	25
+   Quindi le 50 CLU occupano in tutto 20000 byte = 19.5 kbyte
+   A meno di non allocare le stringhe dinamicamente, si può fare poco.
+   16 step per una CLU possono essere pochi.
+   Si può ottimizzare creando comandi complessi tipo:
+   #CLUEXECP <clu_number> <pause_time>
+   (esegui la CLU <clu_number> e poi fai una pausa di <pause_time> secondi
+   
+   ...oppure...
+   
+   #CAMERAON <pause_time>
+   (accendi la camera e poi fai una pausa di <pause_time> secondi)
+   
+   ...oppure...
+   
+   	#PTQ 14 0.2 3		//vai alla mano (Q14) con accelerazioni 0.2% in 3 secondi
+	#PATHEXEC			//(dopo #PTQ è mandatorio #PATHEXEC)
+	--> #QEXEC 14 0.2 3 (visto che il #PATHEXEC è mandatorio)
+   
+* Comandi di panoramica centrati su una inquadratura:
+	Panoramica di PAN stando centrati sul viso (Q11) partendo dalla ruota (Q21)
+	#PPANQ 21 11 0.2 3	//panoramica di PAN a partire da:
+						//		pan = pan(Q21);	tilt = tilt(Q11)		(si parte dalla quota di pan della ruota)
+						//		... passando per il viso Q11
+						//		... arrivando a...
+						//		pan = pan(Q11) + (pan(Q11) - pan(Q21))	(quindi si giunge alla fine della panoramica per simmetria dal punto di partenza)
+						//		tilt = tilt(Q11)						(essendo panoramica di pan, il tilt rimane costante)
+						
+* SET QADJ <q_number> [mover.h]
+	uint8  mode;						/* 0=default, 1=default+adjust								*/
+	...
+	int16 position_adjust[QMAXAXES];	/* Shot Adjust  Absolute Position Parameter [steps]			*/
+										/* 0 = PAN, 1=TILT, 2=ROLL (3=ZOOM, 4=FOCUS)				*/	
+	Gli adjust potrebbero servire anche per compensare la posizione della Gobee sulla bici o sui mounts della RAM.
+	Si può ipotizzare che, una volta aggiustate le inquadrature di viso (Q11) e ruota (Q21) lui aggiusti tutte le altre inquadrature automaticamente:
+	Es.
+	panorama, sky: sono fisse (non dipendono da dove è fissata, sul manubrio, la Gobee)
+	road: dipende da wheel.
+	legs:  può dipendere wheel.
+	hand:  può dipendere da viso e wheel (ma il pan dovrebbe essere sempre 90).
+	pedal: può dipendere da wheel.
+	...
+	EstimateAdjust(legs);	--> fa una stima in base a Q11, Q21 e magari ad un parametro di altezza dell'utente (o diametro di ruote).
+	EstimateAdjust(hand);
+	...etc.
+	Ci vuole un comando LORA per gli adjust
+	
+* IMU UM7-LT: introdurla negli estimators come alternativa all'accelerometro.
+  Introdurre le nuove stime degli angoli di roll (oltre a quelli di tilt)
+  
+  Procedura di allineamento della IMU con la Gobee: come allinei il tilt? 
+  CASO 1:stima salita discesa
+  	Il tilt non va allineato: va bene così.
+  CASO 2: stabilizzazione tilt
+  	Il tilt va allineato
+  	Per esempio, se sono girato di 90° il tilt della camera diventa il roll della IMU: ci vorrà
+  	un poco di trogonometria, purtroppo...
+  Verificare assetto meccanico (il tilt è nell'intorno della discontinuità)
+  Verificare tempo di elaborazione (adesso è campionata a 50Hz)
+  Attenzione l'accensione non è stabile: qualche volta tilt è OK invece roll è nella discontinuità.
+  Preparare il cabalggio per un'altra IMU.
+  
+* Estimators: stimare accelerazioni e decelerazioni con l'accelerometro, gli assetti con la IMU.
+
+* Miglioramento della macchina a stati della modalità Director
+
+* Lettura di VBATT!!!
+  va implementata al più presto per avere sempre sotto controllo la carica delle batterie.
+  Per fare ciò occorre scrivere la libreria del chip LTC2943.
+  L'LTC2943 è collegato al fixed function I2C.
+  Nel caso probabile che il fixed function I2C non funzioni, utilizzare una libreria I2C Software.
+  
+* Comando GML #CLUJOIN
+
+* STABILIZZAZIONE DI TILT CON IMU (wow factor)
+
+* Stato batteria in grafica su display locale.
+
+* MECHA CYPAG: connettore x antenna LORA.
+               led visibili con guida luce.
+
+* Disabilitare pulsante se si è in modalità RT
+
+* VJOY con float in modo da partire da velocità zero. Verificare VJOY max. Vjoy deve far vedere le correnti!!!!
+
+* "SHOW Q" o "SHOW Q 0" devono mostrare le coordinate dell'Home (0 si presume...)
+
+* Comando start clu sequence
+
+=============
+WORKS DONE!!!
+=============
+24/11/2018
+* Modalità: CONTROL/DIRECTOR
+
+28/11/2018
+* Implementazione IMU UM7-LT (il buon funzionamento della modalità Director è essenziale per l'EFFETTO WOW durante la presentazione).
+
+
+

@@ -1,0 +1,1314 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ME_lib_cbuffer.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.CBuffer_Init,"ax",%progbits
+  19              		.align	2
+  20              		.global	CBuffer_Init
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	CBuffer_Init, %function
+  24              	CBuffer_Init:
+  25              	.LFB0:
+  26              		.file 1 ".\\ME_lib_cbuffer.c"
+   1:.\ME_lib_cbuffer.c **** /**************************************************************************************************
+   2:.\ME_lib_cbuffer.c ****   
+   3:.\ME_lib_cbuffer.c ****   Modulo "Lib CBuffer" v0.12B
+   4:.\ME_lib_cbuffer.c ****   (c) 2013-2015 Movie Engineering
+   5:.\ME_lib_cbuffer.c **** 
+   6:.\ME_lib_cbuffer.c ****   Vedi header file.
+   7:.\ME_lib_cbuffer.c ****  
+   8:.\ME_lib_cbuffer.c **** ***************************************************************************************************
+   9:.\ME_lib_cbuffer.c **** 
+  10:.\ME_lib_cbuffer.c **** #include "ME_common.h"
+  11:.\ME_lib_cbuffer.c **** #include "ME_lib_cbuffer.h"
+  12:.\ME_lib_cbuffer.c **** 
+  13:.\ME_lib_cbuffer.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  14:.\ME_lib_cbuffer.c **** 
+  15:.\ME_lib_cbuffer.c **** void CBuffer_Init(CBUFFER *cbuffer, BYTE *buffer_data_ptr,  WORD size)
+  16:.\ME_lib_cbuffer.c **** {
+  27              		.loc 1 16 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 24
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 2
+
+
+  42 0006 F860     		str	r0, [r7, #12]
+  43 0008 B960     		str	r1, [r7, #8]
+  44 000a 1346     		mov	r3, r2
+  45 000c FB80     		strh	r3, [r7, #6]	@ movhi
+  17:.\ME_lib_cbuffer.c ****     cbuffer->data_ptr = buffer_data_ptr ;       // Posizione del buffer in memoria
+  46              		.loc 1 17 0
+  47 000e FB68     		ldr	r3, [r7, #12]
+  48 0010 BA68     		ldr	r2, [r7, #8]
+  49 0012 1A60     		str	r2, [r3, #0]
+  18:.\ME_lib_cbuffer.c ****     cbuffer->size = size ,                      // Numero di byte usati ad iniziare da buffer_data_
+  50              		.loc 1 18 0
+  51 0014 FB68     		ldr	r3, [r7, #12]
+  52 0016 FA88     		ldrh	r2, [r7, #6]	@ movhi
+  53 0018 1A81     		strh	r2, [r3, #8]	@ movhi
+  19:.\ME_lib_cbuffer.c ****     cbuffer->top = 0 ;                          // La condizione di buffer vuoto iniziale è zero 
+  54              		.loc 1 19 0
+  55 001a FB68     		ldr	r3, [r7, #12]
+  56 001c 4FF00002 		mov	r2, #0
+  57 0020 9A80     		strh	r2, [r3, #4]	@ movhi
+  20:.\ME_lib_cbuffer.c ****     cbuffer->bottom = 0 ;                       // in entrambi i puntatori
+  58              		.loc 1 20 0
+  59 0022 FB68     		ldr	r3, [r7, #12]
+  60 0024 4FF00002 		mov	r2, #0
+  61 0028 DA80     		strh	r2, [r3, #6]	@ movhi
+  21:.\ME_lib_cbuffer.c ****     cbuffer->status = CBUFFER_NOERROR ;         // Nessun errore all'inizio!
+  62              		.loc 1 21 0
+  63 002a FB68     		ldr	r3, [r7, #12]
+  64 002c 4FF00002 		mov	r2, #0
+  65 0030 9A72     		strb	r2, [r3, #10]
+  22:.\ME_lib_cbuffer.c **** }
+  66              		.loc 1 22 0
+  67 0032 07F11407 		add	r7, r7, #20
+  68 0036 BD46     		mov	sp, r7
+  69 0038 80BC     		pop	{r7}
+  70 003a 7047     		bx	lr
+  71              		.cfi_endproc
+  72              	.LFE0:
+  73              		.size	CBuffer_Init, .-CBuffer_Init
+  74              		.section	.text.CBuffer_PutByte,"ax",%progbits
+  75              		.align	2
+  76              		.global	CBuffer_PutByte
+  77              		.thumb
+  78              		.thumb_func
+  79              		.type	CBuffer_PutByte, %function
+  80              	CBuffer_PutByte:
+  81              	.LFB1:
+  23:.\ME_lib_cbuffer.c **** 
+  24:.\ME_lib_cbuffer.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  25:.\ME_lib_cbuffer.c **** 
+  26:.\ME_lib_cbuffer.c **** void CBuffer_PutByte(CBUFFER *cbuffer, BYTE b)
+  27:.\ME_lib_cbuffer.c **** {
+  82              		.loc 1 27 0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 8
+  85              		@ frame_needed = 1, uses_anonymous_args = 0
+  86              		@ link register save eliminated.
+  87 0000 80B4     		push	{r7}
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 3
+
+
+  88              	.LCFI3:
+  89              		.cfi_def_cfa_offset 4
+  90              		.cfi_offset 7, -4
+  91 0002 83B0     		sub	sp, sp, #12
+  92              	.LCFI4:
+  93              		.cfi_def_cfa_offset 16
+  94 0004 00AF     		add	r7, sp, #0
+  95              	.LCFI5:
+  96              		.cfi_def_cfa_register 7
+  97 0006 7860     		str	r0, [r7, #4]
+  98 0008 0B46     		mov	r3, r1
+  99 000a FB70     		strb	r3, [r7, #3]
+  28:.\ME_lib_cbuffer.c ****     if (cbuffer->status != CBUFFER_NOERROR)     // Se c'è errore non modificare nulla
+ 100              		.loc 1 28 0
+ 101 000c 7B68     		ldr	r3, [r7, #4]
+ 102 000e 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 103 0010 002B     		cmp	r3, #0
+ 104 0012 22D1     		bne	.L6
+ 105              	.L3:
+  29:.\ME_lib_cbuffer.c ****     {
+  30:.\ME_lib_cbuffer.c ****         return ;
+  31:.\ME_lib_cbuffer.c ****     }
+  32:.\ME_lib_cbuffer.c ****     
+  33:.\ME_lib_cbuffer.c ****     cbuffer->data_ptr[cbuffer->top] = b ;       // L'indice top punta sempre al primo spazio
+ 106              		.loc 1 33 0
+ 107 0014 7B68     		ldr	r3, [r7, #4]
+ 108 0016 1A68     		ldr	r2, [r3, #0]
+ 109 0018 7B68     		ldr	r3, [r7, #4]
+ 110 001a 9B88     		ldrh	r3, [r3, #4]
+ 111 001c D318     		adds	r3, r2, r3
+ 112 001e FA78     		ldrb	r2, [r7, #3]
+ 113 0020 1A70     		strb	r2, [r3, #0]
+  34:.\ME_lib_cbuffer.c ****     cbuffer->top++ ;                            // vuoto disponibile.
+ 114              		.loc 1 34 0
+ 115 0022 7B68     		ldr	r3, [r7, #4]
+ 116 0024 9B88     		ldrh	r3, [r3, #4]
+ 117 0026 03F10103 		add	r3, r3, #1
+ 118 002a 9AB2     		uxth	r2, r3
+ 119 002c 7B68     		ldr	r3, [r7, #4]
+ 120 002e 9A80     		strh	r2, [r3, #4]	@ movhi
+  35:.\ME_lib_cbuffer.c **** 
+  36:.\ME_lib_cbuffer.c ****     if (cbuffer->top == cbuffer->size)          // Se dopo l'inserimento non c'è uno spazio vuoto
+ 121              		.loc 1 36 0
+ 122 0030 7B68     		ldr	r3, [r7, #4]
+ 123 0032 9A88     		ldrh	r2, [r3, #4]
+ 124 0034 7B68     		ldr	r3, [r7, #4]
+ 125 0036 1B89     		ldrh	r3, [r3, #8]
+ 126 0038 9A42     		cmp	r2, r3
+ 127 003a 03D1     		bne	.L5
+  37:.\ME_lib_cbuffer.c ****     {                                           // successivo, allora riporta all'inizio
+  38:.\ME_lib_cbuffer.c ****       cbuffer->top = 0 ;
+ 128              		.loc 1 38 0
+ 129 003c 7B68     		ldr	r3, [r7, #4]
+ 130 003e 4FF00002 		mov	r2, #0
+ 131 0042 9A80     		strh	r2, [r3, #4]	@ movhi
+ 132              	.L5:
+  39:.\ME_lib_cbuffer.c ****     }
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 4
+
+
+  40:.\ME_lib_cbuffer.c **** 
+  41:.\ME_lib_cbuffer.c ****     if (cbuffer->top == cbuffer->bottom)        // L'indice bottom punta sempre al primo byte  
+ 133              		.loc 1 41 0
+ 134 0044 7B68     		ldr	r3, [r7, #4]
+ 135 0046 9A88     		ldrh	r2, [r3, #4]
+ 136 0048 7B68     		ldr	r3, [r7, #4]
+ 137 004a DB88     		ldrh	r3, [r3, #6]
+ 138 004c 9A42     		cmp	r2, r3
+ 139 004e 05D1     		bne	.L2
+  42:.\ME_lib_cbuffer.c ****     {                                           // utilizzabile, se top lo raggiunge vuol dire che 
+  43:.\ME_lib_cbuffer.c ****         cbuffer->status = CBUFFER_OVERRUN ;     // il buffer è pieno!
+ 140              		.loc 1 43 0
+ 141 0050 7B68     		ldr	r3, [r7, #4]
+ 142 0052 4FF0FF02 		mov	r2, #255
+ 143 0056 9A72     		strb	r2, [r3, #10]
+ 144 0058 00E0     		b	.L2
+ 145              	.L6:
+  30:.\ME_lib_cbuffer.c ****         return ;
+ 146              		.loc 1 30 0
+ 147 005a 00BF     		nop
+ 148              	.L2:
+  44:.\ME_lib_cbuffer.c ****     }
+  45:.\ME_lib_cbuffer.c **** }
+ 149              		.loc 1 45 0
+ 150 005c 07F10C07 		add	r7, r7, #12
+ 151 0060 BD46     		mov	sp, r7
+ 152 0062 80BC     		pop	{r7}
+ 153 0064 7047     		bx	lr
+ 154              		.cfi_endproc
+ 155              	.LFE1:
+ 156              		.size	CBuffer_PutByte, .-CBuffer_PutByte
+ 157 0066 00BF     		.section	.text.CBuffer_GetByte,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	CBuffer_GetByte
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.type	CBuffer_GetByte, %function
+ 163              	CBuffer_GetByte:
+ 164              	.LFB2:
+  46:.\ME_lib_cbuffer.c **** 
+  47:.\ME_lib_cbuffer.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  48:.\ME_lib_cbuffer.c **** 
+  49:.\ME_lib_cbuffer.c **** BYTE CBuffer_GetByte(CBUFFER *cbuffer)
+  50:.\ME_lib_cbuffer.c **** {
+ 165              		.loc 1 50 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 16
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ 169              		@ link register save eliminated.
+ 170 0000 80B4     		push	{r7}
+ 171              	.LCFI6:
+ 172              		.cfi_def_cfa_offset 4
+ 173              		.cfi_offset 7, -4
+ 174 0002 85B0     		sub	sp, sp, #20
+ 175              	.LCFI7:
+ 176              		.cfi_def_cfa_offset 24
+ 177 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 5
+
+
+ 178              	.LCFI8:
+ 179              		.cfi_def_cfa_register 7
+ 180 0006 7860     		str	r0, [r7, #4]
+  51:.\ME_lib_cbuffer.c ****     BYTE b ;
+  52:.\ME_lib_cbuffer.c **** 
+  53:.\ME_lib_cbuffer.c ****     if (cbuffer->status != CBUFFER_NOERROR)         // Se c'è errore non modificare nulla
+ 181              		.loc 1 53 0
+ 182 0008 7B68     		ldr	r3, [r7, #4]
+ 183 000a 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 184 000c 002B     		cmp	r3, #0
+ 185 000e 02D0     		beq	.L8
+  54:.\ME_lib_cbuffer.c ****     {
+  55:.\ME_lib_cbuffer.c ****         return 0;
+ 186              		.loc 1 55 0
+ 187 0010 4FF00003 		mov	r3, #0
+ 188 0014 25E0     		b	.L9
+ 189              	.L8:
+  56:.\ME_lib_cbuffer.c ****     }
+  57:.\ME_lib_cbuffer.c ****     
+  58:.\ME_lib_cbuffer.c ****     if (cbuffer->bottom == cbuffer->top)            // Se l'indice bottom ha raggiunto il top
+ 190              		.loc 1 58 0
+ 191 0016 7B68     		ldr	r3, [r7, #4]
+ 192 0018 DA88     		ldrh	r2, [r3, #6]
+ 193 001a 7B68     		ldr	r3, [r7, #4]
+ 194 001c 9B88     		ldrh	r3, [r3, #4]
+ 195 001e 9A42     		cmp	r2, r3
+ 196 0020 06D1     		bne	.L10
+  59:.\ME_lib_cbuffer.c ****     {                                               // al giro prima significa che nel frattempo
+  60:.\ME_lib_cbuffer.c ****         cbuffer->status = CBUFFER_UNDERRUN ;        // top non è avanzato quindi il buffer è vuot
+ 197              		.loc 1 60 0
+ 198 0022 7B68     		ldr	r3, [r7, #4]
+ 199 0024 4FF0EE02 		mov	r2, #238
+ 200 0028 9A72     		strb	r2, [r3, #10]
+  61:.\ME_lib_cbuffer.c ****         return 0 ;                                  // Non c'è niente da prelevalre: underrun.
+ 201              		.loc 1 61 0
+ 202 002a 4FF00003 		mov	r3, #0
+ 203 002e 18E0     		b	.L9
+ 204              	.L10:
+  62:.\ME_lib_cbuffer.c ****     }
+  63:.\ME_lib_cbuffer.c **** 
+  64:.\ME_lib_cbuffer.c ****     b = cbuffer->data_ptr[cbuffer->bottom];                  
+ 205              		.loc 1 64 0
+ 206 0030 7B68     		ldr	r3, [r7, #4]
+ 207 0032 1A68     		ldr	r2, [r3, #0]
+ 208 0034 7B68     		ldr	r3, [r7, #4]
+ 209 0036 DB88     		ldrh	r3, [r3, #6]
+ 210 0038 D318     		adds	r3, r2, r3
+ 211 003a 1B78     		ldrb	r3, [r3, #0]
+ 212 003c FB73     		strb	r3, [r7, #15]
+  65:.\ME_lib_cbuffer.c ****     cbuffer->bottom++ ; 
+ 213              		.loc 1 65 0
+ 214 003e 7B68     		ldr	r3, [r7, #4]
+ 215 0040 DB88     		ldrh	r3, [r3, #6]
+ 216 0042 03F10103 		add	r3, r3, #1
+ 217 0046 9AB2     		uxth	r2, r3
+ 218 0048 7B68     		ldr	r3, [r7, #4]
+ 219 004a DA80     		strh	r2, [r3, #6]	@ movhi
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 6
+
+
+  66:.\ME_lib_cbuffer.c **** 
+  67:.\ME_lib_cbuffer.c ****     if (cbuffer->bottom == cbuffer->size)           // Se siamo alla fine del buffer riparti dall'
+ 220              		.loc 1 67 0
+ 221 004c 7B68     		ldr	r3, [r7, #4]
+ 222 004e DA88     		ldrh	r2, [r3, #6]
+ 223 0050 7B68     		ldr	r3, [r7, #4]
+ 224 0052 1B89     		ldrh	r3, [r3, #8]
+ 225 0054 9A42     		cmp	r2, r3
+ 226 0056 03D1     		bne	.L11
+  68:.\ME_lib_cbuffer.c ****     {                                               // inizio.
+  69:.\ME_lib_cbuffer.c ****         cbuffer->bottom = 0 ;                       // Nota: la verifica di underrun viene fatta 
+ 227              		.loc 1 69 0
+ 228 0058 7B68     		ldr	r3, [r7, #4]
+ 229 005a 4FF00002 		mov	r2, #0
+ 230 005e DA80     		strh	r2, [r3, #6]	@ movhi
+ 231              	.L11:
+  70:.\ME_lib_cbuffer.c ****     }                                               // alla prossima richiesta perché un inserimen
+  71:.\ME_lib_cbuffer.c ****                                                     // potrebbe sopraggiungere prima e far avanzare
+  72:.\ME_lib_cbuffer.c ****     return b ;                                      // top.
+ 232              		.loc 1 72 0
+ 233 0060 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 234              	.L9:
+  73:.\ME_lib_cbuffer.c **** }
+ 235              		.loc 1 73 0
+ 236 0062 1846     		mov	r0, r3
+ 237 0064 07F11407 		add	r7, r7, #20
+ 238 0068 BD46     		mov	sp, r7
+ 239 006a 80BC     		pop	{r7}
+ 240 006c 7047     		bx	lr
+ 241              		.cfi_endproc
+ 242              	.LFE2:
+ 243              		.size	CBuffer_GetByte, .-CBuffer_GetByte
+ 244 006e 00BF     		.section	.text.CBuffer_AnyData,"ax",%progbits
+ 245              		.align	2
+ 246              		.global	CBuffer_AnyData
+ 247              		.thumb
+ 248              		.thumb_func
+ 249              		.type	CBuffer_AnyData, %function
+ 250              	CBuffer_AnyData:
+ 251              	.LFB3:
+  74:.\ME_lib_cbuffer.c **** 
+  75:.\ME_lib_cbuffer.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  76:.\ME_lib_cbuffer.c **** 
+  77:.\ME_lib_cbuffer.c **** WORD CBuffer_AnyData(CBUFFER *cbuffer)
+  78:.\ME_lib_cbuffer.c **** {
+ 252              		.loc 1 78 0
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 8
+ 255              		@ frame_needed = 1, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 257 0000 B0B4     		push	{r4, r5, r7}
+ 258              	.LCFI9:
+ 259              		.cfi_def_cfa_offset 12
+ 260              		.cfi_offset 4, -12
+ 261              		.cfi_offset 5, -8
+ 262              		.cfi_offset 7, -4
+ 263 0002 83B0     		sub	sp, sp, #12
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 7
+
+
+ 264              	.LCFI10:
+ 265              		.cfi_def_cfa_offset 24
+ 266 0004 00AF     		add	r7, sp, #0
+ 267              	.LCFI11:
+ 268              		.cfi_def_cfa_register 7
+ 269 0006 7860     		str	r0, [r7, #4]
+  79:.\ME_lib_cbuffer.c ****     register WORD top = cbuffer->top ;              // Salva gli indici in locale per rendere più 
+ 270              		.loc 1 79 0
+ 271 0008 7B68     		ldr	r3, [r7, #4]
+ 272 000a 9D88     		ldrh	r5, [r3, #4]
+  80:.\ME_lib_cbuffer.c ****     register WORD bot = cbuffer->bottom ;           // efficiente il calcolo dopo.
+ 273              		.loc 1 80 0
+ 274 000c 7B68     		ldr	r3, [r7, #4]
+ 275 000e DC88     		ldrh	r4, [r3, #6]
+  81:.\ME_lib_cbuffer.c ****     
+  82:.\ME_lib_cbuffer.c ****     if (cbuffer->status != CBUFFER_NOERROR)         // Se c'è errore non ci sono dati disponibili
+ 276              		.loc 1 82 0
+ 277 0010 7B68     		ldr	r3, [r7, #4]
+ 278 0012 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 279 0014 002B     		cmp	r3, #0
+ 280 0016 02D0     		beq	.L13
+  83:.\ME_lib_cbuffer.c ****     {
+  84:.\ME_lib_cbuffer.c ****         return 0 ;
+ 281              		.loc 1 84 0
+ 282 0018 4FF00003 		mov	r3, #0
+ 283 001c 0AE0     		b	.L14
+ 284              	.L13:
+  85:.\ME_lib_cbuffer.c ****     }
+  86:.\ME_lib_cbuffer.c ****     
+  87:.\ME_lib_cbuffer.c ****     return ( top >= bot ? 
+ 285              		.loc 1 87 0
+ 286 001e A542     		cmp	r5, r4
+ 287 0020 02D3     		bcc	.L15
+ 288              		.loc 1 87 0 is_stmt 0 discriminator 1
+ 289 0022 2B1B     		subs	r3, r5, r4
+ 290 0024 9BB2     		uxth	r3, r3
+ 291 0026 05E0     		b	.L16
+ 292              	.L15:
+  88:.\ME_lib_cbuffer.c ****             (top - bot) :                           // Caso semplice: sottoinsieme dell'array 
+  89:.\ME_lib_cbuffer.c ****             ( cbuffer->size - (bot - top) ) ) ;     // Caso complicato: dati divisi in due sottoins
+ 293              		.loc 1 89 0 is_stmt 1 discriminator 2
+ 294 0028 7B68     		ldr	r3, [r7, #4]
+ 295 002a 1A89     		ldrh	r2, [r3, #8]
+  87:.\ME_lib_cbuffer.c ****     return ( top >= bot ? 
+ 296              		.loc 1 87 0 discriminator 2
+ 297 002c 2B1B     		subs	r3, r5, r4
+ 298 002e 9BB2     		uxth	r3, r3
+ 299 0030 D318     		adds	r3, r2, r3
+ 300 0032 9BB2     		uxth	r3, r3
+ 301              	.L16:
+ 302              	.L14:
+  90:.\ME_lib_cbuffer.c **** }
+ 303              		.loc 1 90 0
+ 304 0034 1846     		mov	r0, r3
+ 305 0036 07F10C07 		add	r7, r7, #12
+ 306 003a BD46     		mov	sp, r7
+ 307 003c B0BC     		pop	{r4, r5, r7}
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 8
+
+
+ 308 003e 7047     		bx	lr
+ 309              		.cfi_endproc
+ 310              	.LFE3:
+ 311              		.size	CBuffer_AnyData, .-CBuffer_AnyData
+ 312              		.text
+ 313              	.Letext0:
+ 314              		.file 2 ".\\ME_common.h"
+ 315              		.file 3 ".\\ME_lib_cbuffer.h"
+ 316              		.section	.debug_info,"",%progbits
+ 317              	.Ldebug_info0:
+ 318 0000 2A020000 		.4byte	0x22a
+ 319 0004 0200     		.2byte	0x2
+ 320 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 321 000a 04       		.byte	0x4
+ 322 000b 01       		.uleb128 0x1
+ 323 000c 9F010000 		.4byte	.LASF29
+ 324 0010 01       		.byte	0x1
+ 325 0011 00000000 		.4byte	.LASF30
+ 326 0015 80000000 		.4byte	.LASF31
+ 327 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 328 001d 00000000 		.4byte	0
+ 329 0021 00000000 		.4byte	0
+ 330 0025 00000000 		.4byte	.Ldebug_line0
+ 331 0029 02       		.uleb128 0x2
+ 332 002a 01       		.byte	0x1
+ 333 002b 06       		.byte	0x6
+ 334 002c 0A020000 		.4byte	.LASF0
+ 335 0030 02       		.uleb128 0x2
+ 336 0031 01       		.byte	0x1
+ 337 0032 08       		.byte	0x8
+ 338 0033 6B000000 		.4byte	.LASF1
+ 339 0037 02       		.uleb128 0x2
+ 340 0038 02       		.byte	0x2
+ 341 0039 05       		.byte	0x5
+ 342 003a 85010000 		.4byte	.LASF2
+ 343 003e 02       		.uleb128 0x2
+ 344 003f 02       		.byte	0x2
+ 345 0040 07       		.byte	0x7
+ 346 0041 51000000 		.4byte	.LASF3
+ 347 0045 03       		.uleb128 0x3
+ 348 0046 04       		.byte	0x4
+ 349 0047 05       		.byte	0x5
+ 350 0048 696E7400 		.ascii	"int\000"
+ 351 004c 02       		.uleb128 0x2
+ 352 004d 04       		.byte	0x4
+ 353 004e 07       		.byte	0x7
+ 354 004f 0D010000 		.4byte	.LASF4
+ 355 0053 02       		.uleb128 0x2
+ 356 0054 08       		.byte	0x8
+ 357 0055 05       		.byte	0x5
+ 358 0056 72010000 		.4byte	.LASF5
+ 359 005a 02       		.uleb128 0x2
+ 360 005b 08       		.byte	0x8
+ 361 005c 07       		.byte	0x7
+ 362 005d 1A010000 		.4byte	.LASF6
+ 363 0061 02       		.uleb128 0x2
+ 364 0062 04       		.byte	0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 9
+
+
+ 365 0063 05       		.byte	0x5
+ 366 0064 F1010000 		.4byte	.LASF7
+ 367 0068 02       		.uleb128 0x2
+ 368 0069 04       		.byte	0x4
+ 369 006a 07       		.byte	0x7
+ 370 006b 69010000 		.4byte	.LASF8
+ 371 006f 02       		.uleb128 0x2
+ 372 0070 04       		.byte	0x4
+ 373 0071 07       		.byte	0x7
+ 374 0072 2F000000 		.4byte	.LASF9
+ 375 0076 02       		.uleb128 0x2
+ 376 0077 01       		.byte	0x1
+ 377 0078 08       		.byte	0x8
+ 378 0079 80010000 		.4byte	.LASF10
+ 379 007d 04       		.uleb128 0x4
+ 380 007e 18000000 		.4byte	.LASF11
+ 381 0082 02       		.byte	0x2
+ 382 0083 34       		.byte	0x34
+ 383 0084 30000000 		.4byte	0x30
+ 384 0088 04       		.uleb128 0x4
+ 385 0089 13000000 		.4byte	.LASF12
+ 386 008d 02       		.byte	0x2
+ 387 008e 35       		.byte	0x35
+ 388 008f 3E000000 		.4byte	0x3e
+ 389 0093 02       		.uleb128 0x2
+ 390 0094 04       		.byte	0x4
+ 391 0095 04       		.byte	0x4
+ 392 0096 24000000 		.4byte	.LASF13
+ 393 009a 02       		.uleb128 0x2
+ 394 009b 08       		.byte	0x8
+ 395 009c 04       		.byte	0x4
+ 396 009d 79000000 		.4byte	.LASF14
+ 397 00a1 05       		.uleb128 0x5
+ 398 00a2 5A010000 		.4byte	.LASF18
+ 399 00a6 01       		.byte	0x1
+ 400 00a7 03       		.byte	0x3
+ 401 00a8 3B       		.byte	0x3b
+ 402 00a9 C2000000 		.4byte	0xc2
+ 403 00ad 06       		.uleb128 0x6
+ 404 00ae 41000000 		.4byte	.LASF15
+ 405 00b2 00       		.sleb128 0
+ 406 00b3 06       		.uleb128 0x6
+ 407 00b4 8F010000 		.4byte	.LASF16
+ 408 00b8 FF01     		.sleb128 255
+ 409 00ba 06       		.uleb128 0x6
+ 410 00bb 31010000 		.4byte	.LASF17
+ 411 00bf EE01     		.sleb128 238
+ 412 00c1 00       		.byte	0
+ 413 00c2 04       		.uleb128 0x4
+ 414 00c3 5A010000 		.4byte	.LASF18
+ 415 00c7 03       		.byte	0x3
+ 416 00c8 40       		.byte	0x40
+ 417 00c9 A1000000 		.4byte	0xa1
+ 418 00cd 07       		.uleb128 0x7
+ 419 00ce 16020000 		.4byte	.LASF23
+ 420 00d2 0C       		.byte	0xc
+ 421 00d3 03       		.byte	0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 10
+
+
+ 422 00d4 44       		.byte	0x44
+ 423 00d5 20010000 		.4byte	0x120
+ 424 00d9 08       		.uleb128 0x8
+ 425 00da E8010000 		.4byte	.LASF19
+ 426 00de 03       		.byte	0x3
+ 427 00df 46       		.byte	0x46
+ 428 00e0 20010000 		.4byte	0x120
+ 429 00e4 02       		.byte	0x2
+ 430 00e5 23       		.byte	0x23
+ 431 00e6 00       		.uleb128 0
+ 432 00e7 09       		.uleb128 0x9
+ 433 00e8 746F7000 		.ascii	"top\000"
+ 434 00ec 03       		.byte	0x3
+ 435 00ed 47       		.byte	0x47
+ 436 00ee 88000000 		.4byte	0x88
+ 437 00f2 02       		.byte	0x2
+ 438 00f3 23       		.byte	0x23
+ 439 00f4 04       		.uleb128 0x4
+ 440 00f5 08       		.uleb128 0x8
+ 441 00f6 64000000 		.4byte	.LASF20
+ 442 00fa 03       		.byte	0x3
+ 443 00fb 47       		.byte	0x47
+ 444 00fc 88000000 		.4byte	0x88
+ 445 0100 02       		.byte	0x2
+ 446 0101 23       		.byte	0x23
+ 447 0102 06       		.uleb128 0x6
+ 448 0103 08       		.uleb128 0x8
+ 449 0104 2A000000 		.4byte	.LASF21
+ 450 0108 03       		.byte	0x3
+ 451 0109 47       		.byte	0x47
+ 452 010a 88000000 		.4byte	0x88
+ 453 010e 02       		.byte	0x2
+ 454 010f 23       		.byte	0x23
+ 455 0110 08       		.uleb128 0x8
+ 456 0111 08       		.uleb128 0x8
+ 457 0112 1D000000 		.4byte	.LASF22
+ 458 0116 03       		.byte	0x3
+ 459 0117 48       		.byte	0x48
+ 460 0118 C2000000 		.4byte	0xc2
+ 461 011c 02       		.byte	0x2
+ 462 011d 23       		.byte	0x23
+ 463 011e 0A       		.uleb128 0xa
+ 464 011f 00       		.byte	0
+ 465 0120 0A       		.uleb128 0xa
+ 466 0121 04       		.byte	0x4
+ 467 0122 7D000000 		.4byte	0x7d
+ 468 0126 04       		.uleb128 0x4
+ 469 0127 16020000 		.4byte	.LASF23
+ 470 012b 03       		.byte	0x3
+ 471 012c 49       		.byte	0x49
+ 472 012d CD000000 		.4byte	0xcd
+ 473 0131 0B       		.uleb128 0xb
+ 474 0132 01       		.byte	0x1
+ 475 0133 F0000000 		.4byte	.LASF26
+ 476 0137 01       		.byte	0x1
+ 477 0138 0F       		.byte	0xf
+ 478 0139 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 11
+
+
+ 479 013a 00000000 		.4byte	.LFB0
+ 480 013e 3C000000 		.4byte	.LFE0
+ 481 0142 00000000 		.4byte	.LLST0
+ 482 0146 01       		.byte	0x1
+ 483 0147 76010000 		.4byte	0x176
+ 484 014b 0C       		.uleb128 0xc
+ 485 014c 42010000 		.4byte	.LASF24
+ 486 0150 01       		.byte	0x1
+ 487 0151 0F       		.byte	0xf
+ 488 0152 76010000 		.4byte	0x176
+ 489 0156 02       		.byte	0x2
+ 490 0157 91       		.byte	0x91
+ 491 0158 74       		.sleb128 -12
+ 492 0159 0C       		.uleb128 0xc
+ 493 015a 1E020000 		.4byte	.LASF25
+ 494 015e 01       		.byte	0x1
+ 495 015f 0F       		.byte	0xf
+ 496 0160 20010000 		.4byte	0x120
+ 497 0164 02       		.byte	0x2
+ 498 0165 91       		.byte	0x91
+ 499 0166 70       		.sleb128 -16
+ 500 0167 0C       		.uleb128 0xc
+ 501 0168 2A000000 		.4byte	.LASF21
+ 502 016c 01       		.byte	0x1
+ 503 016d 0F       		.byte	0xf
+ 504 016e 88000000 		.4byte	0x88
+ 505 0172 02       		.byte	0x2
+ 506 0173 91       		.byte	0x91
+ 507 0174 6E       		.sleb128 -18
+ 508 0175 00       		.byte	0
+ 509 0176 0A       		.uleb128 0xa
+ 510 0177 04       		.byte	0x4
+ 511 0178 26010000 		.4byte	0x126
+ 512 017c 0B       		.uleb128 0xb
+ 513 017d 01       		.byte	0x1
+ 514 017e 4A010000 		.4byte	.LASF27
+ 515 0182 01       		.byte	0x1
+ 516 0183 1A       		.byte	0x1a
+ 517 0184 01       		.byte	0x1
+ 518 0185 00000000 		.4byte	.LFB1
+ 519 0189 66000000 		.4byte	.LFE1
+ 520 018d 38000000 		.4byte	.LLST1
+ 521 0191 01       		.byte	0x1
+ 522 0192 B1010000 		.4byte	0x1b1
+ 523 0196 0C       		.uleb128 0xc
+ 524 0197 42010000 		.4byte	.LASF24
+ 525 019b 01       		.byte	0x1
+ 526 019c 1A       		.byte	0x1a
+ 527 019d 76010000 		.4byte	0x176
+ 528 01a1 02       		.byte	0x2
+ 529 01a2 91       		.byte	0x91
+ 530 01a3 74       		.sleb128 -12
+ 531 01a4 0D       		.uleb128 0xd
+ 532 01a5 6200     		.ascii	"b\000"
+ 533 01a7 01       		.byte	0x1
+ 534 01a8 1A       		.byte	0x1a
+ 535 01a9 7D000000 		.4byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 12
+
+
+ 536 01ad 02       		.byte	0x2
+ 537 01ae 91       		.byte	0x91
+ 538 01af 73       		.sleb128 -13
+ 539 01b0 00       		.byte	0
+ 540 01b1 0E       		.uleb128 0xe
+ 541 01b2 01       		.byte	0x1
+ 542 01b3 FA010000 		.4byte	.LASF32
+ 543 01b7 01       		.byte	0x1
+ 544 01b8 31       		.byte	0x31
+ 545 01b9 01       		.byte	0x1
+ 546 01ba 7D000000 		.4byte	0x7d
+ 547 01be 00000000 		.4byte	.LFB2
+ 548 01c2 6E000000 		.4byte	.LFE2
+ 549 01c6 70000000 		.4byte	.LLST2
+ 550 01ca 01       		.byte	0x1
+ 551 01cb EA010000 		.4byte	0x1ea
+ 552 01cf 0C       		.uleb128 0xc
+ 553 01d0 42010000 		.4byte	.LASF24
+ 554 01d4 01       		.byte	0x1
+ 555 01d5 31       		.byte	0x31
+ 556 01d6 76010000 		.4byte	0x176
+ 557 01da 02       		.byte	0x2
+ 558 01db 91       		.byte	0x91
+ 559 01dc 6C       		.sleb128 -20
+ 560 01dd 0F       		.uleb128 0xf
+ 561 01de 6200     		.ascii	"b\000"
+ 562 01e0 01       		.byte	0x1
+ 563 01e1 33       		.byte	0x33
+ 564 01e2 7D000000 		.4byte	0x7d
+ 565 01e6 02       		.byte	0x2
+ 566 01e7 91       		.byte	0x91
+ 567 01e8 77       		.sleb128 -9
+ 568 01e9 00       		.byte	0
+ 569 01ea 10       		.uleb128 0x10
+ 570 01eb 01       		.byte	0x1
+ 571 01ec FD000000 		.4byte	.LASF28
+ 572 01f0 01       		.byte	0x1
+ 573 01f1 4D       		.byte	0x4d
+ 574 01f2 01       		.byte	0x1
+ 575 01f3 88000000 		.4byte	0x88
+ 576 01f7 00000000 		.4byte	.LFB3
+ 577 01fb 40000000 		.4byte	.LFE3
+ 578 01ff A8000000 		.4byte	.LLST3
+ 579 0203 01       		.byte	0x1
+ 580 0204 0C       		.uleb128 0xc
+ 581 0205 42010000 		.4byte	.LASF24
+ 582 0209 01       		.byte	0x1
+ 583 020a 4D       		.byte	0x4d
+ 584 020b 76010000 		.4byte	0x176
+ 585 020f 02       		.byte	0x2
+ 586 0210 91       		.byte	0x91
+ 587 0211 6C       		.sleb128 -20
+ 588 0212 0F       		.uleb128 0xf
+ 589 0213 746F7000 		.ascii	"top\000"
+ 590 0217 01       		.byte	0x1
+ 591 0218 4F       		.byte	0x4f
+ 592 0219 88000000 		.4byte	0x88
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 13
+
+
+ 593 021d 01       		.byte	0x1
+ 594 021e 55       		.byte	0x55
+ 595 021f 0F       		.uleb128 0xf
+ 596 0220 626F7400 		.ascii	"bot\000"
+ 597 0224 01       		.byte	0x1
+ 598 0225 50       		.byte	0x50
+ 599 0226 88000000 		.4byte	0x88
+ 600 022a 01       		.byte	0x1
+ 601 022b 54       		.byte	0x54
+ 602 022c 00       		.byte	0
+ 603 022d 00       		.byte	0
+ 604              		.section	.debug_abbrev,"",%progbits
+ 605              	.Ldebug_abbrev0:
+ 606 0000 01       		.uleb128 0x1
+ 607 0001 11       		.uleb128 0x11
+ 608 0002 01       		.byte	0x1
+ 609 0003 25       		.uleb128 0x25
+ 610 0004 0E       		.uleb128 0xe
+ 611 0005 13       		.uleb128 0x13
+ 612 0006 0B       		.uleb128 0xb
+ 613 0007 03       		.uleb128 0x3
+ 614 0008 0E       		.uleb128 0xe
+ 615 0009 1B       		.uleb128 0x1b
+ 616 000a 0E       		.uleb128 0xe
+ 617 000b 55       		.uleb128 0x55
+ 618 000c 06       		.uleb128 0x6
+ 619 000d 11       		.uleb128 0x11
+ 620 000e 01       		.uleb128 0x1
+ 621 000f 52       		.uleb128 0x52
+ 622 0010 01       		.uleb128 0x1
+ 623 0011 10       		.uleb128 0x10
+ 624 0012 06       		.uleb128 0x6
+ 625 0013 00       		.byte	0
+ 626 0014 00       		.byte	0
+ 627 0015 02       		.uleb128 0x2
+ 628 0016 24       		.uleb128 0x24
+ 629 0017 00       		.byte	0
+ 630 0018 0B       		.uleb128 0xb
+ 631 0019 0B       		.uleb128 0xb
+ 632 001a 3E       		.uleb128 0x3e
+ 633 001b 0B       		.uleb128 0xb
+ 634 001c 03       		.uleb128 0x3
+ 635 001d 0E       		.uleb128 0xe
+ 636 001e 00       		.byte	0
+ 637 001f 00       		.byte	0
+ 638 0020 03       		.uleb128 0x3
+ 639 0021 24       		.uleb128 0x24
+ 640 0022 00       		.byte	0
+ 641 0023 0B       		.uleb128 0xb
+ 642 0024 0B       		.uleb128 0xb
+ 643 0025 3E       		.uleb128 0x3e
+ 644 0026 0B       		.uleb128 0xb
+ 645 0027 03       		.uleb128 0x3
+ 646 0028 08       		.uleb128 0x8
+ 647 0029 00       		.byte	0
+ 648 002a 00       		.byte	0
+ 649 002b 04       		.uleb128 0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 14
+
+
+ 650 002c 16       		.uleb128 0x16
+ 651 002d 00       		.byte	0
+ 652 002e 03       		.uleb128 0x3
+ 653 002f 0E       		.uleb128 0xe
+ 654 0030 3A       		.uleb128 0x3a
+ 655 0031 0B       		.uleb128 0xb
+ 656 0032 3B       		.uleb128 0x3b
+ 657 0033 0B       		.uleb128 0xb
+ 658 0034 49       		.uleb128 0x49
+ 659 0035 13       		.uleb128 0x13
+ 660 0036 00       		.byte	0
+ 661 0037 00       		.byte	0
+ 662 0038 05       		.uleb128 0x5
+ 663 0039 04       		.uleb128 0x4
+ 664 003a 01       		.byte	0x1
+ 665 003b 03       		.uleb128 0x3
+ 666 003c 0E       		.uleb128 0xe
+ 667 003d 0B       		.uleb128 0xb
+ 668 003e 0B       		.uleb128 0xb
+ 669 003f 3A       		.uleb128 0x3a
+ 670 0040 0B       		.uleb128 0xb
+ 671 0041 3B       		.uleb128 0x3b
+ 672 0042 0B       		.uleb128 0xb
+ 673 0043 01       		.uleb128 0x1
+ 674 0044 13       		.uleb128 0x13
+ 675 0045 00       		.byte	0
+ 676 0046 00       		.byte	0
+ 677 0047 06       		.uleb128 0x6
+ 678 0048 28       		.uleb128 0x28
+ 679 0049 00       		.byte	0
+ 680 004a 03       		.uleb128 0x3
+ 681 004b 0E       		.uleb128 0xe
+ 682 004c 1C       		.uleb128 0x1c
+ 683 004d 0D       		.uleb128 0xd
+ 684 004e 00       		.byte	0
+ 685 004f 00       		.byte	0
+ 686 0050 07       		.uleb128 0x7
+ 687 0051 13       		.uleb128 0x13
+ 688 0052 01       		.byte	0x1
+ 689 0053 03       		.uleb128 0x3
+ 690 0054 0E       		.uleb128 0xe
+ 691 0055 0B       		.uleb128 0xb
+ 692 0056 0B       		.uleb128 0xb
+ 693 0057 3A       		.uleb128 0x3a
+ 694 0058 0B       		.uleb128 0xb
+ 695 0059 3B       		.uleb128 0x3b
+ 696 005a 0B       		.uleb128 0xb
+ 697 005b 01       		.uleb128 0x1
+ 698 005c 13       		.uleb128 0x13
+ 699 005d 00       		.byte	0
+ 700 005e 00       		.byte	0
+ 701 005f 08       		.uleb128 0x8
+ 702 0060 0D       		.uleb128 0xd
+ 703 0061 00       		.byte	0
+ 704 0062 03       		.uleb128 0x3
+ 705 0063 0E       		.uleb128 0xe
+ 706 0064 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 15
+
+
+ 707 0065 0B       		.uleb128 0xb
+ 708 0066 3B       		.uleb128 0x3b
+ 709 0067 0B       		.uleb128 0xb
+ 710 0068 49       		.uleb128 0x49
+ 711 0069 13       		.uleb128 0x13
+ 712 006a 38       		.uleb128 0x38
+ 713 006b 0A       		.uleb128 0xa
+ 714 006c 00       		.byte	0
+ 715 006d 00       		.byte	0
+ 716 006e 09       		.uleb128 0x9
+ 717 006f 0D       		.uleb128 0xd
+ 718 0070 00       		.byte	0
+ 719 0071 03       		.uleb128 0x3
+ 720 0072 08       		.uleb128 0x8
+ 721 0073 3A       		.uleb128 0x3a
+ 722 0074 0B       		.uleb128 0xb
+ 723 0075 3B       		.uleb128 0x3b
+ 724 0076 0B       		.uleb128 0xb
+ 725 0077 49       		.uleb128 0x49
+ 726 0078 13       		.uleb128 0x13
+ 727 0079 38       		.uleb128 0x38
+ 728 007a 0A       		.uleb128 0xa
+ 729 007b 00       		.byte	0
+ 730 007c 00       		.byte	0
+ 731 007d 0A       		.uleb128 0xa
+ 732 007e 0F       		.uleb128 0xf
+ 733 007f 00       		.byte	0
+ 734 0080 0B       		.uleb128 0xb
+ 735 0081 0B       		.uleb128 0xb
+ 736 0082 49       		.uleb128 0x49
+ 737 0083 13       		.uleb128 0x13
+ 738 0084 00       		.byte	0
+ 739 0085 00       		.byte	0
+ 740 0086 0B       		.uleb128 0xb
+ 741 0087 2E       		.uleb128 0x2e
+ 742 0088 01       		.byte	0x1
+ 743 0089 3F       		.uleb128 0x3f
+ 744 008a 0C       		.uleb128 0xc
+ 745 008b 03       		.uleb128 0x3
+ 746 008c 0E       		.uleb128 0xe
+ 747 008d 3A       		.uleb128 0x3a
+ 748 008e 0B       		.uleb128 0xb
+ 749 008f 3B       		.uleb128 0x3b
+ 750 0090 0B       		.uleb128 0xb
+ 751 0091 27       		.uleb128 0x27
+ 752 0092 0C       		.uleb128 0xc
+ 753 0093 11       		.uleb128 0x11
+ 754 0094 01       		.uleb128 0x1
+ 755 0095 12       		.uleb128 0x12
+ 756 0096 01       		.uleb128 0x1
+ 757 0097 40       		.uleb128 0x40
+ 758 0098 06       		.uleb128 0x6
+ 759 0099 9742     		.uleb128 0x2117
+ 760 009b 0C       		.uleb128 0xc
+ 761 009c 01       		.uleb128 0x1
+ 762 009d 13       		.uleb128 0x13
+ 763 009e 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 16
+
+
+ 764 009f 00       		.byte	0
+ 765 00a0 0C       		.uleb128 0xc
+ 766 00a1 05       		.uleb128 0x5
+ 767 00a2 00       		.byte	0
+ 768 00a3 03       		.uleb128 0x3
+ 769 00a4 0E       		.uleb128 0xe
+ 770 00a5 3A       		.uleb128 0x3a
+ 771 00a6 0B       		.uleb128 0xb
+ 772 00a7 3B       		.uleb128 0x3b
+ 773 00a8 0B       		.uleb128 0xb
+ 774 00a9 49       		.uleb128 0x49
+ 775 00aa 13       		.uleb128 0x13
+ 776 00ab 02       		.uleb128 0x2
+ 777 00ac 0A       		.uleb128 0xa
+ 778 00ad 00       		.byte	0
+ 779 00ae 00       		.byte	0
+ 780 00af 0D       		.uleb128 0xd
+ 781 00b0 05       		.uleb128 0x5
+ 782 00b1 00       		.byte	0
+ 783 00b2 03       		.uleb128 0x3
+ 784 00b3 08       		.uleb128 0x8
+ 785 00b4 3A       		.uleb128 0x3a
+ 786 00b5 0B       		.uleb128 0xb
+ 787 00b6 3B       		.uleb128 0x3b
+ 788 00b7 0B       		.uleb128 0xb
+ 789 00b8 49       		.uleb128 0x49
+ 790 00b9 13       		.uleb128 0x13
+ 791 00ba 02       		.uleb128 0x2
+ 792 00bb 0A       		.uleb128 0xa
+ 793 00bc 00       		.byte	0
+ 794 00bd 00       		.byte	0
+ 795 00be 0E       		.uleb128 0xe
+ 796 00bf 2E       		.uleb128 0x2e
+ 797 00c0 01       		.byte	0x1
+ 798 00c1 3F       		.uleb128 0x3f
+ 799 00c2 0C       		.uleb128 0xc
+ 800 00c3 03       		.uleb128 0x3
+ 801 00c4 0E       		.uleb128 0xe
+ 802 00c5 3A       		.uleb128 0x3a
+ 803 00c6 0B       		.uleb128 0xb
+ 804 00c7 3B       		.uleb128 0x3b
+ 805 00c8 0B       		.uleb128 0xb
+ 806 00c9 27       		.uleb128 0x27
+ 807 00ca 0C       		.uleb128 0xc
+ 808 00cb 49       		.uleb128 0x49
+ 809 00cc 13       		.uleb128 0x13
+ 810 00cd 11       		.uleb128 0x11
+ 811 00ce 01       		.uleb128 0x1
+ 812 00cf 12       		.uleb128 0x12
+ 813 00d0 01       		.uleb128 0x1
+ 814 00d1 40       		.uleb128 0x40
+ 815 00d2 06       		.uleb128 0x6
+ 816 00d3 9742     		.uleb128 0x2117
+ 817 00d5 0C       		.uleb128 0xc
+ 818 00d6 01       		.uleb128 0x1
+ 819 00d7 13       		.uleb128 0x13
+ 820 00d8 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 17
+
+
+ 821 00d9 00       		.byte	0
+ 822 00da 0F       		.uleb128 0xf
+ 823 00db 34       		.uleb128 0x34
+ 824 00dc 00       		.byte	0
+ 825 00dd 03       		.uleb128 0x3
+ 826 00de 08       		.uleb128 0x8
+ 827 00df 3A       		.uleb128 0x3a
+ 828 00e0 0B       		.uleb128 0xb
+ 829 00e1 3B       		.uleb128 0x3b
+ 830 00e2 0B       		.uleb128 0xb
+ 831 00e3 49       		.uleb128 0x49
+ 832 00e4 13       		.uleb128 0x13
+ 833 00e5 02       		.uleb128 0x2
+ 834 00e6 0A       		.uleb128 0xa
+ 835 00e7 00       		.byte	0
+ 836 00e8 00       		.byte	0
+ 837 00e9 10       		.uleb128 0x10
+ 838 00ea 2E       		.uleb128 0x2e
+ 839 00eb 01       		.byte	0x1
+ 840 00ec 3F       		.uleb128 0x3f
+ 841 00ed 0C       		.uleb128 0xc
+ 842 00ee 03       		.uleb128 0x3
+ 843 00ef 0E       		.uleb128 0xe
+ 844 00f0 3A       		.uleb128 0x3a
+ 845 00f1 0B       		.uleb128 0xb
+ 846 00f2 3B       		.uleb128 0x3b
+ 847 00f3 0B       		.uleb128 0xb
+ 848 00f4 27       		.uleb128 0x27
+ 849 00f5 0C       		.uleb128 0xc
+ 850 00f6 49       		.uleb128 0x49
+ 851 00f7 13       		.uleb128 0x13
+ 852 00f8 11       		.uleb128 0x11
+ 853 00f9 01       		.uleb128 0x1
+ 854 00fa 12       		.uleb128 0x12
+ 855 00fb 01       		.uleb128 0x1
+ 856 00fc 40       		.uleb128 0x40
+ 857 00fd 06       		.uleb128 0x6
+ 858 00fe 9742     		.uleb128 0x2117
+ 859 0100 0C       		.uleb128 0xc
+ 860 0101 00       		.byte	0
+ 861 0102 00       		.byte	0
+ 862 0103 00       		.byte	0
+ 863              		.section	.debug_loc,"",%progbits
+ 864              	.Ldebug_loc0:
+ 865              	.LLST0:
+ 866 0000 00000000 		.4byte	.LFB0
+ 867 0004 02000000 		.4byte	.LCFI0
+ 868 0008 0200     		.2byte	0x2
+ 869 000a 7D       		.byte	0x7d
+ 870 000b 00       		.sleb128 0
+ 871 000c 02000000 		.4byte	.LCFI0
+ 872 0010 04000000 		.4byte	.LCFI1
+ 873 0014 0200     		.2byte	0x2
+ 874 0016 7D       		.byte	0x7d
+ 875 0017 04       		.sleb128 4
+ 876 0018 04000000 		.4byte	.LCFI1
+ 877 001c 06000000 		.4byte	.LCFI2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 18
+
+
+ 878 0020 0200     		.2byte	0x2
+ 879 0022 7D       		.byte	0x7d
+ 880 0023 18       		.sleb128 24
+ 881 0024 06000000 		.4byte	.LCFI2
+ 882 0028 3C000000 		.4byte	.LFE0
+ 883 002c 0200     		.2byte	0x2
+ 884 002e 77       		.byte	0x77
+ 885 002f 18       		.sleb128 24
+ 886 0030 00000000 		.4byte	0
+ 887 0034 00000000 		.4byte	0
+ 888              	.LLST1:
+ 889 0038 00000000 		.4byte	.LFB1
+ 890 003c 02000000 		.4byte	.LCFI3
+ 891 0040 0200     		.2byte	0x2
+ 892 0042 7D       		.byte	0x7d
+ 893 0043 00       		.sleb128 0
+ 894 0044 02000000 		.4byte	.LCFI3
+ 895 0048 04000000 		.4byte	.LCFI4
+ 896 004c 0200     		.2byte	0x2
+ 897 004e 7D       		.byte	0x7d
+ 898 004f 04       		.sleb128 4
+ 899 0050 04000000 		.4byte	.LCFI4
+ 900 0054 06000000 		.4byte	.LCFI5
+ 901 0058 0200     		.2byte	0x2
+ 902 005a 7D       		.byte	0x7d
+ 903 005b 10       		.sleb128 16
+ 904 005c 06000000 		.4byte	.LCFI5
+ 905 0060 66000000 		.4byte	.LFE1
+ 906 0064 0200     		.2byte	0x2
+ 907 0066 77       		.byte	0x77
+ 908 0067 10       		.sleb128 16
+ 909 0068 00000000 		.4byte	0
+ 910 006c 00000000 		.4byte	0
+ 911              	.LLST2:
+ 912 0070 00000000 		.4byte	.LFB2
+ 913 0074 02000000 		.4byte	.LCFI6
+ 914 0078 0200     		.2byte	0x2
+ 915 007a 7D       		.byte	0x7d
+ 916 007b 00       		.sleb128 0
+ 917 007c 02000000 		.4byte	.LCFI6
+ 918 0080 04000000 		.4byte	.LCFI7
+ 919 0084 0200     		.2byte	0x2
+ 920 0086 7D       		.byte	0x7d
+ 921 0087 04       		.sleb128 4
+ 922 0088 04000000 		.4byte	.LCFI7
+ 923 008c 06000000 		.4byte	.LCFI8
+ 924 0090 0200     		.2byte	0x2
+ 925 0092 7D       		.byte	0x7d
+ 926 0093 18       		.sleb128 24
+ 927 0094 06000000 		.4byte	.LCFI8
+ 928 0098 6E000000 		.4byte	.LFE2
+ 929 009c 0200     		.2byte	0x2
+ 930 009e 77       		.byte	0x77
+ 931 009f 18       		.sleb128 24
+ 932 00a0 00000000 		.4byte	0
+ 933 00a4 00000000 		.4byte	0
+ 934              	.LLST3:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 19
+
+
+ 935 00a8 00000000 		.4byte	.LFB3
+ 936 00ac 02000000 		.4byte	.LCFI9
+ 937 00b0 0200     		.2byte	0x2
+ 938 00b2 7D       		.byte	0x7d
+ 939 00b3 00       		.sleb128 0
+ 940 00b4 02000000 		.4byte	.LCFI9
+ 941 00b8 04000000 		.4byte	.LCFI10
+ 942 00bc 0200     		.2byte	0x2
+ 943 00be 7D       		.byte	0x7d
+ 944 00bf 0C       		.sleb128 12
+ 945 00c0 04000000 		.4byte	.LCFI10
+ 946 00c4 06000000 		.4byte	.LCFI11
+ 947 00c8 0200     		.2byte	0x2
+ 948 00ca 7D       		.byte	0x7d
+ 949 00cb 18       		.sleb128 24
+ 950 00cc 06000000 		.4byte	.LCFI11
+ 951 00d0 40000000 		.4byte	.LFE3
+ 952 00d4 0200     		.2byte	0x2
+ 953 00d6 77       		.byte	0x77
+ 954 00d7 18       		.sleb128 24
+ 955 00d8 00000000 		.4byte	0
+ 956 00dc 00000000 		.4byte	0
+ 957              		.section	.debug_aranges,"",%progbits
+ 958 0000 34000000 		.4byte	0x34
+ 959 0004 0200     		.2byte	0x2
+ 960 0006 00000000 		.4byte	.Ldebug_info0
+ 961 000a 04       		.byte	0x4
+ 962 000b 00       		.byte	0
+ 963 000c 0000     		.2byte	0
+ 964 000e 0000     		.2byte	0
+ 965 0010 00000000 		.4byte	.LFB0
+ 966 0014 3C000000 		.4byte	.LFE0-.LFB0
+ 967 0018 00000000 		.4byte	.LFB1
+ 968 001c 66000000 		.4byte	.LFE1-.LFB1
+ 969 0020 00000000 		.4byte	.LFB2
+ 970 0024 6E000000 		.4byte	.LFE2-.LFB2
+ 971 0028 00000000 		.4byte	.LFB3
+ 972 002c 40000000 		.4byte	.LFE3-.LFB3
+ 973 0030 00000000 		.4byte	0
+ 974 0034 00000000 		.4byte	0
+ 975              		.section	.debug_ranges,"",%progbits
+ 976              	.Ldebug_ranges0:
+ 977 0000 00000000 		.4byte	.LFB0
+ 978 0004 3C000000 		.4byte	.LFE0
+ 979 0008 00000000 		.4byte	.LFB1
+ 980 000c 66000000 		.4byte	.LFE1
+ 981 0010 00000000 		.4byte	.LFB2
+ 982 0014 6E000000 		.4byte	.LFE2
+ 983 0018 00000000 		.4byte	.LFB3
+ 984 001c 40000000 		.4byte	.LFE3
+ 985 0020 00000000 		.4byte	0
+ 986 0024 00000000 		.4byte	0
+ 987              		.section	.debug_line,"",%progbits
+ 988              	.Ldebug_line0:
+ 989 0000 C8000000 		.section	.debug_str,"MS",%progbits,1
+ 989      02005000 
+ 989      00000201 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 20
+
+
+ 989      FB0E0D00 
+ 989      01010101 
+ 990              	.LASF30:
+ 991 0000 2E5C4D45 		.ascii	".\\ME_lib_cbuffer.c\000"
+ 991      5F6C6962 
+ 991      5F636275 
+ 991      66666572 
+ 991      2E6300
+ 992              	.LASF12:
+ 993 0013 574F5244 		.ascii	"WORD\000"
+ 993      00
+ 994              	.LASF11:
+ 995 0018 42595445 		.ascii	"BYTE\000"
+ 995      00
+ 996              	.LASF22:
+ 997 001d 73746174 		.ascii	"status\000"
+ 997      757300
+ 998              	.LASF13:
+ 999 0024 666C6F61 		.ascii	"float\000"
+ 999      7400
+ 1000              	.LASF21:
+ 1001 002a 73697A65 		.ascii	"size\000"
+ 1001      00
+ 1002              	.LASF9:
+ 1003 002f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1003      20756E73 
+ 1003      69676E65 
+ 1003      6420696E 
+ 1003      7400
+ 1004              	.LASF15:
+ 1005 0041 43425546 		.ascii	"CBUFFER_NOERROR\000"
+ 1005      4645525F 
+ 1005      4E4F4552 
+ 1005      524F5200 
+ 1006              	.LASF3:
+ 1007 0051 73686F72 		.ascii	"short unsigned int\000"
+ 1007      7420756E 
+ 1007      7369676E 
+ 1007      65642069 
+ 1007      6E7400
+ 1008              	.LASF20:
+ 1009 0064 626F7474 		.ascii	"bottom\000"
+ 1009      6F6D00
+ 1010              	.LASF1:
+ 1011 006b 756E7369 		.ascii	"unsigned char\000"
+ 1011      676E6564 
+ 1011      20636861 
+ 1011      7200
+ 1012              	.LASF14:
+ 1013 0079 646F7562 		.ascii	"double\000"
+ 1013      6C6500
+ 1014              	.LASF31:
+ 1015 0080 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 1015      73657273 
+ 1015      5C477261 
+ 1015      7A69616E 
+ 1015      6F20472E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 21
+
+
+ 1016 00af 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 1016      5C535155 
+ 1016      49545C56 
+ 1016      6572732E 
+ 1016      302E302D 
+ 1017 00df 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 1017      2D50726F 
+ 1017      746F2E63 
+ 1017      7964736E 
+ 1017      00
+ 1018              	.LASF26:
+ 1019 00f0 43427566 		.ascii	"CBuffer_Init\000"
+ 1019      6665725F 
+ 1019      496E6974 
+ 1019      00
+ 1020              	.LASF28:
+ 1021 00fd 43427566 		.ascii	"CBuffer_AnyData\000"
+ 1021      6665725F 
+ 1021      416E7944 
+ 1021      61746100 
+ 1022              	.LASF4:
+ 1023 010d 756E7369 		.ascii	"unsigned int\000"
+ 1023      676E6564 
+ 1023      20696E74 
+ 1023      00
+ 1024              	.LASF6:
+ 1025 011a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1025      206C6F6E 
+ 1025      6720756E 
+ 1025      7369676E 
+ 1025      65642069 
+ 1026              	.LASF17:
+ 1027 0131 43425546 		.ascii	"CBUFFER_UNDERRUN\000"
+ 1027      4645525F 
+ 1027      554E4445 
+ 1027      5252554E 
+ 1027      00
+ 1028              	.LASF24:
+ 1029 0142 63627566 		.ascii	"cbuffer\000"
+ 1029      66657200 
+ 1030              	.LASF27:
+ 1031 014a 43427566 		.ascii	"CBuffer_PutByte\000"
+ 1031      6665725F 
+ 1031      50757442 
+ 1031      79746500 
+ 1032              	.LASF18:
+ 1033 015a 43425546 		.ascii	"CBUFFER_STATUS\000"
+ 1033      4645525F 
+ 1033      53544154 
+ 1033      555300
+ 1034              	.LASF8:
+ 1035 0169 73697A65 		.ascii	"sizetype\000"
+ 1035      74797065 
+ 1035      00
+ 1036              	.LASF5:
+ 1037 0172 6C6F6E67 		.ascii	"long long int\000"
+ 1037      206C6F6E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccMMhT6n.s 			page 22
+
+
+ 1037      6720696E 
+ 1037      7400
+ 1038              	.LASF10:
+ 1039 0180 63686172 		.ascii	"char\000"
+ 1039      00
+ 1040              	.LASF2:
+ 1041 0185 73686F72 		.ascii	"short int\000"
+ 1041      7420696E 
+ 1041      7400
+ 1042              	.LASF16:
+ 1043 018f 43425546 		.ascii	"CBUFFER_OVERRUN\000"
+ 1043      4645525F 
+ 1043      4F564552 
+ 1043      52554E00 
+ 1044              	.LASF29:
+ 1045 019f 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1045      4320342E 
+ 1045      372E3320 
+ 1045      32303133 
+ 1045      30333132 
+ 1046 01d2 616E6368 		.ascii	"anch revision 196615]\000"
+ 1046      20726576 
+ 1046      6973696F 
+ 1046      6E203139 
+ 1046      36363135 
+ 1047              	.LASF19:
+ 1048 01e8 64617461 		.ascii	"data_ptr\000"
+ 1048      5F707472 
+ 1048      00
+ 1049              	.LASF7:
+ 1050 01f1 6C6F6E67 		.ascii	"long int\000"
+ 1050      20696E74 
+ 1050      00
+ 1051              	.LASF32:
+ 1052 01fa 43427566 		.ascii	"CBuffer_GetByte\000"
+ 1052      6665725F 
+ 1052      47657442 
+ 1052      79746500 
+ 1053              	.LASF0:
+ 1054 020a 7369676E 		.ascii	"signed char\000"
+ 1054      65642063 
+ 1054      68617200 
+ 1055              	.LASF23:
+ 1056 0216 43425546 		.ascii	"CBUFFER\000"
+ 1056      46455200 
+ 1057              	.LASF25:
+ 1058 021e 62756666 		.ascii	"buffer_data_ptr\000"
+ 1058      65725F64 
+ 1058      6174615F 
+ 1058      70747200 
+ 1059              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,5365 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"torquestat.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	TORQUESTAT,32,8
+  19              		.global	__aeabi_f2d
+  20              		.global	__aeabi_dadd
+  21              		.section	.text.current_statistics_elab_step,"ax",%progbits
+  22              		.align	2
+  23              		.global	current_statistics_elab_step
+  24              		.thumb
+  25              		.thumb_func
+  26              		.type	current_statistics_elab_step, %function
+  27              	current_statistics_elab_step:
+  28              	.LFB56:
+  29              		.file 1 ".\\torquestat.c"
+   1:.\torquestat.c **** /* ========================================
+   2:.\torquestat.c ****  *
+   3:.\torquestat.c ****  * TORQUE STATISTICS library functions
+   4:.\torquestat.c ****  * Vers.2.1
+   5:.\torquestat.c ****  * 22/10/2018
+   6:.\torquestat.c ****  *
+   7:.\torquestat.c ****   *   Funzioni per misura e statistica delle:
+   8:.\torquestat.c ****  *		coppie
+   9:.\torquestat.c ****  *		correnti assorbite
+  10:.\torquestat.c ****  *		potenza assorbita ed erogata
+  11:.\torquestat.c ****  *		energia utilizzata
+  12:.\torquestat.c ****  *
+  13:.\torquestat.c ****  *    Versione con puntatori per stima
+  14:.\torquestat.c ****  *    contemporanea di pan e tilt
+  15:.\torquestat.c ****  *
+  16:.\torquestat.c ****  * Copyright Logic brainstorm, 2018
+  17:.\torquestat.c ****  * All Rights Reserved
+  18:.\torquestat.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+  19:.\torquestat.c ****  *
+  20:.\torquestat.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+  21:.\torquestat.c ****  * WHICH IS THE PROPERTY OF Logic brainstorm.
+  22:.\torquestat.c ****  *
+  23:.\torquestat.c ****  * ========================================
+  24:.\torquestat.c **** */
+  25:.\torquestat.c **** /* Include files */
+  26:.\torquestat.c **** #include <device.h>
+  27:.\torquestat.c **** #include <gobee.h>
+  28:.\torquestat.c **** #include <math.h>
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 2
+
+
+  29:.\torquestat.c **** #include <statistics.h>
+  30:.\torquestat.c **** #include <torquestat.h>
+  31:.\torquestat.c **** 
+  32:.\torquestat.c **** 
+  33:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  34:.\torquestat.c **** // MOTOR CURRENT STATISTICS ELABORATION STEP
+  35:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  36:.\torquestat.c **** // Se i(t) misurabile -->
+  37:.\torquestat.c **** // 		Output Torque(t) = i(t) * Km * eff_M * N * eff_R	[mNm]
+  38:.\torquestat.c **** // 		i(t)   = istantaneous current 						[A]
+  39:.\torquestat.c **** //		Km     = Torque constant 							[mNm/A]
+  40:.\torquestat.c **** //		eff_M  = Motor efficiency							[%]
+  41:.\torquestat.c **** //		N      = Gears rate									[adim]
+  42:.\torquestat.c **** //		eff_R  = Gears efficiency							[%]
+  43:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  44:.\torquestat.c **** void current_statistics_elab_step(struct TORQUESTAT *tstat, struct STATISTICS *current_stat,  float
+  45:.\torquestat.c **** {
+  30              		.loc 1 45 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 16
+  33              		@ frame_needed = 1, uses_anonymous_args = 0
+  34 0000 B0B5     		push	{r4, r5, r7, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 84B0     		sub	sp, sp, #16
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_offset 32
+  44 0004 00AF     		add	r7, sp, #0
+  45              	.LCFI2:
+  46              		.cfi_def_cfa_register 7
+  47 0006 F860     		str	r0, [r7, #12]
+  48 0008 B960     		str	r1, [r7, #8]
+  49 000a 7A60     		str	r2, [r7, #4]	@ float
+  46:.\torquestat.c **** 	current = fabsf(current);											//make the absolute value   [A]
+  50              		.loc 1 46 0
+  51 000c 7B68     		ldr	r3, [r7, #4]
+  52 000e 23F00043 		bic	r3, r3, #-2147483648
+  53 0012 7B60     		str	r3, [r7, #4]	@ float
+  47:.\torquestat.c **** 	
+  48:.\torquestat.c **** 	(*tstat).abs_current_t = current;									//save abs(current(t))
+  54              		.loc 1 48 0
+  55 0014 FB68     		ldr	r3, [r7, #12]
+  56 0016 7A68     		ldr	r2, [r7, #4]	@ float
+  57 0018 9A60     		str	r2, [r3, #8]	@ float
+  49:.\torquestat.c **** 	
+  50:.\torquestat.c **** 	(*tstat).current_integral = (*tstat).current_integral + current;	//integrate the current 	[A]
+  58              		.loc 1 50 0
+  59 001a FB68     		ldr	r3, [r7, #12]
+  60 001c D3E90045 		ldrd	r4, [r3]
+  61 0020 7868     		ldr	r0, [r7, #4]	@ float
+  62 0022 FFF7FEFF 		bl	__aeabi_f2d
+  63 0026 0246     		mov	r2, r0
+  64 0028 0B46     		mov	r3, r1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 3
+
+
+  65 002a 2046     		mov	r0, r4
+  66 002c 2946     		mov	r1, r5
+  67 002e FFF7FEFF 		bl	__aeabi_dadd
+  68 0032 0246     		mov	r2, r0
+  69 0034 0B46     		mov	r3, r1
+  70 0036 F968     		ldr	r1, [r7, #12]
+  71 0038 C1E90023 		strd	r2, [r1]
+  51:.\torquestat.c **** 	
+  52:.\torquestat.c **** 	/********************************************************************************************/
+  53:.\torquestat.c **** 	/* Value Statistics Iterative Calculus						 								*/
+  54:.\torquestat.c **** 	/* 																							*/
+  55:.\torquestat.c **** 	/* iteration >= 2																			*/
+  56:.\torquestat.c **** 	/* Calcola il valor medio e altre variabili statistiche del flusso di value passato			*/
+  57:.\torquestat.c **** 	/* Fonte: http://www.cs.berkeley.edu/~mhoemmen/cs194/Tutorials/variance.pdf					*/
+  58:.\torquestat.c **** 	/* vedi anche \Study\Statistica\variance(Computing the standard deviation efficiently).pdf	*/
+  59:.\torquestat.c **** 	/********************************************************************************************/
+  60:.\torquestat.c **** 	statistics_elab_step(current_stat, current);
+  72              		.loc 1 60 0
+  73 003c B868     		ldr	r0, [r7, #8]
+  74 003e 7968     		ldr	r1, [r7, #4]	@ float
+  75 0040 FFF7FEFF 		bl	statistics_elab_step
+  61:.\torquestat.c **** }
+  76              		.loc 1 61 0
+  77 0044 07F11007 		add	r7, r7, #16
+  78 0048 BD46     		mov	sp, r7
+  79 004a B0BD     		pop	{r4, r5, r7, pc}
+  80              		.cfi_endproc
+  81              	.LFE56:
+  82              		.size	current_statistics_elab_step, .-current_statistics_elab_step
+  83              		.section	.text.current_statistics_init,"ax",%progbits
+  84              		.align	2
+  85              		.global	current_statistics_init
+  86              		.thumb
+  87              		.thumb_func
+  88              		.type	current_statistics_init, %function
+  89              	current_statistics_init:
+  90              	.LFB57:
+  62:.\torquestat.c **** 
+  63:.\torquestat.c **** /* Initialize Current Statistics */
+  64:.\torquestat.c **** void current_statistics_init(struct STATISTICS *current_stat)
+  65:.\torquestat.c **** {
+  91              		.loc 1 65 0
+  92              		.cfi_startproc
+  93              		@ args = 0, pretend = 0, frame = 8
+  94              		@ frame_needed = 1, uses_anonymous_args = 0
+  95 0000 80B5     		push	{r7, lr}
+  96              	.LCFI3:
+  97              		.cfi_def_cfa_offset 8
+  98              		.cfi_offset 7, -8
+  99              		.cfi_offset 14, -4
+ 100 0002 82B0     		sub	sp, sp, #8
+ 101              	.LCFI4:
+ 102              		.cfi_def_cfa_offset 16
+ 103 0004 00AF     		add	r7, sp, #0
+ 104              	.LCFI5:
+ 105              		.cfi_def_cfa_register 7
+ 106 0006 7860     		str	r0, [r7, #4]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 4
+
+
+  66:.\torquestat.c **** 	statistics_init(current_stat);	//Statistics-only initialization
+ 107              		.loc 1 66 0
+ 108 0008 7868     		ldr	r0, [r7, #4]
+ 109 000a FFF7FEFF 		bl	statistics_init
+  67:.\torquestat.c **** }
+ 110              		.loc 1 67 0
+ 111 000e 07F10807 		add	r7, r7, #8
+ 112 0012 BD46     		mov	sp, r7
+ 113 0014 80BD     		pop	{r7, pc}
+ 114              		.cfi_endproc
+ 115              	.LFE57:
+ 116              		.size	current_statistics_init, .-current_statistics_init
+ 117 0016 00BF     		.section	.text.current_statistics_start,"ax",%progbits
+ 118              		.align	2
+ 119              		.global	current_statistics_start
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.type	current_statistics_start, %function
+ 123              	current_statistics_start:
+ 124              	.LFB58:
+  68:.\torquestat.c **** 
+  69:.\torquestat.c **** /* Start Current Statistics */
+  70:.\torquestat.c **** void current_statistics_start(struct STATISTICS *current_stat)
+  71:.\torquestat.c **** {
+ 125              		.loc 1 71 0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 8
+ 128              		@ frame_needed = 1, uses_anonymous_args = 0
+ 129 0000 80B5     		push	{r7, lr}
+ 130              	.LCFI6:
+ 131              		.cfi_def_cfa_offset 8
+ 132              		.cfi_offset 7, -8
+ 133              		.cfi_offset 14, -4
+ 134 0002 82B0     		sub	sp, sp, #8
+ 135              	.LCFI7:
+ 136              		.cfi_def_cfa_offset 16
+ 137 0004 00AF     		add	r7, sp, #0
+ 138              	.LCFI8:
+ 139              		.cfi_def_cfa_register 7
+ 140 0006 7860     		str	r0, [r7, #4]
+  72:.\torquestat.c **** 	statistics_start(current_stat);	//Statistics-only initialization
+ 141              		.loc 1 72 0
+ 142 0008 7868     		ldr	r0, [r7, #4]
+ 143 000a FFF7FEFF 		bl	statistics_start
+  73:.\torquestat.c **** }
+ 144              		.loc 1 73 0
+ 145 000e 07F10807 		add	r7, r7, #8
+ 146 0012 BD46     		mov	sp, r7
+ 147 0014 80BD     		pop	{r7, pc}
+ 148              		.cfi_endproc
+ 149              	.LFE58:
+ 150              		.size	current_statistics_start, .-current_statistics_start
+ 151 0016 00BF     		.section	.text.current_statistics_stop,"ax",%progbits
+ 152              		.align	2
+ 153              		.global	current_statistics_stop
+ 154              		.thumb
+ 155              		.thumb_func
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 5
+
+
+ 156              		.type	current_statistics_stop, %function
+ 157              	current_statistics_stop:
+ 158              	.LFB59:
+  74:.\torquestat.c **** 
+  75:.\torquestat.c **** /* Stop Current Statistics */
+  76:.\torquestat.c **** void current_statistics_stop(struct STATISTICS *current_stat)
+  77:.\torquestat.c **** {
+ 159              		.loc 1 77 0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 8
+ 162              		@ frame_needed = 1, uses_anonymous_args = 0
+ 163 0000 80B5     		push	{r7, lr}
+ 164              	.LCFI9:
+ 165              		.cfi_def_cfa_offset 8
+ 166              		.cfi_offset 7, -8
+ 167              		.cfi_offset 14, -4
+ 168 0002 82B0     		sub	sp, sp, #8
+ 169              	.LCFI10:
+ 170              		.cfi_def_cfa_offset 16
+ 171 0004 00AF     		add	r7, sp, #0
+ 172              	.LCFI11:
+ 173              		.cfi_def_cfa_register 7
+ 174 0006 7860     		str	r0, [r7, #4]
+  78:.\torquestat.c **** 	statistics_stop(current_stat);	//Statistics-only stop
+ 175              		.loc 1 78 0
+ 176 0008 7868     		ldr	r0, [r7, #4]
+ 177 000a FFF7FEFF 		bl	statistics_stop
+  79:.\torquestat.c **** }
+ 178              		.loc 1 79 0
+ 179 000e 07F10807 		add	r7, r7, #8
+ 180 0012 BD46     		mov	sp, r7
+ 181 0014 80BD     		pop	{r7, pc}
+ 182              		.cfi_endproc
+ 183              	.LFE59:
+ 184              		.size	current_statistics_stop, .-current_statistics_stop
+ 185              		.global	__aeabi_fmul
+ 186 0016 00BF     		.section	.text.qpower_statistics_elab_step,"ax",%progbits
+ 187              		.align	2
+ 188              		.global	qpower_statistics_elab_step
+ 189              		.thumb
+ 190              		.thumb_func
+ 191              		.type	qpower_statistics_elab_step, %function
+ 192              	qpower_statistics_elab_step:
+ 193              	.LFB60:
+  80:.\torquestat.c **** 
+  81:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  82:.\torquestat.c **** // MOTOR POWER STATISTICS ELABORATION STEP
+  83:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  84:.\torquestat.c **** // Se i(t) misurabile -->
+  85:.\torquestat.c **** // 		Output Power(t) = omega(t) * i(t) * Km * eff_M		[mW]
+  86:.\torquestat.c **** //		omega(t) = instantaneous angular velocity			[rad/sec]
+  87:.\torquestat.c **** // 		i(t)   = istantaneous current 						[A]
+  88:.\torquestat.c **** //		Km     = Torque constant 							[mNm/A]
+  89:.\torquestat.c **** //		eff_M  = Motor efficiency							[%]
+  90:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  91:.\torquestat.c **** void qpower_statistics_elab_step(struct TORQUESTAT *tstat, struct STATISTICS *qpower_stat, float cu
+  92:.\torquestat.c **** {	
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 6
+
+
+ 194              		.loc 1 92 0
+ 195              		.cfi_startproc
+ 196              		@ args = 0, pretend = 0, frame = 16
+ 197              		@ frame_needed = 1, uses_anonymous_args = 0
+ 198 0000 80B5     		push	{r7, lr}
+ 199              	.LCFI12:
+ 200              		.cfi_def_cfa_offset 8
+ 201              		.cfi_offset 7, -8
+ 202              		.cfi_offset 14, -4
+ 203 0002 84B0     		sub	sp, sp, #16
+ 204              	.LCFI13:
+ 205              		.cfi_def_cfa_offset 24
+ 206 0004 00AF     		add	r7, sp, #0
+ 207              	.LCFI14:
+ 208              		.cfi_def_cfa_register 7
+ 209 0006 F860     		str	r0, [r7, #12]
+ 210 0008 B960     		str	r1, [r7, #8]
+ 211 000a 7A60     		str	r2, [r7, #4]	@ float
+ 212 000c 3B60     		str	r3, [r7, #0]	@ float
+  93:.\torquestat.c **** 	current = fabsf(current);						//make the absolute value   [A]
+ 213              		.loc 1 93 0
+ 214 000e 7B68     		ldr	r3, [r7, #4]
+ 215 0010 23F00043 		bic	r3, r3, #-2147483648
+ 216 0014 7B60     		str	r3, [r7, #4]	@ float
+  94:.\torquestat.c **** 
+  95:.\torquestat.c **** 	(*tstat).pwcalc.abs_omega_t = omega;
+ 217              		.loc 1 95 0
+ 218 0016 FB68     		ldr	r3, [r7, #12]
+ 219 0018 3A68     		ldr	r2, [r7, #0]	@ float
+ 220 001a DA60     		str	r2, [r3, #12]	@ float
+  96:.\torquestat.c **** 	
+  97:.\torquestat.c **** 	(*tstat).pwcalc.qpower_t    = current * omega;		//quasi-power(t) = current(t) [A] * velocity(t) [r
+ 221              		.loc 1 97 0
+ 222 001c 7868     		ldr	r0, [r7, #4]	@ float
+ 223 001e 3968     		ldr	r1, [r7, #0]	@ float
+ 224 0020 FFF7FEFF 		bl	__aeabi_fmul
+ 225 0024 0346     		mov	r3, r0
+ 226 0026 1A46     		mov	r2, r3
+ 227 0028 FB68     		ldr	r3, [r7, #12]
+ 228 002a 1A61     		str	r2, [r3, #16]	@ float
+  98:.\torquestat.c **** 	
+  99:.\torquestat.c **** 	/********************************************************************************************/
+ 100:.\torquestat.c **** 	/* Value Statistics Iterative Calculus						 								*/
+ 101:.\torquestat.c **** 	/* 																							*/
+ 102:.\torquestat.c **** 	/* iteration >= 2																			*/
+ 103:.\torquestat.c **** 	/* Calcola il valor medio e altre variabili statistiche del flusso di value passato			*/
+ 104:.\torquestat.c **** 	/* Fonte: http://www.cs.berkeley.edu/~mhoemmen/cs194/Tutorials/variance.pdf					*/
+ 105:.\torquestat.c **** 	/* vedi anche \Study\Statistica\variance(Computing the standard deviation efficiently).pdf	*/
+ 106:.\torquestat.c **** 	/********************************************************************************************/
+ 107:.\torquestat.c **** 	statistics_elab_step(qpower_stat, (*tstat).pwcalc.qpower_t);
+ 229              		.loc 1 107 0
+ 230 002c FB68     		ldr	r3, [r7, #12]
+ 231 002e 1B69     		ldr	r3, [r3, #16]	@ float
+ 232 0030 B868     		ldr	r0, [r7, #8]
+ 233 0032 1946     		mov	r1, r3
+ 234 0034 FFF7FEFF 		bl	statistics_elab_step
+ 108:.\torquestat.c **** }
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 7
+
+
+ 235              		.loc 1 108 0
+ 236 0038 07F11007 		add	r7, r7, #16
+ 237 003c BD46     		mov	sp, r7
+ 238 003e 80BD     		pop	{r7, pc}
+ 239              		.cfi_endproc
+ 240              	.LFE60:
+ 241              		.size	qpower_statistics_elab_step, .-qpower_statistics_elab_step
+ 242              		.section	.text.qpower_statistics_init,"ax",%progbits
+ 243              		.align	2
+ 244              		.global	qpower_statistics_init
+ 245              		.thumb
+ 246              		.thumb_func
+ 247              		.type	qpower_statistics_init, %function
+ 248              	qpower_statistics_init:
+ 249              	.LFB61:
+ 109:.\torquestat.c **** 
+ 110:.\torquestat.c **** /* Initialize quasi-power Statistics */
+ 111:.\torquestat.c **** void qpower_statistics_init(struct STATISTICS *qpower_stat)
+ 112:.\torquestat.c **** {
+ 250              		.loc 1 112 0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254 0000 80B5     		push	{r7, lr}
+ 255              	.LCFI15:
+ 256              		.cfi_def_cfa_offset 8
+ 257              		.cfi_offset 7, -8
+ 258              		.cfi_offset 14, -4
+ 259 0002 82B0     		sub	sp, sp, #8
+ 260              	.LCFI16:
+ 261              		.cfi_def_cfa_offset 16
+ 262 0004 00AF     		add	r7, sp, #0
+ 263              	.LCFI17:
+ 264              		.cfi_def_cfa_register 7
+ 265 0006 7860     		str	r0, [r7, #4]
+ 113:.\torquestat.c **** 	statistics_init(qpower_stat);	//Statistics-only initialization
+ 266              		.loc 1 113 0
+ 267 0008 7868     		ldr	r0, [r7, #4]
+ 268 000a FFF7FEFF 		bl	statistics_init
+ 114:.\torquestat.c **** }
+ 269              		.loc 1 114 0
+ 270 000e 07F10807 		add	r7, r7, #8
+ 271 0012 BD46     		mov	sp, r7
+ 272 0014 80BD     		pop	{r7, pc}
+ 273              		.cfi_endproc
+ 274              	.LFE61:
+ 275              		.size	qpower_statistics_init, .-qpower_statistics_init
+ 276 0016 00BF     		.section	.text.qpower_statistics_start,"ax",%progbits
+ 277              		.align	2
+ 278              		.global	qpower_statistics_start
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.type	qpower_statistics_start, %function
+ 282              	qpower_statistics_start:
+ 283              	.LFB62:
+ 115:.\torquestat.c **** 
+ 116:.\torquestat.c **** /* Start quasi-power Statistics */
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 8
+
+
+ 117:.\torquestat.c **** void qpower_statistics_start(struct STATISTICS *qpower_stat)
+ 118:.\torquestat.c **** {
+ 284              		.loc 1 118 0
+ 285              		.cfi_startproc
+ 286              		@ args = 0, pretend = 0, frame = 8
+ 287              		@ frame_needed = 1, uses_anonymous_args = 0
+ 288 0000 80B5     		push	{r7, lr}
+ 289              	.LCFI18:
+ 290              		.cfi_def_cfa_offset 8
+ 291              		.cfi_offset 7, -8
+ 292              		.cfi_offset 14, -4
+ 293 0002 82B0     		sub	sp, sp, #8
+ 294              	.LCFI19:
+ 295              		.cfi_def_cfa_offset 16
+ 296 0004 00AF     		add	r7, sp, #0
+ 297              	.LCFI20:
+ 298              		.cfi_def_cfa_register 7
+ 299 0006 7860     		str	r0, [r7, #4]
+ 119:.\torquestat.c **** 	statistics_start(qpower_stat);	//Statistics-only initialization
+ 300              		.loc 1 119 0
+ 301 0008 7868     		ldr	r0, [r7, #4]
+ 302 000a FFF7FEFF 		bl	statistics_start
+ 120:.\torquestat.c **** }
+ 303              		.loc 1 120 0
+ 304 000e 07F10807 		add	r7, r7, #8
+ 305 0012 BD46     		mov	sp, r7
+ 306 0014 80BD     		pop	{r7, pc}
+ 307              		.cfi_endproc
+ 308              	.LFE62:
+ 309              		.size	qpower_statistics_start, .-qpower_statistics_start
+ 310 0016 00BF     		.section	.text.qpower_statistics_stop,"ax",%progbits
+ 311              		.align	2
+ 312              		.global	qpower_statistics_stop
+ 313              		.thumb
+ 314              		.thumb_func
+ 315              		.type	qpower_statistics_stop, %function
+ 316              	qpower_statistics_stop:
+ 317              	.LFB63:
+ 121:.\torquestat.c **** 
+ 122:.\torquestat.c **** /* Stop quasi-power Statistics */
+ 123:.\torquestat.c **** void qpower_statistics_stop(struct STATISTICS *qpower_stat)
+ 124:.\torquestat.c **** {
+ 318              		.loc 1 124 0
+ 319              		.cfi_startproc
+ 320              		@ args = 0, pretend = 0, frame = 8
+ 321              		@ frame_needed = 1, uses_anonymous_args = 0
+ 322 0000 80B5     		push	{r7, lr}
+ 323              	.LCFI21:
+ 324              		.cfi_def_cfa_offset 8
+ 325              		.cfi_offset 7, -8
+ 326              		.cfi_offset 14, -4
+ 327 0002 82B0     		sub	sp, sp, #8
+ 328              	.LCFI22:
+ 329              		.cfi_def_cfa_offset 16
+ 330 0004 00AF     		add	r7, sp, #0
+ 331              	.LCFI23:
+ 332              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 9
+
+
+ 333 0006 7860     		str	r0, [r7, #4]
+ 125:.\torquestat.c **** 	statistics_stop(qpower_stat);	//Statistics-only stop
+ 334              		.loc 1 125 0
+ 335 0008 7868     		ldr	r0, [r7, #4]
+ 336 000a FFF7FEFF 		bl	statistics_stop
+ 126:.\torquestat.c **** }
+ 337              		.loc 1 126 0
+ 338 000e 07F10807 		add	r7, r7, #8
+ 339 0012 BD46     		mov	sp, r7
+ 340 0014 80BD     		pop	{r7, pc}
+ 341              		.cfi_endproc
+ 342              	.LFE63:
+ 343              		.size	qpower_statistics_stop, .-qpower_statistics_stop
+ 344              		.global	__aeabi_i2f
+ 345              		.global	__aeabi_dmul
+ 346              		.global	__aeabi_d2f
+ 347 0016 00BF     		.section	.text.motor_abs_velocity_sampling,"ax",%progbits
+ 348              		.align	2
+ 349              		.global	motor_abs_velocity_sampling
+ 350              		.thumb
+ 351              		.thumb_func
+ 352              		.type	motor_abs_velocity_sampling, %function
+ 353              	motor_abs_velocity_sampling:
+ 354              	.LFB64:
+ 127:.\torquestat.c **** 
+ 128:.\torquestat.c **** 
+ 129:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 130:.\torquestat.c **** // MOTOR ANGULAR VELOCITY SAMPLING (used to calc motor power)
+ 131:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 132:.\torquestat.c **** // return: absolute value of motor angular velocity [rad/sec]
+ 133:.\torquestat.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 134:.\torquestat.c **** float motor_abs_velocity_sampling(struct TORQUESTAT *tstat, int32 enc_position_actual)
+ 135:.\torquestat.c **** {
+ 355              		.loc 1 135 0
+ 356              		.cfi_startproc
+ 357              		@ args = 0, pretend = 0, frame = 16
+ 358              		@ frame_needed = 1, uses_anonymous_args = 0
+ 359 0000 80B5     		push	{r7, lr}
+ 360              	.LCFI24:
+ 361              		.cfi_def_cfa_offset 8
+ 362              		.cfi_offset 7, -8
+ 363              		.cfi_offset 14, -4
+ 364 0002 84B0     		sub	sp, sp, #16
+ 365              	.LCFI25:
+ 366              		.cfi_def_cfa_offset 24
+ 367 0004 00AF     		add	r7, sp, #0
+ 368              	.LCFI26:
+ 369              		.cfi_def_cfa_register 7
+ 370 0006 7860     		str	r0, [r7, #4]
+ 371 0008 3960     		str	r1, [r7, #0]
+ 136:.\torquestat.c **** 	float  motor_abs_velocity;			// Motor angular velocity		[rad/sec]
+ 137:.\torquestat.c **** 	
+ 138:.\torquestat.c **** 	//calc abs(motor velocity) [rad/sec] = (position[t] - position[t-Tsample])/Tsample * 2PI/Encoder_R
+ 139:.\torquestat.c **** 	//						        	 = (position[t] - position[t-Tsample]) * TQS_SAMPLING_RATE * 2PI/Encoder_Resoluti
+ 140:.\torquestat.c **** 	//	Tsample = 0.24 sec (@ 4.167Hz sampling rate)
+ 141:.\torquestat.c **** 	
+ 142:.\torquestat.c **** 	if (enc_position_actual >= (*tstat).vcalc.enc_position_bef)
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 10
+
+
+ 372              		.loc 1 142 0
+ 373 000a 7B68     		ldr	r3, [r7, #4]
+ 374 000c 9A69     		ldr	r2, [r3, #24]
+ 375 000e 3B68     		ldr	r3, [r7, #0]
+ 376 0010 9A42     		cmp	r2, r3
+ 377 0012 25DC     		bgt	.L10
+ 143:.\torquestat.c **** 	{
+ 144:.\torquestat.c **** 		/* abs(motor velocity) */
+ 145:.\torquestat.c **** 		motor_abs_velocity = (float)(enc_position_actual - (*tstat).vcalc.enc_position_bef) * TQS_SAMPLIN
+ 378              		.loc 1 145 0
+ 379 0014 7B68     		ldr	r3, [r7, #4]
+ 380 0016 9B69     		ldr	r3, [r3, #24]
+ 381 0018 3A68     		ldr	r2, [r7, #0]
+ 382 001a D31A     		subs	r3, r2, r3
+ 383 001c 1846     		mov	r0, r3
+ 384 001e FFF7FEFF 		bl	__aeabi_i2f
+ 385 0022 0346     		mov	r3, r0
+ 386 0024 1846     		mov	r0, r3
+ 387 0026 4FF00001 		mov	r1, #0
+ 388 002a C4F24801 		movt	r1, 16456
+ 389 002e FFF7FEFF 		bl	__aeabi_fmul
+ 390 0032 0346     		mov	r3, r0
+ 391 0034 FB60     		str	r3, [r7, #12]	@ float
+ 146:.\torquestat.c **** 		motor_abs_velocity = motor_abs_velocity * PIx2_OVER_MOTENCODER_RESOLUTION;					//[rad/sec]
+ 392              		.loc 1 146 0
+ 393 0036 F868     		ldr	r0, [r7, #12]	@ float
+ 394 0038 FFF7FEFF 		bl	__aeabi_f2d
+ 395 003c 0246     		mov	r2, r0
+ 396 003e 0B46     		mov	r3, r1
+ 397 0040 1046     		mov	r0, r2
+ 398 0042 1946     		mov	r1, r3
+ 399 0044 1EA3     		adr	r3, .L13
+ 400 0046 D3E90023 		ldrd	r2, [r3]
+ 401 004a FFF7FEFF 		bl	__aeabi_dmul
+ 402 004e 0246     		mov	r2, r0
+ 403 0050 0B46     		mov	r3, r1
+ 404 0052 1046     		mov	r0, r2
+ 405 0054 1946     		mov	r1, r3
+ 406 0056 FFF7FEFF 		bl	__aeabi_d2f
+ 407 005a 0346     		mov	r3, r0
+ 408 005c FB60     		str	r3, [r7, #12]	@ float
+ 409 005e 24E0     		b	.L11
+ 410              	.L10:
+ 147:.\torquestat.c **** 	}
+ 148:.\torquestat.c **** 	else
+ 149:.\torquestat.c **** 	{
+ 150:.\torquestat.c **** 		/* abs(motor velocity) */		
+ 151:.\torquestat.c **** 		motor_abs_velocity = (float)((*tstat).vcalc.enc_position_bef - enc_position_actual) * TQS_SAMPLIN
+ 411              		.loc 1 151 0
+ 412 0060 7B68     		ldr	r3, [r7, #4]
+ 413 0062 9A69     		ldr	r2, [r3, #24]
+ 414 0064 3B68     		ldr	r3, [r7, #0]
+ 415 0066 D31A     		subs	r3, r2, r3
+ 416 0068 1846     		mov	r0, r3
+ 417 006a FFF7FEFF 		bl	__aeabi_i2f
+ 418 006e 0346     		mov	r3, r0
+ 419 0070 1846     		mov	r0, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 11
+
+
+ 420 0072 4FF00001 		mov	r1, #0
+ 421 0076 C4F24801 		movt	r1, 16456
+ 422 007a FFF7FEFF 		bl	__aeabi_fmul
+ 423 007e 0346     		mov	r3, r0
+ 424 0080 FB60     		str	r3, [r7, #12]	@ float
+ 152:.\torquestat.c **** 		motor_abs_velocity = motor_abs_velocity * PIx2_OVER_MOTENCODER_RESOLUTION;					//[rad/sec]		
+ 425              		.loc 1 152 0
+ 426 0082 F868     		ldr	r0, [r7, #12]	@ float
+ 427 0084 FFF7FEFF 		bl	__aeabi_f2d
+ 428 0088 0246     		mov	r2, r0
+ 429 008a 0B46     		mov	r3, r1
+ 430 008c 1046     		mov	r0, r2
+ 431 008e 1946     		mov	r1, r3
+ 432 0090 0BA3     		adr	r3, .L13
+ 433 0092 D3E90023 		ldrd	r2, [r3]
+ 434 0096 FFF7FEFF 		bl	__aeabi_dmul
+ 435 009a 0246     		mov	r2, r0
+ 436 009c 0B46     		mov	r3, r1
+ 437 009e 1046     		mov	r0, r2
+ 438 00a0 1946     		mov	r1, r3
+ 439 00a2 FFF7FEFF 		bl	__aeabi_d2f
+ 440 00a6 0346     		mov	r3, r0
+ 441 00a8 FB60     		str	r3, [r7, #12]	@ float
+ 442              	.L11:
+ 153:.\torquestat.c **** 	}
+ 154:.\torquestat.c **** 	
+ 155:.\torquestat.c **** 	//save encoder position[t-Tsample]
+ 156:.\torquestat.c **** 	(*tstat).vcalc.enc_position_bef = enc_position_actual;
+ 443              		.loc 1 156 0
+ 444 00aa 7B68     		ldr	r3, [r7, #4]
+ 445 00ac 3A68     		ldr	r2, [r7, #0]
+ 446 00ae 9A61     		str	r2, [r3, #24]
+ 157:.\torquestat.c **** 	
+ 158:.\torquestat.c **** 	return motor_abs_velocity;	//[rad/sec] absolute value of angular velocity
+ 447              		.loc 1 158 0
+ 448 00b0 FB68     		ldr	r3, [r7, #12]	@ float
+ 159:.\torquestat.c **** }
+ 449              		.loc 1 159 0
+ 450 00b2 1846     		mov	r0, r3
+ 451 00b4 07F11007 		add	r7, r7, #16
+ 452 00b8 BD46     		mov	sp, r7
+ 453 00ba 80BD     		pop	{r7, pc}
+ 454              	.L14:
+ 455 00bc AFF30080 		.align	3
+ 456              	.L13:
+ 457 00c0 2CA7B17B 		.word	2075240236
+ 458 00c4 FA21593F 		.word	1062806010
+ 459              		.cfi_endproc
+ 460              	.LFE64:
+ 461              		.size	motor_abs_velocity_sampling, .-motor_abs_velocity_sampling
+ 462              		.section	.text.motor_abs_velocity_sampling_init,"ax",%progbits
+ 463              		.align	2
+ 464              		.global	motor_abs_velocity_sampling_init
+ 465              		.thumb
+ 466              		.thumb_func
+ 467              		.type	motor_abs_velocity_sampling_init, %function
+ 468              	motor_abs_velocity_sampling_init:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 12
+
+
+ 469              	.LFB65:
+ 160:.\torquestat.c **** 
+ 161:.\torquestat.c **** /* Initialize Motor abs(Angular Velocity) Sampling */
+ 162:.\torquestat.c **** void motor_abs_velocity_sampling_init(struct TORQUESTAT *tstat)
+ 163:.\torquestat.c **** {
+ 470              		.loc 1 163 0
+ 471              		.cfi_startproc
+ 472              		@ args = 0, pretend = 0, frame = 8
+ 473              		@ frame_needed = 1, uses_anonymous_args = 0
+ 474              		@ link register save eliminated.
+ 475 0000 80B4     		push	{r7}
+ 476              	.LCFI27:
+ 477              		.cfi_def_cfa_offset 4
+ 478              		.cfi_offset 7, -4
+ 479 0002 83B0     		sub	sp, sp, #12
+ 480              	.LCFI28:
+ 481              		.cfi_def_cfa_offset 16
+ 482 0004 00AF     		add	r7, sp, #0
+ 483              	.LCFI29:
+ 484              		.cfi_def_cfa_register 7
+ 485 0006 7860     		str	r0, [r7, #4]
+ 164:.\torquestat.c **** 	(*tstat).vcalc.enc_position_bef = 0;				//encoder[0] <-- 0 [step]
+ 486              		.loc 1 164 0
+ 487 0008 7B68     		ldr	r3, [r7, #4]
+ 488 000a 4FF00002 		mov	r2, #0
+ 489 000e 9A61     		str	r2, [r3, #24]
+ 165:.\torquestat.c **** }
+ 490              		.loc 1 165 0
+ 491 0010 07F10C07 		add	r7, r7, #12
+ 492 0014 BD46     		mov	sp, r7
+ 493 0016 80BC     		pop	{r7}
+ 494 0018 7047     		bx	lr
+ 495              		.cfi_endproc
+ 496              	.LFE65:
+ 497              		.size	motor_abs_velocity_sampling_init, .-motor_abs_velocity_sampling_init
+ 498 001a 00BF     		.section	.text.i_noload,"ax",%progbits
+ 499              		.align	2
+ 500              		.global	i_noload
+ 501              		.thumb
+ 502              		.thumb_func
+ 503              		.type	i_noload, %function
+ 504              	i_noload:
+ 505              	.LFB66:
+ 166:.\torquestat.c **** 
+ 167:.\torquestat.c **** 
+ 168:.\torquestat.c **** /* No Load Current [A] 			*/
+ 169:.\torquestat.c **** float i_noload(void)
+ 170:.\torquestat.c **** {
+ 506              		.loc 1 170 0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 0
+ 509              		@ frame_needed = 1, uses_anonymous_args = 0
+ 510              		@ link register save eliminated.
+ 511 0000 80B4     		push	{r7}
+ 512              	.LCFI30:
+ 513              		.cfi_def_cfa_offset 4
+ 514              		.cfi_offset 7, -4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 13
+
+
+ 515 0002 00AF     		add	r7, sp, #0
+ 516              	.LCFI31:
+ 517              		.cfi_def_cfa_register 7
+ 171:.\torquestat.c **** 	return NOLOAD_CURR;
+ 518              		.loc 1 171 0
+ 519 0004 46F24203 		movw	r3, #24642
+ 520 0008 C3F66543 		movt	r3, 15461
+ 172:.\torquestat.c **** }
+ 521              		.loc 1 172 0
+ 522 000c 1846     		mov	r0, r3
+ 523 000e BD46     		mov	sp, r7
+ 524 0010 80BC     		pop	{r7}
+ 525 0012 7047     		bx	lr
+ 526              		.cfi_endproc
+ 527              	.LFE66:
+ 528              		.size	i_noload, .-i_noload
+ 529              		.section	.text.i_min,"ax",%progbits
+ 530              		.align	2
+ 531              		.global	i_min
+ 532              		.thumb
+ 533              		.thumb_func
+ 534              		.type	i_min, %function
+ 535              	i_min:
+ 536              	.LFB67:
+ 173:.\torquestat.c **** 
+ 174:.\torquestat.c **** /* Minimum Current Measured [A] */
+ 175:.\torquestat.c **** float i_min(struct STATISTICS *current_stat)
+ 176:.\torquestat.c **** {
+ 537              		.loc 1 176 0
+ 538              		.cfi_startproc
+ 539              		@ args = 0, pretend = 0, frame = 8
+ 540              		@ frame_needed = 1, uses_anonymous_args = 0
+ 541              		@ link register save eliminated.
+ 542 0000 80B4     		push	{r7}
+ 543              	.LCFI32:
+ 544              		.cfi_def_cfa_offset 4
+ 545              		.cfi_offset 7, -4
+ 546 0002 83B0     		sub	sp, sp, #12
+ 547              	.LCFI33:
+ 548              		.cfi_def_cfa_offset 16
+ 549 0004 00AF     		add	r7, sp, #0
+ 550              	.LCFI34:
+ 551              		.cfi_def_cfa_register 7
+ 552 0006 7860     		str	r0, [r7, #4]
+ 177:.\torquestat.c **** 	return (*current_stat).min;	
+ 553              		.loc 1 177 0
+ 554 0008 7B68     		ldr	r3, [r7, #4]
+ 555 000a DB68     		ldr	r3, [r3, #12]	@ float
+ 178:.\torquestat.c **** }
+ 556              		.loc 1 178 0
+ 557 000c 1846     		mov	r0, r3
+ 558 000e 07F10C07 		add	r7, r7, #12
+ 559 0012 BD46     		mov	sp, r7
+ 560 0014 80BC     		pop	{r7}
+ 561 0016 7047     		bx	lr
+ 562              		.cfi_endproc
+ 563              	.LFE67:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 14
+
+
+ 564              		.size	i_min, .-i_min
+ 565              		.global	__aeabi_dsub
+ 566              		.section	.text.TMOT_min,"ax",%progbits
+ 567              		.align	2
+ 568              		.global	TMOT_min
+ 569              		.thumb
+ 570              		.thumb_func
+ 571              		.type	TMOT_min, %function
+ 572              	TMOT_min:
+ 573              	.LFB68:
+ 179:.\torquestat.c **** 
+ 180:.\torquestat.c **** /* Minimum Motor Torque Measured [mNm] */
+ 181:.\torquestat.c **** float TMOT_min(struct STATISTICS *current_stat)
+ 182:.\torquestat.c **** {
+ 574              		.loc 1 182 0
+ 575              		.cfi_startproc
+ 576              		@ args = 0, pretend = 0, frame = 8
+ 577              		@ frame_needed = 1, uses_anonymous_args = 0
+ 578 0000 80B5     		push	{r7, lr}
+ 579              	.LCFI35:
+ 580              		.cfi_def_cfa_offset 8
+ 581              		.cfi_offset 7, -8
+ 582              		.cfi_offset 14, -4
+ 583 0002 82B0     		sub	sp, sp, #8
+ 584              	.LCFI36:
+ 585              		.cfi_def_cfa_offset 16
+ 586 0004 00AF     		add	r7, sp, #0
+ 587              	.LCFI37:
+ 588              		.cfi_def_cfa_register 7
+ 589 0006 7860     		str	r0, [r7, #4]
+ 183:.\torquestat.c **** 	return fabsf((*current_stat).min - NOLOAD_CURR) * Km * eff_M;	//No load current does not contribut
+ 590              		.loc 1 183 0
+ 591 0008 7B68     		ldr	r3, [r7, #4]
+ 592 000a DB68     		ldr	r3, [r3, #12]	@ float
+ 593 000c 1846     		mov	r0, r3
+ 594 000e FFF7FEFF 		bl	__aeabi_f2d
+ 595 0012 0246     		mov	r2, r0
+ 596 0014 0B46     		mov	r3, r1
+ 597 0016 1046     		mov	r0, r2
+ 598 0018 1946     		mov	r1, r3
+ 599 001a 17A3     		adr	r3, .L22
+ 600 001c D3E90023 		ldrd	r2, [r3]
+ 601 0020 FFF7FEFF 		bl	__aeabi_dsub
+ 602 0024 0246     		mov	r2, r0
+ 603 0026 0B46     		mov	r3, r1
+ 604 0028 1046     		mov	r0, r2
+ 605 002a 1946     		mov	r1, r3
+ 606 002c FFF7FEFF 		bl	__aeabi_d2f
+ 607 0030 0346     		mov	r3, r0
+ 608 0032 23F00043 		bic	r3, r3, #-2147483648
+ 609 0036 1846     		mov	r0, r3
+ 610 0038 FFF7FEFF 		bl	__aeabi_f2d
+ 611 003c 0246     		mov	r2, r0
+ 612 003e 0B46     		mov	r3, r1
+ 613 0040 1046     		mov	r0, r2
+ 614 0042 1946     		mov	r1, r3
+ 615 0044 0EA3     		adr	r3, .L22+8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 15
+
+
+ 616 0046 D3E90023 		ldrd	r2, [r3]
+ 617 004a FFF7FEFF 		bl	__aeabi_dmul
+ 618 004e 0246     		mov	r2, r0
+ 619 0050 0B46     		mov	r3, r1
+ 620 0052 1046     		mov	r0, r2
+ 621 0054 1946     		mov	r1, r3
+ 622 0056 0CA3     		adr	r3, .L22+16
+ 623 0058 D3E90023 		ldrd	r2, [r3]
+ 624 005c FFF7FEFF 		bl	__aeabi_dmul
+ 625 0060 0246     		mov	r2, r0
+ 626 0062 0B46     		mov	r3, r1
+ 627 0064 1046     		mov	r0, r2
+ 628 0066 1946     		mov	r1, r3
+ 629 0068 FFF7FEFF 		bl	__aeabi_d2f
+ 630 006c 0346     		mov	r3, r0
+ 184:.\torquestat.c **** }
+ 631              		.loc 1 184 0
+ 632 006e 1846     		mov	r0, r3
+ 633 0070 07F10807 		add	r7, r7, #8
+ 634 0074 BD46     		mov	sp, r7
+ 635 0076 80BD     		pop	{r7, pc}
+ 636              	.L23:
+ 637              		.align	3
+ 638              	.L22:
+ 639 0078 79E92631 		.word	824633721
+ 640 007c 08AC8C3F 		.word	1066183688
+ 641 0080 C3F5285C 		.word	1546188227
+ 642 0084 8FC21C40 		.word	1075626639
+ 643 0088 EC51B81E 		.word	515396076
+ 644 008c 85EBE93F 		.word	1072294789
+ 645              		.cfi_endproc
+ 646              	.LFE68:
+ 647              		.size	TMOT_min, .-TMOT_min
+ 648              		.section	.text.PMOTE_min,"ax",%progbits
+ 649              		.align	2
+ 650              		.global	PMOTE_min
+ 651              		.thumb
+ 652              		.thumb_func
+ 653              		.type	PMOTE_min, %function
+ 654              	PMOTE_min:
+ 655              	.LFB69:
+ 185:.\torquestat.c **** 
+ 186:.\torquestat.c **** /* Minimum Erogated Motor Power Estimated [mW] */
+ 187:.\torquestat.c **** float PMOTE_min(struct STATISTICS *qpower_stat)
+ 188:.\torquestat.c **** {
+ 656              		.loc 1 188 0
+ 657              		.cfi_startproc
+ 658              		@ args = 0, pretend = 0, frame = 8
+ 659              		@ frame_needed = 1, uses_anonymous_args = 0
+ 660 0000 80B5     		push	{r7, lr}
+ 661              	.LCFI38:
+ 662              		.cfi_def_cfa_offset 8
+ 663              		.cfi_offset 7, -8
+ 664              		.cfi_offset 14, -4
+ 665 0002 82B0     		sub	sp, sp, #8
+ 666              	.LCFI39:
+ 667              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 16
+
+
+ 668 0004 00AF     		add	r7, sp, #0
+ 669              	.LCFI40:
+ 670              		.cfi_def_cfa_register 7
+ 671 0006 7860     		str	r0, [r7, #4]
+ 189:.\torquestat.c **** 	return (*qpower_stat).min * Km * eff_M;		//[mW] potenza elettrica minima erogata dal motore
+ 672              		.loc 1 189 0
+ 673 0008 7B68     		ldr	r3, [r7, #4]
+ 674 000a DB68     		ldr	r3, [r3, #12]	@ float
+ 675 000c 1846     		mov	r0, r3
+ 676 000e FFF7FEFF 		bl	__aeabi_f2d
+ 677 0012 0246     		mov	r2, r0
+ 678 0014 0B46     		mov	r3, r1
+ 679 0016 1046     		mov	r0, r2
+ 680 0018 1946     		mov	r1, r3
+ 681 001a 0DA3     		adr	r3, .L26
+ 682 001c D3E90023 		ldrd	r2, [r3]
+ 683 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 684 0024 0246     		mov	r2, r0
+ 685 0026 0B46     		mov	r3, r1
+ 686 0028 1046     		mov	r0, r2
+ 687 002a 1946     		mov	r1, r3
+ 688 002c 0AA3     		adr	r3, .L26+8
+ 689 002e D3E90023 		ldrd	r2, [r3]
+ 690 0032 FFF7FEFF 		bl	__aeabi_dmul
+ 691 0036 0246     		mov	r2, r0
+ 692 0038 0B46     		mov	r3, r1
+ 693 003a 1046     		mov	r0, r2
+ 694 003c 1946     		mov	r1, r3
+ 695 003e FFF7FEFF 		bl	__aeabi_d2f
+ 696 0042 0346     		mov	r3, r0
+ 190:.\torquestat.c **** }
+ 697              		.loc 1 190 0
+ 698 0044 1846     		mov	r0, r3
+ 699 0046 07F10807 		add	r7, r7, #8
+ 700 004a BD46     		mov	sp, r7
+ 701 004c 80BD     		pop	{r7, pc}
+ 702              	.L27:
+ 703 004e 00BF     		.align	3
+ 704              	.L26:
+ 705 0050 C3F5285C 		.word	1546188227
+ 706 0054 8FC21C40 		.word	1075626639
+ 707 0058 EC51B81E 		.word	515396076
+ 708 005c 85EBE93F 		.word	1072294789
+ 709              		.cfi_endproc
+ 710              	.LFE69:
+ 711              		.size	PMOTE_min, .-PMOTE_min
+ 712              		.section	.text.TOUT_min,"ax",%progbits
+ 713              		.align	2
+ 714              		.global	TOUT_min
+ 715              		.thumb
+ 716              		.thumb_func
+ 717              		.type	TOUT_min, %function
+ 718              	TOUT_min:
+ 719              	.LFB70:
+ 191:.\torquestat.c **** 
+ 192:.\torquestat.c **** /* Minimum Output Torque Measured [mNm] */
+ 193:.\torquestat.c **** float TOUT_min(struct STATISTICS *current_stat, float gear_ratio)
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 17
+
+
+ 194:.\torquestat.c **** {
+ 720              		.loc 1 194 0
+ 721              		.cfi_startproc
+ 722              		@ args = 0, pretend = 0, frame = 8
+ 723              		@ frame_needed = 1, uses_anonymous_args = 0
+ 724 0000 80B5     		push	{r7, lr}
+ 725              	.LCFI41:
+ 726              		.cfi_def_cfa_offset 8
+ 727              		.cfi_offset 7, -8
+ 728              		.cfi_offset 14, -4
+ 729 0002 82B0     		sub	sp, sp, #8
+ 730              	.LCFI42:
+ 731              		.cfi_def_cfa_offset 16
+ 732 0004 00AF     		add	r7, sp, #0
+ 733              	.LCFI43:
+ 734              		.cfi_def_cfa_register 7
+ 735 0006 7860     		str	r0, [r7, #4]
+ 736 0008 3960     		str	r1, [r7, #0]	@ float
+ 195:.\torquestat.c **** 	return TMOT_min(current_stat) * gear_ratio * eff_R;
+ 737              		.loc 1 195 0
+ 738 000a 7868     		ldr	r0, [r7, #4]
+ 739 000c FFF7FEFF 		bl	TMOT_min
+ 740 0010 0346     		mov	r3, r0
+ 741 0012 1846     		mov	r0, r3
+ 742 0014 3968     		ldr	r1, [r7, #0]	@ float
+ 743 0016 FFF7FEFF 		bl	__aeabi_fmul
+ 744 001a 0346     		mov	r3, r0
+ 745 001c 1846     		mov	r0, r3
+ 746 001e 4FF07D51 		mov	r1, #1061158912
+ 747 0022 FFF7FEFF 		bl	__aeabi_fmul
+ 748 0026 0346     		mov	r3, r0
+ 196:.\torquestat.c **** }
+ 749              		.loc 1 196 0
+ 750 0028 1846     		mov	r0, r3
+ 751 002a 07F10807 		add	r7, r7, #8
+ 752 002e BD46     		mov	sp, r7
+ 753 0030 80BD     		pop	{r7, pc}
+ 754              		.cfi_endproc
+ 755              	.LFE70:
+ 756              		.size	TOUT_min, .-TOUT_min
+ 757 0032 00BF     		.section	.text.i_max,"ax",%progbits
+ 758              		.align	2
+ 759              		.global	i_max
+ 760              		.thumb
+ 761              		.thumb_func
+ 762              		.type	i_max, %function
+ 763              	i_max:
+ 764              	.LFB71:
+ 197:.\torquestat.c **** 
+ 198:.\torquestat.c **** /* Maximum Current Measured [A] */
+ 199:.\torquestat.c **** float i_max(struct STATISTICS *current_stat)
+ 200:.\torquestat.c **** {
+ 765              		.loc 1 200 0
+ 766              		.cfi_startproc
+ 767              		@ args = 0, pretend = 0, frame = 8
+ 768              		@ frame_needed = 1, uses_anonymous_args = 0
+ 769              		@ link register save eliminated.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 18
+
+
+ 770 0000 80B4     		push	{r7}
+ 771              	.LCFI44:
+ 772              		.cfi_def_cfa_offset 4
+ 773              		.cfi_offset 7, -4
+ 774 0002 83B0     		sub	sp, sp, #12
+ 775              	.LCFI45:
+ 776              		.cfi_def_cfa_offset 16
+ 777 0004 00AF     		add	r7, sp, #0
+ 778              	.LCFI46:
+ 779              		.cfi_def_cfa_register 7
+ 780 0006 7860     		str	r0, [r7, #4]
+ 201:.\torquestat.c **** 	return (*current_stat).max;	
+ 781              		.loc 1 201 0
+ 782 0008 7B68     		ldr	r3, [r7, #4]
+ 783 000a 1B69     		ldr	r3, [r3, #16]	@ float
+ 202:.\torquestat.c **** }
+ 784              		.loc 1 202 0
+ 785 000c 1846     		mov	r0, r3
+ 786 000e 07F10C07 		add	r7, r7, #12
+ 787 0012 BD46     		mov	sp, r7
+ 788 0014 80BC     		pop	{r7}
+ 789 0016 7047     		bx	lr
+ 790              		.cfi_endproc
+ 791              	.LFE71:
+ 792              		.size	i_max, .-i_max
+ 793              		.section	.text.TMOT_max,"ax",%progbits
+ 794              		.align	2
+ 795              		.global	TMOT_max
+ 796              		.thumb
+ 797              		.thumb_func
+ 798              		.type	TMOT_max, %function
+ 799              	TMOT_max:
+ 800              	.LFB72:
+ 203:.\torquestat.c **** 
+ 204:.\torquestat.c **** /* Maximum Motor Torque Measured [mNm] */
+ 205:.\torquestat.c **** float TMOT_max(struct STATISTICS *current_stat)
+ 206:.\torquestat.c **** {
+ 801              		.loc 1 206 0
+ 802              		.cfi_startproc
+ 803              		@ args = 0, pretend = 0, frame = 8
+ 804              		@ frame_needed = 1, uses_anonymous_args = 0
+ 805 0000 80B5     		push	{r7, lr}
+ 806              	.LCFI47:
+ 807              		.cfi_def_cfa_offset 8
+ 808              		.cfi_offset 7, -8
+ 809              		.cfi_offset 14, -4
+ 810 0002 82B0     		sub	sp, sp, #8
+ 811              	.LCFI48:
+ 812              		.cfi_def_cfa_offset 16
+ 813 0004 00AF     		add	r7, sp, #0
+ 814              	.LCFI49:
+ 815              		.cfi_def_cfa_register 7
+ 816 0006 7860     		str	r0, [r7, #4]
+ 207:.\torquestat.c **** 	return fabsf((*current_stat).max - NOLOAD_CURR) * Km * eff_M;		//No load current does not contribu
+ 817              		.loc 1 207 0
+ 818 0008 7B68     		ldr	r3, [r7, #4]
+ 819 000a 1B69     		ldr	r3, [r3, #16]	@ float
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 19
+
+
+ 820 000c 1846     		mov	r0, r3
+ 821 000e FFF7FEFF 		bl	__aeabi_f2d
+ 822 0012 0246     		mov	r2, r0
+ 823 0014 0B46     		mov	r3, r1
+ 824 0016 1046     		mov	r0, r2
+ 825 0018 1946     		mov	r1, r3
+ 826 001a 17A3     		adr	r3, .L34
+ 827 001c D3E90023 		ldrd	r2, [r3]
+ 828 0020 FFF7FEFF 		bl	__aeabi_dsub
+ 829 0024 0246     		mov	r2, r0
+ 830 0026 0B46     		mov	r3, r1
+ 831 0028 1046     		mov	r0, r2
+ 832 002a 1946     		mov	r1, r3
+ 833 002c FFF7FEFF 		bl	__aeabi_d2f
+ 834 0030 0346     		mov	r3, r0
+ 835 0032 23F00043 		bic	r3, r3, #-2147483648
+ 836 0036 1846     		mov	r0, r3
+ 837 0038 FFF7FEFF 		bl	__aeabi_f2d
+ 838 003c 0246     		mov	r2, r0
+ 839 003e 0B46     		mov	r3, r1
+ 840 0040 1046     		mov	r0, r2
+ 841 0042 1946     		mov	r1, r3
+ 842 0044 0EA3     		adr	r3, .L34+8
+ 843 0046 D3E90023 		ldrd	r2, [r3]
+ 844 004a FFF7FEFF 		bl	__aeabi_dmul
+ 845 004e 0246     		mov	r2, r0
+ 846 0050 0B46     		mov	r3, r1
+ 847 0052 1046     		mov	r0, r2
+ 848 0054 1946     		mov	r1, r3
+ 849 0056 0CA3     		adr	r3, .L34+16
+ 850 0058 D3E90023 		ldrd	r2, [r3]
+ 851 005c FFF7FEFF 		bl	__aeabi_dmul
+ 852 0060 0246     		mov	r2, r0
+ 853 0062 0B46     		mov	r3, r1
+ 854 0064 1046     		mov	r0, r2
+ 855 0066 1946     		mov	r1, r3
+ 856 0068 FFF7FEFF 		bl	__aeabi_d2f
+ 857 006c 0346     		mov	r3, r0
+ 208:.\torquestat.c **** }
+ 858              		.loc 1 208 0
+ 859 006e 1846     		mov	r0, r3
+ 860 0070 07F10807 		add	r7, r7, #8
+ 861 0074 BD46     		mov	sp, r7
+ 862 0076 80BD     		pop	{r7, pc}
+ 863              	.L35:
+ 864              		.align	3
+ 865              	.L34:
+ 866 0078 79E92631 		.word	824633721
+ 867 007c 08AC8C3F 		.word	1066183688
+ 868 0080 C3F5285C 		.word	1546188227
+ 869 0084 8FC21C40 		.word	1075626639
+ 870 0088 EC51B81E 		.word	515396076
+ 871 008c 85EBE93F 		.word	1072294789
+ 872              		.cfi_endproc
+ 873              	.LFE72:
+ 874              		.size	TMOT_max, .-TMOT_max
+ 875              		.section	.text.PMOTE_max,"ax",%progbits
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 20
+
+
+ 876              		.align	2
+ 877              		.global	PMOTE_max
+ 878              		.thumb
+ 879              		.thumb_func
+ 880              		.type	PMOTE_max, %function
+ 881              	PMOTE_max:
+ 882              	.LFB73:
+ 209:.\torquestat.c **** 
+ 210:.\torquestat.c **** /* Maximum Erogated Motor Power Estimated [mW] */
+ 211:.\torquestat.c **** float PMOTE_max(struct STATISTICS *qpower_stat)
+ 212:.\torquestat.c **** {
+ 883              		.loc 1 212 0
+ 884              		.cfi_startproc
+ 885              		@ args = 0, pretend = 0, frame = 8
+ 886              		@ frame_needed = 1, uses_anonymous_args = 0
+ 887 0000 80B5     		push	{r7, lr}
+ 888              	.LCFI50:
+ 889              		.cfi_def_cfa_offset 8
+ 890              		.cfi_offset 7, -8
+ 891              		.cfi_offset 14, -4
+ 892 0002 82B0     		sub	sp, sp, #8
+ 893              	.LCFI51:
+ 894              		.cfi_def_cfa_offset 16
+ 895 0004 00AF     		add	r7, sp, #0
+ 896              	.LCFI52:
+ 897              		.cfi_def_cfa_register 7
+ 898 0006 7860     		str	r0, [r7, #4]
+ 213:.\torquestat.c **** 	return (*qpower_stat).max * Km * eff_M;		//[mW] potenza elettrica massima erogata dal motore
+ 899              		.loc 1 213 0
+ 900 0008 7B68     		ldr	r3, [r7, #4]
+ 901 000a 1B69     		ldr	r3, [r3, #16]	@ float
+ 902 000c 1846     		mov	r0, r3
+ 903 000e FFF7FEFF 		bl	__aeabi_f2d
+ 904 0012 0246     		mov	r2, r0
+ 905 0014 0B46     		mov	r3, r1
+ 906 0016 1046     		mov	r0, r2
+ 907 0018 1946     		mov	r1, r3
+ 908 001a 0DA3     		adr	r3, .L38
+ 909 001c D3E90023 		ldrd	r2, [r3]
+ 910 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 911 0024 0246     		mov	r2, r0
+ 912 0026 0B46     		mov	r3, r1
+ 913 0028 1046     		mov	r0, r2
+ 914 002a 1946     		mov	r1, r3
+ 915 002c 0AA3     		adr	r3, .L38+8
+ 916 002e D3E90023 		ldrd	r2, [r3]
+ 917 0032 FFF7FEFF 		bl	__aeabi_dmul
+ 918 0036 0246     		mov	r2, r0
+ 919 0038 0B46     		mov	r3, r1
+ 920 003a 1046     		mov	r0, r2
+ 921 003c 1946     		mov	r1, r3
+ 922 003e FFF7FEFF 		bl	__aeabi_d2f
+ 923 0042 0346     		mov	r3, r0
+ 214:.\torquestat.c **** }
+ 924              		.loc 1 214 0
+ 925 0044 1846     		mov	r0, r3
+ 926 0046 07F10807 		add	r7, r7, #8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 21
+
+
+ 927 004a BD46     		mov	sp, r7
+ 928 004c 80BD     		pop	{r7, pc}
+ 929              	.L39:
+ 930 004e 00BF     		.align	3
+ 931              	.L38:
+ 932 0050 C3F5285C 		.word	1546188227
+ 933 0054 8FC21C40 		.word	1075626639
+ 934 0058 EC51B81E 		.word	515396076
+ 935 005c 85EBE93F 		.word	1072294789
+ 936              		.cfi_endproc
+ 937              	.LFE73:
+ 938              		.size	PMOTE_max, .-PMOTE_max
+ 939              		.section	.text.TOUT_max,"ax",%progbits
+ 940              		.align	2
+ 941              		.global	TOUT_max
+ 942              		.thumb
+ 943              		.thumb_func
+ 944              		.type	TOUT_max, %function
+ 945              	TOUT_max:
+ 946              	.LFB74:
+ 215:.\torquestat.c **** 
+ 216:.\torquestat.c **** /* Maximum Output Torque Measured [mNm] */
+ 217:.\torquestat.c **** float TOUT_max(struct STATISTICS *current_stat, float gear_ratio)
+ 218:.\torquestat.c **** {
+ 947              		.loc 1 218 0
+ 948              		.cfi_startproc
+ 949              		@ args = 0, pretend = 0, frame = 8
+ 950              		@ frame_needed = 1, uses_anonymous_args = 0
+ 951 0000 80B5     		push	{r7, lr}
+ 952              	.LCFI53:
+ 953              		.cfi_def_cfa_offset 8
+ 954              		.cfi_offset 7, -8
+ 955              		.cfi_offset 14, -4
+ 956 0002 82B0     		sub	sp, sp, #8
+ 957              	.LCFI54:
+ 958              		.cfi_def_cfa_offset 16
+ 959 0004 00AF     		add	r7, sp, #0
+ 960              	.LCFI55:
+ 961              		.cfi_def_cfa_register 7
+ 962 0006 7860     		str	r0, [r7, #4]
+ 963 0008 3960     		str	r1, [r7, #0]	@ float
+ 219:.\torquestat.c **** 	return TMOT_max(current_stat) * gear_ratio * eff_R;
+ 964              		.loc 1 219 0
+ 965 000a 7868     		ldr	r0, [r7, #4]
+ 966 000c FFF7FEFF 		bl	TMOT_max
+ 967 0010 0346     		mov	r3, r0
+ 968 0012 1846     		mov	r0, r3
+ 969 0014 3968     		ldr	r1, [r7, #0]	@ float
+ 970 0016 FFF7FEFF 		bl	__aeabi_fmul
+ 971 001a 0346     		mov	r3, r0
+ 972 001c 1846     		mov	r0, r3
+ 973 001e 4FF07D51 		mov	r1, #1061158912
+ 974 0022 FFF7FEFF 		bl	__aeabi_fmul
+ 975 0026 0346     		mov	r3, r0
+ 220:.\torquestat.c **** }
+ 976              		.loc 1 220 0
+ 977 0028 1846     		mov	r0, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 22
+
+
+ 978 002a 07F10807 		add	r7, r7, #8
+ 979 002e BD46     		mov	sp, r7
+ 980 0030 80BD     		pop	{r7, pc}
+ 981              		.cfi_endproc
+ 982              	.LFE74:
+ 983              		.size	TOUT_max, .-TOUT_max
+ 984 0032 00BF     		.section	.text.i_mean,"ax",%progbits
+ 985              		.align	2
+ 986              		.global	i_mean
+ 987              		.thumb
+ 988              		.thumb_func
+ 989              		.type	i_mean, %function
+ 990              	i_mean:
+ 991              	.LFB75:
+ 221:.\torquestat.c **** 
+ 222:.\torquestat.c **** /* Mean Current Measured [A]	*/
+ 223:.\torquestat.c **** float i_mean(struct STATISTICS *current_stat)
+ 224:.\torquestat.c **** {
+ 992              		.loc 1 224 0
+ 993              		.cfi_startproc
+ 994              		@ args = 0, pretend = 0, frame = 8
+ 995              		@ frame_needed = 1, uses_anonymous_args = 0
+ 996              		@ link register save eliminated.
+ 997 0000 80B4     		push	{r7}
+ 998              	.LCFI56:
+ 999              		.cfi_def_cfa_offset 4
+ 1000              		.cfi_offset 7, -4
+ 1001 0002 83B0     		sub	sp, sp, #12
+ 1002              	.LCFI57:
+ 1003              		.cfi_def_cfa_offset 16
+ 1004 0004 00AF     		add	r7, sp, #0
+ 1005              	.LCFI58:
+ 1006              		.cfi_def_cfa_register 7
+ 1007 0006 7860     		str	r0, [r7, #4]
+ 225:.\torquestat.c **** 	return (*current_stat).mean;		
+ 1008              		.loc 1 225 0
+ 1009 0008 7B68     		ldr	r3, [r7, #4]
+ 1010 000a 5B68     		ldr	r3, [r3, #4]	@ float
+ 226:.\torquestat.c **** }
+ 1011              		.loc 1 226 0
+ 1012 000c 1846     		mov	r0, r3
+ 1013 000e 07F10C07 		add	r7, r7, #12
+ 1014 0012 BD46     		mov	sp, r7
+ 1015 0014 80BC     		pop	{r7}
+ 1016 0016 7047     		bx	lr
+ 1017              		.cfi_endproc
+ 1018              	.LFE75:
+ 1019              		.size	i_mean, .-i_mean
+ 1020              		.section	.text.TMOT_mean,"ax",%progbits
+ 1021              		.align	2
+ 1022              		.global	TMOT_mean
+ 1023              		.thumb
+ 1024              		.thumb_func
+ 1025              		.type	TMOT_mean, %function
+ 1026              	TMOT_mean:
+ 1027              	.LFB76:
+ 227:.\torquestat.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 23
+
+
+ 228:.\torquestat.c **** /* Mean Motor Torque Measured	[mNm] */
+ 229:.\torquestat.c **** float TMOT_mean(struct STATISTICS *current_stat)
+ 230:.\torquestat.c **** {
+ 1028              		.loc 1 230 0
+ 1029              		.cfi_startproc
+ 1030              		@ args = 0, pretend = 0, frame = 8
+ 1031              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1032 0000 80B5     		push	{r7, lr}
+ 1033              	.LCFI59:
+ 1034              		.cfi_def_cfa_offset 8
+ 1035              		.cfi_offset 7, -8
+ 1036              		.cfi_offset 14, -4
+ 1037 0002 82B0     		sub	sp, sp, #8
+ 1038              	.LCFI60:
+ 1039              		.cfi_def_cfa_offset 16
+ 1040 0004 00AF     		add	r7, sp, #0
+ 1041              	.LCFI61:
+ 1042              		.cfi_def_cfa_register 7
+ 1043 0006 7860     		str	r0, [r7, #4]
+ 231:.\torquestat.c **** 	return fabsf((*current_stat).mean - NOLOAD_CURR) * Km * eff_M ;		//No load current does not contri
+ 1044              		.loc 1 231 0
+ 1045 0008 7B68     		ldr	r3, [r7, #4]
+ 1046 000a 5B68     		ldr	r3, [r3, #4]	@ float
+ 1047 000c 1846     		mov	r0, r3
+ 1048 000e FFF7FEFF 		bl	__aeabi_f2d
+ 1049 0012 0246     		mov	r2, r0
+ 1050 0014 0B46     		mov	r3, r1
+ 1051 0016 1046     		mov	r0, r2
+ 1052 0018 1946     		mov	r1, r3
+ 1053 001a 17A3     		adr	r3, .L46
+ 1054 001c D3E90023 		ldrd	r2, [r3]
+ 1055 0020 FFF7FEFF 		bl	__aeabi_dsub
+ 1056 0024 0246     		mov	r2, r0
+ 1057 0026 0B46     		mov	r3, r1
+ 1058 0028 1046     		mov	r0, r2
+ 1059 002a 1946     		mov	r1, r3
+ 1060 002c FFF7FEFF 		bl	__aeabi_d2f
+ 1061 0030 0346     		mov	r3, r0
+ 1062 0032 23F00043 		bic	r3, r3, #-2147483648
+ 1063 0036 1846     		mov	r0, r3
+ 1064 0038 FFF7FEFF 		bl	__aeabi_f2d
+ 1065 003c 0246     		mov	r2, r0
+ 1066 003e 0B46     		mov	r3, r1
+ 1067 0040 1046     		mov	r0, r2
+ 1068 0042 1946     		mov	r1, r3
+ 1069 0044 0EA3     		adr	r3, .L46+8
+ 1070 0046 D3E90023 		ldrd	r2, [r3]
+ 1071 004a FFF7FEFF 		bl	__aeabi_dmul
+ 1072 004e 0246     		mov	r2, r0
+ 1073 0050 0B46     		mov	r3, r1
+ 1074 0052 1046     		mov	r0, r2
+ 1075 0054 1946     		mov	r1, r3
+ 1076 0056 0CA3     		adr	r3, .L46+16
+ 1077 0058 D3E90023 		ldrd	r2, [r3]
+ 1078 005c FFF7FEFF 		bl	__aeabi_dmul
+ 1079 0060 0246     		mov	r2, r0
+ 1080 0062 0B46     		mov	r3, r1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 24
+
+
+ 1081 0064 1046     		mov	r0, r2
+ 1082 0066 1946     		mov	r1, r3
+ 1083 0068 FFF7FEFF 		bl	__aeabi_d2f
+ 1084 006c 0346     		mov	r3, r0
+ 232:.\torquestat.c **** }
+ 1085              		.loc 1 232 0
+ 1086 006e 1846     		mov	r0, r3
+ 1087 0070 07F10807 		add	r7, r7, #8
+ 1088 0074 BD46     		mov	sp, r7
+ 1089 0076 80BD     		pop	{r7, pc}
+ 1090              	.L47:
+ 1091              		.align	3
+ 1092              	.L46:
+ 1093 0078 79E92631 		.word	824633721
+ 1094 007c 08AC8C3F 		.word	1066183688
+ 1095 0080 C3F5285C 		.word	1546188227
+ 1096 0084 8FC21C40 		.word	1075626639
+ 1097 0088 EC51B81E 		.word	515396076
+ 1098 008c 85EBE93F 		.word	1072294789
+ 1099              		.cfi_endproc
+ 1100              	.LFE76:
+ 1101              		.size	TMOT_mean, .-TMOT_mean
+ 1102              		.section	.text.PMOTE_mean,"ax",%progbits
+ 1103              		.align	2
+ 1104              		.global	PMOTE_mean
+ 1105              		.thumb
+ 1106              		.thumb_func
+ 1107              		.type	PMOTE_mean, %function
+ 1108              	PMOTE_mean:
+ 1109              	.LFB77:
+ 233:.\torquestat.c **** 
+ 234:.\torquestat.c **** /* Mean Erogated Motor Power Estimated	[mW] */
+ 235:.\torquestat.c **** float PMOTE_mean(struct STATISTICS *qpower_stat)
+ 236:.\torquestat.c **** {
+ 1110              		.loc 1 236 0
+ 1111              		.cfi_startproc
+ 1112              		@ args = 0, pretend = 0, frame = 8
+ 1113              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1114 0000 80B5     		push	{r7, lr}
+ 1115              	.LCFI62:
+ 1116              		.cfi_def_cfa_offset 8
+ 1117              		.cfi_offset 7, -8
+ 1118              		.cfi_offset 14, -4
+ 1119 0002 82B0     		sub	sp, sp, #8
+ 1120              	.LCFI63:
+ 1121              		.cfi_def_cfa_offset 16
+ 1122 0004 00AF     		add	r7, sp, #0
+ 1123              	.LCFI64:
+ 1124              		.cfi_def_cfa_register 7
+ 1125 0006 7860     		str	r0, [r7, #4]
+ 237:.\torquestat.c **** 	return (*qpower_stat).mean * Km * eff_M;		//[mW] potenza elettrica media erogata dal motore
+ 1126              		.loc 1 237 0
+ 1127 0008 7B68     		ldr	r3, [r7, #4]
+ 1128 000a 5B68     		ldr	r3, [r3, #4]	@ float
+ 1129 000c 1846     		mov	r0, r3
+ 1130 000e FFF7FEFF 		bl	__aeabi_f2d
+ 1131 0012 0246     		mov	r2, r0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 25
+
+
+ 1132 0014 0B46     		mov	r3, r1
+ 1133 0016 1046     		mov	r0, r2
+ 1134 0018 1946     		mov	r1, r3
+ 1135 001a 0DA3     		adr	r3, .L50
+ 1136 001c D3E90023 		ldrd	r2, [r3]
+ 1137 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 1138 0024 0246     		mov	r2, r0
+ 1139 0026 0B46     		mov	r3, r1
+ 1140 0028 1046     		mov	r0, r2
+ 1141 002a 1946     		mov	r1, r3
+ 1142 002c 0AA3     		adr	r3, .L50+8
+ 1143 002e D3E90023 		ldrd	r2, [r3]
+ 1144 0032 FFF7FEFF 		bl	__aeabi_dmul
+ 1145 0036 0246     		mov	r2, r0
+ 1146 0038 0B46     		mov	r3, r1
+ 1147 003a 1046     		mov	r0, r2
+ 1148 003c 1946     		mov	r1, r3
+ 1149 003e FFF7FEFF 		bl	__aeabi_d2f
+ 1150 0042 0346     		mov	r3, r0
+ 238:.\torquestat.c **** }
+ 1151              		.loc 1 238 0
+ 1152 0044 1846     		mov	r0, r3
+ 1153 0046 07F10807 		add	r7, r7, #8
+ 1154 004a BD46     		mov	sp, r7
+ 1155 004c 80BD     		pop	{r7, pc}
+ 1156              	.L51:
+ 1157 004e 00BF     		.align	3
+ 1158              	.L50:
+ 1159 0050 C3F5285C 		.word	1546188227
+ 1160 0054 8FC21C40 		.word	1075626639
+ 1161 0058 EC51B81E 		.word	515396076
+ 1162 005c 85EBE93F 		.word	1072294789
+ 1163              		.cfi_endproc
+ 1164              	.LFE77:
+ 1165              		.size	PMOTE_mean, .-PMOTE_mean
+ 1166              		.section	.text.TOUT_mean,"ax",%progbits
+ 1167              		.align	2
+ 1168              		.global	TOUT_mean
+ 1169              		.thumb
+ 1170              		.thumb_func
+ 1171              		.type	TOUT_mean, %function
+ 1172              	TOUT_mean:
+ 1173              	.LFB78:
+ 239:.\torquestat.c **** 
+ 240:.\torquestat.c **** /* Mean Output Torque Measured	[mNm] */
+ 241:.\torquestat.c **** float TOUT_mean(struct STATISTICS *current_stat, float gear_ratio)
+ 242:.\torquestat.c **** {
+ 1174              		.loc 1 242 0
+ 1175              		.cfi_startproc
+ 1176              		@ args = 0, pretend = 0, frame = 8
+ 1177              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1178 0000 80B5     		push	{r7, lr}
+ 1179              	.LCFI65:
+ 1180              		.cfi_def_cfa_offset 8
+ 1181              		.cfi_offset 7, -8
+ 1182              		.cfi_offset 14, -4
+ 1183 0002 82B0     		sub	sp, sp, #8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 26
+
+
+ 1184              	.LCFI66:
+ 1185              		.cfi_def_cfa_offset 16
+ 1186 0004 00AF     		add	r7, sp, #0
+ 1187              	.LCFI67:
+ 1188              		.cfi_def_cfa_register 7
+ 1189 0006 7860     		str	r0, [r7, #4]
+ 1190 0008 3960     		str	r1, [r7, #0]	@ float
+ 243:.\torquestat.c **** 	return TMOT_mean(current_stat) * gear_ratio * eff_R;	
+ 1191              		.loc 1 243 0
+ 1192 000a 7868     		ldr	r0, [r7, #4]
+ 1193 000c FFF7FEFF 		bl	TMOT_mean
+ 1194 0010 0346     		mov	r3, r0
+ 1195 0012 1846     		mov	r0, r3
+ 1196 0014 3968     		ldr	r1, [r7, #0]	@ float
+ 1197 0016 FFF7FEFF 		bl	__aeabi_fmul
+ 1198 001a 0346     		mov	r3, r0
+ 1199 001c 1846     		mov	r0, r3
+ 1200 001e 4FF07D51 		mov	r1, #1061158912
+ 1201 0022 FFF7FEFF 		bl	__aeabi_fmul
+ 1202 0026 0346     		mov	r3, r0
+ 244:.\torquestat.c **** }
+ 1203              		.loc 1 244 0
+ 1204 0028 1846     		mov	r0, r3
+ 1205 002a 07F10807 		add	r7, r7, #8
+ 1206 002e BD46     		mov	sp, r7
+ 1207 0030 80BD     		pop	{r7, pc}
+ 1208              		.cfi_endproc
+ 1209              	.LFE78:
+ 1210              		.size	TOUT_mean, .-TOUT_mean
+ 1211 0032 00BF     		.section	.text.i_variance,"ax",%progbits
+ 1212              		.align	2
+ 1213              		.global	i_variance
+ 1214              		.thumb
+ 1215              		.thumb_func
+ 1216              		.type	i_variance, %function
+ 1217              	i_variance:
+ 1218              	.LFB79:
+ 245:.\torquestat.c **** 
+ 246:.\torquestat.c **** /* Current Variance Measured [A]	*/
+ 247:.\torquestat.c **** float i_variance(struct STATISTICS *current_stat)
+ 248:.\torquestat.c **** {
+ 1219              		.loc 1 248 0
+ 1220              		.cfi_startproc
+ 1221              		@ args = 0, pretend = 0, frame = 8
+ 1222              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1223              		@ link register save eliminated.
+ 1224 0000 80B4     		push	{r7}
+ 1225              	.LCFI68:
+ 1226              		.cfi_def_cfa_offset 4
+ 1227              		.cfi_offset 7, -4
+ 1228 0002 83B0     		sub	sp, sp, #12
+ 1229              	.LCFI69:
+ 1230              		.cfi_def_cfa_offset 16
+ 1231 0004 00AF     		add	r7, sp, #0
+ 1232              	.LCFI70:
+ 1233              		.cfi_def_cfa_register 7
+ 1234 0006 7860     		str	r0, [r7, #4]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 27
+
+
+ 249:.\torquestat.c **** 	return (*current_stat).variance;		
+ 1235              		.loc 1 249 0
+ 1236 0008 7B68     		ldr	r3, [r7, #4]
+ 1237 000a 5B6A     		ldr	r3, [r3, #36]	@ float
+ 250:.\torquestat.c **** }
+ 1238              		.loc 1 250 0
+ 1239 000c 1846     		mov	r0, r3
+ 1240 000e 07F10C07 		add	r7, r7, #12
+ 1241 0012 BD46     		mov	sp, r7
+ 1242 0014 80BC     		pop	{r7}
+ 1243 0016 7047     		bx	lr
+ 1244              		.cfi_endproc
+ 1245              	.LFE79:
+ 1246              		.size	i_variance, .-i_variance
+ 1247              		.section	.text.TMOT_variance,"ax",%progbits
+ 1248              		.align	2
+ 1249              		.global	TMOT_variance
+ 1250              		.thumb
+ 1251              		.thumb_func
+ 1252              		.type	TMOT_variance, %function
+ 1253              	TMOT_variance:
+ 1254              	.LFB80:
+ 251:.\torquestat.c **** 
+ 252:.\torquestat.c **** /* Torque Motor Variance Measured	[mNm] */
+ 253:.\torquestat.c **** float TMOT_variance(struct STATISTICS *current_stat)
+ 254:.\torquestat.c **** {
+ 1255              		.loc 1 254 0
+ 1256              		.cfi_startproc
+ 1257              		@ args = 0, pretend = 0, frame = 8
+ 1258              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1259 0000 80B5     		push	{r7, lr}
+ 1260              	.LCFI71:
+ 1261              		.cfi_def_cfa_offset 8
+ 1262              		.cfi_offset 7, -8
+ 1263              		.cfi_offset 14, -4
+ 1264 0002 82B0     		sub	sp, sp, #8
+ 1265              	.LCFI72:
+ 1266              		.cfi_def_cfa_offset 16
+ 1267 0004 00AF     		add	r7, sp, #0
+ 1268              	.LCFI73:
+ 1269              		.cfi_def_cfa_register 7
+ 1270 0006 7860     		str	r0, [r7, #4]
+ 255:.\torquestat.c **** 	return (*current_stat).variance * Km * eff_M;		
+ 1271              		.loc 1 255 0
+ 1272 0008 7B68     		ldr	r3, [r7, #4]
+ 1273 000a 5B6A     		ldr	r3, [r3, #36]	@ float
+ 1274 000c 1846     		mov	r0, r3
+ 1275 000e FFF7FEFF 		bl	__aeabi_f2d
+ 1276 0012 0246     		mov	r2, r0
+ 1277 0014 0B46     		mov	r3, r1
+ 1278 0016 1046     		mov	r0, r2
+ 1279 0018 1946     		mov	r1, r3
+ 1280 001a 0DA3     		adr	r3, .L58
+ 1281 001c D3E90023 		ldrd	r2, [r3]
+ 1282 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 1283 0024 0246     		mov	r2, r0
+ 1284 0026 0B46     		mov	r3, r1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 28
+
+
+ 1285 0028 1046     		mov	r0, r2
+ 1286 002a 1946     		mov	r1, r3
+ 1287 002c 0AA3     		adr	r3, .L58+8
+ 1288 002e D3E90023 		ldrd	r2, [r3]
+ 1289 0032 FFF7FEFF 		bl	__aeabi_dmul
+ 1290 0036 0246     		mov	r2, r0
+ 1291 0038 0B46     		mov	r3, r1
+ 1292 003a 1046     		mov	r0, r2
+ 1293 003c 1946     		mov	r1, r3
+ 1294 003e FFF7FEFF 		bl	__aeabi_d2f
+ 1295 0042 0346     		mov	r3, r0
+ 256:.\torquestat.c **** }
+ 1296              		.loc 1 256 0
+ 1297 0044 1846     		mov	r0, r3
+ 1298 0046 07F10807 		add	r7, r7, #8
+ 1299 004a BD46     		mov	sp, r7
+ 1300 004c 80BD     		pop	{r7, pc}
+ 1301              	.L59:
+ 1302 004e 00BF     		.align	3
+ 1303              	.L58:
+ 1304 0050 C3F5285C 		.word	1546188227
+ 1305 0054 8FC21C40 		.word	1075626639
+ 1306 0058 EC51B81E 		.word	515396076
+ 1307 005c 85EBE93F 		.word	1072294789
+ 1308              		.cfi_endproc
+ 1309              	.LFE80:
+ 1310              		.size	TMOT_variance, .-TMOT_variance
+ 1311              		.section	.text.TOUT_variance,"ax",%progbits
+ 1312              		.align	2
+ 1313              		.global	TOUT_variance
+ 1314              		.thumb
+ 1315              		.thumb_func
+ 1316              		.type	TOUT_variance, %function
+ 1317              	TOUT_variance:
+ 1318              	.LFB81:
+ 257:.\torquestat.c **** 
+ 258:.\torquestat.c **** /* Torque Output Variance Measured	[mNm] */
+ 259:.\torquestat.c **** float TOUT_variance(struct STATISTICS *current_stat, float gear_ratio)
+ 260:.\torquestat.c **** {
+ 1319              		.loc 1 260 0
+ 1320              		.cfi_startproc
+ 1321              		@ args = 0, pretend = 0, frame = 8
+ 1322              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1323 0000 80B5     		push	{r7, lr}
+ 1324              	.LCFI74:
+ 1325              		.cfi_def_cfa_offset 8
+ 1326              		.cfi_offset 7, -8
+ 1327              		.cfi_offset 14, -4
+ 1328 0002 82B0     		sub	sp, sp, #8
+ 1329              	.LCFI75:
+ 1330              		.cfi_def_cfa_offset 16
+ 1331 0004 00AF     		add	r7, sp, #0
+ 1332              	.LCFI76:
+ 1333              		.cfi_def_cfa_register 7
+ 1334 0006 7860     		str	r0, [r7, #4]
+ 1335 0008 3960     		str	r1, [r7, #0]	@ float
+ 261:.\torquestat.c **** 	return TMOT_variance(current_stat) * gear_ratio * eff_R;		
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 29
+
+
+ 1336              		.loc 1 261 0
+ 1337 000a 7868     		ldr	r0, [r7, #4]
+ 1338 000c FFF7FEFF 		bl	TMOT_variance
+ 1339 0010 0346     		mov	r3, r0
+ 1340 0012 1846     		mov	r0, r3
+ 1341 0014 3968     		ldr	r1, [r7, #0]	@ float
+ 1342 0016 FFF7FEFF 		bl	__aeabi_fmul
+ 1343 001a 0346     		mov	r3, r0
+ 1344 001c 1846     		mov	r0, r3
+ 1345 001e 4FF07D51 		mov	r1, #1061158912
+ 1346 0022 FFF7FEFF 		bl	__aeabi_fmul
+ 1347 0026 0346     		mov	r3, r0
+ 262:.\torquestat.c **** }
+ 1348              		.loc 1 262 0
+ 1349 0028 1846     		mov	r0, r3
+ 1350 002a 07F10807 		add	r7, r7, #8
+ 1351 002e BD46     		mov	sp, r7
+ 1352 0030 80BD     		pop	{r7, pc}
+ 1353              		.cfi_endproc
+ 1354              	.LFE81:
+ 1355              		.size	TOUT_variance, .-TOUT_variance
+ 1356 0032 00BF     		.section	.text.i_t,"ax",%progbits
+ 1357              		.align	2
+ 1358              		.global	i_t
+ 1359              		.thumb
+ 1360              		.thumb_func
+ 1361              		.type	i_t, %function
+ 1362              	i_t:
+ 1363              	.LFB82:
+ 263:.\torquestat.c **** 
+ 264:.\torquestat.c **** /* Instantaneous Absolute Current Measured [A] */
+ 265:.\torquestat.c **** float i_t(struct TORQUESTAT *torque_stat)
+ 266:.\torquestat.c **** {
+ 1364              		.loc 1 266 0
+ 1365              		.cfi_startproc
+ 1366              		@ args = 0, pretend = 0, frame = 8
+ 1367              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1368              		@ link register save eliminated.
+ 1369 0000 80B4     		push	{r7}
+ 1370              	.LCFI77:
+ 1371              		.cfi_def_cfa_offset 4
+ 1372              		.cfi_offset 7, -4
+ 1373 0002 83B0     		sub	sp, sp, #12
+ 1374              	.LCFI78:
+ 1375              		.cfi_def_cfa_offset 16
+ 1376 0004 00AF     		add	r7, sp, #0
+ 1377              	.LCFI79:
+ 1378              		.cfi_def_cfa_register 7
+ 1379 0006 7860     		str	r0, [r7, #4]
+ 267:.\torquestat.c **** 	return (*torque_stat).abs_current_t;	//abs(i(t))	
+ 1380              		.loc 1 267 0
+ 1381 0008 7B68     		ldr	r3, [r7, #4]
+ 1382 000a 9B68     		ldr	r3, [r3, #8]	@ float
+ 268:.\torquestat.c **** }
+ 1383              		.loc 1 268 0
+ 1384 000c 1846     		mov	r0, r3
+ 1385 000e 07F10C07 		add	r7, r7, #12
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 30
+
+
+ 1386 0012 BD46     		mov	sp, r7
+ 1387 0014 80BC     		pop	{r7}
+ 1388 0016 7047     		bx	lr
+ 1389              		.cfi_endproc
+ 1390              	.LFE82:
+ 1391              		.size	i_t, .-i_t
+ 1392              		.section	.text.omega_t,"ax",%progbits
+ 1393              		.align	2
+ 1394              		.global	omega_t
+ 1395              		.thumb
+ 1396              		.thumb_func
+ 1397              		.type	omega_t, %function
+ 1398              	omega_t:
+ 1399              	.LFB83:
+ 269:.\torquestat.c **** 
+ 270:.\torquestat.c **** /* Instantaneous angular velocity Measured [rad/sec] */
+ 271:.\torquestat.c **** float omega_t(struct TORQUESTAT *torque_stat)
+ 272:.\torquestat.c **** {
+ 1400              		.loc 1 272 0
+ 1401              		.cfi_startproc
+ 1402              		@ args = 0, pretend = 0, frame = 8
+ 1403              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1404              		@ link register save eliminated.
+ 1405 0000 80B4     		push	{r7}
+ 1406              	.LCFI80:
+ 1407              		.cfi_def_cfa_offset 4
+ 1408              		.cfi_offset 7, -4
+ 1409 0002 83B0     		sub	sp, sp, #12
+ 1410              	.LCFI81:
+ 1411              		.cfi_def_cfa_offset 16
+ 1412 0004 00AF     		add	r7, sp, #0
+ 1413              	.LCFI82:
+ 1414              		.cfi_def_cfa_register 7
+ 1415 0006 7860     		str	r0, [r7, #4]
+ 273:.\torquestat.c **** 	return (*torque_stat).pwcalc.abs_omega_t;			//abs(omega(t))	
+ 1416              		.loc 1 273 0
+ 1417 0008 7B68     		ldr	r3, [r7, #4]
+ 1418 000a DB68     		ldr	r3, [r3, #12]	@ float
+ 274:.\torquestat.c **** }
+ 1419              		.loc 1 274 0
+ 1420 000c 1846     		mov	r0, r3
+ 1421 000e 07F10C07 		add	r7, r7, #12
+ 1422 0012 BD46     		mov	sp, r7
+ 1423 0014 80BC     		pop	{r7}
+ 1424 0016 7047     		bx	lr
+ 1425              		.cfi_endproc
+ 1426              	.LFE83:
+ 1427              		.size	omega_t, .-omega_t
+ 1428              		.section	.text.rpm_t,"ax",%progbits
+ 1429              		.align	2
+ 1430              		.global	rpm_t
+ 1431              		.thumb
+ 1432              		.thumb_func
+ 1433              		.type	rpm_t, %function
+ 1434              	rpm_t:
+ 1435              	.LFB84:
+ 275:.\torquestat.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 31
+
+
+ 276:.\torquestat.c **** /* Instantaneous angular velocity Measured [rpm] */
+ 277:.\torquestat.c **** float rpm_t(struct TORQUESTAT *torque_stat)
+ 278:.\torquestat.c **** {
+ 1436              		.loc 1 278 0
+ 1437              		.cfi_startproc
+ 1438              		@ args = 0, pretend = 0, frame = 8
+ 1439              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1440 0000 80B5     		push	{r7, lr}
+ 1441              	.LCFI83:
+ 1442              		.cfi_def_cfa_offset 8
+ 1443              		.cfi_offset 7, -8
+ 1444              		.cfi_offset 14, -4
+ 1445 0002 82B0     		sub	sp, sp, #8
+ 1446              	.LCFI84:
+ 1447              		.cfi_def_cfa_offset 16
+ 1448 0004 00AF     		add	r7, sp, #0
+ 1449              	.LCFI85:
+ 1450              		.cfi_def_cfa_register 7
+ 1451 0006 7860     		str	r0, [r7, #4]
+ 279:.\torquestat.c **** 	return omega_t(torque_stat) * RADSEC_TO_RPM;		//abs(rpm(t))	
+ 1452              		.loc 1 279 0
+ 1453 0008 7868     		ldr	r0, [r7, #4]
+ 1454 000a FFF7FEFF 		bl	omega_t
+ 1455 000e 0346     		mov	r3, r0
+ 1456 0010 1846     		mov	r0, r3
+ 1457 0012 FFF7FEFF 		bl	__aeabi_f2d
+ 1458 0016 0246     		mov	r2, r0
+ 1459 0018 0B46     		mov	r3, r1
+ 1460 001a 1046     		mov	r0, r2
+ 1461 001c 1946     		mov	r1, r3
+ 1462 001e 08A3     		adr	r3, .L68
+ 1463 0020 D3E90023 		ldrd	r2, [r3]
+ 1464 0024 FFF7FEFF 		bl	__aeabi_dmul
+ 1465 0028 0246     		mov	r2, r0
+ 1466 002a 0B46     		mov	r3, r1
+ 1467 002c 1046     		mov	r0, r2
+ 1468 002e 1946     		mov	r1, r3
+ 1469 0030 FFF7FEFF 		bl	__aeabi_d2f
+ 1470 0034 0346     		mov	r3, r0
+ 280:.\torquestat.c **** }
+ 1471              		.loc 1 280 0
+ 1472 0036 1846     		mov	r0, r3
+ 1473 0038 07F10807 		add	r7, r7, #8
+ 1474 003c BD46     		mov	sp, r7
+ 1475 003e 80BD     		pop	{r7, pc}
+ 1476              	.L69:
+ 1477              		.align	3
+ 1478              	.L68:
+ 1479 0040 6AB51367 		.word	1729344874
+ 1480 0044 3D192340 		.word	1076042045
+ 1481              		.cfi_endproc
+ 1482              	.LFE84:
+ 1483              		.size	rpm_t, .-rpm_t
+ 1484              		.section	.text.TMOT_t,"ax",%progbits
+ 1485              		.align	2
+ 1486              		.global	TMOT_t
+ 1487              		.thumb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 32
+
+
+ 1488              		.thumb_func
+ 1489              		.type	TMOT_t, %function
+ 1490              	TMOT_t:
+ 1491              	.LFB85:
+ 281:.\torquestat.c **** 
+ 282:.\torquestat.c **** /* Instantaneous Motor Torque Measured [mNm] */
+ 283:.\torquestat.c **** float TMOT_t(struct TORQUESTAT *torque_stat)
+ 284:.\torquestat.c **** {
+ 1492              		.loc 1 284 0
+ 1493              		.cfi_startproc
+ 1494              		@ args = 0, pretend = 0, frame = 8
+ 1495              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1496 0000 80B5     		push	{r7, lr}
+ 1497              	.LCFI86:
+ 1498              		.cfi_def_cfa_offset 8
+ 1499              		.cfi_offset 7, -8
+ 1500              		.cfi_offset 14, -4
+ 1501 0002 82B0     		sub	sp, sp, #8
+ 1502              	.LCFI87:
+ 1503              		.cfi_def_cfa_offset 16
+ 1504 0004 00AF     		add	r7, sp, #0
+ 1505              	.LCFI88:
+ 1506              		.cfi_def_cfa_register 7
+ 1507 0006 7860     		str	r0, [r7, #4]
+ 285:.\torquestat.c **** 	return fabsf((*torque_stat).abs_current_t - NOLOAD_CURR) * Km * eff_M;		//No load current does not
+ 1508              		.loc 1 285 0
+ 1509 0008 7B68     		ldr	r3, [r7, #4]
+ 1510 000a 9B68     		ldr	r3, [r3, #8]	@ float
+ 1511 000c 1846     		mov	r0, r3
+ 1512 000e FFF7FEFF 		bl	__aeabi_f2d
+ 1513 0012 0246     		mov	r2, r0
+ 1514 0014 0B46     		mov	r3, r1
+ 1515 0016 1046     		mov	r0, r2
+ 1516 0018 1946     		mov	r1, r3
+ 1517 001a 17A3     		adr	r3, .L72
+ 1518 001c D3E90023 		ldrd	r2, [r3]
+ 1519 0020 FFF7FEFF 		bl	__aeabi_dsub
+ 1520 0024 0246     		mov	r2, r0
+ 1521 0026 0B46     		mov	r3, r1
+ 1522 0028 1046     		mov	r0, r2
+ 1523 002a 1946     		mov	r1, r3
+ 1524 002c FFF7FEFF 		bl	__aeabi_d2f
+ 1525 0030 0346     		mov	r3, r0
+ 1526 0032 23F00043 		bic	r3, r3, #-2147483648
+ 1527 0036 1846     		mov	r0, r3
+ 1528 0038 FFF7FEFF 		bl	__aeabi_f2d
+ 1529 003c 0246     		mov	r2, r0
+ 1530 003e 0B46     		mov	r3, r1
+ 1531 0040 1046     		mov	r0, r2
+ 1532 0042 1946     		mov	r1, r3
+ 1533 0044 0EA3     		adr	r3, .L72+8
+ 1534 0046 D3E90023 		ldrd	r2, [r3]
+ 1535 004a FFF7FEFF 		bl	__aeabi_dmul
+ 1536 004e 0246     		mov	r2, r0
+ 1537 0050 0B46     		mov	r3, r1
+ 1538 0052 1046     		mov	r0, r2
+ 1539 0054 1946     		mov	r1, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 33
+
+
+ 1540 0056 0CA3     		adr	r3, .L72+16
+ 1541 0058 D3E90023 		ldrd	r2, [r3]
+ 1542 005c FFF7FEFF 		bl	__aeabi_dmul
+ 1543 0060 0246     		mov	r2, r0
+ 1544 0062 0B46     		mov	r3, r1
+ 1545 0064 1046     		mov	r0, r2
+ 1546 0066 1946     		mov	r1, r3
+ 1547 0068 FFF7FEFF 		bl	__aeabi_d2f
+ 1548 006c 0346     		mov	r3, r0
+ 286:.\torquestat.c **** }
+ 1549              		.loc 1 286 0
+ 1550 006e 1846     		mov	r0, r3
+ 1551 0070 07F10807 		add	r7, r7, #8
+ 1552 0074 BD46     		mov	sp, r7
+ 1553 0076 80BD     		pop	{r7, pc}
+ 1554              	.L73:
+ 1555              		.align	3
+ 1556              	.L72:
+ 1557 0078 79E92631 		.word	824633721
+ 1558 007c 08AC8C3F 		.word	1066183688
+ 1559 0080 C3F5285C 		.word	1546188227
+ 1560 0084 8FC21C40 		.word	1075626639
+ 1561 0088 EC51B81E 		.word	515396076
+ 1562 008c 85EBE93F 		.word	1072294789
+ 1563              		.cfi_endproc
+ 1564              	.LFE85:
+ 1565              		.size	TMOT_t, .-TMOT_t
+ 1566              		.section	.text.PMOTE_t,"ax",%progbits
+ 1567              		.align	2
+ 1568              		.global	PMOTE_t
+ 1569              		.thumb
+ 1570              		.thumb_func
+ 1571              		.type	PMOTE_t, %function
+ 1572              	PMOTE_t:
+ 1573              	.LFB86:
+ 287:.\torquestat.c **** 
+ 288:.\torquestat.c **** /* Instantaneous Erogated Motor Power Estimated [mW] */
+ 289:.\torquestat.c **** float PMOTE_t(struct TORQUESTAT *torque_stat)
+ 290:.\torquestat.c **** {
+ 1574              		.loc 1 290 0
+ 1575              		.cfi_startproc
+ 1576              		@ args = 0, pretend = 0, frame = 8
+ 1577              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1578 0000 80B5     		push	{r7, lr}
+ 1579              	.LCFI89:
+ 1580              		.cfi_def_cfa_offset 8
+ 1581              		.cfi_offset 7, -8
+ 1582              		.cfi_offset 14, -4
+ 1583 0002 82B0     		sub	sp, sp, #8
+ 1584              	.LCFI90:
+ 1585              		.cfi_def_cfa_offset 16
+ 1586 0004 00AF     		add	r7, sp, #0
+ 1587              	.LCFI91:
+ 1588              		.cfi_def_cfa_register 7
+ 1589 0006 7860     		str	r0, [r7, #4]
+ 291:.\torquestat.c **** 	return (*torque_stat).pwcalc.qpower_t * Km * eff_M;				//[mW] potenza elettrica istantanea erogata
+ 1590              		.loc 1 291 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 34
+
+
+ 1591 0008 7B68     		ldr	r3, [r7, #4]
+ 1592 000a 1B69     		ldr	r3, [r3, #16]	@ float
+ 1593 000c 1846     		mov	r0, r3
+ 1594 000e FFF7FEFF 		bl	__aeabi_f2d
+ 1595 0012 0246     		mov	r2, r0
+ 1596 0014 0B46     		mov	r3, r1
+ 1597 0016 1046     		mov	r0, r2
+ 1598 0018 1946     		mov	r1, r3
+ 1599 001a 0DA3     		adr	r3, .L76
+ 1600 001c D3E90023 		ldrd	r2, [r3]
+ 1601 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 1602 0024 0246     		mov	r2, r0
+ 1603 0026 0B46     		mov	r3, r1
+ 1604 0028 1046     		mov	r0, r2
+ 1605 002a 1946     		mov	r1, r3
+ 1606 002c 0AA3     		adr	r3, .L76+8
+ 1607 002e D3E90023 		ldrd	r2, [r3]
+ 1608 0032 FFF7FEFF 		bl	__aeabi_dmul
+ 1609 0036 0246     		mov	r2, r0
+ 1610 0038 0B46     		mov	r3, r1
+ 1611 003a 1046     		mov	r0, r2
+ 1612 003c 1946     		mov	r1, r3
+ 1613 003e FFF7FEFF 		bl	__aeabi_d2f
+ 1614 0042 0346     		mov	r3, r0
+ 292:.\torquestat.c **** }
+ 1615              		.loc 1 292 0
+ 1616 0044 1846     		mov	r0, r3
+ 1617 0046 07F10807 		add	r7, r7, #8
+ 1618 004a BD46     		mov	sp, r7
+ 1619 004c 80BD     		pop	{r7, pc}
+ 1620              	.L77:
+ 1621 004e 00BF     		.align	3
+ 1622              	.L76:
+ 1623 0050 C3F5285C 		.word	1546188227
+ 1624 0054 8FC21C40 		.word	1075626639
+ 1625 0058 EC51B81E 		.word	515396076
+ 1626 005c 85EBE93F 		.word	1072294789
+ 1627              		.cfi_endproc
+ 1628              	.LFE86:
+ 1629              		.size	PMOTE_t, .-PMOTE_t
+ 1630              		.section	.text.TOUT_t,"ax",%progbits
+ 1631              		.align	2
+ 1632              		.global	TOUT_t
+ 1633              		.thumb
+ 1634              		.thumb_func
+ 1635              		.type	TOUT_t, %function
+ 1636              	TOUT_t:
+ 1637              	.LFB87:
+ 293:.\torquestat.c **** 
+ 294:.\torquestat.c **** /* Instantaneous Output Torque Measured [mNm] */
+ 295:.\torquestat.c **** float TOUT_t(struct TORQUESTAT *torque_stat, float gear_ratio)
+ 296:.\torquestat.c **** {
+ 1638              		.loc 1 296 0
+ 1639              		.cfi_startproc
+ 1640              		@ args = 0, pretend = 0, frame = 8
+ 1641              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1642 0000 80B5     		push	{r7, lr}
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 35
+
+
+ 1643              	.LCFI92:
+ 1644              		.cfi_def_cfa_offset 8
+ 1645              		.cfi_offset 7, -8
+ 1646              		.cfi_offset 14, -4
+ 1647 0002 82B0     		sub	sp, sp, #8
+ 1648              	.LCFI93:
+ 1649              		.cfi_def_cfa_offset 16
+ 1650 0004 00AF     		add	r7, sp, #0
+ 1651              	.LCFI94:
+ 1652              		.cfi_def_cfa_register 7
+ 1653 0006 7860     		str	r0, [r7, #4]
+ 1654 0008 3960     		str	r1, [r7, #0]	@ float
+ 297:.\torquestat.c **** 	return TMOT_t(torque_stat) * gear_ratio * eff_R;
+ 1655              		.loc 1 297 0
+ 1656 000a 7868     		ldr	r0, [r7, #4]
+ 1657 000c FFF7FEFF 		bl	TMOT_t
+ 1658 0010 0346     		mov	r3, r0
+ 1659 0012 1846     		mov	r0, r3
+ 1660 0014 3968     		ldr	r1, [r7, #0]	@ float
+ 1661 0016 FFF7FEFF 		bl	__aeabi_fmul
+ 1662 001a 0346     		mov	r3, r0
+ 1663 001c 1846     		mov	r0, r3
+ 1664 001e 4FF07D51 		mov	r1, #1061158912
+ 1665 0022 FFF7FEFF 		bl	__aeabi_fmul
+ 1666 0026 0346     		mov	r3, r0
+ 298:.\torquestat.c **** }
+ 1667              		.loc 1 298 0
+ 1668 0028 1846     		mov	r0, r3
+ 1669 002a 07F10807 		add	r7, r7, #8
+ 1670 002e BD46     		mov	sp, r7
+ 1671 0030 80BD     		pop	{r7, pc}
+ 1672              		.cfi_endproc
+ 1673              	.LFE87:
+ 1674              		.size	TOUT_t, .-TOUT_t
+ 1675 0032 00BF     		.section	.text.Battery_Energy_Integral_Reset,"ax",%progbits
+ 1676              		.align	2
+ 1677              		.global	Battery_Energy_Integral_Reset
+ 1678              		.thumb
+ 1679              		.thumb_func
+ 1680              		.type	Battery_Energy_Integral_Reset, %function
+ 1681              	Battery_Energy_Integral_Reset:
+ 1682              	.LFB88:
+ 299:.\torquestat.c **** 
+ 300:.\torquestat.c **** 
+ 301:.\torquestat.c **** /* Battery Energy Integral Reset */
+ 302:.\torquestat.c **** void Battery_Energy_Integral_Reset(struct TORQUESTAT *torque_stat)
+ 303:.\torquestat.c **** {
+ 1683              		.loc 1 303 0
+ 1684              		.cfi_startproc
+ 1685              		@ args = 0, pretend = 0, frame = 8
+ 1686              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1687              		@ link register save eliminated.
+ 1688 0000 80B4     		push	{r7}
+ 1689              	.LCFI95:
+ 1690              		.cfi_def_cfa_offset 4
+ 1691              		.cfi_offset 7, -4
+ 1692 0002 83B0     		sub	sp, sp, #12
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 36
+
+
+ 1693              	.LCFI96:
+ 1694              		.cfi_def_cfa_offset 16
+ 1695 0004 00AF     		add	r7, sp, #0
+ 1696              	.LCFI97:
+ 1697              		.cfi_def_cfa_register 7
+ 1698 0006 7860     		str	r0, [r7, #4]
+ 304:.\torquestat.c **** 	(*torque_stat).current_integral = 0;			// [A] sampled in one Sampling Point
+ 1699              		.loc 1 304 0
+ 1700 0008 7968     		ldr	r1, [r7, #4]
+ 1701 000a 4FF00002 		mov	r2, #0
+ 1702 000e 4FF00003 		mov	r3, #0
+ 1703 0012 C1E90023 		strd	r2, [r1]
+ 305:.\torquestat.c **** }
+ 1704              		.loc 1 305 0
+ 1705 0016 07F10C07 		add	r7, r7, #12
+ 1706 001a BD46     		mov	sp, r7
+ 1707 001c 80BC     		pop	{r7}
+ 1708 001e 7047     		bx	lr
+ 1709              		.cfi_endproc
+ 1710              	.LFE88:
+ 1711              		.size	Battery_Energy_Integral_Reset, .-Battery_Energy_Integral_Reset
+ 1712              		.global	__aeabi_ui2d
+ 1713              		.global	__aeabi_ddiv
+ 1714              		.section	.text.Battery_Energy,"ax",%progbits
+ 1715              		.align	2
+ 1716              		.global	Battery_Energy
+ 1717              		.thumb
+ 1718              		.thumb_func
+ 1719              		.type	Battery_Energy, %function
+ 1720              	Battery_Energy:
+ 1721              	.LFB89:
+ 306:.\torquestat.c **** 
+ 307:.\torquestat.c **** /* Battery used Energy Calculation [mAh used]*/
+ 308:.\torquestat.c **** float Battery_Energy(struct TORQUESTAT *torque_stat, struct STATISTICS *current_stat)
+ 309:.\torquestat.c **** {
+ 1722              		.loc 1 309 0
+ 1723              		.cfi_startproc
+ 1724              		@ args = 0, pretend = 0, frame = 8
+ 1725              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1726 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1727              	.LCFI98:
+ 1728              		.cfi_def_cfa_offset 16
+ 1729              		.cfi_offset 4, -16
+ 1730              		.cfi_offset 5, -12
+ 1731              		.cfi_offset 7, -8
+ 1732              		.cfi_offset 14, -4
+ 1733 0002 82B0     		sub	sp, sp, #8
+ 1734              	.LCFI99:
+ 1735              		.cfi_def_cfa_offset 24
+ 1736 0004 00AF     		add	r7, sp, #0
+ 1737              	.LCFI100:
+ 1738              		.cfi_def_cfa_register 7
+ 1739 0006 7860     		str	r0, [r7, #4]
+ 1740 0008 3960     		str	r1, [r7, #0]
+ 310:.\torquestat.c **** 	//current_stat.tick  [ticks]		--> number of ticks elapsed during statistics	[ticks]
+ 311:.\torquestat.c **** 	//current_integral   [A]			--> sum of every current of every sample		[A]
+ 312:.\torquestat.c **** 	//CSSR				 [ticks/sec]	--> Current Statistics Sampling Rate 			[Hz]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 37
+
+
+ 313:.\torquestat.c **** 	//hours elapsed = (ticks/CSSR)/3600 --> Hours elapsed during statistics				[h]
+ 314:.\torquestat.c **** 	return	(float)((double)((*torque_stat).current_integral) * 1000 / ((*current_stat).tick * 60));	//
+ 1741              		.loc 1 314 0
+ 1742 000a 7B68     		ldr	r3, [r7, #4]
+ 1743 000c D3E90023 		ldrd	r2, [r3]
+ 1744 0010 1046     		mov	r0, r2
+ 1745 0012 1946     		mov	r1, r3
+ 1746 0014 4FF00002 		mov	r2, #0
+ 1747 0018 4FF48043 		mov	r3, #16384
+ 1748 001c C4F28F03 		movt	r3, 16527
+ 1749 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 1750 0024 0246     		mov	r2, r0
+ 1751 0026 0B46     		mov	r3, r1
+ 1752 0028 1446     		mov	r4, r2
+ 1753 002a 1D46     		mov	r5, r3
+ 1754 002c 3B68     		ldr	r3, [r7, #0]
+ 1755 002e DA6A     		ldr	r2, [r3, #44]
+ 1756 0030 1346     		mov	r3, r2
+ 1757 0032 4FEA0313 		lsl	r3, r3, #4
+ 1758 0036 9B1A     		subs	r3, r3, r2
+ 1759 0038 4FEA8303 		lsl	r3, r3, #2
+ 1760 003c 1846     		mov	r0, r3
+ 1761 003e FFF7FEFF 		bl	__aeabi_ui2d
+ 1762 0042 0246     		mov	r2, r0
+ 1763 0044 0B46     		mov	r3, r1
+ 1764 0046 2046     		mov	r0, r4
+ 1765 0048 2946     		mov	r1, r5
+ 1766 004a FFF7FEFF 		bl	__aeabi_ddiv
+ 1767 004e 0246     		mov	r2, r0
+ 1768 0050 0B46     		mov	r3, r1
+ 1769 0052 1046     		mov	r0, r2
+ 1770 0054 1946     		mov	r1, r3
+ 1771 0056 FFF7FEFF 		bl	__aeabi_d2f
+ 1772 005a 0346     		mov	r3, r0
+ 315:.\torquestat.c **** }
+ 1773              		.loc 1 315 0
+ 1774 005c 1846     		mov	r0, r3
+ 1775 005e 07F10807 		add	r7, r7, #8
+ 1776 0062 BD46     		mov	sp, r7
+ 1777 0064 B0BD     		pop	{r4, r5, r7, pc}
+ 1778              		.cfi_endproc
+ 1779              	.LFE89:
+ 1780              		.size	Battery_Energy, .-Battery_Energy
+ 1781              		.global	__aeabi_fdiv
+ 1782 0066 00BF     		.section	.text.Battery_Energy_Meter,"ax",%progbits
+ 1783              		.align	2
+ 1784              		.global	Battery_Energy_Meter
+ 1785              		.thumb
+ 1786              		.thumb_func
+ 1787              		.type	Battery_Energy_Meter, %function
+ 1788              	Battery_Energy_Meter:
+ 1789              	.LFB90:
+ 316:.\torquestat.c **** 
+ 317:.\torquestat.c **** /* Battery Meter Calculation [% of used Energy]*/
+ 318:.\torquestat.c **** float Battery_Energy_Meter(struct TORQUESTAT *torque_stat, struct STATISTICS *current_stat, float b
+ 319:.\torquestat.c **** {
+ 1790              		.loc 1 319 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 38
+
+
+ 1791              		.cfi_startproc
+ 1792              		@ args = 0, pretend = 0, frame = 16
+ 1793              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1794 0000 80B5     		push	{r7, lr}
+ 1795              	.LCFI101:
+ 1796              		.cfi_def_cfa_offset 8
+ 1797              		.cfi_offset 7, -8
+ 1798              		.cfi_offset 14, -4
+ 1799 0002 84B0     		sub	sp, sp, #16
+ 1800              	.LCFI102:
+ 1801              		.cfi_def_cfa_offset 24
+ 1802 0004 00AF     		add	r7, sp, #0
+ 1803              	.LCFI103:
+ 1804              		.cfi_def_cfa_register 7
+ 1805 0006 F860     		str	r0, [r7, #12]
+ 1806 0008 B960     		str	r1, [r7, #8]
+ 1807 000a 7A60     		str	r2, [r7, #4]	@ float
+ 320:.\torquestat.c **** 	//battery capacity [mAh]
+ 321:.\torquestat.c **** 	return	Battery_Energy(torque_stat, current_stat) / battery_max_capacity * 100;	//	[% of used Energ
+ 1808              		.loc 1 321 0
+ 1809 000c F868     		ldr	r0, [r7, #12]
+ 1810 000e B968     		ldr	r1, [r7, #8]
+ 1811 0010 FFF7FEFF 		bl	Battery_Energy
+ 1812 0014 0346     		mov	r3, r0
+ 1813 0016 1846     		mov	r0, r3
+ 1814 0018 7968     		ldr	r1, [r7, #4]	@ float
+ 1815 001a FFF7FEFF 		bl	__aeabi_fdiv
+ 1816 001e 0346     		mov	r3, r0
+ 1817 0020 1846     		mov	r0, r3
+ 1818 0022 4FF00001 		mov	r1, #0
+ 1819 0026 C4F2C821 		movt	r1, 17096
+ 1820 002a FFF7FEFF 		bl	__aeabi_fmul
+ 1821 002e 0346     		mov	r3, r0
+ 322:.\torquestat.c **** }
+ 1822              		.loc 1 322 0
+ 1823 0030 1846     		mov	r0, r3
+ 1824 0032 07F11007 		add	r7, r7, #16
+ 1825 0036 BD46     		mov	sp, r7
+ 1826 0038 80BD     		pop	{r7, pc}
+ 1827              		.cfi_endproc
+ 1828              	.LFE90:
+ 1829              		.size	Battery_Energy_Meter, .-Battery_Energy_Meter
+ 1830 003a 00BF     		.text
+ 1831              	.Letext0:
+ 1832              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 1833              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 1834              		.file 4 "./statistics.h"
+ 1835              		.file 5 "./torquestat.h"
+ 1836              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
+ 1837              		.section	.debug_info,"",%progbits
+ 1838              	.Ldebug_info0:
+ 1839 0000 0E090000 		.4byte	0x90e
+ 1840 0004 0200     		.2byte	0x2
+ 1841 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1842 000a 04       		.byte	0x4
+ 1843 000b 01       		.uleb128 0x1
+ 1844 000c 0B020000 		.4byte	.LASF82
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 39
+
+
+ 1845 0010 01       		.byte	0x1
+ 1846 0011 87040000 		.4byte	.LASF83
+ 1847 0015 60000000 		.4byte	.LASF84
+ 1848 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1849 001d 00000000 		.4byte	0
+ 1850 0021 00000000 		.4byte	0
+ 1851 0025 00000000 		.4byte	.Ldebug_line0
+ 1852 0029 02       		.uleb128 0x2
+ 1853 002a 01       		.byte	0x1
+ 1854 002b 06       		.byte	0x6
+ 1855 002c F3020000 		.4byte	.LASF0
+ 1856 0030 02       		.uleb128 0x2
+ 1857 0031 01       		.byte	0x1
+ 1858 0032 08       		.byte	0x8
+ 1859 0033 54020000 		.4byte	.LASF1
+ 1860 0037 02       		.uleb128 0x2
+ 1861 0038 02       		.byte	0x2
+ 1862 0039 05       		.byte	0x5
+ 1863 003a 35000000 		.4byte	.LASF2
+ 1864 003e 02       		.uleb128 0x2
+ 1865 003f 02       		.byte	0x2
+ 1866 0040 07       		.byte	0x7
+ 1867 0041 9A030000 		.4byte	.LASF3
+ 1868 0045 03       		.uleb128 0x3
+ 1869 0046 FF020000 		.4byte	.LASF9
+ 1870 004a 02       		.byte	0x2
+ 1871 004b 4F       		.byte	0x4f
+ 1872 004c 50000000 		.4byte	0x50
+ 1873 0050 02       		.uleb128 0x2
+ 1874 0051 04       		.byte	0x4
+ 1875 0052 05       		.byte	0x5
+ 1876 0053 EF010000 		.4byte	.LASF4
+ 1877 0057 02       		.uleb128 0x2
+ 1878 0058 04       		.byte	0x4
+ 1879 0059 07       		.byte	0x7
+ 1880 005a 27040000 		.4byte	.LASF5
+ 1881 005e 02       		.uleb128 0x2
+ 1882 005f 08       		.byte	0x8
+ 1883 0060 05       		.byte	0x5
+ 1884 0061 D6010000 		.4byte	.LASF6
+ 1885 0065 02       		.uleb128 0x2
+ 1886 0066 08       		.byte	0x8
+ 1887 0067 07       		.byte	0x7
+ 1888 0068 07030000 		.4byte	.LASF7
+ 1889 006c 04       		.uleb128 0x4
+ 1890 006d 04       		.byte	0x4
+ 1891 006e 05       		.byte	0x5
+ 1892 006f 696E7400 		.ascii	"int\000"
+ 1893 0073 02       		.uleb128 0x2
+ 1894 0074 04       		.byte	0x4
+ 1895 0075 07       		.byte	0x7
+ 1896 0076 2F030000 		.4byte	.LASF8
+ 1897 007a 03       		.uleb128 0x3
+ 1898 007b F9030000 		.4byte	.LASF10
+ 1899 007f 03       		.byte	0x3
+ 1900 0080 5B       		.byte	0x5b
+ 1901 0081 30000000 		.4byte	0x30
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 40
+
+
+ 1902 0085 03       		.uleb128 0x3
+ 1903 0086 20040000 		.4byte	.LASF11
+ 1904 008a 03       		.byte	0x3
+ 1905 008b 5D       		.byte	0x5d
+ 1906 008c 57000000 		.4byte	0x57
+ 1907 0090 03       		.uleb128 0x3
+ 1908 0091 42040000 		.4byte	.LASF12
+ 1909 0095 03       		.byte	0x3
+ 1910 0096 60       		.byte	0x60
+ 1911 0097 50000000 		.4byte	0x50
+ 1912 009b 02       		.uleb128 0x2
+ 1913 009c 04       		.byte	0x4
+ 1914 009d 04       		.byte	0x4
+ 1915 009e CA010000 		.4byte	.LASF13
+ 1916 00a2 02       		.uleb128 0x2
+ 1917 00a3 08       		.byte	0x8
+ 1918 00a4 04       		.byte	0x4
+ 1919 00a5 48040000 		.4byte	.LASF14
+ 1920 00a9 02       		.uleb128 0x2
+ 1921 00aa 01       		.byte	0x1
+ 1922 00ab 08       		.byte	0x8
+ 1923 00ac EA010000 		.4byte	.LASF15
+ 1924 00b0 02       		.uleb128 0x2
+ 1925 00b1 04       		.byte	0x4
+ 1926 00b2 07       		.byte	0x7
+ 1927 00b3 3F000000 		.4byte	.LASF16
+ 1928 00b7 02       		.uleb128 0x2
+ 1929 00b8 08       		.byte	0x8
+ 1930 00b9 04       		.byte	0x4
+ 1931 00ba 79020000 		.4byte	.LASF17
+ 1932 00be 05       		.uleb128 0x5
+ 1933 00bf 55000000 		.4byte	.LASF27
+ 1934 00c3 30       		.byte	0x30
+ 1935 00c4 04       		.byte	0x4
+ 1936 00c5 18       		.byte	0x18
+ 1937 00c6 72010000 		.4byte	0x172
+ 1938 00ca 06       		.uleb128 0x6
+ 1939 00cb 7C010000 		.4byte	.LASF18
+ 1940 00cf 04       		.byte	0x4
+ 1941 00d0 1A       		.byte	0x1a
+ 1942 00d1 7A000000 		.4byte	0x7a
+ 1943 00d5 02       		.byte	0x2
+ 1944 00d6 23       		.byte	0x23
+ 1945 00d7 00       		.uleb128 0
+ 1946 00d8 06       		.uleb128 0x6
+ 1947 00d9 3C030000 		.4byte	.LASF19
+ 1948 00dd 04       		.byte	0x4
+ 1949 00de 1C       		.byte	0x1c
+ 1950 00df 9B000000 		.4byte	0x9b
+ 1951 00e3 02       		.byte	0x2
+ 1952 00e4 23       		.byte	0x23
+ 1953 00e5 04       		.uleb128 0x4
+ 1954 00e6 06       		.uleb128 0x6
+ 1955 00e7 94020000 		.4byte	.LASF20
+ 1956 00eb 04       		.byte	0x4
+ 1957 00ec 1D       		.byte	0x1d
+ 1958 00ed 9B000000 		.4byte	0x9b
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 41
+
+
+ 1959 00f1 02       		.byte	0x2
+ 1960 00f2 23       		.byte	0x23
+ 1961 00f3 08       		.uleb128 0x8
+ 1962 00f4 07       		.uleb128 0x7
+ 1963 00f5 6D696E00 		.ascii	"min\000"
+ 1964 00f9 04       		.byte	0x4
+ 1965 00fa 1E       		.byte	0x1e
+ 1966 00fb 9B000000 		.4byte	0x9b
+ 1967 00ff 02       		.byte	0x2
+ 1968 0100 23       		.byte	0x23
+ 1969 0101 0C       		.uleb128 0xc
+ 1970 0102 07       		.uleb128 0x7
+ 1971 0103 6D617800 		.ascii	"max\000"
+ 1972 0107 04       		.byte	0x4
+ 1973 0108 1F       		.byte	0x1f
+ 1974 0109 9B000000 		.4byte	0x9b
+ 1975 010d 02       		.byte	0x2
+ 1976 010e 23       		.byte	0x23
+ 1977 010f 10       		.uleb128 0x10
+ 1978 0110 06       		.uleb128 0x6
+ 1979 0111 D0010000 		.4byte	.LASF21
+ 1980 0115 04       		.byte	0x4
+ 1981 0116 20       		.byte	0x20
+ 1982 0117 9B000000 		.4byte	0x9b
+ 1983 011b 02       		.byte	0x2
+ 1984 011c 23       		.byte	0x23
+ 1985 011d 14       		.uleb128 0x14
+ 1986 011e 06       		.uleb128 0x6
+ 1987 011f 93030000 		.4byte	.LASF22
+ 1988 0123 04       		.byte	0x4
+ 1989 0124 21       		.byte	0x21
+ 1990 0125 9B000000 		.4byte	0x9b
+ 1991 0129 02       		.byte	0x2
+ 1992 012a 23       		.byte	0x23
+ 1993 012b 18       		.uleb128 0x18
+ 1994 012c 07       		.uleb128 0x7
+ 1995 012d 516B00   		.ascii	"Qk\000"
+ 1996 0130 04       		.byte	0x4
+ 1997 0131 22       		.byte	0x22
+ 1998 0132 9B000000 		.4byte	0x9b
+ 1999 0136 02       		.byte	0x2
+ 2000 0137 23       		.byte	0x23
+ 2001 0138 1C       		.uleb128 0x1c
+ 2002 0139 06       		.uleb128 0x6
+ 2003 013a B7010000 		.4byte	.LASF23
+ 2004 013e 04       		.byte	0x4
+ 2005 013f 23       		.byte	0x23
+ 2006 0140 9B000000 		.4byte	0x9b
+ 2007 0144 02       		.byte	0x2
+ 2008 0145 23       		.byte	0x23
+ 2009 0146 20       		.uleb128 0x20
+ 2010 0147 06       		.uleb128 0x6
+ 2011 0148 B6030000 		.4byte	.LASF24
+ 2012 014c 04       		.byte	0x4
+ 2013 014d 24       		.byte	0x24
+ 2014 014e 9B000000 		.4byte	0x9b
+ 2015 0152 02       		.byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 42
+
+
+ 2016 0153 23       		.byte	0x23
+ 2017 0154 24       		.uleb128 0x24
+ 2018 0155 06       		.uleb128 0x6
+ 2019 0156 A0040000 		.4byte	.LASF25
+ 2020 015a 04       		.byte	0x4
+ 2021 015b 26       		.byte	0x26
+ 2022 015c 85000000 		.4byte	0x85
+ 2023 0160 02       		.byte	0x2
+ 2024 0161 23       		.byte	0x23
+ 2025 0162 28       		.uleb128 0x28
+ 2026 0163 06       		.uleb128 0x6
+ 2027 0164 F8040000 		.4byte	.LASF26
+ 2028 0168 04       		.byte	0x4
+ 2029 0169 28       		.byte	0x28
+ 2030 016a 85000000 		.4byte	0x85
+ 2031 016e 02       		.byte	0x2
+ 2032 016f 23       		.byte	0x23
+ 2033 0170 2C       		.uleb128 0x2c
+ 2034 0171 00       		.byte	0
+ 2035 0172 05       		.uleb128 0x5
+ 2036 0173 06000000 		.4byte	.LASF28
+ 2037 0177 08       		.byte	0x8
+ 2038 0178 05       		.byte	0x5
+ 2039 0179 8C       		.byte	0x8c
+ 2040 017a 9B010000 		.4byte	0x19b
+ 2041 017e 06       		.uleb128 0x6
+ 2042 017f 87030000 		.4byte	.LASF29
+ 2043 0183 05       		.byte	0x5
+ 2044 0184 8E       		.byte	0x8e
+ 2045 0185 9B000000 		.4byte	0x9b
+ 2046 0189 02       		.byte	0x2
+ 2047 018a 23       		.byte	0x23
+ 2048 018b 00       		.uleb128 0
+ 2049 018c 06       		.uleb128 0x6
+ 2050 018d 25000000 		.4byte	.LASF30
+ 2051 0191 05       		.byte	0x5
+ 2052 0192 8F       		.byte	0x8f
+ 2053 0193 9B000000 		.4byte	0x9b
+ 2054 0197 02       		.byte	0x2
+ 2055 0198 23       		.byte	0x23
+ 2056 0199 04       		.uleb128 0x4
+ 2057 019a 00       		.byte	0
+ 2058 019b 05       		.uleb128 0x5
+ 2059 019c 82010000 		.4byte	.LASF31
+ 2060 01a0 08       		.byte	0x8
+ 2061 01a1 05       		.byte	0x5
+ 2062 01a2 92       		.byte	0x92
+ 2063 01a3 C4010000 		.4byte	0x1c4
+ 2064 01a7 06       		.uleb128 0x6
+ 2065 01a8 D9020000 		.4byte	.LASF32
+ 2066 01ac 05       		.byte	0x5
+ 2067 01ad 94       		.byte	0x94
+ 2068 01ae 9B000000 		.4byte	0x9b
+ 2069 01b2 02       		.byte	0x2
+ 2070 01b3 23       		.byte	0x23
+ 2071 01b4 00       		.uleb128 0
+ 2072 01b5 06       		.uleb128 0x6
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 43
+
+
+ 2073 01b6 1E030000 		.4byte	.LASF33
+ 2074 01ba 05       		.byte	0x5
+ 2075 01bb 95       		.byte	0x95
+ 2076 01bc 90000000 		.4byte	0x90
+ 2077 01c0 02       		.byte	0x2
+ 2078 01c1 23       		.byte	0x23
+ 2079 01c2 04       		.uleb128 0x4
+ 2080 01c3 00       		.byte	0
+ 2081 01c4 05       		.uleb128 0x5
+ 2082 01c5 10000000 		.4byte	.LASF34
+ 2083 01c9 20       		.byte	0x20
+ 2084 01ca 05       		.byte	0x5
+ 2085 01cb 87       		.byte	0x87
+ 2086 01cc 09020000 		.4byte	0x209
+ 2087 01d0 06       		.uleb128 0x6
+ 2088 01d1 25010000 		.4byte	.LASF35
+ 2089 01d5 05       		.byte	0x5
+ 2090 01d6 89       		.byte	0x89
+ 2091 01d7 A2000000 		.4byte	0xa2
+ 2092 01db 02       		.byte	0x2
+ 2093 01dc 23       		.byte	0x23
+ 2094 01dd 00       		.uleb128 0
+ 2095 01de 06       		.uleb128 0x6
+ 2096 01df DD030000 		.4byte	.LASF36
+ 2097 01e3 05       		.byte	0x5
+ 2098 01e4 8A       		.byte	0x8a
+ 2099 01e5 9B000000 		.4byte	0x9b
+ 2100 01e9 02       		.byte	0x2
+ 2101 01ea 23       		.byte	0x23
+ 2102 01eb 08       		.uleb128 0x8
+ 2103 01ec 06       		.uleb128 0x6
+ 2104 01ed F1040000 		.4byte	.LASF37
+ 2105 01f1 05       		.byte	0x5
+ 2106 01f2 90       		.byte	0x90
+ 2107 01f3 72010000 		.4byte	0x172
+ 2108 01f7 02       		.byte	0x2
+ 2109 01f8 23       		.byte	0x23
+ 2110 01f9 0C       		.uleb128 0xc
+ 2111 01fa 06       		.uleb128 0x6
+ 2112 01fb 6C030000 		.4byte	.LASF38
+ 2113 01ff 05       		.byte	0x5
+ 2114 0200 96       		.byte	0x96
+ 2115 0201 9B010000 		.4byte	0x19b
+ 2116 0205 02       		.byte	0x2
+ 2117 0206 23       		.byte	0x23
+ 2118 0207 14       		.uleb128 0x14
+ 2119 0208 00       		.byte	0
+ 2120 0209 08       		.uleb128 0x8
+ 2121 020a 01       		.byte	0x1
+ 2122 020b 5F010000 		.4byte	.LASF42
+ 2123 020f 01       		.byte	0x1
+ 2124 0210 2C       		.byte	0x2c
+ 2125 0211 01       		.byte	0x1
+ 2126 0212 00000000 		.4byte	.LFB56
+ 2127 0216 4C000000 		.4byte	.LFE56
+ 2128 021a 00000000 		.4byte	.LLST0
+ 2129 021e 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 44
+
+
+ 2130 021f 4E020000 		.4byte	0x24e
+ 2131 0223 09       		.uleb128 0x9
+ 2132 0224 FD040000 		.4byte	.LASF39
+ 2133 0228 01       		.byte	0x1
+ 2134 0229 2C       		.byte	0x2c
+ 2135 022a 4E020000 		.4byte	0x24e
+ 2136 022e 02       		.byte	0x2
+ 2137 022f 91       		.byte	0x91
+ 2138 0230 6C       		.sleb128 -20
+ 2139 0231 09       		.uleb128 0x9
+ 2140 0232 F8010000 		.4byte	.LASF40
+ 2141 0236 01       		.byte	0x1
+ 2142 0237 2C       		.byte	0x2c
+ 2143 0238 54020000 		.4byte	0x254
+ 2144 023c 02       		.byte	0x2
+ 2145 023d 91       		.byte	0x91
+ 2146 023e 68       		.sleb128 -24
+ 2147 023f 09       		.uleb128 0x9
+ 2148 0240 64030000 		.4byte	.LASF41
+ 2149 0244 01       		.byte	0x1
+ 2150 0245 2C       		.byte	0x2c
+ 2151 0246 9B000000 		.4byte	0x9b
+ 2152 024a 02       		.byte	0x2
+ 2153 024b 91       		.byte	0x91
+ 2154 024c 64       		.sleb128 -28
+ 2155 024d 00       		.byte	0
+ 2156 024e 0A       		.uleb128 0xa
+ 2157 024f 04       		.byte	0x4
+ 2158 0250 C4010000 		.4byte	0x1c4
+ 2159 0254 0A       		.uleb128 0xa
+ 2160 0255 04       		.byte	0x4
+ 2161 0256 BE000000 		.4byte	0xbe
+ 2162 025a 08       		.uleb128 0x8
+ 2163 025b 01       		.byte	0x1
+ 2164 025c 0D010000 		.4byte	.LASF43
+ 2165 0260 01       		.byte	0x1
+ 2166 0261 40       		.byte	0x40
+ 2167 0262 01       		.byte	0x1
+ 2168 0263 00000000 		.4byte	.LFB57
+ 2169 0267 16000000 		.4byte	.LFE57
+ 2170 026b 38000000 		.4byte	.LLST1
+ 2171 026f 01       		.byte	0x1
+ 2172 0270 83020000 		.4byte	0x283
+ 2173 0274 09       		.uleb128 0x9
+ 2174 0275 F8010000 		.4byte	.LASF40
+ 2175 0279 01       		.byte	0x1
+ 2176 027a 40       		.byte	0x40
+ 2177 027b 54020000 		.4byte	0x254
+ 2178 027f 02       		.byte	0x2
+ 2179 0280 91       		.byte	0x91
+ 2180 0281 74       		.sleb128 -12
+ 2181 0282 00       		.byte	0
+ 2182 0283 08       		.uleb128 0x8
+ 2183 0284 01       		.byte	0x1
+ 2184 0285 A2020000 		.4byte	.LASF44
+ 2185 0289 01       		.byte	0x1
+ 2186 028a 46       		.byte	0x46
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 45
+
+
+ 2187 028b 01       		.byte	0x1
+ 2188 028c 00000000 		.4byte	.LFB58
+ 2189 0290 16000000 		.4byte	.LFE58
+ 2190 0294 70000000 		.4byte	.LLST2
+ 2191 0298 01       		.byte	0x1
+ 2192 0299 AC020000 		.4byte	0x2ac
+ 2193 029d 09       		.uleb128 0x9
+ 2194 029e F8010000 		.4byte	.LASF40
+ 2195 02a2 01       		.byte	0x1
+ 2196 02a3 46       		.byte	0x46
+ 2197 02a4 54020000 		.4byte	0x254
+ 2198 02a8 02       		.byte	0x2
+ 2199 02a9 91       		.byte	0x91
+ 2200 02aa 74       		.sleb128 -12
+ 2201 02ab 00       		.byte	0
+ 2202 02ac 08       		.uleb128 0x8
+ 2203 02ad 01       		.byte	0x1
+ 2204 02ae FF030000 		.4byte	.LASF45
+ 2205 02b2 01       		.byte	0x1
+ 2206 02b3 4C       		.byte	0x4c
+ 2207 02b4 01       		.byte	0x1
+ 2208 02b5 00000000 		.4byte	.LFB59
+ 2209 02b9 16000000 		.4byte	.LFE59
+ 2210 02bd A8000000 		.4byte	.LLST3
+ 2211 02c1 01       		.byte	0x1
+ 2212 02c2 D5020000 		.4byte	0x2d5
+ 2213 02c6 09       		.uleb128 0x9
+ 2214 02c7 F8010000 		.4byte	.LASF40
+ 2215 02cb 01       		.byte	0x1
+ 2216 02cc 4C       		.byte	0x4c
+ 2217 02cd 54020000 		.4byte	0x254
+ 2218 02d1 02       		.byte	0x2
+ 2219 02d2 91       		.byte	0x91
+ 2220 02d3 74       		.sleb128 -12
+ 2221 02d4 00       		.byte	0
+ 2222 02d5 08       		.uleb128 0x8
+ 2223 02d6 01       		.byte	0x1
+ 2224 02d7 4F040000 		.4byte	.LASF46
+ 2225 02db 01       		.byte	0x1
+ 2226 02dc 5B       		.byte	0x5b
+ 2227 02dd 01       		.byte	0x1
+ 2228 02de 00000000 		.4byte	.LFB60
+ 2229 02e2 40000000 		.4byte	.LFE60
+ 2230 02e6 E0000000 		.4byte	.LLST4
+ 2231 02ea 01       		.byte	0x1
+ 2232 02eb 28030000 		.4byte	0x328
+ 2233 02ef 09       		.uleb128 0x9
+ 2234 02f0 FD040000 		.4byte	.LASF39
+ 2235 02f4 01       		.byte	0x1
+ 2236 02f5 5B       		.byte	0x5b
+ 2237 02f6 4E020000 		.4byte	0x24e
+ 2238 02fa 02       		.byte	0x2
+ 2239 02fb 91       		.byte	0x91
+ 2240 02fc 74       		.sleb128 -12
+ 2241 02fd 09       		.uleb128 0x9
+ 2242 02fe E3000000 		.4byte	.LASF47
+ 2243 0302 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 46
+
+
+ 2244 0303 5B       		.byte	0x5b
+ 2245 0304 54020000 		.4byte	0x254
+ 2246 0308 02       		.byte	0x2
+ 2247 0309 91       		.byte	0x91
+ 2248 030a 70       		.sleb128 -16
+ 2249 030b 09       		.uleb128 0x9
+ 2250 030c 64030000 		.4byte	.LASF41
+ 2251 0310 01       		.byte	0x1
+ 2252 0311 5B       		.byte	0x5b
+ 2253 0312 9B000000 		.4byte	0x9b
+ 2254 0316 02       		.byte	0x2
+ 2255 0317 91       		.byte	0x91
+ 2256 0318 6C       		.sleb128 -20
+ 2257 0319 09       		.uleb128 0x9
+ 2258 031a 05020000 		.4byte	.LASF48
+ 2259 031e 01       		.byte	0x1
+ 2260 031f 5B       		.byte	0x5b
+ 2261 0320 9B000000 		.4byte	0x9b
+ 2262 0324 02       		.byte	0x2
+ 2263 0325 91       		.byte	0x91
+ 2264 0326 68       		.sleb128 -24
+ 2265 0327 00       		.byte	0
+ 2266 0328 08       		.uleb128 0x8
+ 2267 0329 01       		.byte	0x1
+ 2268 032a 62020000 		.4byte	.LASF49
+ 2269 032e 01       		.byte	0x1
+ 2270 032f 6F       		.byte	0x6f
+ 2271 0330 01       		.byte	0x1
+ 2272 0331 00000000 		.4byte	.LFB61
+ 2273 0335 16000000 		.4byte	.LFE61
+ 2274 0339 18010000 		.4byte	.LLST5
+ 2275 033d 01       		.byte	0x1
+ 2276 033e 51030000 		.4byte	0x351
+ 2277 0342 09       		.uleb128 0x9
+ 2278 0343 E3000000 		.4byte	.LASF47
+ 2279 0347 01       		.byte	0x1
+ 2280 0348 6F       		.byte	0x6f
+ 2281 0349 54020000 		.4byte	0x254
+ 2282 034d 02       		.byte	0x2
+ 2283 034e 91       		.byte	0x91
+ 2284 034f 74       		.sleb128 -12
+ 2285 0350 00       		.byte	0
+ 2286 0351 08       		.uleb128 0x8
+ 2287 0352 01       		.byte	0x1
+ 2288 0353 AE040000 		.4byte	.LASF50
+ 2289 0357 01       		.byte	0x1
+ 2290 0358 75       		.byte	0x75
+ 2291 0359 01       		.byte	0x1
+ 2292 035a 00000000 		.4byte	.LFB62
+ 2293 035e 16000000 		.4byte	.LFE62
+ 2294 0362 50010000 		.4byte	.LLST6
+ 2295 0366 01       		.byte	0x1
+ 2296 0367 7A030000 		.4byte	0x37a
+ 2297 036b 09       		.uleb128 0x9
+ 2298 036c E3000000 		.4byte	.LASF47
+ 2299 0370 01       		.byte	0x1
+ 2300 0371 75       		.byte	0x75
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 47
+
+
+ 2301 0372 54020000 		.4byte	0x254
+ 2302 0376 02       		.byte	0x2
+ 2303 0377 91       		.byte	0x91
+ 2304 0378 74       		.sleb128 -12
+ 2305 0379 00       		.byte	0
+ 2306 037a 08       		.uleb128 0x8
+ 2307 037b 01       		.byte	0x1
+ 2308 037c 4D030000 		.4byte	.LASF51
+ 2309 0380 01       		.byte	0x1
+ 2310 0381 7B       		.byte	0x7b
+ 2311 0382 01       		.byte	0x1
+ 2312 0383 00000000 		.4byte	.LFB63
+ 2313 0387 16000000 		.4byte	.LFE63
+ 2314 038b 88010000 		.4byte	.LLST7
+ 2315 038f 01       		.byte	0x1
+ 2316 0390 A3030000 		.4byte	0x3a3
+ 2317 0394 09       		.uleb128 0x9
+ 2318 0395 E3000000 		.4byte	.LASF47
+ 2319 0399 01       		.byte	0x1
+ 2320 039a 7B       		.byte	0x7b
+ 2321 039b 54020000 		.4byte	0x254
+ 2322 039f 02       		.byte	0x2
+ 2323 03a0 91       		.byte	0x91
+ 2324 03a1 74       		.sleb128 -12
+ 2325 03a2 00       		.byte	0
+ 2326 03a3 0B       		.uleb128 0xb
+ 2327 03a4 01       		.byte	0x1
+ 2328 03a5 6B040000 		.4byte	.LASF54
+ 2329 03a9 01       		.byte	0x1
+ 2330 03aa 86       		.byte	0x86
+ 2331 03ab 01       		.byte	0x1
+ 2332 03ac 9B000000 		.4byte	0x9b
+ 2333 03b0 00000000 		.4byte	.LFB64
+ 2334 03b4 C8000000 		.4byte	.LFE64
+ 2335 03b8 C0010000 		.4byte	.LLST8
+ 2336 03bc 01       		.byte	0x1
+ 2337 03bd EC030000 		.4byte	0x3ec
+ 2338 03c1 09       		.uleb128 0x9
+ 2339 03c2 FD040000 		.4byte	.LASF39
+ 2340 03c6 01       		.byte	0x1
+ 2341 03c7 86       		.byte	0x86
+ 2342 03c8 4E020000 		.4byte	0x24e
+ 2343 03cc 02       		.byte	0x2
+ 2344 03cd 91       		.byte	0x91
+ 2345 03ce 6C       		.sleb128 -20
+ 2346 03cf 09       		.uleb128 0x9
+ 2347 03d0 4B010000 		.4byte	.LASF52
+ 2348 03d4 01       		.byte	0x1
+ 2349 03d5 86       		.byte	0x86
+ 2350 03d6 90000000 		.4byte	0x90
+ 2351 03da 02       		.byte	0x2
+ 2352 03db 91       		.byte	0x91
+ 2353 03dc 68       		.sleb128 -24
+ 2354 03dd 0C       		.uleb128 0xc
+ 2355 03de D0000000 		.4byte	.LASF85
+ 2356 03e2 01       		.byte	0x1
+ 2357 03e3 88       		.byte	0x88
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 48
+
+
+ 2358 03e4 9B000000 		.4byte	0x9b
+ 2359 03e8 02       		.byte	0x2
+ 2360 03e9 91       		.byte	0x91
+ 2361 03ea 74       		.sleb128 -12
+ 2362 03eb 00       		.byte	0
+ 2363 03ec 0D       		.uleb128 0xd
+ 2364 03ed 01       		.byte	0x1
+ 2365 03ee 96010000 		.4byte	.LASF53
+ 2366 03f2 01       		.byte	0x1
+ 2367 03f3 A2       		.byte	0xa2
+ 2368 03f4 01       		.byte	0x1
+ 2369 03f5 00000000 		.4byte	.LFB65
+ 2370 03f9 1A000000 		.4byte	.LFE65
+ 2371 03fd F8010000 		.4byte	.LLST9
+ 2372 0401 01       		.byte	0x1
+ 2373 0402 15040000 		.4byte	0x415
+ 2374 0406 09       		.uleb128 0x9
+ 2375 0407 FD040000 		.4byte	.LASF39
+ 2376 040b 01       		.byte	0x1
+ 2377 040c A2       		.byte	0xa2
+ 2378 040d 4E020000 		.4byte	0x24e
+ 2379 0411 02       		.byte	0x2
+ 2380 0412 91       		.byte	0x91
+ 2381 0413 74       		.sleb128 -12
+ 2382 0414 00       		.byte	0
+ 2383 0415 0E       		.uleb128 0xe
+ 2384 0416 01       		.byte	0x1
+ 2385 0417 C6040000 		.4byte	.LASF86
+ 2386 041b 01       		.byte	0x1
+ 2387 041c A9       		.byte	0xa9
+ 2388 041d 01       		.byte	0x1
+ 2389 041e 9B000000 		.4byte	0x9b
+ 2390 0422 00000000 		.4byte	.LFB66
+ 2391 0426 14000000 		.4byte	.LFE66
+ 2392 042a 30020000 		.4byte	.LLST10
+ 2393 042e 01       		.byte	0x1
+ 2394 042f 0F       		.uleb128 0xf
+ 2395 0430 01       		.byte	0x1
+ 2396 0431 E4010000 		.4byte	.LASF55
+ 2397 0435 01       		.byte	0x1
+ 2398 0436 AF       		.byte	0xaf
+ 2399 0437 01       		.byte	0x1
+ 2400 0438 9B000000 		.4byte	0x9b
+ 2401 043c 00000000 		.4byte	.LFB67
+ 2402 0440 18000000 		.4byte	.LFE67
+ 2403 0444 5C020000 		.4byte	.LLST11
+ 2404 0448 01       		.byte	0x1
+ 2405 0449 5C040000 		.4byte	0x45c
+ 2406 044d 09       		.uleb128 0x9
+ 2407 044e F8010000 		.4byte	.LASF40
+ 2408 0452 01       		.byte	0x1
+ 2409 0453 AF       		.byte	0xaf
+ 2410 0454 54020000 		.4byte	0x254
+ 2411 0458 02       		.byte	0x2
+ 2412 0459 91       		.byte	0x91
+ 2413 045a 74       		.sleb128 -12
+ 2414 045b 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 49
+
+
+ 2415 045c 0B       		.uleb128 0xb
+ 2416 045d 01       		.byte	0x1
+ 2417 045e 17040000 		.4byte	.LASF56
+ 2418 0462 01       		.byte	0x1
+ 2419 0463 B5       		.byte	0xb5
+ 2420 0464 01       		.byte	0x1
+ 2421 0465 9B000000 		.4byte	0x9b
+ 2422 0469 00000000 		.4byte	.LFB68
+ 2423 046d 90000000 		.4byte	.LFE68
+ 2424 0471 94020000 		.4byte	.LLST12
+ 2425 0475 01       		.byte	0x1
+ 2426 0476 89040000 		.4byte	0x489
+ 2427 047a 09       		.uleb128 0x9
+ 2428 047b F8010000 		.4byte	.LASF40
+ 2429 047f 01       		.byte	0x1
+ 2430 0480 B5       		.byte	0xb5
+ 2431 0481 54020000 		.4byte	0x254
+ 2432 0485 02       		.byte	0x2
+ 2433 0486 91       		.byte	0x91
+ 2434 0487 74       		.sleb128 -12
+ 2435 0488 00       		.byte	0
+ 2436 0489 0B       		.uleb128 0xb
+ 2437 048a 01       		.byte	0x1
+ 2438 048b CF040000 		.4byte	.LASF57
+ 2439 048f 01       		.byte	0x1
+ 2440 0490 BB       		.byte	0xbb
+ 2441 0491 01       		.byte	0x1
+ 2442 0492 9B000000 		.4byte	0x9b
+ 2443 0496 00000000 		.4byte	.LFB69
+ 2444 049a 60000000 		.4byte	.LFE69
+ 2445 049e CC020000 		.4byte	.LLST13
+ 2446 04a2 01       		.byte	0x1
+ 2447 04a3 B6040000 		.4byte	0x4b6
+ 2448 04a7 09       		.uleb128 0x9
+ 2449 04a8 E3000000 		.4byte	.LASF47
+ 2450 04ac 01       		.byte	0x1
+ 2451 04ad BB       		.byte	0xbb
+ 2452 04ae 54020000 		.4byte	0x254
+ 2453 04b2 02       		.byte	0x2
+ 2454 04b3 91       		.byte	0x91
+ 2455 04b4 74       		.sleb128 -12
+ 2456 04b5 00       		.byte	0
+ 2457 04b6 0B       		.uleb128 0xb
+ 2458 04b7 01       		.byte	0x1
+ 2459 04b8 39040000 		.4byte	.LASF58
+ 2460 04bc 01       		.byte	0x1
+ 2461 04bd C1       		.byte	0xc1
+ 2462 04be 01       		.byte	0x1
+ 2463 04bf 9B000000 		.4byte	0x9b
+ 2464 04c3 00000000 		.4byte	.LFB70
+ 2465 04c7 32000000 		.4byte	.LFE70
+ 2466 04cb 04030000 		.4byte	.LLST14
+ 2467 04cf 01       		.byte	0x1
+ 2468 04d0 F1040000 		.4byte	0x4f1
+ 2469 04d4 09       		.uleb128 0x9
+ 2470 04d5 F8010000 		.4byte	.LASF40
+ 2471 04d9 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 50
+
+
+ 2472 04da C1       		.byte	0xc1
+ 2473 04db 54020000 		.4byte	0x254
+ 2474 04df 02       		.byte	0x2
+ 2475 04e0 91       		.byte	0x91
+ 2476 04e1 74       		.sleb128 -12
+ 2477 04e2 09       		.uleb128 0x9
+ 2478 04e3 E6040000 		.4byte	.LASF59
+ 2479 04e7 01       		.byte	0x1
+ 2480 04e8 C1       		.byte	0xc1
+ 2481 04e9 9B000000 		.4byte	0x9b
+ 2482 04ed 02       		.byte	0x2
+ 2483 04ee 91       		.byte	0x91
+ 2484 04ef 70       		.sleb128 -16
+ 2485 04f0 00       		.byte	0
+ 2486 04f1 0F       		.uleb128 0xf
+ 2487 04f2 01       		.byte	0x1
+ 2488 04f3 00000000 		.4byte	.LASF60
+ 2489 04f7 01       		.byte	0x1
+ 2490 04f8 C7       		.byte	0xc7
+ 2491 04f9 01       		.byte	0x1
+ 2492 04fa 9B000000 		.4byte	0x9b
+ 2493 04fe 00000000 		.4byte	.LFB71
+ 2494 0502 18000000 		.4byte	.LFE71
+ 2495 0506 3C030000 		.4byte	.LLST15
+ 2496 050a 01       		.byte	0x1
+ 2497 050b 1E050000 		.4byte	0x51e
+ 2498 050f 09       		.uleb128 0x9
+ 2499 0510 F8010000 		.4byte	.LASF40
+ 2500 0514 01       		.byte	0x1
+ 2501 0515 C7       		.byte	0xc7
+ 2502 0516 54020000 		.4byte	0x254
+ 2503 051a 02       		.byte	0x2
+ 2504 051b 91       		.byte	0x91
+ 2505 051c 74       		.sleb128 -12
+ 2506 051d 00       		.byte	0
+ 2507 051e 0B       		.uleb128 0xb
+ 2508 051f 01       		.byte	0x1
+ 2509 0520 AD030000 		.4byte	.LASF61
+ 2510 0524 01       		.byte	0x1
+ 2511 0525 CD       		.byte	0xcd
+ 2512 0526 01       		.byte	0x1
+ 2513 0527 9B000000 		.4byte	0x9b
+ 2514 052b 00000000 		.4byte	.LFB72
+ 2515 052f 90000000 		.4byte	.LFE72
+ 2516 0533 74030000 		.4byte	.LLST16
+ 2517 0537 01       		.byte	0x1
+ 2518 0538 4B050000 		.4byte	0x54b
+ 2519 053c 09       		.uleb128 0x9
+ 2520 053d F8010000 		.4byte	.LASF40
+ 2521 0541 01       		.byte	0x1
+ 2522 0542 CD       		.byte	0xcd
+ 2523 0543 54020000 		.4byte	0x254
+ 2524 0547 02       		.byte	0x2
+ 2525 0548 91       		.byte	0x91
+ 2526 0549 74       		.sleb128 -12
+ 2527 054a 00       		.byte	0
+ 2528 054b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 51
+
+
+ 2529 054c 01       		.byte	0x1
+ 2530 054d 96040000 		.4byte	.LASF62
+ 2531 0551 01       		.byte	0x1
+ 2532 0552 D3       		.byte	0xd3
+ 2533 0553 01       		.byte	0x1
+ 2534 0554 9B000000 		.4byte	0x9b
+ 2535 0558 00000000 		.4byte	.LFB73
+ 2536 055c 60000000 		.4byte	.LFE73
+ 2537 0560 AC030000 		.4byte	.LLST17
+ 2538 0564 01       		.byte	0x1
+ 2539 0565 78050000 		.4byte	0x578
+ 2540 0569 09       		.uleb128 0x9
+ 2541 056a E3000000 		.4byte	.LASF47
+ 2542 056e 01       		.byte	0x1
+ 2543 056f D3       		.byte	0xd3
+ 2544 0570 54020000 		.4byte	0x254
+ 2545 0574 02       		.byte	0x2
+ 2546 0575 91       		.byte	0x91
+ 2547 0576 74       		.sleb128 -12
+ 2548 0577 00       		.byte	0
+ 2549 0578 0B       		.uleb128 0xb
+ 2550 0579 01       		.byte	0x1
+ 2551 057a D4030000 		.4byte	.LASF63
+ 2552 057e 01       		.byte	0x1
+ 2553 057f D9       		.byte	0xd9
+ 2554 0580 01       		.byte	0x1
+ 2555 0581 9B000000 		.4byte	0x9b
+ 2556 0585 00000000 		.4byte	.LFB74
+ 2557 0589 32000000 		.4byte	.LFE74
+ 2558 058d E4030000 		.4byte	.LLST18
+ 2559 0591 01       		.byte	0x1
+ 2560 0592 B3050000 		.4byte	0x5b3
+ 2561 0596 09       		.uleb128 0x9
+ 2562 0597 F8010000 		.4byte	.LASF40
+ 2563 059b 01       		.byte	0x1
+ 2564 059c D9       		.byte	0xd9
+ 2565 059d 54020000 		.4byte	0x254
+ 2566 05a1 02       		.byte	0x2
+ 2567 05a2 91       		.byte	0x91
+ 2568 05a3 74       		.sleb128 -12
+ 2569 05a4 09       		.uleb128 0x9
+ 2570 05a5 E6040000 		.4byte	.LASF59
+ 2571 05a9 01       		.byte	0x1
+ 2572 05aa D9       		.byte	0xd9
+ 2573 05ab 9B000000 		.4byte	0x9b
+ 2574 05af 02       		.byte	0x2
+ 2575 05b0 91       		.byte	0x91
+ 2576 05b1 70       		.sleb128 -16
+ 2577 05b2 00       		.byte	0
+ 2578 05b3 0F       		.uleb128 0xf
+ 2579 05b4 01       		.byte	0x1
+ 2580 05b5 C3010000 		.4byte	.LASF64
+ 2581 05b9 01       		.byte	0x1
+ 2582 05ba DF       		.byte	0xdf
+ 2583 05bb 01       		.byte	0x1
+ 2584 05bc 9B000000 		.4byte	0x9b
+ 2585 05c0 00000000 		.4byte	.LFB75
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 52
+
+
+ 2586 05c4 18000000 		.4byte	.LFE75
+ 2587 05c8 1C040000 		.4byte	.LLST19
+ 2588 05cc 01       		.byte	0x1
+ 2589 05cd E0050000 		.4byte	0x5e0
+ 2590 05d1 09       		.uleb128 0x9
+ 2591 05d2 F8010000 		.4byte	.LASF40
+ 2592 05d6 01       		.byte	0x1
+ 2593 05d7 DF       		.byte	0xdf
+ 2594 05d8 54020000 		.4byte	0x254
+ 2595 05dc 02       		.byte	0x2
+ 2596 05dd 91       		.byte	0x91
+ 2597 05de 74       		.sleb128 -12
+ 2598 05df 00       		.byte	0
+ 2599 05e0 0B       		.uleb128 0xb
+ 2600 05e1 01       		.byte	0x1
+ 2601 05e2 72030000 		.4byte	.LASF65
+ 2602 05e6 01       		.byte	0x1
+ 2603 05e7 E5       		.byte	0xe5
+ 2604 05e8 01       		.byte	0x1
+ 2605 05e9 9B000000 		.4byte	0x9b
+ 2606 05ed 00000000 		.4byte	.LFB76
+ 2607 05f1 90000000 		.4byte	.LFE76
+ 2608 05f5 54040000 		.4byte	.LLST20
+ 2609 05f9 01       		.byte	0x1
+ 2610 05fa 0D060000 		.4byte	0x60d
+ 2611 05fe 09       		.uleb128 0x9
+ 2612 05ff F8010000 		.4byte	.LASF40
+ 2613 0603 01       		.byte	0x1
+ 2614 0604 E5       		.byte	0xe5
+ 2615 0605 54020000 		.4byte	0x254
+ 2616 0609 02       		.byte	0x2
+ 2617 060a 91       		.byte	0x91
+ 2618 060b 74       		.sleb128 -12
+ 2619 060c 00       		.byte	0
+ 2620 060d 0B       		.uleb128 0xb
+ 2621 060e 01       		.byte	0x1
+ 2622 060f 7C030000 		.4byte	.LASF66
+ 2623 0613 01       		.byte	0x1
+ 2624 0614 EB       		.byte	0xeb
+ 2625 0615 01       		.byte	0x1
+ 2626 0616 9B000000 		.4byte	0x9b
+ 2627 061a 00000000 		.4byte	.LFB77
+ 2628 061e 60000000 		.4byte	.LFE77
+ 2629 0622 8C040000 		.4byte	.LLST21
+ 2630 0626 01       		.byte	0x1
+ 2631 0627 3A060000 		.4byte	0x63a
+ 2632 062b 09       		.uleb128 0x9
+ 2633 062c E3000000 		.4byte	.LASF47
+ 2634 0630 01       		.byte	0x1
+ 2635 0631 EB       		.byte	0xeb
+ 2636 0632 54020000 		.4byte	0x254
+ 2637 0636 02       		.byte	0x2
+ 2638 0637 91       		.byte	0x91
+ 2639 0638 74       		.sleb128 -12
+ 2640 0639 00       		.byte	0
+ 2641 063a 0B       		.uleb128 0xb
+ 2642 063b 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 53
+
+
+ 2643 063c 1B000000 		.4byte	.LASF67
+ 2644 0640 01       		.byte	0x1
+ 2645 0641 F1       		.byte	0xf1
+ 2646 0642 01       		.byte	0x1
+ 2647 0643 9B000000 		.4byte	0x9b
+ 2648 0647 00000000 		.4byte	.LFB78
+ 2649 064b 32000000 		.4byte	.LFE78
+ 2650 064f C4040000 		.4byte	.LLST22
+ 2651 0653 01       		.byte	0x1
+ 2652 0654 75060000 		.4byte	0x675
+ 2653 0658 09       		.uleb128 0x9
+ 2654 0659 F8010000 		.4byte	.LASF40
+ 2655 065d 01       		.byte	0x1
+ 2656 065e F1       		.byte	0xf1
+ 2657 065f 54020000 		.4byte	0x254
+ 2658 0663 02       		.byte	0x2
+ 2659 0664 91       		.byte	0x91
+ 2660 0665 74       		.sleb128 -12
+ 2661 0666 09       		.uleb128 0x9
+ 2662 0667 E6040000 		.4byte	.LASF59
+ 2663 066b 01       		.byte	0x1
+ 2664 066c F1       		.byte	0xf1
+ 2665 066d 9B000000 		.4byte	0x9b
+ 2666 0671 02       		.byte	0x2
+ 2667 0672 91       		.byte	0x91
+ 2668 0673 70       		.sleb128 -16
+ 2669 0674 00       		.byte	0
+ 2670 0675 0F       		.uleb128 0xf
+ 2671 0676 01       		.byte	0x1
+ 2672 0677 8B010000 		.4byte	.LASF68
+ 2673 067b 01       		.byte	0x1
+ 2674 067c F7       		.byte	0xf7
+ 2675 067d 01       		.byte	0x1
+ 2676 067e 9B000000 		.4byte	0x9b
+ 2677 0682 00000000 		.4byte	.LFB79
+ 2678 0686 18000000 		.4byte	.LFE79
+ 2679 068a FC040000 		.4byte	.LLST23
+ 2680 068e 01       		.byte	0x1
+ 2681 068f A2060000 		.4byte	0x6a2
+ 2682 0693 09       		.uleb128 0x9
+ 2683 0694 F8010000 		.4byte	.LASF40
+ 2684 0698 01       		.byte	0x1
+ 2685 0699 F7       		.byte	0xf7
+ 2686 069a 54020000 		.4byte	0x254
+ 2687 069e 02       		.byte	0x2
+ 2688 069f 91       		.byte	0x91
+ 2689 06a0 74       		.sleb128 -12
+ 2690 06a1 00       		.byte	0
+ 2691 06a2 0B       		.uleb128 0xb
+ 2692 06a3 01       		.byte	0x1
+ 2693 06a4 EF000000 		.4byte	.LASF69
+ 2694 06a8 01       		.byte	0x1
+ 2695 06a9 FD       		.byte	0xfd
+ 2696 06aa 01       		.byte	0x1
+ 2697 06ab 9B000000 		.4byte	0x9b
+ 2698 06af 00000000 		.4byte	.LFB80
+ 2699 06b3 60000000 		.4byte	.LFE80
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 54
+
+
+ 2700 06b7 34050000 		.4byte	.LLST24
+ 2701 06bb 01       		.byte	0x1
+ 2702 06bc CF060000 		.4byte	0x6cf
+ 2703 06c0 09       		.uleb128 0x9
+ 2704 06c1 F8010000 		.4byte	.LASF40
+ 2705 06c5 01       		.byte	0x1
+ 2706 06c6 FD       		.byte	0xfd
+ 2707 06c7 54020000 		.4byte	0x254
+ 2708 06cb 02       		.byte	0x2
+ 2709 06cc 91       		.byte	0x91
+ 2710 06cd 74       		.sleb128 -12
+ 2711 06ce 00       		.byte	0
+ 2712 06cf 10       		.uleb128 0x10
+ 2713 06d0 01       		.byte	0x1
+ 2714 06d1 EB030000 		.4byte	.LASF70
+ 2715 06d5 01       		.byte	0x1
+ 2716 06d6 0301     		.2byte	0x103
+ 2717 06d8 01       		.byte	0x1
+ 2718 06d9 9B000000 		.4byte	0x9b
+ 2719 06dd 00000000 		.4byte	.LFB81
+ 2720 06e1 32000000 		.4byte	.LFE81
+ 2721 06e5 6C050000 		.4byte	.LLST25
+ 2722 06e9 01       		.byte	0x1
+ 2723 06ea 0D070000 		.4byte	0x70d
+ 2724 06ee 11       		.uleb128 0x11
+ 2725 06ef F8010000 		.4byte	.LASF40
+ 2726 06f3 01       		.byte	0x1
+ 2727 06f4 0301     		.2byte	0x103
+ 2728 06f6 54020000 		.4byte	0x254
+ 2729 06fa 02       		.byte	0x2
+ 2730 06fb 91       		.byte	0x91
+ 2731 06fc 74       		.sleb128 -12
+ 2732 06fd 11       		.uleb128 0x11
+ 2733 06fe E6040000 		.4byte	.LASF59
+ 2734 0702 01       		.byte	0x1
+ 2735 0703 0301     		.2byte	0x103
+ 2736 0705 9B000000 		.4byte	0x9b
+ 2737 0709 02       		.byte	0x2
+ 2738 070a 91       		.byte	0x91
+ 2739 070b 70       		.sleb128 -16
+ 2740 070c 00       		.byte	0
+ 2741 070d 12       		.uleb128 0x12
+ 2742 070e 01       		.byte	0x1
+ 2743 070f 695F7400 		.ascii	"i_t\000"
+ 2744 0713 01       		.byte	0x1
+ 2745 0714 0901     		.2byte	0x109
+ 2746 0716 01       		.byte	0x1
+ 2747 0717 9B000000 		.4byte	0x9b
+ 2748 071b 00000000 		.4byte	.LFB82
+ 2749 071f 18000000 		.4byte	.LFE82
+ 2750 0723 A4050000 		.4byte	.LLST26
+ 2751 0727 01       		.byte	0x1
+ 2752 0728 3C070000 		.4byte	0x73c
+ 2753 072c 11       		.uleb128 0x11
+ 2754 072d 41030000 		.4byte	.LASF71
+ 2755 0731 01       		.byte	0x1
+ 2756 0732 0901     		.2byte	0x109
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 55
+
+
+ 2757 0734 4E020000 		.4byte	0x24e
+ 2758 0738 02       		.byte	0x2
+ 2759 0739 91       		.byte	0x91
+ 2760 073a 74       		.sleb128 -12
+ 2761 073b 00       		.byte	0
+ 2762 073c 13       		.uleb128 0x13
+ 2763 073d 01       		.byte	0x1
+ 2764 073e FD000000 		.4byte	.LASF72
+ 2765 0742 01       		.byte	0x1
+ 2766 0743 0F01     		.2byte	0x10f
+ 2767 0745 01       		.byte	0x1
+ 2768 0746 9B000000 		.4byte	0x9b
+ 2769 074a 00000000 		.4byte	.LFB83
+ 2770 074e 18000000 		.4byte	.LFE83
+ 2771 0752 DC050000 		.4byte	.LLST27
+ 2772 0756 01       		.byte	0x1
+ 2773 0757 6B070000 		.4byte	0x76b
+ 2774 075b 11       		.uleb128 0x11
+ 2775 075c 41030000 		.4byte	.LASF71
+ 2776 0760 01       		.byte	0x1
+ 2777 0761 0F01     		.2byte	0x10f
+ 2778 0763 4E020000 		.4byte	0x24e
+ 2779 0767 02       		.byte	0x2
+ 2780 0768 91       		.byte	0x91
+ 2781 0769 74       		.sleb128 -12
+ 2782 076a 00       		.byte	0
+ 2783 076b 10       		.uleb128 0x10
+ 2784 076c 01       		.byte	0x1
+ 2785 076d 4F000000 		.4byte	.LASF73
+ 2786 0771 01       		.byte	0x1
+ 2787 0772 1501     		.2byte	0x115
+ 2788 0774 01       		.byte	0x1
+ 2789 0775 9B000000 		.4byte	0x9b
+ 2790 0779 00000000 		.4byte	.LFB84
+ 2791 077d 48000000 		.4byte	.LFE84
+ 2792 0781 14060000 		.4byte	.LLST28
+ 2793 0785 01       		.byte	0x1
+ 2794 0786 9A070000 		.4byte	0x79a
+ 2795 078a 11       		.uleb128 0x11
+ 2796 078b 41030000 		.4byte	.LASF71
+ 2797 078f 01       		.byte	0x1
+ 2798 0790 1501     		.2byte	0x115
+ 2799 0792 4E020000 		.4byte	0x24e
+ 2800 0796 02       		.byte	0x2
+ 2801 0797 91       		.byte	0x91
+ 2802 0798 74       		.sleb128 -12
+ 2803 0799 00       		.byte	0
+ 2804 079a 10       		.uleb128 0x10
+ 2805 079b 01       		.byte	0x1
+ 2806 079c 48000000 		.4byte	.LASF74
+ 2807 07a0 01       		.byte	0x1
+ 2808 07a1 1B01     		.2byte	0x11b
+ 2809 07a3 01       		.byte	0x1
+ 2810 07a4 9B000000 		.4byte	0x9b
+ 2811 07a8 00000000 		.4byte	.LFB85
+ 2812 07ac 90000000 		.4byte	.LFE85
+ 2813 07b0 4C060000 		.4byte	.LLST29
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 56
+
+
+ 2814 07b4 01       		.byte	0x1
+ 2815 07b5 C9070000 		.4byte	0x7c9
+ 2816 07b9 11       		.uleb128 0x11
+ 2817 07ba 41030000 		.4byte	.LASF71
+ 2818 07be 01       		.byte	0x1
+ 2819 07bf 1B01     		.2byte	0x11b
+ 2820 07c1 4E020000 		.4byte	0x24e
+ 2821 07c5 02       		.byte	0x2
+ 2822 07c6 91       		.byte	0x91
+ 2823 07c7 74       		.sleb128 -12
+ 2824 07c8 00       		.byte	0
+ 2825 07c9 10       		.uleb128 0x10
+ 2826 07ca 01       		.byte	0x1
+ 2827 07cb 05010000 		.4byte	.LASF75
+ 2828 07cf 01       		.byte	0x1
+ 2829 07d0 2101     		.2byte	0x121
+ 2830 07d2 01       		.byte	0x1
+ 2831 07d3 9B000000 		.4byte	0x9b
+ 2832 07d7 00000000 		.4byte	.LFB86
+ 2833 07db 60000000 		.4byte	.LFE86
+ 2834 07df 84060000 		.4byte	.LLST30
+ 2835 07e3 01       		.byte	0x1
+ 2836 07e4 F8070000 		.4byte	0x7f8
+ 2837 07e8 11       		.uleb128 0x11
+ 2838 07e9 41030000 		.4byte	.LASF71
+ 2839 07ed 01       		.byte	0x1
+ 2840 07ee 2101     		.2byte	0x121
+ 2841 07f0 4E020000 		.4byte	0x24e
+ 2842 07f4 02       		.byte	0x2
+ 2843 07f5 91       		.byte	0x91
+ 2844 07f6 74       		.sleb128 -12
+ 2845 07f7 00       		.byte	0
+ 2846 07f8 10       		.uleb128 0x10
+ 2847 07f9 01       		.byte	0x1
+ 2848 07fa 2E000000 		.4byte	.LASF76
+ 2849 07fe 01       		.byte	0x1
+ 2850 07ff 2701     		.2byte	0x127
+ 2851 0801 01       		.byte	0x1
+ 2852 0802 9B000000 		.4byte	0x9b
+ 2853 0806 00000000 		.4byte	.LFB87
+ 2854 080a 32000000 		.4byte	.LFE87
+ 2855 080e BC060000 		.4byte	.LLST31
+ 2856 0812 01       		.byte	0x1
+ 2857 0813 36080000 		.4byte	0x836
+ 2858 0817 11       		.uleb128 0x11
+ 2859 0818 41030000 		.4byte	.LASF71
+ 2860 081c 01       		.byte	0x1
+ 2861 081d 2701     		.2byte	0x127
+ 2862 081f 4E020000 		.4byte	0x24e
+ 2863 0823 02       		.byte	0x2
+ 2864 0824 91       		.byte	0x91
+ 2865 0825 74       		.sleb128 -12
+ 2866 0826 11       		.uleb128 0x11
+ 2867 0827 E6040000 		.4byte	.LASF59
+ 2868 082b 01       		.byte	0x1
+ 2869 082c 2701     		.2byte	0x127
+ 2870 082e 9B000000 		.4byte	0x9b
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 57
+
+
+ 2871 0832 02       		.byte	0x2
+ 2872 0833 91       		.byte	0x91
+ 2873 0834 70       		.sleb128 -16
+ 2874 0835 00       		.byte	0
+ 2875 0836 14       		.uleb128 0x14
+ 2876 0837 01       		.byte	0x1
+ 2877 0838 BB020000 		.4byte	.LASF77
+ 2878 083c 01       		.byte	0x1
+ 2879 083d 2E01     		.2byte	0x12e
+ 2880 083f 01       		.byte	0x1
+ 2881 0840 00000000 		.4byte	.LFB88
+ 2882 0844 20000000 		.4byte	.LFE88
+ 2883 0848 F4060000 		.4byte	.LLST32
+ 2884 084c 01       		.byte	0x1
+ 2885 084d 61080000 		.4byte	0x861
+ 2886 0851 11       		.uleb128 0x11
+ 2887 0852 41030000 		.4byte	.LASF71
+ 2888 0856 01       		.byte	0x1
+ 2889 0857 2E01     		.2byte	0x12e
+ 2890 0859 4E020000 		.4byte	0x24e
+ 2891 085d 02       		.byte	0x2
+ 2892 085e 91       		.byte	0x91
+ 2893 085f 74       		.sleb128 -12
+ 2894 0860 00       		.byte	0
+ 2895 0861 10       		.uleb128 0x10
+ 2896 0862 01       		.byte	0x1
+ 2897 0863 85020000 		.4byte	.LASF78
+ 2898 0867 01       		.byte	0x1
+ 2899 0868 3401     		.2byte	0x134
+ 2900 086a 01       		.byte	0x1
+ 2901 086b 9B000000 		.4byte	0x9b
+ 2902 086f 00000000 		.4byte	.LFB89
+ 2903 0873 66000000 		.4byte	.LFE89
+ 2904 0877 2C070000 		.4byte	.LLST33
+ 2905 087b 01       		.byte	0x1
+ 2906 087c 9F080000 		.4byte	0x89f
+ 2907 0880 11       		.uleb128 0x11
+ 2908 0881 41030000 		.4byte	.LASF71
+ 2909 0885 01       		.byte	0x1
+ 2910 0886 3401     		.2byte	0x134
+ 2911 0888 4E020000 		.4byte	0x24e
+ 2912 088c 02       		.byte	0x2
+ 2913 088d 91       		.byte	0x91
+ 2914 088e 6C       		.sleb128 -20
+ 2915 088f 11       		.uleb128 0x11
+ 2916 0890 F8010000 		.4byte	.LASF40
+ 2917 0894 01       		.byte	0x1
+ 2918 0895 3401     		.2byte	0x134
+ 2919 0897 54020000 		.4byte	0x254
+ 2920 089b 02       		.byte	0x2
+ 2921 089c 91       		.byte	0x91
+ 2922 089d 68       		.sleb128 -24
+ 2923 089e 00       		.byte	0
+ 2924 089f 10       		.uleb128 0x10
+ 2925 08a0 01       		.byte	0x1
+ 2926 08a1 36010000 		.4byte	.LASF79
+ 2927 08a5 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 58
+
+
+ 2928 08a6 3E01     		.2byte	0x13e
+ 2929 08a8 01       		.byte	0x1
+ 2930 08a9 9B000000 		.4byte	0x9b
+ 2931 08ad 00000000 		.4byte	.LFB90
+ 2932 08b1 3A000000 		.4byte	.LFE90
+ 2933 08b5 64070000 		.4byte	.LLST34
+ 2934 08b9 01       		.byte	0x1
+ 2935 08ba EC080000 		.4byte	0x8ec
+ 2936 08be 11       		.uleb128 0x11
+ 2937 08bf 41030000 		.4byte	.LASF71
+ 2938 08c3 01       		.byte	0x1
+ 2939 08c4 3E01     		.2byte	0x13e
+ 2940 08c6 4E020000 		.4byte	0x24e
+ 2941 08ca 02       		.byte	0x2
+ 2942 08cb 91       		.byte	0x91
+ 2943 08cc 74       		.sleb128 -12
+ 2944 08cd 11       		.uleb128 0x11
+ 2945 08ce F8010000 		.4byte	.LASF40
+ 2946 08d2 01       		.byte	0x1
+ 2947 08d3 3E01     		.2byte	0x13e
+ 2948 08d5 54020000 		.4byte	0x254
+ 2949 08d9 02       		.byte	0x2
+ 2950 08da 91       		.byte	0x91
+ 2951 08db 70       		.sleb128 -16
+ 2952 08dc 11       		.uleb128 0x11
+ 2953 08dd BF030000 		.4byte	.LASF80
+ 2954 08e1 01       		.byte	0x1
+ 2955 08e2 3E01     		.2byte	0x13e
+ 2956 08e4 9B000000 		.4byte	0x9b
+ 2957 08e8 02       		.byte	0x2
+ 2958 08e9 91       		.byte	0x91
+ 2959 08ea 6C       		.sleb128 -20
+ 2960 08eb 00       		.byte	0
+ 2961 08ec 15       		.uleb128 0x15
+ 2962 08ed D9040000 		.4byte	.LASF81
+ 2963 08f1 06       		.byte	0x6
+ 2964 08f2 1606     		.2byte	0x616
+ 2965 08f4 FA080000 		.4byte	0x8fa
+ 2966 08f8 01       		.byte	0x1
+ 2967 08f9 01       		.byte	0x1
+ 2968 08fa 16       		.uleb128 0x16
+ 2969 08fb 45000000 		.4byte	0x45
+ 2970 08ff 17       		.uleb128 0x17
+ 2971 0900 10000000 		.4byte	.LASF34
+ 2972 0904 05       		.byte	0x5
+ 2973 0905 97       		.byte	0x97
+ 2974 0906 C4010000 		.4byte	0x1c4
+ 2975 090a 01       		.byte	0x1
+ 2976 090b 05       		.byte	0x5
+ 2977 090c 03       		.byte	0x3
+ 2978 090d 00000000 		.4byte	TORQUESTAT
+ 2979 0911 00       		.byte	0
+ 2980              		.section	.debug_abbrev,"",%progbits
+ 2981              	.Ldebug_abbrev0:
+ 2982 0000 01       		.uleb128 0x1
+ 2983 0001 11       		.uleb128 0x11
+ 2984 0002 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 59
+
+
+ 2985 0003 25       		.uleb128 0x25
+ 2986 0004 0E       		.uleb128 0xe
+ 2987 0005 13       		.uleb128 0x13
+ 2988 0006 0B       		.uleb128 0xb
+ 2989 0007 03       		.uleb128 0x3
+ 2990 0008 0E       		.uleb128 0xe
+ 2991 0009 1B       		.uleb128 0x1b
+ 2992 000a 0E       		.uleb128 0xe
+ 2993 000b 55       		.uleb128 0x55
+ 2994 000c 06       		.uleb128 0x6
+ 2995 000d 11       		.uleb128 0x11
+ 2996 000e 01       		.uleb128 0x1
+ 2997 000f 52       		.uleb128 0x52
+ 2998 0010 01       		.uleb128 0x1
+ 2999 0011 10       		.uleb128 0x10
+ 3000 0012 06       		.uleb128 0x6
+ 3001 0013 00       		.byte	0
+ 3002 0014 00       		.byte	0
+ 3003 0015 02       		.uleb128 0x2
+ 3004 0016 24       		.uleb128 0x24
+ 3005 0017 00       		.byte	0
+ 3006 0018 0B       		.uleb128 0xb
+ 3007 0019 0B       		.uleb128 0xb
+ 3008 001a 3E       		.uleb128 0x3e
+ 3009 001b 0B       		.uleb128 0xb
+ 3010 001c 03       		.uleb128 0x3
+ 3011 001d 0E       		.uleb128 0xe
+ 3012 001e 00       		.byte	0
+ 3013 001f 00       		.byte	0
+ 3014 0020 03       		.uleb128 0x3
+ 3015 0021 16       		.uleb128 0x16
+ 3016 0022 00       		.byte	0
+ 3017 0023 03       		.uleb128 0x3
+ 3018 0024 0E       		.uleb128 0xe
+ 3019 0025 3A       		.uleb128 0x3a
+ 3020 0026 0B       		.uleb128 0xb
+ 3021 0027 3B       		.uleb128 0x3b
+ 3022 0028 0B       		.uleb128 0xb
+ 3023 0029 49       		.uleb128 0x49
+ 3024 002a 13       		.uleb128 0x13
+ 3025 002b 00       		.byte	0
+ 3026 002c 00       		.byte	0
+ 3027 002d 04       		.uleb128 0x4
+ 3028 002e 24       		.uleb128 0x24
+ 3029 002f 00       		.byte	0
+ 3030 0030 0B       		.uleb128 0xb
+ 3031 0031 0B       		.uleb128 0xb
+ 3032 0032 3E       		.uleb128 0x3e
+ 3033 0033 0B       		.uleb128 0xb
+ 3034 0034 03       		.uleb128 0x3
+ 3035 0035 08       		.uleb128 0x8
+ 3036 0036 00       		.byte	0
+ 3037 0037 00       		.byte	0
+ 3038 0038 05       		.uleb128 0x5
+ 3039 0039 13       		.uleb128 0x13
+ 3040 003a 01       		.byte	0x1
+ 3041 003b 03       		.uleb128 0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 60
+
+
+ 3042 003c 0E       		.uleb128 0xe
+ 3043 003d 0B       		.uleb128 0xb
+ 3044 003e 0B       		.uleb128 0xb
+ 3045 003f 3A       		.uleb128 0x3a
+ 3046 0040 0B       		.uleb128 0xb
+ 3047 0041 3B       		.uleb128 0x3b
+ 3048 0042 0B       		.uleb128 0xb
+ 3049 0043 01       		.uleb128 0x1
+ 3050 0044 13       		.uleb128 0x13
+ 3051 0045 00       		.byte	0
+ 3052 0046 00       		.byte	0
+ 3053 0047 06       		.uleb128 0x6
+ 3054 0048 0D       		.uleb128 0xd
+ 3055 0049 00       		.byte	0
+ 3056 004a 03       		.uleb128 0x3
+ 3057 004b 0E       		.uleb128 0xe
+ 3058 004c 3A       		.uleb128 0x3a
+ 3059 004d 0B       		.uleb128 0xb
+ 3060 004e 3B       		.uleb128 0x3b
+ 3061 004f 0B       		.uleb128 0xb
+ 3062 0050 49       		.uleb128 0x49
+ 3063 0051 13       		.uleb128 0x13
+ 3064 0052 38       		.uleb128 0x38
+ 3065 0053 0A       		.uleb128 0xa
+ 3066 0054 00       		.byte	0
+ 3067 0055 00       		.byte	0
+ 3068 0056 07       		.uleb128 0x7
+ 3069 0057 0D       		.uleb128 0xd
+ 3070 0058 00       		.byte	0
+ 3071 0059 03       		.uleb128 0x3
+ 3072 005a 08       		.uleb128 0x8
+ 3073 005b 3A       		.uleb128 0x3a
+ 3074 005c 0B       		.uleb128 0xb
+ 3075 005d 3B       		.uleb128 0x3b
+ 3076 005e 0B       		.uleb128 0xb
+ 3077 005f 49       		.uleb128 0x49
+ 3078 0060 13       		.uleb128 0x13
+ 3079 0061 38       		.uleb128 0x38
+ 3080 0062 0A       		.uleb128 0xa
+ 3081 0063 00       		.byte	0
+ 3082 0064 00       		.byte	0
+ 3083 0065 08       		.uleb128 0x8
+ 3084 0066 2E       		.uleb128 0x2e
+ 3085 0067 01       		.byte	0x1
+ 3086 0068 3F       		.uleb128 0x3f
+ 3087 0069 0C       		.uleb128 0xc
+ 3088 006a 03       		.uleb128 0x3
+ 3089 006b 0E       		.uleb128 0xe
+ 3090 006c 3A       		.uleb128 0x3a
+ 3091 006d 0B       		.uleb128 0xb
+ 3092 006e 3B       		.uleb128 0x3b
+ 3093 006f 0B       		.uleb128 0xb
+ 3094 0070 27       		.uleb128 0x27
+ 3095 0071 0C       		.uleb128 0xc
+ 3096 0072 11       		.uleb128 0x11
+ 3097 0073 01       		.uleb128 0x1
+ 3098 0074 12       		.uleb128 0x12
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 61
+
+
+ 3099 0075 01       		.uleb128 0x1
+ 3100 0076 40       		.uleb128 0x40
+ 3101 0077 06       		.uleb128 0x6
+ 3102 0078 9642     		.uleb128 0x2116
+ 3103 007a 0C       		.uleb128 0xc
+ 3104 007b 01       		.uleb128 0x1
+ 3105 007c 13       		.uleb128 0x13
+ 3106 007d 00       		.byte	0
+ 3107 007e 00       		.byte	0
+ 3108 007f 09       		.uleb128 0x9
+ 3109 0080 05       		.uleb128 0x5
+ 3110 0081 00       		.byte	0
+ 3111 0082 03       		.uleb128 0x3
+ 3112 0083 0E       		.uleb128 0xe
+ 3113 0084 3A       		.uleb128 0x3a
+ 3114 0085 0B       		.uleb128 0xb
+ 3115 0086 3B       		.uleb128 0x3b
+ 3116 0087 0B       		.uleb128 0xb
+ 3117 0088 49       		.uleb128 0x49
+ 3118 0089 13       		.uleb128 0x13
+ 3119 008a 02       		.uleb128 0x2
+ 3120 008b 0A       		.uleb128 0xa
+ 3121 008c 00       		.byte	0
+ 3122 008d 00       		.byte	0
+ 3123 008e 0A       		.uleb128 0xa
+ 3124 008f 0F       		.uleb128 0xf
+ 3125 0090 00       		.byte	0
+ 3126 0091 0B       		.uleb128 0xb
+ 3127 0092 0B       		.uleb128 0xb
+ 3128 0093 49       		.uleb128 0x49
+ 3129 0094 13       		.uleb128 0x13
+ 3130 0095 00       		.byte	0
+ 3131 0096 00       		.byte	0
+ 3132 0097 0B       		.uleb128 0xb
+ 3133 0098 2E       		.uleb128 0x2e
+ 3134 0099 01       		.byte	0x1
+ 3135 009a 3F       		.uleb128 0x3f
+ 3136 009b 0C       		.uleb128 0xc
+ 3137 009c 03       		.uleb128 0x3
+ 3138 009d 0E       		.uleb128 0xe
+ 3139 009e 3A       		.uleb128 0x3a
+ 3140 009f 0B       		.uleb128 0xb
+ 3141 00a0 3B       		.uleb128 0x3b
+ 3142 00a1 0B       		.uleb128 0xb
+ 3143 00a2 27       		.uleb128 0x27
+ 3144 00a3 0C       		.uleb128 0xc
+ 3145 00a4 49       		.uleb128 0x49
+ 3146 00a5 13       		.uleb128 0x13
+ 3147 00a6 11       		.uleb128 0x11
+ 3148 00a7 01       		.uleb128 0x1
+ 3149 00a8 12       		.uleb128 0x12
+ 3150 00a9 01       		.uleb128 0x1
+ 3151 00aa 40       		.uleb128 0x40
+ 3152 00ab 06       		.uleb128 0x6
+ 3153 00ac 9642     		.uleb128 0x2116
+ 3154 00ae 0C       		.uleb128 0xc
+ 3155 00af 01       		.uleb128 0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 62
+
+
+ 3156 00b0 13       		.uleb128 0x13
+ 3157 00b1 00       		.byte	0
+ 3158 00b2 00       		.byte	0
+ 3159 00b3 0C       		.uleb128 0xc
+ 3160 00b4 34       		.uleb128 0x34
+ 3161 00b5 00       		.byte	0
+ 3162 00b6 03       		.uleb128 0x3
+ 3163 00b7 0E       		.uleb128 0xe
+ 3164 00b8 3A       		.uleb128 0x3a
+ 3165 00b9 0B       		.uleb128 0xb
+ 3166 00ba 3B       		.uleb128 0x3b
+ 3167 00bb 0B       		.uleb128 0xb
+ 3168 00bc 49       		.uleb128 0x49
+ 3169 00bd 13       		.uleb128 0x13
+ 3170 00be 02       		.uleb128 0x2
+ 3171 00bf 0A       		.uleb128 0xa
+ 3172 00c0 00       		.byte	0
+ 3173 00c1 00       		.byte	0
+ 3174 00c2 0D       		.uleb128 0xd
+ 3175 00c3 2E       		.uleb128 0x2e
+ 3176 00c4 01       		.byte	0x1
+ 3177 00c5 3F       		.uleb128 0x3f
+ 3178 00c6 0C       		.uleb128 0xc
+ 3179 00c7 03       		.uleb128 0x3
+ 3180 00c8 0E       		.uleb128 0xe
+ 3181 00c9 3A       		.uleb128 0x3a
+ 3182 00ca 0B       		.uleb128 0xb
+ 3183 00cb 3B       		.uleb128 0x3b
+ 3184 00cc 0B       		.uleb128 0xb
+ 3185 00cd 27       		.uleb128 0x27
+ 3186 00ce 0C       		.uleb128 0xc
+ 3187 00cf 11       		.uleb128 0x11
+ 3188 00d0 01       		.uleb128 0x1
+ 3189 00d1 12       		.uleb128 0x12
+ 3190 00d2 01       		.uleb128 0x1
+ 3191 00d3 40       		.uleb128 0x40
+ 3192 00d4 06       		.uleb128 0x6
+ 3193 00d5 9742     		.uleb128 0x2117
+ 3194 00d7 0C       		.uleb128 0xc
+ 3195 00d8 01       		.uleb128 0x1
+ 3196 00d9 13       		.uleb128 0x13
+ 3197 00da 00       		.byte	0
+ 3198 00db 00       		.byte	0
+ 3199 00dc 0E       		.uleb128 0xe
+ 3200 00dd 2E       		.uleb128 0x2e
+ 3201 00de 00       		.byte	0
+ 3202 00df 3F       		.uleb128 0x3f
+ 3203 00e0 0C       		.uleb128 0xc
+ 3204 00e1 03       		.uleb128 0x3
+ 3205 00e2 0E       		.uleb128 0xe
+ 3206 00e3 3A       		.uleb128 0x3a
+ 3207 00e4 0B       		.uleb128 0xb
+ 3208 00e5 3B       		.uleb128 0x3b
+ 3209 00e6 0B       		.uleb128 0xb
+ 3210 00e7 27       		.uleb128 0x27
+ 3211 00e8 0C       		.uleb128 0xc
+ 3212 00e9 49       		.uleb128 0x49
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 63
+
+
+ 3213 00ea 13       		.uleb128 0x13
+ 3214 00eb 11       		.uleb128 0x11
+ 3215 00ec 01       		.uleb128 0x1
+ 3216 00ed 12       		.uleb128 0x12
+ 3217 00ee 01       		.uleb128 0x1
+ 3218 00ef 40       		.uleb128 0x40
+ 3219 00f0 06       		.uleb128 0x6
+ 3220 00f1 9742     		.uleb128 0x2117
+ 3221 00f3 0C       		.uleb128 0xc
+ 3222 00f4 00       		.byte	0
+ 3223 00f5 00       		.byte	0
+ 3224 00f6 0F       		.uleb128 0xf
+ 3225 00f7 2E       		.uleb128 0x2e
+ 3226 00f8 01       		.byte	0x1
+ 3227 00f9 3F       		.uleb128 0x3f
+ 3228 00fa 0C       		.uleb128 0xc
+ 3229 00fb 03       		.uleb128 0x3
+ 3230 00fc 0E       		.uleb128 0xe
+ 3231 00fd 3A       		.uleb128 0x3a
+ 3232 00fe 0B       		.uleb128 0xb
+ 3233 00ff 3B       		.uleb128 0x3b
+ 3234 0100 0B       		.uleb128 0xb
+ 3235 0101 27       		.uleb128 0x27
+ 3236 0102 0C       		.uleb128 0xc
+ 3237 0103 49       		.uleb128 0x49
+ 3238 0104 13       		.uleb128 0x13
+ 3239 0105 11       		.uleb128 0x11
+ 3240 0106 01       		.uleb128 0x1
+ 3241 0107 12       		.uleb128 0x12
+ 3242 0108 01       		.uleb128 0x1
+ 3243 0109 40       		.uleb128 0x40
+ 3244 010a 06       		.uleb128 0x6
+ 3245 010b 9742     		.uleb128 0x2117
+ 3246 010d 0C       		.uleb128 0xc
+ 3247 010e 01       		.uleb128 0x1
+ 3248 010f 13       		.uleb128 0x13
+ 3249 0110 00       		.byte	0
+ 3250 0111 00       		.byte	0
+ 3251 0112 10       		.uleb128 0x10
+ 3252 0113 2E       		.uleb128 0x2e
+ 3253 0114 01       		.byte	0x1
+ 3254 0115 3F       		.uleb128 0x3f
+ 3255 0116 0C       		.uleb128 0xc
+ 3256 0117 03       		.uleb128 0x3
+ 3257 0118 0E       		.uleb128 0xe
+ 3258 0119 3A       		.uleb128 0x3a
+ 3259 011a 0B       		.uleb128 0xb
+ 3260 011b 3B       		.uleb128 0x3b
+ 3261 011c 05       		.uleb128 0x5
+ 3262 011d 27       		.uleb128 0x27
+ 3263 011e 0C       		.uleb128 0xc
+ 3264 011f 49       		.uleb128 0x49
+ 3265 0120 13       		.uleb128 0x13
+ 3266 0121 11       		.uleb128 0x11
+ 3267 0122 01       		.uleb128 0x1
+ 3268 0123 12       		.uleb128 0x12
+ 3269 0124 01       		.uleb128 0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 64
+
+
+ 3270 0125 40       		.uleb128 0x40
+ 3271 0126 06       		.uleb128 0x6
+ 3272 0127 9642     		.uleb128 0x2116
+ 3273 0129 0C       		.uleb128 0xc
+ 3274 012a 01       		.uleb128 0x1
+ 3275 012b 13       		.uleb128 0x13
+ 3276 012c 00       		.byte	0
+ 3277 012d 00       		.byte	0
+ 3278 012e 11       		.uleb128 0x11
+ 3279 012f 05       		.uleb128 0x5
+ 3280 0130 00       		.byte	0
+ 3281 0131 03       		.uleb128 0x3
+ 3282 0132 0E       		.uleb128 0xe
+ 3283 0133 3A       		.uleb128 0x3a
+ 3284 0134 0B       		.uleb128 0xb
+ 3285 0135 3B       		.uleb128 0x3b
+ 3286 0136 05       		.uleb128 0x5
+ 3287 0137 49       		.uleb128 0x49
+ 3288 0138 13       		.uleb128 0x13
+ 3289 0139 02       		.uleb128 0x2
+ 3290 013a 0A       		.uleb128 0xa
+ 3291 013b 00       		.byte	0
+ 3292 013c 00       		.byte	0
+ 3293 013d 12       		.uleb128 0x12
+ 3294 013e 2E       		.uleb128 0x2e
+ 3295 013f 01       		.byte	0x1
+ 3296 0140 3F       		.uleb128 0x3f
+ 3297 0141 0C       		.uleb128 0xc
+ 3298 0142 03       		.uleb128 0x3
+ 3299 0143 08       		.uleb128 0x8
+ 3300 0144 3A       		.uleb128 0x3a
+ 3301 0145 0B       		.uleb128 0xb
+ 3302 0146 3B       		.uleb128 0x3b
+ 3303 0147 05       		.uleb128 0x5
+ 3304 0148 27       		.uleb128 0x27
+ 3305 0149 0C       		.uleb128 0xc
+ 3306 014a 49       		.uleb128 0x49
+ 3307 014b 13       		.uleb128 0x13
+ 3308 014c 11       		.uleb128 0x11
+ 3309 014d 01       		.uleb128 0x1
+ 3310 014e 12       		.uleb128 0x12
+ 3311 014f 01       		.uleb128 0x1
+ 3312 0150 40       		.uleb128 0x40
+ 3313 0151 06       		.uleb128 0x6
+ 3314 0152 9742     		.uleb128 0x2117
+ 3315 0154 0C       		.uleb128 0xc
+ 3316 0155 01       		.uleb128 0x1
+ 3317 0156 13       		.uleb128 0x13
+ 3318 0157 00       		.byte	0
+ 3319 0158 00       		.byte	0
+ 3320 0159 13       		.uleb128 0x13
+ 3321 015a 2E       		.uleb128 0x2e
+ 3322 015b 01       		.byte	0x1
+ 3323 015c 3F       		.uleb128 0x3f
+ 3324 015d 0C       		.uleb128 0xc
+ 3325 015e 03       		.uleb128 0x3
+ 3326 015f 0E       		.uleb128 0xe
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 65
+
+
+ 3327 0160 3A       		.uleb128 0x3a
+ 3328 0161 0B       		.uleb128 0xb
+ 3329 0162 3B       		.uleb128 0x3b
+ 3330 0163 05       		.uleb128 0x5
+ 3331 0164 27       		.uleb128 0x27
+ 3332 0165 0C       		.uleb128 0xc
+ 3333 0166 49       		.uleb128 0x49
+ 3334 0167 13       		.uleb128 0x13
+ 3335 0168 11       		.uleb128 0x11
+ 3336 0169 01       		.uleb128 0x1
+ 3337 016a 12       		.uleb128 0x12
+ 3338 016b 01       		.uleb128 0x1
+ 3339 016c 40       		.uleb128 0x40
+ 3340 016d 06       		.uleb128 0x6
+ 3341 016e 9742     		.uleb128 0x2117
+ 3342 0170 0C       		.uleb128 0xc
+ 3343 0171 01       		.uleb128 0x1
+ 3344 0172 13       		.uleb128 0x13
+ 3345 0173 00       		.byte	0
+ 3346 0174 00       		.byte	0
+ 3347 0175 14       		.uleb128 0x14
+ 3348 0176 2E       		.uleb128 0x2e
+ 3349 0177 01       		.byte	0x1
+ 3350 0178 3F       		.uleb128 0x3f
+ 3351 0179 0C       		.uleb128 0xc
+ 3352 017a 03       		.uleb128 0x3
+ 3353 017b 0E       		.uleb128 0xe
+ 3354 017c 3A       		.uleb128 0x3a
+ 3355 017d 0B       		.uleb128 0xb
+ 3356 017e 3B       		.uleb128 0x3b
+ 3357 017f 05       		.uleb128 0x5
+ 3358 0180 27       		.uleb128 0x27
+ 3359 0181 0C       		.uleb128 0xc
+ 3360 0182 11       		.uleb128 0x11
+ 3361 0183 01       		.uleb128 0x1
+ 3362 0184 12       		.uleb128 0x12
+ 3363 0185 01       		.uleb128 0x1
+ 3364 0186 40       		.uleb128 0x40
+ 3365 0187 06       		.uleb128 0x6
+ 3366 0188 9742     		.uleb128 0x2117
+ 3367 018a 0C       		.uleb128 0xc
+ 3368 018b 01       		.uleb128 0x1
+ 3369 018c 13       		.uleb128 0x13
+ 3370 018d 00       		.byte	0
+ 3371 018e 00       		.byte	0
+ 3372 018f 15       		.uleb128 0x15
+ 3373 0190 34       		.uleb128 0x34
+ 3374 0191 00       		.byte	0
+ 3375 0192 03       		.uleb128 0x3
+ 3376 0193 0E       		.uleb128 0xe
+ 3377 0194 3A       		.uleb128 0x3a
+ 3378 0195 0B       		.uleb128 0xb
+ 3379 0196 3B       		.uleb128 0x3b
+ 3380 0197 05       		.uleb128 0x5
+ 3381 0198 49       		.uleb128 0x49
+ 3382 0199 13       		.uleb128 0x13
+ 3383 019a 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 66
+
+
+ 3384 019b 0C       		.uleb128 0xc
+ 3385 019c 3C       		.uleb128 0x3c
+ 3386 019d 0C       		.uleb128 0xc
+ 3387 019e 00       		.byte	0
+ 3388 019f 00       		.byte	0
+ 3389 01a0 16       		.uleb128 0x16
+ 3390 01a1 35       		.uleb128 0x35
+ 3391 01a2 00       		.byte	0
+ 3392 01a3 49       		.uleb128 0x49
+ 3393 01a4 13       		.uleb128 0x13
+ 3394 01a5 00       		.byte	0
+ 3395 01a6 00       		.byte	0
+ 3396 01a7 17       		.uleb128 0x17
+ 3397 01a8 34       		.uleb128 0x34
+ 3398 01a9 00       		.byte	0
+ 3399 01aa 03       		.uleb128 0x3
+ 3400 01ab 0E       		.uleb128 0xe
+ 3401 01ac 3A       		.uleb128 0x3a
+ 3402 01ad 0B       		.uleb128 0xb
+ 3403 01ae 3B       		.uleb128 0x3b
+ 3404 01af 0B       		.uleb128 0xb
+ 3405 01b0 49       		.uleb128 0x49
+ 3406 01b1 13       		.uleb128 0x13
+ 3407 01b2 3F       		.uleb128 0x3f
+ 3408 01b3 0C       		.uleb128 0xc
+ 3409 01b4 02       		.uleb128 0x2
+ 3410 01b5 0A       		.uleb128 0xa
+ 3411 01b6 00       		.byte	0
+ 3412 01b7 00       		.byte	0
+ 3413 01b8 00       		.byte	0
+ 3414              		.section	.debug_loc,"",%progbits
+ 3415              	.Ldebug_loc0:
+ 3416              	.LLST0:
+ 3417 0000 00000000 		.4byte	.LFB56
+ 3418 0004 02000000 		.4byte	.LCFI0
+ 3419 0008 0200     		.2byte	0x2
+ 3420 000a 7D       		.byte	0x7d
+ 3421 000b 00       		.sleb128 0
+ 3422 000c 02000000 		.4byte	.LCFI0
+ 3423 0010 04000000 		.4byte	.LCFI1
+ 3424 0014 0200     		.2byte	0x2
+ 3425 0016 7D       		.byte	0x7d
+ 3426 0017 10       		.sleb128 16
+ 3427 0018 04000000 		.4byte	.LCFI1
+ 3428 001c 06000000 		.4byte	.LCFI2
+ 3429 0020 0200     		.2byte	0x2
+ 3430 0022 7D       		.byte	0x7d
+ 3431 0023 20       		.sleb128 32
+ 3432 0024 06000000 		.4byte	.LCFI2
+ 3433 0028 4C000000 		.4byte	.LFE56
+ 3434 002c 0200     		.2byte	0x2
+ 3435 002e 77       		.byte	0x77
+ 3436 002f 20       		.sleb128 32
+ 3437 0030 00000000 		.4byte	0
+ 3438 0034 00000000 		.4byte	0
+ 3439              	.LLST1:
+ 3440 0038 00000000 		.4byte	.LFB57
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 67
+
+
+ 3441 003c 02000000 		.4byte	.LCFI3
+ 3442 0040 0200     		.2byte	0x2
+ 3443 0042 7D       		.byte	0x7d
+ 3444 0043 00       		.sleb128 0
+ 3445 0044 02000000 		.4byte	.LCFI3
+ 3446 0048 04000000 		.4byte	.LCFI4
+ 3447 004c 0200     		.2byte	0x2
+ 3448 004e 7D       		.byte	0x7d
+ 3449 004f 08       		.sleb128 8
+ 3450 0050 04000000 		.4byte	.LCFI4
+ 3451 0054 06000000 		.4byte	.LCFI5
+ 3452 0058 0200     		.2byte	0x2
+ 3453 005a 7D       		.byte	0x7d
+ 3454 005b 10       		.sleb128 16
+ 3455 005c 06000000 		.4byte	.LCFI5
+ 3456 0060 16000000 		.4byte	.LFE57
+ 3457 0064 0200     		.2byte	0x2
+ 3458 0066 77       		.byte	0x77
+ 3459 0067 10       		.sleb128 16
+ 3460 0068 00000000 		.4byte	0
+ 3461 006c 00000000 		.4byte	0
+ 3462              	.LLST2:
+ 3463 0070 00000000 		.4byte	.LFB58
+ 3464 0074 02000000 		.4byte	.LCFI6
+ 3465 0078 0200     		.2byte	0x2
+ 3466 007a 7D       		.byte	0x7d
+ 3467 007b 00       		.sleb128 0
+ 3468 007c 02000000 		.4byte	.LCFI6
+ 3469 0080 04000000 		.4byte	.LCFI7
+ 3470 0084 0200     		.2byte	0x2
+ 3471 0086 7D       		.byte	0x7d
+ 3472 0087 08       		.sleb128 8
+ 3473 0088 04000000 		.4byte	.LCFI7
+ 3474 008c 06000000 		.4byte	.LCFI8
+ 3475 0090 0200     		.2byte	0x2
+ 3476 0092 7D       		.byte	0x7d
+ 3477 0093 10       		.sleb128 16
+ 3478 0094 06000000 		.4byte	.LCFI8
+ 3479 0098 16000000 		.4byte	.LFE58
+ 3480 009c 0200     		.2byte	0x2
+ 3481 009e 77       		.byte	0x77
+ 3482 009f 10       		.sleb128 16
+ 3483 00a0 00000000 		.4byte	0
+ 3484 00a4 00000000 		.4byte	0
+ 3485              	.LLST3:
+ 3486 00a8 00000000 		.4byte	.LFB59
+ 3487 00ac 02000000 		.4byte	.LCFI9
+ 3488 00b0 0200     		.2byte	0x2
+ 3489 00b2 7D       		.byte	0x7d
+ 3490 00b3 00       		.sleb128 0
+ 3491 00b4 02000000 		.4byte	.LCFI9
+ 3492 00b8 04000000 		.4byte	.LCFI10
+ 3493 00bc 0200     		.2byte	0x2
+ 3494 00be 7D       		.byte	0x7d
+ 3495 00bf 08       		.sleb128 8
+ 3496 00c0 04000000 		.4byte	.LCFI10
+ 3497 00c4 06000000 		.4byte	.LCFI11
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 68
+
+
+ 3498 00c8 0200     		.2byte	0x2
+ 3499 00ca 7D       		.byte	0x7d
+ 3500 00cb 10       		.sleb128 16
+ 3501 00cc 06000000 		.4byte	.LCFI11
+ 3502 00d0 16000000 		.4byte	.LFE59
+ 3503 00d4 0200     		.2byte	0x2
+ 3504 00d6 77       		.byte	0x77
+ 3505 00d7 10       		.sleb128 16
+ 3506 00d8 00000000 		.4byte	0
+ 3507 00dc 00000000 		.4byte	0
+ 3508              	.LLST4:
+ 3509 00e0 00000000 		.4byte	.LFB60
+ 3510 00e4 02000000 		.4byte	.LCFI12
+ 3511 00e8 0200     		.2byte	0x2
+ 3512 00ea 7D       		.byte	0x7d
+ 3513 00eb 00       		.sleb128 0
+ 3514 00ec 02000000 		.4byte	.LCFI12
+ 3515 00f0 04000000 		.4byte	.LCFI13
+ 3516 00f4 0200     		.2byte	0x2
+ 3517 00f6 7D       		.byte	0x7d
+ 3518 00f7 08       		.sleb128 8
+ 3519 00f8 04000000 		.4byte	.LCFI13
+ 3520 00fc 06000000 		.4byte	.LCFI14
+ 3521 0100 0200     		.2byte	0x2
+ 3522 0102 7D       		.byte	0x7d
+ 3523 0103 18       		.sleb128 24
+ 3524 0104 06000000 		.4byte	.LCFI14
+ 3525 0108 40000000 		.4byte	.LFE60
+ 3526 010c 0200     		.2byte	0x2
+ 3527 010e 77       		.byte	0x77
+ 3528 010f 18       		.sleb128 24
+ 3529 0110 00000000 		.4byte	0
+ 3530 0114 00000000 		.4byte	0
+ 3531              	.LLST5:
+ 3532 0118 00000000 		.4byte	.LFB61
+ 3533 011c 02000000 		.4byte	.LCFI15
+ 3534 0120 0200     		.2byte	0x2
+ 3535 0122 7D       		.byte	0x7d
+ 3536 0123 00       		.sleb128 0
+ 3537 0124 02000000 		.4byte	.LCFI15
+ 3538 0128 04000000 		.4byte	.LCFI16
+ 3539 012c 0200     		.2byte	0x2
+ 3540 012e 7D       		.byte	0x7d
+ 3541 012f 08       		.sleb128 8
+ 3542 0130 04000000 		.4byte	.LCFI16
+ 3543 0134 06000000 		.4byte	.LCFI17
+ 3544 0138 0200     		.2byte	0x2
+ 3545 013a 7D       		.byte	0x7d
+ 3546 013b 10       		.sleb128 16
+ 3547 013c 06000000 		.4byte	.LCFI17
+ 3548 0140 16000000 		.4byte	.LFE61
+ 3549 0144 0200     		.2byte	0x2
+ 3550 0146 77       		.byte	0x77
+ 3551 0147 10       		.sleb128 16
+ 3552 0148 00000000 		.4byte	0
+ 3553 014c 00000000 		.4byte	0
+ 3554              	.LLST6:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 69
+
+
+ 3555 0150 00000000 		.4byte	.LFB62
+ 3556 0154 02000000 		.4byte	.LCFI18
+ 3557 0158 0200     		.2byte	0x2
+ 3558 015a 7D       		.byte	0x7d
+ 3559 015b 00       		.sleb128 0
+ 3560 015c 02000000 		.4byte	.LCFI18
+ 3561 0160 04000000 		.4byte	.LCFI19
+ 3562 0164 0200     		.2byte	0x2
+ 3563 0166 7D       		.byte	0x7d
+ 3564 0167 08       		.sleb128 8
+ 3565 0168 04000000 		.4byte	.LCFI19
+ 3566 016c 06000000 		.4byte	.LCFI20
+ 3567 0170 0200     		.2byte	0x2
+ 3568 0172 7D       		.byte	0x7d
+ 3569 0173 10       		.sleb128 16
+ 3570 0174 06000000 		.4byte	.LCFI20
+ 3571 0178 16000000 		.4byte	.LFE62
+ 3572 017c 0200     		.2byte	0x2
+ 3573 017e 77       		.byte	0x77
+ 3574 017f 10       		.sleb128 16
+ 3575 0180 00000000 		.4byte	0
+ 3576 0184 00000000 		.4byte	0
+ 3577              	.LLST7:
+ 3578 0188 00000000 		.4byte	.LFB63
+ 3579 018c 02000000 		.4byte	.LCFI21
+ 3580 0190 0200     		.2byte	0x2
+ 3581 0192 7D       		.byte	0x7d
+ 3582 0193 00       		.sleb128 0
+ 3583 0194 02000000 		.4byte	.LCFI21
+ 3584 0198 04000000 		.4byte	.LCFI22
+ 3585 019c 0200     		.2byte	0x2
+ 3586 019e 7D       		.byte	0x7d
+ 3587 019f 08       		.sleb128 8
+ 3588 01a0 04000000 		.4byte	.LCFI22
+ 3589 01a4 06000000 		.4byte	.LCFI23
+ 3590 01a8 0200     		.2byte	0x2
+ 3591 01aa 7D       		.byte	0x7d
+ 3592 01ab 10       		.sleb128 16
+ 3593 01ac 06000000 		.4byte	.LCFI23
+ 3594 01b0 16000000 		.4byte	.LFE63
+ 3595 01b4 0200     		.2byte	0x2
+ 3596 01b6 77       		.byte	0x77
+ 3597 01b7 10       		.sleb128 16
+ 3598 01b8 00000000 		.4byte	0
+ 3599 01bc 00000000 		.4byte	0
+ 3600              	.LLST8:
+ 3601 01c0 00000000 		.4byte	.LFB64
+ 3602 01c4 02000000 		.4byte	.LCFI24
+ 3603 01c8 0200     		.2byte	0x2
+ 3604 01ca 7D       		.byte	0x7d
+ 3605 01cb 00       		.sleb128 0
+ 3606 01cc 02000000 		.4byte	.LCFI24
+ 3607 01d0 04000000 		.4byte	.LCFI25
+ 3608 01d4 0200     		.2byte	0x2
+ 3609 01d6 7D       		.byte	0x7d
+ 3610 01d7 08       		.sleb128 8
+ 3611 01d8 04000000 		.4byte	.LCFI25
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 70
+
+
+ 3612 01dc 06000000 		.4byte	.LCFI26
+ 3613 01e0 0200     		.2byte	0x2
+ 3614 01e2 7D       		.byte	0x7d
+ 3615 01e3 18       		.sleb128 24
+ 3616 01e4 06000000 		.4byte	.LCFI26
+ 3617 01e8 C8000000 		.4byte	.LFE64
+ 3618 01ec 0200     		.2byte	0x2
+ 3619 01ee 77       		.byte	0x77
+ 3620 01ef 18       		.sleb128 24
+ 3621 01f0 00000000 		.4byte	0
+ 3622 01f4 00000000 		.4byte	0
+ 3623              	.LLST9:
+ 3624 01f8 00000000 		.4byte	.LFB65
+ 3625 01fc 02000000 		.4byte	.LCFI27
+ 3626 0200 0200     		.2byte	0x2
+ 3627 0202 7D       		.byte	0x7d
+ 3628 0203 00       		.sleb128 0
+ 3629 0204 02000000 		.4byte	.LCFI27
+ 3630 0208 04000000 		.4byte	.LCFI28
+ 3631 020c 0200     		.2byte	0x2
+ 3632 020e 7D       		.byte	0x7d
+ 3633 020f 04       		.sleb128 4
+ 3634 0210 04000000 		.4byte	.LCFI28
+ 3635 0214 06000000 		.4byte	.LCFI29
+ 3636 0218 0200     		.2byte	0x2
+ 3637 021a 7D       		.byte	0x7d
+ 3638 021b 10       		.sleb128 16
+ 3639 021c 06000000 		.4byte	.LCFI29
+ 3640 0220 1A000000 		.4byte	.LFE65
+ 3641 0224 0200     		.2byte	0x2
+ 3642 0226 77       		.byte	0x77
+ 3643 0227 10       		.sleb128 16
+ 3644 0228 00000000 		.4byte	0
+ 3645 022c 00000000 		.4byte	0
+ 3646              	.LLST10:
+ 3647 0230 00000000 		.4byte	.LFB66
+ 3648 0234 02000000 		.4byte	.LCFI30
+ 3649 0238 0200     		.2byte	0x2
+ 3650 023a 7D       		.byte	0x7d
+ 3651 023b 00       		.sleb128 0
+ 3652 023c 02000000 		.4byte	.LCFI30
+ 3653 0240 04000000 		.4byte	.LCFI31
+ 3654 0244 0200     		.2byte	0x2
+ 3655 0246 7D       		.byte	0x7d
+ 3656 0247 04       		.sleb128 4
+ 3657 0248 04000000 		.4byte	.LCFI31
+ 3658 024c 14000000 		.4byte	.LFE66
+ 3659 0250 0200     		.2byte	0x2
+ 3660 0252 77       		.byte	0x77
+ 3661 0253 04       		.sleb128 4
+ 3662 0254 00000000 		.4byte	0
+ 3663 0258 00000000 		.4byte	0
+ 3664              	.LLST11:
+ 3665 025c 00000000 		.4byte	.LFB67
+ 3666 0260 02000000 		.4byte	.LCFI32
+ 3667 0264 0200     		.2byte	0x2
+ 3668 0266 7D       		.byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 71
+
+
+ 3669 0267 00       		.sleb128 0
+ 3670 0268 02000000 		.4byte	.LCFI32
+ 3671 026c 04000000 		.4byte	.LCFI33
+ 3672 0270 0200     		.2byte	0x2
+ 3673 0272 7D       		.byte	0x7d
+ 3674 0273 04       		.sleb128 4
+ 3675 0274 04000000 		.4byte	.LCFI33
+ 3676 0278 06000000 		.4byte	.LCFI34
+ 3677 027c 0200     		.2byte	0x2
+ 3678 027e 7D       		.byte	0x7d
+ 3679 027f 10       		.sleb128 16
+ 3680 0280 06000000 		.4byte	.LCFI34
+ 3681 0284 18000000 		.4byte	.LFE67
+ 3682 0288 0200     		.2byte	0x2
+ 3683 028a 77       		.byte	0x77
+ 3684 028b 10       		.sleb128 16
+ 3685 028c 00000000 		.4byte	0
+ 3686 0290 00000000 		.4byte	0
+ 3687              	.LLST12:
+ 3688 0294 00000000 		.4byte	.LFB68
+ 3689 0298 02000000 		.4byte	.LCFI35
+ 3690 029c 0200     		.2byte	0x2
+ 3691 029e 7D       		.byte	0x7d
+ 3692 029f 00       		.sleb128 0
+ 3693 02a0 02000000 		.4byte	.LCFI35
+ 3694 02a4 04000000 		.4byte	.LCFI36
+ 3695 02a8 0200     		.2byte	0x2
+ 3696 02aa 7D       		.byte	0x7d
+ 3697 02ab 08       		.sleb128 8
+ 3698 02ac 04000000 		.4byte	.LCFI36
+ 3699 02b0 06000000 		.4byte	.LCFI37
+ 3700 02b4 0200     		.2byte	0x2
+ 3701 02b6 7D       		.byte	0x7d
+ 3702 02b7 10       		.sleb128 16
+ 3703 02b8 06000000 		.4byte	.LCFI37
+ 3704 02bc 90000000 		.4byte	.LFE68
+ 3705 02c0 0200     		.2byte	0x2
+ 3706 02c2 77       		.byte	0x77
+ 3707 02c3 10       		.sleb128 16
+ 3708 02c4 00000000 		.4byte	0
+ 3709 02c8 00000000 		.4byte	0
+ 3710              	.LLST13:
+ 3711 02cc 00000000 		.4byte	.LFB69
+ 3712 02d0 02000000 		.4byte	.LCFI38
+ 3713 02d4 0200     		.2byte	0x2
+ 3714 02d6 7D       		.byte	0x7d
+ 3715 02d7 00       		.sleb128 0
+ 3716 02d8 02000000 		.4byte	.LCFI38
+ 3717 02dc 04000000 		.4byte	.LCFI39
+ 3718 02e0 0200     		.2byte	0x2
+ 3719 02e2 7D       		.byte	0x7d
+ 3720 02e3 08       		.sleb128 8
+ 3721 02e4 04000000 		.4byte	.LCFI39
+ 3722 02e8 06000000 		.4byte	.LCFI40
+ 3723 02ec 0200     		.2byte	0x2
+ 3724 02ee 7D       		.byte	0x7d
+ 3725 02ef 10       		.sleb128 16
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 72
+
+
+ 3726 02f0 06000000 		.4byte	.LCFI40
+ 3727 02f4 60000000 		.4byte	.LFE69
+ 3728 02f8 0200     		.2byte	0x2
+ 3729 02fa 77       		.byte	0x77
+ 3730 02fb 10       		.sleb128 16
+ 3731 02fc 00000000 		.4byte	0
+ 3732 0300 00000000 		.4byte	0
+ 3733              	.LLST14:
+ 3734 0304 00000000 		.4byte	.LFB70
+ 3735 0308 02000000 		.4byte	.LCFI41
+ 3736 030c 0200     		.2byte	0x2
+ 3737 030e 7D       		.byte	0x7d
+ 3738 030f 00       		.sleb128 0
+ 3739 0310 02000000 		.4byte	.LCFI41
+ 3740 0314 04000000 		.4byte	.LCFI42
+ 3741 0318 0200     		.2byte	0x2
+ 3742 031a 7D       		.byte	0x7d
+ 3743 031b 08       		.sleb128 8
+ 3744 031c 04000000 		.4byte	.LCFI42
+ 3745 0320 06000000 		.4byte	.LCFI43
+ 3746 0324 0200     		.2byte	0x2
+ 3747 0326 7D       		.byte	0x7d
+ 3748 0327 10       		.sleb128 16
+ 3749 0328 06000000 		.4byte	.LCFI43
+ 3750 032c 32000000 		.4byte	.LFE70
+ 3751 0330 0200     		.2byte	0x2
+ 3752 0332 77       		.byte	0x77
+ 3753 0333 10       		.sleb128 16
+ 3754 0334 00000000 		.4byte	0
+ 3755 0338 00000000 		.4byte	0
+ 3756              	.LLST15:
+ 3757 033c 00000000 		.4byte	.LFB71
+ 3758 0340 02000000 		.4byte	.LCFI44
+ 3759 0344 0200     		.2byte	0x2
+ 3760 0346 7D       		.byte	0x7d
+ 3761 0347 00       		.sleb128 0
+ 3762 0348 02000000 		.4byte	.LCFI44
+ 3763 034c 04000000 		.4byte	.LCFI45
+ 3764 0350 0200     		.2byte	0x2
+ 3765 0352 7D       		.byte	0x7d
+ 3766 0353 04       		.sleb128 4
+ 3767 0354 04000000 		.4byte	.LCFI45
+ 3768 0358 06000000 		.4byte	.LCFI46
+ 3769 035c 0200     		.2byte	0x2
+ 3770 035e 7D       		.byte	0x7d
+ 3771 035f 10       		.sleb128 16
+ 3772 0360 06000000 		.4byte	.LCFI46
+ 3773 0364 18000000 		.4byte	.LFE71
+ 3774 0368 0200     		.2byte	0x2
+ 3775 036a 77       		.byte	0x77
+ 3776 036b 10       		.sleb128 16
+ 3777 036c 00000000 		.4byte	0
+ 3778 0370 00000000 		.4byte	0
+ 3779              	.LLST16:
+ 3780 0374 00000000 		.4byte	.LFB72
+ 3781 0378 02000000 		.4byte	.LCFI47
+ 3782 037c 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 73
+
+
+ 3783 037e 7D       		.byte	0x7d
+ 3784 037f 00       		.sleb128 0
+ 3785 0380 02000000 		.4byte	.LCFI47
+ 3786 0384 04000000 		.4byte	.LCFI48
+ 3787 0388 0200     		.2byte	0x2
+ 3788 038a 7D       		.byte	0x7d
+ 3789 038b 08       		.sleb128 8
+ 3790 038c 04000000 		.4byte	.LCFI48
+ 3791 0390 06000000 		.4byte	.LCFI49
+ 3792 0394 0200     		.2byte	0x2
+ 3793 0396 7D       		.byte	0x7d
+ 3794 0397 10       		.sleb128 16
+ 3795 0398 06000000 		.4byte	.LCFI49
+ 3796 039c 90000000 		.4byte	.LFE72
+ 3797 03a0 0200     		.2byte	0x2
+ 3798 03a2 77       		.byte	0x77
+ 3799 03a3 10       		.sleb128 16
+ 3800 03a4 00000000 		.4byte	0
+ 3801 03a8 00000000 		.4byte	0
+ 3802              	.LLST17:
+ 3803 03ac 00000000 		.4byte	.LFB73
+ 3804 03b0 02000000 		.4byte	.LCFI50
+ 3805 03b4 0200     		.2byte	0x2
+ 3806 03b6 7D       		.byte	0x7d
+ 3807 03b7 00       		.sleb128 0
+ 3808 03b8 02000000 		.4byte	.LCFI50
+ 3809 03bc 04000000 		.4byte	.LCFI51
+ 3810 03c0 0200     		.2byte	0x2
+ 3811 03c2 7D       		.byte	0x7d
+ 3812 03c3 08       		.sleb128 8
+ 3813 03c4 04000000 		.4byte	.LCFI51
+ 3814 03c8 06000000 		.4byte	.LCFI52
+ 3815 03cc 0200     		.2byte	0x2
+ 3816 03ce 7D       		.byte	0x7d
+ 3817 03cf 10       		.sleb128 16
+ 3818 03d0 06000000 		.4byte	.LCFI52
+ 3819 03d4 60000000 		.4byte	.LFE73
+ 3820 03d8 0200     		.2byte	0x2
+ 3821 03da 77       		.byte	0x77
+ 3822 03db 10       		.sleb128 16
+ 3823 03dc 00000000 		.4byte	0
+ 3824 03e0 00000000 		.4byte	0
+ 3825              	.LLST18:
+ 3826 03e4 00000000 		.4byte	.LFB74
+ 3827 03e8 02000000 		.4byte	.LCFI53
+ 3828 03ec 0200     		.2byte	0x2
+ 3829 03ee 7D       		.byte	0x7d
+ 3830 03ef 00       		.sleb128 0
+ 3831 03f0 02000000 		.4byte	.LCFI53
+ 3832 03f4 04000000 		.4byte	.LCFI54
+ 3833 03f8 0200     		.2byte	0x2
+ 3834 03fa 7D       		.byte	0x7d
+ 3835 03fb 08       		.sleb128 8
+ 3836 03fc 04000000 		.4byte	.LCFI54
+ 3837 0400 06000000 		.4byte	.LCFI55
+ 3838 0404 0200     		.2byte	0x2
+ 3839 0406 7D       		.byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 74
+
+
+ 3840 0407 10       		.sleb128 16
+ 3841 0408 06000000 		.4byte	.LCFI55
+ 3842 040c 32000000 		.4byte	.LFE74
+ 3843 0410 0200     		.2byte	0x2
+ 3844 0412 77       		.byte	0x77
+ 3845 0413 10       		.sleb128 16
+ 3846 0414 00000000 		.4byte	0
+ 3847 0418 00000000 		.4byte	0
+ 3848              	.LLST19:
+ 3849 041c 00000000 		.4byte	.LFB75
+ 3850 0420 02000000 		.4byte	.LCFI56
+ 3851 0424 0200     		.2byte	0x2
+ 3852 0426 7D       		.byte	0x7d
+ 3853 0427 00       		.sleb128 0
+ 3854 0428 02000000 		.4byte	.LCFI56
+ 3855 042c 04000000 		.4byte	.LCFI57
+ 3856 0430 0200     		.2byte	0x2
+ 3857 0432 7D       		.byte	0x7d
+ 3858 0433 04       		.sleb128 4
+ 3859 0434 04000000 		.4byte	.LCFI57
+ 3860 0438 06000000 		.4byte	.LCFI58
+ 3861 043c 0200     		.2byte	0x2
+ 3862 043e 7D       		.byte	0x7d
+ 3863 043f 10       		.sleb128 16
+ 3864 0440 06000000 		.4byte	.LCFI58
+ 3865 0444 18000000 		.4byte	.LFE75
+ 3866 0448 0200     		.2byte	0x2
+ 3867 044a 77       		.byte	0x77
+ 3868 044b 10       		.sleb128 16
+ 3869 044c 00000000 		.4byte	0
+ 3870 0450 00000000 		.4byte	0
+ 3871              	.LLST20:
+ 3872 0454 00000000 		.4byte	.LFB76
+ 3873 0458 02000000 		.4byte	.LCFI59
+ 3874 045c 0200     		.2byte	0x2
+ 3875 045e 7D       		.byte	0x7d
+ 3876 045f 00       		.sleb128 0
+ 3877 0460 02000000 		.4byte	.LCFI59
+ 3878 0464 04000000 		.4byte	.LCFI60
+ 3879 0468 0200     		.2byte	0x2
+ 3880 046a 7D       		.byte	0x7d
+ 3881 046b 08       		.sleb128 8
+ 3882 046c 04000000 		.4byte	.LCFI60
+ 3883 0470 06000000 		.4byte	.LCFI61
+ 3884 0474 0200     		.2byte	0x2
+ 3885 0476 7D       		.byte	0x7d
+ 3886 0477 10       		.sleb128 16
+ 3887 0478 06000000 		.4byte	.LCFI61
+ 3888 047c 90000000 		.4byte	.LFE76
+ 3889 0480 0200     		.2byte	0x2
+ 3890 0482 77       		.byte	0x77
+ 3891 0483 10       		.sleb128 16
+ 3892 0484 00000000 		.4byte	0
+ 3893 0488 00000000 		.4byte	0
+ 3894              	.LLST21:
+ 3895 048c 00000000 		.4byte	.LFB77
+ 3896 0490 02000000 		.4byte	.LCFI62
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 75
+
+
+ 3897 0494 0200     		.2byte	0x2
+ 3898 0496 7D       		.byte	0x7d
+ 3899 0497 00       		.sleb128 0
+ 3900 0498 02000000 		.4byte	.LCFI62
+ 3901 049c 04000000 		.4byte	.LCFI63
+ 3902 04a0 0200     		.2byte	0x2
+ 3903 04a2 7D       		.byte	0x7d
+ 3904 04a3 08       		.sleb128 8
+ 3905 04a4 04000000 		.4byte	.LCFI63
+ 3906 04a8 06000000 		.4byte	.LCFI64
+ 3907 04ac 0200     		.2byte	0x2
+ 3908 04ae 7D       		.byte	0x7d
+ 3909 04af 10       		.sleb128 16
+ 3910 04b0 06000000 		.4byte	.LCFI64
+ 3911 04b4 60000000 		.4byte	.LFE77
+ 3912 04b8 0200     		.2byte	0x2
+ 3913 04ba 77       		.byte	0x77
+ 3914 04bb 10       		.sleb128 16
+ 3915 04bc 00000000 		.4byte	0
+ 3916 04c0 00000000 		.4byte	0
+ 3917              	.LLST22:
+ 3918 04c4 00000000 		.4byte	.LFB78
+ 3919 04c8 02000000 		.4byte	.LCFI65
+ 3920 04cc 0200     		.2byte	0x2
+ 3921 04ce 7D       		.byte	0x7d
+ 3922 04cf 00       		.sleb128 0
+ 3923 04d0 02000000 		.4byte	.LCFI65
+ 3924 04d4 04000000 		.4byte	.LCFI66
+ 3925 04d8 0200     		.2byte	0x2
+ 3926 04da 7D       		.byte	0x7d
+ 3927 04db 08       		.sleb128 8
+ 3928 04dc 04000000 		.4byte	.LCFI66
+ 3929 04e0 06000000 		.4byte	.LCFI67
+ 3930 04e4 0200     		.2byte	0x2
+ 3931 04e6 7D       		.byte	0x7d
+ 3932 04e7 10       		.sleb128 16
+ 3933 04e8 06000000 		.4byte	.LCFI67
+ 3934 04ec 32000000 		.4byte	.LFE78
+ 3935 04f0 0200     		.2byte	0x2
+ 3936 04f2 77       		.byte	0x77
+ 3937 04f3 10       		.sleb128 16
+ 3938 04f4 00000000 		.4byte	0
+ 3939 04f8 00000000 		.4byte	0
+ 3940              	.LLST23:
+ 3941 04fc 00000000 		.4byte	.LFB79
+ 3942 0500 02000000 		.4byte	.LCFI68
+ 3943 0504 0200     		.2byte	0x2
+ 3944 0506 7D       		.byte	0x7d
+ 3945 0507 00       		.sleb128 0
+ 3946 0508 02000000 		.4byte	.LCFI68
+ 3947 050c 04000000 		.4byte	.LCFI69
+ 3948 0510 0200     		.2byte	0x2
+ 3949 0512 7D       		.byte	0x7d
+ 3950 0513 04       		.sleb128 4
+ 3951 0514 04000000 		.4byte	.LCFI69
+ 3952 0518 06000000 		.4byte	.LCFI70
+ 3953 051c 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 76
+
+
+ 3954 051e 7D       		.byte	0x7d
+ 3955 051f 10       		.sleb128 16
+ 3956 0520 06000000 		.4byte	.LCFI70
+ 3957 0524 18000000 		.4byte	.LFE79
+ 3958 0528 0200     		.2byte	0x2
+ 3959 052a 77       		.byte	0x77
+ 3960 052b 10       		.sleb128 16
+ 3961 052c 00000000 		.4byte	0
+ 3962 0530 00000000 		.4byte	0
+ 3963              	.LLST24:
+ 3964 0534 00000000 		.4byte	.LFB80
+ 3965 0538 02000000 		.4byte	.LCFI71
+ 3966 053c 0200     		.2byte	0x2
+ 3967 053e 7D       		.byte	0x7d
+ 3968 053f 00       		.sleb128 0
+ 3969 0540 02000000 		.4byte	.LCFI71
+ 3970 0544 04000000 		.4byte	.LCFI72
+ 3971 0548 0200     		.2byte	0x2
+ 3972 054a 7D       		.byte	0x7d
+ 3973 054b 08       		.sleb128 8
+ 3974 054c 04000000 		.4byte	.LCFI72
+ 3975 0550 06000000 		.4byte	.LCFI73
+ 3976 0554 0200     		.2byte	0x2
+ 3977 0556 7D       		.byte	0x7d
+ 3978 0557 10       		.sleb128 16
+ 3979 0558 06000000 		.4byte	.LCFI73
+ 3980 055c 60000000 		.4byte	.LFE80
+ 3981 0560 0200     		.2byte	0x2
+ 3982 0562 77       		.byte	0x77
+ 3983 0563 10       		.sleb128 16
+ 3984 0564 00000000 		.4byte	0
+ 3985 0568 00000000 		.4byte	0
+ 3986              	.LLST25:
+ 3987 056c 00000000 		.4byte	.LFB81
+ 3988 0570 02000000 		.4byte	.LCFI74
+ 3989 0574 0200     		.2byte	0x2
+ 3990 0576 7D       		.byte	0x7d
+ 3991 0577 00       		.sleb128 0
+ 3992 0578 02000000 		.4byte	.LCFI74
+ 3993 057c 04000000 		.4byte	.LCFI75
+ 3994 0580 0200     		.2byte	0x2
+ 3995 0582 7D       		.byte	0x7d
+ 3996 0583 08       		.sleb128 8
+ 3997 0584 04000000 		.4byte	.LCFI75
+ 3998 0588 06000000 		.4byte	.LCFI76
+ 3999 058c 0200     		.2byte	0x2
+ 4000 058e 7D       		.byte	0x7d
+ 4001 058f 10       		.sleb128 16
+ 4002 0590 06000000 		.4byte	.LCFI76
+ 4003 0594 32000000 		.4byte	.LFE81
+ 4004 0598 0200     		.2byte	0x2
+ 4005 059a 77       		.byte	0x77
+ 4006 059b 10       		.sleb128 16
+ 4007 059c 00000000 		.4byte	0
+ 4008 05a0 00000000 		.4byte	0
+ 4009              	.LLST26:
+ 4010 05a4 00000000 		.4byte	.LFB82
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 77
+
+
+ 4011 05a8 02000000 		.4byte	.LCFI77
+ 4012 05ac 0200     		.2byte	0x2
+ 4013 05ae 7D       		.byte	0x7d
+ 4014 05af 00       		.sleb128 0
+ 4015 05b0 02000000 		.4byte	.LCFI77
+ 4016 05b4 04000000 		.4byte	.LCFI78
+ 4017 05b8 0200     		.2byte	0x2
+ 4018 05ba 7D       		.byte	0x7d
+ 4019 05bb 04       		.sleb128 4
+ 4020 05bc 04000000 		.4byte	.LCFI78
+ 4021 05c0 06000000 		.4byte	.LCFI79
+ 4022 05c4 0200     		.2byte	0x2
+ 4023 05c6 7D       		.byte	0x7d
+ 4024 05c7 10       		.sleb128 16
+ 4025 05c8 06000000 		.4byte	.LCFI79
+ 4026 05cc 18000000 		.4byte	.LFE82
+ 4027 05d0 0200     		.2byte	0x2
+ 4028 05d2 77       		.byte	0x77
+ 4029 05d3 10       		.sleb128 16
+ 4030 05d4 00000000 		.4byte	0
+ 4031 05d8 00000000 		.4byte	0
+ 4032              	.LLST27:
+ 4033 05dc 00000000 		.4byte	.LFB83
+ 4034 05e0 02000000 		.4byte	.LCFI80
+ 4035 05e4 0200     		.2byte	0x2
+ 4036 05e6 7D       		.byte	0x7d
+ 4037 05e7 00       		.sleb128 0
+ 4038 05e8 02000000 		.4byte	.LCFI80
+ 4039 05ec 04000000 		.4byte	.LCFI81
+ 4040 05f0 0200     		.2byte	0x2
+ 4041 05f2 7D       		.byte	0x7d
+ 4042 05f3 04       		.sleb128 4
+ 4043 05f4 04000000 		.4byte	.LCFI81
+ 4044 05f8 06000000 		.4byte	.LCFI82
+ 4045 05fc 0200     		.2byte	0x2
+ 4046 05fe 7D       		.byte	0x7d
+ 4047 05ff 10       		.sleb128 16
+ 4048 0600 06000000 		.4byte	.LCFI82
+ 4049 0604 18000000 		.4byte	.LFE83
+ 4050 0608 0200     		.2byte	0x2
+ 4051 060a 77       		.byte	0x77
+ 4052 060b 10       		.sleb128 16
+ 4053 060c 00000000 		.4byte	0
+ 4054 0610 00000000 		.4byte	0
+ 4055              	.LLST28:
+ 4056 0614 00000000 		.4byte	.LFB84
+ 4057 0618 02000000 		.4byte	.LCFI83
+ 4058 061c 0200     		.2byte	0x2
+ 4059 061e 7D       		.byte	0x7d
+ 4060 061f 00       		.sleb128 0
+ 4061 0620 02000000 		.4byte	.LCFI83
+ 4062 0624 04000000 		.4byte	.LCFI84
+ 4063 0628 0200     		.2byte	0x2
+ 4064 062a 7D       		.byte	0x7d
+ 4065 062b 08       		.sleb128 8
+ 4066 062c 04000000 		.4byte	.LCFI84
+ 4067 0630 06000000 		.4byte	.LCFI85
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 78
+
+
+ 4068 0634 0200     		.2byte	0x2
+ 4069 0636 7D       		.byte	0x7d
+ 4070 0637 10       		.sleb128 16
+ 4071 0638 06000000 		.4byte	.LCFI85
+ 4072 063c 48000000 		.4byte	.LFE84
+ 4073 0640 0200     		.2byte	0x2
+ 4074 0642 77       		.byte	0x77
+ 4075 0643 10       		.sleb128 16
+ 4076 0644 00000000 		.4byte	0
+ 4077 0648 00000000 		.4byte	0
+ 4078              	.LLST29:
+ 4079 064c 00000000 		.4byte	.LFB85
+ 4080 0650 02000000 		.4byte	.LCFI86
+ 4081 0654 0200     		.2byte	0x2
+ 4082 0656 7D       		.byte	0x7d
+ 4083 0657 00       		.sleb128 0
+ 4084 0658 02000000 		.4byte	.LCFI86
+ 4085 065c 04000000 		.4byte	.LCFI87
+ 4086 0660 0200     		.2byte	0x2
+ 4087 0662 7D       		.byte	0x7d
+ 4088 0663 08       		.sleb128 8
+ 4089 0664 04000000 		.4byte	.LCFI87
+ 4090 0668 06000000 		.4byte	.LCFI88
+ 4091 066c 0200     		.2byte	0x2
+ 4092 066e 7D       		.byte	0x7d
+ 4093 066f 10       		.sleb128 16
+ 4094 0670 06000000 		.4byte	.LCFI88
+ 4095 0674 90000000 		.4byte	.LFE85
+ 4096 0678 0200     		.2byte	0x2
+ 4097 067a 77       		.byte	0x77
+ 4098 067b 10       		.sleb128 16
+ 4099 067c 00000000 		.4byte	0
+ 4100 0680 00000000 		.4byte	0
+ 4101              	.LLST30:
+ 4102 0684 00000000 		.4byte	.LFB86
+ 4103 0688 02000000 		.4byte	.LCFI89
+ 4104 068c 0200     		.2byte	0x2
+ 4105 068e 7D       		.byte	0x7d
+ 4106 068f 00       		.sleb128 0
+ 4107 0690 02000000 		.4byte	.LCFI89
+ 4108 0694 04000000 		.4byte	.LCFI90
+ 4109 0698 0200     		.2byte	0x2
+ 4110 069a 7D       		.byte	0x7d
+ 4111 069b 08       		.sleb128 8
+ 4112 069c 04000000 		.4byte	.LCFI90
+ 4113 06a0 06000000 		.4byte	.LCFI91
+ 4114 06a4 0200     		.2byte	0x2
+ 4115 06a6 7D       		.byte	0x7d
+ 4116 06a7 10       		.sleb128 16
+ 4117 06a8 06000000 		.4byte	.LCFI91
+ 4118 06ac 60000000 		.4byte	.LFE86
+ 4119 06b0 0200     		.2byte	0x2
+ 4120 06b2 77       		.byte	0x77
+ 4121 06b3 10       		.sleb128 16
+ 4122 06b4 00000000 		.4byte	0
+ 4123 06b8 00000000 		.4byte	0
+ 4124              	.LLST31:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 79
+
+
+ 4125 06bc 00000000 		.4byte	.LFB87
+ 4126 06c0 02000000 		.4byte	.LCFI92
+ 4127 06c4 0200     		.2byte	0x2
+ 4128 06c6 7D       		.byte	0x7d
+ 4129 06c7 00       		.sleb128 0
+ 4130 06c8 02000000 		.4byte	.LCFI92
+ 4131 06cc 04000000 		.4byte	.LCFI93
+ 4132 06d0 0200     		.2byte	0x2
+ 4133 06d2 7D       		.byte	0x7d
+ 4134 06d3 08       		.sleb128 8
+ 4135 06d4 04000000 		.4byte	.LCFI93
+ 4136 06d8 06000000 		.4byte	.LCFI94
+ 4137 06dc 0200     		.2byte	0x2
+ 4138 06de 7D       		.byte	0x7d
+ 4139 06df 10       		.sleb128 16
+ 4140 06e0 06000000 		.4byte	.LCFI94
+ 4141 06e4 32000000 		.4byte	.LFE87
+ 4142 06e8 0200     		.2byte	0x2
+ 4143 06ea 77       		.byte	0x77
+ 4144 06eb 10       		.sleb128 16
+ 4145 06ec 00000000 		.4byte	0
+ 4146 06f0 00000000 		.4byte	0
+ 4147              	.LLST32:
+ 4148 06f4 00000000 		.4byte	.LFB88
+ 4149 06f8 02000000 		.4byte	.LCFI95
+ 4150 06fc 0200     		.2byte	0x2
+ 4151 06fe 7D       		.byte	0x7d
+ 4152 06ff 00       		.sleb128 0
+ 4153 0700 02000000 		.4byte	.LCFI95
+ 4154 0704 04000000 		.4byte	.LCFI96
+ 4155 0708 0200     		.2byte	0x2
+ 4156 070a 7D       		.byte	0x7d
+ 4157 070b 04       		.sleb128 4
+ 4158 070c 04000000 		.4byte	.LCFI96
+ 4159 0710 06000000 		.4byte	.LCFI97
+ 4160 0714 0200     		.2byte	0x2
+ 4161 0716 7D       		.byte	0x7d
+ 4162 0717 10       		.sleb128 16
+ 4163 0718 06000000 		.4byte	.LCFI97
+ 4164 071c 20000000 		.4byte	.LFE88
+ 4165 0720 0200     		.2byte	0x2
+ 4166 0722 77       		.byte	0x77
+ 4167 0723 10       		.sleb128 16
+ 4168 0724 00000000 		.4byte	0
+ 4169 0728 00000000 		.4byte	0
+ 4170              	.LLST33:
+ 4171 072c 00000000 		.4byte	.LFB89
+ 4172 0730 02000000 		.4byte	.LCFI98
+ 4173 0734 0200     		.2byte	0x2
+ 4174 0736 7D       		.byte	0x7d
+ 4175 0737 00       		.sleb128 0
+ 4176 0738 02000000 		.4byte	.LCFI98
+ 4177 073c 04000000 		.4byte	.LCFI99
+ 4178 0740 0200     		.2byte	0x2
+ 4179 0742 7D       		.byte	0x7d
+ 4180 0743 10       		.sleb128 16
+ 4181 0744 04000000 		.4byte	.LCFI99
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 80
+
+
+ 4182 0748 06000000 		.4byte	.LCFI100
+ 4183 074c 0200     		.2byte	0x2
+ 4184 074e 7D       		.byte	0x7d
+ 4185 074f 18       		.sleb128 24
+ 4186 0750 06000000 		.4byte	.LCFI100
+ 4187 0754 66000000 		.4byte	.LFE89
+ 4188 0758 0200     		.2byte	0x2
+ 4189 075a 77       		.byte	0x77
+ 4190 075b 18       		.sleb128 24
+ 4191 075c 00000000 		.4byte	0
+ 4192 0760 00000000 		.4byte	0
+ 4193              	.LLST34:
+ 4194 0764 00000000 		.4byte	.LFB90
+ 4195 0768 02000000 		.4byte	.LCFI101
+ 4196 076c 0200     		.2byte	0x2
+ 4197 076e 7D       		.byte	0x7d
+ 4198 076f 00       		.sleb128 0
+ 4199 0770 02000000 		.4byte	.LCFI101
+ 4200 0774 04000000 		.4byte	.LCFI102
+ 4201 0778 0200     		.2byte	0x2
+ 4202 077a 7D       		.byte	0x7d
+ 4203 077b 08       		.sleb128 8
+ 4204 077c 04000000 		.4byte	.LCFI102
+ 4205 0780 06000000 		.4byte	.LCFI103
+ 4206 0784 0200     		.2byte	0x2
+ 4207 0786 7D       		.byte	0x7d
+ 4208 0787 18       		.sleb128 24
+ 4209 0788 06000000 		.4byte	.LCFI103
+ 4210 078c 3A000000 		.4byte	.LFE90
+ 4211 0790 0200     		.2byte	0x2
+ 4212 0792 77       		.byte	0x77
+ 4213 0793 18       		.sleb128 24
+ 4214 0794 00000000 		.4byte	0
+ 4215 0798 00000000 		.4byte	0
+ 4216              		.section	.debug_aranges,"",%progbits
+ 4217 0000 2C010000 		.4byte	0x12c
+ 4218 0004 0200     		.2byte	0x2
+ 4219 0006 00000000 		.4byte	.Ldebug_info0
+ 4220 000a 04       		.byte	0x4
+ 4221 000b 00       		.byte	0
+ 4222 000c 0000     		.2byte	0
+ 4223 000e 0000     		.2byte	0
+ 4224 0010 00000000 		.4byte	.LFB56
+ 4225 0014 4C000000 		.4byte	.LFE56-.LFB56
+ 4226 0018 00000000 		.4byte	.LFB57
+ 4227 001c 16000000 		.4byte	.LFE57-.LFB57
+ 4228 0020 00000000 		.4byte	.LFB58
+ 4229 0024 16000000 		.4byte	.LFE58-.LFB58
+ 4230 0028 00000000 		.4byte	.LFB59
+ 4231 002c 16000000 		.4byte	.LFE59-.LFB59
+ 4232 0030 00000000 		.4byte	.LFB60
+ 4233 0034 40000000 		.4byte	.LFE60-.LFB60
+ 4234 0038 00000000 		.4byte	.LFB61
+ 4235 003c 16000000 		.4byte	.LFE61-.LFB61
+ 4236 0040 00000000 		.4byte	.LFB62
+ 4237 0044 16000000 		.4byte	.LFE62-.LFB62
+ 4238 0048 00000000 		.4byte	.LFB63
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 81
+
+
+ 4239 004c 16000000 		.4byte	.LFE63-.LFB63
+ 4240 0050 00000000 		.4byte	.LFB64
+ 4241 0054 C8000000 		.4byte	.LFE64-.LFB64
+ 4242 0058 00000000 		.4byte	.LFB65
+ 4243 005c 1A000000 		.4byte	.LFE65-.LFB65
+ 4244 0060 00000000 		.4byte	.LFB66
+ 4245 0064 14000000 		.4byte	.LFE66-.LFB66
+ 4246 0068 00000000 		.4byte	.LFB67
+ 4247 006c 18000000 		.4byte	.LFE67-.LFB67
+ 4248 0070 00000000 		.4byte	.LFB68
+ 4249 0074 90000000 		.4byte	.LFE68-.LFB68
+ 4250 0078 00000000 		.4byte	.LFB69
+ 4251 007c 60000000 		.4byte	.LFE69-.LFB69
+ 4252 0080 00000000 		.4byte	.LFB70
+ 4253 0084 32000000 		.4byte	.LFE70-.LFB70
+ 4254 0088 00000000 		.4byte	.LFB71
+ 4255 008c 18000000 		.4byte	.LFE71-.LFB71
+ 4256 0090 00000000 		.4byte	.LFB72
+ 4257 0094 90000000 		.4byte	.LFE72-.LFB72
+ 4258 0098 00000000 		.4byte	.LFB73
+ 4259 009c 60000000 		.4byte	.LFE73-.LFB73
+ 4260 00a0 00000000 		.4byte	.LFB74
+ 4261 00a4 32000000 		.4byte	.LFE74-.LFB74
+ 4262 00a8 00000000 		.4byte	.LFB75
+ 4263 00ac 18000000 		.4byte	.LFE75-.LFB75
+ 4264 00b0 00000000 		.4byte	.LFB76
+ 4265 00b4 90000000 		.4byte	.LFE76-.LFB76
+ 4266 00b8 00000000 		.4byte	.LFB77
+ 4267 00bc 60000000 		.4byte	.LFE77-.LFB77
+ 4268 00c0 00000000 		.4byte	.LFB78
+ 4269 00c4 32000000 		.4byte	.LFE78-.LFB78
+ 4270 00c8 00000000 		.4byte	.LFB79
+ 4271 00cc 18000000 		.4byte	.LFE79-.LFB79
+ 4272 00d0 00000000 		.4byte	.LFB80
+ 4273 00d4 60000000 		.4byte	.LFE80-.LFB80
+ 4274 00d8 00000000 		.4byte	.LFB81
+ 4275 00dc 32000000 		.4byte	.LFE81-.LFB81
+ 4276 00e0 00000000 		.4byte	.LFB82
+ 4277 00e4 18000000 		.4byte	.LFE82-.LFB82
+ 4278 00e8 00000000 		.4byte	.LFB83
+ 4279 00ec 18000000 		.4byte	.LFE83-.LFB83
+ 4280 00f0 00000000 		.4byte	.LFB84
+ 4281 00f4 48000000 		.4byte	.LFE84-.LFB84
+ 4282 00f8 00000000 		.4byte	.LFB85
+ 4283 00fc 90000000 		.4byte	.LFE85-.LFB85
+ 4284 0100 00000000 		.4byte	.LFB86
+ 4285 0104 60000000 		.4byte	.LFE86-.LFB86
+ 4286 0108 00000000 		.4byte	.LFB87
+ 4287 010c 32000000 		.4byte	.LFE87-.LFB87
+ 4288 0110 00000000 		.4byte	.LFB88
+ 4289 0114 20000000 		.4byte	.LFE88-.LFB88
+ 4290 0118 00000000 		.4byte	.LFB89
+ 4291 011c 66000000 		.4byte	.LFE89-.LFB89
+ 4292 0120 00000000 		.4byte	.LFB90
+ 4293 0124 3A000000 		.4byte	.LFE90-.LFB90
+ 4294 0128 00000000 		.4byte	0
+ 4295 012c 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 82
+
+
+ 4296              		.section	.debug_ranges,"",%progbits
+ 4297              	.Ldebug_ranges0:
+ 4298 0000 00000000 		.4byte	.LFB56
+ 4299 0004 4C000000 		.4byte	.LFE56
+ 4300 0008 00000000 		.4byte	.LFB57
+ 4301 000c 16000000 		.4byte	.LFE57
+ 4302 0010 00000000 		.4byte	.LFB58
+ 4303 0014 16000000 		.4byte	.LFE58
+ 4304 0018 00000000 		.4byte	.LFB59
+ 4305 001c 16000000 		.4byte	.LFE59
+ 4306 0020 00000000 		.4byte	.LFB60
+ 4307 0024 40000000 		.4byte	.LFE60
+ 4308 0028 00000000 		.4byte	.LFB61
+ 4309 002c 16000000 		.4byte	.LFE61
+ 4310 0030 00000000 		.4byte	.LFB62
+ 4311 0034 16000000 		.4byte	.LFE62
+ 4312 0038 00000000 		.4byte	.LFB63
+ 4313 003c 16000000 		.4byte	.LFE63
+ 4314 0040 00000000 		.4byte	.LFB64
+ 4315 0044 C8000000 		.4byte	.LFE64
+ 4316 0048 00000000 		.4byte	.LFB65
+ 4317 004c 1A000000 		.4byte	.LFE65
+ 4318 0050 00000000 		.4byte	.LFB66
+ 4319 0054 14000000 		.4byte	.LFE66
+ 4320 0058 00000000 		.4byte	.LFB67
+ 4321 005c 18000000 		.4byte	.LFE67
+ 4322 0060 00000000 		.4byte	.LFB68
+ 4323 0064 90000000 		.4byte	.LFE68
+ 4324 0068 00000000 		.4byte	.LFB69
+ 4325 006c 60000000 		.4byte	.LFE69
+ 4326 0070 00000000 		.4byte	.LFB70
+ 4327 0074 32000000 		.4byte	.LFE70
+ 4328 0078 00000000 		.4byte	.LFB71
+ 4329 007c 18000000 		.4byte	.LFE71
+ 4330 0080 00000000 		.4byte	.LFB72
+ 4331 0084 90000000 		.4byte	.LFE72
+ 4332 0088 00000000 		.4byte	.LFB73
+ 4333 008c 60000000 		.4byte	.LFE73
+ 4334 0090 00000000 		.4byte	.LFB74
+ 4335 0094 32000000 		.4byte	.LFE74
+ 4336 0098 00000000 		.4byte	.LFB75
+ 4337 009c 18000000 		.4byte	.LFE75
+ 4338 00a0 00000000 		.4byte	.LFB76
+ 4339 00a4 90000000 		.4byte	.LFE76
+ 4340 00a8 00000000 		.4byte	.LFB77
+ 4341 00ac 60000000 		.4byte	.LFE77
+ 4342 00b0 00000000 		.4byte	.LFB78
+ 4343 00b4 32000000 		.4byte	.LFE78
+ 4344 00b8 00000000 		.4byte	.LFB79
+ 4345 00bc 18000000 		.4byte	.LFE79
+ 4346 00c0 00000000 		.4byte	.LFB80
+ 4347 00c4 60000000 		.4byte	.LFE80
+ 4348 00c8 00000000 		.4byte	.LFB81
+ 4349 00cc 32000000 		.4byte	.LFE81
+ 4350 00d0 00000000 		.4byte	.LFB82
+ 4351 00d4 18000000 		.4byte	.LFE82
+ 4352 00d8 00000000 		.4byte	.LFB83
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 83
+
+
+ 4353 00dc 18000000 		.4byte	.LFE83
+ 4354 00e0 00000000 		.4byte	.LFB84
+ 4355 00e4 48000000 		.4byte	.LFE84
+ 4356 00e8 00000000 		.4byte	.LFB85
+ 4357 00ec 90000000 		.4byte	.LFE85
+ 4358 00f0 00000000 		.4byte	.LFB86
+ 4359 00f4 60000000 		.4byte	.LFE86
+ 4360 00f8 00000000 		.4byte	.LFB87
+ 4361 00fc 32000000 		.4byte	.LFE87
+ 4362 0100 00000000 		.4byte	.LFB88
+ 4363 0104 20000000 		.4byte	.LFE88
+ 4364 0108 00000000 		.4byte	.LFB89
+ 4365 010c 66000000 		.4byte	.LFE89
+ 4366 0110 00000000 		.4byte	.LFB90
+ 4367 0114 3A000000 		.4byte	.LFE90
+ 4368 0118 00000000 		.4byte	0
+ 4369 011c 00000000 		.4byte	0
+ 4370              		.section	.debug_line,"",%progbits
+ 4371              	.Ldebug_line0:
+ 4372 0000 C0030000 		.section	.debug_str,"MS",%progbits,1
+ 4372      02002301 
+ 4372      00000201 
+ 4372      FB0E0D00 
+ 4372      01010101 
+ 4373              	.LASF60:
+ 4374 0000 695F6D61 		.ascii	"i_max\000"
+ 4374      7800
+ 4375              	.LASF28:
+ 4376 0006 504F5745 		.ascii	"POWERCALC\000"
+ 4376      5243414C 
+ 4376      4300
+ 4377              	.LASF34:
+ 4378 0010 544F5251 		.ascii	"TORQUESTAT\000"
+ 4378      55455354 
+ 4378      415400
+ 4379              	.LASF67:
+ 4380 001b 544F5554 		.ascii	"TOUT_mean\000"
+ 4380      5F6D6561 
+ 4380      6E00
+ 4381              	.LASF30:
+ 4382 0025 71706F77 		.ascii	"qpower_t\000"
+ 4382      65725F74 
+ 4382      00
+ 4383              	.LASF76:
+ 4384 002e 544F5554 		.ascii	"TOUT_t\000"
+ 4384      5F7400
+ 4385              	.LASF2:
+ 4386 0035 73686F72 		.ascii	"short int\000"
+ 4386      7420696E 
+ 4386      7400
+ 4387              	.LASF16:
+ 4388 003f 73697A65 		.ascii	"sizetype\000"
+ 4388      74797065 
+ 4388      00
+ 4389              	.LASF74:
+ 4390 0048 544D4F54 		.ascii	"TMOT_t\000"
+ 4390      5F7400
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 84
+
+
+ 4391              	.LASF73:
+ 4392 004f 72706D5F 		.ascii	"rpm_t\000"
+ 4392      7400
+ 4393              	.LASF27:
+ 4394 0055 53544154 		.ascii	"STATISTICS\000"
+ 4394      49535449 
+ 4394      435300
+ 4395              	.LASF84:
+ 4396 0060 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 4396      73657273 
+ 4396      5C477261 
+ 4396      7A69616E 
+ 4396      6F20472E 
+ 4397 008f 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 4397      5C535155 
+ 4397      49545C56 
+ 4397      6572732E 
+ 4397      302E302D 
+ 4398 00bf 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 4398      2D50726F 
+ 4398      746F2E63 
+ 4398      7964736E 
+ 4398      00
+ 4399              	.LASF85:
+ 4400 00d0 6D6F746F 		.ascii	"motor_abs_velocity\000"
+ 4400      725F6162 
+ 4400      735F7665 
+ 4400      6C6F6369 
+ 4400      747900
+ 4401              	.LASF47:
+ 4402 00e3 71706F77 		.ascii	"qpower_stat\000"
+ 4402      65725F73 
+ 4402      74617400 
+ 4403              	.LASF69:
+ 4404 00ef 544D4F54 		.ascii	"TMOT_variance\000"
+ 4404      5F766172 
+ 4404      69616E63 
+ 4404      6500
+ 4405              	.LASF72:
+ 4406 00fd 6F6D6567 		.ascii	"omega_t\000"
+ 4406      615F7400 
+ 4407              	.LASF75:
+ 4408 0105 504D4F54 		.ascii	"PMOTE_t\000"
+ 4408      455F7400 
+ 4409              	.LASF43:
+ 4410 010d 63757272 		.ascii	"current_statistics_init\000"
+ 4410      656E745F 
+ 4410      73746174 
+ 4410      69737469 
+ 4410      63735F69 
+ 4411              	.LASF35:
+ 4412 0125 63757272 		.ascii	"current_integral\000"
+ 4412      656E745F 
+ 4412      696E7465 
+ 4412      6772616C 
+ 4412      00
+ 4413              	.LASF79:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 85
+
+
+ 4414 0136 42617474 		.ascii	"Battery_Energy_Meter\000"
+ 4414      6572795F 
+ 4414      456E6572 
+ 4414      67795F4D 
+ 4414      65746572 
+ 4415              	.LASF52:
+ 4416 014b 656E635F 		.ascii	"enc_position_actual\000"
+ 4416      706F7369 
+ 4416      74696F6E 
+ 4416      5F616374 
+ 4416      75616C00 
+ 4417              	.LASF42:
+ 4418 015f 63757272 		.ascii	"current_statistics_elab_step\000"
+ 4418      656E745F 
+ 4418      73746174 
+ 4418      69737469 
+ 4418      63735F65 
+ 4419              	.LASF18:
+ 4420 017c 6D657373 		.ascii	"messg\000"
+ 4420      6700
+ 4421              	.LASF31:
+ 4422 0182 56454C4F 		.ascii	"VELOCALC\000"
+ 4422      43414C43 
+ 4422      00
+ 4423              	.LASF68:
+ 4424 018b 695F7661 		.ascii	"i_variance\000"
+ 4424      7269616E 
+ 4424      636500
+ 4425              	.LASF53:
+ 4426 0196 6D6F746F 		.ascii	"motor_abs_velocity_sampling_init\000"
+ 4426      725F6162 
+ 4426      735F7665 
+ 4426      6C6F6369 
+ 4426      74795F73 
+ 4427              	.LASF23:
+ 4428 01b7 516B5F70 		.ascii	"Qk_previous\000"
+ 4428      72657669 
+ 4428      6F757300 
+ 4429              	.LASF64:
+ 4430 01c3 695F6D65 		.ascii	"i_mean\000"
+ 4430      616E00
+ 4431              	.LASF13:
+ 4432 01ca 666C6F61 		.ascii	"float\000"
+ 4432      7400
+ 4433              	.LASF21:
+ 4434 01d0 72616E67 		.ascii	"range\000"
+ 4434      6500
+ 4435              	.LASF6:
+ 4436 01d6 6C6F6E67 		.ascii	"long long int\000"
+ 4436      206C6F6E 
+ 4436      6720696E 
+ 4436      7400
+ 4437              	.LASF55:
+ 4438 01e4 695F6D69 		.ascii	"i_min\000"
+ 4438      6E00
+ 4439              	.LASF15:
+ 4440 01ea 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 86
+
+
+ 4440      00
+ 4441              	.LASF4:
+ 4442 01ef 6C6F6E67 		.ascii	"long int\000"
+ 4442      20696E74 
+ 4442      00
+ 4443              	.LASF40:
+ 4444 01f8 63757272 		.ascii	"current_stat\000"
+ 4444      656E745F 
+ 4444      73746174 
+ 4444      00
+ 4445              	.LASF48:
+ 4446 0205 6F6D6567 		.ascii	"omega\000"
+ 4446      6100
+ 4447              	.LASF82:
+ 4448 020b 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 4448      4320342E 
+ 4448      372E3320 
+ 4448      32303133 
+ 4448      30333132 
+ 4449 023e 616E6368 		.ascii	"anch revision 196615]\000"
+ 4449      20726576 
+ 4449      6973696F 
+ 4449      6E203139 
+ 4449      36363135 
+ 4450              	.LASF1:
+ 4451 0254 756E7369 		.ascii	"unsigned char\000"
+ 4451      676E6564 
+ 4451      20636861 
+ 4451      7200
+ 4452              	.LASF49:
+ 4453 0262 71706F77 		.ascii	"qpower_statistics_init\000"
+ 4453      65725F73 
+ 4453      74617469 
+ 4453      73746963 
+ 4453      735F696E 
+ 4454              	.LASF17:
+ 4455 0279 6C6F6E67 		.ascii	"long double\000"
+ 4455      20646F75 
+ 4455      626C6500 
+ 4456              	.LASF78:
+ 4457 0285 42617474 		.ascii	"Battery_Energy\000"
+ 4457      6572795F 
+ 4457      456E6572 
+ 4457      677900
+ 4458              	.LASF20:
+ 4459 0294 6D65616E 		.ascii	"mean_previous\000"
+ 4459      5F707265 
+ 4459      76696F75 
+ 4459      7300
+ 4460              	.LASF44:
+ 4461 02a2 63757272 		.ascii	"current_statistics_start\000"
+ 4461      656E745F 
+ 4461      73746174 
+ 4461      69737469 
+ 4461      63735F73 
+ 4462              	.LASF77:
+ 4463 02bb 42617474 		.ascii	"Battery_Energy_Integral_Reset\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 87
+
+
+ 4463      6572795F 
+ 4463      456E6572 
+ 4463      67795F49 
+ 4463      6E746567 
+ 4464              	.LASF32:
+ 4465 02d9 61637475 		.ascii	"actual_abs_motor_velocity\000"
+ 4465      616C5F61 
+ 4465      62735F6D 
+ 4465      6F746F72 
+ 4465      5F76656C 
+ 4466              	.LASF0:
+ 4467 02f3 7369676E 		.ascii	"signed char\000"
+ 4467      65642063 
+ 4467      68617200 
+ 4468              	.LASF9:
+ 4469 02ff 696E7433 		.ascii	"int32_t\000"
+ 4469      325F7400 
+ 4470              	.LASF7:
+ 4471 0307 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 4471      206C6F6E 
+ 4471      6720756E 
+ 4471      7369676E 
+ 4471      65642069 
+ 4472              	.LASF33:
+ 4473 031e 656E635F 		.ascii	"enc_position_bef\000"
+ 4473      706F7369 
+ 4473      74696F6E 
+ 4473      5F626566 
+ 4473      00
+ 4474              	.LASF8:
+ 4475 032f 756E7369 		.ascii	"unsigned int\000"
+ 4475      676E6564 
+ 4475      20696E74 
+ 4475      00
+ 4476              	.LASF19:
+ 4477 033c 6D65616E 		.ascii	"mean\000"
+ 4477      00
+ 4478              	.LASF71:
+ 4479 0341 746F7271 		.ascii	"torque_stat\000"
+ 4479      75655F73 
+ 4479      74617400 
+ 4480              	.LASF51:
+ 4481 034d 71706F77 		.ascii	"qpower_statistics_stop\000"
+ 4481      65725F73 
+ 4481      74617469 
+ 4481      73746963 
+ 4481      735F7374 
+ 4482              	.LASF41:
+ 4483 0364 63757272 		.ascii	"current\000"
+ 4483      656E7400 
+ 4484              	.LASF38:
+ 4485 036c 7663616C 		.ascii	"vcalc\000"
+ 4485      6300
+ 4486              	.LASF65:
+ 4487 0372 544D4F54 		.ascii	"TMOT_mean\000"
+ 4487      5F6D6561 
+ 4487      6E00
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 88
+
+
+ 4488              	.LASF66:
+ 4489 037c 504D4F54 		.ascii	"PMOTE_mean\000"
+ 4489      455F6D65 
+ 4489      616E00
+ 4490              	.LASF29:
+ 4491 0387 6162735F 		.ascii	"abs_omega_t\000"
+ 4491      6F6D6567 
+ 4491      615F7400 
+ 4492              	.LASF22:
+ 4493 0393 73636172 		.ascii	"scarto\000"
+ 4493      746F00
+ 4494              	.LASF3:
+ 4495 039a 73686F72 		.ascii	"short unsigned int\000"
+ 4495      7420756E 
+ 4495      7369676E 
+ 4495      65642069 
+ 4495      6E7400
+ 4496              	.LASF61:
+ 4497 03ad 544D4F54 		.ascii	"TMOT_max\000"
+ 4497      5F6D6178 
+ 4497      00
+ 4498              	.LASF24:
+ 4499 03b6 76617269 		.ascii	"variance\000"
+ 4499      616E6365 
+ 4499      00
+ 4500              	.LASF80:
+ 4501 03bf 62617474 		.ascii	"battery_max_capacity\000"
+ 4501      6572795F 
+ 4501      6D61785F 
+ 4501      63617061 
+ 4501      63697479 
+ 4502              	.LASF63:
+ 4503 03d4 544F5554 		.ascii	"TOUT_max\000"
+ 4503      5F6D6178 
+ 4503      00
+ 4504              	.LASF36:
+ 4505 03dd 6162735F 		.ascii	"abs_current_t\000"
+ 4505      63757272 
+ 4505      656E745F 
+ 4505      7400
+ 4506              	.LASF70:
+ 4507 03eb 544F5554 		.ascii	"TOUT_variance\000"
+ 4507      5F766172 
+ 4507      69616E63 
+ 4507      6500
+ 4508              	.LASF10:
+ 4509 03f9 75696E74 		.ascii	"uint8\000"
+ 4509      3800
+ 4510              	.LASF45:
+ 4511 03ff 63757272 		.ascii	"current_statistics_stop\000"
+ 4511      656E745F 
+ 4511      73746174 
+ 4511      69737469 
+ 4511      63735F73 
+ 4512              	.LASF56:
+ 4513 0417 544D4F54 		.ascii	"TMOT_min\000"
+ 4513      5F6D696E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 89
+
+
+ 4513      00
+ 4514              	.LASF11:
+ 4515 0420 75696E74 		.ascii	"uint32\000"
+ 4515      333200
+ 4516              	.LASF5:
+ 4517 0427 6C6F6E67 		.ascii	"long unsigned int\000"
+ 4517      20756E73 
+ 4517      69676E65 
+ 4517      6420696E 
+ 4517      7400
+ 4518              	.LASF58:
+ 4519 0439 544F5554 		.ascii	"TOUT_min\000"
+ 4519      5F6D696E 
+ 4519      00
+ 4520              	.LASF12:
+ 4521 0442 696E7433 		.ascii	"int32\000"
+ 4521      3200
+ 4522              	.LASF14:
+ 4523 0448 646F7562 		.ascii	"double\000"
+ 4523      6C6500
+ 4524              	.LASF46:
+ 4525 044f 71706F77 		.ascii	"qpower_statistics_elab_step\000"
+ 4525      65725F73 
+ 4525      74617469 
+ 4525      73746963 
+ 4525      735F656C 
+ 4526              	.LASF54:
+ 4527 046b 6D6F746F 		.ascii	"motor_abs_velocity_sampling\000"
+ 4527      725F6162 
+ 4527      735F7665 
+ 4527      6C6F6369 
+ 4527      74795F73 
+ 4528              	.LASF83:
+ 4529 0487 2E5C746F 		.ascii	".\\torquestat.c\000"
+ 4529      72717565 
+ 4529      73746174 
+ 4529      2E6300
+ 4530              	.LASF62:
+ 4531 0496 504D4F54 		.ascii	"PMOTE_max\000"
+ 4531      455F6D61 
+ 4531      7800
+ 4532              	.LASF25:
+ 4533 04a0 69746572 		.ascii	"iteration_num\000"
+ 4533      6174696F 
+ 4533      6E5F6E75 
+ 4533      6D00
+ 4534              	.LASF50:
+ 4535 04ae 71706F77 		.ascii	"qpower_statistics_start\000"
+ 4535      65725F73 
+ 4535      74617469 
+ 4535      73746963 
+ 4535      735F7374 
+ 4536              	.LASF86:
+ 4537 04c6 695F6E6F 		.ascii	"i_noload\000"
+ 4537      6C6F6164 
+ 4537      00
+ 4538              	.LASF57:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccUtzTBI.s 			page 90
+
+
+ 4539 04cf 504D4F54 		.ascii	"PMOTE_min\000"
+ 4539      455F6D69 
+ 4539      6E00
+ 4540              	.LASF81:
+ 4541 04d9 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 4541      52784275 
+ 4541      66666572 
+ 4541      00
+ 4542              	.LASF59:
+ 4543 04e6 67656172 		.ascii	"gear_ratio\000"
+ 4543      5F726174 
+ 4543      696F00
+ 4544              	.LASF37:
+ 4545 04f1 70776361 		.ascii	"pwcalc\000"
+ 4545      6C6300
+ 4546              	.LASF26:
+ 4547 04f8 7469636B 		.ascii	"tick\000"
+ 4547      00
+ 4548              	.LASF39:
+ 4549 04fd 74737461 		.ascii	"tstat\000"
+ 4549      7400
+ 4550              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

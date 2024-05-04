@@ -1,0 +1,881 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"WaveDAC8_BuffAmp_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.WaveDAC8_BuffAmp_SaveConfig,"ax",%progbits
+  19              		.align	1
+  20              		.global	WaveDAC8_BuffAmp_SaveConfig
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	WaveDAC8_BuffAmp_SaveConfig, %function
+  24              	WaveDAC8_BuffAmp_SaveConfig:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\WaveDAC8_BuffAmp_PM.c"
+   1:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * File Name: WaveDAC8_BuffAmp_PM.c
+   3:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Version 1.90
+   4:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+   5:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  This file provides the power management source code to the API for the 
+   7:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  OpAmp (Analog Buffer) component.
+   8:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+   9:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  11:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  18:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** #include "WaveDAC8_BuffAmp.h"
+  19:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  20:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** static WaveDAC8_BuffAmp_BACKUP_STRUCT  WaveDAC8_BuffAmp_backup;
+  21:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  22:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  23:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** /*******************************************************************************  
+  24:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Function Name: WaveDAC8_BuffAmp_SaveConfig
+  25:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** ********************************************************************************
+  26:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  27:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Summary:
+  28:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  Saves the current user configuration registers.
+  29:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * 
+  30:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Parameters:
+  31:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * 
+  33:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Return:
+  34:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+  35:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  36:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** void WaveDAC8_BuffAmp_SaveConfig(void) 
+  38:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** {
+  27              		.loc 1 38 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 7047     		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE0:
+  35              		.size	WaveDAC8_BuffAmp_SaveConfig, .-WaveDAC8_BuffAmp_SaveConfig
+  36              		.section	.text.WaveDAC8_BuffAmp_RestoreConfig,"ax",%progbits
+  37              		.align	1
+  38              		.global	WaveDAC8_BuffAmp_RestoreConfig
+  39              		.thumb
+  40              		.thumb_func
+  41              		.type	WaveDAC8_BuffAmp_RestoreConfig, %function
+  42              	WaveDAC8_BuffAmp_RestoreConfig:
+  43              	.LFB1:
+  39:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     /* Nothing to save as registers are System reset on retention flops */
+  40:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** }
+  41:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  42:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  43:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** /*******************************************************************************  
+  44:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Function Name: WaveDAC8_BuffAmp_RestoreConfig
+  45:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  47:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Summary:
+  48:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  Restores the current user configuration registers.
+  49:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  50:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Parameters:
+  51:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+  52:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  53:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Return:
+  54:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+  55:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  56:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** void WaveDAC8_BuffAmp_RestoreConfig(void) 
+  58:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** {
+  44              		.loc 1 58 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	WaveDAC8_BuffAmp_RestoreConfig, .-WaveDAC8_BuffAmp_RestoreConfig
+  53              		.section	.text.WaveDAC8_BuffAmp_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	WaveDAC8_BuffAmp_Sleep
+  56              		.thumb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 3
+
+
+  57              		.thumb_func
+  58              		.type	WaveDAC8_BuffAmp_Sleep, %function
+  59              	WaveDAC8_BuffAmp_Sleep:
+  60              	.LFB2:
+  59:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     /* Nothing to restore */
+  60:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** }
+  61:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  62:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+  63:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** /*******************************************************************************   
+  64:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Function Name: WaveDAC8_BuffAmp_Sleep
+  65:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** ********************************************************************************
+  66:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  67:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Summary:
+  68:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  Disables block's operation and saves its configuration. Should be called 
+  69:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  just prior to entering sleep.
+  70:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  71:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Parameters:
+  72:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+  73:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  74:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Return:
+  75:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+  76:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  77:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Global variables:
+  78:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  WaveDAC8_BuffAmp_backup: The structure field 'enableState' is modified 
+  79:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+  80:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+  81:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *******************************************************************************/
+  82:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** void WaveDAC8_BuffAmp_Sleep(void) 
+  83:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** {
+  61              		.loc 1 83 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  84:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     /* Save OpAmp enable state */
+  85:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     if((WaveDAC8_BuffAmp_PM_ACT_CFG_REG & WaveDAC8_BuffAmp_ACT_PWR_EN) != 0u)
+  66              		.loc 1 85 0
+  67 0000 054B     		ldr	r3, .L6
+  68 0002 0649     		ldr	r1, .L6+4
+  69 0004 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  70 0006 10F00102 		ands	r2, r0, #1
+  71 000a 03D0     		beq	.L4
+  86:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     {
+  87:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         /* Component is enabled */
+  88:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         WaveDAC8_BuffAmp_backup.enableState = 1u;
+  72              		.loc 1 88 0
+  73 000c 0123     		movs	r3, #1
+  74 000e 0B70     		strb	r3, [r1, #0]
+  89:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****          /* Stops the component */
+  90:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****          WaveDAC8_BuffAmp_Stop();
+  91:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     }
+  92:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     else
+  93:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     {
+  94:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         /* Component is disabled */
+  95:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         WaveDAC8_BuffAmp_backup.enableState = 0u;
+  96:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     }
+  97:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     /* Saves the configuration */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 4
+
+
+  98:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     WaveDAC8_BuffAmp_SaveConfig();
+  99:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** }
+  75              		.loc 1 99 0
+  90:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****          WaveDAC8_BuffAmp_Stop();
+  76              		.loc 1 90 0
+  77 0010 FFF7FEBF 		b	WaveDAC8_BuffAmp_Stop
+  78              	.LVL0:
+  79              	.L4:
+  95:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         WaveDAC8_BuffAmp_backup.enableState = 0u;
+  80              		.loc 1 95 0
+  81 0014 0A70     		strb	r2, [r1, #0]
+  82 0016 7047     		bx	lr
+  83              	.L7:
+  84              		.align	2
+  85              	.L6:
+  86 0018 A4430040 		.word	1073759140
+  87 001c 00000000 		.word	.LANCHOR0
+  88              		.cfi_endproc
+  89              	.LFE2:
+  90              		.size	WaveDAC8_BuffAmp_Sleep, .-WaveDAC8_BuffAmp_Sleep
+  91              		.section	.text.WaveDAC8_BuffAmp_Wakeup,"ax",%progbits
+  92              		.align	1
+  93              		.global	WaveDAC8_BuffAmp_Wakeup
+  94              		.thumb
+  95              		.thumb_func
+  96              		.type	WaveDAC8_BuffAmp_Wakeup, %function
+  97              	WaveDAC8_BuffAmp_Wakeup:
+  98              	.LFB3:
+ 100:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+ 101:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+ 102:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** /*******************************************************************************  
+ 103:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Function Name: WaveDAC8_BuffAmp_Wakeup
+ 104:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** ********************************************************************************
+ 105:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+ 106:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Summary:
+ 107:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  Enables block's operation and restores its configuration. Should be called
+ 108:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  just after awaking from sleep.
+ 109:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+ 110:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Parameters:
+ 111:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+ 112:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+ 113:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Return:
+ 114:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  void
+ 115:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+ 116:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** * Global variables:
+ 117:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  WaveDAC8_BuffAmp_backup: The structure field 'enableState' is used to 
+ 118:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 119:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *
+ 120:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** *******************************************************************************/
+ 121:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** void WaveDAC8_BuffAmp_Wakeup(void) 
+ 122:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** {
+  99              		.loc 1 122 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 123:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     /* Restore the user configuration */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 5
+
+
+ 124:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     WaveDAC8_BuffAmp_RestoreConfig();
+ 125:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** 
+ 126:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     /* Enables the component operation */
+ 127:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     if(WaveDAC8_BuffAmp_backup.enableState == 1u)
+ 104              		.loc 1 127 0
+ 105 0000 034B     		ldr	r3, .L10
+ 106 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 107 0004 0128     		cmp	r0, #1
+ 108 0006 01D1     		bne	.L8
+ 128:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     {
+ 129:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         WaveDAC8_BuffAmp_Enable();
+ 130:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****     } /* Do nothing if component was disable before */
+ 131:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c **** }
+ 109              		.loc 1 131 0
+ 129:.\Generated_Source\PSoC5/WaveDAC8_BuffAmp_PM.c ****         WaveDAC8_BuffAmp_Enable();
+ 110              		.loc 1 129 0
+ 111 0008 FFF7FEBF 		b	WaveDAC8_BuffAmp_Enable
+ 112              	.LVL1:
+ 113              	.L8:
+ 114 000c 7047     		bx	lr
+ 115              	.L11:
+ 116 000e 00BF     		.align	2
+ 117              	.L10:
+ 118 0010 00000000 		.word	.LANCHOR0
+ 119              		.cfi_endproc
+ 120              	.LFE3:
+ 121              		.size	WaveDAC8_BuffAmp_Wakeup, .-WaveDAC8_BuffAmp_Wakeup
+ 122              		.bss
+ 123              		.set	.LANCHOR0,. + 0
+ 124              		.type	WaveDAC8_BuffAmp_backup, %object
+ 125              		.size	WaveDAC8_BuffAmp_backup, 1
+ 126              	WaveDAC8_BuffAmp_backup:
+ 127 0000 00       		.space	1
+ 128              		.text
+ 129              	.Letext0:
+ 130              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 131              		.file 3 ".\\Generated_Source\\PSoC5\\WaveDAC8_BuffAmp.h"
+ 132              		.section	.debug_info,"",%progbits
+ 133              	.Ldebug_info0:
+ 134 0000 68010000 		.4byte	0x168
+ 135 0004 0200     		.2byte	0x2
+ 136 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 137 000a 04       		.byte	0x4
+ 138 000b 01       		.uleb128 0x1
+ 139 000c 5D000000 		.4byte	.LASF22
+ 140 0010 01       		.byte	0x1
+ 141 0011 85010000 		.4byte	.LASF23
+ 142 0015 F2000000 		.4byte	.LASF24
+ 143 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 144 001d 00000000 		.4byte	0
+ 145 0021 00000000 		.4byte	0
+ 146 0025 00000000 		.4byte	.Ldebug_line0
+ 147 0029 02       		.uleb128 0x2
+ 148 002a 01       		.byte	0x1
+ 149 002b 06       		.byte	0x6
+ 150 002c 0A020000 		.4byte	.LASF0
+ 151 0030 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 6
+
+
+ 152 0031 01       		.byte	0x1
+ 153 0032 08       		.byte	0x8
+ 154 0033 77010000 		.4byte	.LASF1
+ 155 0037 02       		.uleb128 0x2
+ 156 0038 02       		.byte	0x2
+ 157 0039 05       		.byte	0x5
+ 158 003a 53020000 		.4byte	.LASF2
+ 159 003e 02       		.uleb128 0x2
+ 160 003f 02       		.byte	0x2
+ 161 0040 07       		.byte	0x7
+ 162 0041 F7010000 		.4byte	.LASF3
+ 163 0045 02       		.uleb128 0x2
+ 164 0046 04       		.byte	0x4
+ 165 0047 05       		.byte	0x5
+ 166 0048 B9010000 		.4byte	.LASF4
+ 167 004c 02       		.uleb128 0x2
+ 168 004d 04       		.byte	0x4
+ 169 004e 07       		.byte	0x7
+ 170 004f AC000000 		.4byte	.LASF5
+ 171 0053 02       		.uleb128 0x2
+ 172 0054 08       		.byte	0x8
+ 173 0055 05       		.byte	0x5
+ 174 0056 00000000 		.4byte	.LASF6
+ 175 005a 02       		.uleb128 0x2
+ 176 005b 08       		.byte	0x8
+ 177 005c 07       		.byte	0x7
+ 178 005d 60010000 		.4byte	.LASF7
+ 179 0061 03       		.uleb128 0x3
+ 180 0062 04       		.byte	0x4
+ 181 0063 05       		.byte	0x5
+ 182 0064 696E7400 		.ascii	"int\000"
+ 183 0068 02       		.uleb128 0x2
+ 184 0069 04       		.byte	0x4
+ 185 006a 07       		.byte	0x7
+ 186 006b 1A000000 		.4byte	.LASF8
+ 187 006f 04       		.uleb128 0x4
+ 188 0070 A6000000 		.4byte	.LASF12
+ 189 0074 02       		.byte	0x2
+ 190 0075 5B       		.byte	0x5b
+ 191 0076 30000000 		.4byte	0x30
+ 192 007a 02       		.uleb128 0x2
+ 193 007b 04       		.byte	0x4
+ 194 007c 04       		.byte	0x4
+ 195 007d 2E020000 		.4byte	.LASF9
+ 196 0081 02       		.uleb128 0x2
+ 197 0082 08       		.byte	0x8
+ 198 0083 04       		.byte	0x4
+ 199 0084 C2010000 		.4byte	.LASF10
+ 200 0088 02       		.uleb128 0x2
+ 201 0089 01       		.byte	0x1
+ 202 008a 08       		.byte	0x8
+ 203 008b B4010000 		.4byte	.LASF11
+ 204 008f 04       		.uleb128 0x4
+ 205 0090 5D020000 		.4byte	.LASF13
+ 206 0094 02       		.byte	0x2
+ 207 0095 F0       		.byte	0xf0
+ 208 0096 9A000000 		.4byte	0x9a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 7
+
+
+ 209 009a 05       		.uleb128 0x5
+ 210 009b 6F000000 		.4byte	0x6f
+ 211 009f 02       		.uleb128 0x2
+ 212 00a0 04       		.byte	0x4
+ 213 00a1 07       		.byte	0x7
+ 214 00a2 62020000 		.4byte	.LASF14
+ 215 00a6 06       		.uleb128 0x6
+ 216 00a7 01       		.byte	0x1
+ 217 00a8 03       		.byte	0x3
+ 218 00a9 26       		.byte	0x26
+ 219 00aa BD000000 		.4byte	0xbd
+ 220 00ae 07       		.uleb128 0x7
+ 221 00af 0E000000 		.4byte	.LASF25
+ 222 00b3 03       		.byte	0x3
+ 223 00b4 28       		.byte	0x28
+ 224 00b5 6F000000 		.4byte	0x6f
+ 225 00b9 02       		.byte	0x2
+ 226 00ba 23       		.byte	0x23
+ 227 00bb 00       		.uleb128 0
+ 228 00bc 00       		.byte	0
+ 229 00bd 04       		.uleb128 0x4
+ 230 00be 34020000 		.4byte	.LASF15
+ 231 00c2 03       		.byte	0x3
+ 232 00c3 29       		.byte	0x29
+ 233 00c4 A6000000 		.4byte	0xa6
+ 234 00c8 08       		.uleb128 0x8
+ 235 00c9 01       		.byte	0x1
+ 236 00ca BE000000 		.4byte	.LASF16
+ 237 00ce 01       		.byte	0x1
+ 238 00cf 25       		.byte	0x25
+ 239 00d0 01       		.byte	0x1
+ 240 00d1 01       		.byte	0x1
+ 241 00d2 08       		.uleb128 0x8
+ 242 00d3 01       		.byte	0x1
+ 243 00d4 3E000000 		.4byte	.LASF17
+ 244 00d8 01       		.byte	0x1
+ 245 00d9 39       		.byte	0x39
+ 246 00da 01       		.byte	0x1
+ 247 00db 01       		.byte	0x1
+ 248 00dc 09       		.uleb128 0x9
+ 249 00dd C8000000 		.4byte	0xc8
+ 250 00e1 00000000 		.4byte	.LFB0
+ 251 00e5 02000000 		.4byte	.LFE0
+ 252 00e9 02       		.byte	0x2
+ 253 00ea 7D       		.byte	0x7d
+ 254 00eb 00       		.sleb128 0
+ 255 00ec 01       		.byte	0x1
+ 256 00ed 09       		.uleb128 0x9
+ 257 00ee D2000000 		.4byte	0xd2
+ 258 00f2 00000000 		.4byte	.LFB1
+ 259 00f6 02000000 		.4byte	.LFE1
+ 260 00fa 02       		.byte	0x2
+ 261 00fb 7D       		.byte	0x7d
+ 262 00fc 00       		.sleb128 0
+ 263 00fd 01       		.byte	0x1
+ 264 00fe 0A       		.uleb128 0xa
+ 265 00ff 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 8
+
+
+ 266 0100 27000000 		.4byte	.LASF18
+ 267 0104 01       		.byte	0x1
+ 268 0105 52       		.byte	0x52
+ 269 0106 01       		.byte	0x1
+ 270 0107 00000000 		.4byte	.LFB2
+ 271 010b 20000000 		.4byte	.LFE2
+ 272 010f 02       		.byte	0x2
+ 273 0110 7D       		.byte	0x7d
+ 274 0111 00       		.sleb128 0
+ 275 0112 01       		.byte	0x1
+ 276 0113 22010000 		.4byte	0x122
+ 277 0117 0B       		.uleb128 0xb
+ 278 0118 14000000 		.4byte	.LVL0
+ 279 011c 01       		.byte	0x1
+ 280 011d 57010000 		.4byte	0x157
+ 281 0121 00       		.byte	0
+ 282 0122 0A       		.uleb128 0xa
+ 283 0123 01       		.byte	0x1
+ 284 0124 C9010000 		.4byte	.LASF19
+ 285 0128 01       		.byte	0x1
+ 286 0129 79       		.byte	0x79
+ 287 012a 01       		.byte	0x1
+ 288 012b 00000000 		.4byte	.LFB3
+ 289 012f 14000000 		.4byte	.LFE3
+ 290 0133 02       		.byte	0x2
+ 291 0134 7D       		.byte	0x7d
+ 292 0135 00       		.sleb128 0
+ 293 0136 01       		.byte	0x1
+ 294 0137 46010000 		.4byte	0x146
+ 295 013b 0B       		.uleb128 0xb
+ 296 013c 0C000000 		.4byte	.LVL1
+ 297 0140 01       		.byte	0x1
+ 298 0141 61010000 		.4byte	0x161
+ 299 0145 00       		.byte	0
+ 300 0146 0C       		.uleb128 0xc
+ 301 0147 DA000000 		.4byte	.LASF26
+ 302 014b 01       		.byte	0x1
+ 303 014c 14       		.byte	0x14
+ 304 014d BD000000 		.4byte	0xbd
+ 305 0151 05       		.byte	0x5
+ 306 0152 03       		.byte	0x3
+ 307 0153 00000000 		.4byte	WaveDAC8_BuffAmp_backup
+ 308 0157 0D       		.uleb128 0xd
+ 309 0158 01       		.byte	0x1
+ 310 0159 E1010000 		.4byte	.LASF20
+ 311 015d 03       		.byte	0x3
+ 312 015e 34       		.byte	0x34
+ 313 015f 01       		.byte	0x1
+ 314 0160 01       		.byte	0x1
+ 315 0161 0D       		.uleb128 0xd
+ 316 0162 01       		.byte	0x1
+ 317 0163 16020000 		.4byte	.LASF21
+ 318 0167 03       		.byte	0x3
+ 319 0168 3B       		.byte	0x3b
+ 320 0169 01       		.byte	0x1
+ 321 016a 01       		.byte	0x1
+ 322 016b 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 9
+
+
+ 323              		.section	.debug_abbrev,"",%progbits
+ 324              	.Ldebug_abbrev0:
+ 325 0000 01       		.uleb128 0x1
+ 326 0001 11       		.uleb128 0x11
+ 327 0002 01       		.byte	0x1
+ 328 0003 25       		.uleb128 0x25
+ 329 0004 0E       		.uleb128 0xe
+ 330 0005 13       		.uleb128 0x13
+ 331 0006 0B       		.uleb128 0xb
+ 332 0007 03       		.uleb128 0x3
+ 333 0008 0E       		.uleb128 0xe
+ 334 0009 1B       		.uleb128 0x1b
+ 335 000a 0E       		.uleb128 0xe
+ 336 000b 55       		.uleb128 0x55
+ 337 000c 06       		.uleb128 0x6
+ 338 000d 11       		.uleb128 0x11
+ 339 000e 01       		.uleb128 0x1
+ 340 000f 52       		.uleb128 0x52
+ 341 0010 01       		.uleb128 0x1
+ 342 0011 10       		.uleb128 0x10
+ 343 0012 06       		.uleb128 0x6
+ 344 0013 00       		.byte	0
+ 345 0014 00       		.byte	0
+ 346 0015 02       		.uleb128 0x2
+ 347 0016 24       		.uleb128 0x24
+ 348 0017 00       		.byte	0
+ 349 0018 0B       		.uleb128 0xb
+ 350 0019 0B       		.uleb128 0xb
+ 351 001a 3E       		.uleb128 0x3e
+ 352 001b 0B       		.uleb128 0xb
+ 353 001c 03       		.uleb128 0x3
+ 354 001d 0E       		.uleb128 0xe
+ 355 001e 00       		.byte	0
+ 356 001f 00       		.byte	0
+ 357 0020 03       		.uleb128 0x3
+ 358 0021 24       		.uleb128 0x24
+ 359 0022 00       		.byte	0
+ 360 0023 0B       		.uleb128 0xb
+ 361 0024 0B       		.uleb128 0xb
+ 362 0025 3E       		.uleb128 0x3e
+ 363 0026 0B       		.uleb128 0xb
+ 364 0027 03       		.uleb128 0x3
+ 365 0028 08       		.uleb128 0x8
+ 366 0029 00       		.byte	0
+ 367 002a 00       		.byte	0
+ 368 002b 04       		.uleb128 0x4
+ 369 002c 16       		.uleb128 0x16
+ 370 002d 00       		.byte	0
+ 371 002e 03       		.uleb128 0x3
+ 372 002f 0E       		.uleb128 0xe
+ 373 0030 3A       		.uleb128 0x3a
+ 374 0031 0B       		.uleb128 0xb
+ 375 0032 3B       		.uleb128 0x3b
+ 376 0033 0B       		.uleb128 0xb
+ 377 0034 49       		.uleb128 0x49
+ 378 0035 13       		.uleb128 0x13
+ 379 0036 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 10
+
+
+ 380 0037 00       		.byte	0
+ 381 0038 05       		.uleb128 0x5
+ 382 0039 35       		.uleb128 0x35
+ 383 003a 00       		.byte	0
+ 384 003b 49       		.uleb128 0x49
+ 385 003c 13       		.uleb128 0x13
+ 386 003d 00       		.byte	0
+ 387 003e 00       		.byte	0
+ 388 003f 06       		.uleb128 0x6
+ 389 0040 13       		.uleb128 0x13
+ 390 0041 01       		.byte	0x1
+ 391 0042 0B       		.uleb128 0xb
+ 392 0043 0B       		.uleb128 0xb
+ 393 0044 3A       		.uleb128 0x3a
+ 394 0045 0B       		.uleb128 0xb
+ 395 0046 3B       		.uleb128 0x3b
+ 396 0047 0B       		.uleb128 0xb
+ 397 0048 01       		.uleb128 0x1
+ 398 0049 13       		.uleb128 0x13
+ 399 004a 00       		.byte	0
+ 400 004b 00       		.byte	0
+ 401 004c 07       		.uleb128 0x7
+ 402 004d 0D       		.uleb128 0xd
+ 403 004e 00       		.byte	0
+ 404 004f 03       		.uleb128 0x3
+ 405 0050 0E       		.uleb128 0xe
+ 406 0051 3A       		.uleb128 0x3a
+ 407 0052 0B       		.uleb128 0xb
+ 408 0053 3B       		.uleb128 0x3b
+ 409 0054 0B       		.uleb128 0xb
+ 410 0055 49       		.uleb128 0x49
+ 411 0056 13       		.uleb128 0x13
+ 412 0057 38       		.uleb128 0x38
+ 413 0058 0A       		.uleb128 0xa
+ 414 0059 00       		.byte	0
+ 415 005a 00       		.byte	0
+ 416 005b 08       		.uleb128 0x8
+ 417 005c 2E       		.uleb128 0x2e
+ 418 005d 00       		.byte	0
+ 419 005e 3F       		.uleb128 0x3f
+ 420 005f 0C       		.uleb128 0xc
+ 421 0060 03       		.uleb128 0x3
+ 422 0061 0E       		.uleb128 0xe
+ 423 0062 3A       		.uleb128 0x3a
+ 424 0063 0B       		.uleb128 0xb
+ 425 0064 3B       		.uleb128 0x3b
+ 426 0065 0B       		.uleb128 0xb
+ 427 0066 27       		.uleb128 0x27
+ 428 0067 0C       		.uleb128 0xc
+ 429 0068 20       		.uleb128 0x20
+ 430 0069 0B       		.uleb128 0xb
+ 431 006a 00       		.byte	0
+ 432 006b 00       		.byte	0
+ 433 006c 09       		.uleb128 0x9
+ 434 006d 2E       		.uleb128 0x2e
+ 435 006e 00       		.byte	0
+ 436 006f 31       		.uleb128 0x31
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 11
+
+
+ 437 0070 13       		.uleb128 0x13
+ 438 0071 11       		.uleb128 0x11
+ 439 0072 01       		.uleb128 0x1
+ 440 0073 12       		.uleb128 0x12
+ 441 0074 01       		.uleb128 0x1
+ 442 0075 40       		.uleb128 0x40
+ 443 0076 0A       		.uleb128 0xa
+ 444 0077 9742     		.uleb128 0x2117
+ 445 0079 0C       		.uleb128 0xc
+ 446 007a 00       		.byte	0
+ 447 007b 00       		.byte	0
+ 448 007c 0A       		.uleb128 0xa
+ 449 007d 2E       		.uleb128 0x2e
+ 450 007e 01       		.byte	0x1
+ 451 007f 3F       		.uleb128 0x3f
+ 452 0080 0C       		.uleb128 0xc
+ 453 0081 03       		.uleb128 0x3
+ 454 0082 0E       		.uleb128 0xe
+ 455 0083 3A       		.uleb128 0x3a
+ 456 0084 0B       		.uleb128 0xb
+ 457 0085 3B       		.uleb128 0x3b
+ 458 0086 0B       		.uleb128 0xb
+ 459 0087 27       		.uleb128 0x27
+ 460 0088 0C       		.uleb128 0xc
+ 461 0089 11       		.uleb128 0x11
+ 462 008a 01       		.uleb128 0x1
+ 463 008b 12       		.uleb128 0x12
+ 464 008c 01       		.uleb128 0x1
+ 465 008d 40       		.uleb128 0x40
+ 466 008e 0A       		.uleb128 0xa
+ 467 008f 9742     		.uleb128 0x2117
+ 468 0091 0C       		.uleb128 0xc
+ 469 0092 01       		.uleb128 0x1
+ 470 0093 13       		.uleb128 0x13
+ 471 0094 00       		.byte	0
+ 472 0095 00       		.byte	0
+ 473 0096 0B       		.uleb128 0xb
+ 474 0097 898201   		.uleb128 0x4109
+ 475 009a 00       		.byte	0
+ 476 009b 11       		.uleb128 0x11
+ 477 009c 01       		.uleb128 0x1
+ 478 009d 9542     		.uleb128 0x2115
+ 479 009f 0C       		.uleb128 0xc
+ 480 00a0 31       		.uleb128 0x31
+ 481 00a1 13       		.uleb128 0x13
+ 482 00a2 00       		.byte	0
+ 483 00a3 00       		.byte	0
+ 484 00a4 0C       		.uleb128 0xc
+ 485 00a5 34       		.uleb128 0x34
+ 486 00a6 00       		.byte	0
+ 487 00a7 03       		.uleb128 0x3
+ 488 00a8 0E       		.uleb128 0xe
+ 489 00a9 3A       		.uleb128 0x3a
+ 490 00aa 0B       		.uleb128 0xb
+ 491 00ab 3B       		.uleb128 0x3b
+ 492 00ac 0B       		.uleb128 0xb
+ 493 00ad 49       		.uleb128 0x49
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 12
+
+
+ 494 00ae 13       		.uleb128 0x13
+ 495 00af 02       		.uleb128 0x2
+ 496 00b0 0A       		.uleb128 0xa
+ 497 00b1 00       		.byte	0
+ 498 00b2 00       		.byte	0
+ 499 00b3 0D       		.uleb128 0xd
+ 500 00b4 2E       		.uleb128 0x2e
+ 501 00b5 00       		.byte	0
+ 502 00b6 3F       		.uleb128 0x3f
+ 503 00b7 0C       		.uleb128 0xc
+ 504 00b8 03       		.uleb128 0x3
+ 505 00b9 0E       		.uleb128 0xe
+ 506 00ba 3A       		.uleb128 0x3a
+ 507 00bb 0B       		.uleb128 0xb
+ 508 00bc 3B       		.uleb128 0x3b
+ 509 00bd 0B       		.uleb128 0xb
+ 510 00be 27       		.uleb128 0x27
+ 511 00bf 0C       		.uleb128 0xc
+ 512 00c0 3C       		.uleb128 0x3c
+ 513 00c1 0C       		.uleb128 0xc
+ 514 00c2 00       		.byte	0
+ 515 00c3 00       		.byte	0
+ 516 00c4 00       		.byte	0
+ 517              		.section	.debug_aranges,"",%progbits
+ 518 0000 34000000 		.4byte	0x34
+ 519 0004 0200     		.2byte	0x2
+ 520 0006 00000000 		.4byte	.Ldebug_info0
+ 521 000a 04       		.byte	0x4
+ 522 000b 00       		.byte	0
+ 523 000c 0000     		.2byte	0
+ 524 000e 0000     		.2byte	0
+ 525 0010 00000000 		.4byte	.LFB0
+ 526 0014 02000000 		.4byte	.LFE0-.LFB0
+ 527 0018 00000000 		.4byte	.LFB1
+ 528 001c 02000000 		.4byte	.LFE1-.LFB1
+ 529 0020 00000000 		.4byte	.LFB2
+ 530 0024 20000000 		.4byte	.LFE2-.LFB2
+ 531 0028 00000000 		.4byte	.LFB3
+ 532 002c 14000000 		.4byte	.LFE3-.LFB3
+ 533 0030 00000000 		.4byte	0
+ 534 0034 00000000 		.4byte	0
+ 535              		.section	.debug_ranges,"",%progbits
+ 536              	.Ldebug_ranges0:
+ 537 0000 00000000 		.4byte	.LFB0
+ 538 0004 02000000 		.4byte	.LFE0
+ 539 0008 00000000 		.4byte	.LFB1
+ 540 000c 02000000 		.4byte	.LFE1
+ 541 0010 00000000 		.4byte	.LFB2
+ 542 0014 20000000 		.4byte	.LFE2
+ 543 0018 00000000 		.4byte	.LFB3
+ 544 001c 14000000 		.4byte	.LFE3
+ 545 0020 00000000 		.4byte	0
+ 546 0024 00000000 		.4byte	0
+ 547              		.section	.debug_line,"",%progbits
+ 548              	.Ldebug_line0:
+ 549 0000 B8000000 		.section	.debug_str,"MS",%progbits,1
+ 549      02006800 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 13
+
+
+ 549      00000201 
+ 549      FB0E0D00 
+ 549      01010101 
+ 550              	.LASF6:
+ 551 0000 6C6F6E67 		.ascii	"long long int\000"
+ 551      206C6F6E 
+ 551      6720696E 
+ 551      7400
+ 552              	.LASF25:
+ 553 000e 656E6162 		.ascii	"enableState\000"
+ 553      6C655374 
+ 553      61746500 
+ 554              	.LASF8:
+ 555 001a 756E7369 		.ascii	"unsigned int\000"
+ 555      676E6564 
+ 555      20696E74 
+ 555      00
+ 556              	.LASF18:
+ 557 0027 57617665 		.ascii	"WaveDAC8_BuffAmp_Sleep\000"
+ 557      44414338 
+ 557      5F427566 
+ 557      66416D70 
+ 557      5F536C65 
+ 558              	.LASF17:
+ 559 003e 57617665 		.ascii	"WaveDAC8_BuffAmp_RestoreConfig\000"
+ 559      44414338 
+ 559      5F427566 
+ 559      66416D70 
+ 559      5F526573 
+ 560              	.LASF22:
+ 561 005d 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 561      4320342E 
+ 561      372E3320 
+ 561      32303133 
+ 561      30333132 
+ 562 0090 616E6368 		.ascii	"anch revision 196615]\000"
+ 562      20726576 
+ 562      6973696F 
+ 562      6E203139 
+ 562      36363135 
+ 563              	.LASF12:
+ 564 00a6 75696E74 		.ascii	"uint8\000"
+ 564      3800
+ 565              	.LASF5:
+ 566 00ac 6C6F6E67 		.ascii	"long unsigned int\000"
+ 566      20756E73 
+ 566      69676E65 
+ 566      6420696E 
+ 566      7400
+ 567              	.LASF16:
+ 568 00be 57617665 		.ascii	"WaveDAC8_BuffAmp_SaveConfig\000"
+ 568      44414338 
+ 568      5F427566 
+ 568      66416D70 
+ 568      5F536176 
+ 569              	.LASF26:
+ 570 00da 57617665 		.ascii	"WaveDAC8_BuffAmp_backup\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 14
+
+
+ 570      44414338 
+ 570      5F427566 
+ 570      66416D70 
+ 570      5F626163 
+ 571              	.LASF24:
+ 572 00f2 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 572      73657273 
+ 572      5C477261 
+ 572      7A69616E 
+ 572      6F5C4465 
+ 573 0120 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 573      525C5665 
+ 573      72732E30 
+ 573      2E302D54 
+ 573      30352032 
+ 574 0151 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 574      65446972 
+ 574      2E637964 
+ 574      736E00
+ 575              	.LASF7:
+ 576 0160 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 576      206C6F6E 
+ 576      6720756E 
+ 576      7369676E 
+ 576      65642069 
+ 577              	.LASF1:
+ 578 0177 756E7369 		.ascii	"unsigned char\000"
+ 578      676E6564 
+ 578      20636861 
+ 578      7200
+ 579              	.LASF23:
+ 580 0185 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\WaveDAC8_BuffAmp_PM.c\000"
+ 580      6E657261 
+ 580      7465645F 
+ 580      536F7572 
+ 580      63655C50 
+ 581              	.LASF11:
+ 582 01b4 63686172 		.ascii	"char\000"
+ 582      00
+ 583              	.LASF4:
+ 584 01b9 6C6F6E67 		.ascii	"long int\000"
+ 584      20696E74 
+ 584      00
+ 585              	.LASF10:
+ 586 01c2 646F7562 		.ascii	"double\000"
+ 586      6C6500
+ 587              	.LASF19:
+ 588 01c9 57617665 		.ascii	"WaveDAC8_BuffAmp_Wakeup\000"
+ 588      44414338 
+ 588      5F427566 
+ 588      66416D70 
+ 588      5F57616B 
+ 589              	.LASF20:
+ 590 01e1 57617665 		.ascii	"WaveDAC8_BuffAmp_Stop\000"
+ 590      44414338 
+ 590      5F427566 
+ 590      66416D70 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccEMxnit.s 			page 15
+
+
+ 590      5F53746F 
+ 591              	.LASF3:
+ 592 01f7 73686F72 		.ascii	"short unsigned int\000"
+ 592      7420756E 
+ 592      7369676E 
+ 592      65642069 
+ 592      6E7400
+ 593              	.LASF0:
+ 594 020a 7369676E 		.ascii	"signed char\000"
+ 594      65642063 
+ 594      68617200 
+ 595              	.LASF21:
+ 596 0216 57617665 		.ascii	"WaveDAC8_BuffAmp_Enable\000"
+ 596      44414338 
+ 596      5F427566 
+ 596      66416D70 
+ 596      5F456E61 
+ 597              	.LASF9:
+ 598 022e 666C6F61 		.ascii	"float\000"
+ 598      7400
+ 599              	.LASF15:
+ 600 0234 57617665 		.ascii	"WaveDAC8_BuffAmp_BACKUP_STRUCT\000"
+ 600      44414338 
+ 600      5F427566 
+ 600      66416D70 
+ 600      5F424143 
+ 601              	.LASF2:
+ 602 0253 73686F72 		.ascii	"short int\000"
+ 602      7420696E 
+ 602      7400
+ 603              	.LASF13:
+ 604 025d 72656738 		.ascii	"reg8\000"
+ 604      00
+ 605              	.LASF14:
+ 606 0262 73697A65 		.ascii	"sizetype\000"
+ 606      74797065 
+ 606      00
+ 607              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

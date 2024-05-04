@@ -1,0 +1,51 @@
+=========================================
+GoBee Director GML 1.0 Specification file
+Rev.0.2
+23/11/2017
+=========================================
+
+/******************/
+/* GML 1.0 SYNTAX */
+/******************/
+#CLUEND				:Fine della CLU
+#CAMERAON			:Camera ON  attraverso comando Wi-Fi
+#CAMERAOFF			:Camera OFF attraverso comando Wi-Fi
+#PAUSE <t>			:Pausa per un tempo <t> = 0..60	[sec]
+#PGOTOH				:Goto Home di PAN in 5 sec
+#TGOTOH				:Goto Home di TILT in 5 sec
+#GOTOH				:Goto Home contemporaneo di PAN e di TILT in 5 sec
+
+#PTRAP <a> <p> <t>	:Impostazione Trapezio di PAN di angolo relativo <a> [deg] con accelerazioni <p> [%] in un tempo <t> [sec]
+					 <a>, <p>, <t> = float m.n
+					 Si possono inserire più trapezoidi a formare un PATH
+					 il numero di trapezoidi massimo di un PATH è 6 (TRAPEZOID_MAX-1)
+					 L'inserimento dei trapezoidi è FIFO
+#TTRAP <a> <p> <t>	:Impostazione Trapezio di TILT di angolo relativo <a> [deg] con accelerazioni <p> [%] in un tempo <t> [sec]	
+
+#PTQ   <q> <p> <t>	:Impostazione Trapezi di PAN e TILT verso posizione assoluta <q> con accelerazioni <p> [%] in un tempo <t> [sec]
+					 Siccome il trapezio è unico deve essere seguito subito dal comando #PATHEXEC
+
+#PATHEXEC			:Esegue i due path di PAN e TILT i cui path e trapezi sono stati impostati coi comandi #PTRAP, #PTRAPQ, #TTRAP e #TTRAPQ
+					
+
+
+
+===========================
+EXAMPLES
+===========================
+Vai dalla mano (Q14) alla ruota (Q21) passando per il viso (Q11):
+
+#PTQ 14 0.2 0.2		//vai alla mano (Q14) con un movimento veloce di servizio
+#PATHEXEC			//(dopo #PTQ è mandatorio #PATHEXEC)
+#CAMERAON			//accendi la camera
+#PAUSE 5			//attendi 5 secondi prima di partire
+#PTQ 11 0.2 3		//vai al viso (Q11) in tre secondi 	
+#PATHEXEC			//(dopo #PTQ è mandatorio #PATHEXEC)
+#PAUSE 1			//stai sul viso 1 secondo
+#PTQ 21 0.2 3		//vai alla ruota (Q21) in tre secondi
+#PATHEXEC			//(dopo #PTQ è mandatorio #PATHEXEC)
+#PAUSE 10			//continua a riprendere per 10 secondi
+#CAMERAOFF			//spegni la camera
+#CLUEND				//FINE
+
+

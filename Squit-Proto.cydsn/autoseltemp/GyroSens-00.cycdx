@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="QuadDec" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="and_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Cnt16" BASE="0x0" SIZE="0x0" desc="" visible="true">
+      <block name="vmEnableMode" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="CounterUDB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="TC_vm" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="int_vm" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    </block>
+    <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="bQuadDec" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Clock_CTRL" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Clock_ENC" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ENC_B" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ENC_A" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXRS_MISO" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXRS_MOSI" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LED_OK" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="isr_CTRL" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="AMuxSeq" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="EEPROM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ECSPI_CS" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Counter_LED" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="vmEnableMode" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="int_vm" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="CounterHW" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="TC_vm" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="Clock_ENC_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="not_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="cydff_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ZeroTerminal_4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Clock_LED" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="IDAC8_ANGLE_OFFSET" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="viDAC8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="IDAC8_ANGLE" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="viDAC8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="ECSPI_MISO" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ECSPI_MOSI" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="SPIM_EASYCAMS" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="VirtualMux_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="BSPIM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="POT_TEST" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="POT_NULL" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADC" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="DSM4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_5" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="DEC" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_5" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_5" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_6" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Clock_VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Clock_VirtualMux_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Ext_CP_Clk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="theACLK" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="IRQ" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Clock_VirtualMux" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="ADXRS_CLK" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXRS_CS" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXL_X" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXRS_TEMP" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXRS_RATE" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="POT_GAIN" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="POT_ALPHA" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ADXL_Y" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UART_USB" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="BUART" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="IntClock" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="VDAC8_GYRO" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="viDAC8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="VREF" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="SPIM_ADXRS" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="VirtualMux_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="BSPIM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="Control_Reg_LED" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ECSPI_CLK" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="GYRO_DAC" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="PSOC_TX" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="PSOC_RX" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Clock_ENC_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="ANGLE_DAC" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+</blockRegMap>

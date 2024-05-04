@@ -1,0 +1,1872 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"sensor_CTRL.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	aacc,60,4
+  19              		.global	idx
+  20              		.bss
+  21              		.type	idx, %object
+  22              		.size	idx, 1
+  23              	idx:
+  24 0000 00       		.space	1
+  25              		.global	dummy
+  26              		.type	dummy, %object
+  27              		.size	dummy, 1
+  28              	dummy:
+  29 0001 00       		.space	1
+  30              		.global	idxMAX
+  31              		.type	idxMAX, %object
+  32              		.size	idxMAX, 1
+  33              	idxMAX:
+  34 0002 00       		.space	1
+  35              		.global	QuadDecEvent
+  36              		.type	QuadDecEvent, %object
+  37              		.size	QuadDecEvent, 1
+  38              	QuadDecEvent:
+  39 0003 00       		.space	1
+  40              		.comm	dgyro_offset_fine,4,4
+  41              		.section	.text.Control_sensors_processing,"ax",%progbits
+  42              		.align	2
+  43              		.global	Control_sensors_processing
+  44              		.thumb
+  45              		.thumb_func
+  46              		.type	Control_sensors_processing, %function
+  47              	Control_sensors_processing:
+  48              	.LFB56:
+  49              		.file 1 ".\\sensor_CTRL.c"
+   1:.\sensor_CTRL.c **** /* ========================================
+   2:.\sensor_CTRL.c ****  *
+   3:.\sensor_CTRL.c ****  * Copyright Logic brainstorm, 2015
+   4:.\sensor_CTRL.c ****  * All Rights Reserved
+   5:.\sensor_CTRL.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\sensor_CTRL.c ****  *
+   7:.\sensor_CTRL.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\sensor_CTRL.c ****  * WHICH IS THE PROPERTY OF your logic brainstorm.
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 2
+
+
+   9:.\sensor_CTRL.c ****  *
+  10:.\sensor_CTRL.c ****  * ========================================
+  11:.\sensor_CTRL.c **** */
+  12:.\sensor_CTRL.c **** 
+  13:.\sensor_CTRL.c **** #include <device.h>
+  14:.\sensor_CTRL.c **** #include <gobee.h>
+  15:.\sensor_CTRL.c **** #include <gobeelib.h>
+  16:.\sensor_CTRL.c **** #include <math.h>
+  17:.\sensor_CTRL.c **** 
+  18:.\sensor_CTRL.c **** /* extern Control Variables */
+  19:.\sensor_CTRL.c **** extern uint8 machine_state;		/* Machine State Global						*/
+  20:.\sensor_CTRL.c **** 
+  21:.\sensor_CTRL.c **** extern float error;				/* Sensor error(t) 	  						*/
+  22:.\sensor_CTRL.c **** extern float error_lowpass;		/* Sensor error(t) low pass filtered		*/
+  23:.\sensor_CTRL.c **** extern float alpha;				/* low pass filter alpha value				*/
+  24:.\sensor_CTRL.c **** 
+  25:.\sensor_CTRL.c **** extern float error_bef;			/* Sensor error(t-1)  						*/
+  26:.\sensor_CTRL.c **** extern float derror;			/* Sensor d/dt(error)						*/
+  27:.\sensor_CTRL.c **** extern float ierror;			/* Sensor Integral(error(t))				*/
+  28:.\sensor_CTRL.c **** 
+  29:.\sensor_CTRL.c **** extern int16 control_var;		/* cv(t) = Kp*angle(t)			  			*/
+  30:.\sensor_CTRL.c **** extern uint16 angle_var;		/* Angle Compensation DAC variable			*/
+  31:.\sensor_CTRL.c **** extern int16  angle_digi;		/* Angle Compensation SPI variable			*/
+  32:.\sensor_CTRL.c **** 
+  33:.\sensor_CTRL.c **** extern int16 VSenseMAX;			/* Maximum Sensor Array ADC Voltage			*/
+  34:.\sensor_CTRL.c **** extern int16 VSenseSUM;			/* Sum of all Sensor Array ADC Voltage		*/
+  35:.\sensor_CTRL.c **** 
+  36:.\sensor_CTRL.c **** extern int16 Encoder_now;		/* Driver Motor Encoder(t)					*/
+  37:.\sensor_CTRL.c **** extern int16 Encoder_bef;		/* Driver Motor Encoder(t-1)				*/
+  38:.\sensor_CTRL.c **** extern int16 DriveVelocity;		/* Driver Motor Velocity(t)					*/
+  39:.\sensor_CTRL.c **** 
+  40:.\sensor_CTRL.c **** 
+  41:.\sensor_CTRL.c **** /* extern Sensor ADC array */
+  42:.\sensor_CTRL.c **** extern int16 AdcValue[ADC_MUX_LENGHT];
+  43:.\sensor_CTRL.c **** 
+  44:.\sensor_CTRL.c **** 
+  45:.\sensor_CTRL.c **** /* extern Analog ADXL325 3D accelerometer vars) */
+  46:.\sensor_CTRL.c **** struct ANALOG_3D_ACCELEROMETER aacc;
+  47:.\sensor_CTRL.c **** 
+  48:.\sensor_CTRL.c **** //extern signed long system_dynamic_scalar;	/* x_acc_ADC^2 + y_acc_ADC^2 - (1g_ADC)^2	*/
+  49:.\sensor_CTRL.c **** 
+  50:.\sensor_CTRL.c **** 
+  51:.\sensor_CTRL.c **** /* extern IMU UM7 vars */ 
+  52:.\sensor_CTRL.c **** #if IMU_UM7_ENABLED
+  53:.\sensor_CTRL.c **** extern EULER_ANGLES euler_angles; 		/* Struttura in cui vengono messi gli angoli di Eulero misurati
+  54:.\sensor_CTRL.c **** #endif
+  55:.\sensor_CTRL.c **** 
+  56:.\sensor_CTRL.c **** /* extern IMU sensor vars */
+  57:.\sensor_CTRL.c **** extern struct IMU_SENSOR	IMU_sensor;		/* Struttura dei dati della IMU */
+  58:.\sensor_CTRL.c **** 
+  59:.\sensor_CTRL.c **** 
+  60:.\sensor_CTRL.c **** /* extern Analog External ADXRS646 gyroscope vars) */
+  61:.\sensor_CTRL.c **** extern struct ANALOG_GYRO agyro;
+  62:.\sensor_CTRL.c **** 
+  63:.\sensor_CTRL.c **** /* extern ADXRS453 digital gyroscope vars	*/
+  64:.\sensor_CTRL.c **** extern float dgyro_rate_float;		/* ADXRS453 Digital Gyro Rate (float) [deg/sec] 	*/
+  65:.\sensor_CTRL.c **** extern float dgyro_mean;			/* digital gyro raw mean_value(t)					*/
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 3
+
+
+  66:.\sensor_CTRL.c **** extern float dgyro_mean_previous;	/* digital gyro raw mean_value(t-1)					*/
+  67:.\sensor_CTRL.c **** extern float dgyro_mean_of;			/* digital gyro ofsetted mean_value(t)				*/
+  68:.\sensor_CTRL.c **** extern float dgyro_mean_previous_of;/* digital gyro ofsetted mean_value(t-1)			*/
+  69:.\sensor_CTRL.c **** extern uint32 dg_iteration;			/* digital gyro mean value iteration counter		*/
+  70:.\sensor_CTRL.c **** extern uint8 dgyro_messg;			/* digital gyro message passing console --> isr_ctrl*/
+  71:.\sensor_CTRL.c **** 
+  72:.\sensor_CTRL.c **** /* extern estimated control vars */
+  73:.\sensor_CTRL.c **** extern float angle;				/* Complementary Filter Estimated angle float [deg]	*/
+  74:.\sensor_CTRL.c **** extern float angle_lowpass;
+  75:.\sensor_CTRL.c **** extern float angle_estim;	
+  76:.\sensor_CTRL.c **** 
+  77:.\sensor_CTRL.c **** ///* external ITG-3701 digital gyro vars */
+  78:.\sensor_CTRL.c **** //extern float gRes;      				// scale resolutions per LSB for the sensors
+  79:.\sensor_CTRL.c **** //extern int16 gyroCount[3];  			// Stores the 16-bit signed gyro output
+  80:.\sensor_CTRL.c **** //extern float gx, gy, gz; 				// variables to hold latest sensor data values 
+  81:.\sensor_CTRL.c **** //extern float gyroBias[3];			 	// Bias corrections for gyro, accelerometer, and magnetometer
+  82:.\sensor_CTRL.c **** //extern float temperature;          		// Stores the ITG3701yro internal chip temperature in degree
+  83:.\sensor_CTRL.c **** 
+  84:.\sensor_CTRL.c **** /* extern GOBEE param structure */
+  85:.\sensor_CTRL.c **** extern struct GOBEE_PARAMS gobee_param;
+  86:.\sensor_CTRL.c ****  
+  87:.\sensor_CTRL.c **** 
+  88:.\sensor_CTRL.c **** /* Local vars Definition */
+  89:.\sensor_CTRL.c **** uint8 idx = 0;					/* all pourpose index							*/
+  90:.\sensor_CTRL.c **** uint8 dummy = 0;				/* Dummy Local									*/
+  91:.\sensor_CTRL.c **** uint8 idxMAX = 0;				/* index: Vsense(index)=VSenseMAX				*/
+  92:.\sensor_CTRL.c **** uint8 QuadDecEvent = 0;			/* Quadrature Encoder Status Register Shadow 	*/
+  93:.\sensor_CTRL.c **** 
+  94:.\sensor_CTRL.c **** float dgyro_offset_fine;
+  95:.\sensor_CTRL.c **** 
+  96:.\sensor_CTRL.c **** 
+  97:.\sensor_CTRL.c **** /************************************************************/
+  98:.\sensor_CTRL.c **** /* GoBee Real Time CONTROL SENSORS Sampling & Control 		*/
+  99:.\sensor_CTRL.c **** /*   Control sensors are used for Gimbal Real Time Control	*/
+ 100:.\sensor_CTRL.c **** /*   (isr_CTRL.c  1500Hz)									*/
+ 101:.\sensor_CTRL.c **** /************************************************************/
+ 102:.\sensor_CTRL.c **** void Control_sensors_processing(void)
+ 103:.\sensor_CTRL.c **** {
+  50              		.loc 1 103 0
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 0
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56              	.LCFI0:
+  57              		.cfi_def_cfa_offset 4
+  58              		.cfi_offset 7, -4
+  59 0002 00AF     		add	r7, sp, #0
+  60              	.LCFI1:
+  61              		.cfi_def_cfa_register 7
+ 104:.\sensor_CTRL.c **** 	/************************************************/
+ 105:.\sensor_CTRL.c **** 	/*** IMU UM7-LT build packet 					*/
+ 106:.\sensor_CTRL.c **** 	/*** deve essere chiamata almeno 15 volte per 	*/
+ 107:.\sensor_CTRL.c **** 	/************************************************/
+ 108:.\sensor_CTRL.c **** #if IMU_UM7_ENABLED	
+ 109:.\sensor_CTRL.c **** 	IMU_UM7_CheckForEulerPacket(&euler_angles);
+ 110:.\sensor_CTRL.c **** #endif	
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 4
+
+
+ 111:.\sensor_CTRL.c **** 
+ 112:.\sensor_CTRL.c **** 	/************************************************/
+ 113:.\sensor_CTRL.c **** 	/*** IMU UM7-LT YAW elaboration 				*/
+ 114:.\sensor_CTRL.c **** 	/************************************************/
+ 115:.\sensor_CTRL.c **** #if IMU_YAW_ELABORATION
+ 116:.\sensor_CTRL.c **** 	if (IMU_sensor.param.yaw_invertion == ANGLE_NOT_INVERTED)
+ 117:.\sensor_CTRL.c **** 	{
+ 118:.\sensor_CTRL.c **** 		IMU_sensor.bike_yaw = euler_angles.psi;	
+ 119:.\sensor_CTRL.c **** 	}
+ 120:.\sensor_CTRL.c **** 	else	//ANGLE INVERTED
+ 121:.\sensor_CTRL.c **** 	{
+ 122:.\sensor_CTRL.c **** 		IMU_sensor.bike_yaw = -euler_angles.psi;	
+ 123:.\sensor_CTRL.c **** 	}	
+ 124:.\sensor_CTRL.c **** 
+ 125:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 126:.\sensor_CTRL.c **** 	/* IMU_sensor.bike_yaw: Exponential error smoothing function				*/
+ 127:.\sensor_CTRL.c **** 	/* (exactly like RC first order low pass filter) 							*/
+ 128:.\sensor_CTRL.c **** 	/* http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization	*/
+ 129:.\sensor_CTRL.c **** 	/* http://en.wikipedia.org/wiki/Exponential_smoothing						*/
+ 130:.\sensor_CTRL.c **** 	/*																			*/
+ 131:.\sensor_CTRL.c **** 	/* tau = deltaT *(1 - gamma)/gamma											*/
+ 132:.\sensor_CTRL.c **** 	/*       deltaT = 666.7 usec @ 1500Hz										*/
+ 133:.\sensor_CTRL.c **** 	/*		 gamma  = 0.0005													*/
+ 134:.\sensor_CTRL.c **** 	/*		 --> tau = 1,33 sec (fc = 2 * 3.14 / tau = 4.71Hz)					*/
+ 135:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 136:.\sensor_CTRL.c **** 	/* gamma = 1 TO BYPASS FILTER												*/
+ 137:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 138:.\sensor_CTRL.c **** 	if (IMU_sensor.param.gamma.fnum == 1)
+ 139:.\sensor_CTRL.c **** 	{
+ 140:.\sensor_CTRL.c **** 		IMU_sensor.bike_yaw_lpf = IMU_sensor.bike_yaw;
+ 141:.\sensor_CTRL.c **** 	}
+ 142:.\sensor_CTRL.c **** 	else
+ 143:.\sensor_CTRL.c **** 	{
+ 144:.\sensor_CTRL.c **** 		IMU_sensor.bike_yaw_lpf = IMU_sensor.bike_yaw_lpf + (double)IMU_sensor.param.gamma.fnum * (IMU_se
+ 145:.\sensor_CTRL.c **** 	}
+ 146:.\sensor_CTRL.c **** #endif
+ 147:.\sensor_CTRL.c **** 
+ 148:.\sensor_CTRL.c **** #if IMU_PITCH_ELABORATION
+ 149:.\sensor_CTRL.c **** 	/************************************************/
+ 150:.\sensor_CTRL.c **** 	/*** IMU UM7-LT PITCH elaboration 				*/
+ 151:.\sensor_CTRL.c **** 	/************************************************/
+ 152:.\sensor_CTRL.c **** 	if (IMU_sensor.param.pitch_invertion == ANGLE_NOT_INVERTED)
+ 153:.\sensor_CTRL.c **** 	{
+ 154:.\sensor_CTRL.c **** 		IMU_sensor.bike_pitch = euler_angles.theta;
+ 155:.\sensor_CTRL.c **** 	}
+ 156:.\sensor_CTRL.c **** 	else	//ANGLE INVERTED
+ 157:.\sensor_CTRL.c **** 	{
+ 158:.\sensor_CTRL.c **** 		IMU_sensor.bike_pitch = -euler_angles.theta;	
+ 159:.\sensor_CTRL.c **** 	}	
+ 160:.\sensor_CTRL.c **** 
+ 161:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 162:.\sensor_CTRL.c **** 	/* IMU_sensor.bike_pitch: Exponential error smoothing function				*/
+ 163:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 164:.\sensor_CTRL.c **** 	/* gamma = 1 TO BYPASS FILTER												*/
+ 165:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 166:.\sensor_CTRL.c **** 	if (IMU_sensor.param.gamma.fnum == 1)
+ 167:.\sensor_CTRL.c **** 	{
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 5
+
+
+ 168:.\sensor_CTRL.c **** 		IMU_sensor.bike_pitch_lpf = IMU_sensor.bike_pitch;
+ 169:.\sensor_CTRL.c **** 	}
+ 170:.\sensor_CTRL.c **** 	else
+ 171:.\sensor_CTRL.c **** 	{
+ 172:.\sensor_CTRL.c **** 		IMU_sensor.bike_pitch_lpf = IMU_sensor.bike_pitch_lpf + (double)IMU_sensor.param.gamma.fnum * (IM
+ 173:.\sensor_CTRL.c **** 	}
+ 174:.\sensor_CTRL.c **** #endif	
+ 175:.\sensor_CTRL.c **** 
+ 176:.\sensor_CTRL.c **** #if IMU_ROLL_ELABORATION
+ 177:.\sensor_CTRL.c **** 	/************************************************/
+ 178:.\sensor_CTRL.c **** 	/*** IMU UM7-LT ROLL elaboration 				*/
+ 179:.\sensor_CTRL.c **** 	/************************************************/
+ 180:.\sensor_CTRL.c **** 	if (IMU_sensor.param.roll_invertion == ANGLE_NOT_INVERTED)
+ 181:.\sensor_CTRL.c **** 	{
+ 182:.\sensor_CTRL.c **** 		IMU_sensor.bike_roll = euler_angles.phi;	
+ 183:.\sensor_CTRL.c **** 	}
+ 184:.\sensor_CTRL.c **** 	else	//ANGLE INVERTED
+ 185:.\sensor_CTRL.c **** 	{
+ 186:.\sensor_CTRL.c **** 		IMU_sensor.bike_roll = -euler_angles.phi;	
+ 187:.\sensor_CTRL.c **** 	}	
+ 188:.\sensor_CTRL.c **** 
+ 189:.\sensor_CTRL.c **** 	
+ 190:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 191:.\sensor_CTRL.c **** 	/* IMU_sensor.bike_pitch: Exponential error smoothing function				*/
+ 192:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 193:.\sensor_CTRL.c **** 	/* gamma = 1 TO BYPASS FILTER												*/
+ 194:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 195:.\sensor_CTRL.c **** 	if (IMU_sensor.param.gamma.fnum == 1)
+ 196:.\sensor_CTRL.c **** 	{
+ 197:.\sensor_CTRL.c **** 		IMU_sensor.bike_roll_lpf = IMU_sensor.bike_roll;
+ 198:.\sensor_CTRL.c **** 	}
+ 199:.\sensor_CTRL.c **** 	else
+ 200:.\sensor_CTRL.c **** 	{
+ 201:.\sensor_CTRL.c **** 		IMU_sensor.bike_roll_lpf = IMU_sensor.bike_roll_lpf + (double)IMU_sensor.param.gamma.fnum * (IMU_
+ 202:.\sensor_CTRL.c **** 	}
+ 203:.\sensor_CTRL.c **** #endif	
+ 204:.\sensor_CTRL.c **** 
+ 205:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 206:.\sensor_CTRL.c **** 	/* Real Time Stabilization calculations										*/
+ 207:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 208:.\sensor_CTRL.c **** 	// abs_pan_angle --> rad
+ 209:.\sensor_CTRL.c **** 	//	Function: void sincos (double x, double *sinx, double *cosx)
+ 210:.\sensor_CTRL.c **** 	//	Function: void sincosf (float x, float *sinx, float *cosx)
+ 211:.\sensor_CTRL.c **** 
+ 212:.\sensor_CTRL.c **** 	// IMU_sensor.cam_gyrotilt = (IMU_sensor.bike_pitch_lpf * cos(abs_pan_angle)
+ 213:.\sensor_CTRL.c **** 	//							 + IMU_sensor.bike_roll_lpf * sin(abs_pan_angle) [deg]) * tilt_axis.vparam.resolution_ste
+ 214:.\sensor_CTRL.c **** 
+ 215:.\sensor_CTRL.c **** }        
+  62              		.loc 1 215 0
+  63 0004 BD46     		mov	sp, r7
+  64 0006 80BC     		pop	{r7}
+  65 0008 7047     		bx	lr
+  66              		.cfi_endproc
+  67              	.LFE56:
+  68              		.size	Control_sensors_processing, .-Control_sensors_processing
+  69              		.global	__aeabi_i2f
+  70              		.global	__aeabi_fmul
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 6
+
+
+  71              		.global	__aeabi_fcmplt
+  72              		.global	__aeabi_fsub
+  73              		.global	__aeabi_fadd
+  74              		.global	__aeabi_f2d
+  75              		.global	__aeabi_d2f
+  76 000a 00BF     		.section	.text.Heading_sensors_processing,"ax",%progbits
+  77              		.align	2
+  78              		.global	Heading_sensors_processing
+  79              		.thumb
+  80              		.thumb_func
+  81              		.type	Heading_sensors_processing, %function
+  82              	Heading_sensors_processing:
+  83              	.LFB57:
+ 216:.\sensor_CTRL.c **** 
+ 217:.\sensor_CTRL.c **** 
+ 218:.\sensor_CTRL.c **** /********************************************************/
+ 219:.\sensor_CTRL.c **** /* Bike HEADING SENSORS Sampling & Control 				*/
+ 220:.\sensor_CTRL.c **** /*   Heading sensors are used for Events Identification	*/
+ 221:.\sensor_CTRL.c **** /*  (isr_EVENTS_IDENTIF.c  100Hz)						*/
+ 222:.\sensor_CTRL.c **** /********************************************************/
+ 223:.\sensor_CTRL.c **** void Heading_sensors_processing(void)
+ 224:.\sensor_CTRL.c **** {
+  84              		.loc 1 224 0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 1, uses_anonymous_args = 0
+  88 0000 B0B5     		push	{r4, r5, r7, lr}
+  89              	.LCFI2:
+  90              		.cfi_def_cfa_offset 16
+  91              		.cfi_offset 4, -16
+  92              		.cfi_offset 5, -12
+  93              		.cfi_offset 7, -8
+  94              		.cfi_offset 14, -4
+  95 0002 00AF     		add	r7, sp, #0
+  96              	.LCFI3:
+  97              		.cfi_def_cfa_register 7
+ 225:.\sensor_CTRL.c **** 	/************************************************/
+ 226:.\sensor_CTRL.c **** 	/* ADXL325 Accelerometer Sampling and scaling	*/
+ 227:.\sensor_CTRL.c **** 	/************************************************/
+ 228:.\sensor_CTRL.c **** 	/* Sensivity = 174mV/g							*/
+ 229:.\sensor_CTRL.c **** 	/* Zero g    = 1,5V								*/
+ 230:.\sensor_CTRL.c **** 	/*												*/
+ 231:.\sensor_CTRL.c **** 	/* ADC(int16 signed)=(Vin - 2,5V)*4096/5V		*/
+ 232:.\sensor_CTRL.c **** 	/* ADC resolution = 12 bit						*/
+ 233:.\sensor_CTRL.c **** 	/* 												*/
+ 234:.\sensor_CTRL.c **** 	/*  -->       0g  = -819.2	  ADC lsb			*/
+ 235:.\sensor_CTRL.c **** 	/*	-->       1g  = -676.6592 ADC lsb			*/
+ 236:.\sensor_CTRL.c **** 	/*  --> delta(1g) = 142.5408  ADC lsb			*/
+ 237:.\sensor_CTRL.c **** 	/************************************************/
+ 238:.\sensor_CTRL.c **** 	aacc.x_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+  98              		.loc 1 238 0
+  99 0004 40F20003 		movw	r3, #:lower16:aacc
+ 100 0008 C0F20003 		movt	r3, #:upper16:aacc
+ 101 000c 4EF29322 		movw	r2, #58003
+ 102 0010 C3F6E532 		movt	r2, 15333
+ 103 0014 5A60     		str	r2, [r3, #4]	@ float
+ 239:.\sensor_CTRL.c **** 	aacc.y_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 7
+
+
+ 104              		.loc 1 239 0
+ 105 0016 40F20003 		movw	r3, #:lower16:aacc
+ 106 001a C0F20003 		movt	r3, #:upper16:aacc
+ 107 001e 4EF29322 		movw	r2, #58003
+ 108 0022 C3F6E532 		movt	r2, 15333
+ 109 0026 5A61     		str	r2, [r3, #20]	@ float
+ 240:.\sensor_CTRL.c **** 	aacc.z_axis.scale = 0.007015535;	/* 1 / [1g] = 1 / 142.5408 = 0.007015535	*/
+ 110              		.loc 1 240 0
+ 111 0028 40F20003 		movw	r3, #:lower16:aacc
+ 112 002c C0F20003 		movt	r3, #:upper16:aacc
+ 113 0030 4EF29322 		movw	r2, #58003
+ 114 0034 C3F6E532 		movt	r2, 15333
+ 115 0038 5A62     		str	r2, [r3, #36]	@ float
+ 241:.\sensor_CTRL.c **** 	
+ 242:.\sensor_CTRL.c **** 	aacc.x_axis.ADC = AdcValue[ADXL_X] + ADC_ACC_ZERO_OFFSET ;
+ 116              		.loc 1 242 0
+ 117 003a 40F20003 		movw	r3, #:lower16:AdcValue
+ 118 003e C0F20003 		movt	r3, #:upper16:AdcValue
+ 119 0042 DB88     		ldrh	r3, [r3, #6]
+ 120 0044 9BB2     		uxth	r3, r3
+ 121 0046 03F23333 		addw	r3, r3, #819
+ 122 004a 9BB2     		uxth	r3, r3
+ 123 004c 9AB2     		uxth	r2, r3
+ 124 004e 40F20003 		movw	r3, #:lower16:aacc
+ 125 0052 C0F20003 		movt	r3, #:upper16:aacc
+ 126 0056 1A80     		strh	r2, [r3, #0]	@ movhi
+ 243:.\sensor_CTRL.c **** 	aacc.y_axis.ADC = AdcValue[ADXL_Y] + ADC_ACC_ZERO_OFFSET ;
+ 127              		.loc 1 243 0
+ 128 0058 40F20003 		movw	r3, #:lower16:AdcValue
+ 129 005c C0F20003 		movt	r3, #:upper16:AdcValue
+ 130 0060 1B89     		ldrh	r3, [r3, #8]
+ 131 0062 9BB2     		uxth	r3, r3
+ 132 0064 03F23333 		addw	r3, r3, #819
+ 133 0068 9BB2     		uxth	r3, r3
+ 134 006a 9AB2     		uxth	r2, r3
+ 135 006c 40F20003 		movw	r3, #:lower16:aacc
+ 136 0070 C0F20003 		movt	r3, #:upper16:aacc
+ 137 0074 1A82     		strh	r2, [r3, #16]	@ movhi
+ 244:.\sensor_CTRL.c **** 	aacc.z_axis.ADC = AdcValue[ADXL_Z] + ADC_ACC_ZERO_OFFSET ;	
+ 138              		.loc 1 244 0
+ 139 0076 40F20003 		movw	r3, #:lower16:AdcValue
+ 140 007a C0F20003 		movt	r3, #:upper16:AdcValue
+ 141 007e 5B89     		ldrh	r3, [r3, #10]
+ 142 0080 9BB2     		uxth	r3, r3
+ 143 0082 03F23333 		addw	r3, r3, #819
+ 144 0086 9BB2     		uxth	r3, r3
+ 145 0088 9AB2     		uxth	r2, r3
+ 146 008a 40F20003 		movw	r3, #:lower16:aacc
+ 147 008e C0F20003 		movt	r3, #:upper16:aacc
+ 148 0092 1A84     		strh	r2, [r3, #32]	@ movhi
+ 245:.\sensor_CTRL.c **** 	
+ 246:.\sensor_CTRL.c **** 	aacc.x_axis.acceleration = (float)(aacc.x_axis.ADC + gobee_param.x_acc_ADC_offset) * aacc.x_axis.s
+ 149              		.loc 1 246 0
+ 150 0094 40F20003 		movw	r3, #:lower16:aacc
+ 151 0098 C0F20003 		movt	r3, #:upper16:aacc
+ 152 009c 1B88     		ldrh	r3, [r3, #0]
+ 153 009e 1AB2     		sxth	r2, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 8
+
+
+ 154 00a0 40F20003 		movw	r3, #:lower16:gobee_param
+ 155 00a4 C0F20003 		movt	r3, #:upper16:gobee_param
+ 156 00a8 1B89     		ldrh	r3, [r3, #8]
+ 157 00aa 1BB2     		sxth	r3, r3
+ 158 00ac D318     		adds	r3, r2, r3
+ 159 00ae 1846     		mov	r0, r3
+ 160 00b0 FFF7FEFF 		bl	__aeabi_i2f
+ 161 00b4 0246     		mov	r2, r0
+ 162 00b6 40F20003 		movw	r3, #:lower16:aacc
+ 163 00ba C0F20003 		movt	r3, #:upper16:aacc
+ 164 00be 5B68     		ldr	r3, [r3, #4]	@ float
+ 165 00c0 1046     		mov	r0, r2
+ 166 00c2 1946     		mov	r1, r3
+ 167 00c4 FFF7FEFF 		bl	__aeabi_fmul
+ 168 00c8 0346     		mov	r3, r0
+ 169 00ca 1A46     		mov	r2, r3
+ 170 00cc 40F20003 		movw	r3, #:lower16:aacc
+ 171 00d0 C0F20003 		movt	r3, #:upper16:aacc
+ 172 00d4 9A60     		str	r2, [r3, #8]	@ float
+ 247:.\sensor_CTRL.c **** 	aacc.y_axis.acceleration = (float)(aacc.y_axis.ADC + gobee_param.y_acc_ADC_offset) * aacc.y_axis.s
+ 173              		.loc 1 247 0
+ 174 00d6 40F20003 		movw	r3, #:lower16:aacc
+ 175 00da C0F20003 		movt	r3, #:upper16:aacc
+ 176 00de 1B8A     		ldrh	r3, [r3, #16]
+ 177 00e0 1AB2     		sxth	r2, r3
+ 178 00e2 40F20003 		movw	r3, #:lower16:gobee_param
+ 179 00e6 C0F20003 		movt	r3, #:upper16:gobee_param
+ 180 00ea 5B89     		ldrh	r3, [r3, #10]
+ 181 00ec 1BB2     		sxth	r3, r3
+ 182 00ee D318     		adds	r3, r2, r3
+ 183 00f0 1846     		mov	r0, r3
+ 184 00f2 FFF7FEFF 		bl	__aeabi_i2f
+ 185 00f6 0246     		mov	r2, r0
+ 186 00f8 40F20003 		movw	r3, #:lower16:aacc
+ 187 00fc C0F20003 		movt	r3, #:upper16:aacc
+ 188 0100 5B69     		ldr	r3, [r3, #20]	@ float
+ 189 0102 1046     		mov	r0, r2
+ 190 0104 1946     		mov	r1, r3
+ 191 0106 FFF7FEFF 		bl	__aeabi_fmul
+ 192 010a 0346     		mov	r3, r0
+ 193 010c 1A46     		mov	r2, r3
+ 194 010e 40F20003 		movw	r3, #:lower16:aacc
+ 195 0112 C0F20003 		movt	r3, #:upper16:aacc
+ 196 0116 9A61     		str	r2, [r3, #24]	@ float
+ 248:.\sensor_CTRL.c **** 	aacc.z_axis.acceleration = (float)(aacc.z_axis.ADC + gobee_param.z_acc_ADC_offset) * aacc.z_axis.s
+ 197              		.loc 1 248 0
+ 198 0118 40F20003 		movw	r3, #:lower16:aacc
+ 199 011c C0F20003 		movt	r3, #:upper16:aacc
+ 200 0120 1B8C     		ldrh	r3, [r3, #32]
+ 201 0122 1AB2     		sxth	r2, r3
+ 202 0124 40F20003 		movw	r3, #:lower16:gobee_param
+ 203 0128 C0F20003 		movt	r3, #:upper16:gobee_param
+ 204 012c 9B89     		ldrh	r3, [r3, #12]
+ 205 012e 1BB2     		sxth	r3, r3
+ 206 0130 D318     		adds	r3, r2, r3
+ 207 0132 1846     		mov	r0, r3
+ 208 0134 FFF7FEFF 		bl	__aeabi_i2f
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 9
+
+
+ 209 0138 0246     		mov	r2, r0
+ 210 013a 40F20003 		movw	r3, #:lower16:aacc
+ 211 013e C0F20003 		movt	r3, #:upper16:aacc
+ 212 0142 5B6A     		ldr	r3, [r3, #36]	@ float
+ 213 0144 1046     		mov	r0, r2
+ 214 0146 1946     		mov	r1, r3
+ 215 0148 FFF7FEFF 		bl	__aeabi_fmul
+ 216 014c 0346     		mov	r3, r0
+ 217 014e 1A46     		mov	r2, r3
+ 218 0150 40F20003 		movw	r3, #:lower16:aacc
+ 219 0154 C0F20003 		movt	r3, #:upper16:aacc
+ 220 0158 9A62     		str	r2, [r3, #40]	@ float
+ 249:.\sensor_CTRL.c **** 
+ 250:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 251:.\sensor_CTRL.c **** 	/* Accelerometer Exponential error smoothing function						*/
+ 252:.\sensor_CTRL.c **** 	/* (exactly like RC first order low pass filter) 							*/
+ 253:.\sensor_CTRL.c **** 	/* http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization	*/
+ 254:.\sensor_CTRL.c **** 	/* http://en.wikipedia.org/wiki/Exponential_smoothing						*/
+ 255:.\sensor_CTRL.c **** 	/*																			*/
+ 256:.\sensor_CTRL.c **** 	/* tau = deltaT *(1 - beta)/beta											*/
+ 257:.\sensor_CTRL.c **** 	/*       deltaT = 666.7 usec @ 100Hz										*/
+ 258:.\sensor_CTRL.c **** 	/*		 beta  = 0.0005														*/
+ 259:.\sensor_CTRL.c **** 	/*		 --> tau = 1,33 sec (fc = 2 * 3.14 / tau = 4.71Hz)					*/
+ 260:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 261:.\sensor_CTRL.c **** 	/* beta = 1 TO BYPASS FILTER												*/
+ 262:.\sensor_CTRL.c **** 	/****************************************************************************/
+ 263:.\sensor_CTRL.c **** 	if (gobee_param.beta.fnum < 1)
+ 221              		.loc 1 263 0
+ 222 015a 40F20003 		movw	r3, #:lower16:gobee_param
+ 223 015e C0F20003 		movt	r3, #:upper16:gobee_param
+ 224 0162 5B68     		ldr	r3, [r3, #4]	@ float
+ 225 0164 1846     		mov	r0, r3
+ 226 0166 4FF07E51 		mov	r1, #1065353216
+ 227 016a FFF7FEFF 		bl	__aeabi_fcmplt
+ 228 016e 0346     		mov	r3, r0
+ 229 0170 002B     		cmp	r3, #0
+ 230 0172 7AD0     		beq	.L3
+ 231              	.L5:
+ 264:.\sensor_CTRL.c **** 	{
+ 265:.\sensor_CTRL.c **** 		aacc.x_axis.acceleration_lpf = aacc.x_axis.acceleration_lpf +
+ 232              		.loc 1 265 0
+ 233 0174 40F20003 		movw	r3, #:lower16:aacc
+ 234 0178 C0F20003 		movt	r3, #:upper16:aacc
+ 235 017c DC68     		ldr	r4, [r3, #12]	@ float
+ 266:.\sensor_CTRL.c **** 									gobee_param.beta.fnum * (aacc.x_axis.acceleration - aacc.x_axis.acceleration_lpf);
+ 236              		.loc 1 266 0
+ 237 017e 40F20003 		movw	r3, #:lower16:gobee_param
+ 238 0182 C0F20003 		movt	r3, #:upper16:gobee_param
+ 239 0186 5D68     		ldr	r5, [r3, #4]	@ float
+ 240 0188 40F20003 		movw	r3, #:lower16:aacc
+ 241 018c C0F20003 		movt	r3, #:upper16:aacc
+ 242 0190 9A68     		ldr	r2, [r3, #8]	@ float
+ 243 0192 40F20003 		movw	r3, #:lower16:aacc
+ 244 0196 C0F20003 		movt	r3, #:upper16:aacc
+ 245 019a DB68     		ldr	r3, [r3, #12]	@ float
+ 246 019c 1046     		mov	r0, r2
+ 247 019e 1946     		mov	r1, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 10
+
+
+ 248 01a0 FFF7FEFF 		bl	__aeabi_fsub
+ 249 01a4 0346     		mov	r3, r0
+ 250 01a6 2846     		mov	r0, r5
+ 251 01a8 1946     		mov	r1, r3
+ 252 01aa FFF7FEFF 		bl	__aeabi_fmul
+ 253 01ae 0346     		mov	r3, r0
+ 265:.\sensor_CTRL.c **** 		aacc.x_axis.acceleration_lpf = aacc.x_axis.acceleration_lpf +
+ 254              		.loc 1 265 0
+ 255 01b0 2046     		mov	r0, r4
+ 256 01b2 1946     		mov	r1, r3
+ 257 01b4 FFF7FEFF 		bl	__aeabi_fadd
+ 258 01b8 0346     		mov	r3, r0
+ 259 01ba 1A46     		mov	r2, r3
+ 260 01bc 40F20003 		movw	r3, #:lower16:aacc
+ 261 01c0 C0F20003 		movt	r3, #:upper16:aacc
+ 262 01c4 DA60     		str	r2, [r3, #12]	@ float
+ 267:.\sensor_CTRL.c **** 		aacc.y_axis.acceleration_lpf = aacc.y_axis.acceleration_lpf +
+ 263              		.loc 1 267 0
+ 264 01c6 40F20003 		movw	r3, #:lower16:aacc
+ 265 01ca C0F20003 		movt	r3, #:upper16:aacc
+ 266 01ce DC69     		ldr	r4, [r3, #28]	@ float
+ 268:.\sensor_CTRL.c **** 									gobee_param.beta.fnum * (aacc.y_axis.acceleration - aacc.y_axis.acceleration_lpf);								
+ 267              		.loc 1 268 0
+ 268 01d0 40F20003 		movw	r3, #:lower16:gobee_param
+ 269 01d4 C0F20003 		movt	r3, #:upper16:gobee_param
+ 270 01d8 5D68     		ldr	r5, [r3, #4]	@ float
+ 271 01da 40F20003 		movw	r3, #:lower16:aacc
+ 272 01de C0F20003 		movt	r3, #:upper16:aacc
+ 273 01e2 9A69     		ldr	r2, [r3, #24]	@ float
+ 274 01e4 40F20003 		movw	r3, #:lower16:aacc
+ 275 01e8 C0F20003 		movt	r3, #:upper16:aacc
+ 276 01ec DB69     		ldr	r3, [r3, #28]	@ float
+ 277 01ee 1046     		mov	r0, r2
+ 278 01f0 1946     		mov	r1, r3
+ 279 01f2 FFF7FEFF 		bl	__aeabi_fsub
+ 280 01f6 0346     		mov	r3, r0
+ 281 01f8 2846     		mov	r0, r5
+ 282 01fa 1946     		mov	r1, r3
+ 283 01fc FFF7FEFF 		bl	__aeabi_fmul
+ 284 0200 0346     		mov	r3, r0
+ 267:.\sensor_CTRL.c **** 		aacc.y_axis.acceleration_lpf = aacc.y_axis.acceleration_lpf +
+ 285              		.loc 1 267 0
+ 286 0202 2046     		mov	r0, r4
+ 287 0204 1946     		mov	r1, r3
+ 288 0206 FFF7FEFF 		bl	__aeabi_fadd
+ 289 020a 0346     		mov	r3, r0
+ 290 020c 1A46     		mov	r2, r3
+ 291 020e 40F20003 		movw	r3, #:lower16:aacc
+ 292 0212 C0F20003 		movt	r3, #:upper16:aacc
+ 293 0216 DA61     		str	r2, [r3, #28]	@ float
+ 269:.\sensor_CTRL.c **** 		aacc.z_axis.acceleration_lpf = aacc.z_axis.acceleration_lpf +
+ 294              		.loc 1 269 0
+ 295 0218 40F20003 		movw	r3, #:lower16:aacc
+ 296 021c C0F20003 		movt	r3, #:upper16:aacc
+ 297 0220 DC6A     		ldr	r4, [r3, #44]	@ float
+ 270:.\sensor_CTRL.c **** 									gobee_param.beta.fnum * (aacc.z_axis.acceleration - aacc.z_axis.acceleration_lpf);								
+ 298              		.loc 1 270 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 11
+
+
+ 299 0222 40F20003 		movw	r3, #:lower16:gobee_param
+ 300 0226 C0F20003 		movt	r3, #:upper16:gobee_param
+ 301 022a 5D68     		ldr	r5, [r3, #4]	@ float
+ 302 022c 40F20003 		movw	r3, #:lower16:aacc
+ 303 0230 C0F20003 		movt	r3, #:upper16:aacc
+ 304 0234 9A6A     		ldr	r2, [r3, #40]	@ float
+ 305 0236 40F20003 		movw	r3, #:lower16:aacc
+ 306 023a C0F20003 		movt	r3, #:upper16:aacc
+ 307 023e DB6A     		ldr	r3, [r3, #44]	@ float
+ 308 0240 1046     		mov	r0, r2
+ 309 0242 1946     		mov	r1, r3
+ 310 0244 FFF7FEFF 		bl	__aeabi_fsub
+ 311 0248 0346     		mov	r3, r0
+ 312 024a 2846     		mov	r0, r5
+ 313 024c 1946     		mov	r1, r3
+ 314 024e FFF7FEFF 		bl	__aeabi_fmul
+ 315 0252 0346     		mov	r3, r0
+ 269:.\sensor_CTRL.c **** 		aacc.z_axis.acceleration_lpf = aacc.z_axis.acceleration_lpf +
+ 316              		.loc 1 269 0
+ 317 0254 2046     		mov	r0, r4
+ 318 0256 1946     		mov	r1, r3
+ 319 0258 FFF7FEFF 		bl	__aeabi_fadd
+ 320 025c 0346     		mov	r3, r0
+ 321 025e 1A46     		mov	r2, r3
+ 322 0260 40F20003 		movw	r3, #:lower16:aacc
+ 323 0264 C0F20003 		movt	r3, #:upper16:aacc
+ 324 0268 DA62     		str	r2, [r3, #44]	@ float
+ 325              	.L3:
+ 271:.\sensor_CTRL.c **** 	}
+ 272:.\sensor_CTRL.c **** 	
+ 273:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 274:.\sensor_CTRL.c **** 	/* Accelerometer Modulo Calculation		 											*/
+ 275:.\sensor_CTRL.c **** 	/* 																					*/
+ 276:.\sensor_CTRL.c **** 	/*  modulo = sqrt(x_g^2 + y_g^2 + z_g^2)  [g]										*/
+ 277:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 278:.\sensor_CTRL.c **** 	aacc.squared = squaref(aacc.x_axis.acceleration_lpf) +					
+ 326              		.loc 1 278 0
+ 327 026a 40F20003 		movw	r3, #:lower16:aacc
+ 328 026e C0F20003 		movt	r3, #:upper16:aacc
+ 329 0272 DB68     		ldr	r3, [r3, #12]	@ float
+ 330 0274 1846     		mov	r0, r3
+ 331 0276 FFF7FEFF 		bl	squaref
+ 332 027a 0446     		mov	r4, r0
+ 279:.\sensor_CTRL.c **** 				   squaref(aacc.y_axis.acceleration_lpf) +		
+ 333              		.loc 1 279 0
+ 334 027c 40F20003 		movw	r3, #:lower16:aacc
+ 335 0280 C0F20003 		movt	r3, #:upper16:aacc
+ 336 0284 DB69     		ldr	r3, [r3, #28]	@ float
+ 337 0286 1846     		mov	r0, r3
+ 338 0288 FFF7FEFF 		bl	squaref
+ 339 028c 0346     		mov	r3, r0
+ 278:.\sensor_CTRL.c **** 	aacc.squared = squaref(aacc.x_axis.acceleration_lpf) +					
+ 340              		.loc 1 278 0
+ 341 028e 2046     		mov	r0, r4
+ 342 0290 1946     		mov	r1, r3
+ 343 0292 FFF7FEFF 		bl	__aeabi_fadd
+ 344 0296 0346     		mov	r3, r0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 12
+
+
+ 345 0298 1C46     		mov	r4, r3
+ 280:.\sensor_CTRL.c **** 				   squaref(aacc.z_axis.acceleration_lpf);
+ 346              		.loc 1 280 0
+ 347 029a 40F20003 		movw	r3, #:lower16:aacc
+ 348 029e C0F20003 		movt	r3, #:upper16:aacc
+ 349 02a2 DB6A     		ldr	r3, [r3, #44]	@ float
+ 350 02a4 1846     		mov	r0, r3
+ 351 02a6 FFF7FEFF 		bl	squaref
+ 352 02aa 0346     		mov	r3, r0
+ 279:.\sensor_CTRL.c **** 				   squaref(aacc.y_axis.acceleration_lpf) +		
+ 353              		.loc 1 279 0
+ 354 02ac 2046     		mov	r0, r4
+ 355 02ae 1946     		mov	r1, r3
+ 356 02b0 FFF7FEFF 		bl	__aeabi_fadd
+ 357 02b4 0346     		mov	r3, r0
+ 358 02b6 1A46     		mov	r2, r3
+ 278:.\sensor_CTRL.c **** 	aacc.squared = squaref(aacc.x_axis.acceleration_lpf) +					
+ 359              		.loc 1 278 0
+ 360 02b8 40F20003 		movw	r3, #:lower16:aacc
+ 361 02bc C0F20003 		movt	r3, #:upper16:aacc
+ 362 02c0 1A63     		str	r2, [r3, #48]	@ float
+ 281:.\sensor_CTRL.c **** 				
+ 282:.\sensor_CTRL.c **** 	aacc.modulo = sqrt((double)aacc.squared);		
+ 363              		.loc 1 282 0
+ 364 02c2 40F20003 		movw	r3, #:lower16:aacc
+ 365 02c6 C0F20003 		movt	r3, #:upper16:aacc
+ 366 02ca 1B6B     		ldr	r3, [r3, #48]	@ float
+ 367 02cc 1846     		mov	r0, r3
+ 368 02ce FFF7FEFF 		bl	__aeabi_f2d
+ 369 02d2 0246     		mov	r2, r0
+ 370 02d4 0B46     		mov	r3, r1
+ 371 02d6 1046     		mov	r0, r2
+ 372 02d8 1946     		mov	r1, r3
+ 373 02da FFF7FEFF 		bl	sqrt
+ 374 02de 0246     		mov	r2, r0
+ 375 02e0 0B46     		mov	r3, r1
+ 376 02e2 1046     		mov	r0, r2
+ 377 02e4 1946     		mov	r1, r3
+ 378 02e6 FFF7FEFF 		bl	__aeabi_d2f
+ 379 02ea 0246     		mov	r2, r0
+ 380 02ec 40F20003 		movw	r3, #:lower16:aacc
+ 381 02f0 C0F20003 		movt	r3, #:upper16:aacc
+ 382 02f4 5A63     		str	r2, [r3, #52]	@ float
+ 283:.\sensor_CTRL.c **** 								
+ 284:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 285:.\sensor_CTRL.c **** 	/* System Dynamic Scalar Calculation	 											*/
+ 286:.\sensor_CTRL.c **** 	/* 																					*/
+ 287:.\sensor_CTRL.c **** 	/*  system dynamic_scalar = x_g^2 + y_g^2 + z_g^2 - (1_g)^2	[g^2]					*/
+ 288:.\sensor_CTRL.c **** 	/************************************************************************************/
+ 289:.\sensor_CTRL.c **** 	aacc.system_dynamic_scalar = aacc.squared - 1;
+ 383              		.loc 1 289 0
+ 384 02f6 40F20003 		movw	r3, #:lower16:aacc
+ 385 02fa C0F20003 		movt	r3, #:upper16:aacc
+ 386 02fe 1B6B     		ldr	r3, [r3, #48]	@ float
+ 387 0300 1846     		mov	r0, r3
+ 388 0302 4FF07E51 		mov	r1, #1065353216
+ 389 0306 FFF7FEFF 		bl	__aeabi_fsub
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 13
+
+
+ 390 030a 0346     		mov	r3, r0
+ 391 030c 1A46     		mov	r2, r3
+ 392 030e 40F20003 		movw	r3, #:lower16:aacc
+ 393 0312 C0F20003 		movt	r3, #:upper16:aacc
+ 394 0316 9A63     		str	r2, [r3, #56]	@ float
+ 290:.\sensor_CTRL.c **** }
+ 395              		.loc 1 290 0
+ 396 0318 B0BD     		pop	{r4, r5, r7, pc}
+ 397              		.cfi_endproc
+ 398              	.LFE57:
+ 399              		.size	Heading_sensors_processing, .-Heading_sensors_processing
+ 400 031a 00BF     		.text
+ 401              	.Letext0:
+ 402              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 403              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 404              		.file 4 "./gobee.h"
+ 405              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 406              		.section	.debug_info,"",%progbits
+ 407              	.Ldebug_info0:
+ 408 0000 9A030000 		.4byte	0x39a
+ 409 0004 0200     		.2byte	0x2
+ 410 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 411 000a 04       		.byte	0x4
+ 412 000b 01       		.uleb128 0x1
+ 413 000c 4E020000 		.4byte	.LASF53
+ 414 0010 01       		.byte	0x1
+ 415 0011 74000000 		.4byte	.LASF54
+ 416 0015 43010000 		.4byte	.LASF55
+ 417 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 418 001d 00000000 		.4byte	0
+ 419 0021 00000000 		.4byte	0
+ 420 0025 00000000 		.4byte	.Ldebug_line0
+ 421 0029 02       		.uleb128 0x2
+ 422 002a 01       		.byte	0x1
+ 423 002b 06       		.byte	0x6
+ 424 002c D7020000 		.4byte	.LASF0
+ 425 0030 02       		.uleb128 0x2
+ 426 0031 01       		.byte	0x1
+ 427 0032 08       		.byte	0x8
+ 428 0033 9B000000 		.4byte	.LASF1
+ 429 0037 02       		.uleb128 0x2
+ 430 0038 02       		.byte	0x2
+ 431 0039 05       		.byte	0x5
+ 432 003a 3F020000 		.4byte	.LASF2
+ 433 003e 02       		.uleb128 0x2
+ 434 003f 02       		.byte	0x2
+ 435 0040 07       		.byte	0x7
+ 436 0041 1E000000 		.4byte	.LASF3
+ 437 0045 03       		.uleb128 0x3
+ 438 0046 37020000 		.4byte	.LASF9
+ 439 004a 02       		.byte	0x2
+ 440 004b 4F       		.byte	0x4f
+ 441 004c 50000000 		.4byte	0x50
+ 442 0050 02       		.uleb128 0x2
+ 443 0051 04       		.byte	0x4
+ 444 0052 05       		.byte	0x5
+ 445 0053 AB020000 		.4byte	.LASF4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 14
+
+
+ 446 0057 02       		.uleb128 0x2
+ 447 0058 04       		.byte	0x4
+ 448 0059 07       		.byte	0x7
+ 449 005a BC000000 		.4byte	.LASF5
+ 450 005e 02       		.uleb128 0x2
+ 451 005f 08       		.byte	0x8
+ 452 0060 05       		.byte	0x5
+ 453 0061 24020000 		.4byte	.LASF6
+ 454 0065 02       		.uleb128 0x2
+ 455 0066 08       		.byte	0x8
+ 456 0067 07       		.byte	0x7
+ 457 0068 84000000 		.4byte	.LASF7
+ 458 006c 04       		.uleb128 0x4
+ 459 006d 04       		.byte	0x4
+ 460 006e 05       		.byte	0x5
+ 461 006f 696E7400 		.ascii	"int\000"
+ 462 0073 02       		.uleb128 0x2
+ 463 0074 04       		.byte	0x4
+ 464 0075 07       		.byte	0x7
+ 465 0076 C0010000 		.4byte	.LASF8
+ 466 007a 03       		.uleb128 0x3
+ 467 007b 18000000 		.4byte	.LASF10
+ 468 007f 03       		.byte	0x3
+ 469 0080 5B       		.byte	0x5b
+ 470 0081 30000000 		.4byte	0x30
+ 471 0085 03       		.uleb128 0x3
+ 472 0086 B6000000 		.4byte	.LASF11
+ 473 008a 03       		.byte	0x3
+ 474 008b 5F       		.byte	0x5f
+ 475 008c 37000000 		.4byte	0x37
+ 476 0090 02       		.uleb128 0x2
+ 477 0091 04       		.byte	0x4
+ 478 0092 04       		.byte	0x4
+ 479 0093 6E000000 		.4byte	.LASF12
+ 480 0097 02       		.uleb128 0x2
+ 481 0098 08       		.byte	0x8
+ 482 0099 04       		.byte	0x4
+ 483 009a 2A010000 		.4byte	.LASF13
+ 484 009e 03       		.uleb128 0x3
+ 485 009f B0000000 		.4byte	.LASF14
+ 486 00a3 03       		.byte	0x3
+ 487 00a4 6C       		.byte	0x6c
+ 488 00a5 A9000000 		.4byte	0xa9
+ 489 00a9 02       		.uleb128 0x2
+ 490 00aa 01       		.byte	0x1
+ 491 00ab 08       		.byte	0x8
+ 492 00ac 32020000 		.4byte	.LASF15
+ 493 00b0 02       		.uleb128 0x2
+ 494 00b1 04       		.byte	0x4
+ 495 00b2 07       		.byte	0x7
+ 496 00b3 1B020000 		.4byte	.LASF16
+ 497 00b7 05       		.uleb128 0x5
+ 498 00b8 04       		.byte	0x4
+ 499 00b9 04       		.byte	0x4
+ 500 00ba 1B01     		.2byte	0x11b
+ 501 00bc D9000000 		.4byte	0xd9
+ 502 00c0 06       		.uleb128 0x6
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 15
+
+
+ 503 00c1 31010000 		.4byte	.LASF17
+ 504 00c5 04       		.byte	0x4
+ 505 00c6 1D01     		.2byte	0x11d
+ 506 00c8 D9000000 		.4byte	0xd9
+ 507 00cc 06       		.uleb128 0x6
+ 508 00cd 49020000 		.4byte	.LASF18
+ 509 00d1 04       		.byte	0x4
+ 510 00d2 1E01     		.2byte	0x11e
+ 511 00d4 90000000 		.4byte	0x90
+ 512 00d8 00       		.byte	0
+ 513 00d9 07       		.uleb128 0x7
+ 514 00da 9E000000 		.4byte	0x9e
+ 515 00de E9000000 		.4byte	0xe9
+ 516 00e2 08       		.uleb128 0x8
+ 517 00e3 B0000000 		.4byte	0xb0
+ 518 00e7 03       		.byte	0x3
+ 519 00e8 00       		.byte	0
+ 520 00e9 09       		.uleb128 0x9
+ 521 00ea 31000000 		.4byte	.LASF19
+ 522 00ee 04       		.byte	0x4
+ 523 00ef 1F01     		.2byte	0x11f
+ 524 00f1 B7000000 		.4byte	0xb7
+ 525 00f5 0A       		.uleb128 0xa
+ 526 00f6 97020000 		.4byte	.LASF28
+ 527 00fa 18       		.byte	0x18
+ 528 00fb 04       		.byte	0x4
+ 529 00fc 3401     		.2byte	0x134
+ 530 00fe 7B010000 		.4byte	0x17b
+ 531 0102 0B       		.uleb128 0xb
+ 532 0103 F0010000 		.4byte	.LASF20
+ 533 0107 04       		.byte	0x4
+ 534 0108 3601     		.2byte	0x136
+ 535 010a 7A000000 		.4byte	0x7a
+ 536 010e 02       		.byte	0x2
+ 537 010f 23       		.byte	0x23
+ 538 0110 00       		.uleb128 0
+ 539 0111 0B       		.uleb128 0xb
+ 540 0112 39000000 		.4byte	.LASF21
+ 541 0116 04       		.byte	0x4
+ 542 0117 3A01     		.2byte	0x13a
+ 543 0119 7A000000 		.4byte	0x7a
+ 544 011d 02       		.byte	0x2
+ 545 011e 23       		.byte	0x23
+ 546 011f 01       		.uleb128 0x1
+ 547 0120 0B       		.uleb128 0xb
+ 548 0121 CD010000 		.4byte	.LASF22
+ 549 0125 04       		.byte	0x4
+ 550 0126 3C01     		.2byte	0x13c
+ 551 0128 E9000000 		.4byte	0xe9
+ 552 012c 02       		.byte	0x2
+ 553 012d 23       		.byte	0x23
+ 554 012e 04       		.uleb128 0x4
+ 555 012f 0B       		.uleb128 0xb
+ 556 0130 EC020000 		.4byte	.LASF23
+ 557 0134 04       		.byte	0x4
+ 558 0135 4001     		.2byte	0x140
+ 559 0137 85000000 		.4byte	0x85
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 16
+
+
+ 560 013b 02       		.byte	0x2
+ 561 013c 23       		.byte	0x23
+ 562 013d 08       		.uleb128 0x8
+ 563 013e 0B       		.uleb128 0xb
+ 564 013f 18030000 		.4byte	.LASF24
+ 565 0143 04       		.byte	0x4
+ 566 0144 4101     		.2byte	0x141
+ 567 0146 85000000 		.4byte	0x85
+ 568 014a 02       		.byte	0x2
+ 569 014b 23       		.byte	0x23
+ 570 014c 0A       		.uleb128 0xa
+ 571 014d 0B       		.uleb128 0xb
+ 572 014e DB000000 		.4byte	.LASF25
+ 573 0152 04       		.byte	0x4
+ 574 0153 4201     		.2byte	0x142
+ 575 0155 85000000 		.4byte	0x85
+ 576 0159 02       		.byte	0x2
+ 577 015a 23       		.byte	0x23
+ 578 015b 0C       		.uleb128 0xc
+ 579 015c 0B       		.uleb128 0xb
+ 580 015d DF010000 		.4byte	.LASF26
+ 581 0161 04       		.byte	0x4
+ 582 0162 4601     		.2byte	0x146
+ 583 0164 E9000000 		.4byte	0xe9
+ 584 0168 02       		.byte	0x2
+ 585 0169 23       		.byte	0x23
+ 586 016a 10       		.uleb128 0x10
+ 587 016b 0B       		.uleb128 0xb
+ 588 016c B4020000 		.4byte	.LASF27
+ 589 0170 04       		.byte	0x4
+ 590 0171 4701     		.2byte	0x147
+ 591 0173 E9000000 		.4byte	0xe9
+ 592 0177 02       		.byte	0x2
+ 593 0178 23       		.byte	0x23
+ 594 0179 14       		.uleb128 0x14
+ 595 017a 00       		.byte	0
+ 596 017b 0A       		.uleb128 0xa
+ 597 017c 42000000 		.4byte	.LASF29
+ 598 0180 10       		.byte	0x10
+ 599 0181 04       		.byte	0x4
+ 600 0182 7901     		.2byte	0x179
+ 601 0184 C5010000 		.4byte	0x1c5
+ 602 0188 0C       		.uleb128 0xc
+ 603 0189 41444300 		.ascii	"ADC\000"
+ 604 018d 04       		.byte	0x4
+ 605 018e 7B01     		.2byte	0x17b
+ 606 0190 85000000 		.4byte	0x85
+ 607 0194 02       		.byte	0x2
+ 608 0195 23       		.byte	0x23
+ 609 0196 00       		.uleb128 0
+ 610 0197 0B       		.uleb128 0xb
+ 611 0198 49000000 		.4byte	.LASF30
+ 612 019c 04       		.byte	0x4
+ 613 019d 7C01     		.2byte	0x17c
+ 614 019f 90000000 		.4byte	0x90
+ 615 01a3 02       		.byte	0x2
+ 616 01a4 23       		.byte	0x23
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 17
+
+
+ 617 01a5 04       		.uleb128 0x4
+ 618 01a6 0B       		.uleb128 0xb
+ 619 01a7 D2010000 		.4byte	.LASF31
+ 620 01ab 04       		.byte	0x4
+ 621 01ac 7D01     		.2byte	0x17d
+ 622 01ae 90000000 		.4byte	0x90
+ 623 01b2 02       		.byte	0x2
+ 624 01b3 23       		.byte	0x23
+ 625 01b4 08       		.uleb128 0x8
+ 626 01b5 0B       		.uleb128 0xb
+ 627 01b6 07000000 		.4byte	.LASF32
+ 628 01ba 04       		.byte	0x4
+ 629 01bb 7E01     		.2byte	0x17e
+ 630 01bd 90000000 		.4byte	0x90
+ 631 01c1 02       		.byte	0x2
+ 632 01c2 23       		.byte	0x23
+ 633 01c3 0C       		.uleb128 0xc
+ 634 01c4 00       		.byte	0
+ 635 01c5 0A       		.uleb128 0xa
+ 636 01c6 D0020000 		.4byte	.LASF33
+ 637 01ca 10       		.byte	0x10
+ 638 01cb 04       		.byte	0x4
+ 639 01cc 8101     		.2byte	0x181
+ 640 01ce 0F020000 		.4byte	0x20f
+ 641 01d2 0C       		.uleb128 0xc
+ 642 01d3 41444300 		.ascii	"ADC\000"
+ 643 01d7 04       		.byte	0x4
+ 644 01d8 8301     		.2byte	0x183
+ 645 01da 85000000 		.4byte	0x85
+ 646 01de 02       		.byte	0x2
+ 647 01df 23       		.byte	0x23
+ 648 01e0 00       		.uleb128 0
+ 649 01e1 0B       		.uleb128 0xb
+ 650 01e2 49000000 		.4byte	.LASF30
+ 651 01e6 04       		.byte	0x4
+ 652 01e7 8401     		.2byte	0x184
+ 653 01e9 90000000 		.4byte	0x90
+ 654 01ed 02       		.byte	0x2
+ 655 01ee 23       		.byte	0x23
+ 656 01ef 04       		.uleb128 0x4
+ 657 01f0 0B       		.uleb128 0xb
+ 658 01f1 D2010000 		.4byte	.LASF31
+ 659 01f5 04       		.byte	0x4
+ 660 01f6 8501     		.2byte	0x185
+ 661 01f8 90000000 		.4byte	0x90
+ 662 01fc 02       		.byte	0x2
+ 663 01fd 23       		.byte	0x23
+ 664 01fe 08       		.uleb128 0x8
+ 665 01ff 0B       		.uleb128 0xb
+ 666 0200 07000000 		.4byte	.LASF32
+ 667 0204 04       		.byte	0x4
+ 668 0205 8601     		.2byte	0x186
+ 669 0207 90000000 		.4byte	0x90
+ 670 020b 02       		.byte	0x2
+ 671 020c 23       		.byte	0x23
+ 672 020d 0C       		.uleb128 0xc
+ 673 020e 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 18
+
+
+ 674 020f 0A       		.uleb128 0xa
+ 675 0210 67000000 		.4byte	.LASF34
+ 676 0214 10       		.byte	0x10
+ 677 0215 04       		.byte	0x4
+ 678 0216 8901     		.2byte	0x189
+ 679 0218 59020000 		.4byte	0x259
+ 680 021c 0C       		.uleb128 0xc
+ 681 021d 41444300 		.ascii	"ADC\000"
+ 682 0221 04       		.byte	0x4
+ 683 0222 8B01     		.2byte	0x18b
+ 684 0224 85000000 		.4byte	0x85
+ 685 0228 02       		.byte	0x2
+ 686 0229 23       		.byte	0x23
+ 687 022a 00       		.uleb128 0
+ 688 022b 0B       		.uleb128 0xb
+ 689 022c 49000000 		.4byte	.LASF30
+ 690 0230 04       		.byte	0x4
+ 691 0231 8C01     		.2byte	0x18c
+ 692 0233 90000000 		.4byte	0x90
+ 693 0237 02       		.byte	0x2
+ 694 0238 23       		.byte	0x23
+ 695 0239 04       		.uleb128 0x4
+ 696 023a 0B       		.uleb128 0xb
+ 697 023b D2010000 		.4byte	.LASF31
+ 698 023f 04       		.byte	0x4
+ 699 0240 8D01     		.2byte	0x18d
+ 700 0242 90000000 		.4byte	0x90
+ 701 0246 02       		.byte	0x2
+ 702 0247 23       		.byte	0x23
+ 703 0248 08       		.uleb128 0x8
+ 704 0249 0B       		.uleb128 0xb
+ 705 024a 07000000 		.4byte	.LASF32
+ 706 024e 04       		.byte	0x4
+ 707 024f 8E01     		.2byte	0x18e
+ 708 0251 90000000 		.4byte	0x90
+ 709 0255 02       		.byte	0x2
+ 710 0256 23       		.byte	0x23
+ 711 0257 0C       		.uleb128 0xc
+ 712 0258 00       		.byte	0
+ 713 0259 0A       		.uleb128 0xa
+ 714 025a 4F000000 		.4byte	.LASF35
+ 715 025e 3C       		.byte	0x3c
+ 716 025f 04       		.byte	0x4
+ 717 0260 7601     		.2byte	0x176
+ 718 0262 C1020000 		.4byte	0x2c1
+ 719 0266 0B       		.uleb128 0xb
+ 720 0267 07020000 		.4byte	.LASF36
+ 721 026b 04       		.byte	0x4
+ 722 026c 7F01     		.2byte	0x17f
+ 723 026e 7B010000 		.4byte	0x17b
+ 724 0272 02       		.byte	0x2
+ 725 0273 23       		.byte	0x23
+ 726 0274 00       		.uleb128 0
+ 727 0275 0B       		.uleb128 0xb
+ 728 0276 00000000 		.4byte	.LASF37
+ 729 027a 04       		.byte	0x4
+ 730 027b 8701     		.2byte	0x187
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 19
+
+
+ 731 027d C5010000 		.4byte	0x1c5
+ 732 0281 02       		.byte	0x2
+ 733 0282 23       		.byte	0x23
+ 734 0283 10       		.uleb128 0x10
+ 735 0284 0B       		.uleb128 0xb
+ 736 0285 CE000000 		.4byte	.LASF38
+ 737 0289 04       		.byte	0x4
+ 738 028a 9001     		.2byte	0x190
+ 739 028c 0F020000 		.4byte	0x20f
+ 740 0290 02       		.byte	0x2
+ 741 0291 23       		.byte	0x23
+ 742 0292 20       		.uleb128 0x20
+ 743 0293 0B       		.uleb128 0xb
+ 744 0294 0E020000 		.4byte	.LASF39
+ 745 0298 04       		.byte	0x4
+ 746 0299 9201     		.2byte	0x192
+ 747 029b 90000000 		.4byte	0x90
+ 748 029f 02       		.byte	0x2
+ 749 02a0 23       		.byte	0x23
+ 750 02a1 30       		.uleb128 0x30
+ 751 02a2 0B       		.uleb128 0xb
+ 752 02a3 A9000000 		.4byte	.LASF40
+ 753 02a7 04       		.byte	0x4
+ 754 02a8 9301     		.2byte	0x193
+ 755 02aa 90000000 		.4byte	0x90
+ 756 02ae 02       		.byte	0x2
+ 757 02af 23       		.byte	0x23
+ 758 02b0 34       		.uleb128 0x34
+ 759 02b1 0B       		.uleb128 0xb
+ 760 02b2 F9000000 		.4byte	.LASF41
+ 761 02b6 04       		.byte	0x4
+ 762 02b7 9401     		.2byte	0x194
+ 763 02b9 90000000 		.4byte	0x90
+ 764 02bd 02       		.byte	0x2
+ 765 02be 23       		.byte	0x23
+ 766 02bf 38       		.uleb128 0x38
+ 767 02c0 00       		.byte	0
+ 768 02c1 02       		.uleb128 0x2
+ 769 02c2 08       		.byte	0x8
+ 770 02c3 04       		.byte	0x4
+ 771 02c4 C4020000 		.4byte	.LASF42
+ 772 02c8 0D       		.uleb128 0xd
+ 773 02c9 01       		.byte	0x1
+ 774 02ca FD020000 		.4byte	.LASF43
+ 775 02ce 01       		.byte	0x1
+ 776 02cf 66       		.byte	0x66
+ 777 02d0 01       		.byte	0x1
+ 778 02d1 00000000 		.4byte	.LFB56
+ 779 02d5 0A000000 		.4byte	.LFE56
+ 780 02d9 00000000 		.4byte	.LLST0
+ 781 02dd 01       		.byte	0x1
+ 782 02de 0E       		.uleb128 0xe
+ 783 02df 01       		.byte	0x1
+ 784 02e0 0F010000 		.4byte	.LASF44
+ 785 02e4 01       		.byte	0x1
+ 786 02e5 DF       		.byte	0xdf
+ 787 02e6 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 20
+
+
+ 788 02e7 00000000 		.4byte	.LFB57
+ 789 02eb 1A030000 		.4byte	.LFE57
+ 790 02ef 2C000000 		.4byte	.LLST1
+ 791 02f3 01       		.byte	0x1
+ 792 02f4 0F       		.uleb128 0xf
+ 793 02f5 EC000000 		.4byte	.LASF45
+ 794 02f9 05       		.byte	0x5
+ 795 02fa 1606     		.2byte	0x616
+ 796 02fc 02030000 		.4byte	0x302
+ 797 0300 01       		.byte	0x1
+ 798 0301 01       		.byte	0x1
+ 799 0302 10       		.uleb128 0x10
+ 800 0303 45000000 		.4byte	0x45
+ 801 0307 07       		.uleb128 0x7
+ 802 0308 85000000 		.4byte	0x85
+ 803 030c 17030000 		.4byte	0x317
+ 804 0310 08       		.uleb128 0x8
+ 805 0311 B0000000 		.4byte	0xb0
+ 806 0315 08       		.byte	0x8
+ 807 0316 00       		.byte	0
+ 808 0317 11       		.uleb128 0x11
+ 809 0318 E3020000 		.4byte	.LASF46
+ 810 031c 01       		.byte	0x1
+ 811 031d 2A       		.byte	0x2a
+ 812 031e 07030000 		.4byte	0x307
+ 813 0322 01       		.byte	0x1
+ 814 0323 01       		.byte	0x1
+ 815 0324 12       		.uleb128 0x12
+ 816 0325 16020000 		.4byte	.LASF47
+ 817 0329 01       		.byte	0x1
+ 818 032a 2E       		.byte	0x2e
+ 819 032b 59020000 		.4byte	0x259
+ 820 032f 01       		.byte	0x1
+ 821 0330 05       		.byte	0x5
+ 822 0331 03       		.byte	0x3
+ 823 0332 00000000 		.4byte	aacc
+ 824 0336 11       		.uleb128 0x11
+ 825 0337 37010000 		.4byte	.LASF48
+ 826 033b 01       		.byte	0x1
+ 827 033c 55       		.byte	0x55
+ 828 033d F5000000 		.4byte	0xf5
+ 829 0341 01       		.byte	0x1
+ 830 0342 01       		.byte	0x1
+ 831 0343 13       		.uleb128 0x13
+ 832 0344 69647800 		.ascii	"idx\000"
+ 833 0348 01       		.byte	0x1
+ 834 0349 59       		.byte	0x59
+ 835 034a 7A000000 		.4byte	0x7a
+ 836 034e 01       		.byte	0x1
+ 837 034f 05       		.byte	0x5
+ 838 0350 03       		.byte	0x3
+ 839 0351 00000000 		.4byte	idx
+ 840 0355 12       		.uleb128 0x12
+ 841 0356 D5000000 		.4byte	.LASF49
+ 842 035a 01       		.byte	0x1
+ 843 035b 5A       		.byte	0x5a
+ 844 035c 7A000000 		.4byte	0x7a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 21
+
+
+ 845 0360 01       		.byte	0x1
+ 846 0361 05       		.byte	0x5
+ 847 0362 03       		.byte	0x3
+ 848 0363 00000000 		.4byte	dummy
+ 849 0367 12       		.uleb128 0x12
+ 850 0368 A4020000 		.4byte	.LASF50
+ 851 036c 01       		.byte	0x1
+ 852 036d 5B       		.byte	0x5b
+ 853 036e 7A000000 		.4byte	0x7a
+ 854 0372 01       		.byte	0x1
+ 855 0373 05       		.byte	0x5
+ 856 0374 03       		.byte	0x3
+ 857 0375 00000000 		.4byte	idxMAX
+ 858 0379 12       		.uleb128 0x12
+ 859 037a B3010000 		.4byte	.LASF51
+ 860 037e 01       		.byte	0x1
+ 861 037f 5C       		.byte	0x5c
+ 862 0380 7A000000 		.4byte	0x7a
+ 863 0384 01       		.byte	0x1
+ 864 0385 05       		.byte	0x5
+ 865 0386 03       		.byte	0x3
+ 866 0387 00000000 		.4byte	QuadDecEvent
+ 867 038b 12       		.uleb128 0x12
+ 868 038c F5010000 		.4byte	.LASF52
+ 869 0390 01       		.byte	0x1
+ 870 0391 5E       		.byte	0x5e
+ 871 0392 90000000 		.4byte	0x90
+ 872 0396 01       		.byte	0x1
+ 873 0397 05       		.byte	0x5
+ 874 0398 03       		.byte	0x3
+ 875 0399 00000000 		.4byte	dgyro_offset_fine
+ 876 039d 00       		.byte	0
+ 877              		.section	.debug_abbrev,"",%progbits
+ 878              	.Ldebug_abbrev0:
+ 879 0000 01       		.uleb128 0x1
+ 880 0001 11       		.uleb128 0x11
+ 881 0002 01       		.byte	0x1
+ 882 0003 25       		.uleb128 0x25
+ 883 0004 0E       		.uleb128 0xe
+ 884 0005 13       		.uleb128 0x13
+ 885 0006 0B       		.uleb128 0xb
+ 886 0007 03       		.uleb128 0x3
+ 887 0008 0E       		.uleb128 0xe
+ 888 0009 1B       		.uleb128 0x1b
+ 889 000a 0E       		.uleb128 0xe
+ 890 000b 55       		.uleb128 0x55
+ 891 000c 06       		.uleb128 0x6
+ 892 000d 11       		.uleb128 0x11
+ 893 000e 01       		.uleb128 0x1
+ 894 000f 52       		.uleb128 0x52
+ 895 0010 01       		.uleb128 0x1
+ 896 0011 10       		.uleb128 0x10
+ 897 0012 06       		.uleb128 0x6
+ 898 0013 00       		.byte	0
+ 899 0014 00       		.byte	0
+ 900 0015 02       		.uleb128 0x2
+ 901 0016 24       		.uleb128 0x24
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 22
+
+
+ 902 0017 00       		.byte	0
+ 903 0018 0B       		.uleb128 0xb
+ 904 0019 0B       		.uleb128 0xb
+ 905 001a 3E       		.uleb128 0x3e
+ 906 001b 0B       		.uleb128 0xb
+ 907 001c 03       		.uleb128 0x3
+ 908 001d 0E       		.uleb128 0xe
+ 909 001e 00       		.byte	0
+ 910 001f 00       		.byte	0
+ 911 0020 03       		.uleb128 0x3
+ 912 0021 16       		.uleb128 0x16
+ 913 0022 00       		.byte	0
+ 914 0023 03       		.uleb128 0x3
+ 915 0024 0E       		.uleb128 0xe
+ 916 0025 3A       		.uleb128 0x3a
+ 917 0026 0B       		.uleb128 0xb
+ 918 0027 3B       		.uleb128 0x3b
+ 919 0028 0B       		.uleb128 0xb
+ 920 0029 49       		.uleb128 0x49
+ 921 002a 13       		.uleb128 0x13
+ 922 002b 00       		.byte	0
+ 923 002c 00       		.byte	0
+ 924 002d 04       		.uleb128 0x4
+ 925 002e 24       		.uleb128 0x24
+ 926 002f 00       		.byte	0
+ 927 0030 0B       		.uleb128 0xb
+ 928 0031 0B       		.uleb128 0xb
+ 929 0032 3E       		.uleb128 0x3e
+ 930 0033 0B       		.uleb128 0xb
+ 931 0034 03       		.uleb128 0x3
+ 932 0035 08       		.uleb128 0x8
+ 933 0036 00       		.byte	0
+ 934 0037 00       		.byte	0
+ 935 0038 05       		.uleb128 0x5
+ 936 0039 17       		.uleb128 0x17
+ 937 003a 01       		.byte	0x1
+ 938 003b 0B       		.uleb128 0xb
+ 939 003c 0B       		.uleb128 0xb
+ 940 003d 3A       		.uleb128 0x3a
+ 941 003e 0B       		.uleb128 0xb
+ 942 003f 3B       		.uleb128 0x3b
+ 943 0040 05       		.uleb128 0x5
+ 944 0041 01       		.uleb128 0x1
+ 945 0042 13       		.uleb128 0x13
+ 946 0043 00       		.byte	0
+ 947 0044 00       		.byte	0
+ 948 0045 06       		.uleb128 0x6
+ 949 0046 0D       		.uleb128 0xd
+ 950 0047 00       		.byte	0
+ 951 0048 03       		.uleb128 0x3
+ 952 0049 0E       		.uleb128 0xe
+ 953 004a 3A       		.uleb128 0x3a
+ 954 004b 0B       		.uleb128 0xb
+ 955 004c 3B       		.uleb128 0x3b
+ 956 004d 05       		.uleb128 0x5
+ 957 004e 49       		.uleb128 0x49
+ 958 004f 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 23
+
+
+ 959 0050 00       		.byte	0
+ 960 0051 00       		.byte	0
+ 961 0052 07       		.uleb128 0x7
+ 962 0053 01       		.uleb128 0x1
+ 963 0054 01       		.byte	0x1
+ 964 0055 49       		.uleb128 0x49
+ 965 0056 13       		.uleb128 0x13
+ 966 0057 01       		.uleb128 0x1
+ 967 0058 13       		.uleb128 0x13
+ 968 0059 00       		.byte	0
+ 969 005a 00       		.byte	0
+ 970 005b 08       		.uleb128 0x8
+ 971 005c 21       		.uleb128 0x21
+ 972 005d 00       		.byte	0
+ 973 005e 49       		.uleb128 0x49
+ 974 005f 13       		.uleb128 0x13
+ 975 0060 2F       		.uleb128 0x2f
+ 976 0061 0B       		.uleb128 0xb
+ 977 0062 00       		.byte	0
+ 978 0063 00       		.byte	0
+ 979 0064 09       		.uleb128 0x9
+ 980 0065 16       		.uleb128 0x16
+ 981 0066 00       		.byte	0
+ 982 0067 03       		.uleb128 0x3
+ 983 0068 0E       		.uleb128 0xe
+ 984 0069 3A       		.uleb128 0x3a
+ 985 006a 0B       		.uleb128 0xb
+ 986 006b 3B       		.uleb128 0x3b
+ 987 006c 05       		.uleb128 0x5
+ 988 006d 49       		.uleb128 0x49
+ 989 006e 13       		.uleb128 0x13
+ 990 006f 00       		.byte	0
+ 991 0070 00       		.byte	0
+ 992 0071 0A       		.uleb128 0xa
+ 993 0072 13       		.uleb128 0x13
+ 994 0073 01       		.byte	0x1
+ 995 0074 03       		.uleb128 0x3
+ 996 0075 0E       		.uleb128 0xe
+ 997 0076 0B       		.uleb128 0xb
+ 998 0077 0B       		.uleb128 0xb
+ 999 0078 3A       		.uleb128 0x3a
+ 1000 0079 0B       		.uleb128 0xb
+ 1001 007a 3B       		.uleb128 0x3b
+ 1002 007b 05       		.uleb128 0x5
+ 1003 007c 01       		.uleb128 0x1
+ 1004 007d 13       		.uleb128 0x13
+ 1005 007e 00       		.byte	0
+ 1006 007f 00       		.byte	0
+ 1007 0080 0B       		.uleb128 0xb
+ 1008 0081 0D       		.uleb128 0xd
+ 1009 0082 00       		.byte	0
+ 1010 0083 03       		.uleb128 0x3
+ 1011 0084 0E       		.uleb128 0xe
+ 1012 0085 3A       		.uleb128 0x3a
+ 1013 0086 0B       		.uleb128 0xb
+ 1014 0087 3B       		.uleb128 0x3b
+ 1015 0088 05       		.uleb128 0x5
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 24
+
+
+ 1016 0089 49       		.uleb128 0x49
+ 1017 008a 13       		.uleb128 0x13
+ 1018 008b 38       		.uleb128 0x38
+ 1019 008c 0A       		.uleb128 0xa
+ 1020 008d 00       		.byte	0
+ 1021 008e 00       		.byte	0
+ 1022 008f 0C       		.uleb128 0xc
+ 1023 0090 0D       		.uleb128 0xd
+ 1024 0091 00       		.byte	0
+ 1025 0092 03       		.uleb128 0x3
+ 1026 0093 08       		.uleb128 0x8
+ 1027 0094 3A       		.uleb128 0x3a
+ 1028 0095 0B       		.uleb128 0xb
+ 1029 0096 3B       		.uleb128 0x3b
+ 1030 0097 05       		.uleb128 0x5
+ 1031 0098 49       		.uleb128 0x49
+ 1032 0099 13       		.uleb128 0x13
+ 1033 009a 38       		.uleb128 0x38
+ 1034 009b 0A       		.uleb128 0xa
+ 1035 009c 00       		.byte	0
+ 1036 009d 00       		.byte	0
+ 1037 009e 0D       		.uleb128 0xd
+ 1038 009f 2E       		.uleb128 0x2e
+ 1039 00a0 00       		.byte	0
+ 1040 00a1 3F       		.uleb128 0x3f
+ 1041 00a2 0C       		.uleb128 0xc
+ 1042 00a3 03       		.uleb128 0x3
+ 1043 00a4 0E       		.uleb128 0xe
+ 1044 00a5 3A       		.uleb128 0x3a
+ 1045 00a6 0B       		.uleb128 0xb
+ 1046 00a7 3B       		.uleb128 0x3b
+ 1047 00a8 0B       		.uleb128 0xb
+ 1048 00a9 27       		.uleb128 0x27
+ 1049 00aa 0C       		.uleb128 0xc
+ 1050 00ab 11       		.uleb128 0x11
+ 1051 00ac 01       		.uleb128 0x1
+ 1052 00ad 12       		.uleb128 0x12
+ 1053 00ae 01       		.uleb128 0x1
+ 1054 00af 40       		.uleb128 0x40
+ 1055 00b0 06       		.uleb128 0x6
+ 1056 00b1 9742     		.uleb128 0x2117
+ 1057 00b3 0C       		.uleb128 0xc
+ 1058 00b4 00       		.byte	0
+ 1059 00b5 00       		.byte	0
+ 1060 00b6 0E       		.uleb128 0xe
+ 1061 00b7 2E       		.uleb128 0x2e
+ 1062 00b8 00       		.byte	0
+ 1063 00b9 3F       		.uleb128 0x3f
+ 1064 00ba 0C       		.uleb128 0xc
+ 1065 00bb 03       		.uleb128 0x3
+ 1066 00bc 0E       		.uleb128 0xe
+ 1067 00bd 3A       		.uleb128 0x3a
+ 1068 00be 0B       		.uleb128 0xb
+ 1069 00bf 3B       		.uleb128 0x3b
+ 1070 00c0 0B       		.uleb128 0xb
+ 1071 00c1 27       		.uleb128 0x27
+ 1072 00c2 0C       		.uleb128 0xc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 25
+
+
+ 1073 00c3 11       		.uleb128 0x11
+ 1074 00c4 01       		.uleb128 0x1
+ 1075 00c5 12       		.uleb128 0x12
+ 1076 00c6 01       		.uleb128 0x1
+ 1077 00c7 40       		.uleb128 0x40
+ 1078 00c8 06       		.uleb128 0x6
+ 1079 00c9 9642     		.uleb128 0x2116
+ 1080 00cb 0C       		.uleb128 0xc
+ 1081 00cc 00       		.byte	0
+ 1082 00cd 00       		.byte	0
+ 1083 00ce 0F       		.uleb128 0xf
+ 1084 00cf 34       		.uleb128 0x34
+ 1085 00d0 00       		.byte	0
+ 1086 00d1 03       		.uleb128 0x3
+ 1087 00d2 0E       		.uleb128 0xe
+ 1088 00d3 3A       		.uleb128 0x3a
+ 1089 00d4 0B       		.uleb128 0xb
+ 1090 00d5 3B       		.uleb128 0x3b
+ 1091 00d6 05       		.uleb128 0x5
+ 1092 00d7 49       		.uleb128 0x49
+ 1093 00d8 13       		.uleb128 0x13
+ 1094 00d9 3F       		.uleb128 0x3f
+ 1095 00da 0C       		.uleb128 0xc
+ 1096 00db 3C       		.uleb128 0x3c
+ 1097 00dc 0C       		.uleb128 0xc
+ 1098 00dd 00       		.byte	0
+ 1099 00de 00       		.byte	0
+ 1100 00df 10       		.uleb128 0x10
+ 1101 00e0 35       		.uleb128 0x35
+ 1102 00e1 00       		.byte	0
+ 1103 00e2 49       		.uleb128 0x49
+ 1104 00e3 13       		.uleb128 0x13
+ 1105 00e4 00       		.byte	0
+ 1106 00e5 00       		.byte	0
+ 1107 00e6 11       		.uleb128 0x11
+ 1108 00e7 34       		.uleb128 0x34
+ 1109 00e8 00       		.byte	0
+ 1110 00e9 03       		.uleb128 0x3
+ 1111 00ea 0E       		.uleb128 0xe
+ 1112 00eb 3A       		.uleb128 0x3a
+ 1113 00ec 0B       		.uleb128 0xb
+ 1114 00ed 3B       		.uleb128 0x3b
+ 1115 00ee 0B       		.uleb128 0xb
+ 1116 00ef 49       		.uleb128 0x49
+ 1117 00f0 13       		.uleb128 0x13
+ 1118 00f1 3F       		.uleb128 0x3f
+ 1119 00f2 0C       		.uleb128 0xc
+ 1120 00f3 3C       		.uleb128 0x3c
+ 1121 00f4 0C       		.uleb128 0xc
+ 1122 00f5 00       		.byte	0
+ 1123 00f6 00       		.byte	0
+ 1124 00f7 12       		.uleb128 0x12
+ 1125 00f8 34       		.uleb128 0x34
+ 1126 00f9 00       		.byte	0
+ 1127 00fa 03       		.uleb128 0x3
+ 1128 00fb 0E       		.uleb128 0xe
+ 1129 00fc 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 26
+
+
+ 1130 00fd 0B       		.uleb128 0xb
+ 1131 00fe 3B       		.uleb128 0x3b
+ 1132 00ff 0B       		.uleb128 0xb
+ 1133 0100 49       		.uleb128 0x49
+ 1134 0101 13       		.uleb128 0x13
+ 1135 0102 3F       		.uleb128 0x3f
+ 1136 0103 0C       		.uleb128 0xc
+ 1137 0104 02       		.uleb128 0x2
+ 1138 0105 0A       		.uleb128 0xa
+ 1139 0106 00       		.byte	0
+ 1140 0107 00       		.byte	0
+ 1141 0108 13       		.uleb128 0x13
+ 1142 0109 34       		.uleb128 0x34
+ 1143 010a 00       		.byte	0
+ 1144 010b 03       		.uleb128 0x3
+ 1145 010c 08       		.uleb128 0x8
+ 1146 010d 3A       		.uleb128 0x3a
+ 1147 010e 0B       		.uleb128 0xb
+ 1148 010f 3B       		.uleb128 0x3b
+ 1149 0110 0B       		.uleb128 0xb
+ 1150 0111 49       		.uleb128 0x49
+ 1151 0112 13       		.uleb128 0x13
+ 1152 0113 3F       		.uleb128 0x3f
+ 1153 0114 0C       		.uleb128 0xc
+ 1154 0115 02       		.uleb128 0x2
+ 1155 0116 0A       		.uleb128 0xa
+ 1156 0117 00       		.byte	0
+ 1157 0118 00       		.byte	0
+ 1158 0119 00       		.byte	0
+ 1159              		.section	.debug_loc,"",%progbits
+ 1160              	.Ldebug_loc0:
+ 1161              	.LLST0:
+ 1162 0000 00000000 		.4byte	.LFB56
+ 1163 0004 02000000 		.4byte	.LCFI0
+ 1164 0008 0200     		.2byte	0x2
+ 1165 000a 7D       		.byte	0x7d
+ 1166 000b 00       		.sleb128 0
+ 1167 000c 02000000 		.4byte	.LCFI0
+ 1168 0010 04000000 		.4byte	.LCFI1
+ 1169 0014 0200     		.2byte	0x2
+ 1170 0016 7D       		.byte	0x7d
+ 1171 0017 04       		.sleb128 4
+ 1172 0018 04000000 		.4byte	.LCFI1
+ 1173 001c 0A000000 		.4byte	.LFE56
+ 1174 0020 0200     		.2byte	0x2
+ 1175 0022 77       		.byte	0x77
+ 1176 0023 04       		.sleb128 4
+ 1177 0024 00000000 		.4byte	0
+ 1178 0028 00000000 		.4byte	0
+ 1179              	.LLST1:
+ 1180 002c 00000000 		.4byte	.LFB57
+ 1181 0030 02000000 		.4byte	.LCFI2
+ 1182 0034 0200     		.2byte	0x2
+ 1183 0036 7D       		.byte	0x7d
+ 1184 0037 00       		.sleb128 0
+ 1185 0038 02000000 		.4byte	.LCFI2
+ 1186 003c 04000000 		.4byte	.LCFI3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 27
+
+
+ 1187 0040 0200     		.2byte	0x2
+ 1188 0042 7D       		.byte	0x7d
+ 1189 0043 10       		.sleb128 16
+ 1190 0044 04000000 		.4byte	.LCFI3
+ 1191 0048 1A030000 		.4byte	.LFE57
+ 1192 004c 0200     		.2byte	0x2
+ 1193 004e 77       		.byte	0x77
+ 1194 004f 10       		.sleb128 16
+ 1195 0050 00000000 		.4byte	0
+ 1196 0054 00000000 		.4byte	0
+ 1197              		.section	.debug_aranges,"",%progbits
+ 1198 0000 24000000 		.4byte	0x24
+ 1199 0004 0200     		.2byte	0x2
+ 1200 0006 00000000 		.4byte	.Ldebug_info0
+ 1201 000a 04       		.byte	0x4
+ 1202 000b 00       		.byte	0
+ 1203 000c 0000     		.2byte	0
+ 1204 000e 0000     		.2byte	0
+ 1205 0010 00000000 		.4byte	.LFB56
+ 1206 0014 0A000000 		.4byte	.LFE56-.LFB56
+ 1207 0018 00000000 		.4byte	.LFB57
+ 1208 001c 1A030000 		.4byte	.LFE57-.LFB57
+ 1209 0020 00000000 		.4byte	0
+ 1210 0024 00000000 		.4byte	0
+ 1211              		.section	.debug_ranges,"",%progbits
+ 1212              	.Ldebug_ranges0:
+ 1213 0000 00000000 		.4byte	.LFB56
+ 1214 0004 0A000000 		.4byte	.LFE56
+ 1215 0008 00000000 		.4byte	.LFB57
+ 1216 000c 1A030000 		.4byte	.LFE57
+ 1217 0010 00000000 		.4byte	0
+ 1218 0014 00000000 		.4byte	0
+ 1219              		.section	.debug_line,"",%progbits
+ 1220              	.Ldebug_line0:
+ 1221 0000 61010000 		.section	.debug_str,"MS",%progbits,1
+ 1221      02000D01 
+ 1221      00000201 
+ 1221      FB0E0D00 
+ 1221      01010101 
+ 1222              	.LASF37:
+ 1223 0000 795F6178 		.ascii	"y_axis\000"
+ 1223      697300
+ 1224              	.LASF32:
+ 1225 0007 61636365 		.ascii	"acceleration_lpf\000"
+ 1225      6C657261 
+ 1225      74696F6E 
+ 1225      5F6C7066 
+ 1225      00
+ 1226              	.LASF10:
+ 1227 0018 75696E74 		.ascii	"uint8\000"
+ 1227      3800
+ 1228              	.LASF3:
+ 1229 001e 73686F72 		.ascii	"short unsigned int\000"
+ 1229      7420756E 
+ 1229      7369676E 
+ 1229      65642069 
+ 1229      6E7400
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 28
+
+
+ 1230              	.LASF19:
+ 1231 0031 666C6F61 		.ascii	"floatEE\000"
+ 1231      74454500 
+ 1232              	.LASF21:
+ 1233 0039 64697265 		.ascii	"director\000"
+ 1233      63746F72 
+ 1233      00
+ 1234              	.LASF29:
+ 1235 0042 585F4158 		.ascii	"X_AXIS\000"
+ 1235      495300
+ 1236              	.LASF30:
+ 1237 0049 7363616C 		.ascii	"scale\000"
+ 1237      6500
+ 1238              	.LASF35:
+ 1239 004f 414E414C 		.ascii	"ANALOG_3D_ACCELEROMETER\000"
+ 1239      4F475F33 
+ 1239      445F4143 
+ 1239      43454C45 
+ 1239      524F4D45 
+ 1240              	.LASF34:
+ 1241 0067 5A5F4158 		.ascii	"Z_AXIS\000"
+ 1241      495300
+ 1242              	.LASF12:
+ 1243 006e 666C6F61 		.ascii	"float\000"
+ 1243      7400
+ 1244              	.LASF54:
+ 1245 0074 2E5C7365 		.ascii	".\\sensor_CTRL.c\000"
+ 1245      6E736F72 
+ 1245      5F435452 
+ 1245      4C2E6300 
+ 1246              	.LASF7:
+ 1247 0084 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1247      206C6F6E 
+ 1247      6720756E 
+ 1247      7369676E 
+ 1247      65642069 
+ 1248              	.LASF1:
+ 1249 009b 756E7369 		.ascii	"unsigned char\000"
+ 1249      676E6564 
+ 1249      20636861 
+ 1249      7200
+ 1250              	.LASF40:
+ 1251 00a9 6D6F6475 		.ascii	"modulo\000"
+ 1251      6C6F00
+ 1252              	.LASF14:
+ 1253 00b0 63686172 		.ascii	"char8\000"
+ 1253      3800
+ 1254              	.LASF11:
+ 1255 00b6 696E7431 		.ascii	"int16\000"
+ 1255      3600
+ 1256              	.LASF5:
+ 1257 00bc 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1257      20756E73 
+ 1257      69676E65 
+ 1257      6420696E 
+ 1257      7400
+ 1258              	.LASF38:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 29
+
+
+ 1259 00ce 7A5F6178 		.ascii	"z_axis\000"
+ 1259      697300
+ 1260              	.LASF49:
+ 1261 00d5 64756D6D 		.ascii	"dummy\000"
+ 1261      7900
+ 1262              	.LASF25:
+ 1263 00db 7A5F6163 		.ascii	"z_acc_ADC_offset\000"
+ 1263      635F4144 
+ 1263      435F6F66 
+ 1263      66736574 
+ 1263      00
+ 1264              	.LASF45:
+ 1265 00ec 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1265      52784275 
+ 1265      66666572 
+ 1265      00
+ 1266              	.LASF41:
+ 1267 00f9 73797374 		.ascii	"system_dynamic_scalar\000"
+ 1267      656D5F64 
+ 1267      796E616D 
+ 1267      69635F73 
+ 1267      63616C61 
+ 1268              	.LASF44:
+ 1269 010f 48656164 		.ascii	"Heading_sensors_processing\000"
+ 1269      696E675F 
+ 1269      73656E73 
+ 1269      6F72735F 
+ 1269      70726F63 
+ 1270              	.LASF13:
+ 1271 012a 646F7562 		.ascii	"double\000"
+ 1271      6C6500
+ 1272              	.LASF17:
+ 1273 0131 66627974 		.ascii	"fbyte\000"
+ 1273      6500
+ 1274              	.LASF48:
+ 1275 0137 676F6265 		.ascii	"gobee_param\000"
+ 1275      655F7061 
+ 1275      72616D00 
+ 1276              	.LASF55:
+ 1277 0143 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 1277      73657273 
+ 1277      5C477261 
+ 1277      7A69616E 
+ 1277      6F20472E 
+ 1278 0172 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 1278      5C535155 
+ 1278      49545C56 
+ 1278      6572732E 
+ 1278      302E302D 
+ 1279 01a2 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 1279      2D50726F 
+ 1279      746F2E63 
+ 1279      7964736E 
+ 1279      00
+ 1280              	.LASF51:
+ 1281 01b3 51756164 		.ascii	"QuadDecEvent\000"
+ 1281      44656345 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 30
+
+
+ 1281      76656E74 
+ 1281      00
+ 1282              	.LASF8:
+ 1283 01c0 756E7369 		.ascii	"unsigned int\000"
+ 1283      676E6564 
+ 1283      20696E74 
+ 1283      00
+ 1284              	.LASF22:
+ 1285 01cd 62657461 		.ascii	"beta\000"
+ 1285      00
+ 1286              	.LASF31:
+ 1287 01d2 61636365 		.ascii	"acceleration\000"
+ 1287      6C657261 
+ 1287      74696F6E 
+ 1287      00
+ 1288              	.LASF26:
+ 1289 01df 6A756D70 		.ascii	"jump_g_threshold\000"
+ 1289      5F675F74 
+ 1289      68726573 
+ 1289      686F6C64 
+ 1289      00
+ 1290              	.LASF20:
+ 1291 01f0 6D6F6465 		.ascii	"mode\000"
+ 1291      00
+ 1292              	.LASF52:
+ 1293 01f5 64677972 		.ascii	"dgyro_offset_fine\000"
+ 1293      6F5F6F66 
+ 1293      66736574 
+ 1293      5F66696E 
+ 1293      6500
+ 1294              	.LASF36:
+ 1295 0207 785F6178 		.ascii	"x_axis\000"
+ 1295      697300
+ 1296              	.LASF39:
+ 1297 020e 73717561 		.ascii	"squared\000"
+ 1297      72656400 
+ 1298              	.LASF47:
+ 1299 0216 61616363 		.ascii	"aacc\000"
+ 1299      00
+ 1300              	.LASF16:
+ 1301 021b 73697A65 		.ascii	"sizetype\000"
+ 1301      74797065 
+ 1301      00
+ 1302              	.LASF6:
+ 1303 0224 6C6F6E67 		.ascii	"long long int\000"
+ 1303      206C6F6E 
+ 1303      6720696E 
+ 1303      7400
+ 1304              	.LASF15:
+ 1305 0232 63686172 		.ascii	"char\000"
+ 1305      00
+ 1306              	.LASF9:
+ 1307 0237 696E7433 		.ascii	"int32_t\000"
+ 1307      325F7400 
+ 1308              	.LASF2:
+ 1309 023f 73686F72 		.ascii	"short int\000"
+ 1309      7420696E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 31
+
+
+ 1309      7400
+ 1310              	.LASF18:
+ 1311 0249 666E756D 		.ascii	"fnum\000"
+ 1311      00
+ 1312              	.LASF53:
+ 1313 024e 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1313      4320342E 
+ 1313      372E3320 
+ 1313      32303133 
+ 1313      30333132 
+ 1314 0281 616E6368 		.ascii	"anch revision 196615]\000"
+ 1314      20726576 
+ 1314      6973696F 
+ 1314      6E203139 
+ 1314      36363135 
+ 1315              	.LASF28:
+ 1316 0297 474F4245 		.ascii	"GOBEE_PARAMS\000"
+ 1316      455F5041 
+ 1316      52414D53 
+ 1316      00
+ 1317              	.LASF50:
+ 1318 02a4 6964784D 		.ascii	"idxMAX\000"
+ 1318      415800
+ 1319              	.LASF4:
+ 1320 02ab 6C6F6E67 		.ascii	"long int\000"
+ 1320      20696E74 
+ 1320      00
+ 1321              	.LASF27:
+ 1322 02b4 6163635F 		.ascii	"acc_g_threshold\000"
+ 1322      675F7468 
+ 1322      72657368 
+ 1322      6F6C6400 
+ 1323              	.LASF42:
+ 1324 02c4 6C6F6E67 		.ascii	"long double\000"
+ 1324      20646F75 
+ 1324      626C6500 
+ 1325              	.LASF33:
+ 1326 02d0 595F4158 		.ascii	"Y_AXIS\000"
+ 1326      495300
+ 1327              	.LASF0:
+ 1328 02d7 7369676E 		.ascii	"signed char\000"
+ 1328      65642063 
+ 1328      68617200 
+ 1329              	.LASF46:
+ 1330 02e3 41646356 		.ascii	"AdcValue\000"
+ 1330      616C7565 
+ 1330      00
+ 1331              	.LASF23:
+ 1332 02ec 785F6163 		.ascii	"x_acc_ADC_offset\000"
+ 1332      635F4144 
+ 1332      435F6F66 
+ 1332      66736574 
+ 1332      00
+ 1333              	.LASF43:
+ 1334 02fd 436F6E74 		.ascii	"Control_sensors_processing\000"
+ 1334      726F6C5F 
+ 1334      73656E73 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc7bEtse.s 			page 32
+
+
+ 1334      6F72735F 
+ 1334      70726F63 
+ 1335              	.LASF24:
+ 1336 0318 795F6163 		.ascii	"y_acc_ADC_offset\000"
+ 1336      635F4144 
+ 1336      435F6F66 
+ 1336      66736574 
+ 1336      00
+ 1337              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,799 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"SS_WIFI.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.SS_WIFI_Write,"ax",%progbits
+  19              		.align	1
+  20              		.global	SS_WIFI_Write
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	SS_WIFI_Write, %function
+  24              	SS_WIFI_Write:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\SS_WIFI.c"
+   1:.\Generated_Source\PSoC5/SS_WIFI.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/SS_WIFI.c **** * File Name: SS_WIFI.c  
+   3:.\Generated_Source\PSoC5/SS_WIFI.c **** * Version 2.5
+   4:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+   5:.\Generated_Source\PSoC5/SS_WIFI.c **** * Description:
+   6:.\Generated_Source\PSoC5/SS_WIFI.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+   8:.\Generated_Source\PSoC5/SS_WIFI.c **** * Note:
+   9:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  10:.\Generated_Source\PSoC5/SS_WIFI.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC5/SS_WIFI.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/SS_WIFI.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:.\Generated_Source\PSoC5/SS_WIFI.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:.\Generated_Source\PSoC5/SS_WIFI.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/SS_WIFI.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  17:.\Generated_Source\PSoC5/SS_WIFI.c **** #include "cytypes.h"
+  18:.\Generated_Source\PSoC5/SS_WIFI.c **** #include "SS_WIFI.h"
+  19:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  20:.\Generated_Source\PSoC5/SS_WIFI.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:.\Generated_Source\PSoC5/SS_WIFI.c **** #if !(CY_PSOC5A &&\
+  22:.\Generated_Source\PSoC5/SS_WIFI.c **** 	 SS_WIFI__PORT == 15 && ((SS_WIFI__MASK & 0xC0) != 0))
+  23:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  24:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  25:.\Generated_Source\PSoC5/SS_WIFI.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/SS_WIFI.c **** * Function Name: SS_WIFI_Write
+  27:.\Generated_Source\PSoC5/SS_WIFI.c **** ********************************************************************************
+  28:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  29:.\Generated_Source\PSoC5/SS_WIFI.c **** * Summary:
+  30:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Assign a new value to the digital port's data output register.  
+  31:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/SS_WIFI.c **** * Parameters:  
+  33:.\Generated_Source\PSoC5/SS_WIFI.c **** *  prtValue:  The value to be assigned to the Digital Port. 
+  34:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  35:.\Generated_Source\PSoC5/SS_WIFI.c **** * Return: 
+  36:.\Generated_Source\PSoC5/SS_WIFI.c **** *  None
+  37:.\Generated_Source\PSoC5/SS_WIFI.c **** *  
+  38:.\Generated_Source\PSoC5/SS_WIFI.c **** *******************************************************************************/
+  39:.\Generated_Source\PSoC5/SS_WIFI.c **** void SS_WIFI_Write(uint8 value) 
+  40:.\Generated_Source\PSoC5/SS_WIFI.c **** {
+  27              		.loc 1 40 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  41:.\Generated_Source\PSoC5/SS_WIFI.c ****     uint8 staticBits = (SS_WIFI_DR & (uint8)(~SS_WIFI_MASK));
+  33              		.loc 1 41 0
+  34 0000 044B     		ldr	r3, .L2
+  42:.\Generated_Source\PSoC5/SS_WIFI.c ****     SS_WIFI_DR = staticBits | ((uint8)(value << SS_WIFI_SHIFT) & SS_WIFI_MASK);
+  35              		.loc 1 42 0
+  36 0002 00F00100 		and	r0, r0, #1
+  37              	.LVL1:
+  41:.\Generated_Source\PSoC5/SS_WIFI.c ****     uint8 staticBits = (SS_WIFI_DR & (uint8)(~SS_WIFI_MASK));
+  38              		.loc 1 41 0
+  39 0006 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  40              	.LVL2:
+  41 0008 02F0FE01 		and	r1, r2, #254
+  42              		.loc 1 42 0
+  43 000c 40EA0102 		orr	r2, r0, r1
+  44              	.LVL3:
+  45 0010 1A70     		strb	r2, [r3, #0]
+  46 0012 7047     		bx	lr
+  47              	.L3:
+  48              		.align	2
+  49              	.L2:
+  50 0014 40510040 		.word	1073762624
+  51              		.cfi_endproc
+  52              	.LFE0:
+  53              		.size	SS_WIFI_Write, .-SS_WIFI_Write
+  54              		.section	.text.SS_WIFI_SetDriveMode,"ax",%progbits
+  55              		.align	1
+  56              		.global	SS_WIFI_SetDriveMode
+  57              		.thumb
+  58              		.thumb_func
+  59              		.type	SS_WIFI_SetDriveMode, %function
+  60              	SS_WIFI_SetDriveMode:
+  61              	.LFB1:
+  43:.\Generated_Source\PSoC5/SS_WIFI.c **** }
+  44:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  45:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  46:.\Generated_Source\PSoC5/SS_WIFI.c **** /*******************************************************************************
+  47:.\Generated_Source\PSoC5/SS_WIFI.c **** * Function Name: SS_WIFI_SetDriveMode
+  48:.\Generated_Source\PSoC5/SS_WIFI.c **** ********************************************************************************
+  49:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  50:.\Generated_Source\PSoC5/SS_WIFI.c **** * Summary:
+  51:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Change the drive mode on the pins of the port.
+  52:.\Generated_Source\PSoC5/SS_WIFI.c **** * 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 3
+
+
+  53:.\Generated_Source\PSoC5/SS_WIFI.c **** * Parameters:  
+  54:.\Generated_Source\PSoC5/SS_WIFI.c **** *  mode:  Change the pins to one of the following drive modes.
+  55:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  56:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_STRONG     Strong Drive 
+  57:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_OD_HI      Open Drain, Drives High 
+  58:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_OD_LO      Open Drain, Drives Low 
+  59:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_RES_UP     Resistive Pull Up 
+  60:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_RES_DWN    Resistive Pull Down 
+  61:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_RES_UPDWN  Resistive Pull Up/Down 
+  62:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_DIG_HIZ    High Impedance Digital 
+  63:.\Generated_Source\PSoC5/SS_WIFI.c **** *  SS_WIFI_DM_ALG_HIZ    High Impedance Analog 
+  64:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  65:.\Generated_Source\PSoC5/SS_WIFI.c **** * Return: 
+  66:.\Generated_Source\PSoC5/SS_WIFI.c **** *  None
+  67:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  68:.\Generated_Source\PSoC5/SS_WIFI.c **** *******************************************************************************/
+  69:.\Generated_Source\PSoC5/SS_WIFI.c **** void SS_WIFI_SetDriveMode(uint8 mode) 
+  70:.\Generated_Source\PSoC5/SS_WIFI.c **** {
+  62              		.loc 1 70 0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 0
+  65              		@ frame_needed = 0, uses_anonymous_args = 0
+  66              		@ link register save eliminated.
+  67              	.LVL4:
+  71:.\Generated_Source\PSoC5/SS_WIFI.c **** 	CyPins_SetPinDriveMode(SS_WIFI_0, mode);
+  68              		.loc 1 71 0
+  69 0000 044B     		ldr	r3, .L5
+  70 0002 00F00E00 		and	r0, r0, #14
+  71              	.LVL5:
+  72 0006 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  73 0008 22F00E01 		bic	r1, r2, #14
+  74 000c 40EA0102 		orr	r2, r0, r1
+  75 0010 1A70     		strb	r2, [r3, #0]
+  76 0012 7047     		bx	lr
+  77              	.L6:
+  78              		.align	2
+  79              	.L5:
+  80 0014 20500040 		.word	1073762336
+  81              		.cfi_endproc
+  82              	.LFE1:
+  83              		.size	SS_WIFI_SetDriveMode, .-SS_WIFI_SetDriveMode
+  84              		.section	.text.SS_WIFI_Read,"ax",%progbits
+  85              		.align	1
+  86              		.global	SS_WIFI_Read
+  87              		.thumb
+  88              		.thumb_func
+  89              		.type	SS_WIFI_Read, %function
+  90              	SS_WIFI_Read:
+  91              	.LFB2:
+  72:.\Generated_Source\PSoC5/SS_WIFI.c **** }
+  73:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  74:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  75:.\Generated_Source\PSoC5/SS_WIFI.c **** /*******************************************************************************
+  76:.\Generated_Source\PSoC5/SS_WIFI.c **** * Function Name: SS_WIFI_Read
+  77:.\Generated_Source\PSoC5/SS_WIFI.c **** ********************************************************************************
+  78:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  79:.\Generated_Source\PSoC5/SS_WIFI.c **** * Summary:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 4
+
+
+  80:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Read the current value on the pins of the Digital Port in right justified 
+  81:.\Generated_Source\PSoC5/SS_WIFI.c **** *  form.
+  82:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  83:.\Generated_Source\PSoC5/SS_WIFI.c **** * Parameters:  
+  84:.\Generated_Source\PSoC5/SS_WIFI.c **** *  None
+  85:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+  86:.\Generated_Source\PSoC5/SS_WIFI.c **** * Return: 
+  87:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Returns the current value of the Digital Port as a right justified number
+  88:.\Generated_Source\PSoC5/SS_WIFI.c **** *  
+  89:.\Generated_Source\PSoC5/SS_WIFI.c **** * Note:
+  90:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Macro SS_WIFI_ReadPS calls this function. 
+  91:.\Generated_Source\PSoC5/SS_WIFI.c **** *  
+  92:.\Generated_Source\PSoC5/SS_WIFI.c **** *******************************************************************************/
+  93:.\Generated_Source\PSoC5/SS_WIFI.c **** uint8 SS_WIFI_Read(void) 
+  94:.\Generated_Source\PSoC5/SS_WIFI.c **** {
+  92              		.loc 1 94 0
+  93              		.cfi_startproc
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 0, uses_anonymous_args = 0
+  96              		@ link register save eliminated.
+  95:.\Generated_Source\PSoC5/SS_WIFI.c ****     return (SS_WIFI_PS & SS_WIFI_MASK) >> SS_WIFI_SHIFT;
+  97              		.loc 1 95 0
+  98 0000 024B     		ldr	r3, .L8
+  99 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  96:.\Generated_Source\PSoC5/SS_WIFI.c **** }
+ 100              		.loc 1 96 0
+ 101 0004 00F00100 		and	r0, r0, #1
+ 102 0008 7047     		bx	lr
+ 103              	.L9:
+ 104 000a 00BF     		.align	2
+ 105              	.L8:
+ 106 000c 41510040 		.word	1073762625
+ 107              		.cfi_endproc
+ 108              	.LFE2:
+ 109              		.size	SS_WIFI_Read, .-SS_WIFI_Read
+ 110              		.section	.text.SS_WIFI_ReadDataReg,"ax",%progbits
+ 111              		.align	1
+ 112              		.global	SS_WIFI_ReadDataReg
+ 113              		.thumb
+ 114              		.thumb_func
+ 115              		.type	SS_WIFI_ReadDataReg, %function
+ 116              	SS_WIFI_ReadDataReg:
+ 117              	.LFB3:
+  97:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  98:.\Generated_Source\PSoC5/SS_WIFI.c **** 
+  99:.\Generated_Source\PSoC5/SS_WIFI.c **** /*******************************************************************************
+ 100:.\Generated_Source\PSoC5/SS_WIFI.c **** * Function Name: SS_WIFI_ReadDataReg
+ 101:.\Generated_Source\PSoC5/SS_WIFI.c **** ********************************************************************************
+ 102:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+ 103:.\Generated_Source\PSoC5/SS_WIFI.c **** * Summary:
+ 104:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Read the current value assigned to a Digital Port's data output register
+ 105:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+ 106:.\Generated_Source\PSoC5/SS_WIFI.c **** * Parameters:  
+ 107:.\Generated_Source\PSoC5/SS_WIFI.c **** *  None 
+ 108:.\Generated_Source\PSoC5/SS_WIFI.c **** *
+ 109:.\Generated_Source\PSoC5/SS_WIFI.c **** * Return: 
+ 110:.\Generated_Source\PSoC5/SS_WIFI.c **** *  Returns the current value assigned to the Digital Port's data output register
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 5
+
+
+ 111:.\Generated_Source\PSoC5/SS_WIFI.c **** *  
+ 112:.\Generated_Source\PSoC5/SS_WIFI.c **** *******************************************************************************/
+ 113:.\Generated_Source\PSoC5/SS_WIFI.c **** uint8 SS_WIFI_ReadDataReg(void) 
+ 114:.\Generated_Source\PSoC5/SS_WIFI.c **** {
+ 118              		.loc 1 114 0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		@ link register save eliminated.
+ 115:.\Generated_Source\PSoC5/SS_WIFI.c ****     return (SS_WIFI_DR & SS_WIFI_MASK) >> SS_WIFI_SHIFT;
+ 123              		.loc 1 115 0
+ 124 0000 024B     		ldr	r3, .L11
+ 125 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 116:.\Generated_Source\PSoC5/SS_WIFI.c **** }
+ 126              		.loc 1 116 0
+ 127 0004 00F00100 		and	r0, r0, #1
+ 128 0008 7047     		bx	lr
+ 129              	.L12:
+ 130 000a 00BF     		.align	2
+ 131              	.L11:
+ 132 000c 40510040 		.word	1073762624
+ 133              		.cfi_endproc
+ 134              	.LFE3:
+ 135              		.size	SS_WIFI_ReadDataReg, .-SS_WIFI_ReadDataReg
+ 136              		.text
+ 137              	.Letext0:
+ 138              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 139              		.section	.debug_info,"",%progbits
+ 140              	.Ldebug_info0:
+ 141 0000 2F010000 		.4byte	0x12f
+ 142 0004 0200     		.2byte	0x2
+ 143 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 144 000a 04       		.byte	0x4
+ 145 000b 01       		.uleb128 0x1
+ 146 000c 6A010000 		.4byte	.LASF20
+ 147 0010 01       		.byte	0x1
+ 148 0011 11010000 		.4byte	.LASF21
+ 149 0015 4F000000 		.4byte	.LASF22
+ 150 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 151 001d 00000000 		.4byte	0
+ 152 0021 00000000 		.4byte	0
+ 153 0025 00000000 		.4byte	.Ldebug_line0
+ 154 0029 02       		.uleb128 0x2
+ 155 002a 01       		.byte	0x1
+ 156 002b 06       		.byte	0x6
+ 157 002c BC010000 		.4byte	.LASF0
+ 158 0030 02       		.uleb128 0x2
+ 159 0031 01       		.byte	0x1
+ 160 0032 08       		.byte	0x8
+ 161 0033 2A000000 		.4byte	.LASF1
+ 162 0037 02       		.uleb128 0x2
+ 163 0038 02       		.byte	0x2
+ 164 0039 05       		.byte	0x5
+ 165 003a 5A010000 		.4byte	.LASF2
+ 166 003e 02       		.uleb128 0x2
+ 167 003f 02       		.byte	0x2
+ 168 0040 07       		.byte	0x7
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 6
+
+
+ 169 0041 11000000 		.4byte	.LASF3
+ 170 0045 02       		.uleb128 0x2
+ 171 0046 04       		.byte	0x4
+ 172 0047 05       		.byte	0x5
+ 173 0048 B3010000 		.4byte	.LASF4
+ 174 004c 02       		.uleb128 0x2
+ 175 004d 04       		.byte	0x4
+ 176 004e 07       		.byte	0x7
+ 177 004f 3D000000 		.4byte	.LASF5
+ 178 0053 02       		.uleb128 0x2
+ 179 0054 08       		.byte	0x8
+ 180 0055 05       		.byte	0x5
+ 181 0056 47010000 		.4byte	.LASF6
+ 182 005a 02       		.uleb128 0x2
+ 183 005b 08       		.byte	0x8
+ 184 005c 07       		.byte	0x7
+ 185 005d FA000000 		.4byte	.LASF7
+ 186 0061 03       		.uleb128 0x3
+ 187 0062 04       		.byte	0x4
+ 188 0063 05       		.byte	0x5
+ 189 0064 696E7400 		.ascii	"int\000"
+ 190 0068 02       		.uleb128 0x2
+ 191 0069 04       		.byte	0x4
+ 192 006a 07       		.byte	0x7
+ 193 006b D8000000 		.4byte	.LASF8
+ 194 006f 04       		.uleb128 0x4
+ 195 0070 64010000 		.4byte	.LASF12
+ 196 0074 02       		.byte	0x2
+ 197 0075 5B       		.byte	0x5b
+ 198 0076 30000000 		.4byte	0x30
+ 199 007a 02       		.uleb128 0x2
+ 200 007b 04       		.byte	0x4
+ 201 007c 04       		.byte	0x4
+ 202 007d 24000000 		.4byte	.LASF9
+ 203 0081 02       		.uleb128 0x2
+ 204 0082 08       		.byte	0x8
+ 205 0083 04       		.byte	0x4
+ 206 0084 D1000000 		.4byte	.LASF10
+ 207 0088 02       		.uleb128 0x2
+ 208 0089 01       		.byte	0x1
+ 209 008a 08       		.byte	0x8
+ 210 008b 55010000 		.4byte	.LASF11
+ 211 008f 04       		.uleb128 0x4
+ 212 0090 38000000 		.4byte	.LASF13
+ 213 0094 02       		.byte	0x2
+ 214 0095 F0       		.byte	0xf0
+ 215 0096 9A000000 		.4byte	0x9a
+ 216 009a 05       		.uleb128 0x5
+ 217 009b 6F000000 		.4byte	0x6f
+ 218 009f 06       		.uleb128 0x6
+ 219 00a0 01       		.byte	0x1
+ 220 00a1 39010000 		.4byte	.LASF14
+ 221 00a5 01       		.byte	0x1
+ 222 00a6 27       		.byte	0x27
+ 223 00a7 01       		.byte	0x1
+ 224 00a8 00000000 		.4byte	.LFB0
+ 225 00ac 18000000 		.4byte	.LFE0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 7
+
+
+ 226 00b0 02       		.byte	0x2
+ 227 00b1 7D       		.byte	0x7d
+ 228 00b2 00       		.sleb128 0
+ 229 00b3 01       		.byte	0x1
+ 230 00b4 D7000000 		.4byte	0xd7
+ 231 00b8 07       		.uleb128 0x7
+ 232 00b9 00000000 		.4byte	.LASF16
+ 233 00bd 01       		.byte	0x1
+ 234 00be 27       		.byte	0x27
+ 235 00bf 6F000000 		.4byte	0x6f
+ 236 00c3 00000000 		.4byte	.LLST0
+ 237 00c7 08       		.uleb128 0x8
+ 238 00c8 06000000 		.4byte	.LASF23
+ 239 00cc 01       		.byte	0x1
+ 240 00cd 29       		.byte	0x29
+ 241 00ce 6F000000 		.4byte	0x6f
+ 242 00d2 21000000 		.4byte	.LLST1
+ 243 00d6 00       		.byte	0
+ 244 00d7 06       		.uleb128 0x6
+ 245 00d8 01       		.byte	0x1
+ 246 00d9 E5000000 		.4byte	.LASF15
+ 247 00dd 01       		.byte	0x1
+ 248 00de 45       		.byte	0x45
+ 249 00df 01       		.byte	0x1
+ 250 00e0 00000000 		.4byte	.LFB1
+ 251 00e4 18000000 		.4byte	.LFE1
+ 252 00e8 02       		.byte	0x2
+ 253 00e9 7D       		.byte	0x7d
+ 254 00ea 00       		.sleb128 0
+ 255 00eb 01       		.byte	0x1
+ 256 00ec 00010000 		.4byte	0x100
+ 257 00f0 07       		.uleb128 0x7
+ 258 00f1 34010000 		.4byte	.LASF17
+ 259 00f5 01       		.byte	0x1
+ 260 00f6 45       		.byte	0x45
+ 261 00f7 6F000000 		.4byte	0x6f
+ 262 00fb 39000000 		.4byte	.LLST2
+ 263 00ff 00       		.byte	0
+ 264 0100 09       		.uleb128 0x9
+ 265 0101 01       		.byte	0x1
+ 266 0102 C8010000 		.4byte	.LASF18
+ 267 0106 01       		.byte	0x1
+ 268 0107 5D       		.byte	0x5d
+ 269 0108 01       		.byte	0x1
+ 270 0109 6F000000 		.4byte	0x6f
+ 271 010d 00000000 		.4byte	.LFB2
+ 272 0111 10000000 		.4byte	.LFE2
+ 273 0115 02       		.byte	0x2
+ 274 0116 7D       		.byte	0x7d
+ 275 0117 00       		.sleb128 0
+ 276 0118 01       		.byte	0x1
+ 277 0119 09       		.uleb128 0x9
+ 278 011a 01       		.byte	0x1
+ 279 011b BD000000 		.4byte	.LASF19
+ 280 011f 01       		.byte	0x1
+ 281 0120 71       		.byte	0x71
+ 282 0121 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 8
+
+
+ 283 0122 6F000000 		.4byte	0x6f
+ 284 0126 00000000 		.4byte	.LFB3
+ 285 012a 10000000 		.4byte	.LFE3
+ 286 012e 02       		.byte	0x2
+ 287 012f 7D       		.byte	0x7d
+ 288 0130 00       		.sleb128 0
+ 289 0131 01       		.byte	0x1
+ 290 0132 00       		.byte	0
+ 291              		.section	.debug_abbrev,"",%progbits
+ 292              	.Ldebug_abbrev0:
+ 293 0000 01       		.uleb128 0x1
+ 294 0001 11       		.uleb128 0x11
+ 295 0002 01       		.byte	0x1
+ 296 0003 25       		.uleb128 0x25
+ 297 0004 0E       		.uleb128 0xe
+ 298 0005 13       		.uleb128 0x13
+ 299 0006 0B       		.uleb128 0xb
+ 300 0007 03       		.uleb128 0x3
+ 301 0008 0E       		.uleb128 0xe
+ 302 0009 1B       		.uleb128 0x1b
+ 303 000a 0E       		.uleb128 0xe
+ 304 000b 55       		.uleb128 0x55
+ 305 000c 06       		.uleb128 0x6
+ 306 000d 11       		.uleb128 0x11
+ 307 000e 01       		.uleb128 0x1
+ 308 000f 52       		.uleb128 0x52
+ 309 0010 01       		.uleb128 0x1
+ 310 0011 10       		.uleb128 0x10
+ 311 0012 06       		.uleb128 0x6
+ 312 0013 00       		.byte	0
+ 313 0014 00       		.byte	0
+ 314 0015 02       		.uleb128 0x2
+ 315 0016 24       		.uleb128 0x24
+ 316 0017 00       		.byte	0
+ 317 0018 0B       		.uleb128 0xb
+ 318 0019 0B       		.uleb128 0xb
+ 319 001a 3E       		.uleb128 0x3e
+ 320 001b 0B       		.uleb128 0xb
+ 321 001c 03       		.uleb128 0x3
+ 322 001d 0E       		.uleb128 0xe
+ 323 001e 00       		.byte	0
+ 324 001f 00       		.byte	0
+ 325 0020 03       		.uleb128 0x3
+ 326 0021 24       		.uleb128 0x24
+ 327 0022 00       		.byte	0
+ 328 0023 0B       		.uleb128 0xb
+ 329 0024 0B       		.uleb128 0xb
+ 330 0025 3E       		.uleb128 0x3e
+ 331 0026 0B       		.uleb128 0xb
+ 332 0027 03       		.uleb128 0x3
+ 333 0028 08       		.uleb128 0x8
+ 334 0029 00       		.byte	0
+ 335 002a 00       		.byte	0
+ 336 002b 04       		.uleb128 0x4
+ 337 002c 16       		.uleb128 0x16
+ 338 002d 00       		.byte	0
+ 339 002e 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 9
+
+
+ 340 002f 0E       		.uleb128 0xe
+ 341 0030 3A       		.uleb128 0x3a
+ 342 0031 0B       		.uleb128 0xb
+ 343 0032 3B       		.uleb128 0x3b
+ 344 0033 0B       		.uleb128 0xb
+ 345 0034 49       		.uleb128 0x49
+ 346 0035 13       		.uleb128 0x13
+ 347 0036 00       		.byte	0
+ 348 0037 00       		.byte	0
+ 349 0038 05       		.uleb128 0x5
+ 350 0039 35       		.uleb128 0x35
+ 351 003a 00       		.byte	0
+ 352 003b 49       		.uleb128 0x49
+ 353 003c 13       		.uleb128 0x13
+ 354 003d 00       		.byte	0
+ 355 003e 00       		.byte	0
+ 356 003f 06       		.uleb128 0x6
+ 357 0040 2E       		.uleb128 0x2e
+ 358 0041 01       		.byte	0x1
+ 359 0042 3F       		.uleb128 0x3f
+ 360 0043 0C       		.uleb128 0xc
+ 361 0044 03       		.uleb128 0x3
+ 362 0045 0E       		.uleb128 0xe
+ 363 0046 3A       		.uleb128 0x3a
+ 364 0047 0B       		.uleb128 0xb
+ 365 0048 3B       		.uleb128 0x3b
+ 366 0049 0B       		.uleb128 0xb
+ 367 004a 27       		.uleb128 0x27
+ 368 004b 0C       		.uleb128 0xc
+ 369 004c 11       		.uleb128 0x11
+ 370 004d 01       		.uleb128 0x1
+ 371 004e 12       		.uleb128 0x12
+ 372 004f 01       		.uleb128 0x1
+ 373 0050 40       		.uleb128 0x40
+ 374 0051 0A       		.uleb128 0xa
+ 375 0052 9742     		.uleb128 0x2117
+ 376 0054 0C       		.uleb128 0xc
+ 377 0055 01       		.uleb128 0x1
+ 378 0056 13       		.uleb128 0x13
+ 379 0057 00       		.byte	0
+ 380 0058 00       		.byte	0
+ 381 0059 07       		.uleb128 0x7
+ 382 005a 05       		.uleb128 0x5
+ 383 005b 00       		.byte	0
+ 384 005c 03       		.uleb128 0x3
+ 385 005d 0E       		.uleb128 0xe
+ 386 005e 3A       		.uleb128 0x3a
+ 387 005f 0B       		.uleb128 0xb
+ 388 0060 3B       		.uleb128 0x3b
+ 389 0061 0B       		.uleb128 0xb
+ 390 0062 49       		.uleb128 0x49
+ 391 0063 13       		.uleb128 0x13
+ 392 0064 02       		.uleb128 0x2
+ 393 0065 06       		.uleb128 0x6
+ 394 0066 00       		.byte	0
+ 395 0067 00       		.byte	0
+ 396 0068 08       		.uleb128 0x8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 10
+
+
+ 397 0069 34       		.uleb128 0x34
+ 398 006a 00       		.byte	0
+ 399 006b 03       		.uleb128 0x3
+ 400 006c 0E       		.uleb128 0xe
+ 401 006d 3A       		.uleb128 0x3a
+ 402 006e 0B       		.uleb128 0xb
+ 403 006f 3B       		.uleb128 0x3b
+ 404 0070 0B       		.uleb128 0xb
+ 405 0071 49       		.uleb128 0x49
+ 406 0072 13       		.uleb128 0x13
+ 407 0073 02       		.uleb128 0x2
+ 408 0074 06       		.uleb128 0x6
+ 409 0075 00       		.byte	0
+ 410 0076 00       		.byte	0
+ 411 0077 09       		.uleb128 0x9
+ 412 0078 2E       		.uleb128 0x2e
+ 413 0079 00       		.byte	0
+ 414 007a 3F       		.uleb128 0x3f
+ 415 007b 0C       		.uleb128 0xc
+ 416 007c 03       		.uleb128 0x3
+ 417 007d 0E       		.uleb128 0xe
+ 418 007e 3A       		.uleb128 0x3a
+ 419 007f 0B       		.uleb128 0xb
+ 420 0080 3B       		.uleb128 0x3b
+ 421 0081 0B       		.uleb128 0xb
+ 422 0082 27       		.uleb128 0x27
+ 423 0083 0C       		.uleb128 0xc
+ 424 0084 49       		.uleb128 0x49
+ 425 0085 13       		.uleb128 0x13
+ 426 0086 11       		.uleb128 0x11
+ 427 0087 01       		.uleb128 0x1
+ 428 0088 12       		.uleb128 0x12
+ 429 0089 01       		.uleb128 0x1
+ 430 008a 40       		.uleb128 0x40
+ 431 008b 0A       		.uleb128 0xa
+ 432 008c 9742     		.uleb128 0x2117
+ 433 008e 0C       		.uleb128 0xc
+ 434 008f 00       		.byte	0
+ 435 0090 00       		.byte	0
+ 436 0091 00       		.byte	0
+ 437              		.section	.debug_loc,"",%progbits
+ 438              	.Ldebug_loc0:
+ 439              	.LLST0:
+ 440 0000 00000000 		.4byte	.LVL0
+ 441 0004 06000000 		.4byte	.LVL1
+ 442 0008 0100     		.2byte	0x1
+ 443 000a 50       		.byte	0x50
+ 444 000b 06000000 		.4byte	.LVL1
+ 445 000f 18000000 		.4byte	.LFE0
+ 446 0013 0400     		.2byte	0x4
+ 447 0015 F3       		.byte	0xf3
+ 448 0016 01       		.uleb128 0x1
+ 449 0017 50       		.byte	0x50
+ 450 0018 9F       		.byte	0x9f
+ 451 0019 00000000 		.4byte	0
+ 452 001d 00000000 		.4byte	0
+ 453              	.LLST1:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 11
+
+
+ 454 0021 08000000 		.4byte	.LVL2
+ 455 0025 10000000 		.4byte	.LVL3
+ 456 0029 0600     		.2byte	0x6
+ 457 002b 72       		.byte	0x72
+ 458 002c 00       		.sleb128 0
+ 459 002d 09       		.byte	0x9
+ 460 002e FE       		.byte	0xfe
+ 461 002f 1A       		.byte	0x1a
+ 462 0030 9F       		.byte	0x9f
+ 463 0031 00000000 		.4byte	0
+ 464 0035 00000000 		.4byte	0
+ 465              	.LLST2:
+ 466 0039 00000000 		.4byte	.LVL4
+ 467 003d 06000000 		.4byte	.LVL5
+ 468 0041 0100     		.2byte	0x1
+ 469 0043 50       		.byte	0x50
+ 470 0044 06000000 		.4byte	.LVL5
+ 471 0048 18000000 		.4byte	.LFE1
+ 472 004c 0400     		.2byte	0x4
+ 473 004e F3       		.byte	0xf3
+ 474 004f 01       		.uleb128 0x1
+ 475 0050 50       		.byte	0x50
+ 476 0051 9F       		.byte	0x9f
+ 477 0052 00000000 		.4byte	0
+ 478 0056 00000000 		.4byte	0
+ 479              		.section	.debug_aranges,"",%progbits
+ 480 0000 34000000 		.4byte	0x34
+ 481 0004 0200     		.2byte	0x2
+ 482 0006 00000000 		.4byte	.Ldebug_info0
+ 483 000a 04       		.byte	0x4
+ 484 000b 00       		.byte	0
+ 485 000c 0000     		.2byte	0
+ 486 000e 0000     		.2byte	0
+ 487 0010 00000000 		.4byte	.LFB0
+ 488 0014 18000000 		.4byte	.LFE0-.LFB0
+ 489 0018 00000000 		.4byte	.LFB1
+ 490 001c 18000000 		.4byte	.LFE1-.LFB1
+ 491 0020 00000000 		.4byte	.LFB2
+ 492 0024 10000000 		.4byte	.LFE2-.LFB2
+ 493 0028 00000000 		.4byte	.LFB3
+ 494 002c 10000000 		.4byte	.LFE3-.LFB3
+ 495 0030 00000000 		.4byte	0
+ 496 0034 00000000 		.4byte	0
+ 497              		.section	.debug_ranges,"",%progbits
+ 498              	.Ldebug_ranges0:
+ 499 0000 00000000 		.4byte	.LFB0
+ 500 0004 18000000 		.4byte	.LFE0
+ 501 0008 00000000 		.4byte	.LFB1
+ 502 000c 18000000 		.4byte	.LFE1
+ 503 0010 00000000 		.4byte	.LFB2
+ 504 0014 10000000 		.4byte	.LFE2
+ 505 0018 00000000 		.4byte	.LFB3
+ 506 001c 10000000 		.4byte	.LFE3
+ 507 0020 00000000 		.4byte	0
+ 508 0024 00000000 		.4byte	0
+ 509              		.section	.debug_line,"",%progbits
+ 510              	.Ldebug_line0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 12
+
+
+ 511 0000 94000000 		.section	.debug_str,"MS",%progbits,1
+ 511      02004600 
+ 511      00000201 
+ 511      FB0E0D00 
+ 511      01010101 
+ 512              	.LASF16:
+ 513 0000 76616C75 		.ascii	"value\000"
+ 513      6500
+ 514              	.LASF23:
+ 515 0006 73746174 		.ascii	"staticBits\000"
+ 515      69634269 
+ 515      747300
+ 516              	.LASF3:
+ 517 0011 73686F72 		.ascii	"short unsigned int\000"
+ 517      7420756E 
+ 517      7369676E 
+ 517      65642069 
+ 517      6E7400
+ 518              	.LASF9:
+ 519 0024 666C6F61 		.ascii	"float\000"
+ 519      7400
+ 520              	.LASF1:
+ 521 002a 756E7369 		.ascii	"unsigned char\000"
+ 521      676E6564 
+ 521      20636861 
+ 521      7200
+ 522              	.LASF13:
+ 523 0038 72656738 		.ascii	"reg8\000"
+ 523      00
+ 524              	.LASF5:
+ 525 003d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 525      20756E73 
+ 525      69676E65 
+ 525      6420696E 
+ 525      7400
+ 526              	.LASF22:
+ 527 004f 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 527      73657273 
+ 527      5C477261 
+ 527      7A69616E 
+ 527      6F5C4465 
+ 528 007d 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 528      525C5665 
+ 528      72732E30 
+ 528      2E302D54 
+ 528      30352032 
+ 529 00ae 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 529      65446972 
+ 529      2E637964 
+ 529      736E00
+ 530              	.LASF19:
+ 531 00bd 53535F57 		.ascii	"SS_WIFI_ReadDataReg\000"
+ 531      4946495F 
+ 531      52656164 
+ 531      44617461 
+ 531      52656700 
+ 532              	.LASF10:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 13
+
+
+ 533 00d1 646F7562 		.ascii	"double\000"
+ 533      6C6500
+ 534              	.LASF8:
+ 535 00d8 756E7369 		.ascii	"unsigned int\000"
+ 535      676E6564 
+ 535      20696E74 
+ 535      00
+ 536              	.LASF15:
+ 537 00e5 53535F57 		.ascii	"SS_WIFI_SetDriveMode\000"
+ 537      4946495F 
+ 537      53657444 
+ 537      72697665 
+ 537      4D6F6465 
+ 538              	.LASF7:
+ 539 00fa 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 539      206C6F6E 
+ 539      6720756E 
+ 539      7369676E 
+ 539      65642069 
+ 540              	.LASF21:
+ 541 0111 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\SS_WIFI.c\000"
+ 541      6E657261 
+ 541      7465645F 
+ 541      536F7572 
+ 541      63655C50 
+ 542              	.LASF17:
+ 543 0134 6D6F6465 		.ascii	"mode\000"
+ 543      00
+ 544              	.LASF14:
+ 545 0139 53535F57 		.ascii	"SS_WIFI_Write\000"
+ 545      4946495F 
+ 545      57726974 
+ 545      6500
+ 546              	.LASF6:
+ 547 0147 6C6F6E67 		.ascii	"long long int\000"
+ 547      206C6F6E 
+ 547      6720696E 
+ 547      7400
+ 548              	.LASF11:
+ 549 0155 63686172 		.ascii	"char\000"
+ 549      00
+ 550              	.LASF2:
+ 551 015a 73686F72 		.ascii	"short int\000"
+ 551      7420696E 
+ 551      7400
+ 552              	.LASF12:
+ 553 0164 75696E74 		.ascii	"uint8\000"
+ 553      3800
+ 554              	.LASF20:
+ 555 016a 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 555      4320342E 
+ 555      372E3320 
+ 555      32303133 
+ 555      30333132 
+ 556 019d 616E6368 		.ascii	"anch revision 196615]\000"
+ 556      20726576 
+ 556      6973696F 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccg6ezeK.s 			page 14
+
+
+ 556      6E203139 
+ 556      36363135 
+ 557              	.LASF4:
+ 558 01b3 6C6F6E67 		.ascii	"long int\000"
+ 558      20696E74 
+ 558      00
+ 559              	.LASF0:
+ 560 01bc 7369676E 		.ascii	"signed char\000"
+ 560      65642063 
+ 560      68617200 
+ 561              	.LASF18:
+ 562 01c8 53535F57 		.ascii	"SS_WIFI_Read\000"
+ 562      4946495F 
+ 562      52656164 
+ 562      00
+ 563              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

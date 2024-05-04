@@ -1,0 +1,224 @@
+--------------- Rebuild Started: 11/25/2018 20:21:18 Project: GobeeDir, Configuration: ARM GCC 4.7.3 Debug ---------------
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\main.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\console.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\gobeelib.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\motor_CTRL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\sensor_CTRL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\pid_lib.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\estimators.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ITG-3701.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\My_I2C_lib.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\mover.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\clu.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\gml.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\torquestat.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\statistics.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\cyfitter_cfg.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADXL_X.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADXL_Y.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADC.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADC_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADC_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_USB.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_USB_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_USB_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_USB_BOOT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\VREF.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_LED.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\LED_OK.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\EEPROM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\AMuxSeq.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_CTRL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Clock_CTRL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Status_Reg_BUTTON.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Counter_LED.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Counter_LED_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\LED_FAULT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADC_theACLK.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADC_Ext_CP_Clk.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_USB_IntClock.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Cm3Start.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CyBootAsmGnu.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CyDmac.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CyFlash.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CyLib.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\cyPm.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CySpc.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\cyutils.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\nBUTTON_PUSH.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\nBUTTON_CW.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\SENSE_VCC.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADXL_Z.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\nBUTTON_CCW.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_BUZ.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\BUZ.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_MOTOR.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_PAN.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_PAN_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_PAN_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_PAN_isr.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_PAN_Cnt16.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_PAN_Cnt16_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\MOT_SLEEPn.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ITG_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_SYS.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\V5_PHER_nSHDN.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\V3_nSHDN.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADXL_ST.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\BAT_FAULTn.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\BAT_CHRGn.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\cymetadata.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ADC_IRQ.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_Ticks.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PWM_MOTOR_PAN.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PWM_MOTOR_PAN_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_BUTTON.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_DacClk.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_Wave1_DMA_dma.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_Wave2_DMA_dma.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_VDAC8.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_VDAC8_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_BuffAmp.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\WaveDAC8_BuffAmp_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\VDAC8_ANAPOS.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\VDAC8_ANAPOS_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_EVENTS_IDENTIF.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PAN_ENCA.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PAN_ENCB.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CC_SCL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CC_SDA.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\I2C_COULOMB.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\I2C_COULOMB_BOOT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\I2C_COULOMB_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\I2C_COULOMB_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\I2C_COULOMB_SLAVE.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\I2C_COULOMB_MASTER.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PAN_MOT_FL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PAN_MOT_IN1.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PAN_MOT_IN2.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\TILT_ENCA.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_TILT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_TILT_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_TILT_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Clock_2.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\CC_nALCC.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\TILT_MOT_FL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\TILT_ENCB.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PWM_MOTOR_TILT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PWM_MOTOR_TILT_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\TILT_MOT_IN1.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\TILT_MOT_IN2.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_TILT_isr.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_TILT_Cnt16.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\QuadDec_TILT_Cnt16_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Status_Reg_SYS.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\SENSE_IPAN.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\SENSE_ITILT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ANAPOS_OUTPUT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\ASTIM_OUTPUT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PGA_ASTIM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\PGA_ASTIM_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\HOME_PAN.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Clock_SYS.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\HOME_TILT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\LED_WIFI_OK.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\LED_WIFI_FAULT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\DEBUG_LED.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Status_Reg_MOTORS.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_CLU_EXEC.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_LORA.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_LORA_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_LORA_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_LORA_BOOT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_LORA_IntClock.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_4D_DISPLAY.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_4D_DISPLAY_PM.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_4D_DISPLAY_INT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_4D_DISPLAY_BOOT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\IMU_UM7_RX.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\IMU_UM7_TX.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_LORA.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_4D_SEL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\UART_4D_DISPLAY_IntClock.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\Control_Reg_LORA_RESET.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_TORQUESTAT.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\isr_LIMIT_CTRL.o"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\GobeeDir.hex"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\GobeeDir.elf"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\GobeeDir.map"
+Deleting file ".\GobeeDir.cycdx"
+Deleting file ".\GobeeDir.svd"
+Deleting file ".\GobeeDir.rpt"
+Deleting file ".\GobeeDir_timing.html"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\.deps\C_FILE.P"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\.deps\ARM_C_FILE.P"
+Deleting file ".\CortexM3\ARM_GCC_473\Debug\.deps\GNU_ARM_ASM_FILE.P"
+cydsfit.exe "-.appdatapath" "C:\Users\Graziano G. Ravizza\AppData\Local\Cypress Semiconductor\PSoC Creator\3.0" "-.fdsnotice" "-.fdswarpdepfile=warp_dependencies.txt" "-.fdselabdepfile=elab_dependencies.txt" "-.fdsbldfile=generated_files.txt" "-p" "C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\GobeeDir.cyprj" "-d" "CY8C5868AXI-LP035" "-s" "C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\Generated_Source\PSoC5" "--" "-yv2" "-v3" "-ygs" "-q10" "-o2" "-.fftcfgtype=LE"
+Elaborating Design...
+ADD: pft.M0028: warning: Clock Warning: (Clock_2's accuracy range '22.000 MHz ñ 1.000%, (21.780 MHz - 22.220 MHz)' is not within the specified tolerance range '20.000 MHz ñ 5.000%, (19.000 MHz - 21.000 MHz)'.).
+ * C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\GobeeDir.cydwr (Clock_2)
+ * C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\TopDesign\TopDesign.cysch (Instance: Clock_2)
+HDL Generation ...
+Synthesis ...
+Place and Route ...
+Tech mapping ...
+Info: mpr.M0037: Unused pieces of the design have been optimized out. See the Tech mapping section of the report file for details. (App=cydsfit)
+Analog Placement ...
+Log: apr.M0058: The analog placement iterative improvement is 32% done. (App=cydsfit)
+Log: apr.M0058: The analog placement iterative improvement is 70% done. (App=cydsfit)
+Analog Routing ...
+Analog Code Generation ...
+Digital Placement ...
+Info: plm.M0040: The pin named SENSE_ITILT(0) at location P0[2] prevents a direct input connection to an Opamp. (App=cydsfit)
+Info: plm.M0040: The pin named ADXL_X(0) at location P0[4] prevents a direct input connection to an Opamp. (App=cydsfit)
+Info: plm.M0039: The pin named ADXL_Y(0) at location P0[6] prevents usage of the high current (2mA) feature of an IDAC. (App=cydsfit)
+Info: plm.M0039: The pin named IMU_UM7_TX(0) at location P0[7] prevents usage of the high current (2mA) feature of an IDAC. (App=cydsfit)
+Info: plm.M0039: The pin named LORA_SETA(0) at location P3[0] prevents usage of the high current (2mA) feature of an IDAC. (App=cydsfit)
+Info: plm.M0039: The pin named LORA_RESET_SETB(0) at location P3[1] prevents usage of the high current (2mA) feature of an IDAC. (App=cydsfit)
+Info: plm.M0040: The pin named ITG_CS_NEW(0) at location P3[2] prevents a direct input connection to an Opamp. (App=cydsfit)
+Info: plm.M0040: The pin named ITG_INT(0) at location P3[4] prevents a direct input connection to an Opamp. (App=cydsfit)
+Info: plm.M0038: The pin named DISPLAY_4D_TX(0) at location P3[6] prevents usage of special purposes: OpAmp:out. (App=cydsfit)
+Info: plm.M0038: The pin named LORA_RTSn(0) at location P3[7] prevents usage of special purposes: OpAmp:out. (App=cydsfit)
+Info: plm.M0038: The pin named LORA_RX(0) at location P12[0] prevents usage of special purposes: I2C:SCL. (App=cydsfit)
+Info: plm.M0038: The pin named LORA_TX(0) at location P12[1] prevents usage of special purposes: I2C:SDA. (App=cydsfit)
+Digital Routing ...
+Bitstream Generation ...
+Static timing analysis ...
+Warning: sta.M0019: GobeeDir_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( CHRUM7_UART_IntClock ). (File=C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\GobeeDir_timing.html)
+Warning: sta.M0019: GobeeDir_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( UART_4D_DISPLAY_IntClock ). (File=C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\GobeeDir_timing.html)
+Warning: sta.M0019: GobeeDir_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( CyBUS_CLK ). (File=C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\GOBEE DIRECTOR\Vers.0.0-T31-F01 2018-1125 C3.0 (imu um7)\GobeeDir.cydsn\GobeeDir_timing.html)
+API Generation ...
+Dependency Generation ...
+Clean Temporary Files ...
+arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\main.lst -ffunction-sections -c .\main.c -o .\CortexM3\ARM_GCC_473\Debug\main.o
+In file included from ./Generated_Source/PSoC5/project.h:136:0,
+                 from ./device.h:15,
+                 from .\main.c:19:
+./Generated_Source/PSoC5/CHRUM7.h:187:6: error: conflicting types for 'CHRUM7_PrintPacket'
+In file included from ./Generated_Source/PSoC5/CHRUM7.h:61:0,
+                 from ./Generated_Source/PSoC5/project.h:136,
+                 from ./device.h:15,
+                 from .\main.c:19:
+./ME_lib_imu_CHRUM7.h:265:6: note: previous declaration of 'CHRUM7_PrintPacket' was here
+In file included from ./Generated_Source/PSoC5/project.h:136:0,
+                 from ./device.h:15,
+                 from .\main.c:19:
+./Generated_Source/PSoC5/CHRUM7.h:210:6: error: conflicting types for 'CHRUM7_RegisterIO'
+In file included from ./Generated_Source/PSoC5/CHRUM7.h:61:0,
+                 from ./Generated_Source/PSoC5/project.h:136,
+                 from ./device.h:15,
+                 from .\main.c:19:
+./ME_lib_imu_CHRUM7.h:255:6: note: previous declaration of 'CHRUM7_RegisterIO' was here
+In file included from ./Generated_Source/PSoC5/project.h:136:0,
+                 from ./device.h:15,
+                 from .\main.c:19:
+./Generated_Source/PSoC5/CHRUM7.h:328:6: error: conflicting types for 'CHRUM7_PacketToEuler'
+In file included from ./Generated_Source/PSoC5/CHRUM7.h:61:0,
+                 from ./Generated_Source/PSoC5/project.h:136,
+                 from ./device.h:15,
+                 from .\main.c:19:
+./ME_lib_imu_CHRUM7.h:243:6: note: previous declaration of 'CHRUM7_PacketToEuler' was here
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Rebuild Failed: 11/25/2018 20:22:19 ---------------

@@ -1,0 +1,3711 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"isr_Ticks.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.isr_Ticks_Start,"ax",%progbits
+  19              		.align	1
+  20              		.global	isr_Ticks_Start
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	isr_Ticks_Start, %function
+  24              	isr_Ticks_Start:
+  25              	.LFB56:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\isr_Ticks.c"
+   1:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isr_Ticks.c **** * File Name: isr_Ticks.c  
+   3:.\Generated_Source\PSoC5/isr_Ticks.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+   5:.\Generated_Source\PSoC5/isr_Ticks.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isr_Ticks.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+   8:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+   9:.\Generated_Source\PSoC5/isr_Ticks.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  11:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isr_Ticks.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isr_Ticks.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isr_Ticks.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isr_Ticks.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  18:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  19:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <isr_Ticks.h>
+  22:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  23:.\Generated_Source\PSoC5/isr_Ticks.c **** #if !defined(isr_Ticks__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  25:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isr_Ticks.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isr_Ticks.c **** /* `#START isr_Ticks_intc` */
+  29:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  30:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <device.h>
+  31:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <stdio.h>
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <gobee.h>
+  33:.\Generated_Source\PSoC5/isr_Ticks.c **** #include <gobeelib.h>
+  34:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  35:.\Generated_Source\PSoC5/isr_Ticks.c **** extern uint8 machine_state;			/* Global Machine State */
+  36:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  37:.\Generated_Source\PSoC5/isr_Ticks.c **** extern uint16 GyroNullPauseTicks;	/* centiseconds ticks counter for Gyroscope Autonull Procedure De
+  38:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  39:.\Generated_Source\PSoC5/isr_Ticks.c **** extern struct GOBEE_PARAMS gobee_param;
+  40:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  41:.\Generated_Source\PSoC5/isr_Ticks.c **** extern uint8 agyro_messg;				/* analog gyro message passing console --> isr_ctrl					*/
+  42:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  43:.\Generated_Source\PSoC5/isr_Ticks.c **** /* extern Analog External ADXRS646 gyroscope vars) */
+  44:.\Generated_Source\PSoC5/isr_Ticks.c **** extern struct ANALOG_GYRO agyro;
+  45:.\Generated_Source\PSoC5/isr_Ticks.c **** 	
+  46:.\Generated_Source\PSoC5/isr_Ticks.c **** /* local wars */
+  47:.\Generated_Source\PSoC5/isr_Ticks.c **** uint8 local_dummy=0;
+  48:.\Generated_Source\PSoC5/isr_Ticks.c **** 	
+  49:.\Generated_Source\PSoC5/isr_Ticks.c **** /* `#END` */
+  50:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  51:.\Generated_Source\PSoC5/isr_Ticks.c **** #ifndef CYINT_IRQ_BASE
+  52:.\Generated_Source\PSoC5/isr_Ticks.c **** #define CYINT_IRQ_BASE      16
+  53:.\Generated_Source\PSoC5/isr_Ticks.c **** #endif /* CYINT_IRQ_BASE */
+  54:.\Generated_Source\PSoC5/isr_Ticks.c **** #ifndef CYINT_VECT_TABLE
+  55:.\Generated_Source\PSoC5/isr_Ticks.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  56:.\Generated_Source\PSoC5/isr_Ticks.c **** #endif /* CYINT_VECT_TABLE */
+  57:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  58:.\Generated_Source\PSoC5/isr_Ticks.c **** /* Declared in startup, used to set unused interrupts to. */
+  59:.\Generated_Source\PSoC5/isr_Ticks.c **** CY_ISR_PROTO(IntDefaultHandler);
+  60:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  61:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  62:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+  63:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_Start
+  64:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+  65:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  66:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+  67:.\Generated_Source\PSoC5/isr_Ticks.c **** *  Set up the interrupt and enable it.
+  68:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  69:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:  
+  70:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+  71:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  72:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+  73:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+  74:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  75:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+  76:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_Start(void)
+  77:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+  27              		.loc 1 77 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LBB22:
+  33              	.LBB23:
+  78:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* For all we know the interrupt is active. */
+  79:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_Disable();
+  80:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  81:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Set the ISR to point to the isr_Ticks Interrupt. */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 3
+
+
+  82:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_SetVector(&isr_Ticks_Interrupt);
+  83:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  84:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Set the priority. */
+  85:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_SetPriority((uint8)isr_Ticks_INTC_PRIOR_NUMBER);
+  86:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  87:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Enable it. */
+  88:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_Enable();
+  89:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+  90:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  91:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+  92:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+  93:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_StartEx
+  94:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+  95:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  96:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+  97:.\Generated_Source\PSoC5/isr_Ticks.c **** *  Set up the interrupt and enable it.
+  98:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+  99:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:  
+ 100:.\Generated_Source\PSoC5/isr_Ticks.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 101:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 102:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 103:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 104:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 105:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 106:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_StartEx(cyisraddress address)
+ 107:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 108:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* For all we know the interrupt is active. */
+ 109:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_Disable();
+ 110:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 111:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Set the ISR to point to the isr_Ticks Interrupt. */
+ 112:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_SetVector(address);
+ 113:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 114:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Set the priority. */
+ 115:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_SetPriority((uint8)isr_Ticks_INTC_PRIOR_NUMBER);
+ 116:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 117:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Enable it. */
+ 118:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_Enable();
+ 119:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 120:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 121:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 122:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 123:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_Stop
+ 124:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 125:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 126:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 127:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Disables and removes the interrupt.
+ 128:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 129:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:  
+ 130:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 131:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 132:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 133:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 134:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 135:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_Stop(void)
+ 136:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 137:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Disable this interrupt. */
+ 138:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_Disable();
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 4
+
+
+ 139:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 140:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Set the ISR to point to the passive one. */
+ 141:.\Generated_Source\PSoC5/isr_Ticks.c ****     isr_Ticks_SetVector(&IntDefaultHandler);
+ 142:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 143:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 144:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 145:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 146:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_Interrupt
+ 147:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 148:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 149:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 150:.\Generated_Source\PSoC5/isr_Ticks.c **** *   The default Interrupt Service Routine for isr_Ticks.
+ 151:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 152:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Add custom code between the coments to keep the next version of this file
+ 153:.\Generated_Source\PSoC5/isr_Ticks.c **** *   from over writting your code.
+ 154:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 155:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:  
+ 156:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 157:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 158:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 159:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 160:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 161:.\Generated_Source\PSoC5/isr_Ticks.c **** CY_ISR(isr_Ticks_Interrupt)
+ 162:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 163:.\Generated_Source\PSoC5/isr_Ticks.c ****     /*  Place your Interrupt code here. */
+ 164:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* `#START isr_Ticks_Interrupt` */
+ 165:.\Generated_Source\PSoC5/isr_Ticks.c **** 	//=======================================================//
+ 166:.\Generated_Source\PSoC5/isr_Ticks.c **** 	//=== Auto Null Gyro Procedure Pause Ticks	[msec]    ===//
+ 167:.\Generated_Source\PSoC5/isr_Ticks.c **** 	//=======================================================//
+ 168:.\Generated_Source\PSoC5/isr_Ticks.c **** 	GyroNullPauseTicks++;
+ 169:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 170:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 171:.\Generated_Source\PSoC5/isr_Ticks.c **** 	//=============================================================================//
+ 172:.\Generated_Source\PSoC5/isr_Ticks.c **** 	//=== Auto Null Gyro Procedure Stop Condition							    ===//
+ 173:.\Generated_Source\PSoC5/isr_Ticks.c **** 	//=============================================================================//	
+ 174:.\Generated_Source\PSoC5/isr_Ticks.c **** 	if (machine_state == GOBEE_AUTOCALIBRATING) 
+ 175:.\Generated_Source\PSoC5/isr_Ticks.c **** 	{
+ 176:.\Generated_Source\PSoC5/isr_Ticks.c **** 		if (GyroNullPauseTicks >= 1000)	/* 10 sec @ 100Hz */
+ 177:.\Generated_Source\PSoC5/isr_Ticks.c **** 		{
+ 178:.\Generated_Source\PSoC5/isr_Ticks.c **** 			isr_Ticks_Stop();				// Stop (me!!!) Wait Ticks  isr (100Hz)
+ 179:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 180:.\Generated_Source\PSoC5/isr_Ticks.c **** 			//ANULL: 5 Stop Mean Calculus
+ 181:.\Generated_Source\PSoC5/isr_Ticks.c **** 			agyro_messg = AGYRO_MEAN_STOP;
+ 182:.\Generated_Source\PSoC5/isr_Ticks.c **** 			CyDelayUs(100);				/* 100usec delay */
+ 183:.\Generated_Source\PSoC5/isr_Ticks.c **** 			
+ 184:.\Generated_Source\PSoC5/isr_Ticks.c **** 			//ANULL: 6 SET AGFINE Ccmmand
+ 185:.\Generated_Source\PSoC5/isr_Ticks.c **** 			gobee_param.gyro_offset_fine.fnum = -agyro.mean_rate;
+ 186:.\Generated_Source\PSoC5/isr_Ticks.c **** 			
+ 187:.\Generated_Source\PSoC5/isr_Ticks.c **** 			/* Writes AGFINE on EEPROM */
+ 188:.\Generated_Source\PSoC5/isr_Ticks.c **** 			local_dummy = WriteAllEEparams();			
+ 189:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 190:.\Generated_Source\PSoC5/isr_Ticks.c **** 			//ANULL: 7 Zero Gyro Command
+ 191:.\Generated_Source\PSoC5/isr_Ticks.c **** 			agyro.angle = 0;
+ 192:.\Generated_Source\PSoC5/isr_Ticks.c **** 			
+ 193:.\Generated_Source\PSoC5/isr_Ticks.c **** 			printf("\r\n[OK]\r\n");
+ 194:.\Generated_Source\PSoC5/isr_Ticks.c **** 			
+ 195:.\Generated_Source\PSoC5/isr_Ticks.c **** 			/* blink LED_OK green led with OPERATIVE (SLOW) repetition rate */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 5
+
+
+ 196:.\Generated_Source\PSoC5/isr_Ticks.c **** 			Counter_LED_WritePeriod(LED_OK_OPERATIVE);		
+ 197:.\Generated_Source\PSoC5/isr_Ticks.c **** 			
+ 198:.\Generated_Source\PSoC5/isr_Ticks.c **** 			/************************************/
+ 199:.\Generated_Source\PSoC5/isr_Ticks.c **** 			/*** WARNING MACHINE STATE CHANGE ***/
+ 200:.\Generated_Source\PSoC5/isr_Ticks.c **** 			/************************************/
+ 201:.\Generated_Source\PSoC5/isr_Ticks.c **** 			machine_state = GOBEE_OPERATIVE;
+ 202:.\Generated_Source\PSoC5/isr_Ticks.c **** 		}
+ 203:.\Generated_Source\PSoC5/isr_Ticks.c **** 	}
+ 204:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* `#END` */
+ 205:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 206:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 207:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 208:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 209:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_SetVector
+ 210:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 211:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 212:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 213:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Change the ISR vector for the Interrupt. Note calling isr_Ticks_Start
+ 214:.\Generated_Source\PSoC5/isr_Ticks.c **** *   will override any effect this method would have had. To set the vector 
+ 215:.\Generated_Source\PSoC5/isr_Ticks.c **** *   before the component has been started use isr_Ticks_StartEx instead.
+ 216:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 217:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 218:.\Generated_Source\PSoC5/isr_Ticks.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 219:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 220:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 221:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 222:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 223:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 224:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_SetVector(cyisraddress address)
+ 225:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 226:.\Generated_Source\PSoC5/isr_Ticks.c ****     cyisraddress * ramVectorTable;
+ 227:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 229:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 230:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER] = address;
+ 231:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 232:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 233:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 234:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 235:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_GetVector
+ 236:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 237:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 238:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 239:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 240:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 241:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 242:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 243:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 244:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 245:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Address of the ISR in the interrupt vector table.
+ 246:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 247:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 248:.\Generated_Source\PSoC5/isr_Ticks.c **** cyisraddress isr_Ticks_GetVector(void)
+ 249:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 250:.\Generated_Source\PSoC5/isr_Ticks.c ****     cyisraddress * ramVectorTable;
+ 251:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 252:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 6
+
+
+ 253:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 254:.\Generated_Source\PSoC5/isr_Ticks.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER];
+ 255:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 256:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 257:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 258:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 259:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_SetPriority
+ 260:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 261:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 262:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 263:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Sets the Priority of the Interrupt. Note calling isr_Ticks_Start
+ 264:.\Generated_Source\PSoC5/isr_Ticks.c **** *   or isr_Ticks_StartEx will override any effect this method 
+ 265:.\Generated_Source\PSoC5/isr_Ticks.c **** *   would have had. This method should only be called after 
+ 266:.\Generated_Source\PSoC5/isr_Ticks.c **** *   isr_Ticks_Start or isr_Ticks_StartEx has been called. To set 
+ 267:.\Generated_Source\PSoC5/isr_Ticks.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 268:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 269:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 270:.\Generated_Source\PSoC5/isr_Ticks.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 271:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 272:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 273:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 274:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 275:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 276:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_SetPriority(uint8 priority)
+ 277:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+ 279:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 280:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 281:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 282:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 283:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_GetPriority
+ 284:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 285:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 286:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 287:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Gets the Priority of the Interrupt.
+ 288:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 289:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 290:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 291:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 292:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 293:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 294:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 295:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 296:.\Generated_Source\PSoC5/isr_Ticks.c **** uint8 isr_Ticks_GetPriority(void)
+ 297:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 298:.\Generated_Source\PSoC5/isr_Ticks.c ****     uint8 priority;
+ 299:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 300:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 301:.\Generated_Source\PSoC5/isr_Ticks.c ****     priority = *isr_Ticks_INTC_PRIOR >> 5;
+ 302:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 303:.\Generated_Source\PSoC5/isr_Ticks.c ****     return priority;
+ 304:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 305:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 306:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 307:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 308:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_Enable
+ 309:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 7
+
+
+ 310:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 311:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 312:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Enables the interrupt.
+ 313:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 314:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 315:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 316:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 317:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 318:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 319:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 320:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 321:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_Enable(void)
+ 322:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 323:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Enable the general interrupt. */
+ 324:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_EN = isr_Ticks__INTC_MASK;
+ 325:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 326:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 327:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 328:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 329:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_GetState
+ 330:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 331:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 332:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 333:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 334:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 335:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 336:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 337:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 338:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 339:.\Generated_Source\PSoC5/isr_Ticks.c **** *   1 if enabled, 0 if disabled.
+ 340:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 341:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 342:.\Generated_Source\PSoC5/isr_Ticks.c **** uint8 isr_Ticks_GetState(void)
+ 343:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 344:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Get the state of the general interrupt. */
+ 345:.\Generated_Source\PSoC5/isr_Ticks.c ****     return ((*isr_Ticks_INTC_SET_EN & (uint32)isr_Ticks__INTC_MASK) != 0u) ? 1u:0u;
+ 346:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 347:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 348:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 349:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 350:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_Disable
+ 351:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 352:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 353:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 354:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Disables the Interrupt.
+ 355:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 356:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 357:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 358:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 359:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 360:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 361:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 362:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 363:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_Disable(void)
+ 364:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 365:.\Generated_Source\PSoC5/isr_Ticks.c ****     /* Disable the general interrupt. */
+ 366:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_CLR_EN = isr_Ticks__INTC_MASK;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 8
+
+
+  34              		.loc 1 366 0
+  35 0000 064A     		ldr	r2, .L2
+  36              	.LBE23:
+  37              	.LBE22:
+  38              	.LBB25:
+  39              	.LBB26:
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  40              		.loc 1 228 0
+  41 0002 0748     		ldr	r0, .L2+4
+  42              	.LBE26:
+  43              	.LBE25:
+  44              	.LBB29:
+  45              	.LBB24:
+  46              		.loc 1 366 0
+  47 0004 4023     		movs	r3, #64
+  48 0006 1360     		str	r3, [r2, #0]
+  49              	.LVL0:
+  50              	.LBE24:
+  51              	.LBE29:
+  52              	.LBB30:
+  53              	.LBB27:
+ 230:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER] = address;
+  54              		.loc 1 230 0
+  55 0008 0649     		ldr	r1, .L2+8
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  56              		.loc 1 228 0
+  57 000a 0268     		ldr	r2, [r0, #0]
+  58              	.LVL1:
+  59              	.LBE27:
+  60              	.LBE30:
+  61              	.LBB31:
+  62              	.LBB32:
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+  63              		.loc 1 278 0
+  64 000c E020     		movs	r0, #224
+  65              	.LBE32:
+  66              	.LBE31:
+  67              	.LBB35:
+  68              	.LBB28:
+ 230:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER] = address;
+  69              		.loc 1 230 0
+  70 000e 9165     		str	r1, [r2, #88]
+  71              	.LVL2:
+  72              	.LBE28:
+  73              	.LBE35:
+  74              	.LBB36:
+  75              	.LBB33:
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+  76              		.loc 1 278 0
+  77 0010 054A     		ldr	r2, .L2+12
+  78              	.LVL3:
+  79              	.LBE33:
+  80              	.LBE36:
+  81              	.LBB37:
+  82              	.LBB38:
+ 324:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_EN = isr_Ticks__INTC_MASK;
+  83              		.loc 1 324 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 9
+
+
+  84 0012 0649     		ldr	r1, .L2+16
+  85              	.LBE38:
+  86              	.LBE37:
+  87              	.LBB40:
+  88              	.LBB34:
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+  89              		.loc 1 278 0
+  90 0014 1070     		strb	r0, [r2, #0]
+  91              	.LBE34:
+  92              	.LBE40:
+  93              	.LBB41:
+  94              	.LBB39:
+ 324:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_EN = isr_Ticks__INTC_MASK;
+  95              		.loc 1 324 0
+  96 0016 0B60     		str	r3, [r1, #0]
+  97 0018 7047     		bx	lr
+  98              	.L3:
+  99 001a 00BF     		.align	2
+ 100              	.L2:
+ 101 001c 80E100E0 		.word	-536813184
+ 102 0020 08ED00E0 		.word	-536810232
+ 103 0024 00000000 		.word	isr_Ticks_Interrupt
+ 104 0028 06E400E0 		.word	-536812538
+ 105 002c 00E100E0 		.word	-536813312
+ 106              	.LBE39:
+ 107              	.LBE41:
+ 108              		.cfi_endproc
+ 109              	.LFE56:
+ 110              		.size	isr_Ticks_Start, .-isr_Ticks_Start
+ 111              		.section	.text.isr_Ticks_StartEx,"ax",%progbits
+ 112              		.align	1
+ 113              		.global	isr_Ticks_StartEx
+ 114              		.thumb
+ 115              		.thumb_func
+ 116              		.type	isr_Ticks_StartEx, %function
+ 117              	isr_Ticks_StartEx:
+ 118              	.LFB57:
+ 107:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 119              		.loc 1 107 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+ 124              	.LVL4:
+ 125              	.LBB42:
+ 126              	.LBB43:
+ 127              		.loc 1 366 0
+ 128 0000 054A     		ldr	r2, .L5
+ 129              	.LBE43:
+ 130              	.LBE42:
+ 131              	.LBB45:
+ 132              	.LBB46:
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 133              		.loc 1 228 0
+ 134 0002 0649     		ldr	r1, .L5+4
+ 135              	.LBE46:
+ 136              	.LBE45:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 10
+
+
+ 137              	.LBB49:
+ 138              	.LBB44:
+ 139              		.loc 1 366 0
+ 140 0004 4023     		movs	r3, #64
+ 141 0006 1360     		str	r3, [r2, #0]
+ 142              	.LVL5:
+ 143              	.LBE44:
+ 144              	.LBE49:
+ 145              	.LBB50:
+ 146              	.LBB47:
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 147              		.loc 1 228 0
+ 148 0008 0A68     		ldr	r2, [r1, #0]
+ 149              	.LVL6:
+ 150              	.LBE47:
+ 151              	.LBE50:
+ 152              	.LBB51:
+ 153              	.LBB52:
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+ 154              		.loc 1 278 0
+ 155 000a 0549     		ldr	r1, .L5+8
+ 156              	.LBE52:
+ 157              	.LBE51:
+ 158              	.LBB54:
+ 159              	.LBB48:
+ 230:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER] = address;
+ 160              		.loc 1 230 0
+ 161 000c 9065     		str	r0, [r2, #88]
+ 162              	.LVL7:
+ 163              	.LBE48:
+ 164              	.LBE54:
+ 165              	.LBB55:
+ 166              	.LBB56:
+ 324:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_EN = isr_Ticks__INTC_MASK;
+ 167              		.loc 1 324 0
+ 168 000e 054A     		ldr	r2, .L5+12
+ 169              	.LVL8:
+ 170              	.LBE56:
+ 171              	.LBE55:
+ 172              	.LBB58:
+ 173              	.LBB53:
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+ 174              		.loc 1 278 0
+ 175 0010 E020     		movs	r0, #224
+ 176              	.LVL9:
+ 177 0012 0870     		strb	r0, [r1, #0]
+ 178              	.LBE53:
+ 179              	.LBE58:
+ 180              	.LBB59:
+ 181              	.LBB57:
+ 324:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_EN = isr_Ticks__INTC_MASK;
+ 182              		.loc 1 324 0
+ 183 0014 1360     		str	r3, [r2, #0]
+ 184 0016 7047     		bx	lr
+ 185              	.L6:
+ 186              		.align	2
+ 187              	.L5:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 11
+
+
+ 188 0018 80E100E0 		.word	-536813184
+ 189 001c 08ED00E0 		.word	-536810232
+ 190 0020 06E400E0 		.word	-536812538
+ 191 0024 00E100E0 		.word	-536813312
+ 192              	.LBE57:
+ 193              	.LBE59:
+ 194              		.cfi_endproc
+ 195              	.LFE57:
+ 196              		.size	isr_Ticks_StartEx, .-isr_Ticks_StartEx
+ 197              		.section	.text.isr_Ticks_Stop,"ax",%progbits
+ 198              		.align	1
+ 199              		.global	isr_Ticks_Stop
+ 200              		.thumb
+ 201              		.thumb_func
+ 202              		.type	isr_Ticks_Stop, %function
+ 203              	isr_Ticks_Stop:
+ 204              	.LFB58:
+ 136:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 205              		.loc 1 136 0
+ 206              		.cfi_startproc
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 209              		@ link register save eliminated.
+ 210              	.LBB60:
+ 211              	.LBB61:
+ 212              		.loc 1 366 0
+ 213 0000 034B     		ldr	r3, .L8
+ 214              	.LBE61:
+ 215              	.LBE60:
+ 216              	.LBB63:
+ 217              	.LBB64:
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 218              		.loc 1 228 0
+ 219 0002 0448     		ldr	r0, .L8+4
+ 220              	.LBE64:
+ 221              	.LBE63:
+ 222              	.LBB66:
+ 223              	.LBB62:
+ 224              		.loc 1 366 0
+ 225 0004 4022     		movs	r2, #64
+ 226 0006 1A60     		str	r2, [r3, #0]
+ 227              	.LVL10:
+ 228              	.LBE62:
+ 229              	.LBE66:
+ 230              	.LBB67:
+ 231              	.LBB65:
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 232              		.loc 1 228 0
+ 233 0008 0168     		ldr	r1, [r0, #0]
+ 234              	.LVL11:
+ 230:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER] = address;
+ 235              		.loc 1 230 0
+ 236 000a 034A     		ldr	r2, .L8+8
+ 237 000c 8A65     		str	r2, [r1, #88]
+ 238 000e 7047     		bx	lr
+ 239              	.L9:
+ 240              		.align	2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 12
+
+
+ 241              	.L8:
+ 242 0010 80E100E0 		.word	-536813184
+ 243 0014 08ED00E0 		.word	-536810232
+ 244 0018 00000000 		.word	IntDefaultHandler
+ 245              	.LBE65:
+ 246              	.LBE67:
+ 247              		.cfi_endproc
+ 248              	.LFE58:
+ 249              		.size	isr_Ticks_Stop, .-isr_Ticks_Stop
+ 250              		.section	.text.isr_Ticks_Interrupt,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	isr_Ticks_Interrupt
+ 253              		.thumb
+ 254              		.thumb_func
+ 255              		.type	isr_Ticks_Interrupt, %function
+ 256              	isr_Ticks_Interrupt:
+ 257              	.LFB59:
+ 162:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 258              		.loc 1 162 0
+ 259              		.cfi_startproc
+ 260              		@ args = 0, pretend = 0, frame = 0
+ 261              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168:.\Generated_Source\PSoC5/isr_Ticks.c **** 	GyroNullPauseTicks++;
+ 262              		.loc 1 168 0
+ 263 0000 144A     		ldr	r2, .L13
+ 162:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 264              		.loc 1 162 0
+ 265 0002 38B5     		push	{r3, r4, r5, lr}
+ 266              	.LCFI0:
+ 267              		.cfi_def_cfa_offset 16
+ 268              		.cfi_offset 3, -16
+ 269              		.cfi_offset 4, -12
+ 270              		.cfi_offset 5, -8
+ 271              		.cfi_offset 14, -4
+ 168:.\Generated_Source\PSoC5/isr_Ticks.c **** 	GyroNullPauseTicks++;
+ 272              		.loc 1 168 0
+ 273 0004 1388     		ldrh	r3, [r2, #0]
+ 174:.\Generated_Source\PSoC5/isr_Ticks.c **** 	if (machine_state == GOBEE_AUTOCALIBRATING) 
+ 274              		.loc 1 174 0
+ 275 0006 144C     		ldr	r4, .L13+4
+ 168:.\Generated_Source\PSoC5/isr_Ticks.c **** 	GyroNullPauseTicks++;
+ 276              		.loc 1 168 0
+ 277 0008 581C     		adds	r0, r3, #1
+ 278 000a 81B2     		uxth	r1, r0
+ 279              	.LVL12:
+ 280 000c 1180     		strh	r1, [r2, #0]	@ movhi
+ 174:.\Generated_Source\PSoC5/isr_Ticks.c **** 	if (machine_state == GOBEE_AUTOCALIBRATING) 
+ 281              		.loc 1 174 0
+ 282 000e 2278     		ldrb	r2, [r4, #0]	@ zero_extendqisi2
+ 283 0010 042A     		cmp	r2, #4
+ 284 0012 1ED1     		bne	.L10
+ 176:.\Generated_Source\PSoC5/isr_Ticks.c **** 		if (GyroNullPauseTicks >= 1000)	/* 10 sec @ 100Hz */
+ 285              		.loc 1 176 0
+ 286 0014 B1F57A7F 		cmp	r1, #1000
+ 287 0018 1BD3     		bcc	.L10
+ 288              	.LBB70:
+ 289              	.LBB71:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 13
+
+
+ 178:.\Generated_Source\PSoC5/isr_Ticks.c **** 			isr_Ticks_Stop();				// Stop (me!!!) Wait Ticks  isr (100Hz)
+ 290              		.loc 1 178 0
+ 291 001a FFF7FEFF 		bl	isr_Ticks_Stop
+ 292              	.LVL13:
+ 181:.\Generated_Source\PSoC5/isr_Ticks.c **** 			agyro_messg = AGYRO_MEAN_STOP;
+ 293              		.loc 1 181 0
+ 294 001e 0F4B     		ldr	r3, .L13+8
+ 295 0020 0325     		movs	r5, #3
+ 296 0022 1D70     		strb	r5, [r3, #0]
+ 185:.\Generated_Source\PSoC5/isr_Ticks.c **** 			gobee_param.gyro_offset_fine.fnum = -agyro.mean_rate;
+ 297              		.loc 1 185 0
+ 298 0024 0E4D     		ldr	r5, .L13+12
+ 182:.\Generated_Source\PSoC5/isr_Ticks.c **** 			CyDelayUs(100);				/* 100usec delay */
+ 299              		.loc 1 182 0
+ 300 0026 6420     		movs	r0, #100
+ 301 0028 FFF7FEFF 		bl	CyDelayUs
+ 302              	.LVL14:
+ 185:.\Generated_Source\PSoC5/isr_Ticks.c **** 			gobee_param.gyro_offset_fine.fnum = -agyro.mean_rate;
+ 303              		.loc 1 185 0
+ 304 002c 2869     		ldr	r0, [r5, #16]
+ 305 002e 0D4A     		ldr	r2, .L13+16
+ 306 0030 00F10041 		add	r1, r0, #-2147483648
+ 307 0034 D161     		str	r1, [r2, #28]	@ float
+ 188:.\Generated_Source\PSoC5/isr_Ticks.c **** 			local_dummy = WriteAllEEparams();			
+ 308              		.loc 1 188 0
+ 309 0036 FFF7FEFF 		bl	WriteAllEEparams
+ 310              	.LVL15:
+ 311 003a 0B4B     		ldr	r3, .L13+20
+ 312 003c 1870     		strb	r0, [r3, #0]
+ 191:.\Generated_Source\PSoC5/isr_Ticks.c **** 			agyro.angle = 0;
+ 313              		.loc 1 191 0
+ 314 003e 0020     		movs	r0, #0
+ 315 0040 A861     		str	r0, [r5, #24]	@ float
+ 193:.\Generated_Source\PSoC5/isr_Ticks.c **** 			printf("\r\n[OK]\r\n");
+ 316              		.loc 1 193 0
+ 317 0042 0A48     		ldr	r0, .L13+24
+ 318 0044 FFF7FEFF 		bl	puts
+ 319              	.LVL16:
+ 196:.\Generated_Source\PSoC5/isr_Ticks.c **** 			Counter_LED_WritePeriod(LED_OK_OPERATIVE);		
+ 320              		.loc 1 196 0
+ 321 0048 3220     		movs	r0, #50
+ 322 004a FFF7FEFF 		bl	Counter_LED_WritePeriod
+ 323              	.LVL17:
+ 201:.\Generated_Source\PSoC5/isr_Ticks.c **** 			machine_state = GOBEE_OPERATIVE;
+ 324              		.loc 1 201 0
+ 325 004e 0121     		movs	r1, #1
+ 326 0050 2170     		strb	r1, [r4, #0]
+ 327              	.LVL18:
+ 328              	.L10:
+ 329 0052 38BD     		pop	{r3, r4, r5, pc}
+ 330              	.L14:
+ 331              		.align	2
+ 332              	.L13:
+ 333 0054 00000000 		.word	GyroNullPauseTicks
+ 334 0058 00000000 		.word	machine_state
+ 335 005c 00000000 		.word	agyro_messg
+ 336 0060 00000000 		.word	agyro
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 14
+
+
+ 337 0064 00000000 		.word	gobee_param
+ 338 0068 00000000 		.word	.LANCHOR0
+ 339 006c 00000000 		.word	.LC0
+ 340              	.LBE71:
+ 341              	.LBE70:
+ 342              		.cfi_endproc
+ 343              	.LFE59:
+ 344              		.size	isr_Ticks_Interrupt, .-isr_Ticks_Interrupt
+ 345              		.section	.text.isr_Ticks_SetVector,"ax",%progbits
+ 346              		.align	1
+ 347              		.global	isr_Ticks_SetVector
+ 348              		.thumb
+ 349              		.thumb_func
+ 350              		.type	isr_Ticks_SetVector, %function
+ 351              	isr_Ticks_SetVector:
+ 352              	.LFB60:
+ 225:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 353              		.loc 1 225 0
+ 354              		.cfi_startproc
+ 355              		@ args = 0, pretend = 0, frame = 0
+ 356              		@ frame_needed = 0, uses_anonymous_args = 0
+ 357              		@ link register save eliminated.
+ 358              	.LVL19:
+ 228:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 359              		.loc 1 228 0
+ 360 0000 014B     		ldr	r3, .L16
+ 361 0002 1968     		ldr	r1, [r3, #0]
+ 362              	.LVL20:
+ 230:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER] = address;
+ 363              		.loc 1 230 0
+ 364 0004 8865     		str	r0, [r1, #88]
+ 365 0006 7047     		bx	lr
+ 366              	.L17:
+ 367              		.align	2
+ 368              	.L16:
+ 369 0008 08ED00E0 		.word	-536810232
+ 370              		.cfi_endproc
+ 371              	.LFE60:
+ 372              		.size	isr_Ticks_SetVector, .-isr_Ticks_SetVector
+ 373              		.section	.text.isr_Ticks_GetVector,"ax",%progbits
+ 374              		.align	1
+ 375              		.global	isr_Ticks_GetVector
+ 376              		.thumb
+ 377              		.thumb_func
+ 378              		.type	isr_Ticks_GetVector, %function
+ 379              	isr_Ticks_GetVector:
+ 380              	.LFB61:
+ 249:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 381              		.loc 1 249 0
+ 382              		.cfi_startproc
+ 383              		@ args = 0, pretend = 0, frame = 0
+ 384              		@ frame_needed = 0, uses_anonymous_args = 0
+ 385              		@ link register save eliminated.
+ 386              	.LVL21:
+ 252:.\Generated_Source\PSoC5/isr_Ticks.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 387              		.loc 1 252 0
+ 388 0000 014B     		ldr	r3, .L19
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 15
+
+
+ 389              	.LVL22:
+ 254:.\Generated_Source\PSoC5/isr_Ticks.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_Ticks__INTC_NUMBER];
+ 390              		.loc 1 254 0
+ 391 0002 1868     		ldr	r0, [r3, #0]
+ 255:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 392              		.loc 1 255 0
+ 393 0004 806D     		ldr	r0, [r0, #88]
+ 394 0006 7047     		bx	lr
+ 395              	.L20:
+ 396              		.align	2
+ 397              	.L19:
+ 398 0008 08ED00E0 		.word	-536810232
+ 399              		.cfi_endproc
+ 400              	.LFE61:
+ 401              		.size	isr_Ticks_GetVector, .-isr_Ticks_GetVector
+ 402              		.section	.text.isr_Ticks_SetPriority,"ax",%progbits
+ 403              		.align	1
+ 404              		.global	isr_Ticks_SetPriority
+ 405              		.thumb
+ 406              		.thumb_func
+ 407              		.type	isr_Ticks_SetPriority, %function
+ 408              	isr_Ticks_SetPriority:
+ 409              	.LFB62:
+ 277:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 410              		.loc 1 277 0
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414              		@ link register save eliminated.
+ 415              	.LVL23:
+ 278:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_PRIOR = priority << 5;
+ 416              		.loc 1 278 0
+ 417 0000 4001     		lsls	r0, r0, #5
+ 418              	.LVL24:
+ 419 0002 024B     		ldr	r3, .L22
+ 420 0004 C1B2     		uxtb	r1, r0
+ 421 0006 1970     		strb	r1, [r3, #0]
+ 422 0008 7047     		bx	lr
+ 423              	.L23:
+ 424 000a 00BF     		.align	2
+ 425              	.L22:
+ 426 000c 06E400E0 		.word	-536812538
+ 427              		.cfi_endproc
+ 428              	.LFE62:
+ 429              		.size	isr_Ticks_SetPriority, .-isr_Ticks_SetPriority
+ 430              		.section	.text.isr_Ticks_GetPriority,"ax",%progbits
+ 431              		.align	1
+ 432              		.global	isr_Ticks_GetPriority
+ 433              		.thumb
+ 434              		.thumb_func
+ 435              		.type	isr_Ticks_GetPriority, %function
+ 436              	isr_Ticks_GetPriority:
+ 437              	.LFB63:
+ 297:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 438              		.loc 1 297 0
+ 439              		.cfi_startproc
+ 440              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 16
+
+
+ 441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 442              		@ link register save eliminated.
+ 301:.\Generated_Source\PSoC5/isr_Ticks.c ****     priority = *isr_Ticks_INTC_PRIOR >> 5;
+ 443              		.loc 1 301 0
+ 444 0000 014B     		ldr	r3, .L25
+ 445 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 446              	.LVL25:
+ 304:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 447              		.loc 1 304 0
+ 448 0004 4009     		lsrs	r0, r0, #5
+ 449              	.LVL26:
+ 450 0006 7047     		bx	lr
+ 451              	.L26:
+ 452              		.align	2
+ 453              	.L25:
+ 454 0008 06E400E0 		.word	-536812538
+ 455              		.cfi_endproc
+ 456              	.LFE63:
+ 457              		.size	isr_Ticks_GetPriority, .-isr_Ticks_GetPriority
+ 458              		.section	.text.isr_Ticks_Enable,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	isr_Ticks_Enable
+ 461              		.thumb
+ 462              		.thumb_func
+ 463              		.type	isr_Ticks_Enable, %function
+ 464              	isr_Ticks_Enable:
+ 465              	.LFB64:
+ 322:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 466              		.loc 1 322 0
+ 467              		.cfi_startproc
+ 468              		@ args = 0, pretend = 0, frame = 0
+ 469              		@ frame_needed = 0, uses_anonymous_args = 0
+ 470              		@ link register save eliminated.
+ 324:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_EN = isr_Ticks__INTC_MASK;
+ 471              		.loc 1 324 0
+ 472 0000 014B     		ldr	r3, .L28
+ 473 0002 4022     		movs	r2, #64
+ 474 0004 1A60     		str	r2, [r3, #0]
+ 475 0006 7047     		bx	lr
+ 476              	.L29:
+ 477              		.align	2
+ 478              	.L28:
+ 479 0008 00E100E0 		.word	-536813312
+ 480              		.cfi_endproc
+ 481              	.LFE64:
+ 482              		.size	isr_Ticks_Enable, .-isr_Ticks_Enable
+ 483              		.section	.text.isr_Ticks_GetState,"ax",%progbits
+ 484              		.align	1
+ 485              		.global	isr_Ticks_GetState
+ 486              		.thumb
+ 487              		.thumb_func
+ 488              		.type	isr_Ticks_GetState, %function
+ 489              	isr_Ticks_GetState:
+ 490              	.LFB65:
+ 343:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 491              		.loc 1 343 0
+ 492              		.cfi_startproc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 17
+
+
+ 493              		@ args = 0, pretend = 0, frame = 0
+ 494              		@ frame_needed = 0, uses_anonymous_args = 0
+ 495              		@ link register save eliminated.
+ 345:.\Generated_Source\PSoC5/isr_Ticks.c ****     return ((*isr_Ticks_INTC_SET_EN & (uint32)isr_Ticks__INTC_MASK) != 0u) ? 1u:0u;
+ 496              		.loc 1 345 0
+ 497 0000 024B     		ldr	r3, .L31
+ 498 0002 1868     		ldr	r0, [r3, #0]
+ 346:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 499              		.loc 1 346 0
+ 500 0004 C0F38010 		ubfx	r0, r0, #6, #1
+ 501 0008 7047     		bx	lr
+ 502              	.L32:
+ 503 000a 00BF     		.align	2
+ 504              	.L31:
+ 505 000c 00E100E0 		.word	-536813312
+ 506              		.cfi_endproc
+ 507              	.LFE65:
+ 508              		.size	isr_Ticks_GetState, .-isr_Ticks_GetState
+ 509              		.section	.text.isr_Ticks_Disable,"ax",%progbits
+ 510              		.align	1
+ 511              		.global	isr_Ticks_Disable
+ 512              		.thumb
+ 513              		.thumb_func
+ 514              		.type	isr_Ticks_Disable, %function
+ 515              	isr_Ticks_Disable:
+ 516              	.LFB66:
+ 364:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 517              		.loc 1 364 0
+ 518              		.cfi_startproc
+ 519              		@ args = 0, pretend = 0, frame = 0
+ 520              		@ frame_needed = 0, uses_anonymous_args = 0
+ 521              		@ link register save eliminated.
+ 522              		.loc 1 366 0
+ 523 0000 014B     		ldr	r3, .L34
+ 524 0002 4022     		movs	r2, #64
+ 525 0004 1A60     		str	r2, [r3, #0]
+ 526 0006 7047     		bx	lr
+ 527              	.L35:
+ 528              		.align	2
+ 529              	.L34:
+ 530 0008 80E100E0 		.word	-536813184
+ 531              		.cfi_endproc
+ 532              	.LFE66:
+ 533              		.size	isr_Ticks_Disable, .-isr_Ticks_Disable
+ 534              		.section	.text.isr_Ticks_SetPending,"ax",%progbits
+ 535              		.align	1
+ 536              		.global	isr_Ticks_SetPending
+ 537              		.thumb
+ 538              		.thumb_func
+ 539              		.type	isr_Ticks_SetPending, %function
+ 540              	isr_Ticks_SetPending:
+ 541              	.LFB67:
+ 367:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 368:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 369:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 370:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 371:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_SetPending
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 18
+
+
+ 372:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 373:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 374:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 375:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 376:.\Generated_Source\PSoC5/isr_Ticks.c **** *   generating the interrupt.
+ 377:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 378:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 379:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 380:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 381:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 382:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 383:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 384:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 385:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_SetPending(void)
+ 386:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 542              		.loc 1 386 0
+ 543              		.cfi_startproc
+ 544              		@ args = 0, pretend = 0, frame = 0
+ 545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 546              		@ link register save eliminated.
+ 387:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_SET_PD = isr_Ticks__INTC_MASK;
+ 547              		.loc 1 387 0
+ 548 0000 014B     		ldr	r3, .L37
+ 549 0002 4022     		movs	r2, #64
+ 550 0004 1A60     		str	r2, [r3, #0]
+ 551 0006 7047     		bx	lr
+ 552              	.L38:
+ 553              		.align	2
+ 554              	.L37:
+ 555 0008 00E200E0 		.word	-536813056
+ 556              		.cfi_endproc
+ 557              	.LFE67:
+ 558              		.size	isr_Ticks_SetPending, .-isr_Ticks_SetPending
+ 559              		.section	.text.isr_Ticks_ClearPending,"ax",%progbits
+ 560              		.align	1
+ 561              		.global	isr_Ticks_ClearPending
+ 562              		.thumb
+ 563              		.thumb_func
+ 564              		.type	isr_Ticks_ClearPending, %function
+ 565              	isr_Ticks_ClearPending:
+ 566              	.LFB68:
+ 388:.\Generated_Source\PSoC5/isr_Ticks.c **** }
+ 389:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 390:.\Generated_Source\PSoC5/isr_Ticks.c **** 
+ 391:.\Generated_Source\PSoC5/isr_Ticks.c **** /*******************************************************************************
+ 392:.\Generated_Source\PSoC5/isr_Ticks.c **** * Function Name: isr_Ticks_ClearPending
+ 393:.\Generated_Source\PSoC5/isr_Ticks.c **** ********************************************************************************
+ 394:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 395:.\Generated_Source\PSoC5/isr_Ticks.c **** * Summary:
+ 396:.\Generated_Source\PSoC5/isr_Ticks.c **** *   Clears a pending interrupt.
+ 397:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 398:.\Generated_Source\PSoC5/isr_Ticks.c **** * Parameters:
+ 399:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 400:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ 401:.\Generated_Source\PSoC5/isr_Ticks.c **** * Return:
+ 402:.\Generated_Source\PSoC5/isr_Ticks.c **** *   None
+ 403:.\Generated_Source\PSoC5/isr_Ticks.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 19
+
+
+ 404:.\Generated_Source\PSoC5/isr_Ticks.c **** *******************************************************************************/
+ 405:.\Generated_Source\PSoC5/isr_Ticks.c **** void isr_Ticks_ClearPending(void)
+ 406:.\Generated_Source\PSoC5/isr_Ticks.c **** {
+ 567              		.loc 1 406 0
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 0
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+ 571              		@ link register save eliminated.
+ 407:.\Generated_Source\PSoC5/isr_Ticks.c ****     *isr_Ticks_INTC_CLR_PD = isr_Ticks__INTC_MASK;
+ 572              		.loc 1 407 0
+ 573 0000 014B     		ldr	r3, .L40
+ 574 0002 4022     		movs	r2, #64
+ 575 0004 1A60     		str	r2, [r3, #0]
+ 576 0006 7047     		bx	lr
+ 577              	.L41:
+ 578              		.align	2
+ 579              	.L40:
+ 580 0008 80E200E0 		.word	-536812928
+ 581              		.cfi_endproc
+ 582              	.LFE68:
+ 583              		.size	isr_Ticks_ClearPending, .-isr_Ticks_ClearPending
+ 584              		.global	local_dummy
+ 585              		.comm	gobee_vparam,0,1
+ 586              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 587              	.LC0:
+ 588 0000 0D0A5B4F 		.ascii	"\015\012[OK]\015\000"
+ 588      4B5D0D00 
+ 589              		.bss
+ 590              		.set	.LANCHOR0,. + 0
+ 591              		.type	local_dummy, %object
+ 592              		.size	local_dummy, 1
+ 593              	local_dummy:
+ 594 0000 00       		.space	1
+ 595              		.text
+ 596              	.Letext0:
+ 597              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 598              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 599              		.file 4 "./gobee.h"
+ 600              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 601              		.file 6 "./Generated_Source/PSoC5/CyLib.h"
+ 602              		.file 7 "./gobeelib.h"
+ 603              		.file 8 "<built-in>"
+ 604              		.file 9 "./Generated_Source/PSoC5/Counter_LED.h"
+ 605              		.section	.debug_info,"",%progbits
+ 606              	.Ldebug_info0:
+ 607 0000 0F070000 		.4byte	0x70f
+ 608 0004 0200     		.2byte	0x2
+ 609 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 610 000a 04       		.byte	0x4
+ 611 000b 01       		.uleb128 0x1
+ 612 000c 9F020000 		.4byte	.LASF79
+ 613 0010 01       		.byte	0x1
+ 614 0011 3E040000 		.4byte	.LASF80
+ 615 0015 14030000 		.4byte	.LASF81
+ 616 0019 60010000 		.4byte	.Ldebug_ranges0+0x160
+ 617 001d 00000000 		.4byte	0
+ 618 0021 00000000 		.4byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 20
+
+
+ 619 0025 00000000 		.4byte	.Ldebug_line0
+ 620 0029 02       		.uleb128 0x2
+ 621 002a 01       		.byte	0x1
+ 622 002b 06       		.byte	0x6
+ 623 002c 26010000 		.4byte	.LASF0
+ 624 0030 02       		.uleb128 0x2
+ 625 0031 01       		.byte	0x1
+ 626 0032 08       		.byte	0x8
+ 627 0033 B4010000 		.4byte	.LASF1
+ 628 0037 02       		.uleb128 0x2
+ 629 0038 02       		.byte	0x2
+ 630 0039 05       		.byte	0x5
+ 631 003a 46000000 		.4byte	.LASF2
+ 632 003e 02       		.uleb128 0x2
+ 633 003f 02       		.byte	0x2
+ 634 0040 07       		.byte	0x7
+ 635 0041 E8020000 		.4byte	.LASF3
+ 636 0045 03       		.uleb128 0x3
+ 637 0046 04       		.byte	0x4
+ 638 0047 05       		.byte	0x5
+ 639 0048 696E7400 		.ascii	"int\000"
+ 640 004c 02       		.uleb128 0x2
+ 641 004d 04       		.byte	0x4
+ 642 004e 07       		.byte	0x7
+ 643 004f 68020000 		.4byte	.LASF4
+ 644 0053 02       		.uleb128 0x2
+ 645 0054 08       		.byte	0x8
+ 646 0055 05       		.byte	0x5
+ 647 0056 56010000 		.4byte	.LASF5
+ 648 005a 02       		.uleb128 0x2
+ 649 005b 08       		.byte	0x8
+ 650 005c 07       		.byte	0x7
+ 651 005d 4B020000 		.4byte	.LASF6
+ 652 0061 02       		.uleb128 0x2
+ 653 0062 04       		.byte	0x4
+ 654 0063 05       		.byte	0x5
+ 655 0064 7F010000 		.4byte	.LASF7
+ 656 0068 02       		.uleb128 0x2
+ 657 0069 04       		.byte	0x4
+ 658 006a 07       		.byte	0x7
+ 659 006b 50000000 		.4byte	.LASF8
+ 660 006f 02       		.uleb128 0x2
+ 661 0070 04       		.byte	0x4
+ 662 0071 07       		.byte	0x7
+ 663 0072 75020000 		.4byte	.LASF9
+ 664 0076 04       		.uleb128 0x4
+ 665 0077 01       		.byte	0x1
+ 666 0078 05       		.uleb128 0x5
+ 667 0079 04       		.byte	0x4
+ 668 007a 76000000 		.4byte	0x76
+ 669 007e 02       		.uleb128 0x2
+ 670 007f 01       		.byte	0x1
+ 671 0080 08       		.byte	0x8
+ 672 0081 0F030000 		.4byte	.LASF10
+ 673 0085 05       		.uleb128 0x5
+ 674 0086 04       		.byte	0x4
+ 675 0087 8B000000 		.4byte	0x8b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 21
+
+
+ 676 008b 06       		.uleb128 0x6
+ 677 008c 7E000000 		.4byte	0x7e
+ 678 0090 07       		.uleb128 0x7
+ 679 0091 90010000 		.4byte	.LASF11
+ 680 0095 02       		.byte	0x2
+ 681 0096 4F       		.byte	0x4f
+ 682 0097 61000000 		.4byte	0x61
+ 683 009b 07       		.uleb128 0x7
+ 684 009c 0D010000 		.4byte	.LASF12
+ 685 00a0 03       		.byte	0x3
+ 686 00a1 5B       		.byte	0x5b
+ 687 00a2 30000000 		.4byte	0x30
+ 688 00a6 07       		.uleb128 0x7
+ 689 00a7 FA000000 		.4byte	.LASF13
+ 690 00ab 03       		.byte	0x3
+ 691 00ac 5C       		.byte	0x5c
+ 692 00ad 3E000000 		.4byte	0x3e
+ 693 00b1 07       		.uleb128 0x7
+ 694 00b2 13040000 		.4byte	.LASF14
+ 695 00b6 03       		.byte	0x3
+ 696 00b7 5D       		.byte	0x5d
+ 697 00b8 6F000000 		.4byte	0x6f
+ 698 00bc 07       		.uleb128 0x7
+ 699 00bd 64010000 		.4byte	.LASF15
+ 700 00c1 03       		.byte	0x3
+ 701 00c2 5E       		.byte	0x5e
+ 702 00c3 29000000 		.4byte	0x29
+ 703 00c7 07       		.uleb128 0x7
+ 704 00c8 07010000 		.4byte	.LASF16
+ 705 00cc 03       		.byte	0x3
+ 706 00cd 5F       		.byte	0x5f
+ 707 00ce 37000000 		.4byte	0x37
+ 708 00d2 02       		.uleb128 0x2
+ 709 00d3 04       		.byte	0x4
+ 710 00d4 04       		.byte	0x4
+ 711 00d5 32010000 		.4byte	.LASF17
+ 712 00d9 02       		.uleb128 0x2
+ 713 00da 08       		.byte	0x8
+ 714 00db 04       		.byte	0x4
+ 715 00dc E4040000 		.4byte	.LASF18
+ 716 00e0 07       		.uleb128 0x7
+ 717 00e1 63000000 		.4byte	.LASF19
+ 718 00e5 03       		.byte	0x3
+ 719 00e6 6C       		.byte	0x6c
+ 720 00e7 7E000000 		.4byte	0x7e
+ 721 00eb 07       		.uleb128 0x7
+ 722 00ec ED030000 		.4byte	.LASF20
+ 723 00f0 03       		.byte	0x3
+ 724 00f1 F0       		.byte	0xf0
+ 725 00f2 F6000000 		.4byte	0xf6
+ 726 00f6 08       		.uleb128 0x8
+ 727 00f7 9B000000 		.4byte	0x9b
+ 728 00fb 07       		.uleb128 0x7
+ 729 00fc 99020000 		.4byte	.LASF21
+ 730 0100 03       		.byte	0x3
+ 731 0101 F2       		.byte	0xf2
+ 732 0102 06010000 		.4byte	0x106
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 22
+
+
+ 733 0106 08       		.uleb128 0x8
+ 734 0107 B1000000 		.4byte	0xb1
+ 735 010b 09       		.uleb128 0x9
+ 736 010c 15020000 		.4byte	.LASF22
+ 737 0110 03       		.byte	0x3
+ 738 0111 0201     		.2byte	0x102
+ 739 0113 78000000 		.4byte	0x78
+ 740 0117 0A       		.uleb128 0xa
+ 741 0118 04       		.byte	0x4
+ 742 0119 04       		.byte	0x4
+ 743 011a CC       		.byte	0xcc
+ 744 011b 36010000 		.4byte	0x136
+ 745 011f 0B       		.uleb128 0xb
+ 746 0120 00000000 		.4byte	.LASF23
+ 747 0124 04       		.byte	0x4
+ 748 0125 CE       		.byte	0xce
+ 749 0126 36010000 		.4byte	0x136
+ 750 012a 0B       		.uleb128 0xb
+ 751 012b 26000000 		.4byte	.LASF24
+ 752 012f 04       		.byte	0x4
+ 753 0130 CF       		.byte	0xcf
+ 754 0131 D2000000 		.4byte	0xd2
+ 755 0135 00       		.byte	0
+ 756 0136 0C       		.uleb128 0xc
+ 757 0137 E0000000 		.4byte	0xe0
+ 758 013b 46010000 		.4byte	0x146
+ 759 013f 0D       		.uleb128 0xd
+ 760 0140 68000000 		.4byte	0x68
+ 761 0144 03       		.byte	0x3
+ 762 0145 00       		.byte	0
+ 763 0146 07       		.uleb128 0x7
+ 764 0147 1A040000 		.4byte	.LASF25
+ 765 014b 04       		.byte	0x4
+ 766 014c D0       		.byte	0xd0
+ 767 014d 17010000 		.4byte	0x117
+ 768 0151 0E       		.uleb128 0xe
+ 769 0152 30040000 		.4byte	.LASF82
+ 770 0156 00       		.byte	0
+ 771 0157 04       		.byte	0x4
+ 772 0158 DD       		.byte	0xdd
+ 773 0159 0F       		.uleb128 0xf
+ 774 015a 82030000 		.4byte	.LASF46
+ 775 015e 34       		.byte	0x34
+ 776 015f 04       		.byte	0x4
+ 777 0160 E5       		.byte	0xe5
+ 778 0161 8B020000 		.4byte	0x28b
+ 779 0165 10       		.uleb128 0x10
+ 780 0166 0E050000 		.4byte	.LASF26
+ 781 016a 04       		.byte	0x4
+ 782 016b E7       		.byte	0xe7
+ 783 016c 9B000000 		.4byte	0x9b
+ 784 0170 02       		.byte	0x2
+ 785 0171 23       		.byte	0x23
+ 786 0172 00       		.uleb128 0
+ 787 0173 10       		.uleb128 0x10
+ 788 0174 8F030000 		.4byte	.LASF27
+ 789 0178 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 23
+
+
+ 790 0179 E9       		.byte	0xe9
+ 791 017a 9B000000 		.4byte	0x9b
+ 792 017e 02       		.byte	0x2
+ 793 017f 23       		.byte	0x23
+ 794 0180 01       		.uleb128 0x1
+ 795 0181 10       		.uleb128 0x10
+ 796 0182 04050000 		.4byte	.LASF28
+ 797 0186 04       		.byte	0x4
+ 798 0187 ED       		.byte	0xed
+ 799 0188 9B000000 		.4byte	0x9b
+ 800 018c 02       		.byte	0x2
+ 801 018d 23       		.byte	0x23
+ 802 018e 02       		.uleb128 0x2
+ 803 018f 10       		.uleb128 0x10
+ 804 0190 01010000 		.4byte	.LASF29
+ 805 0194 04       		.byte	0x4
+ 806 0195 F1       		.byte	0xf1
+ 807 0196 46010000 		.4byte	0x146
+ 808 019a 02       		.byte	0x2
+ 809 019b 23       		.byte	0x23
+ 810 019c 04       		.uleb128 0x4
+ 811 019d 10       		.uleb128 0x10
+ 812 019e 33020000 		.4byte	.LASF30
+ 813 01a2 04       		.byte	0x4
+ 814 01a3 F5       		.byte	0xf5
+ 815 01a4 46010000 		.4byte	0x146
+ 816 01a8 02       		.byte	0x2
+ 817 01a9 23       		.byte	0x23
+ 818 01aa 08       		.uleb128 0x8
+ 819 01ab 10       		.uleb128 0x10
+ 820 01ac 8B000000 		.4byte	.LASF31
+ 821 01b0 04       		.byte	0x4
+ 822 01b1 F9       		.byte	0xf9
+ 823 01b2 46010000 		.4byte	0x146
+ 824 01b6 02       		.byte	0x2
+ 825 01b7 23       		.byte	0x23
+ 826 01b8 0C       		.uleb128 0xc
+ 827 01b9 10       		.uleb128 0x10
+ 828 01ba E1000000 		.4byte	.LASF32
+ 829 01be 04       		.byte	0x4
+ 830 01bf FD       		.byte	0xfd
+ 831 01c0 46010000 		.4byte	0x146
+ 832 01c4 02       		.byte	0x2
+ 833 01c5 23       		.byte	0x23
+ 834 01c6 10       		.uleb128 0x10
+ 835 01c7 11       		.uleb128 0x11
+ 836 01c8 AD000000 		.4byte	.LASF33
+ 837 01cc 04       		.byte	0x4
+ 838 01cd 0301     		.2byte	0x103
+ 839 01cf BC000000 		.4byte	0xbc
+ 840 01d3 02       		.byte	0x2
+ 841 01d4 23       		.byte	0x23
+ 842 01d5 14       		.uleb128 0x14
+ 843 01d6 11       		.uleb128 0x11
+ 844 01d7 74040000 		.4byte	.LASF34
+ 845 01db 04       		.byte	0x4
+ 846 01dc 0501     		.2byte	0x105
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 24
+
+
+ 847 01de C7000000 		.4byte	0xc7
+ 848 01e2 02       		.byte	0x2
+ 849 01e3 23       		.byte	0x23
+ 850 01e4 16       		.uleb128 0x16
+ 851 01e5 11       		.uleb128 0x11
+ 852 01e6 98010000 		.4byte	.LASF35
+ 853 01ea 04       		.byte	0x4
+ 854 01eb 0601     		.2byte	0x106
+ 855 01ed C7000000 		.4byte	0xc7
+ 856 01f1 02       		.byte	0x2
+ 857 01f2 23       		.byte	0x23
+ 858 01f3 18       		.uleb128 0x18
+ 859 01f4 11       		.uleb128 0x11
+ 860 01f5 22020000 		.4byte	.LASF36
+ 861 01f9 04       		.byte	0x4
+ 862 01fa 0701     		.2byte	0x107
+ 863 01fc C7000000 		.4byte	0xc7
+ 864 0200 02       		.byte	0x2
+ 865 0201 23       		.byte	0x23
+ 866 0202 1A       		.uleb128 0x1a
+ 867 0203 11       		.uleb128 0x11
+ 868 0204 63040000 		.4byte	.LASF37
+ 869 0208 04       		.byte	0x4
+ 870 0209 0901     		.2byte	0x109
+ 871 020b 46010000 		.4byte	0x146
+ 872 020f 02       		.byte	0x2
+ 873 0210 23       		.byte	0x23
+ 874 0211 1C       		.uleb128 0x1c
+ 875 0212 11       		.uleb128 0x11
+ 876 0213 C7030000 		.4byte	.LASF38
+ 877 0217 04       		.byte	0x4
+ 878 0218 0B01     		.2byte	0x10b
+ 879 021a 46010000 		.4byte	0x146
+ 880 021e 02       		.byte	0x2
+ 881 021f 23       		.byte	0x23
+ 882 0220 20       		.uleb128 0x20
+ 883 0221 11       		.uleb128 0x11
+ 884 0222 85040000 		.4byte	.LASF39
+ 885 0226 04       		.byte	0x4
+ 886 0227 0D01     		.2byte	0x10d
+ 887 0229 46010000 		.4byte	0x146
+ 888 022d 02       		.byte	0x2
+ 889 022e 23       		.byte	0x23
+ 890 022f 24       		.uleb128 0x24
+ 891 0230 11       		.uleb128 0x11
+ 892 0231 C2010000 		.4byte	.LASF40
+ 893 0235 04       		.byte	0x4
+ 894 0236 1601     		.2byte	0x116
+ 895 0238 9B000000 		.4byte	0x9b
+ 896 023c 02       		.byte	0x2
+ 897 023d 23       		.byte	0x23
+ 898 023e 28       		.uleb128 0x28
+ 899 023f 11       		.uleb128 0x11
+ 900 0240 02040000 		.4byte	.LASF41
+ 901 0244 04       		.byte	0x4
+ 902 0245 1B01     		.2byte	0x11b
+ 903 0247 9B000000 		.4byte	0x9b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 25
+
+
+ 904 024b 02       		.byte	0x2
+ 905 024c 23       		.byte	0x23
+ 906 024d 29       		.uleb128 0x29
+ 907 024e 11       		.uleb128 0x11
+ 908 024f 69000000 		.4byte	.LASF42
+ 909 0253 04       		.byte	0x4
+ 910 0254 1D01     		.2byte	0x11d
+ 911 0256 9B000000 		.4byte	0x9b
+ 912 025a 02       		.byte	0x2
+ 913 025b 23       		.byte	0x23
+ 914 025c 2A       		.uleb128 0x2a
+ 915 025d 11       		.uleb128 0x11
+ 916 025e 22040000 		.4byte	.LASF43
+ 917 0262 04       		.byte	0x4
+ 918 0263 2001     		.2byte	0x120
+ 919 0265 A6000000 		.4byte	0xa6
+ 920 0269 02       		.byte	0x2
+ 921 026a 23       		.byte	0x23
+ 922 026b 2C       		.uleb128 0x2c
+ 923 026c 11       		.uleb128 0x11
+ 924 026d 91000000 		.4byte	.LASF44
+ 925 0271 04       		.byte	0x4
+ 926 0272 2401     		.2byte	0x124
+ 927 0274 C7000000 		.4byte	0xc7
+ 928 0278 02       		.byte	0x2
+ 929 0279 23       		.byte	0x23
+ 930 027a 2E       		.uleb128 0x2e
+ 931 027b 11       		.uleb128 0x11
+ 932 027c 9C000000 		.4byte	.LASF45
+ 933 0280 04       		.byte	0x4
+ 934 0281 2701     		.2byte	0x127
+ 935 0283 46010000 		.4byte	0x146
+ 936 0287 02       		.byte	0x2
+ 937 0288 23       		.byte	0x23
+ 938 0289 30       		.uleb128 0x30
+ 939 028a 00       		.byte	0
+ 940 028b 12       		.uleb128 0x12
+ 941 028c 7F000000 		.4byte	.LASF47
+ 942 0290 1C       		.byte	0x1c
+ 943 0291 04       		.byte	0x4
+ 944 0292 3301     		.2byte	0x133
+ 945 0294 11030000 		.4byte	0x311
+ 946 0298 11       		.uleb128 0x11
+ 947 0299 A9010000 		.4byte	.LASF48
+ 948 029d 04       		.byte	0x4
+ 949 029e 3601     		.2byte	0x136
+ 950 02a0 C7000000 		.4byte	0xc7
+ 951 02a4 02       		.byte	0x2
+ 952 02a5 23       		.byte	0x23
+ 953 02a6 00       		.uleb128 0
+ 954 02a7 13       		.uleb128 0x13
+ 955 02a8 41444300 		.ascii	"ADC\000"
+ 956 02ac 04       		.byte	0x4
+ 957 02ad 3701     		.2byte	0x137
+ 958 02af C7000000 		.4byte	0xc7
+ 959 02b3 02       		.byte	0x2
+ 960 02b4 23       		.byte	0x23
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 26
+
+
+ 961 02b5 02       		.uleb128 0x2
+ 962 02b6 11       		.uleb128 0x11
+ 963 02b7 62020000 		.4byte	.LASF49
+ 964 02bb 04       		.byte	0x4
+ 965 02bc 3801     		.2byte	0x138
+ 966 02be D2000000 		.4byte	0xd2
+ 967 02c2 02       		.byte	0x2
+ 968 02c3 23       		.byte	0x23
+ 969 02c4 04       		.uleb128 0x4
+ 970 02c5 11       		.uleb128 0x11
+ 971 02c6 C1040000 		.4byte	.LASF50
+ 972 02ca 04       		.byte	0x4
+ 973 02cb 3901     		.2byte	0x139
+ 974 02cd D2000000 		.4byte	0xd2
+ 975 02d1 02       		.byte	0x2
+ 976 02d2 23       		.byte	0x23
+ 977 02d3 08       		.uleb128 0x8
+ 978 02d4 11       		.uleb128 0x11
+ 979 02d5 D4000000 		.4byte	.LASF51
+ 980 02d9 04       		.byte	0x4
+ 981 02da 3A01     		.2byte	0x13a
+ 982 02dc D2000000 		.4byte	0xd2
+ 983 02e0 02       		.byte	0x2
+ 984 02e1 23       		.byte	0x23
+ 985 02e2 0C       		.uleb128 0xc
+ 986 02e3 11       		.uleb128 0x11
+ 987 02e4 59000000 		.4byte	.LASF52
+ 988 02e8 04       		.byte	0x4
+ 989 02e9 3B01     		.2byte	0x13b
+ 990 02eb D2000000 		.4byte	0xd2
+ 991 02ef 02       		.byte	0x2
+ 992 02f0 23       		.byte	0x23
+ 993 02f1 10       		.uleb128 0x10
+ 994 02f2 11       		.uleb128 0x11
+ 995 02f3 13010000 		.4byte	.LASF53
+ 996 02f7 04       		.byte	0x4
+ 997 02f8 3C01     		.2byte	0x13c
+ 998 02fa D2000000 		.4byte	0xd2
+ 999 02fe 02       		.byte	0x2
+ 1000 02ff 23       		.byte	0x23
+ 1001 0300 14       		.uleb128 0x14
+ 1002 0301 11       		.uleb128 0x11
+ 1003 0302 C6040000 		.4byte	.LASF54
+ 1004 0306 04       		.byte	0x4
+ 1005 0307 3D01     		.2byte	0x13d
+ 1006 0309 D2000000 		.4byte	0xd2
+ 1007 030d 02       		.byte	0x2
+ 1008 030e 23       		.byte	0x23
+ 1009 030f 18       		.uleb128 0x18
+ 1010 0310 00       		.byte	0
+ 1011 0311 14       		.uleb128 0x14
+ 1012 0312 01       		.byte	0x1
+ 1013 0313 34000000 		.4byte	.LASF55
+ 1014 0317 01       		.byte	0x1
+ 1015 0318 6B01     		.2byte	0x16b
+ 1016 031a 01       		.byte	0x1
+ 1017 031b 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 27
+
+
+ 1018 031c 15       		.uleb128 0x15
+ 1019 031d 01       		.byte	0x1
+ 1020 031e D9030000 		.4byte	.LASF57
+ 1021 0322 01       		.byte	0x1
+ 1022 0323 E0       		.byte	0xe0
+ 1023 0324 01       		.byte	0x1
+ 1024 0325 01       		.byte	0x1
+ 1025 0326 41030000 		.4byte	0x341
+ 1026 032a 16       		.uleb128 0x16
+ 1027 032b 88010000 		.4byte	.LASF59
+ 1028 032f 01       		.byte	0x1
+ 1029 0330 E0       		.byte	0xe0
+ 1030 0331 0B010000 		.4byte	0x10b
+ 1031 0335 17       		.uleb128 0x17
+ 1032 0336 99030000 		.4byte	.LASF67
+ 1033 033a 01       		.byte	0x1
+ 1034 033b E2       		.byte	0xe2
+ 1035 033c 41030000 		.4byte	0x341
+ 1036 0340 00       		.byte	0
+ 1037 0341 05       		.uleb128 0x5
+ 1038 0342 04       		.byte	0x4
+ 1039 0343 0B010000 		.4byte	0x10b
+ 1040 0347 18       		.uleb128 0x18
+ 1041 0348 01       		.byte	0x1
+ 1042 0349 F7010000 		.4byte	.LASF56
+ 1043 034d 01       		.byte	0x1
+ 1044 034e A1       		.byte	0xa1
+ 1045 034f 01       		.byte	0x1
+ 1046 0350 01       		.byte	0x1
+ 1047 0351 19       		.uleb128 0x19
+ 1048 0352 01       		.byte	0x1
+ 1049 0353 BE000000 		.4byte	.LASF58
+ 1050 0357 01       		.byte	0x1
+ 1051 0358 1401     		.2byte	0x114
+ 1052 035a 01       		.byte	0x1
+ 1053 035b 01       		.byte	0x1
+ 1054 035c 6D030000 		.4byte	0x36d
+ 1055 0360 1A       		.uleb128 0x1a
+ 1056 0361 2B000000 		.4byte	.LASF60
+ 1057 0365 01       		.byte	0x1
+ 1058 0366 1401     		.2byte	0x114
+ 1059 0368 9B000000 		.4byte	0x9b
+ 1060 036c 00       		.byte	0
+ 1061 036d 14       		.uleb128 0x14
+ 1062 036e 01       		.byte	0x1
+ 1063 036f 06000000 		.4byte	.LASF61
+ 1064 0373 01       		.byte	0x1
+ 1065 0374 4101     		.2byte	0x141
+ 1066 0376 01       		.byte	0x1
+ 1067 0377 01       		.byte	0x1
+ 1068 0378 1B       		.uleb128 0x1b
+ 1069 0379 01       		.byte	0x1
+ 1070 037a F2030000 		.4byte	.LASF62
+ 1071 037e 01       		.byte	0x1
+ 1072 037f 4C       		.byte	0x4c
+ 1073 0380 01       		.byte	0x1
+ 1074 0381 00000000 		.4byte	.LFB56
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 28
+
+
+ 1075 0385 30000000 		.4byte	.LFE56
+ 1076 0389 02       		.byte	0x2
+ 1077 038a 7D       		.byte	0x7d
+ 1078 038b 00       		.sleb128 0
+ 1079 038c 01       		.byte	0x1
+ 1080 038d F9030000 		.4byte	0x3f9
+ 1081 0391 1C       		.uleb128 0x1c
+ 1082 0392 11030000 		.4byte	0x311
+ 1083 0396 00000000 		.4byte	.LBB22
+ 1084 039a 00000000 		.4byte	.Ldebug_ranges0+0
+ 1085 039e 01       		.byte	0x1
+ 1086 039f 4F       		.byte	0x4f
+ 1087 03a0 1D       		.uleb128 0x1d
+ 1088 03a1 1C030000 		.4byte	0x31c
+ 1089 03a5 02000000 		.4byte	.LBB25
+ 1090 03a9 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 1091 03ad 01       		.byte	0x1
+ 1092 03ae 52       		.byte	0x52
+ 1093 03af CF030000 		.4byte	0x3cf
+ 1094 03b3 1E       		.uleb128 0x1e
+ 1095 03b4 2A030000 		.4byte	0x32a
+ 1096 03b8 06       		.byte	0x6
+ 1097 03b9 03       		.byte	0x3
+ 1098 03ba 00000000 		.4byte	isr_Ticks_Interrupt
+ 1099 03be 9F       		.byte	0x9f
+ 1100 03bf 1F       		.uleb128 0x1f
+ 1101 03c0 38000000 		.4byte	.Ldebug_ranges0+0x38
+ 1102 03c4 20       		.uleb128 0x20
+ 1103 03c5 35030000 		.4byte	0x335
+ 1104 03c9 00000000 		.4byte	.LLST0
+ 1105 03cd 00       		.byte	0
+ 1106 03ce 00       		.byte	0
+ 1107 03cf 1D       		.uleb128 0x1d
+ 1108 03d0 51030000 		.4byte	0x351
+ 1109 03d4 0C000000 		.4byte	.LBB31
+ 1110 03d8 58000000 		.4byte	.Ldebug_ranges0+0x58
+ 1111 03dc 01       		.byte	0x1
+ 1112 03dd 55       		.byte	0x55
+ 1113 03de E9030000 		.4byte	0x3e9
+ 1114 03e2 21       		.uleb128 0x21
+ 1115 03e3 60030000 		.4byte	0x360
+ 1116 03e7 07       		.byte	0x7
+ 1117 03e8 00       		.byte	0
+ 1118 03e9 1C       		.uleb128 0x1c
+ 1119 03ea 6D030000 		.4byte	0x36d
+ 1120 03ee 12000000 		.4byte	.LBB37
+ 1121 03f2 78000000 		.4byte	.Ldebug_ranges0+0x78
+ 1122 03f6 01       		.byte	0x1
+ 1123 03f7 58       		.byte	0x58
+ 1124 03f8 00       		.byte	0
+ 1125 03f9 1B       		.uleb128 0x1b
+ 1126 03fa 01       		.byte	0x1
+ 1127 03fb 38010000 		.4byte	.LASF63
+ 1128 03ff 01       		.byte	0x1
+ 1129 0400 6A       		.byte	0x6a
+ 1130 0401 01       		.byte	0x1
+ 1131 0402 00000000 		.4byte	.LFB57
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 29
+
+
+ 1132 0406 28000000 		.4byte	.LFE57
+ 1133 040a 02       		.byte	0x2
+ 1134 040b 7D       		.byte	0x7d
+ 1135 040c 00       		.sleb128 0
+ 1136 040d 01       		.byte	0x1
+ 1137 040e 86040000 		.4byte	0x486
+ 1138 0412 22       		.uleb128 0x22
+ 1139 0413 88010000 		.4byte	.LASF59
+ 1140 0417 01       		.byte	0x1
+ 1141 0418 6A       		.byte	0x6a
+ 1142 0419 0B010000 		.4byte	0x10b
+ 1143 041d 23000000 		.4byte	.LLST1
+ 1144 0421 1C       		.uleb128 0x1c
+ 1145 0422 11030000 		.4byte	0x311
+ 1146 0426 00000000 		.4byte	.LBB42
+ 1147 042a 90000000 		.4byte	.Ldebug_ranges0+0x90
+ 1148 042e 01       		.byte	0x1
+ 1149 042f 6D       		.byte	0x6d
+ 1150 0430 1D       		.uleb128 0x1d
+ 1151 0431 1C030000 		.4byte	0x31c
+ 1152 0435 02000000 		.4byte	.LBB45
+ 1153 0439 A8000000 		.4byte	.Ldebug_ranges0+0xa8
+ 1154 043d 01       		.byte	0x1
+ 1155 043e 70       		.byte	0x70
+ 1156 043f 5C040000 		.4byte	0x45c
+ 1157 0443 23       		.uleb128 0x23
+ 1158 0444 2A030000 		.4byte	0x32a
+ 1159 0448 49000000 		.4byte	.LLST2
+ 1160 044c 1F       		.uleb128 0x1f
+ 1161 044d C8000000 		.4byte	.Ldebug_ranges0+0xc8
+ 1162 0451 20       		.uleb128 0x20
+ 1163 0452 35030000 		.4byte	0x335
+ 1164 0456 6F000000 		.4byte	.LLST3
+ 1165 045a 00       		.byte	0
+ 1166 045b 00       		.byte	0
+ 1167 045c 1D       		.uleb128 0x1d
+ 1168 045d 51030000 		.4byte	0x351
+ 1169 0461 0A000000 		.4byte	.LBB51
+ 1170 0465 E8000000 		.4byte	.Ldebug_ranges0+0xe8
+ 1171 0469 01       		.byte	0x1
+ 1172 046a 73       		.byte	0x73
+ 1173 046b 76040000 		.4byte	0x476
+ 1174 046f 21       		.uleb128 0x21
+ 1175 0470 60030000 		.4byte	0x360
+ 1176 0474 07       		.byte	0x7
+ 1177 0475 00       		.byte	0
+ 1178 0476 1C       		.uleb128 0x1c
+ 1179 0477 6D030000 		.4byte	0x36d
+ 1180 047b 0E000000 		.4byte	.LBB55
+ 1181 047f 00010000 		.4byte	.Ldebug_ranges0+0x100
+ 1182 0483 01       		.byte	0x1
+ 1183 0484 76       		.byte	0x76
+ 1184 0485 00       		.byte	0
+ 1185 0486 1B       		.uleb128 0x1b
+ 1186 0487 01       		.byte	0x1
+ 1187 0488 17050000 		.4byte	.LASF64
+ 1188 048c 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 30
+
+
+ 1189 048d 87       		.byte	0x87
+ 1190 048e 01       		.byte	0x1
+ 1191 048f 00000000 		.4byte	.LFB58
+ 1192 0493 1C000000 		.4byte	.LFE58
+ 1193 0497 02       		.byte	0x2
+ 1194 0498 7D       		.byte	0x7d
+ 1195 0499 00       		.sleb128 0
+ 1196 049a 01       		.byte	0x1
+ 1197 049b D1040000 		.4byte	0x4d1
+ 1198 049f 1C       		.uleb128 0x1c
+ 1199 04a0 11030000 		.4byte	0x311
+ 1200 04a4 00000000 		.4byte	.LBB60
+ 1201 04a8 18010000 		.4byte	.Ldebug_ranges0+0x118
+ 1202 04ac 01       		.byte	0x1
+ 1203 04ad 8A       		.byte	0x8a
+ 1204 04ae 24       		.uleb128 0x24
+ 1205 04af 1C030000 		.4byte	0x31c
+ 1206 04b3 02000000 		.4byte	.LBB63
+ 1207 04b7 30010000 		.4byte	.Ldebug_ranges0+0x130
+ 1208 04bb 01       		.byte	0x1
+ 1209 04bc 8D       		.byte	0x8d
+ 1210 04bd 25       		.uleb128 0x25
+ 1211 04be 2A030000 		.4byte	0x32a
+ 1212 04c2 1F       		.uleb128 0x1f
+ 1213 04c3 48010000 		.4byte	.Ldebug_ranges0+0x148
+ 1214 04c7 26       		.uleb128 0x26
+ 1215 04c8 35030000 		.4byte	0x335
+ 1216 04cc 01       		.byte	0x1
+ 1217 04cd 51       		.byte	0x51
+ 1218 04ce 00       		.byte	0
+ 1219 04cf 00       		.byte	0
+ 1220 04d0 00       		.byte	0
+ 1221 04d1 27       		.uleb128 0x27
+ 1222 04d2 47030000 		.4byte	0x347
+ 1223 04d6 00000000 		.4byte	.LFB59
+ 1224 04da 70000000 		.4byte	.LFE59
+ 1225 04de 92000000 		.4byte	.LLST4
+ 1226 04e2 01       		.byte	0x1
+ 1227 04e3 45050000 		.4byte	0x545
+ 1228 04e7 28       		.uleb128 0x28
+ 1229 04e8 47030000 		.4byte	0x347
+ 1230 04ec 1A000000 		.4byte	.LBB70
+ 1231 04f0 70000000 		.4byte	.LBE70
+ 1232 04f4 01       		.byte	0x1
+ 1233 04f5 A1       		.byte	0xa1
+ 1234 04f6 29       		.uleb128 0x29
+ 1235 04f7 1E000000 		.4byte	.LVL13
+ 1236 04fb 86040000 		.4byte	0x486
+ 1237 04ff 2A       		.uleb128 0x2a
+ 1238 0500 2C000000 		.4byte	.LVL14
+ 1239 0504 C4060000 		.4byte	0x6c4
+ 1240 0508 13050000 		.4byte	0x513
+ 1241 050c 2B       		.uleb128 0x2b
+ 1242 050d 01       		.byte	0x1
+ 1243 050e 50       		.byte	0x50
+ 1244 050f 02       		.byte	0x2
+ 1245 0510 08       		.byte	0x8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 31
+
+
+ 1246 0511 64       		.byte	0x64
+ 1247 0512 00       		.byte	0
+ 1248 0513 29       		.uleb128 0x29
+ 1249 0514 3A000000 		.4byte	.LVL15
+ 1250 0518 D8060000 		.4byte	0x6d8
+ 1251 051c 2A       		.uleb128 0x2a
+ 1252 051d 48000000 		.4byte	.LVL16
+ 1253 0521 E6060000 		.4byte	0x6e6
+ 1254 0525 33050000 		.4byte	0x533
+ 1255 0529 2B       		.uleb128 0x2b
+ 1256 052a 01       		.byte	0x1
+ 1257 052b 50       		.byte	0x50
+ 1258 052c 05       		.byte	0x5
+ 1259 052d 03       		.byte	0x3
+ 1260 052e 00000000 		.4byte	.LC0
+ 1261 0532 00       		.byte	0
+ 1262 0533 2C       		.uleb128 0x2c
+ 1263 0534 4E000000 		.4byte	.LVL17
+ 1264 0538 02070000 		.4byte	0x702
+ 1265 053c 2B       		.uleb128 0x2b
+ 1266 053d 01       		.byte	0x1
+ 1267 053e 50       		.byte	0x50
+ 1268 053f 02       		.byte	0x2
+ 1269 0540 08       		.byte	0x8
+ 1270 0541 32       		.byte	0x32
+ 1271 0542 00       		.byte	0
+ 1272 0543 00       		.byte	0
+ 1273 0544 00       		.byte	0
+ 1274 0545 2D       		.uleb128 0x2d
+ 1275 0546 1C030000 		.4byte	0x31c
+ 1276 054a 00000000 		.4byte	.LFB60
+ 1277 054e 0C000000 		.4byte	.LFE60
+ 1278 0552 02       		.byte	0x2
+ 1279 0553 7D       		.byte	0x7d
+ 1280 0554 00       		.sleb128 0
+ 1281 0555 01       		.byte	0x1
+ 1282 0556 69050000 		.4byte	0x569
+ 1283 055a 1E       		.uleb128 0x1e
+ 1284 055b 2A030000 		.4byte	0x32a
+ 1285 055f 01       		.byte	0x1
+ 1286 0560 50       		.byte	0x50
+ 1287 0561 26       		.uleb128 0x26
+ 1288 0562 35030000 		.4byte	0x335
+ 1289 0566 01       		.byte	0x1
+ 1290 0567 51       		.byte	0x51
+ 1291 0568 00       		.byte	0
+ 1292 0569 2E       		.uleb128 0x2e
+ 1293 056a 01       		.byte	0x1
+ 1294 056b 9C040000 		.4byte	.LASF65
+ 1295 056f 01       		.byte	0x1
+ 1296 0570 F8       		.byte	0xf8
+ 1297 0571 01       		.byte	0x1
+ 1298 0572 0B010000 		.4byte	0x10b
+ 1299 0576 00000000 		.4byte	.LFB61
+ 1300 057a 0C000000 		.4byte	.LFE61
+ 1301 057e 02       		.byte	0x2
+ 1302 057f 7D       		.byte	0x7d
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 32
+
+
+ 1303 0580 00       		.sleb128 0
+ 1304 0581 01       		.byte	0x1
+ 1305 0582 96050000 		.4byte	0x596
+ 1306 0586 2F       		.uleb128 0x2f
+ 1307 0587 99030000 		.4byte	.LASF67
+ 1308 058b 01       		.byte	0x1
+ 1309 058c FA       		.byte	0xfa
+ 1310 058d 41030000 		.4byte	0x341
+ 1311 0591 B2000000 		.4byte	.LLST5
+ 1312 0595 00       		.byte	0
+ 1313 0596 2D       		.uleb128 0x2d
+ 1314 0597 51030000 		.4byte	0x351
+ 1315 059b 00000000 		.4byte	.LFB62
+ 1316 059f 10000000 		.4byte	.LFE62
+ 1317 05a3 02       		.byte	0x2
+ 1318 05a4 7D       		.byte	0x7d
+ 1319 05a5 00       		.sleb128 0
+ 1320 05a6 01       		.byte	0x1
+ 1321 05a7 B5050000 		.4byte	0x5b5
+ 1322 05ab 23       		.uleb128 0x23
+ 1323 05ac 60030000 		.4byte	0x360
+ 1324 05b0 D6000000 		.4byte	.LLST6
+ 1325 05b4 00       		.byte	0
+ 1326 05b5 30       		.uleb128 0x30
+ 1327 05b6 01       		.byte	0x1
+ 1328 05b7 69010000 		.4byte	.LASF66
+ 1329 05bb 01       		.byte	0x1
+ 1330 05bc 2801     		.2byte	0x128
+ 1331 05be 01       		.byte	0x1
+ 1332 05bf 9B000000 		.4byte	0x9b
+ 1333 05c3 00000000 		.4byte	.LFB63
+ 1334 05c7 0C000000 		.4byte	.LFE63
+ 1335 05cb 02       		.byte	0x2
+ 1336 05cc 7D       		.byte	0x7d
+ 1337 05cd 00       		.sleb128 0
+ 1338 05ce 01       		.byte	0x1
+ 1339 05cf E4050000 		.4byte	0x5e4
+ 1340 05d3 31       		.uleb128 0x31
+ 1341 05d4 2B000000 		.4byte	.LASF60
+ 1342 05d8 01       		.byte	0x1
+ 1343 05d9 2A01     		.2byte	0x12a
+ 1344 05db 9B000000 		.4byte	0x9b
+ 1345 05df F7000000 		.4byte	.LLST7
+ 1346 05e3 00       		.byte	0
+ 1347 05e4 32       		.uleb128 0x32
+ 1348 05e5 6D030000 		.4byte	0x36d
+ 1349 05e9 00000000 		.4byte	.LFB64
+ 1350 05ed 0C000000 		.4byte	.LFE64
+ 1351 05f1 02       		.byte	0x2
+ 1352 05f2 7D       		.byte	0x7d
+ 1353 05f3 00       		.sleb128 0
+ 1354 05f4 01       		.byte	0x1
+ 1355 05f5 33       		.uleb128 0x33
+ 1356 05f6 01       		.byte	0x1
+ 1357 05f7 B4030000 		.4byte	.LASF83
+ 1358 05fb 01       		.byte	0x1
+ 1359 05fc 5601     		.2byte	0x156
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 33
+
+
+ 1360 05fe 01       		.byte	0x1
+ 1361 05ff 9B000000 		.4byte	0x9b
+ 1362 0603 00000000 		.4byte	.LFB65
+ 1363 0607 10000000 		.4byte	.LFE65
+ 1364 060b 02       		.byte	0x2
+ 1365 060c 7D       		.byte	0x7d
+ 1366 060d 00       		.sleb128 0
+ 1367 060e 01       		.byte	0x1
+ 1368 060f 32       		.uleb128 0x32
+ 1369 0610 11030000 		.4byte	0x311
+ 1370 0614 00000000 		.4byte	.LFB66
+ 1371 0618 0C000000 		.4byte	.LFE66
+ 1372 061c 02       		.byte	0x2
+ 1373 061d 7D       		.byte	0x7d
+ 1374 061e 00       		.sleb128 0
+ 1375 061f 01       		.byte	0x1
+ 1376 0620 34       		.uleb128 0x34
+ 1377 0621 01       		.byte	0x1
+ 1378 0622 E2010000 		.4byte	.LASF68
+ 1379 0626 01       		.byte	0x1
+ 1380 0627 8101     		.2byte	0x181
+ 1381 0629 01       		.byte	0x1
+ 1382 062a 00000000 		.4byte	.LFB67
+ 1383 062e 0C000000 		.4byte	.LFE67
+ 1384 0632 02       		.byte	0x2
+ 1385 0633 7D       		.byte	0x7d
+ 1386 0634 00       		.sleb128 0
+ 1387 0635 01       		.byte	0x1
+ 1388 0636 34       		.uleb128 0x34
+ 1389 0637 01       		.byte	0x1
+ 1390 0638 CB010000 		.4byte	.LASF69
+ 1391 063c 01       		.byte	0x1
+ 1392 063d 9501     		.2byte	0x195
+ 1393 063f 01       		.byte	0x1
+ 1394 0640 00000000 		.4byte	.LFB68
+ 1395 0644 0C000000 		.4byte	.LFE68
+ 1396 0648 02       		.byte	0x2
+ 1397 0649 7D       		.byte	0x7d
+ 1398 064a 00       		.sleb128 0
+ 1399 064b 01       		.byte	0x1
+ 1400 064c 35       		.uleb128 0x35
+ 1401 064d EB040000 		.4byte	.LASF70
+ 1402 0651 05       		.byte	0x5
+ 1403 0652 1606     		.2byte	0x616
+ 1404 0654 5A060000 		.4byte	0x65a
+ 1405 0658 01       		.byte	0x1
+ 1406 0659 01       		.byte	0x1
+ 1407 065a 08       		.uleb128 0x8
+ 1408 065b 90000000 		.4byte	0x90
+ 1409 065f 36       		.uleb128 0x36
+ 1410 0660 87020000 		.4byte	.LASF71
+ 1411 0664 04       		.byte	0x4
+ 1412 0665 E2       		.byte	0xe2
+ 1413 0666 51010000 		.4byte	0x151
+ 1414 066a 01       		.byte	0x1
+ 1415 066b 05       		.byte	0x5
+ 1416 066c 03       		.byte	0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 34
+
+
+ 1417 066d 00000000 		.4byte	gobee_vparam
+ 1418 0671 37       		.uleb128 0x37
+ 1419 0672 FB020000 		.4byte	.LASF72
+ 1420 0676 01       		.byte	0x1
+ 1421 0677 23       		.byte	0x23
+ 1422 0678 9B000000 		.4byte	0x9b
+ 1423 067c 01       		.byte	0x1
+ 1424 067d 01       		.byte	0x1
+ 1425 067e 37       		.uleb128 0x37
+ 1426 067f 38020000 		.4byte	.LASF73
+ 1427 0683 01       		.byte	0x1
+ 1428 0684 25       		.byte	0x25
+ 1429 0685 A6000000 		.4byte	0xa6
+ 1430 0689 01       		.byte	0x1
+ 1431 068a 01       		.byte	0x1
+ 1432 068b 37       		.uleb128 0x37
+ 1433 068c A8030000 		.4byte	.LASF74
+ 1434 0690 01       		.byte	0x1
+ 1435 0691 27       		.byte	0x27
+ 1436 0692 59010000 		.4byte	0x159
+ 1437 0696 01       		.byte	0x1
+ 1438 0697 01       		.byte	0x1
+ 1439 0698 37       		.uleb128 0x37
+ 1440 0699 F8040000 		.4byte	.LASF75
+ 1441 069d 01       		.byte	0x1
+ 1442 069e 29       		.byte	0x29
+ 1443 069f 9B000000 		.4byte	0x9b
+ 1444 06a3 01       		.byte	0x1
+ 1445 06a4 01       		.byte	0x1
+ 1446 06a5 37       		.uleb128 0x37
+ 1447 06a6 09030000 		.4byte	.LASF76
+ 1448 06aa 01       		.byte	0x1
+ 1449 06ab 2C       		.byte	0x2c
+ 1450 06ac 8B020000 		.4byte	0x28b
+ 1451 06b0 01       		.byte	0x1
+ 1452 06b1 01       		.byte	0x1
+ 1453 06b2 36       		.uleb128 0x36
+ 1454 06b3 4A010000 		.4byte	.LASF77
+ 1455 06b7 01       		.byte	0x1
+ 1456 06b8 2F       		.byte	0x2f
+ 1457 06b9 9B000000 		.4byte	0x9b
+ 1458 06bd 01       		.byte	0x1
+ 1459 06be 05       		.byte	0x5
+ 1460 06bf 03       		.byte	0x3
+ 1461 06c0 00000000 		.4byte	local_dummy
+ 1462 06c4 38       		.uleb128 0x38
+ 1463 06c5 01       		.byte	0x1
+ 1464 06c6 0B020000 		.4byte	.LASF78
+ 1465 06ca 06       		.byte	0x6
+ 1466 06cb 78       		.byte	0x78
+ 1467 06cc 01       		.byte	0x1
+ 1468 06cd 01       		.byte	0x1
+ 1469 06ce D8060000 		.4byte	0x6d8
+ 1470 06d2 39       		.uleb128 0x39
+ 1471 06d3 A6000000 		.4byte	0xa6
+ 1472 06d7 00       		.byte	0
+ 1473 06d8 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 35
+
+
+ 1474 06d9 01       		.byte	0x1
+ 1475 06da B0040000 		.4byte	.LASF84
+ 1476 06de 07       		.byte	0x7
+ 1477 06df 87       		.byte	0x87
+ 1478 06e0 01       		.byte	0x1
+ 1479 06e1 9B000000 		.4byte	0x9b
+ 1480 06e5 01       		.byte	0x1
+ 1481 06e6 3B       		.uleb128 0x3b
+ 1482 06e7 01       		.byte	0x1
+ 1483 06e8 17000000 		.4byte	.LASF85
+ 1484 06ec 08       		.byte	0x8
+ 1485 06ed 00       		.byte	0
+ 1486 06ee 94020000 		.4byte	.LASF86
+ 1487 06f2 01       		.byte	0x1
+ 1488 06f3 45000000 		.4byte	0x45
+ 1489 06f7 01       		.byte	0x1
+ 1490 06f8 02070000 		.4byte	0x702
+ 1491 06fc 39       		.uleb128 0x39
+ 1492 06fd 85000000 		.4byte	0x85
+ 1493 0701 00       		.byte	0
+ 1494 0702 3C       		.uleb128 0x3c
+ 1495 0703 01       		.byte	0x1
+ 1496 0704 CC040000 		.4byte	.LASF87
+ 1497 0708 09       		.byte	0x9
+ 1498 0709 5D       		.byte	0x5d
+ 1499 070a 01       		.byte	0x1
+ 1500 070b 01       		.byte	0x1
+ 1501 070c 39       		.uleb128 0x39
+ 1502 070d 9B000000 		.4byte	0x9b
+ 1503 0711 00       		.byte	0
+ 1504 0712 00       		.byte	0
+ 1505              		.section	.debug_abbrev,"",%progbits
+ 1506              	.Ldebug_abbrev0:
+ 1507 0000 01       		.uleb128 0x1
+ 1508 0001 11       		.uleb128 0x11
+ 1509 0002 01       		.byte	0x1
+ 1510 0003 25       		.uleb128 0x25
+ 1511 0004 0E       		.uleb128 0xe
+ 1512 0005 13       		.uleb128 0x13
+ 1513 0006 0B       		.uleb128 0xb
+ 1514 0007 03       		.uleb128 0x3
+ 1515 0008 0E       		.uleb128 0xe
+ 1516 0009 1B       		.uleb128 0x1b
+ 1517 000a 0E       		.uleb128 0xe
+ 1518 000b 55       		.uleb128 0x55
+ 1519 000c 06       		.uleb128 0x6
+ 1520 000d 11       		.uleb128 0x11
+ 1521 000e 01       		.uleb128 0x1
+ 1522 000f 52       		.uleb128 0x52
+ 1523 0010 01       		.uleb128 0x1
+ 1524 0011 10       		.uleb128 0x10
+ 1525 0012 06       		.uleb128 0x6
+ 1526 0013 00       		.byte	0
+ 1527 0014 00       		.byte	0
+ 1528 0015 02       		.uleb128 0x2
+ 1529 0016 24       		.uleb128 0x24
+ 1530 0017 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 36
+
+
+ 1531 0018 0B       		.uleb128 0xb
+ 1532 0019 0B       		.uleb128 0xb
+ 1533 001a 3E       		.uleb128 0x3e
+ 1534 001b 0B       		.uleb128 0xb
+ 1535 001c 03       		.uleb128 0x3
+ 1536 001d 0E       		.uleb128 0xe
+ 1537 001e 00       		.byte	0
+ 1538 001f 00       		.byte	0
+ 1539 0020 03       		.uleb128 0x3
+ 1540 0021 24       		.uleb128 0x24
+ 1541 0022 00       		.byte	0
+ 1542 0023 0B       		.uleb128 0xb
+ 1543 0024 0B       		.uleb128 0xb
+ 1544 0025 3E       		.uleb128 0x3e
+ 1545 0026 0B       		.uleb128 0xb
+ 1546 0027 03       		.uleb128 0x3
+ 1547 0028 08       		.uleb128 0x8
+ 1548 0029 00       		.byte	0
+ 1549 002a 00       		.byte	0
+ 1550 002b 04       		.uleb128 0x4
+ 1551 002c 15       		.uleb128 0x15
+ 1552 002d 00       		.byte	0
+ 1553 002e 27       		.uleb128 0x27
+ 1554 002f 0C       		.uleb128 0xc
+ 1555 0030 00       		.byte	0
+ 1556 0031 00       		.byte	0
+ 1557 0032 05       		.uleb128 0x5
+ 1558 0033 0F       		.uleb128 0xf
+ 1559 0034 00       		.byte	0
+ 1560 0035 0B       		.uleb128 0xb
+ 1561 0036 0B       		.uleb128 0xb
+ 1562 0037 49       		.uleb128 0x49
+ 1563 0038 13       		.uleb128 0x13
+ 1564 0039 00       		.byte	0
+ 1565 003a 00       		.byte	0
+ 1566 003b 06       		.uleb128 0x6
+ 1567 003c 26       		.uleb128 0x26
+ 1568 003d 00       		.byte	0
+ 1569 003e 49       		.uleb128 0x49
+ 1570 003f 13       		.uleb128 0x13
+ 1571 0040 00       		.byte	0
+ 1572 0041 00       		.byte	0
+ 1573 0042 07       		.uleb128 0x7
+ 1574 0043 16       		.uleb128 0x16
+ 1575 0044 00       		.byte	0
+ 1576 0045 03       		.uleb128 0x3
+ 1577 0046 0E       		.uleb128 0xe
+ 1578 0047 3A       		.uleb128 0x3a
+ 1579 0048 0B       		.uleb128 0xb
+ 1580 0049 3B       		.uleb128 0x3b
+ 1581 004a 0B       		.uleb128 0xb
+ 1582 004b 49       		.uleb128 0x49
+ 1583 004c 13       		.uleb128 0x13
+ 1584 004d 00       		.byte	0
+ 1585 004e 00       		.byte	0
+ 1586 004f 08       		.uleb128 0x8
+ 1587 0050 35       		.uleb128 0x35
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 37
+
+
+ 1588 0051 00       		.byte	0
+ 1589 0052 49       		.uleb128 0x49
+ 1590 0053 13       		.uleb128 0x13
+ 1591 0054 00       		.byte	0
+ 1592 0055 00       		.byte	0
+ 1593 0056 09       		.uleb128 0x9
+ 1594 0057 16       		.uleb128 0x16
+ 1595 0058 00       		.byte	0
+ 1596 0059 03       		.uleb128 0x3
+ 1597 005a 0E       		.uleb128 0xe
+ 1598 005b 3A       		.uleb128 0x3a
+ 1599 005c 0B       		.uleb128 0xb
+ 1600 005d 3B       		.uleb128 0x3b
+ 1601 005e 05       		.uleb128 0x5
+ 1602 005f 49       		.uleb128 0x49
+ 1603 0060 13       		.uleb128 0x13
+ 1604 0061 00       		.byte	0
+ 1605 0062 00       		.byte	0
+ 1606 0063 0A       		.uleb128 0xa
+ 1607 0064 17       		.uleb128 0x17
+ 1608 0065 01       		.byte	0x1
+ 1609 0066 0B       		.uleb128 0xb
+ 1610 0067 0B       		.uleb128 0xb
+ 1611 0068 3A       		.uleb128 0x3a
+ 1612 0069 0B       		.uleb128 0xb
+ 1613 006a 3B       		.uleb128 0x3b
+ 1614 006b 0B       		.uleb128 0xb
+ 1615 006c 01       		.uleb128 0x1
+ 1616 006d 13       		.uleb128 0x13
+ 1617 006e 00       		.byte	0
+ 1618 006f 00       		.byte	0
+ 1619 0070 0B       		.uleb128 0xb
+ 1620 0071 0D       		.uleb128 0xd
+ 1621 0072 00       		.byte	0
+ 1622 0073 03       		.uleb128 0x3
+ 1623 0074 0E       		.uleb128 0xe
+ 1624 0075 3A       		.uleb128 0x3a
+ 1625 0076 0B       		.uleb128 0xb
+ 1626 0077 3B       		.uleb128 0x3b
+ 1627 0078 0B       		.uleb128 0xb
+ 1628 0079 49       		.uleb128 0x49
+ 1629 007a 13       		.uleb128 0x13
+ 1630 007b 00       		.byte	0
+ 1631 007c 00       		.byte	0
+ 1632 007d 0C       		.uleb128 0xc
+ 1633 007e 01       		.uleb128 0x1
+ 1634 007f 01       		.byte	0x1
+ 1635 0080 49       		.uleb128 0x49
+ 1636 0081 13       		.uleb128 0x13
+ 1637 0082 01       		.uleb128 0x1
+ 1638 0083 13       		.uleb128 0x13
+ 1639 0084 00       		.byte	0
+ 1640 0085 00       		.byte	0
+ 1641 0086 0D       		.uleb128 0xd
+ 1642 0087 21       		.uleb128 0x21
+ 1643 0088 00       		.byte	0
+ 1644 0089 49       		.uleb128 0x49
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 38
+
+
+ 1645 008a 13       		.uleb128 0x13
+ 1646 008b 2F       		.uleb128 0x2f
+ 1647 008c 0B       		.uleb128 0xb
+ 1648 008d 00       		.byte	0
+ 1649 008e 00       		.byte	0
+ 1650 008f 0E       		.uleb128 0xe
+ 1651 0090 13       		.uleb128 0x13
+ 1652 0091 00       		.byte	0
+ 1653 0092 03       		.uleb128 0x3
+ 1654 0093 0E       		.uleb128 0xe
+ 1655 0094 0B       		.uleb128 0xb
+ 1656 0095 0B       		.uleb128 0xb
+ 1657 0096 3A       		.uleb128 0x3a
+ 1658 0097 0B       		.uleb128 0xb
+ 1659 0098 3B       		.uleb128 0x3b
+ 1660 0099 0B       		.uleb128 0xb
+ 1661 009a 00       		.byte	0
+ 1662 009b 00       		.byte	0
+ 1663 009c 0F       		.uleb128 0xf
+ 1664 009d 13       		.uleb128 0x13
+ 1665 009e 01       		.byte	0x1
+ 1666 009f 03       		.uleb128 0x3
+ 1667 00a0 0E       		.uleb128 0xe
+ 1668 00a1 0B       		.uleb128 0xb
+ 1669 00a2 0B       		.uleb128 0xb
+ 1670 00a3 3A       		.uleb128 0x3a
+ 1671 00a4 0B       		.uleb128 0xb
+ 1672 00a5 3B       		.uleb128 0x3b
+ 1673 00a6 0B       		.uleb128 0xb
+ 1674 00a7 01       		.uleb128 0x1
+ 1675 00a8 13       		.uleb128 0x13
+ 1676 00a9 00       		.byte	0
+ 1677 00aa 00       		.byte	0
+ 1678 00ab 10       		.uleb128 0x10
+ 1679 00ac 0D       		.uleb128 0xd
+ 1680 00ad 00       		.byte	0
+ 1681 00ae 03       		.uleb128 0x3
+ 1682 00af 0E       		.uleb128 0xe
+ 1683 00b0 3A       		.uleb128 0x3a
+ 1684 00b1 0B       		.uleb128 0xb
+ 1685 00b2 3B       		.uleb128 0x3b
+ 1686 00b3 0B       		.uleb128 0xb
+ 1687 00b4 49       		.uleb128 0x49
+ 1688 00b5 13       		.uleb128 0x13
+ 1689 00b6 38       		.uleb128 0x38
+ 1690 00b7 0A       		.uleb128 0xa
+ 1691 00b8 00       		.byte	0
+ 1692 00b9 00       		.byte	0
+ 1693 00ba 11       		.uleb128 0x11
+ 1694 00bb 0D       		.uleb128 0xd
+ 1695 00bc 00       		.byte	0
+ 1696 00bd 03       		.uleb128 0x3
+ 1697 00be 0E       		.uleb128 0xe
+ 1698 00bf 3A       		.uleb128 0x3a
+ 1699 00c0 0B       		.uleb128 0xb
+ 1700 00c1 3B       		.uleb128 0x3b
+ 1701 00c2 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 39
+
+
+ 1702 00c3 49       		.uleb128 0x49
+ 1703 00c4 13       		.uleb128 0x13
+ 1704 00c5 38       		.uleb128 0x38
+ 1705 00c6 0A       		.uleb128 0xa
+ 1706 00c7 00       		.byte	0
+ 1707 00c8 00       		.byte	0
+ 1708 00c9 12       		.uleb128 0x12
+ 1709 00ca 13       		.uleb128 0x13
+ 1710 00cb 01       		.byte	0x1
+ 1711 00cc 03       		.uleb128 0x3
+ 1712 00cd 0E       		.uleb128 0xe
+ 1713 00ce 0B       		.uleb128 0xb
+ 1714 00cf 0B       		.uleb128 0xb
+ 1715 00d0 3A       		.uleb128 0x3a
+ 1716 00d1 0B       		.uleb128 0xb
+ 1717 00d2 3B       		.uleb128 0x3b
+ 1718 00d3 05       		.uleb128 0x5
+ 1719 00d4 01       		.uleb128 0x1
+ 1720 00d5 13       		.uleb128 0x13
+ 1721 00d6 00       		.byte	0
+ 1722 00d7 00       		.byte	0
+ 1723 00d8 13       		.uleb128 0x13
+ 1724 00d9 0D       		.uleb128 0xd
+ 1725 00da 00       		.byte	0
+ 1726 00db 03       		.uleb128 0x3
+ 1727 00dc 08       		.uleb128 0x8
+ 1728 00dd 3A       		.uleb128 0x3a
+ 1729 00de 0B       		.uleb128 0xb
+ 1730 00df 3B       		.uleb128 0x3b
+ 1731 00e0 05       		.uleb128 0x5
+ 1732 00e1 49       		.uleb128 0x49
+ 1733 00e2 13       		.uleb128 0x13
+ 1734 00e3 38       		.uleb128 0x38
+ 1735 00e4 0A       		.uleb128 0xa
+ 1736 00e5 00       		.byte	0
+ 1737 00e6 00       		.byte	0
+ 1738 00e7 14       		.uleb128 0x14
+ 1739 00e8 2E       		.uleb128 0x2e
+ 1740 00e9 00       		.byte	0
+ 1741 00ea 3F       		.uleb128 0x3f
+ 1742 00eb 0C       		.uleb128 0xc
+ 1743 00ec 03       		.uleb128 0x3
+ 1744 00ed 0E       		.uleb128 0xe
+ 1745 00ee 3A       		.uleb128 0x3a
+ 1746 00ef 0B       		.uleb128 0xb
+ 1747 00f0 3B       		.uleb128 0x3b
+ 1748 00f1 05       		.uleb128 0x5
+ 1749 00f2 27       		.uleb128 0x27
+ 1750 00f3 0C       		.uleb128 0xc
+ 1751 00f4 20       		.uleb128 0x20
+ 1752 00f5 0B       		.uleb128 0xb
+ 1753 00f6 00       		.byte	0
+ 1754 00f7 00       		.byte	0
+ 1755 00f8 15       		.uleb128 0x15
+ 1756 00f9 2E       		.uleb128 0x2e
+ 1757 00fa 01       		.byte	0x1
+ 1758 00fb 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 40
+
+
+ 1759 00fc 0C       		.uleb128 0xc
+ 1760 00fd 03       		.uleb128 0x3
+ 1761 00fe 0E       		.uleb128 0xe
+ 1762 00ff 3A       		.uleb128 0x3a
+ 1763 0100 0B       		.uleb128 0xb
+ 1764 0101 3B       		.uleb128 0x3b
+ 1765 0102 0B       		.uleb128 0xb
+ 1766 0103 27       		.uleb128 0x27
+ 1767 0104 0C       		.uleb128 0xc
+ 1768 0105 20       		.uleb128 0x20
+ 1769 0106 0B       		.uleb128 0xb
+ 1770 0107 01       		.uleb128 0x1
+ 1771 0108 13       		.uleb128 0x13
+ 1772 0109 00       		.byte	0
+ 1773 010a 00       		.byte	0
+ 1774 010b 16       		.uleb128 0x16
+ 1775 010c 05       		.uleb128 0x5
+ 1776 010d 00       		.byte	0
+ 1777 010e 03       		.uleb128 0x3
+ 1778 010f 0E       		.uleb128 0xe
+ 1779 0110 3A       		.uleb128 0x3a
+ 1780 0111 0B       		.uleb128 0xb
+ 1781 0112 3B       		.uleb128 0x3b
+ 1782 0113 0B       		.uleb128 0xb
+ 1783 0114 49       		.uleb128 0x49
+ 1784 0115 13       		.uleb128 0x13
+ 1785 0116 00       		.byte	0
+ 1786 0117 00       		.byte	0
+ 1787 0118 17       		.uleb128 0x17
+ 1788 0119 34       		.uleb128 0x34
+ 1789 011a 00       		.byte	0
+ 1790 011b 03       		.uleb128 0x3
+ 1791 011c 0E       		.uleb128 0xe
+ 1792 011d 3A       		.uleb128 0x3a
+ 1793 011e 0B       		.uleb128 0xb
+ 1794 011f 3B       		.uleb128 0x3b
+ 1795 0120 0B       		.uleb128 0xb
+ 1796 0121 49       		.uleb128 0x49
+ 1797 0122 13       		.uleb128 0x13
+ 1798 0123 00       		.byte	0
+ 1799 0124 00       		.byte	0
+ 1800 0125 18       		.uleb128 0x18
+ 1801 0126 2E       		.uleb128 0x2e
+ 1802 0127 00       		.byte	0
+ 1803 0128 3F       		.uleb128 0x3f
+ 1804 0129 0C       		.uleb128 0xc
+ 1805 012a 03       		.uleb128 0x3
+ 1806 012b 0E       		.uleb128 0xe
+ 1807 012c 3A       		.uleb128 0x3a
+ 1808 012d 0B       		.uleb128 0xb
+ 1809 012e 3B       		.uleb128 0x3b
+ 1810 012f 0B       		.uleb128 0xb
+ 1811 0130 27       		.uleb128 0x27
+ 1812 0131 0C       		.uleb128 0xc
+ 1813 0132 20       		.uleb128 0x20
+ 1814 0133 0B       		.uleb128 0xb
+ 1815 0134 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 41
+
+
+ 1816 0135 00       		.byte	0
+ 1817 0136 19       		.uleb128 0x19
+ 1818 0137 2E       		.uleb128 0x2e
+ 1819 0138 01       		.byte	0x1
+ 1820 0139 3F       		.uleb128 0x3f
+ 1821 013a 0C       		.uleb128 0xc
+ 1822 013b 03       		.uleb128 0x3
+ 1823 013c 0E       		.uleb128 0xe
+ 1824 013d 3A       		.uleb128 0x3a
+ 1825 013e 0B       		.uleb128 0xb
+ 1826 013f 3B       		.uleb128 0x3b
+ 1827 0140 05       		.uleb128 0x5
+ 1828 0141 27       		.uleb128 0x27
+ 1829 0142 0C       		.uleb128 0xc
+ 1830 0143 20       		.uleb128 0x20
+ 1831 0144 0B       		.uleb128 0xb
+ 1832 0145 01       		.uleb128 0x1
+ 1833 0146 13       		.uleb128 0x13
+ 1834 0147 00       		.byte	0
+ 1835 0148 00       		.byte	0
+ 1836 0149 1A       		.uleb128 0x1a
+ 1837 014a 05       		.uleb128 0x5
+ 1838 014b 00       		.byte	0
+ 1839 014c 03       		.uleb128 0x3
+ 1840 014d 0E       		.uleb128 0xe
+ 1841 014e 3A       		.uleb128 0x3a
+ 1842 014f 0B       		.uleb128 0xb
+ 1843 0150 3B       		.uleb128 0x3b
+ 1844 0151 05       		.uleb128 0x5
+ 1845 0152 49       		.uleb128 0x49
+ 1846 0153 13       		.uleb128 0x13
+ 1847 0154 00       		.byte	0
+ 1848 0155 00       		.byte	0
+ 1849 0156 1B       		.uleb128 0x1b
+ 1850 0157 2E       		.uleb128 0x2e
+ 1851 0158 01       		.byte	0x1
+ 1852 0159 3F       		.uleb128 0x3f
+ 1853 015a 0C       		.uleb128 0xc
+ 1854 015b 03       		.uleb128 0x3
+ 1855 015c 0E       		.uleb128 0xe
+ 1856 015d 3A       		.uleb128 0x3a
+ 1857 015e 0B       		.uleb128 0xb
+ 1858 015f 3B       		.uleb128 0x3b
+ 1859 0160 0B       		.uleb128 0xb
+ 1860 0161 27       		.uleb128 0x27
+ 1861 0162 0C       		.uleb128 0xc
+ 1862 0163 11       		.uleb128 0x11
+ 1863 0164 01       		.uleb128 0x1
+ 1864 0165 12       		.uleb128 0x12
+ 1865 0166 01       		.uleb128 0x1
+ 1866 0167 40       		.uleb128 0x40
+ 1867 0168 0A       		.uleb128 0xa
+ 1868 0169 9742     		.uleb128 0x2117
+ 1869 016b 0C       		.uleb128 0xc
+ 1870 016c 01       		.uleb128 0x1
+ 1871 016d 13       		.uleb128 0x13
+ 1872 016e 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 42
+
+
+ 1873 016f 00       		.byte	0
+ 1874 0170 1C       		.uleb128 0x1c
+ 1875 0171 1D       		.uleb128 0x1d
+ 1876 0172 00       		.byte	0
+ 1877 0173 31       		.uleb128 0x31
+ 1878 0174 13       		.uleb128 0x13
+ 1879 0175 52       		.uleb128 0x52
+ 1880 0176 01       		.uleb128 0x1
+ 1881 0177 55       		.uleb128 0x55
+ 1882 0178 06       		.uleb128 0x6
+ 1883 0179 58       		.uleb128 0x58
+ 1884 017a 0B       		.uleb128 0xb
+ 1885 017b 59       		.uleb128 0x59
+ 1886 017c 0B       		.uleb128 0xb
+ 1887 017d 00       		.byte	0
+ 1888 017e 00       		.byte	0
+ 1889 017f 1D       		.uleb128 0x1d
+ 1890 0180 1D       		.uleb128 0x1d
+ 1891 0181 01       		.byte	0x1
+ 1892 0182 31       		.uleb128 0x31
+ 1893 0183 13       		.uleb128 0x13
+ 1894 0184 52       		.uleb128 0x52
+ 1895 0185 01       		.uleb128 0x1
+ 1896 0186 55       		.uleb128 0x55
+ 1897 0187 06       		.uleb128 0x6
+ 1898 0188 58       		.uleb128 0x58
+ 1899 0189 0B       		.uleb128 0xb
+ 1900 018a 59       		.uleb128 0x59
+ 1901 018b 0B       		.uleb128 0xb
+ 1902 018c 01       		.uleb128 0x1
+ 1903 018d 13       		.uleb128 0x13
+ 1904 018e 00       		.byte	0
+ 1905 018f 00       		.byte	0
+ 1906 0190 1E       		.uleb128 0x1e
+ 1907 0191 05       		.uleb128 0x5
+ 1908 0192 00       		.byte	0
+ 1909 0193 31       		.uleb128 0x31
+ 1910 0194 13       		.uleb128 0x13
+ 1911 0195 02       		.uleb128 0x2
+ 1912 0196 0A       		.uleb128 0xa
+ 1913 0197 00       		.byte	0
+ 1914 0198 00       		.byte	0
+ 1915 0199 1F       		.uleb128 0x1f
+ 1916 019a 0B       		.uleb128 0xb
+ 1917 019b 01       		.byte	0x1
+ 1918 019c 55       		.uleb128 0x55
+ 1919 019d 06       		.uleb128 0x6
+ 1920 019e 00       		.byte	0
+ 1921 019f 00       		.byte	0
+ 1922 01a0 20       		.uleb128 0x20
+ 1923 01a1 34       		.uleb128 0x34
+ 1924 01a2 00       		.byte	0
+ 1925 01a3 31       		.uleb128 0x31
+ 1926 01a4 13       		.uleb128 0x13
+ 1927 01a5 02       		.uleb128 0x2
+ 1928 01a6 06       		.uleb128 0x6
+ 1929 01a7 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 43
+
+
+ 1930 01a8 00       		.byte	0
+ 1931 01a9 21       		.uleb128 0x21
+ 1932 01aa 05       		.uleb128 0x5
+ 1933 01ab 00       		.byte	0
+ 1934 01ac 31       		.uleb128 0x31
+ 1935 01ad 13       		.uleb128 0x13
+ 1936 01ae 1C       		.uleb128 0x1c
+ 1937 01af 0B       		.uleb128 0xb
+ 1938 01b0 00       		.byte	0
+ 1939 01b1 00       		.byte	0
+ 1940 01b2 22       		.uleb128 0x22
+ 1941 01b3 05       		.uleb128 0x5
+ 1942 01b4 00       		.byte	0
+ 1943 01b5 03       		.uleb128 0x3
+ 1944 01b6 0E       		.uleb128 0xe
+ 1945 01b7 3A       		.uleb128 0x3a
+ 1946 01b8 0B       		.uleb128 0xb
+ 1947 01b9 3B       		.uleb128 0x3b
+ 1948 01ba 0B       		.uleb128 0xb
+ 1949 01bb 49       		.uleb128 0x49
+ 1950 01bc 13       		.uleb128 0x13
+ 1951 01bd 02       		.uleb128 0x2
+ 1952 01be 06       		.uleb128 0x6
+ 1953 01bf 00       		.byte	0
+ 1954 01c0 00       		.byte	0
+ 1955 01c1 23       		.uleb128 0x23
+ 1956 01c2 05       		.uleb128 0x5
+ 1957 01c3 00       		.byte	0
+ 1958 01c4 31       		.uleb128 0x31
+ 1959 01c5 13       		.uleb128 0x13
+ 1960 01c6 02       		.uleb128 0x2
+ 1961 01c7 06       		.uleb128 0x6
+ 1962 01c8 00       		.byte	0
+ 1963 01c9 00       		.byte	0
+ 1964 01ca 24       		.uleb128 0x24
+ 1965 01cb 1D       		.uleb128 0x1d
+ 1966 01cc 01       		.byte	0x1
+ 1967 01cd 31       		.uleb128 0x31
+ 1968 01ce 13       		.uleb128 0x13
+ 1969 01cf 52       		.uleb128 0x52
+ 1970 01d0 01       		.uleb128 0x1
+ 1971 01d1 55       		.uleb128 0x55
+ 1972 01d2 06       		.uleb128 0x6
+ 1973 01d3 58       		.uleb128 0x58
+ 1974 01d4 0B       		.uleb128 0xb
+ 1975 01d5 59       		.uleb128 0x59
+ 1976 01d6 0B       		.uleb128 0xb
+ 1977 01d7 00       		.byte	0
+ 1978 01d8 00       		.byte	0
+ 1979 01d9 25       		.uleb128 0x25
+ 1980 01da 05       		.uleb128 0x5
+ 1981 01db 00       		.byte	0
+ 1982 01dc 31       		.uleb128 0x31
+ 1983 01dd 13       		.uleb128 0x13
+ 1984 01de 00       		.byte	0
+ 1985 01df 00       		.byte	0
+ 1986 01e0 26       		.uleb128 0x26
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 44
+
+
+ 1987 01e1 34       		.uleb128 0x34
+ 1988 01e2 00       		.byte	0
+ 1989 01e3 31       		.uleb128 0x31
+ 1990 01e4 13       		.uleb128 0x13
+ 1991 01e5 02       		.uleb128 0x2
+ 1992 01e6 0A       		.uleb128 0xa
+ 1993 01e7 00       		.byte	0
+ 1994 01e8 00       		.byte	0
+ 1995 01e9 27       		.uleb128 0x27
+ 1996 01ea 2E       		.uleb128 0x2e
+ 1997 01eb 01       		.byte	0x1
+ 1998 01ec 31       		.uleb128 0x31
+ 1999 01ed 13       		.uleb128 0x13
+ 2000 01ee 11       		.uleb128 0x11
+ 2001 01ef 01       		.uleb128 0x1
+ 2002 01f0 12       		.uleb128 0x12
+ 2003 01f1 01       		.uleb128 0x1
+ 2004 01f2 40       		.uleb128 0x40
+ 2005 01f3 06       		.uleb128 0x6
+ 2006 01f4 9742     		.uleb128 0x2117
+ 2007 01f6 0C       		.uleb128 0xc
+ 2008 01f7 01       		.uleb128 0x1
+ 2009 01f8 13       		.uleb128 0x13
+ 2010 01f9 00       		.byte	0
+ 2011 01fa 00       		.byte	0
+ 2012 01fb 28       		.uleb128 0x28
+ 2013 01fc 1D       		.uleb128 0x1d
+ 2014 01fd 01       		.byte	0x1
+ 2015 01fe 31       		.uleb128 0x31
+ 2016 01ff 13       		.uleb128 0x13
+ 2017 0200 11       		.uleb128 0x11
+ 2018 0201 01       		.uleb128 0x1
+ 2019 0202 12       		.uleb128 0x12
+ 2020 0203 01       		.uleb128 0x1
+ 2021 0204 58       		.uleb128 0x58
+ 2022 0205 0B       		.uleb128 0xb
+ 2023 0206 59       		.uleb128 0x59
+ 2024 0207 0B       		.uleb128 0xb
+ 2025 0208 00       		.byte	0
+ 2026 0209 00       		.byte	0
+ 2027 020a 29       		.uleb128 0x29
+ 2028 020b 898201   		.uleb128 0x4109
+ 2029 020e 00       		.byte	0
+ 2030 020f 11       		.uleb128 0x11
+ 2031 0210 01       		.uleb128 0x1
+ 2032 0211 31       		.uleb128 0x31
+ 2033 0212 13       		.uleb128 0x13
+ 2034 0213 00       		.byte	0
+ 2035 0214 00       		.byte	0
+ 2036 0215 2A       		.uleb128 0x2a
+ 2037 0216 898201   		.uleb128 0x4109
+ 2038 0219 01       		.byte	0x1
+ 2039 021a 11       		.uleb128 0x11
+ 2040 021b 01       		.uleb128 0x1
+ 2041 021c 31       		.uleb128 0x31
+ 2042 021d 13       		.uleb128 0x13
+ 2043 021e 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 45
+
+
+ 2044 021f 13       		.uleb128 0x13
+ 2045 0220 00       		.byte	0
+ 2046 0221 00       		.byte	0
+ 2047 0222 2B       		.uleb128 0x2b
+ 2048 0223 8A8201   		.uleb128 0x410a
+ 2049 0226 00       		.byte	0
+ 2050 0227 02       		.uleb128 0x2
+ 2051 0228 0A       		.uleb128 0xa
+ 2052 0229 9142     		.uleb128 0x2111
+ 2053 022b 0A       		.uleb128 0xa
+ 2054 022c 00       		.byte	0
+ 2055 022d 00       		.byte	0
+ 2056 022e 2C       		.uleb128 0x2c
+ 2057 022f 898201   		.uleb128 0x4109
+ 2058 0232 01       		.byte	0x1
+ 2059 0233 11       		.uleb128 0x11
+ 2060 0234 01       		.uleb128 0x1
+ 2061 0235 31       		.uleb128 0x31
+ 2062 0236 13       		.uleb128 0x13
+ 2063 0237 00       		.byte	0
+ 2064 0238 00       		.byte	0
+ 2065 0239 2D       		.uleb128 0x2d
+ 2066 023a 2E       		.uleb128 0x2e
+ 2067 023b 01       		.byte	0x1
+ 2068 023c 31       		.uleb128 0x31
+ 2069 023d 13       		.uleb128 0x13
+ 2070 023e 11       		.uleb128 0x11
+ 2071 023f 01       		.uleb128 0x1
+ 2072 0240 12       		.uleb128 0x12
+ 2073 0241 01       		.uleb128 0x1
+ 2074 0242 40       		.uleb128 0x40
+ 2075 0243 0A       		.uleb128 0xa
+ 2076 0244 9742     		.uleb128 0x2117
+ 2077 0246 0C       		.uleb128 0xc
+ 2078 0247 01       		.uleb128 0x1
+ 2079 0248 13       		.uleb128 0x13
+ 2080 0249 00       		.byte	0
+ 2081 024a 00       		.byte	0
+ 2082 024b 2E       		.uleb128 0x2e
+ 2083 024c 2E       		.uleb128 0x2e
+ 2084 024d 01       		.byte	0x1
+ 2085 024e 3F       		.uleb128 0x3f
+ 2086 024f 0C       		.uleb128 0xc
+ 2087 0250 03       		.uleb128 0x3
+ 2088 0251 0E       		.uleb128 0xe
+ 2089 0252 3A       		.uleb128 0x3a
+ 2090 0253 0B       		.uleb128 0xb
+ 2091 0254 3B       		.uleb128 0x3b
+ 2092 0255 0B       		.uleb128 0xb
+ 2093 0256 27       		.uleb128 0x27
+ 2094 0257 0C       		.uleb128 0xc
+ 2095 0258 49       		.uleb128 0x49
+ 2096 0259 13       		.uleb128 0x13
+ 2097 025a 11       		.uleb128 0x11
+ 2098 025b 01       		.uleb128 0x1
+ 2099 025c 12       		.uleb128 0x12
+ 2100 025d 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 46
+
+
+ 2101 025e 40       		.uleb128 0x40
+ 2102 025f 0A       		.uleb128 0xa
+ 2103 0260 9742     		.uleb128 0x2117
+ 2104 0262 0C       		.uleb128 0xc
+ 2105 0263 01       		.uleb128 0x1
+ 2106 0264 13       		.uleb128 0x13
+ 2107 0265 00       		.byte	0
+ 2108 0266 00       		.byte	0
+ 2109 0267 2F       		.uleb128 0x2f
+ 2110 0268 34       		.uleb128 0x34
+ 2111 0269 00       		.byte	0
+ 2112 026a 03       		.uleb128 0x3
+ 2113 026b 0E       		.uleb128 0xe
+ 2114 026c 3A       		.uleb128 0x3a
+ 2115 026d 0B       		.uleb128 0xb
+ 2116 026e 3B       		.uleb128 0x3b
+ 2117 026f 0B       		.uleb128 0xb
+ 2118 0270 49       		.uleb128 0x49
+ 2119 0271 13       		.uleb128 0x13
+ 2120 0272 02       		.uleb128 0x2
+ 2121 0273 06       		.uleb128 0x6
+ 2122 0274 00       		.byte	0
+ 2123 0275 00       		.byte	0
+ 2124 0276 30       		.uleb128 0x30
+ 2125 0277 2E       		.uleb128 0x2e
+ 2126 0278 01       		.byte	0x1
+ 2127 0279 3F       		.uleb128 0x3f
+ 2128 027a 0C       		.uleb128 0xc
+ 2129 027b 03       		.uleb128 0x3
+ 2130 027c 0E       		.uleb128 0xe
+ 2131 027d 3A       		.uleb128 0x3a
+ 2132 027e 0B       		.uleb128 0xb
+ 2133 027f 3B       		.uleb128 0x3b
+ 2134 0280 05       		.uleb128 0x5
+ 2135 0281 27       		.uleb128 0x27
+ 2136 0282 0C       		.uleb128 0xc
+ 2137 0283 49       		.uleb128 0x49
+ 2138 0284 13       		.uleb128 0x13
+ 2139 0285 11       		.uleb128 0x11
+ 2140 0286 01       		.uleb128 0x1
+ 2141 0287 12       		.uleb128 0x12
+ 2142 0288 01       		.uleb128 0x1
+ 2143 0289 40       		.uleb128 0x40
+ 2144 028a 0A       		.uleb128 0xa
+ 2145 028b 9742     		.uleb128 0x2117
+ 2146 028d 0C       		.uleb128 0xc
+ 2147 028e 01       		.uleb128 0x1
+ 2148 028f 13       		.uleb128 0x13
+ 2149 0290 00       		.byte	0
+ 2150 0291 00       		.byte	0
+ 2151 0292 31       		.uleb128 0x31
+ 2152 0293 34       		.uleb128 0x34
+ 2153 0294 00       		.byte	0
+ 2154 0295 03       		.uleb128 0x3
+ 2155 0296 0E       		.uleb128 0xe
+ 2156 0297 3A       		.uleb128 0x3a
+ 2157 0298 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 47
+
+
+ 2158 0299 3B       		.uleb128 0x3b
+ 2159 029a 05       		.uleb128 0x5
+ 2160 029b 49       		.uleb128 0x49
+ 2161 029c 13       		.uleb128 0x13
+ 2162 029d 02       		.uleb128 0x2
+ 2163 029e 06       		.uleb128 0x6
+ 2164 029f 00       		.byte	0
+ 2165 02a0 00       		.byte	0
+ 2166 02a1 32       		.uleb128 0x32
+ 2167 02a2 2E       		.uleb128 0x2e
+ 2168 02a3 00       		.byte	0
+ 2169 02a4 31       		.uleb128 0x31
+ 2170 02a5 13       		.uleb128 0x13
+ 2171 02a6 11       		.uleb128 0x11
+ 2172 02a7 01       		.uleb128 0x1
+ 2173 02a8 12       		.uleb128 0x12
+ 2174 02a9 01       		.uleb128 0x1
+ 2175 02aa 40       		.uleb128 0x40
+ 2176 02ab 0A       		.uleb128 0xa
+ 2177 02ac 9742     		.uleb128 0x2117
+ 2178 02ae 0C       		.uleb128 0xc
+ 2179 02af 00       		.byte	0
+ 2180 02b0 00       		.byte	0
+ 2181 02b1 33       		.uleb128 0x33
+ 2182 02b2 2E       		.uleb128 0x2e
+ 2183 02b3 00       		.byte	0
+ 2184 02b4 3F       		.uleb128 0x3f
+ 2185 02b5 0C       		.uleb128 0xc
+ 2186 02b6 03       		.uleb128 0x3
+ 2187 02b7 0E       		.uleb128 0xe
+ 2188 02b8 3A       		.uleb128 0x3a
+ 2189 02b9 0B       		.uleb128 0xb
+ 2190 02ba 3B       		.uleb128 0x3b
+ 2191 02bb 05       		.uleb128 0x5
+ 2192 02bc 27       		.uleb128 0x27
+ 2193 02bd 0C       		.uleb128 0xc
+ 2194 02be 49       		.uleb128 0x49
+ 2195 02bf 13       		.uleb128 0x13
+ 2196 02c0 11       		.uleb128 0x11
+ 2197 02c1 01       		.uleb128 0x1
+ 2198 02c2 12       		.uleb128 0x12
+ 2199 02c3 01       		.uleb128 0x1
+ 2200 02c4 40       		.uleb128 0x40
+ 2201 02c5 0A       		.uleb128 0xa
+ 2202 02c6 9742     		.uleb128 0x2117
+ 2203 02c8 0C       		.uleb128 0xc
+ 2204 02c9 00       		.byte	0
+ 2205 02ca 00       		.byte	0
+ 2206 02cb 34       		.uleb128 0x34
+ 2207 02cc 2E       		.uleb128 0x2e
+ 2208 02cd 00       		.byte	0
+ 2209 02ce 3F       		.uleb128 0x3f
+ 2210 02cf 0C       		.uleb128 0xc
+ 2211 02d0 03       		.uleb128 0x3
+ 2212 02d1 0E       		.uleb128 0xe
+ 2213 02d2 3A       		.uleb128 0x3a
+ 2214 02d3 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 48
+
+
+ 2215 02d4 3B       		.uleb128 0x3b
+ 2216 02d5 05       		.uleb128 0x5
+ 2217 02d6 27       		.uleb128 0x27
+ 2218 02d7 0C       		.uleb128 0xc
+ 2219 02d8 11       		.uleb128 0x11
+ 2220 02d9 01       		.uleb128 0x1
+ 2221 02da 12       		.uleb128 0x12
+ 2222 02db 01       		.uleb128 0x1
+ 2223 02dc 40       		.uleb128 0x40
+ 2224 02dd 0A       		.uleb128 0xa
+ 2225 02de 9742     		.uleb128 0x2117
+ 2226 02e0 0C       		.uleb128 0xc
+ 2227 02e1 00       		.byte	0
+ 2228 02e2 00       		.byte	0
+ 2229 02e3 35       		.uleb128 0x35
+ 2230 02e4 34       		.uleb128 0x34
+ 2231 02e5 00       		.byte	0
+ 2232 02e6 03       		.uleb128 0x3
+ 2233 02e7 0E       		.uleb128 0xe
+ 2234 02e8 3A       		.uleb128 0x3a
+ 2235 02e9 0B       		.uleb128 0xb
+ 2236 02ea 3B       		.uleb128 0x3b
+ 2237 02eb 05       		.uleb128 0x5
+ 2238 02ec 49       		.uleb128 0x49
+ 2239 02ed 13       		.uleb128 0x13
+ 2240 02ee 3F       		.uleb128 0x3f
+ 2241 02ef 0C       		.uleb128 0xc
+ 2242 02f0 3C       		.uleb128 0x3c
+ 2243 02f1 0C       		.uleb128 0xc
+ 2244 02f2 00       		.byte	0
+ 2245 02f3 00       		.byte	0
+ 2246 02f4 36       		.uleb128 0x36
+ 2247 02f5 34       		.uleb128 0x34
+ 2248 02f6 00       		.byte	0
+ 2249 02f7 03       		.uleb128 0x3
+ 2250 02f8 0E       		.uleb128 0xe
+ 2251 02f9 3A       		.uleb128 0x3a
+ 2252 02fa 0B       		.uleb128 0xb
+ 2253 02fb 3B       		.uleb128 0x3b
+ 2254 02fc 0B       		.uleb128 0xb
+ 2255 02fd 49       		.uleb128 0x49
+ 2256 02fe 13       		.uleb128 0x13
+ 2257 02ff 3F       		.uleb128 0x3f
+ 2258 0300 0C       		.uleb128 0xc
+ 2259 0301 02       		.uleb128 0x2
+ 2260 0302 0A       		.uleb128 0xa
+ 2261 0303 00       		.byte	0
+ 2262 0304 00       		.byte	0
+ 2263 0305 37       		.uleb128 0x37
+ 2264 0306 34       		.uleb128 0x34
+ 2265 0307 00       		.byte	0
+ 2266 0308 03       		.uleb128 0x3
+ 2267 0309 0E       		.uleb128 0xe
+ 2268 030a 3A       		.uleb128 0x3a
+ 2269 030b 0B       		.uleb128 0xb
+ 2270 030c 3B       		.uleb128 0x3b
+ 2271 030d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 49
+
+
+ 2272 030e 49       		.uleb128 0x49
+ 2273 030f 13       		.uleb128 0x13
+ 2274 0310 3F       		.uleb128 0x3f
+ 2275 0311 0C       		.uleb128 0xc
+ 2276 0312 3C       		.uleb128 0x3c
+ 2277 0313 0C       		.uleb128 0xc
+ 2278 0314 00       		.byte	0
+ 2279 0315 00       		.byte	0
+ 2280 0316 38       		.uleb128 0x38
+ 2281 0317 2E       		.uleb128 0x2e
+ 2282 0318 01       		.byte	0x1
+ 2283 0319 3F       		.uleb128 0x3f
+ 2284 031a 0C       		.uleb128 0xc
+ 2285 031b 03       		.uleb128 0x3
+ 2286 031c 0E       		.uleb128 0xe
+ 2287 031d 3A       		.uleb128 0x3a
+ 2288 031e 0B       		.uleb128 0xb
+ 2289 031f 3B       		.uleb128 0x3b
+ 2290 0320 0B       		.uleb128 0xb
+ 2291 0321 27       		.uleb128 0x27
+ 2292 0322 0C       		.uleb128 0xc
+ 2293 0323 3C       		.uleb128 0x3c
+ 2294 0324 0C       		.uleb128 0xc
+ 2295 0325 01       		.uleb128 0x1
+ 2296 0326 13       		.uleb128 0x13
+ 2297 0327 00       		.byte	0
+ 2298 0328 00       		.byte	0
+ 2299 0329 39       		.uleb128 0x39
+ 2300 032a 05       		.uleb128 0x5
+ 2301 032b 00       		.byte	0
+ 2302 032c 49       		.uleb128 0x49
+ 2303 032d 13       		.uleb128 0x13
+ 2304 032e 00       		.byte	0
+ 2305 032f 00       		.byte	0
+ 2306 0330 3A       		.uleb128 0x3a
+ 2307 0331 2E       		.uleb128 0x2e
+ 2308 0332 00       		.byte	0
+ 2309 0333 3F       		.uleb128 0x3f
+ 2310 0334 0C       		.uleb128 0xc
+ 2311 0335 03       		.uleb128 0x3
+ 2312 0336 0E       		.uleb128 0xe
+ 2313 0337 3A       		.uleb128 0x3a
+ 2314 0338 0B       		.uleb128 0xb
+ 2315 0339 3B       		.uleb128 0x3b
+ 2316 033a 0B       		.uleb128 0xb
+ 2317 033b 27       		.uleb128 0x27
+ 2318 033c 0C       		.uleb128 0xc
+ 2319 033d 49       		.uleb128 0x49
+ 2320 033e 13       		.uleb128 0x13
+ 2321 033f 3C       		.uleb128 0x3c
+ 2322 0340 0C       		.uleb128 0xc
+ 2323 0341 00       		.byte	0
+ 2324 0342 00       		.byte	0
+ 2325 0343 3B       		.uleb128 0x3b
+ 2326 0344 2E       		.uleb128 0x2e
+ 2327 0345 01       		.byte	0x1
+ 2328 0346 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 50
+
+
+ 2329 0347 0C       		.uleb128 0xc
+ 2330 0348 03       		.uleb128 0x3
+ 2331 0349 0E       		.uleb128 0xe
+ 2332 034a 3A       		.uleb128 0x3a
+ 2333 034b 0B       		.uleb128 0xb
+ 2334 034c 3B       		.uleb128 0x3b
+ 2335 034d 0B       		.uleb128 0xb
+ 2336 034e 8740     		.uleb128 0x2007
+ 2337 0350 0E       		.uleb128 0xe
+ 2338 0351 27       		.uleb128 0x27
+ 2339 0352 0C       		.uleb128 0xc
+ 2340 0353 49       		.uleb128 0x49
+ 2341 0354 13       		.uleb128 0x13
+ 2342 0355 3C       		.uleb128 0x3c
+ 2343 0356 0C       		.uleb128 0xc
+ 2344 0357 01       		.uleb128 0x1
+ 2345 0358 13       		.uleb128 0x13
+ 2346 0359 00       		.byte	0
+ 2347 035a 00       		.byte	0
+ 2348 035b 3C       		.uleb128 0x3c
+ 2349 035c 2E       		.uleb128 0x2e
+ 2350 035d 01       		.byte	0x1
+ 2351 035e 3F       		.uleb128 0x3f
+ 2352 035f 0C       		.uleb128 0xc
+ 2353 0360 03       		.uleb128 0x3
+ 2354 0361 0E       		.uleb128 0xe
+ 2355 0362 3A       		.uleb128 0x3a
+ 2356 0363 0B       		.uleb128 0xb
+ 2357 0364 3B       		.uleb128 0x3b
+ 2358 0365 0B       		.uleb128 0xb
+ 2359 0366 27       		.uleb128 0x27
+ 2360 0367 0C       		.uleb128 0xc
+ 2361 0368 3C       		.uleb128 0x3c
+ 2362 0369 0C       		.uleb128 0xc
+ 2363 036a 00       		.byte	0
+ 2364 036b 00       		.byte	0
+ 2365 036c 00       		.byte	0
+ 2366              		.section	.debug_loc,"",%progbits
+ 2367              	.Ldebug_loc0:
+ 2368              	.LLST0:
+ 2369 0000 0C000000 		.4byte	.LVL1
+ 2370 0004 12000000 		.4byte	.LVL3
+ 2371 0008 0100     		.2byte	0x1
+ 2372 000a 52       		.byte	0x52
+ 2373 000b 12000000 		.4byte	.LVL3
+ 2374 000f 30000000 		.4byte	.LFE56
+ 2375 0013 0600     		.2byte	0x6
+ 2376 0015 11       		.byte	0x11
+ 2377 0016 88DA8380 		.sleb128 -536810232
+ 2377      7E
+ 2378 001b 00000000 		.4byte	0
+ 2379 001f 00000000 		.4byte	0
+ 2380              	.LLST1:
+ 2381 0023 00000000 		.4byte	.LVL4
+ 2382 0027 12000000 		.4byte	.LVL9
+ 2383 002b 0100     		.2byte	0x1
+ 2384 002d 50       		.byte	0x50
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 51
+
+
+ 2385 002e 12000000 		.4byte	.LVL9
+ 2386 0032 28000000 		.4byte	.LFE57
+ 2387 0036 0900     		.2byte	0x9
+ 2388 0038 11       		.byte	0x11
+ 2389 0039 88DA8380 		.sleb128 -536810232
+ 2389      7E
+ 2390 003e 06       		.byte	0x6
+ 2391 003f 23       		.byte	0x23
+ 2392 0040 58       		.uleb128 0x58
+ 2393 0041 00000000 		.4byte	0
+ 2394 0045 00000000 		.4byte	0
+ 2395              	.LLST2:
+ 2396 0049 08000000 		.4byte	.LVL5
+ 2397 004d 12000000 		.4byte	.LVL9
+ 2398 0051 0100     		.2byte	0x1
+ 2399 0053 50       		.byte	0x50
+ 2400 0054 12000000 		.4byte	.LVL9
+ 2401 0058 28000000 		.4byte	.LFE57
+ 2402 005c 0900     		.2byte	0x9
+ 2403 005e 11       		.byte	0x11
+ 2404 005f 88DA8380 		.sleb128 -536810232
+ 2404      7E
+ 2405 0064 06       		.byte	0x6
+ 2406 0065 23       		.byte	0x23
+ 2407 0066 58       		.uleb128 0x58
+ 2408 0067 00000000 		.4byte	0
+ 2409 006b 00000000 		.4byte	0
+ 2410              	.LLST3:
+ 2411 006f 0A000000 		.4byte	.LVL6
+ 2412 0073 10000000 		.4byte	.LVL8
+ 2413 0077 0100     		.2byte	0x1
+ 2414 0079 52       		.byte	0x52
+ 2415 007a 10000000 		.4byte	.LVL8
+ 2416 007e 28000000 		.4byte	.LFE57
+ 2417 0082 0600     		.2byte	0x6
+ 2418 0084 11       		.byte	0x11
+ 2419 0085 88DA8380 		.sleb128 -536810232
+ 2419      7E
+ 2420 008a 00000000 		.4byte	0
+ 2421 008e 00000000 		.4byte	0
+ 2422              	.LLST4:
+ 2423 0092 00000000 		.4byte	.LFB59
+ 2424 0096 04000000 		.4byte	.LCFI0
+ 2425 009a 0200     		.2byte	0x2
+ 2426 009c 7D       		.byte	0x7d
+ 2427 009d 00       		.sleb128 0
+ 2428 009e 04000000 		.4byte	.LCFI0
+ 2429 00a2 70000000 		.4byte	.LFE59
+ 2430 00a6 0200     		.2byte	0x2
+ 2431 00a8 7D       		.byte	0x7d
+ 2432 00a9 10       		.sleb128 16
+ 2433 00aa 00000000 		.4byte	0
+ 2434 00ae 00000000 		.4byte	0
+ 2435              	.LLST5:
+ 2436 00b2 00000000 		.4byte	.LVL21
+ 2437 00b6 02000000 		.4byte	.LVL22
+ 2438 00ba 0600     		.2byte	0x6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 52
+
+
+ 2439 00bc 11       		.byte	0x11
+ 2440 00bd 88DA8380 		.sleb128 -536810232
+ 2440      7E
+ 2441 00c2 02000000 		.4byte	.LVL22
+ 2442 00c6 0C000000 		.4byte	.LFE61
+ 2443 00ca 0200     		.2byte	0x2
+ 2444 00cc 73       		.byte	0x73
+ 2445 00cd 00       		.sleb128 0
+ 2446 00ce 00000000 		.4byte	0
+ 2447 00d2 00000000 		.4byte	0
+ 2448              	.LLST6:
+ 2449 00d6 00000000 		.4byte	.LVL23
+ 2450 00da 02000000 		.4byte	.LVL24
+ 2451 00de 0100     		.2byte	0x1
+ 2452 00e0 50       		.byte	0x50
+ 2453 00e1 02000000 		.4byte	.LVL24
+ 2454 00e5 10000000 		.4byte	.LFE62
+ 2455 00e9 0400     		.2byte	0x4
+ 2456 00eb F3       		.byte	0xf3
+ 2457 00ec 01       		.uleb128 0x1
+ 2458 00ed 50       		.byte	0x50
+ 2459 00ee 9F       		.byte	0x9f
+ 2460 00ef 00000000 		.4byte	0
+ 2461 00f3 00000000 		.4byte	0
+ 2462              	.LLST7:
+ 2463 00f7 04000000 		.4byte	.LVL25
+ 2464 00fb 06000000 		.4byte	.LVL26
+ 2465 00ff 0500     		.2byte	0x5
+ 2466 0101 70       		.byte	0x70
+ 2467 0102 00       		.sleb128 0
+ 2468 0103 35       		.byte	0x35
+ 2469 0104 25       		.byte	0x25
+ 2470 0105 9F       		.byte	0x9f
+ 2471 0106 00000000 		.4byte	0
+ 2472 010a 00000000 		.4byte	0
+ 2473              		.section	.debug_aranges,"",%progbits
+ 2474 0000 7C000000 		.4byte	0x7c
+ 2475 0004 0200     		.2byte	0x2
+ 2476 0006 00000000 		.4byte	.Ldebug_info0
+ 2477 000a 04       		.byte	0x4
+ 2478 000b 00       		.byte	0
+ 2479 000c 0000     		.2byte	0
+ 2480 000e 0000     		.2byte	0
+ 2481 0010 00000000 		.4byte	.LFB56
+ 2482 0014 30000000 		.4byte	.LFE56-.LFB56
+ 2483 0018 00000000 		.4byte	.LFB57
+ 2484 001c 28000000 		.4byte	.LFE57-.LFB57
+ 2485 0020 00000000 		.4byte	.LFB58
+ 2486 0024 1C000000 		.4byte	.LFE58-.LFB58
+ 2487 0028 00000000 		.4byte	.LFB59
+ 2488 002c 70000000 		.4byte	.LFE59-.LFB59
+ 2489 0030 00000000 		.4byte	.LFB60
+ 2490 0034 0C000000 		.4byte	.LFE60-.LFB60
+ 2491 0038 00000000 		.4byte	.LFB61
+ 2492 003c 0C000000 		.4byte	.LFE61-.LFB61
+ 2493 0040 00000000 		.4byte	.LFB62
+ 2494 0044 10000000 		.4byte	.LFE62-.LFB62
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 53
+
+
+ 2495 0048 00000000 		.4byte	.LFB63
+ 2496 004c 0C000000 		.4byte	.LFE63-.LFB63
+ 2497 0050 00000000 		.4byte	.LFB64
+ 2498 0054 0C000000 		.4byte	.LFE64-.LFB64
+ 2499 0058 00000000 		.4byte	.LFB65
+ 2500 005c 10000000 		.4byte	.LFE65-.LFB65
+ 2501 0060 00000000 		.4byte	.LFB66
+ 2502 0064 0C000000 		.4byte	.LFE66-.LFB66
+ 2503 0068 00000000 		.4byte	.LFB67
+ 2504 006c 0C000000 		.4byte	.LFE67-.LFB67
+ 2505 0070 00000000 		.4byte	.LFB68
+ 2506 0074 0C000000 		.4byte	.LFE68-.LFB68
+ 2507 0078 00000000 		.4byte	0
+ 2508 007c 00000000 		.4byte	0
+ 2509              		.section	.debug_ranges,"",%progbits
+ 2510              	.Ldebug_ranges0:
+ 2511 0000 00000000 		.4byte	.LBB22
+ 2512 0004 02000000 		.4byte	.LBE22
+ 2513 0008 04000000 		.4byte	.LBB29
+ 2514 000c 08000000 		.4byte	.LBE29
+ 2515 0010 00000000 		.4byte	0
+ 2516 0014 00000000 		.4byte	0
+ 2517 0018 02000000 		.4byte	.LBB25
+ 2518 001c 04000000 		.4byte	.LBE25
+ 2519 0020 08000000 		.4byte	.LBB30
+ 2520 0024 0C000000 		.4byte	.LBE30
+ 2521 0028 0E000000 		.4byte	.LBB35
+ 2522 002c 10000000 		.4byte	.LBE35
+ 2523 0030 00000000 		.4byte	0
+ 2524 0034 00000000 		.4byte	0
+ 2525 0038 02000000 		.4byte	.LBB26
+ 2526 003c 04000000 		.4byte	.LBE26
+ 2527 0040 08000000 		.4byte	.LBB27
+ 2528 0044 0C000000 		.4byte	.LBE27
+ 2529 0048 0E000000 		.4byte	.LBB28
+ 2530 004c 10000000 		.4byte	.LBE28
+ 2531 0050 00000000 		.4byte	0
+ 2532 0054 00000000 		.4byte	0
+ 2533 0058 0C000000 		.4byte	.LBB31
+ 2534 005c 0E000000 		.4byte	.LBE31
+ 2535 0060 10000000 		.4byte	.LBB36
+ 2536 0064 12000000 		.4byte	.LBE36
+ 2537 0068 14000000 		.4byte	.LBB40
+ 2538 006c 16000000 		.4byte	.LBE40
+ 2539 0070 00000000 		.4byte	0
+ 2540 0074 00000000 		.4byte	0
+ 2541 0078 12000000 		.4byte	.LBB37
+ 2542 007c 14000000 		.4byte	.LBE37
+ 2543 0080 16000000 		.4byte	.LBB41
+ 2544 0084 30000000 		.4byte	.LBE41
+ 2545 0088 00000000 		.4byte	0
+ 2546 008c 00000000 		.4byte	0
+ 2547 0090 00000000 		.4byte	.LBB42
+ 2548 0094 02000000 		.4byte	.LBE42
+ 2549 0098 04000000 		.4byte	.LBB49
+ 2550 009c 08000000 		.4byte	.LBE49
+ 2551 00a0 00000000 		.4byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 54
+
+
+ 2552 00a4 00000000 		.4byte	0
+ 2553 00a8 02000000 		.4byte	.LBB45
+ 2554 00ac 04000000 		.4byte	.LBE45
+ 2555 00b0 08000000 		.4byte	.LBB50
+ 2556 00b4 0A000000 		.4byte	.LBE50
+ 2557 00b8 0C000000 		.4byte	.LBB54
+ 2558 00bc 0E000000 		.4byte	.LBE54
+ 2559 00c0 00000000 		.4byte	0
+ 2560 00c4 00000000 		.4byte	0
+ 2561 00c8 02000000 		.4byte	.LBB46
+ 2562 00cc 04000000 		.4byte	.LBE46
+ 2563 00d0 08000000 		.4byte	.LBB47
+ 2564 00d4 0A000000 		.4byte	.LBE47
+ 2565 00d8 0C000000 		.4byte	.LBB48
+ 2566 00dc 0E000000 		.4byte	.LBE48
+ 2567 00e0 00000000 		.4byte	0
+ 2568 00e4 00000000 		.4byte	0
+ 2569 00e8 0A000000 		.4byte	.LBB51
+ 2570 00ec 0C000000 		.4byte	.LBE51
+ 2571 00f0 10000000 		.4byte	.LBB58
+ 2572 00f4 14000000 		.4byte	.LBE58
+ 2573 00f8 00000000 		.4byte	0
+ 2574 00fc 00000000 		.4byte	0
+ 2575 0100 0E000000 		.4byte	.LBB55
+ 2576 0104 10000000 		.4byte	.LBE55
+ 2577 0108 14000000 		.4byte	.LBB59
+ 2578 010c 28000000 		.4byte	.LBE59
+ 2579 0110 00000000 		.4byte	0
+ 2580 0114 00000000 		.4byte	0
+ 2581 0118 00000000 		.4byte	.LBB60
+ 2582 011c 02000000 		.4byte	.LBE60
+ 2583 0120 04000000 		.4byte	.LBB66
+ 2584 0124 08000000 		.4byte	.LBE66
+ 2585 0128 00000000 		.4byte	0
+ 2586 012c 00000000 		.4byte	0
+ 2587 0130 02000000 		.4byte	.LBB63
+ 2588 0134 04000000 		.4byte	.LBE63
+ 2589 0138 08000000 		.4byte	.LBB67
+ 2590 013c 1C000000 		.4byte	.LBE67
+ 2591 0140 00000000 		.4byte	0
+ 2592 0144 00000000 		.4byte	0
+ 2593 0148 02000000 		.4byte	.LBB64
+ 2594 014c 04000000 		.4byte	.LBE64
+ 2595 0150 08000000 		.4byte	.LBB65
+ 2596 0154 1C000000 		.4byte	.LBE65
+ 2597 0158 00000000 		.4byte	0
+ 2598 015c 00000000 		.4byte	0
+ 2599 0160 00000000 		.4byte	.LFB56
+ 2600 0164 30000000 		.4byte	.LFE56
+ 2601 0168 00000000 		.4byte	.LFB57
+ 2602 016c 28000000 		.4byte	.LFE57
+ 2603 0170 00000000 		.4byte	.LFB58
+ 2604 0174 1C000000 		.4byte	.LFE58
+ 2605 0178 00000000 		.4byte	.LFB59
+ 2606 017c 70000000 		.4byte	.LFE59
+ 2607 0180 00000000 		.4byte	.LFB60
+ 2608 0184 0C000000 		.4byte	.LFE60
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 55
+
+
+ 2609 0188 00000000 		.4byte	.LFB61
+ 2610 018c 0C000000 		.4byte	.LFE61
+ 2611 0190 00000000 		.4byte	.LFB62
+ 2612 0194 10000000 		.4byte	.LFE62
+ 2613 0198 00000000 		.4byte	.LFB63
+ 2614 019c 0C000000 		.4byte	.LFE63
+ 2615 01a0 00000000 		.4byte	.LFB64
+ 2616 01a4 0C000000 		.4byte	.LFE64
+ 2617 01a8 00000000 		.4byte	.LFB65
+ 2618 01ac 10000000 		.4byte	.LFE65
+ 2619 01b0 00000000 		.4byte	.LFB66
+ 2620 01b4 0C000000 		.4byte	.LFE66
+ 2621 01b8 00000000 		.4byte	.LFB67
+ 2622 01bc 0C000000 		.4byte	.LFE67
+ 2623 01c0 00000000 		.4byte	.LFB68
+ 2624 01c4 0C000000 		.4byte	.LFE68
+ 2625 01c8 00000000 		.4byte	0
+ 2626 01cc 00000000 		.4byte	0
+ 2627              		.section	.debug_line,"",%progbits
+ 2628              	.Ldebug_line0:
+ 2629 0000 8F020000 		.section	.debug_str,"MS",%progbits,1
+ 2629      02004301 
+ 2629      00000201 
+ 2629      FB0E0D00 
+ 2629      01010101 
+ 2630              	.LASF23:
+ 2631 0000 66627974 		.ascii	"fbyte\000"
+ 2631      6500
+ 2632              	.LASF61:
+ 2633 0006 6973725F 		.ascii	"isr_Ticks_Enable\000"
+ 2633      5469636B 
+ 2633      735F456E 
+ 2633      61626C65 
+ 2633      00
+ 2634              	.LASF85:
+ 2635 0017 5F5F6275 		.ascii	"__builtin_puts\000"
+ 2635      696C7469 
+ 2635      6E5F7075 
+ 2635      747300
+ 2636              	.LASF24:
+ 2637 0026 666E756D 		.ascii	"fnum\000"
+ 2637      00
+ 2638              	.LASF60:
+ 2639 002b 7072696F 		.ascii	"priority\000"
+ 2639      72697479 
+ 2639      00
+ 2640              	.LASF55:
+ 2641 0034 6973725F 		.ascii	"isr_Ticks_Disable\000"
+ 2641      5469636B 
+ 2641      735F4469 
+ 2641      7361626C 
+ 2641      6500
+ 2642              	.LASF2:
+ 2643 0046 73686F72 		.ascii	"short int\000"
+ 2643      7420696E 
+ 2643      7400
+ 2644              	.LASF8:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 56
+
+
+ 2645 0050 73697A65 		.ascii	"sizetype\000"
+ 2645      74797065 
+ 2645      00
+ 2646              	.LASF52:
+ 2647 0059 6D65616E 		.ascii	"mean_rate\000"
+ 2647      5F726174 
+ 2647      6500
+ 2648              	.LASF19:
+ 2649 0063 63686172 		.ascii	"char8\000"
+ 2649      3800
+ 2650              	.LASF42:
+ 2651 0069 52544E42 		.ascii	"RTNBC_Function_ENABLE\000"
+ 2651      435F4675 
+ 2651      6E637469 
+ 2651      6F6E5F45 
+ 2651      4E41424C 
+ 2652              	.LASF47:
+ 2653 007f 414E414C 		.ascii	"ANALOG_GYRO\000"
+ 2653      4F475F47 
+ 2653      59524F00 
+ 2654              	.LASF31:
+ 2655 008b 67616D6D 		.ascii	"gamma\000"
+ 2655      6100
+ 2656              	.LASF44:
+ 2657 0091 45746872 		.ascii	"Ethreshold\000"
+ 2657      6573686F 
+ 2657      6C6400
+ 2658              	.LASF45:
+ 2659 009c 6A756D70 		.ascii	"jump_g_threshold\000"
+ 2659      5F675F74 
+ 2659      68726573 
+ 2659      686F6C64 
+ 2659      00
+ 2660              	.LASF33:
+ 2661 00ad 61677972 		.ascii	"agyro_ADC_offset\000"
+ 2661      6F5F4144 
+ 2661      435F6F66 
+ 2661      66736574 
+ 2661      00
+ 2662              	.LASF58:
+ 2663 00be 6973725F 		.ascii	"isr_Ticks_SetPriority\000"
+ 2663      5469636B 
+ 2663      735F5365 
+ 2663      74507269 
+ 2663      6F726974 
+ 2664              	.LASF51:
+ 2665 00d4 72617465 		.ascii	"rate_lowpass\000"
+ 2665      5F6C6F77 
+ 2665      70617373 
+ 2665      00
+ 2666              	.LASF32:
+ 2667 00e1 616E615F 		.ascii	"ana_gyro_scale_sensivity\000"
+ 2667      6779726F 
+ 2667      5F736361 
+ 2667      6C655F73 
+ 2667      656E7369 
+ 2668              	.LASF13:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 57
+
+
+ 2669 00fa 75696E74 		.ascii	"uint16\000"
+ 2669      313600
+ 2670              	.LASF29:
+ 2671 0101 616C7068 		.ascii	"alpha\000"
+ 2671      6100
+ 2672              	.LASF16:
+ 2673 0107 696E7431 		.ascii	"int16\000"
+ 2673      3600
+ 2674              	.LASF12:
+ 2675 010d 75696E74 		.ascii	"uint8\000"
+ 2675      3800
+ 2676              	.LASF53:
+ 2677 0113 6D65616E 		.ascii	"mean_rate_previous\000"
+ 2677      5F726174 
+ 2677      655F7072 
+ 2677      6576696F 
+ 2677      757300
+ 2678              	.LASF0:
+ 2679 0126 7369676E 		.ascii	"signed char\000"
+ 2679      65642063 
+ 2679      68617200 
+ 2680              	.LASF17:
+ 2681 0132 666C6F61 		.ascii	"float\000"
+ 2681      7400
+ 2682              	.LASF63:
+ 2683 0138 6973725F 		.ascii	"isr_Ticks_StartEx\000"
+ 2683      5469636B 
+ 2683      735F5374 
+ 2683      61727445 
+ 2683      7800
+ 2684              	.LASF77:
+ 2685 014a 6C6F6361 		.ascii	"local_dummy\000"
+ 2685      6C5F6475 
+ 2685      6D6D7900 
+ 2686              	.LASF5:
+ 2687 0156 6C6F6E67 		.ascii	"long long int\000"
+ 2687      206C6F6E 
+ 2687      6720696E 
+ 2687      7400
+ 2688              	.LASF15:
+ 2689 0164 696E7438 		.ascii	"int8\000"
+ 2689      00
+ 2690              	.LASF66:
+ 2691 0169 6973725F 		.ascii	"isr_Ticks_GetPriority\000"
+ 2691      5469636B 
+ 2691      735F4765 
+ 2691      74507269 
+ 2691      6F726974 
+ 2692              	.LASF7:
+ 2693 017f 6C6F6E67 		.ascii	"long int\000"
+ 2693      20696E74 
+ 2693      00
+ 2694              	.LASF59:
+ 2695 0188 61646472 		.ascii	"address\000"
+ 2695      65737300 
+ 2696              	.LASF11:
+ 2697 0190 696E7433 		.ascii	"int32_t\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 58
+
+
+ 2697      325F7400 
+ 2698              	.LASF35:
+ 2699 0198 795F6163 		.ascii	"y_acc_ADC_offset\000"
+ 2699      635F4144 
+ 2699      435F6F66 
+ 2699      66736574 
+ 2699      00
+ 2700              	.LASF48:
+ 2701 01a9 4144435F 		.ascii	"ADC_offset\000"
+ 2701      6F666673 
+ 2701      657400
+ 2702              	.LASF1:
+ 2703 01b4 756E7369 		.ascii	"unsigned char\000"
+ 2703      676E6564 
+ 2703      20636861 
+ 2703      7200
+ 2704              	.LASF40:
+ 2705 01c2 66656564 		.ascii	"feedback\000"
+ 2705      6261636B 
+ 2705      00
+ 2706              	.LASF69:
+ 2707 01cb 6973725F 		.ascii	"isr_Ticks_ClearPending\000"
+ 2707      5469636B 
+ 2707      735F436C 
+ 2707      65617250 
+ 2707      656E6469 
+ 2708              	.LASF68:
+ 2709 01e2 6973725F 		.ascii	"isr_Ticks_SetPending\000"
+ 2709      5469636B 
+ 2709      735F5365 
+ 2709      7450656E 
+ 2709      64696E67 
+ 2710              	.LASF56:
+ 2711 01f7 6973725F 		.ascii	"isr_Ticks_Interrupt\000"
+ 2711      5469636B 
+ 2711      735F496E 
+ 2711      74657272 
+ 2711      75707400 
+ 2712              	.LASF78:
+ 2713 020b 43794465 		.ascii	"CyDelayUs\000"
+ 2713      6C617955 
+ 2713      7300
+ 2714              	.LASF22:
+ 2715 0215 63796973 		.ascii	"cyisraddress\000"
+ 2715      72616464 
+ 2715      72657373 
+ 2715      00
+ 2716              	.LASF36:
+ 2717 0222 7A5F6163 		.ascii	"z_acc_ADC_offset\000"
+ 2717      635F4144 
+ 2717      435F6F66 
+ 2717      66736574 
+ 2717      00
+ 2718              	.LASF30:
+ 2719 0233 62657461 		.ascii	"beta\000"
+ 2719      00
+ 2720              	.LASF73:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 59
+
+
+ 2721 0238 4779726F 		.ascii	"GyroNullPauseTicks\000"
+ 2721      4E756C6C 
+ 2721      50617573 
+ 2721      65546963 
+ 2721      6B7300
+ 2722              	.LASF6:
+ 2723 024b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2723      206C6F6E 
+ 2723      6720756E 
+ 2723      7369676E 
+ 2723      65642069 
+ 2724              	.LASF49:
+ 2725 0262 7363616C 		.ascii	"scale\000"
+ 2725      6500
+ 2726              	.LASF4:
+ 2727 0268 756E7369 		.ascii	"unsigned int\000"
+ 2727      676E6564 
+ 2727      20696E74 
+ 2727      00
+ 2728              	.LASF9:
+ 2729 0275 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2729      20756E73 
+ 2729      69676E65 
+ 2729      6420696E 
+ 2729      7400
+ 2730              	.LASF71:
+ 2731 0287 676F6265 		.ascii	"gobee_vparam\000"
+ 2731      655F7670 
+ 2731      6172616D 
+ 2731      00
+ 2732              	.LASF86:
+ 2733 0294 70757473 		.ascii	"puts\000"
+ 2733      00
+ 2734              	.LASF21:
+ 2735 0299 72656733 		.ascii	"reg32\000"
+ 2735      3200
+ 2736              	.LASF79:
+ 2737 029f 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2737      4320342E 
+ 2737      372E3320 
+ 2737      32303133 
+ 2737      30333132 
+ 2738 02d2 616E6368 		.ascii	"anch revision 196615]\000"
+ 2738      20726576 
+ 2738      6973696F 
+ 2738      6E203139 
+ 2738      36363135 
+ 2739              	.LASF3:
+ 2740 02e8 73686F72 		.ascii	"short unsigned int\000"
+ 2740      7420756E 
+ 2740      7369676E 
+ 2740      65642069 
+ 2740      6E7400
+ 2741              	.LASF72:
+ 2742 02fb 6D616368 		.ascii	"machine_state\000"
+ 2742      696E655F 
+ 2742      73746174 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 60
+
+
+ 2742      6500
+ 2743              	.LASF76:
+ 2744 0309 61677972 		.ascii	"agyro\000"
+ 2744      6F00
+ 2745              	.LASF10:
+ 2746 030f 63686172 		.ascii	"char\000"
+ 2746      00
+ 2747              	.LASF81:
+ 2748 0314 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 2748      73657273 
+ 2748      5C477261 
+ 2748      7A69616E 
+ 2748      6F5C4465 
+ 2749 0342 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 2749      525C5665 
+ 2749      72732E30 
+ 2749      2E302D54 
+ 2749      30352032 
+ 2750 0373 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 2750      65446972 
+ 2750      2E637964 
+ 2750      736E00
+ 2751              	.LASF46:
+ 2752 0382 474F4245 		.ascii	"GOBEE_PARAMS\000"
+ 2752      455F5041 
+ 2752      52414D53 
+ 2752      00
+ 2753              	.LASF27:
+ 2754 038f 6C696E6B 		.ascii	"link_type\000"
+ 2754      5F747970 
+ 2754      6500
+ 2755              	.LASF67:
+ 2756 0399 72616D56 		.ascii	"ramVectorTable\000"
+ 2756      6563746F 
+ 2756      72546162 
+ 2756      6C6500
+ 2757              	.LASF74:
+ 2758 03a8 676F6265 		.ascii	"gobee_param\000"
+ 2758      655F7061 
+ 2758      72616D00 
+ 2759              	.LASF83:
+ 2760 03b4 6973725F 		.ascii	"isr_Ticks_GetState\000"
+ 2760      5469636B 
+ 2760      735F4765 
+ 2760      74537461 
+ 2760      746500
+ 2761              	.LASF38:
+ 2762 03c7 64677972 		.ascii	"dgyro_offset_fine\000"
+ 2762      6F5F6F66 
+ 2762      66736574 
+ 2762      5F66696E 
+ 2762      6500
+ 2763              	.LASF57:
+ 2764 03d9 6973725F 		.ascii	"isr_Ticks_SetVector\000"
+ 2764      5469636B 
+ 2764      735F5365 
+ 2764      74566563 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 61
+
+
+ 2764      746F7200 
+ 2765              	.LASF20:
+ 2766 03ed 72656738 		.ascii	"reg8\000"
+ 2766      00
+ 2767              	.LASF62:
+ 2768 03f2 6973725F 		.ascii	"isr_Ticks_Start\000"
+ 2768      5469636B 
+ 2768      735F5374 
+ 2768      61727400 
+ 2769              	.LASF41:
+ 2770 0402 616E676C 		.ascii	"angle_estimation\000"
+ 2770      655F6573 
+ 2770      74696D61 
+ 2770      74696F6E 
+ 2770      00
+ 2771              	.LASF14:
+ 2772 0413 75696E74 		.ascii	"uint32\000"
+ 2772      333200
+ 2773              	.LASF25:
+ 2774 041a 666C6F61 		.ascii	"floatEE\000"
+ 2774      74454500 
+ 2775              	.LASF43:
+ 2776 0422 52544E42 		.ascii	"RTNBCMaxTicks\000"
+ 2776      434D6178 
+ 2776      5469636B 
+ 2776      7300
+ 2777              	.LASF82:
+ 2778 0430 474F4245 		.ascii	"GOBEE_VPARAMS\000"
+ 2778      455F5650 
+ 2778      4152414D 
+ 2778      5300
+ 2779              	.LASF80:
+ 2780 043e 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isr_Ticks.c\000"
+ 2780      6E657261 
+ 2780      7465645F 
+ 2780      536F7572 
+ 2780      63655C50 
+ 2781              	.LASF37:
+ 2782 0463 6779726F 		.ascii	"gyro_offset_fine\000"
+ 2782      5F6F6666 
+ 2782      7365745F 
+ 2782      66696E65 
+ 2782      00
+ 2783              	.LASF34:
+ 2784 0474 785F6163 		.ascii	"x_acc_ADC_offset\000"
+ 2784      635F4144 
+ 2784      435F6F66 
+ 2784      66736574 
+ 2784      00
+ 2785              	.LASF39:
+ 2786 0485 6779726F 		.ascii	"gyro_scale_offset_fine\000"
+ 2786      5F736361 
+ 2786      6C655F6F 
+ 2786      66667365 
+ 2786      745F6669 
+ 2787              	.LASF65:
+ 2788 049c 6973725F 		.ascii	"isr_Ticks_GetVector\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccoio3VO.s 			page 62
+
+
+ 2788      5469636B 
+ 2788      735F4765 
+ 2788      74566563 
+ 2788      746F7200 
+ 2789              	.LASF84:
+ 2790 04b0 57726974 		.ascii	"WriteAllEEparams\000"
+ 2790      65416C6C 
+ 2790      45457061 
+ 2790      72616D73 
+ 2790      00
+ 2791              	.LASF50:
+ 2792 04c1 72617465 		.ascii	"rate\000"
+ 2792      00
+ 2793              	.LASF54:
+ 2794 04c6 616E676C 		.ascii	"angle\000"
+ 2794      6500
+ 2795              	.LASF87:
+ 2796 04cc 436F756E 		.ascii	"Counter_LED_WritePeriod\000"
+ 2796      7465725F 
+ 2796      4C45445F 
+ 2796      57726974 
+ 2796      65506572 
+ 2797              	.LASF18:
+ 2798 04e4 646F7562 		.ascii	"double\000"
+ 2798      6C6500
+ 2799              	.LASF70:
+ 2800 04eb 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2800      52784275 
+ 2800      66666572 
+ 2800      00
+ 2801              	.LASF75:
+ 2802 04f8 61677972 		.ascii	"agyro_messg\000"
+ 2802      6F5F6D65 
+ 2802      73736700 
+ 2803              	.LASF28:
+ 2804 0504 6B706C6F 		.ascii	"kplowpass\000"
+ 2804      77706173 
+ 2804      7300
+ 2805              	.LASF26:
+ 2806 050e 64697265 		.ascii	"director\000"
+ 2806      63746F72 
+ 2806      00
+ 2807              	.LASF64:
+ 2808 0517 6973725F 		.ascii	"isr_Ticks_Stop\000"
+ 2808      5469636B 
+ 2808      735F5374 
+ 2808      6F7000
+ 2809              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

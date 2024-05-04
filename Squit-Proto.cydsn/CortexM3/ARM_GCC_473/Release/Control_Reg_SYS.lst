@@ -1,0 +1,538 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Control_Reg_SYS.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.Control_Reg_SYS_Write,"ax",%progbits
+  19              		.align	1
+  20              		.global	Control_Reg_SYS_Write
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	Control_Reg_SYS_Write, %function
+  24              	Control_Reg_SYS_Write:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\Control_Reg_SYS.c"
+   1:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * File Name: Control_Reg_SYS.c  
+   3:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+   5:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Description:
+   6:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  This file contains API to enable firmware control of a Control Register.
+   7:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+   8:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Note:
+   9:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  10:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** 
+  17:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** #include "Control_Reg_SYS.h"
+  18:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** 
+  19:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** #if !defined(Control_Reg_SYS_Sync_ctrl_reg__REMOVED) /* Check for removal by optimization */
+  20:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** 
+  21:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** /*******************************************************************************
+  22:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Function Name: Control_Reg_SYS_Write
+  23:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** ********************************************************************************
+  24:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  25:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Summary:
+  26:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  Write a byte to the Control Register.
+  27:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  28:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Parameters:
+  29:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  control:  The value to be assigned to the Control Register.
+  30:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  31:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Return:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  None.
+  33:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  34:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *******************************************************************************/
+  35:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** void Control_Reg_SYS_Write(uint8 control) 
+  36:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** {
+  27              		.loc 1 36 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  37:.\Generated_Source\PSoC5/Control_Reg_SYS.c ****     Control_Reg_SYS_Control = control;
+  33              		.loc 1 37 0
+  34 0000 014B     		ldr	r3, .L2
+  35 0002 1870     		strb	r0, [r3, #0]
+  36 0004 7047     		bx	lr
+  37              	.L3:
+  38 0006 00BF     		.align	2
+  39              	.L2:
+  40 0008 79650040 		.word	1073767801
+  41              		.cfi_endproc
+  42              	.LFE0:
+  43              		.size	Control_Reg_SYS_Write, .-Control_Reg_SYS_Write
+  44              		.section	.text.Control_Reg_SYS_Read,"ax",%progbits
+  45              		.align	1
+  46              		.global	Control_Reg_SYS_Read
+  47              		.thumb
+  48              		.thumb_func
+  49              		.type	Control_Reg_SYS_Read, %function
+  50              	Control_Reg_SYS_Read:
+  51              	.LFB1:
+  38:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** }
+  39:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** 
+  40:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** 
+  41:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** /*******************************************************************************
+  42:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Function Name: Control_Reg_SYS_Read
+  43:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** ********************************************************************************
+  44:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  45:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Summary:
+  46:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  Reads the current value assigned to the Control Register.
+  47:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  48:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Parameters:
+  49:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  None.
+  50:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  51:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** * Return:
+  52:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *  Returns the current value in the Control Register.
+  53:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *
+  54:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** *******************************************************************************/
+  55:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** uint8 Control_Reg_SYS_Read(void) 
+  56:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** {
+  52              		.loc 1 56 0
+  53              		.cfi_startproc
+  54              		@ args = 0, pretend = 0, frame = 0
+  55              		@ frame_needed = 0, uses_anonymous_args = 0
+  56              		@ link register save eliminated.
+  57:.\Generated_Source\PSoC5/Control_Reg_SYS.c ****     return Control_Reg_SYS_Control;
+  57              		.loc 1 57 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 3
+
+
+  58 0000 014B     		ldr	r3, .L5
+  59 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  58:.\Generated_Source\PSoC5/Control_Reg_SYS.c **** }
+  60              		.loc 1 58 0
+  61 0004 7047     		bx	lr
+  62              	.L6:
+  63 0006 00BF     		.align	2
+  64              	.L5:
+  65 0008 79650040 		.word	1073767801
+  66              		.cfi_endproc
+  67              	.LFE1:
+  68              		.size	Control_Reg_SYS_Read, .-Control_Reg_SYS_Read
+  69              		.text
+  70              	.Letext0:
+  71              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+  72              		.section	.debug_info,"",%progbits
+  73              	.Ldebug_info0:
+  74 0000 DC000000 		.4byte	0xdc
+  75 0004 0200     		.2byte	0x2
+  76 0006 00000000 		.4byte	.Ldebug_abbrev0
+  77 000a 04       		.byte	0x4
+  78 000b 01       		.uleb128 0x1
+  79 000c 42010000 		.4byte	.LASF14
+  80 0010 01       		.byte	0x1
+  81 0011 F4000000 		.4byte	.LASF15
+  82 0015 3E000000 		.4byte	.LASF16
+  83 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  84 001d 00000000 		.4byte	0
+  85 0021 00000000 		.4byte	0
+  86 0025 00000000 		.4byte	.Ldebug_line0
+  87 0029 02       		.uleb128 0x2
+  88 002a 01       		.byte	0x1
+  89 002b 06       		.byte	0x6
+  90 002c AA010000 		.4byte	.LASF0
+  91 0030 02       		.uleb128 0x2
+  92 0031 01       		.byte	0x1
+  93 0032 08       		.byte	0x8
+  94 0033 19000000 		.4byte	.LASF1
+  95 0037 02       		.uleb128 0x2
+  96 0038 02       		.byte	0x2
+  97 0039 05       		.byte	0x5
+  98 003a 32010000 		.4byte	.LASF2
+  99 003e 02       		.uleb128 0x2
+ 100 003f 02       		.byte	0x2
+ 101 0040 07       		.byte	0x7
+ 102 0041 00000000 		.4byte	.LASF3
+ 103 0045 02       		.uleb128 0x2
+ 104 0046 04       		.byte	0x4
+ 105 0047 05       		.byte	0x5
+ 106 0048 A1010000 		.4byte	.LASF4
+ 107 004c 02       		.uleb128 0x2
+ 108 004d 04       		.byte	0x4
+ 109 004e 07       		.byte	0x7
+ 110 004f 2C000000 		.4byte	.LASF5
+ 111 0053 02       		.uleb128 0x2
+ 112 0054 08       		.byte	0x8
+ 113 0055 05       		.byte	0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 4
+
+
+ 114 0056 1F010000 		.4byte	.LASF6
+ 115 005a 02       		.uleb128 0x2
+ 116 005b 08       		.byte	0x8
+ 117 005c 07       		.byte	0x7
+ 118 005d DD000000 		.4byte	.LASF7
+ 119 0061 03       		.uleb128 0x3
+ 120 0062 04       		.byte	0x4
+ 121 0063 05       		.byte	0x5
+ 122 0064 696E7400 		.ascii	"int\000"
+ 123 0068 02       		.uleb128 0x2
+ 124 0069 04       		.byte	0x4
+ 125 006a 07       		.byte	0x7
+ 126 006b D0000000 		.4byte	.LASF8
+ 127 006f 04       		.uleb128 0x4
+ 128 0070 3C010000 		.4byte	.LASF12
+ 129 0074 02       		.byte	0x2
+ 130 0075 5B       		.byte	0x5b
+ 131 0076 30000000 		.4byte	0x30
+ 132 007a 02       		.uleb128 0x2
+ 133 007b 04       		.byte	0x4
+ 134 007c 04       		.byte	0x4
+ 135 007d 13000000 		.4byte	.LASF9
+ 136 0081 02       		.uleb128 0x2
+ 137 0082 08       		.byte	0x8
+ 138 0083 04       		.byte	0x4
+ 139 0084 B4000000 		.4byte	.LASF10
+ 140 0088 02       		.uleb128 0x2
+ 141 0089 01       		.byte	0x1
+ 142 008a 08       		.byte	0x8
+ 143 008b 2D010000 		.4byte	.LASF11
+ 144 008f 04       		.uleb128 0x4
+ 145 0090 27000000 		.4byte	.LASF13
+ 146 0094 02       		.byte	0x2
+ 147 0095 F0       		.byte	0xf0
+ 148 0096 9A000000 		.4byte	0x9a
+ 149 009a 05       		.uleb128 0x5
+ 150 009b 6F000000 		.4byte	0x6f
+ 151 009f 06       		.uleb128 0x6
+ 152 00a0 01       		.byte	0x1
+ 153 00a1 8B010000 		.4byte	.LASF17
+ 154 00a5 01       		.byte	0x1
+ 155 00a6 23       		.byte	0x23
+ 156 00a7 01       		.byte	0x1
+ 157 00a8 00000000 		.4byte	.LFB0
+ 158 00ac 0C000000 		.4byte	.LFE0
+ 159 00b0 02       		.byte	0x2
+ 160 00b1 7D       		.byte	0x7d
+ 161 00b2 00       		.sleb128 0
+ 162 00b3 01       		.byte	0x1
+ 163 00b4 C6000000 		.4byte	0xc6
+ 164 00b8 07       		.uleb128 0x7
+ 165 00b9 AC000000 		.4byte	.LASF18
+ 166 00bd 01       		.byte	0x1
+ 167 00be 23       		.byte	0x23
+ 168 00bf 6F000000 		.4byte	0x6f
+ 169 00c3 01       		.byte	0x1
+ 170 00c4 50       		.byte	0x50
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 5
+
+
+ 171 00c5 00       		.byte	0
+ 172 00c6 08       		.uleb128 0x8
+ 173 00c7 01       		.byte	0x1
+ 174 00c8 BB000000 		.4byte	.LASF19
+ 175 00cc 01       		.byte	0x1
+ 176 00cd 37       		.byte	0x37
+ 177 00ce 01       		.byte	0x1
+ 178 00cf 6F000000 		.4byte	0x6f
+ 179 00d3 00000000 		.4byte	.LFB1
+ 180 00d7 0C000000 		.4byte	.LFE1
+ 181 00db 02       		.byte	0x2
+ 182 00dc 7D       		.byte	0x7d
+ 183 00dd 00       		.sleb128 0
+ 184 00de 01       		.byte	0x1
+ 185 00df 00       		.byte	0
+ 186              		.section	.debug_abbrev,"",%progbits
+ 187              	.Ldebug_abbrev0:
+ 188 0000 01       		.uleb128 0x1
+ 189 0001 11       		.uleb128 0x11
+ 190 0002 01       		.byte	0x1
+ 191 0003 25       		.uleb128 0x25
+ 192 0004 0E       		.uleb128 0xe
+ 193 0005 13       		.uleb128 0x13
+ 194 0006 0B       		.uleb128 0xb
+ 195 0007 03       		.uleb128 0x3
+ 196 0008 0E       		.uleb128 0xe
+ 197 0009 1B       		.uleb128 0x1b
+ 198 000a 0E       		.uleb128 0xe
+ 199 000b 55       		.uleb128 0x55
+ 200 000c 06       		.uleb128 0x6
+ 201 000d 11       		.uleb128 0x11
+ 202 000e 01       		.uleb128 0x1
+ 203 000f 52       		.uleb128 0x52
+ 204 0010 01       		.uleb128 0x1
+ 205 0011 10       		.uleb128 0x10
+ 206 0012 06       		.uleb128 0x6
+ 207 0013 00       		.byte	0
+ 208 0014 00       		.byte	0
+ 209 0015 02       		.uleb128 0x2
+ 210 0016 24       		.uleb128 0x24
+ 211 0017 00       		.byte	0
+ 212 0018 0B       		.uleb128 0xb
+ 213 0019 0B       		.uleb128 0xb
+ 214 001a 3E       		.uleb128 0x3e
+ 215 001b 0B       		.uleb128 0xb
+ 216 001c 03       		.uleb128 0x3
+ 217 001d 0E       		.uleb128 0xe
+ 218 001e 00       		.byte	0
+ 219 001f 00       		.byte	0
+ 220 0020 03       		.uleb128 0x3
+ 221 0021 24       		.uleb128 0x24
+ 222 0022 00       		.byte	0
+ 223 0023 0B       		.uleb128 0xb
+ 224 0024 0B       		.uleb128 0xb
+ 225 0025 3E       		.uleb128 0x3e
+ 226 0026 0B       		.uleb128 0xb
+ 227 0027 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 6
+
+
+ 228 0028 08       		.uleb128 0x8
+ 229 0029 00       		.byte	0
+ 230 002a 00       		.byte	0
+ 231 002b 04       		.uleb128 0x4
+ 232 002c 16       		.uleb128 0x16
+ 233 002d 00       		.byte	0
+ 234 002e 03       		.uleb128 0x3
+ 235 002f 0E       		.uleb128 0xe
+ 236 0030 3A       		.uleb128 0x3a
+ 237 0031 0B       		.uleb128 0xb
+ 238 0032 3B       		.uleb128 0x3b
+ 239 0033 0B       		.uleb128 0xb
+ 240 0034 49       		.uleb128 0x49
+ 241 0035 13       		.uleb128 0x13
+ 242 0036 00       		.byte	0
+ 243 0037 00       		.byte	0
+ 244 0038 05       		.uleb128 0x5
+ 245 0039 35       		.uleb128 0x35
+ 246 003a 00       		.byte	0
+ 247 003b 49       		.uleb128 0x49
+ 248 003c 13       		.uleb128 0x13
+ 249 003d 00       		.byte	0
+ 250 003e 00       		.byte	0
+ 251 003f 06       		.uleb128 0x6
+ 252 0040 2E       		.uleb128 0x2e
+ 253 0041 01       		.byte	0x1
+ 254 0042 3F       		.uleb128 0x3f
+ 255 0043 0C       		.uleb128 0xc
+ 256 0044 03       		.uleb128 0x3
+ 257 0045 0E       		.uleb128 0xe
+ 258 0046 3A       		.uleb128 0x3a
+ 259 0047 0B       		.uleb128 0xb
+ 260 0048 3B       		.uleb128 0x3b
+ 261 0049 0B       		.uleb128 0xb
+ 262 004a 27       		.uleb128 0x27
+ 263 004b 0C       		.uleb128 0xc
+ 264 004c 11       		.uleb128 0x11
+ 265 004d 01       		.uleb128 0x1
+ 266 004e 12       		.uleb128 0x12
+ 267 004f 01       		.uleb128 0x1
+ 268 0050 40       		.uleb128 0x40
+ 269 0051 0A       		.uleb128 0xa
+ 270 0052 9742     		.uleb128 0x2117
+ 271 0054 0C       		.uleb128 0xc
+ 272 0055 01       		.uleb128 0x1
+ 273 0056 13       		.uleb128 0x13
+ 274 0057 00       		.byte	0
+ 275 0058 00       		.byte	0
+ 276 0059 07       		.uleb128 0x7
+ 277 005a 05       		.uleb128 0x5
+ 278 005b 00       		.byte	0
+ 279 005c 03       		.uleb128 0x3
+ 280 005d 0E       		.uleb128 0xe
+ 281 005e 3A       		.uleb128 0x3a
+ 282 005f 0B       		.uleb128 0xb
+ 283 0060 3B       		.uleb128 0x3b
+ 284 0061 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 7
+
+
+ 285 0062 49       		.uleb128 0x49
+ 286 0063 13       		.uleb128 0x13
+ 287 0064 02       		.uleb128 0x2
+ 288 0065 0A       		.uleb128 0xa
+ 289 0066 00       		.byte	0
+ 290 0067 00       		.byte	0
+ 291 0068 08       		.uleb128 0x8
+ 292 0069 2E       		.uleb128 0x2e
+ 293 006a 00       		.byte	0
+ 294 006b 3F       		.uleb128 0x3f
+ 295 006c 0C       		.uleb128 0xc
+ 296 006d 03       		.uleb128 0x3
+ 297 006e 0E       		.uleb128 0xe
+ 298 006f 3A       		.uleb128 0x3a
+ 299 0070 0B       		.uleb128 0xb
+ 300 0071 3B       		.uleb128 0x3b
+ 301 0072 0B       		.uleb128 0xb
+ 302 0073 27       		.uleb128 0x27
+ 303 0074 0C       		.uleb128 0xc
+ 304 0075 49       		.uleb128 0x49
+ 305 0076 13       		.uleb128 0x13
+ 306 0077 11       		.uleb128 0x11
+ 307 0078 01       		.uleb128 0x1
+ 308 0079 12       		.uleb128 0x12
+ 309 007a 01       		.uleb128 0x1
+ 310 007b 40       		.uleb128 0x40
+ 311 007c 0A       		.uleb128 0xa
+ 312 007d 9742     		.uleb128 0x2117
+ 313 007f 0C       		.uleb128 0xc
+ 314 0080 00       		.byte	0
+ 315 0081 00       		.byte	0
+ 316 0082 00       		.byte	0
+ 317              		.section	.debug_aranges,"",%progbits
+ 318 0000 24000000 		.4byte	0x24
+ 319 0004 0200     		.2byte	0x2
+ 320 0006 00000000 		.4byte	.Ldebug_info0
+ 321 000a 04       		.byte	0x4
+ 322 000b 00       		.byte	0
+ 323 000c 0000     		.2byte	0
+ 324 000e 0000     		.2byte	0
+ 325 0010 00000000 		.4byte	.LFB0
+ 326 0014 0C000000 		.4byte	.LFE0-.LFB0
+ 327 0018 00000000 		.4byte	.LFB1
+ 328 001c 0C000000 		.4byte	.LFE1-.LFB1
+ 329 0020 00000000 		.4byte	0
+ 330 0024 00000000 		.4byte	0
+ 331              		.section	.debug_ranges,"",%progbits
+ 332              	.Ldebug_ranges0:
+ 333 0000 00000000 		.4byte	.LFB0
+ 334 0004 0C000000 		.4byte	.LFE0
+ 335 0008 00000000 		.4byte	.LFB1
+ 336 000c 0C000000 		.4byte	.LFE1
+ 337 0010 00000000 		.4byte	0
+ 338 0014 00000000 		.4byte	0
+ 339              		.section	.debug_line,"",%progbits
+ 340              	.Ldebug_line0:
+ 341 0000 75000000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 8
+
+
+ 341      02004E00 
+ 341      00000201 
+ 341      FB0E0D00 
+ 341      01010101 
+ 342              	.LASF3:
+ 343 0000 73686F72 		.ascii	"short unsigned int\000"
+ 343      7420756E 
+ 343      7369676E 
+ 343      65642069 
+ 343      6E7400
+ 344              	.LASF9:
+ 345 0013 666C6F61 		.ascii	"float\000"
+ 345      7400
+ 346              	.LASF1:
+ 347 0019 756E7369 		.ascii	"unsigned char\000"
+ 347      676E6564 
+ 347      20636861 
+ 347      7200
+ 348              	.LASF13:
+ 349 0027 72656738 		.ascii	"reg8\000"
+ 349      00
+ 350              	.LASF5:
+ 351 002c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 351      20756E73 
+ 351      69676E65 
+ 351      6420696E 
+ 351      7400
+ 352              	.LASF16:
+ 353 003e 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 353      73657273 
+ 353      5C477261 
+ 353      7A69616E 
+ 353      6F5C4465 
+ 354 006c 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 354      525C5665 
+ 354      72732E30 
+ 354      2E302D54 
+ 354      30352032 
+ 355 009d 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 355      65446972 
+ 355      2E637964 
+ 355      736E00
+ 356              	.LASF18:
+ 357 00ac 636F6E74 		.ascii	"control\000"
+ 357      726F6C00 
+ 358              	.LASF10:
+ 359 00b4 646F7562 		.ascii	"double\000"
+ 359      6C6500
+ 360              	.LASF19:
+ 361 00bb 436F6E74 		.ascii	"Control_Reg_SYS_Read\000"
+ 361      726F6C5F 
+ 361      5265675F 
+ 361      5359535F 
+ 361      52656164 
+ 362              	.LASF8:
+ 363 00d0 756E7369 		.ascii	"unsigned int\000"
+ 363      676E6564 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccO86FaW.s 			page 9
+
+
+ 363      20696E74 
+ 363      00
+ 364              	.LASF7:
+ 365 00dd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 365      206C6F6E 
+ 365      6720756E 
+ 365      7369676E 
+ 365      65642069 
+ 366              	.LASF15:
+ 367 00f4 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Control_Reg_SYS.c\000"
+ 367      6E657261 
+ 367      7465645F 
+ 367      536F7572 
+ 367      63655C50 
+ 368              	.LASF6:
+ 369 011f 6C6F6E67 		.ascii	"long long int\000"
+ 369      206C6F6E 
+ 369      6720696E 
+ 369      7400
+ 370              	.LASF11:
+ 371 012d 63686172 		.ascii	"char\000"
+ 371      00
+ 372              	.LASF2:
+ 373 0132 73686F72 		.ascii	"short int\000"
+ 373      7420696E 
+ 373      7400
+ 374              	.LASF12:
+ 375 013c 75696E74 		.ascii	"uint8\000"
+ 375      3800
+ 376              	.LASF14:
+ 377 0142 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 377      4320342E 
+ 377      372E3320 
+ 377      32303133 
+ 377      30333132 
+ 378 0175 616E6368 		.ascii	"anch revision 196615]\000"
+ 378      20726576 
+ 378      6973696F 
+ 378      6E203139 
+ 378      36363135 
+ 379              	.LASF17:
+ 380 018b 436F6E74 		.ascii	"Control_Reg_SYS_Write\000"
+ 380      726F6C5F 
+ 380      5265675F 
+ 380      5359535F 
+ 380      57726974 
+ 381              	.LASF4:
+ 382 01a1 6C6F6E67 		.ascii	"long int\000"
+ 382      20696E74 
+ 382      00
+ 383              	.LASF0:
+ 384 01aa 7369676E 		.ascii	"signed char\000"
+ 384      65642063 
+ 384      68617200 
+ 385              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

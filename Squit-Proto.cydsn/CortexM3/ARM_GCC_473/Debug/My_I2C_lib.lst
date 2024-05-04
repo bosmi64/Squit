@@ -1,0 +1,983 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"My_I2C_lib.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.My_I2C_COULOMB_ReadByte,"ax",%progbits
+  19              		.align	2
+  20              		.global	My_I2C_COULOMB_ReadByte
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	My_I2C_COULOMB_ReadByte, %function
+  24              	My_I2C_COULOMB_ReadByte:
+  25              	.LFB56:
+  26              		.file 1 ".\\My_I2C_lib.c"
+   1:.\My_I2C_lib.c **** /* ========================================
+   2:.\My_I2C_lib.c ****  *
+   3:.\My_I2C_lib.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\My_I2C_lib.c ****  * All Rights Reserved
+   5:.\My_I2C_lib.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\My_I2C_lib.c ****  *
+   7:.\My_I2C_lib.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\My_I2C_lib.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\My_I2C_lib.c ****  *
+  10:.\My_I2C_lib.c ****  * ========================================
+  11:.\My_I2C_lib.c **** */
+  12:.\My_I2C_lib.c **** 
+  13:.\My_I2C_lib.c **** /* Include files */
+  14:.\My_I2C_lib.c **** #include <device.h>
+  15:.\My_I2C_lib.c **** #include <stdio.h>
+  16:.\My_I2C_lib.c **** #include <gobee.h>
+  17:.\My_I2C_lib.c **** 
+  18:.\My_I2C_lib.c **** 
+  19:.\My_I2C_lib.c **** //Reads a single Byte from I2C device at address slaveAddress
+  20:.\My_I2C_lib.c **** //  slaveAddress = Right-justified 7-bit slave address (valid range 0 to 127)
+  21:.\My_I2C_lib.c **** //  This function performs complete transfer for Start to Stop
+  22:.\My_I2C_lib.c **** //  Non Blocking
+  23:.\My_I2C_lib.c **** uint8 My_I2C_COULOMB_ReadByte(uint8 slaveAddress)
+  24:.\My_I2C_lib.c **** {
+  27              		.loc 1 24 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31 0000 80B5     		push	{r7, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 2
+
+
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 84B0     		sub	sp, sp, #16
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 24
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+  42 0006 0346     		mov	r3, r0
+  43 0008 FB71     		strb	r3, [r7, #7]
+  25:.\My_I2C_lib.c **** 	uint8 result;
+  26:.\My_I2C_lib.c **** 	uint8 status __attribute__ ((unused));
+  27:.\My_I2C_lib.c **** 
+  28:.\My_I2C_lib.c **** 	status = I2C_COULOMB_MasterReadBuf(slaveAddress, &result, sizeof(uint8), I2C_COULOMB_MODE_COMPLETE
+  44              		.loc 1 28 0
+  45 000a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+  46 000c 07F10E03 		add	r3, r7, #14
+  47 0010 1046     		mov	r0, r2
+  48 0012 1946     		mov	r1, r3
+  49 0014 4FF00102 		mov	r2, #1
+  50 0018 4FF00003 		mov	r3, #0
+  51 001c FFF7FEFF 		bl	I2C_COULOMB_MasterReadBuf
+  52 0020 0346     		mov	r3, r0
+  53 0022 FB73     		strb	r3, [r7, #15]
+  29:.\My_I2C_lib.c **** 	//status = I2C_COULOMB_MasterReadBuf(slaveAddress, &result, sizeof(uint8),I2C_COULOMB_MODE_REPEAT_
+  30:.\My_I2C_lib.c **** 	// error handling
+  31:.\My_I2C_lib.c **** 
+  32:.\My_I2C_lib.c **** 	return result;
+  54              		.loc 1 32 0
+  55 0024 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+  33:.\My_I2C_lib.c **** }
+  56              		.loc 1 33 0
+  57 0026 1846     		mov	r0, r3
+  58 0028 07F11007 		add	r7, r7, #16
+  59 002c BD46     		mov	sp, r7
+  60 002e 80BD     		pop	{r7, pc}
+  61              		.cfi_endproc
+  62              	.LFE56:
+  63              		.size	My_I2C_COULOMB_ReadByte, .-My_I2C_COULOMB_ReadByte
+  64              		.section	.text.My_I2C_COULOMB_Read2Bytes,"ax",%progbits
+  65              		.align	2
+  66              		.global	My_I2C_COULOMB_Read2Bytes
+  67              		.thumb
+  68              		.thumb_func
+  69              		.type	My_I2C_COULOMB_Read2Bytes, %function
+  70              	My_I2C_COULOMB_Read2Bytes:
+  71              	.LFB57:
+  34:.\My_I2C_lib.c **** 
+  35:.\My_I2C_lib.c **** //Reads 2 Bytes from I2C device at address slaveAddress
+  36:.\My_I2C_lib.c **** //  slaveAddress = Right-justified 7-bit slave address (valid range 0 to 127)
+  37:.\My_I2C_lib.c **** //  This function performs complete transfer for Start to Stop
+  38:.\My_I2C_lib.c **** //  Non Blocking
+  39:.\My_I2C_lib.c **** uint16 My_I2C_COULOMB_Read2Bytes(uint8 slaveAddress)
+  40:.\My_I2C_lib.c **** {
+  72              		.loc 1 40 0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 3
+
+
+  75              		@ frame_needed = 1, uses_anonymous_args = 0
+  76 0000 80B5     		push	{r7, lr}
+  77              	.LCFI3:
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 7, -8
+  80              		.cfi_offset 14, -4
+  81 0002 84B0     		sub	sp, sp, #16
+  82              	.LCFI4:
+  83              		.cfi_def_cfa_offset 24
+  84 0004 00AF     		add	r7, sp, #0
+  85              	.LCFI5:
+  86              		.cfi_def_cfa_register 7
+  87 0006 0346     		mov	r3, r0
+  88 0008 FB71     		strb	r3, [r7, #7]
+  41:.\My_I2C_lib.c **** 	uint16a result;
+  42:.\My_I2C_lib.c **** 	uint8 status __attribute__ ((unused));
+  43:.\My_I2C_lib.c **** 
+  44:.\My_I2C_lib.c **** 	status = I2C_COULOMB_MasterReadBuf(slaveAddress, &result.byte[0], sizeof(uint16), I2C_COULOMB_MODE
+  89              		.loc 1 44 0
+  90 000a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+  91 000c 07F10C03 		add	r3, r7, #12
+  92 0010 1046     		mov	r0, r2
+  93 0012 1946     		mov	r1, r3
+  94 0014 4FF00202 		mov	r2, #2
+  95 0018 4FF00003 		mov	r3, #0
+  96 001c FFF7FEFF 		bl	I2C_COULOMB_MasterReadBuf
+  97 0020 0346     		mov	r3, r0
+  98 0022 FB73     		strb	r3, [r7, #15]
+  45:.\My_I2C_lib.c **** 	// error handling
+  46:.\My_I2C_lib.c **** 
+  47:.\My_I2C_lib.c **** return result.word;
+  99              		.loc 1 47 0
+ 100 0024 BB89     		ldrh	r3, [r7, #12]
+  48:.\My_I2C_lib.c **** }
+ 101              		.loc 1 48 0
+ 102 0026 1846     		mov	r0, r3
+ 103 0028 07F11007 		add	r7, r7, #16
+ 104 002c BD46     		mov	sp, r7
+ 105 002e 80BD     		pop	{r7, pc}
+ 106              		.cfi_endproc
+ 107              	.LFE57:
+ 108              		.size	My_I2C_COULOMB_Read2Bytes, .-My_I2C_COULOMB_Read2Bytes
+ 109              		.section	.text.My_I2C_COULOMB_ReadSlaveRegister,"ax",%progbits
+ 110              		.align	2
+ 111              		.global	My_I2C_COULOMB_ReadSlaveRegister
+ 112              		.thumb
+ 113              		.thumb_func
+ 114              		.type	My_I2C_COULOMB_ReadSlaveRegister, %function
+ 115              	My_I2C_COULOMB_ReadSlaveRegister:
+ 116              	.LFB58:
+  49:.\My_I2C_lib.c **** 
+  50:.\My_I2C_lib.c **** 
+  51:.\My_I2C_lib.c **** 
+  52:.\My_I2C_lib.c **** //Reads a single Byte from slaveRegisterAddress of I2C device at address slaveAddress
+  53:.\My_I2C_lib.c **** //  slaveAddress = Right-justified 7-bit slave address (valid range 0 to 127)
+  54:.\My_I2C_lib.c **** //  This function performs complete transfer for Start to Stop
+  55:.\My_I2C_lib.c **** //  Non Blocking
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 4
+
+
+  56:.\My_I2C_lib.c **** uint8 My_I2C_COULOMB_ReadSlaveRegister(uint8 slaveAddress, uint8 slaveRegisterAddress)
+  57:.\My_I2C_lib.c **** {
+ 117              		.loc 1 57 0
+ 118              		.cfi_startproc
+ 119              		@ args = 0, pretend = 0, frame = 16
+ 120              		@ frame_needed = 1, uses_anonymous_args = 0
+ 121 0000 80B5     		push	{r7, lr}
+ 122              	.LCFI6:
+ 123              		.cfi_def_cfa_offset 8
+ 124              		.cfi_offset 7, -8
+ 125              		.cfi_offset 14, -4
+ 126 0002 84B0     		sub	sp, sp, #16
+ 127              	.LCFI7:
+ 128              		.cfi_def_cfa_offset 24
+ 129 0004 00AF     		add	r7, sp, #0
+ 130              	.LCFI8:
+ 131              		.cfi_def_cfa_register 7
+ 132 0006 0246     		mov	r2, r0
+ 133 0008 0B46     		mov	r3, r1
+ 134 000a FA71     		strb	r2, [r7, #7]
+ 135 000c BB71     		strb	r3, [r7, #6]
+  58:.\My_I2C_lib.c **** 	uint8 result;
+  59:.\My_I2C_lib.c **** 	uint8 status __attribute__ ((unused));
+  60:.\My_I2C_lib.c **** 
+  61:.\My_I2C_lib.c **** 	status = I2C_COULOMB_MasterWriteBuf(slaveAddress, &slaveRegisterAddress, sizeof(uint8), I2C_COULOM
+ 136              		.loc 1 61 0
+ 137 000e FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 138 0010 07F10603 		add	r3, r7, #6
+ 139 0014 1046     		mov	r0, r2
+ 140 0016 1946     		mov	r1, r3
+ 141 0018 4FF00102 		mov	r2, #1
+ 142 001c 4FF00203 		mov	r3, #2
+ 143 0020 FFF7FEFF 		bl	I2C_COULOMB_MasterWriteBuf
+ 144 0024 0346     		mov	r3, r0
+ 145 0026 FB73     		strb	r3, [r7, #15]
+  62:.\My_I2C_lib.c **** 	// error handling
+  63:.\My_I2C_lib.c **** 
+  64:.\My_I2C_lib.c **** 	status = I2C_COULOMB_MasterReadBuf(slaveAddress, &result, sizeof(uint8), I2C_COULOMB_MODE_REPEAT_S
+ 146              		.loc 1 64 0
+ 147 0028 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 148 002a 07F10E03 		add	r3, r7, #14
+ 149 002e 1046     		mov	r0, r2
+ 150 0030 1946     		mov	r1, r3
+ 151 0032 4FF00102 		mov	r2, #1
+ 152 0036 4FF00103 		mov	r3, #1
+ 153 003a FFF7FEFF 		bl	I2C_COULOMB_MasterReadBuf
+ 154 003e 0346     		mov	r3, r0
+ 155 0040 FB73     		strb	r3, [r7, #15]
+  65:.\My_I2C_lib.c **** 	// error handling
+  66:.\My_I2C_lib.c **** 
+  67:.\My_I2C_lib.c **** 	return result;
+ 156              		.loc 1 67 0
+ 157 0042 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+  68:.\My_I2C_lib.c **** }
+ 158              		.loc 1 68 0
+ 159 0044 1846     		mov	r0, r3
+ 160 0046 07F11007 		add	r7, r7, #16
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 5
+
+
+ 161 004a BD46     		mov	sp, r7
+ 162 004c 80BD     		pop	{r7, pc}
+ 163              		.cfi_endproc
+ 164              	.LFE58:
+ 165              		.size	My_I2C_COULOMB_ReadSlaveRegister, .-My_I2C_COULOMB_ReadSlaveRegister
+ 166 004e 00BF     		.text
+ 167              	.Letext0:
+ 168              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 169              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 170              		.file 4 "./gobee.h"
+ 171              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 172              		.section	.debug_info,"",%progbits
+ 173              	.Ldebug_info0:
+ 174 0000 E3010000 		.4byte	0x1e3
+ 175 0004 0200     		.2byte	0x2
+ 176 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 177 000a 04       		.byte	0x4
+ 178 000b 01       		.uleb128 0x1
+ 179 000c 9F010000 		.4byte	.LASF26
+ 180 0010 01       		.byte	0x1
+ 181 0011 05000000 		.4byte	.LASF27
+ 182 0015 A2000000 		.4byte	.LASF28
+ 183 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 184 001d 00000000 		.4byte	0
+ 185 0021 00000000 		.4byte	0
+ 186 0025 00000000 		.4byte	.Ldebug_line0
+ 187 0029 02       		.uleb128 0x2
+ 188 002a 01       		.byte	0x1
+ 189 002b 06       		.byte	0x6
+ 190 002c F1010000 		.4byte	.LASF0
+ 191 0030 02       		.uleb128 0x2
+ 192 0031 01       		.byte	0x1
+ 193 0032 08       		.byte	0x8
+ 194 0033 3B000000 		.4byte	.LASF1
+ 195 0037 02       		.uleb128 0x2
+ 196 0038 02       		.byte	0x2
+ 197 0039 05       		.byte	0x5
+ 198 003a 8F010000 		.4byte	.LASF2
+ 199 003e 02       		.uleb128 0x2
+ 200 003f 02       		.byte	0x2
+ 201 0040 07       		.byte	0x7
+ 202 0041 5B000000 		.4byte	.LASF3
+ 203 0045 03       		.uleb128 0x3
+ 204 0046 51010000 		.4byte	.LASF9
+ 205 004a 02       		.byte	0x2
+ 206 004b 4F       		.byte	0x4f
+ 207 004c 50000000 		.4byte	0x50
+ 208 0050 02       		.uleb128 0x2
+ 209 0051 04       		.byte	0x4
+ 210 0052 05       		.byte	0x5
+ 211 0053 E8010000 		.4byte	.LASF4
+ 212 0057 02       		.uleb128 0x2
+ 213 0058 04       		.byte	0x4
+ 214 0059 07       		.byte	0x7
+ 215 005a 49000000 		.4byte	.LASF5
+ 216 005e 02       		.uleb128 0x2
+ 217 005f 08       		.byte	0x8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 6
+
+
+ 218 0060 05       		.byte	0x5
+ 219 0061 62010000 		.4byte	.LASF6
+ 220 0065 02       		.uleb128 0x2
+ 221 0066 08       		.byte	0x8
+ 222 0067 07       		.byte	0x7
+ 223 0068 26010000 		.4byte	.LASF7
+ 224 006c 04       		.uleb128 0x4
+ 225 006d 04       		.byte	0x4
+ 226 006e 05       		.byte	0x5
+ 227 006f 696E7400 		.ascii	"int\000"
+ 228 0073 02       		.uleb128 0x2
+ 229 0074 04       		.byte	0x4
+ 230 0075 07       		.byte	0x7
+ 231 0076 19010000 		.4byte	.LASF8
+ 232 007a 03       		.uleb128 0x3
+ 233 007b 99010000 		.4byte	.LASF10
+ 234 007f 03       		.byte	0x3
+ 235 0080 5B       		.byte	0x5b
+ 236 0081 30000000 		.4byte	0x30
+ 237 0085 03       		.uleb128 0x3
+ 238 0086 12010000 		.4byte	.LASF11
+ 239 008a 03       		.byte	0x3
+ 240 008b 5C       		.byte	0x5c
+ 241 008c 3E000000 		.4byte	0x3e
+ 242 0090 02       		.uleb128 0x2
+ 243 0091 04       		.byte	0x4
+ 244 0092 04       		.byte	0x4
+ 245 0093 35000000 		.4byte	.LASF12
+ 246 0097 02       		.uleb128 0x2
+ 247 0098 08       		.byte	0x8
+ 248 0099 04       		.byte	0x4
+ 249 009a 83000000 		.4byte	.LASF13
+ 250 009e 02       		.uleb128 0x2
+ 251 009f 01       		.byte	0x1
+ 252 00a0 08       		.byte	0x8
+ 253 00a1 70010000 		.4byte	.LASF14
+ 254 00a5 02       		.uleb128 0x2
+ 255 00a6 04       		.byte	0x4
+ 256 00a7 07       		.byte	0x7
+ 257 00a8 59010000 		.4byte	.LASF15
+ 258 00ac 05       		.uleb128 0x5
+ 259 00ad 02       		.byte	0x2
+ 260 00ae 04       		.byte	0x4
+ 261 00af 2401     		.2byte	0x124
+ 262 00b1 CE000000 		.4byte	0xce
+ 263 00b5 06       		.uleb128 0x6
+ 264 00b6 29000000 		.4byte	.LASF16
+ 265 00ba 04       		.byte	0x4
+ 266 00bb 2601     		.2byte	0x126
+ 267 00bd CE000000 		.4byte	0xce
+ 268 00c1 06       		.uleb128 0x6
+ 269 00c2 00000000 		.4byte	.LASF17
+ 270 00c6 04       		.byte	0x4
+ 271 00c7 2701     		.2byte	0x127
+ 272 00c9 85000000 		.4byte	0x85
+ 273 00cd 00       		.byte	0
+ 274 00ce 07       		.uleb128 0x7
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 7
+
+
+ 275 00cf 7A000000 		.4byte	0x7a
+ 276 00d3 DE000000 		.4byte	0xde
+ 277 00d7 08       		.uleb128 0x8
+ 278 00d8 A5000000 		.4byte	0xa5
+ 279 00dc 01       		.byte	0x1
+ 280 00dd 00       		.byte	0
+ 281 00de 09       		.uleb128 0x9
+ 282 00df 6E000000 		.4byte	.LASF18
+ 283 00e3 04       		.byte	0x4
+ 284 00e4 2801     		.2byte	0x128
+ 285 00e6 AC000000 		.4byte	0xac
+ 286 00ea 0A       		.uleb128 0xa
+ 287 00eb 01       		.byte	0x1
+ 288 00ec 8A000000 		.4byte	.LASF21
+ 289 00f0 01       		.byte	0x1
+ 290 00f1 17       		.byte	0x17
+ 291 00f2 01       		.byte	0x1
+ 292 00f3 7A000000 		.4byte	0x7a
+ 293 00f7 00000000 		.4byte	.LFB56
+ 294 00fb 30000000 		.4byte	.LFE56
+ 295 00ff 00000000 		.4byte	.LLST0
+ 296 0103 01       		.byte	0x1
+ 297 0104 33010000 		.4byte	0x133
+ 298 0108 0B       		.uleb128 0xb
+ 299 0109 44010000 		.4byte	.LASF23
+ 300 010d 01       		.byte	0x1
+ 301 010e 17       		.byte	0x17
+ 302 010f 7A000000 		.4byte	0x7a
+ 303 0113 02       		.byte	0x2
+ 304 0114 91       		.byte	0x91
+ 305 0115 6F       		.sleb128 -17
+ 306 0116 0C       		.uleb128 0xc
+ 307 0117 3D010000 		.4byte	.LASF19
+ 308 011b 01       		.byte	0x1
+ 309 011c 19       		.byte	0x19
+ 310 011d 7A000000 		.4byte	0x7a
+ 311 0121 02       		.byte	0x2
+ 312 0122 91       		.byte	0x91
+ 313 0123 76       		.sleb128 -10
+ 314 0124 0C       		.uleb128 0xc
+ 315 0125 2E000000 		.4byte	.LASF20
+ 316 0129 01       		.byte	0x1
+ 317 012a 1A       		.byte	0x1a
+ 318 012b 7A000000 		.4byte	0x7a
+ 319 012f 02       		.byte	0x2
+ 320 0130 91       		.byte	0x91
+ 321 0131 77       		.sleb128 -9
+ 322 0132 00       		.byte	0
+ 323 0133 0A       		.uleb128 0xa
+ 324 0134 01       		.byte	0x1
+ 325 0135 75010000 		.4byte	.LASF22
+ 326 0139 01       		.byte	0x1
+ 327 013a 27       		.byte	0x27
+ 328 013b 01       		.byte	0x1
+ 329 013c 85000000 		.4byte	0x85
+ 330 0140 00000000 		.4byte	.LFB57
+ 331 0144 30000000 		.4byte	.LFE57
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 8
+
+
+ 332 0148 38000000 		.4byte	.LLST1
+ 333 014c 01       		.byte	0x1
+ 334 014d 7C010000 		.4byte	0x17c
+ 335 0151 0B       		.uleb128 0xb
+ 336 0152 44010000 		.4byte	.LASF23
+ 337 0156 01       		.byte	0x1
+ 338 0157 27       		.byte	0x27
+ 339 0158 7A000000 		.4byte	0x7a
+ 340 015c 02       		.byte	0x2
+ 341 015d 91       		.byte	0x91
+ 342 015e 6F       		.sleb128 -17
+ 343 015f 0C       		.uleb128 0xc
+ 344 0160 3D010000 		.4byte	.LASF19
+ 345 0164 01       		.byte	0x1
+ 346 0165 29       		.byte	0x29
+ 347 0166 DE000000 		.4byte	0xde
+ 348 016a 02       		.byte	0x2
+ 349 016b 91       		.byte	0x91
+ 350 016c 74       		.sleb128 -12
+ 351 016d 0C       		.uleb128 0xc
+ 352 016e 2E000000 		.4byte	.LASF20
+ 353 0172 01       		.byte	0x1
+ 354 0173 2A       		.byte	0x2a
+ 355 0174 7A000000 		.4byte	0x7a
+ 356 0178 02       		.byte	0x2
+ 357 0179 91       		.byte	0x91
+ 358 017a 77       		.sleb128 -9
+ 359 017b 00       		.byte	0
+ 360 017c 0A       		.uleb128 0xa
+ 361 017d 01       		.byte	0x1
+ 362 017e FD010000 		.4byte	.LASF24
+ 363 0182 01       		.byte	0x1
+ 364 0183 38       		.byte	0x38
+ 365 0184 01       		.byte	0x1
+ 366 0185 7A000000 		.4byte	0x7a
+ 367 0189 00000000 		.4byte	.LFB58
+ 368 018d 4E000000 		.4byte	.LFE58
+ 369 0191 70000000 		.4byte	.LLST2
+ 370 0195 01       		.byte	0x1
+ 371 0196 D3010000 		.4byte	0x1d3
+ 372 019a 0B       		.uleb128 0xb
+ 373 019b 44010000 		.4byte	.LASF23
+ 374 019f 01       		.byte	0x1
+ 375 01a0 38       		.byte	0x38
+ 376 01a1 7A000000 		.4byte	0x7a
+ 377 01a5 02       		.byte	0x2
+ 378 01a6 91       		.byte	0x91
+ 379 01a7 6F       		.sleb128 -17
+ 380 01a8 0B       		.uleb128 0xb
+ 381 01a9 14000000 		.4byte	.LASF25
+ 382 01ad 01       		.byte	0x1
+ 383 01ae 38       		.byte	0x38
+ 384 01af 7A000000 		.4byte	0x7a
+ 385 01b3 02       		.byte	0x2
+ 386 01b4 91       		.byte	0x91
+ 387 01b5 6E       		.sleb128 -18
+ 388 01b6 0C       		.uleb128 0xc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 9
+
+
+ 389 01b7 3D010000 		.4byte	.LASF19
+ 390 01bb 01       		.byte	0x1
+ 391 01bc 3A       		.byte	0x3a
+ 392 01bd 7A000000 		.4byte	0x7a
+ 393 01c1 02       		.byte	0x2
+ 394 01c2 91       		.byte	0x91
+ 395 01c3 76       		.sleb128 -10
+ 396 01c4 0C       		.uleb128 0xc
+ 397 01c5 2E000000 		.4byte	.LASF20
+ 398 01c9 01       		.byte	0x1
+ 399 01ca 3B       		.byte	0x3b
+ 400 01cb 7A000000 		.4byte	0x7a
+ 401 01cf 02       		.byte	0x2
+ 402 01d0 91       		.byte	0x91
+ 403 01d1 77       		.sleb128 -9
+ 404 01d2 00       		.byte	0
+ 405 01d3 0D       		.uleb128 0xd
+ 406 01d4 76000000 		.4byte	.LASF29
+ 407 01d8 05       		.byte	0x5
+ 408 01d9 1606     		.2byte	0x616
+ 409 01db E1010000 		.4byte	0x1e1
+ 410 01df 01       		.byte	0x1
+ 411 01e0 01       		.byte	0x1
+ 412 01e1 0E       		.uleb128 0xe
+ 413 01e2 45000000 		.4byte	0x45
+ 414 01e6 00       		.byte	0
+ 415              		.section	.debug_abbrev,"",%progbits
+ 416              	.Ldebug_abbrev0:
+ 417 0000 01       		.uleb128 0x1
+ 418 0001 11       		.uleb128 0x11
+ 419 0002 01       		.byte	0x1
+ 420 0003 25       		.uleb128 0x25
+ 421 0004 0E       		.uleb128 0xe
+ 422 0005 13       		.uleb128 0x13
+ 423 0006 0B       		.uleb128 0xb
+ 424 0007 03       		.uleb128 0x3
+ 425 0008 0E       		.uleb128 0xe
+ 426 0009 1B       		.uleb128 0x1b
+ 427 000a 0E       		.uleb128 0xe
+ 428 000b 55       		.uleb128 0x55
+ 429 000c 06       		.uleb128 0x6
+ 430 000d 11       		.uleb128 0x11
+ 431 000e 01       		.uleb128 0x1
+ 432 000f 52       		.uleb128 0x52
+ 433 0010 01       		.uleb128 0x1
+ 434 0011 10       		.uleb128 0x10
+ 435 0012 06       		.uleb128 0x6
+ 436 0013 00       		.byte	0
+ 437 0014 00       		.byte	0
+ 438 0015 02       		.uleb128 0x2
+ 439 0016 24       		.uleb128 0x24
+ 440 0017 00       		.byte	0
+ 441 0018 0B       		.uleb128 0xb
+ 442 0019 0B       		.uleb128 0xb
+ 443 001a 3E       		.uleb128 0x3e
+ 444 001b 0B       		.uleb128 0xb
+ 445 001c 03       		.uleb128 0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 10
+
+
+ 446 001d 0E       		.uleb128 0xe
+ 447 001e 00       		.byte	0
+ 448 001f 00       		.byte	0
+ 449 0020 03       		.uleb128 0x3
+ 450 0021 16       		.uleb128 0x16
+ 451 0022 00       		.byte	0
+ 452 0023 03       		.uleb128 0x3
+ 453 0024 0E       		.uleb128 0xe
+ 454 0025 3A       		.uleb128 0x3a
+ 455 0026 0B       		.uleb128 0xb
+ 456 0027 3B       		.uleb128 0x3b
+ 457 0028 0B       		.uleb128 0xb
+ 458 0029 49       		.uleb128 0x49
+ 459 002a 13       		.uleb128 0x13
+ 460 002b 00       		.byte	0
+ 461 002c 00       		.byte	0
+ 462 002d 04       		.uleb128 0x4
+ 463 002e 24       		.uleb128 0x24
+ 464 002f 00       		.byte	0
+ 465 0030 0B       		.uleb128 0xb
+ 466 0031 0B       		.uleb128 0xb
+ 467 0032 3E       		.uleb128 0x3e
+ 468 0033 0B       		.uleb128 0xb
+ 469 0034 03       		.uleb128 0x3
+ 470 0035 08       		.uleb128 0x8
+ 471 0036 00       		.byte	0
+ 472 0037 00       		.byte	0
+ 473 0038 05       		.uleb128 0x5
+ 474 0039 17       		.uleb128 0x17
+ 475 003a 01       		.byte	0x1
+ 476 003b 0B       		.uleb128 0xb
+ 477 003c 0B       		.uleb128 0xb
+ 478 003d 3A       		.uleb128 0x3a
+ 479 003e 0B       		.uleb128 0xb
+ 480 003f 3B       		.uleb128 0x3b
+ 481 0040 05       		.uleb128 0x5
+ 482 0041 01       		.uleb128 0x1
+ 483 0042 13       		.uleb128 0x13
+ 484 0043 00       		.byte	0
+ 485 0044 00       		.byte	0
+ 486 0045 06       		.uleb128 0x6
+ 487 0046 0D       		.uleb128 0xd
+ 488 0047 00       		.byte	0
+ 489 0048 03       		.uleb128 0x3
+ 490 0049 0E       		.uleb128 0xe
+ 491 004a 3A       		.uleb128 0x3a
+ 492 004b 0B       		.uleb128 0xb
+ 493 004c 3B       		.uleb128 0x3b
+ 494 004d 05       		.uleb128 0x5
+ 495 004e 49       		.uleb128 0x49
+ 496 004f 13       		.uleb128 0x13
+ 497 0050 00       		.byte	0
+ 498 0051 00       		.byte	0
+ 499 0052 07       		.uleb128 0x7
+ 500 0053 01       		.uleb128 0x1
+ 501 0054 01       		.byte	0x1
+ 502 0055 49       		.uleb128 0x49
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 11
+
+
+ 503 0056 13       		.uleb128 0x13
+ 504 0057 01       		.uleb128 0x1
+ 505 0058 13       		.uleb128 0x13
+ 506 0059 00       		.byte	0
+ 507 005a 00       		.byte	0
+ 508 005b 08       		.uleb128 0x8
+ 509 005c 21       		.uleb128 0x21
+ 510 005d 00       		.byte	0
+ 511 005e 49       		.uleb128 0x49
+ 512 005f 13       		.uleb128 0x13
+ 513 0060 2F       		.uleb128 0x2f
+ 514 0061 0B       		.uleb128 0xb
+ 515 0062 00       		.byte	0
+ 516 0063 00       		.byte	0
+ 517 0064 09       		.uleb128 0x9
+ 518 0065 16       		.uleb128 0x16
+ 519 0066 00       		.byte	0
+ 520 0067 03       		.uleb128 0x3
+ 521 0068 0E       		.uleb128 0xe
+ 522 0069 3A       		.uleb128 0x3a
+ 523 006a 0B       		.uleb128 0xb
+ 524 006b 3B       		.uleb128 0x3b
+ 525 006c 05       		.uleb128 0x5
+ 526 006d 49       		.uleb128 0x49
+ 527 006e 13       		.uleb128 0x13
+ 528 006f 00       		.byte	0
+ 529 0070 00       		.byte	0
+ 530 0071 0A       		.uleb128 0xa
+ 531 0072 2E       		.uleb128 0x2e
+ 532 0073 01       		.byte	0x1
+ 533 0074 3F       		.uleb128 0x3f
+ 534 0075 0C       		.uleb128 0xc
+ 535 0076 03       		.uleb128 0x3
+ 536 0077 0E       		.uleb128 0xe
+ 537 0078 3A       		.uleb128 0x3a
+ 538 0079 0B       		.uleb128 0xb
+ 539 007a 3B       		.uleb128 0x3b
+ 540 007b 0B       		.uleb128 0xb
+ 541 007c 27       		.uleb128 0x27
+ 542 007d 0C       		.uleb128 0xc
+ 543 007e 49       		.uleb128 0x49
+ 544 007f 13       		.uleb128 0x13
+ 545 0080 11       		.uleb128 0x11
+ 546 0081 01       		.uleb128 0x1
+ 547 0082 12       		.uleb128 0x12
+ 548 0083 01       		.uleb128 0x1
+ 549 0084 40       		.uleb128 0x40
+ 550 0085 06       		.uleb128 0x6
+ 551 0086 9642     		.uleb128 0x2116
+ 552 0088 0C       		.uleb128 0xc
+ 553 0089 01       		.uleb128 0x1
+ 554 008a 13       		.uleb128 0x13
+ 555 008b 00       		.byte	0
+ 556 008c 00       		.byte	0
+ 557 008d 0B       		.uleb128 0xb
+ 558 008e 05       		.uleb128 0x5
+ 559 008f 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 12
+
+
+ 560 0090 03       		.uleb128 0x3
+ 561 0091 0E       		.uleb128 0xe
+ 562 0092 3A       		.uleb128 0x3a
+ 563 0093 0B       		.uleb128 0xb
+ 564 0094 3B       		.uleb128 0x3b
+ 565 0095 0B       		.uleb128 0xb
+ 566 0096 49       		.uleb128 0x49
+ 567 0097 13       		.uleb128 0x13
+ 568 0098 02       		.uleb128 0x2
+ 569 0099 0A       		.uleb128 0xa
+ 570 009a 00       		.byte	0
+ 571 009b 00       		.byte	0
+ 572 009c 0C       		.uleb128 0xc
+ 573 009d 34       		.uleb128 0x34
+ 574 009e 00       		.byte	0
+ 575 009f 03       		.uleb128 0x3
+ 576 00a0 0E       		.uleb128 0xe
+ 577 00a1 3A       		.uleb128 0x3a
+ 578 00a2 0B       		.uleb128 0xb
+ 579 00a3 3B       		.uleb128 0x3b
+ 580 00a4 0B       		.uleb128 0xb
+ 581 00a5 49       		.uleb128 0x49
+ 582 00a6 13       		.uleb128 0x13
+ 583 00a7 02       		.uleb128 0x2
+ 584 00a8 0A       		.uleb128 0xa
+ 585 00a9 00       		.byte	0
+ 586 00aa 00       		.byte	0
+ 587 00ab 0D       		.uleb128 0xd
+ 588 00ac 34       		.uleb128 0x34
+ 589 00ad 00       		.byte	0
+ 590 00ae 03       		.uleb128 0x3
+ 591 00af 0E       		.uleb128 0xe
+ 592 00b0 3A       		.uleb128 0x3a
+ 593 00b1 0B       		.uleb128 0xb
+ 594 00b2 3B       		.uleb128 0x3b
+ 595 00b3 05       		.uleb128 0x5
+ 596 00b4 49       		.uleb128 0x49
+ 597 00b5 13       		.uleb128 0x13
+ 598 00b6 3F       		.uleb128 0x3f
+ 599 00b7 0C       		.uleb128 0xc
+ 600 00b8 3C       		.uleb128 0x3c
+ 601 00b9 0C       		.uleb128 0xc
+ 602 00ba 00       		.byte	0
+ 603 00bb 00       		.byte	0
+ 604 00bc 0E       		.uleb128 0xe
+ 605 00bd 35       		.uleb128 0x35
+ 606 00be 00       		.byte	0
+ 607 00bf 49       		.uleb128 0x49
+ 608 00c0 13       		.uleb128 0x13
+ 609 00c1 00       		.byte	0
+ 610 00c2 00       		.byte	0
+ 611 00c3 00       		.byte	0
+ 612              		.section	.debug_loc,"",%progbits
+ 613              	.Ldebug_loc0:
+ 614              	.LLST0:
+ 615 0000 00000000 		.4byte	.LFB56
+ 616 0004 02000000 		.4byte	.LCFI0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 13
+
+
+ 617 0008 0200     		.2byte	0x2
+ 618 000a 7D       		.byte	0x7d
+ 619 000b 00       		.sleb128 0
+ 620 000c 02000000 		.4byte	.LCFI0
+ 621 0010 04000000 		.4byte	.LCFI1
+ 622 0014 0200     		.2byte	0x2
+ 623 0016 7D       		.byte	0x7d
+ 624 0017 08       		.sleb128 8
+ 625 0018 04000000 		.4byte	.LCFI1
+ 626 001c 06000000 		.4byte	.LCFI2
+ 627 0020 0200     		.2byte	0x2
+ 628 0022 7D       		.byte	0x7d
+ 629 0023 18       		.sleb128 24
+ 630 0024 06000000 		.4byte	.LCFI2
+ 631 0028 30000000 		.4byte	.LFE56
+ 632 002c 0200     		.2byte	0x2
+ 633 002e 77       		.byte	0x77
+ 634 002f 18       		.sleb128 24
+ 635 0030 00000000 		.4byte	0
+ 636 0034 00000000 		.4byte	0
+ 637              	.LLST1:
+ 638 0038 00000000 		.4byte	.LFB57
+ 639 003c 02000000 		.4byte	.LCFI3
+ 640 0040 0200     		.2byte	0x2
+ 641 0042 7D       		.byte	0x7d
+ 642 0043 00       		.sleb128 0
+ 643 0044 02000000 		.4byte	.LCFI3
+ 644 0048 04000000 		.4byte	.LCFI4
+ 645 004c 0200     		.2byte	0x2
+ 646 004e 7D       		.byte	0x7d
+ 647 004f 08       		.sleb128 8
+ 648 0050 04000000 		.4byte	.LCFI4
+ 649 0054 06000000 		.4byte	.LCFI5
+ 650 0058 0200     		.2byte	0x2
+ 651 005a 7D       		.byte	0x7d
+ 652 005b 18       		.sleb128 24
+ 653 005c 06000000 		.4byte	.LCFI5
+ 654 0060 30000000 		.4byte	.LFE57
+ 655 0064 0200     		.2byte	0x2
+ 656 0066 77       		.byte	0x77
+ 657 0067 18       		.sleb128 24
+ 658 0068 00000000 		.4byte	0
+ 659 006c 00000000 		.4byte	0
+ 660              	.LLST2:
+ 661 0070 00000000 		.4byte	.LFB58
+ 662 0074 02000000 		.4byte	.LCFI6
+ 663 0078 0200     		.2byte	0x2
+ 664 007a 7D       		.byte	0x7d
+ 665 007b 00       		.sleb128 0
+ 666 007c 02000000 		.4byte	.LCFI6
+ 667 0080 04000000 		.4byte	.LCFI7
+ 668 0084 0200     		.2byte	0x2
+ 669 0086 7D       		.byte	0x7d
+ 670 0087 08       		.sleb128 8
+ 671 0088 04000000 		.4byte	.LCFI7
+ 672 008c 06000000 		.4byte	.LCFI8
+ 673 0090 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 14
+
+
+ 674 0092 7D       		.byte	0x7d
+ 675 0093 18       		.sleb128 24
+ 676 0094 06000000 		.4byte	.LCFI8
+ 677 0098 4E000000 		.4byte	.LFE58
+ 678 009c 0200     		.2byte	0x2
+ 679 009e 77       		.byte	0x77
+ 680 009f 18       		.sleb128 24
+ 681 00a0 00000000 		.4byte	0
+ 682 00a4 00000000 		.4byte	0
+ 683              		.section	.debug_aranges,"",%progbits
+ 684 0000 2C000000 		.4byte	0x2c
+ 685 0004 0200     		.2byte	0x2
+ 686 0006 00000000 		.4byte	.Ldebug_info0
+ 687 000a 04       		.byte	0x4
+ 688 000b 00       		.byte	0
+ 689 000c 0000     		.2byte	0
+ 690 000e 0000     		.2byte	0
+ 691 0010 00000000 		.4byte	.LFB56
+ 692 0014 30000000 		.4byte	.LFE56-.LFB56
+ 693 0018 00000000 		.4byte	.LFB57
+ 694 001c 30000000 		.4byte	.LFE57-.LFB57
+ 695 0020 00000000 		.4byte	.LFB58
+ 696 0024 4E000000 		.4byte	.LFE58-.LFB58
+ 697 0028 00000000 		.4byte	0
+ 698 002c 00000000 		.4byte	0
+ 699              		.section	.debug_ranges,"",%progbits
+ 700              	.Ldebug_ranges0:
+ 701 0000 00000000 		.4byte	.LFB56
+ 702 0004 30000000 		.4byte	.LFE56
+ 703 0008 00000000 		.4byte	.LFB57
+ 704 000c 30000000 		.4byte	.LFE57
+ 705 0010 00000000 		.4byte	.LFB58
+ 706 0014 4E000000 		.4byte	.LFE58
+ 707 0018 00000000 		.4byte	0
+ 708 001c 00000000 		.4byte	0
+ 709              		.section	.debug_line,"",%progbits
+ 710              	.Ldebug_line0:
+ 711 0000 49010000 		.section	.debug_str,"MS",%progbits,1
+ 711      02000C01 
+ 711      00000201 
+ 711      FB0E0D00 
+ 711      01010101 
+ 712              	.LASF17:
+ 713 0000 776F7264 		.ascii	"word\000"
+ 713      00
+ 714              	.LASF27:
+ 715 0005 2E5C4D79 		.ascii	".\\My_I2C_lib.c\000"
+ 715      5F493243 
+ 715      5F6C6962 
+ 715      2E6300
+ 716              	.LASF25:
+ 717 0014 736C6176 		.ascii	"slaveRegisterAddress\000"
+ 717      65526567 
+ 717      69737465 
+ 717      72416464 
+ 717      72657373 
+ 718              	.LASF16:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 15
+
+
+ 719 0029 62797465 		.ascii	"byte\000"
+ 719      00
+ 720              	.LASF20:
+ 721 002e 73746174 		.ascii	"status\000"
+ 721      757300
+ 722              	.LASF12:
+ 723 0035 666C6F61 		.ascii	"float\000"
+ 723      7400
+ 724              	.LASF1:
+ 725 003b 756E7369 		.ascii	"unsigned char\000"
+ 725      676E6564 
+ 725      20636861 
+ 725      7200
+ 726              	.LASF5:
+ 727 0049 6C6F6E67 		.ascii	"long unsigned int\000"
+ 727      20756E73 
+ 727      69676E65 
+ 727      6420696E 
+ 727      7400
+ 728              	.LASF3:
+ 729 005b 73686F72 		.ascii	"short unsigned int\000"
+ 729      7420756E 
+ 729      7369676E 
+ 729      65642069 
+ 729      6E7400
+ 730              	.LASF18:
+ 731 006e 75696E74 		.ascii	"uint16a\000"
+ 731      31366100 
+ 732              	.LASF29:
+ 733 0076 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 733      52784275 
+ 733      66666572 
+ 733      00
+ 734              	.LASF13:
+ 735 0083 646F7562 		.ascii	"double\000"
+ 735      6C6500
+ 736              	.LASF21:
+ 737 008a 4D795F49 		.ascii	"My_I2C_COULOMB_ReadByte\000"
+ 737      32435F43 
+ 737      4F554C4F 
+ 737      4D425F52 
+ 737      65616442 
+ 738              	.LASF28:
+ 739 00a2 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 739      73657273 
+ 739      5C477261 
+ 739      7A69616E 
+ 739      6F20472E 
+ 740 00d1 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 740      5C535155 
+ 740      49545C56 
+ 740      6572732E 
+ 740      302E302D 
+ 741 0101 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 741      2D50726F 
+ 741      746F2E63 
+ 741      7964736E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 16
+
+
+ 741      00
+ 742              	.LASF11:
+ 743 0112 75696E74 		.ascii	"uint16\000"
+ 743      313600
+ 744              	.LASF8:
+ 745 0119 756E7369 		.ascii	"unsigned int\000"
+ 745      676E6564 
+ 745      20696E74 
+ 745      00
+ 746              	.LASF7:
+ 747 0126 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 747      206C6F6E 
+ 747      6720756E 
+ 747      7369676E 
+ 747      65642069 
+ 748              	.LASF19:
+ 749 013d 72657375 		.ascii	"result\000"
+ 749      6C7400
+ 750              	.LASF23:
+ 751 0144 736C6176 		.ascii	"slaveAddress\000"
+ 751      65416464 
+ 751      72657373 
+ 751      00
+ 752              	.LASF9:
+ 753 0151 696E7433 		.ascii	"int32_t\000"
+ 753      325F7400 
+ 754              	.LASF15:
+ 755 0159 73697A65 		.ascii	"sizetype\000"
+ 755      74797065 
+ 755      00
+ 756              	.LASF6:
+ 757 0162 6C6F6E67 		.ascii	"long long int\000"
+ 757      206C6F6E 
+ 757      6720696E 
+ 757      7400
+ 758              	.LASF14:
+ 759 0170 63686172 		.ascii	"char\000"
+ 759      00
+ 760              	.LASF22:
+ 761 0175 4D795F49 		.ascii	"My_I2C_COULOMB_Read2Bytes\000"
+ 761      32435F43 
+ 761      4F554C4F 
+ 761      4D425F52 
+ 761      65616432 
+ 762              	.LASF2:
+ 763 018f 73686F72 		.ascii	"short int\000"
+ 763      7420696E 
+ 763      7400
+ 764              	.LASF10:
+ 765 0199 75696E74 		.ascii	"uint8\000"
+ 765      3800
+ 766              	.LASF26:
+ 767 019f 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 767      4320342E 
+ 767      372E3320 
+ 767      32303133 
+ 767      30333132 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccf7QMUc.s 			page 17
+
+
+ 768 01d2 616E6368 		.ascii	"anch revision 196615]\000"
+ 768      20726576 
+ 768      6973696F 
+ 768      6E203139 
+ 768      36363135 
+ 769              	.LASF4:
+ 770 01e8 6C6F6E67 		.ascii	"long int\000"
+ 770      20696E74 
+ 770      00
+ 771              	.LASF0:
+ 772 01f1 7369676E 		.ascii	"signed char\000"
+ 772      65642063 
+ 772      68617200 
+ 773              	.LASF24:
+ 774 01fd 4D795F49 		.ascii	"My_I2C_COULOMB_ReadSlaveRegister\000"
+ 774      32435F43 
+ 774      4F554C4F 
+ 774      4D425F52 
+ 774      65616453 
+ 775              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

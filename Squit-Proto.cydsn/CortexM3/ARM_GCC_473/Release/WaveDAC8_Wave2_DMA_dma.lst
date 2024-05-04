@@ -1,0 +1,1095 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"WaveDAC8_Wave2_DMA_dma.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.WaveDAC8_Wave2_DMA_DmaInitialize,"ax",%progbits
+  19              		.align	1
+  20              		.global	WaveDAC8_Wave2_DMA_DmaInitialize
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	WaveDAC8_Wave2_DMA_DmaInitialize, %function
+  24              	WaveDAC8_Wave2_DMA_DmaInitialize:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\WaveDAC8_Wave2_DMA_dma.c"
+   1:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** /***************************************************************************
+   2:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * File Name: WaveDAC8_Wave2_DMA_dma.c  
+   3:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+   5:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *  Description:
+   6:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   Provides an API for the DMAC component. The API includes functions
+   7:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   for the DMA controller, DMA channels and Transfer Descriptors.
+   8:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+   9:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+  10:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   Note:
+  11:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *     This module requires the developer to finish or fill in the auto
+  12:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *     generated funcions and setup the dma channel and TD's.
+  13:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+  14:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** ********************************************************************************
+  15:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Copyright 2008-2010, Cypress Semiconductor Corporation.  All rights reserved.
+  16:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  17:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  18:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * the software package with which this file was provided.
+  19:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** ********************************************************************************/
+  20:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** #include <CYLIB.H>
+  21:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** #include <CYDMAC.H>
+  22:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** #include <WaveDAC8_Wave2_DMA_dma.H>
+  23:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+  24:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+  25:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+  26:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** /****************************************************************************
+  27:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  28:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * The following defines are available in Cyfitter.h
+  29:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  30:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  31:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__DRQ_CTL_REG
+  33:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  34:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  35:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__DRQ_NUMBER
+  36:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  37:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Number of TD's used by this channel.
+  38:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__NUMBEROF_TDS
+  39:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  40:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Priority of this channel.
+  41:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__PRIORITY
+  42:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  43:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * True if WaveDAC8_Wave2_DMA_TERMIN_SEL is used.
+  44:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__TERMIN_EN
+  45:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  46:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * TERMIN interrupt line to signal terminate.
+  47:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__TERMIN_SEL
+  48:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  49:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  50:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * True if WaveDAC8_Wave2_DMA_TERMOUT0_SEL is used.
+  51:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__TERMOUT0_EN
+  52:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  53:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  54:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * TERMOUT0 interrupt line to signal completion.
+  55:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__TERMOUT0_SEL
+  56:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  57:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  58:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * True if WaveDAC8_Wave2_DMA_TERMOUT1_SEL is used.
+  59:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__TERMOUT1_EN
+  60:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  61:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  62:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * TERMOUT1 interrupt line to signal completion.
+  63:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * WaveDAC8_Wave2_DMA__TERMOUT1_SEL
+  64:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * 
+  65:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** ****************************************************************************/
+  66:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+  67:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+  68:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** /* Zero based index of WaveDAC8_Wave2_DMA dma channel */
+  69:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** uint8 WaveDAC8_Wave2_DMA_DmaHandle = DMA_INVALID_CHANNEL;
+  70:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+  71:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** /*********************************************************************
+  72:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Function Name: uint8 WaveDAC8_Wave2_DMA_DmaInitalize
+  73:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** **********************************************************************
+  74:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Summary:
+  75:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   Allocates and initialises a channel of the DMAC to be used by the
+  76:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   caller.
+  77:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+  78:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Parameters:
+  79:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   BurstCount.
+  80:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  81:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  82:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   ReqestPerBurst.
+  83:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  84:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  85:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   UpperSrcAddress.
+  86:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  87:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  88:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   UpperDestAddress.
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *       
+  90:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+  91:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Return:
+  92:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   The channel that can be used by the caller for DMA activity.
+  93:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   DMA_INVALID_CHANNEL (0xFF) if there are no channels left. 
+  94:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+  95:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+  96:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *******************************************************************/
+  97:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** uint8 WaveDAC8_Wave2_DMA_DmaInitialize(uint8 BurstCount, uint8 ReqestPerBurst, uint16 UpperSrcAddre
+  98:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** {
+  27              		.loc 1 98 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 32
+  35              		.cfi_offset 0, -32
+  36              		.cfi_offset 1, -28
+  37              		.cfi_offset 2, -24
+  38              		.cfi_offset 4, -20
+  39              		.cfi_offset 5, -16
+  40              		.cfi_offset 6, -12
+  41              		.cfi_offset 7, -8
+  42              		.cfi_offset 14, -4
+  43              		.loc 1 98 0
+  44 0002 8646     		mov	lr, r0
+  99:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+ 100:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     /* Allocate a DMA channel. */
+ 101:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     WaveDAC8_Wave2_DMA_DmaHandle = (uint8)WaveDAC8_Wave2_DMA__DRQ_NUMBER;
+  45              		.loc 1 101 0
+  46 0004 0B4C     		ldr	r4, .L2
+  98:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** {
+  47              		.loc 1 98 0
+  48 0006 0F46     		mov	r7, r1
+  49 0008 1D46     		mov	r5, r3
+ 102:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+ 103:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     /* Configure the channel. */
+ 104:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     (void)CyDmaChSetConfiguration(WaveDAC8_Wave2_DMA_DmaHandle,
+  50              		.loc 1 104 0
+  51 000a 0023     		movs	r3, #0
+  52              	.LVL1:
+  53 000c 7146     		mov	r1, lr
+  54              	.LVL2:
+  55 000e 0093     		str	r3, [sp, #0]
+  56 0010 0193     		str	r3, [sp, #4]
+  98:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** {
+  57              		.loc 1 98 0
+  58 0012 1646     		mov	r6, r2
+ 101:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     WaveDAC8_Wave2_DMA_DmaHandle = (uint8)WaveDAC8_Wave2_DMA__DRQ_NUMBER;
+  59              		.loc 1 101 0
+  60 0014 0120     		movs	r0, #1
+  61              	.LVL3:
+  62              		.loc 1 104 0
+  63 0016 3A46     		mov	r2, r7
+  64              	.LVL4:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 4
+
+
+ 101:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     WaveDAC8_Wave2_DMA_DmaHandle = (uint8)WaveDAC8_Wave2_DMA__DRQ_NUMBER;
+  65              		.loc 1 101 0
+  66 0018 2070     		strb	r0, [r4, #0]
+  67              		.loc 1 104 0
+  68 001a FFF7FEFF 		bl	CyDmaChSetConfiguration
+  69              	.LVL5:
+ 105:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****                                   BurstCount,
+ 106:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****                                   ReqestPerBurst,
+ 107:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****                                   (uint8)WaveDAC8_Wave2_DMA__TERMOUT0_SEL,
+ 108:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****                                   (uint8)WaveDAC8_Wave2_DMA__TERMOUT1_SEL,
+ 109:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****                                   (uint8)WaveDAC8_Wave2_DMA__TERMIN_SEL);
+ 110:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+ 111:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     /* Set the extended address for the transfers */
+ 112:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     (void)CyDmaChSetExtendedAddress(WaveDAC8_Wave2_DMA_DmaHandle, UpperSrcAddress, UpperDestAddress
+  70              		.loc 1 112 0
+  71 001e 3146     		mov	r1, r6
+  72 0020 2A46     		mov	r2, r5
+  73 0022 2078     		ldrb	r0, [r4, #0]	@ zero_extendqisi2
+  74 0024 FFF7FEFF 		bl	CyDmaChSetExtendedAddress
+  75              	.LVL6:
+ 113:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+ 114:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     /* Set the priority for this channel */
+ 115:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     (void)CyDmaChPriority(WaveDAC8_Wave2_DMA_DmaHandle, (uint8)WaveDAC8_Wave2_DMA__PRIORITY);
+  76              		.loc 1 115 0
+  77 0028 2078     		ldrb	r0, [r4, #0]	@ zero_extendqisi2
+  78 002a 0221     		movs	r1, #2
+  79 002c FFF7FEFF 		bl	CyDmaChPriority
+  80              	.LVL7:
+ 116:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     
+ 117:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     return WaveDAC8_Wave2_DMA_DmaHandle;
+ 118:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** }
+  81              		.loc 1 118 0
+  82 0030 2078     		ldrb	r0, [r4, #0]	@ zero_extendqisi2
+  83 0032 FEBD     		pop	{r1, r2, r3, r4, r5, r6, r7, pc}
+  84              	.L3:
+  85              		.align	2
+  86              	.L2:
+  87 0034 00000000 		.word	.LANCHOR0
+  88              		.cfi_endproc
+  89              	.LFE0:
+  90              		.size	WaveDAC8_Wave2_DMA_DmaInitialize, .-WaveDAC8_Wave2_DMA_DmaInitialize
+  91              		.section	.text.WaveDAC8_Wave2_DMA_DmaRelease,"ax",%progbits
+  92              		.align	1
+  93              		.global	WaveDAC8_Wave2_DMA_DmaRelease
+  94              		.thumb
+  95              		.thumb_func
+  96              		.type	WaveDAC8_Wave2_DMA_DmaRelease, %function
+  97              	WaveDAC8_Wave2_DMA_DmaRelease:
+  98              	.LFB1:
+ 119:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** 
+ 120:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** /*********************************************************************
+ 121:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Function Name: void WaveDAC8_Wave2_DMA_DmaRelease
+ 122:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** **********************************************************************
+ 123:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Summary:
+ 124:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   Frees the channel associated with WaveDAC8_Wave2_DMA.
+ 125:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+ 126:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 5
+
+
+ 127:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Parameters:
+ 128:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   void.
+ 129:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+ 130:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+ 131:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+ 132:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** * Return:
+ 133:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *   void.
+ 134:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *
+ 135:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** *******************************************************************/
+ 136:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** void WaveDAC8_Wave2_DMA_DmaRelease(void) 
+ 137:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** {
+  99              		.loc 1 137 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 138:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     /* Disable the channel */
+ 139:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     (void)CyDmaChDisable(WaveDAC8_Wave2_DMA_DmaHandle);
+ 104              		.loc 1 139 0
+ 105 0000 014B     		ldr	r3, .L5
+ 106 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 140:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c **** }
+ 107              		.loc 1 140 0
+ 139:.\Generated_Source\PSoC5/WaveDAC8_Wave2_DMA_dma.c ****     (void)CyDmaChDisable(WaveDAC8_Wave2_DMA_DmaHandle);
+ 108              		.loc 1 139 0
+ 109 0004 FFF7FEBF 		b	CyDmaChDisable
+ 110              	.LVL8:
+ 111              	.L6:
+ 112              		.align	2
+ 113              	.L5:
+ 114 0008 00000000 		.word	.LANCHOR0
+ 115              		.cfi_endproc
+ 116              	.LFE1:
+ 117              		.size	WaveDAC8_Wave2_DMA_DmaRelease, .-WaveDAC8_Wave2_DMA_DmaRelease
+ 118              		.global	WaveDAC8_Wave2_DMA_DmaHandle
+ 119              		.data
+ 120              		.set	.LANCHOR0,. + 0
+ 121              		.type	WaveDAC8_Wave2_DMA_DmaHandle, %object
+ 122              		.size	WaveDAC8_Wave2_DMA_DmaHandle, 1
+ 123              	WaveDAC8_Wave2_DMA_DmaHandle:
+ 124 0000 FF       		.byte	-1
+ 125              		.text
+ 126              	.Letext0:
+ 127              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 128              		.file 3 "./Generated_Source/PSoC5/CYDMAC.H"
+ 129              		.section	.debug_info,"",%progbits
+ 130              	.Ldebug_info0:
+ 131 0000 11020000 		.4byte	0x211
+ 132 0004 0200     		.2byte	0x2
+ 133 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 134 000a 04       		.byte	0x4
+ 135 000b 01       		.uleb128 0x1
+ 136 000c CF010000 		.4byte	.LASF23
+ 137 0010 01       		.byte	0x1
+ 138 0011 18020000 		.4byte	.LASF24
+ 139 0015 BA000000 		.4byte	.LASF25
+ 140 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 6
+
+
+ 141 001d 00000000 		.4byte	0
+ 142 0021 00000000 		.4byte	0
+ 143 0025 00000000 		.4byte	.Ldebug_line0
+ 144 0029 02       		.uleb128 0x2
+ 145 002a 01       		.byte	0x1
+ 146 002b 06       		.byte	0x6
+ 147 002c 53020000 		.4byte	.LASF0
+ 148 0030 02       		.uleb128 0x2
+ 149 0031 01       		.byte	0x1
+ 150 0032 08       		.byte	0x8
+ 151 0033 8F000000 		.4byte	.LASF1
+ 152 0037 02       		.uleb128 0x2
+ 153 0038 02       		.byte	0x2
+ 154 0039 05       		.byte	0x5
+ 155 003a BF010000 		.4byte	.LASF2
+ 156 003e 02       		.uleb128 0x2
+ 157 003f 02       		.byte	0x2
+ 158 0040 07       		.byte	0x7
+ 159 0041 55000000 		.4byte	.LASF3
+ 160 0045 03       		.uleb128 0x3
+ 161 0046 04       		.byte	0x4
+ 162 0047 05       		.byte	0x5
+ 163 0048 696E7400 		.ascii	"int\000"
+ 164 004c 02       		.uleb128 0x2
+ 165 004d 04       		.byte	0x4
+ 166 004e 07       		.byte	0x7
+ 167 004f 54010000 		.4byte	.LASF4
+ 168 0053 02       		.uleb128 0x2
+ 169 0054 08       		.byte	0x8
+ 170 0055 05       		.byte	0x5
+ 171 0056 92010000 		.4byte	.LASF5
+ 172 005a 02       		.uleb128 0x2
+ 173 005b 08       		.byte	0x8
+ 174 005c 07       		.byte	0x7
+ 175 005d 61010000 		.4byte	.LASF6
+ 176 0061 02       		.uleb128 0x2
+ 177 0062 04       		.byte	0x4
+ 178 0063 05       		.byte	0x5
+ 179 0064 4A020000 		.4byte	.LASF7
+ 180 0068 02       		.uleb128 0x2
+ 181 0069 04       		.byte	0x4
+ 182 006a 07       		.byte	0x7
+ 183 006b 89010000 		.4byte	.LASF8
+ 184 006f 02       		.uleb128 0x2
+ 185 0070 04       		.byte	0x4
+ 186 0071 07       		.byte	0x7
+ 187 0072 A8000000 		.4byte	.LASF9
+ 188 0076 02       		.uleb128 0x2
+ 189 0077 01       		.byte	0x1
+ 190 0078 08       		.byte	0x8
+ 191 0079 BA010000 		.4byte	.LASF10
+ 192 007d 04       		.uleb128 0x4
+ 193 007e C9010000 		.4byte	.LASF11
+ 194 0082 02       		.byte	0x2
+ 195 0083 5B       		.byte	0x5b
+ 196 0084 30000000 		.4byte	0x30
+ 197 0088 04       		.uleb128 0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 7
+
+
+ 198 0089 4D010000 		.4byte	.LASF12
+ 199 008d 02       		.byte	0x2
+ 200 008e 5C       		.byte	0x5c
+ 201 008f 3E000000 		.4byte	0x3e
+ 202 0093 02       		.uleb128 0x2
+ 203 0094 04       		.byte	0x4
+ 204 0095 04       		.byte	0x4
+ 205 0096 89000000 		.4byte	.LASF13
+ 206 009a 02       		.uleb128 0x2
+ 207 009b 08       		.byte	0x8
+ 208 009c 04       		.byte	0x4
+ 209 009d 28010000 		.4byte	.LASF14
+ 210 00a1 04       		.uleb128 0x4
+ 211 00a2 00000000 		.4byte	.LASF15
+ 212 00a6 02       		.byte	0x2
+ 213 00a7 E8       		.byte	0xe8
+ 214 00a8 6F000000 		.4byte	0x6f
+ 215 00ac 05       		.uleb128 0x5
+ 216 00ad 01       		.byte	0x1
+ 217 00ae 68000000 		.4byte	.LASF26
+ 218 00b2 01       		.byte	0x1
+ 219 00b3 61       		.byte	0x61
+ 220 00b4 01       		.byte	0x1
+ 221 00b5 7D000000 		.4byte	0x7d
+ 222 00b9 00000000 		.4byte	.LFB0
+ 223 00bd 38000000 		.4byte	.LFE0
+ 224 00c1 00000000 		.4byte	.LLST0
+ 225 00c5 01       		.byte	0x1
+ 226 00c6 5A010000 		.4byte	0x15a
+ 227 00ca 06       		.uleb128 0x6
+ 228 00cb 9D000000 		.4byte	.LASF16
+ 229 00cf 01       		.byte	0x1
+ 230 00d0 61       		.byte	0x61
+ 231 00d1 7D000000 		.4byte	0x7d
+ 232 00d5 20000000 		.4byte	.LLST1
+ 233 00d9 06       		.uleb128 0x6
+ 234 00da 46000000 		.4byte	.LASF17
+ 235 00de 01       		.byte	0x1
+ 236 00df 61       		.byte	0x61
+ 237 00e0 7D000000 		.4byte	0x7d
+ 238 00e4 41000000 		.4byte	.LLST2
+ 239 00e8 06       		.uleb128 0x6
+ 240 00e9 26000000 		.4byte	.LASF18
+ 241 00ed 01       		.byte	0x1
+ 242 00ee 61       		.byte	0x61
+ 243 00ef 88000000 		.4byte	0x88
+ 244 00f3 62000000 		.4byte	.LLST3
+ 245 00f7 06       		.uleb128 0x6
+ 246 00f8 78010000 		.4byte	.LASF19
+ 247 00fc 01       		.byte	0x1
+ 248 00fd 61       		.byte	0x61
+ 249 00fe 88000000 		.4byte	0x88
+ 250 0102 83000000 		.4byte	.LLST4
+ 251 0106 07       		.uleb128 0x7
+ 252 0107 1E000000 		.4byte	.LVL5
+ 253 010b 90010000 		.4byte	0x190
+ 254 010f 30010000 		.4byte	0x130
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 8
+
+
+ 255 0113 08       		.uleb128 0x8
+ 256 0114 01       		.byte	0x1
+ 257 0115 53       		.byte	0x53
+ 258 0116 01       		.byte	0x1
+ 259 0117 30       		.byte	0x30
+ 260 0118 08       		.uleb128 0x8
+ 261 0119 01       		.byte	0x1
+ 262 011a 52       		.byte	0x52
+ 263 011b 02       		.byte	0x2
+ 264 011c 77       		.byte	0x77
+ 265 011d 00       		.sleb128 0
+ 266 011e 08       		.uleb128 0x8
+ 267 011f 01       		.byte	0x1
+ 268 0120 50       		.byte	0x50
+ 269 0121 01       		.byte	0x1
+ 270 0122 31       		.byte	0x31
+ 271 0123 08       		.uleb128 0x8
+ 272 0124 02       		.byte	0x2
+ 273 0125 7D       		.byte	0x7d
+ 274 0126 04       		.sleb128 4
+ 275 0127 01       		.byte	0x1
+ 276 0128 30       		.byte	0x30
+ 277 0129 08       		.uleb128 0x8
+ 278 012a 02       		.byte	0x2
+ 279 012b 7D       		.byte	0x7d
+ 280 012c 00       		.sleb128 0
+ 281 012d 01       		.byte	0x1
+ 282 012e 30       		.byte	0x30
+ 283 012f 00       		.byte	0
+ 284 0130 07       		.uleb128 0x7
+ 285 0131 28000000 		.4byte	.LVL6
+ 286 0135 C1010000 		.4byte	0x1c1
+ 287 0139 4A010000 		.4byte	0x14a
+ 288 013d 08       		.uleb128 0x8
+ 289 013e 01       		.byte	0x1
+ 290 013f 52       		.byte	0x52
+ 291 0140 02       		.byte	0x2
+ 292 0141 75       		.byte	0x75
+ 293 0142 00       		.sleb128 0
+ 294 0143 08       		.uleb128 0x8
+ 295 0144 01       		.byte	0x1
+ 296 0145 51       		.byte	0x51
+ 297 0146 02       		.byte	0x2
+ 298 0147 76       		.byte	0x76
+ 299 0148 00       		.sleb128 0
+ 300 0149 00       		.byte	0
+ 301 014a 09       		.uleb128 0x9
+ 302 014b 30000000 		.4byte	.LVL7
+ 303 014f E3010000 		.4byte	0x1e3
+ 304 0153 08       		.uleb128 0x8
+ 305 0154 01       		.byte	0x1
+ 306 0155 51       		.byte	0x51
+ 307 0156 01       		.byte	0x1
+ 308 0157 32       		.byte	0x32
+ 309 0158 00       		.byte	0
+ 310 0159 00       		.byte	0
+ 311 015a 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 9
+
+
+ 312 015b 01       		.byte	0x1
+ 313 015c 2F010000 		.4byte	.LASF27
+ 314 0160 01       		.byte	0x1
+ 315 0161 88       		.byte	0x88
+ 316 0162 01       		.byte	0x1
+ 317 0163 00000000 		.4byte	.LFB1
+ 318 0167 0C000000 		.4byte	.LFE1
+ 319 016b 02       		.byte	0x2
+ 320 016c 7D       		.byte	0x7d
+ 321 016d 00       		.sleb128 0
+ 322 016e 01       		.byte	0x1
+ 323 016f 7E010000 		.4byte	0x17e
+ 324 0173 0B       		.uleb128 0xb
+ 325 0174 08000000 		.4byte	.LVL8
+ 326 0178 01       		.byte	0x1
+ 327 0179 00020000 		.4byte	0x200
+ 328 017d 00       		.byte	0
+ 329 017e 0C       		.uleb128 0xc
+ 330 017f 09000000 		.4byte	.LASF28
+ 331 0183 01       		.byte	0x1
+ 332 0184 45       		.byte	0x45
+ 333 0185 7D000000 		.4byte	0x7d
+ 334 0189 01       		.byte	0x1
+ 335 018a 05       		.byte	0x5
+ 336 018b 03       		.byte	0x3
+ 337 018c 00000000 		.4byte	WaveDAC8_Wave2_DMA_DmaHandle
+ 338 0190 0D       		.uleb128 0xd
+ 339 0191 01       		.byte	0x1
+ 340 0192 6E020000 		.4byte	.LASF20
+ 341 0196 03       		.byte	0x3
+ 342 0197 34       		.byte	0x34
+ 343 0198 01       		.byte	0x1
+ 344 0199 A1000000 		.4byte	0xa1
+ 345 019d 01       		.byte	0x1
+ 346 019e C1010000 		.4byte	0x1c1
+ 347 01a2 0E       		.uleb128 0xe
+ 348 01a3 7D000000 		.4byte	0x7d
+ 349 01a7 0E       		.uleb128 0xe
+ 350 01a8 7D000000 		.4byte	0x7d
+ 351 01ac 0E       		.uleb128 0xe
+ 352 01ad 7D000000 		.4byte	0x7d
+ 353 01b1 0E       		.uleb128 0xe
+ 354 01b2 7D000000 		.4byte	0x7d
+ 355 01b6 0E       		.uleb128 0xe
+ 356 01b7 7D000000 		.4byte	0x7d
+ 357 01bb 0E       		.uleb128 0xe
+ 358 01bc 7D000000 		.4byte	0x7d
+ 359 01c0 00       		.byte	0
+ 360 01c1 0D       		.uleb128 0xd
+ 361 01c2 01       		.byte	0x1
+ 362 01c3 A0010000 		.4byte	.LASF21
+ 363 01c7 03       		.byte	0x3
+ 364 01c8 2E       		.byte	0x2e
+ 365 01c9 01       		.byte	0x1
+ 366 01ca A1000000 		.4byte	0xa1
+ 367 01ce 01       		.byte	0x1
+ 368 01cf E3010000 		.4byte	0x1e3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 10
+
+
+ 369 01d3 0E       		.uleb128 0xe
+ 370 01d4 7D000000 		.4byte	0x7d
+ 371 01d8 0E       		.uleb128 0xe
+ 372 01d9 88000000 		.4byte	0x88
+ 373 01dd 0E       		.uleb128 0xe
+ 374 01de 88000000 		.4byte	0x88
+ 375 01e2 00       		.byte	0
+ 376 01e3 0D       		.uleb128 0xd
+ 377 01e4 01       		.byte	0x1
+ 378 01e5 36000000 		.4byte	.LASF22
+ 379 01e9 03       		.byte	0x3
+ 380 01ea 2D       		.byte	0x2d
+ 381 01eb 01       		.byte	0x1
+ 382 01ec A1000000 		.4byte	0xa1
+ 383 01f0 01       		.byte	0x1
+ 384 01f1 00020000 		.4byte	0x200
+ 385 01f5 0E       		.uleb128 0xe
+ 386 01f6 7D000000 		.4byte	0x7d
+ 387 01fa 0E       		.uleb128 0xe
+ 388 01fb 7D000000 		.4byte	0x7d
+ 389 01ff 00       		.byte	0
+ 390 0200 0F       		.uleb128 0xf
+ 391 0201 01       		.byte	0x1
+ 392 0202 5F020000 		.4byte	.LASF29
+ 393 0206 03       		.byte	0x3
+ 394 0207 2B       		.byte	0x2b
+ 395 0208 01       		.byte	0x1
+ 396 0209 A1000000 		.4byte	0xa1
+ 397 020d 01       		.byte	0x1
+ 398 020e 0E       		.uleb128 0xe
+ 399 020f 7D000000 		.4byte	0x7d
+ 400 0213 00       		.byte	0
+ 401 0214 00       		.byte	0
+ 402              		.section	.debug_abbrev,"",%progbits
+ 403              	.Ldebug_abbrev0:
+ 404 0000 01       		.uleb128 0x1
+ 405 0001 11       		.uleb128 0x11
+ 406 0002 01       		.byte	0x1
+ 407 0003 25       		.uleb128 0x25
+ 408 0004 0E       		.uleb128 0xe
+ 409 0005 13       		.uleb128 0x13
+ 410 0006 0B       		.uleb128 0xb
+ 411 0007 03       		.uleb128 0x3
+ 412 0008 0E       		.uleb128 0xe
+ 413 0009 1B       		.uleb128 0x1b
+ 414 000a 0E       		.uleb128 0xe
+ 415 000b 55       		.uleb128 0x55
+ 416 000c 06       		.uleb128 0x6
+ 417 000d 11       		.uleb128 0x11
+ 418 000e 01       		.uleb128 0x1
+ 419 000f 52       		.uleb128 0x52
+ 420 0010 01       		.uleb128 0x1
+ 421 0011 10       		.uleb128 0x10
+ 422 0012 06       		.uleb128 0x6
+ 423 0013 00       		.byte	0
+ 424 0014 00       		.byte	0
+ 425 0015 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 11
+
+
+ 426 0016 24       		.uleb128 0x24
+ 427 0017 00       		.byte	0
+ 428 0018 0B       		.uleb128 0xb
+ 429 0019 0B       		.uleb128 0xb
+ 430 001a 3E       		.uleb128 0x3e
+ 431 001b 0B       		.uleb128 0xb
+ 432 001c 03       		.uleb128 0x3
+ 433 001d 0E       		.uleb128 0xe
+ 434 001e 00       		.byte	0
+ 435 001f 00       		.byte	0
+ 436 0020 03       		.uleb128 0x3
+ 437 0021 24       		.uleb128 0x24
+ 438 0022 00       		.byte	0
+ 439 0023 0B       		.uleb128 0xb
+ 440 0024 0B       		.uleb128 0xb
+ 441 0025 3E       		.uleb128 0x3e
+ 442 0026 0B       		.uleb128 0xb
+ 443 0027 03       		.uleb128 0x3
+ 444 0028 08       		.uleb128 0x8
+ 445 0029 00       		.byte	0
+ 446 002a 00       		.byte	0
+ 447 002b 04       		.uleb128 0x4
+ 448 002c 16       		.uleb128 0x16
+ 449 002d 00       		.byte	0
+ 450 002e 03       		.uleb128 0x3
+ 451 002f 0E       		.uleb128 0xe
+ 452 0030 3A       		.uleb128 0x3a
+ 453 0031 0B       		.uleb128 0xb
+ 454 0032 3B       		.uleb128 0x3b
+ 455 0033 0B       		.uleb128 0xb
+ 456 0034 49       		.uleb128 0x49
+ 457 0035 13       		.uleb128 0x13
+ 458 0036 00       		.byte	0
+ 459 0037 00       		.byte	0
+ 460 0038 05       		.uleb128 0x5
+ 461 0039 2E       		.uleb128 0x2e
+ 462 003a 01       		.byte	0x1
+ 463 003b 3F       		.uleb128 0x3f
+ 464 003c 0C       		.uleb128 0xc
+ 465 003d 03       		.uleb128 0x3
+ 466 003e 0E       		.uleb128 0xe
+ 467 003f 3A       		.uleb128 0x3a
+ 468 0040 0B       		.uleb128 0xb
+ 469 0041 3B       		.uleb128 0x3b
+ 470 0042 0B       		.uleb128 0xb
+ 471 0043 27       		.uleb128 0x27
+ 472 0044 0C       		.uleb128 0xc
+ 473 0045 49       		.uleb128 0x49
+ 474 0046 13       		.uleb128 0x13
+ 475 0047 11       		.uleb128 0x11
+ 476 0048 01       		.uleb128 0x1
+ 477 0049 12       		.uleb128 0x12
+ 478 004a 01       		.uleb128 0x1
+ 479 004b 40       		.uleb128 0x40
+ 480 004c 06       		.uleb128 0x6
+ 481 004d 9742     		.uleb128 0x2117
+ 482 004f 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 12
+
+
+ 483 0050 01       		.uleb128 0x1
+ 484 0051 13       		.uleb128 0x13
+ 485 0052 00       		.byte	0
+ 486 0053 00       		.byte	0
+ 487 0054 06       		.uleb128 0x6
+ 488 0055 05       		.uleb128 0x5
+ 489 0056 00       		.byte	0
+ 490 0057 03       		.uleb128 0x3
+ 491 0058 0E       		.uleb128 0xe
+ 492 0059 3A       		.uleb128 0x3a
+ 493 005a 0B       		.uleb128 0xb
+ 494 005b 3B       		.uleb128 0x3b
+ 495 005c 0B       		.uleb128 0xb
+ 496 005d 49       		.uleb128 0x49
+ 497 005e 13       		.uleb128 0x13
+ 498 005f 02       		.uleb128 0x2
+ 499 0060 06       		.uleb128 0x6
+ 500 0061 00       		.byte	0
+ 501 0062 00       		.byte	0
+ 502 0063 07       		.uleb128 0x7
+ 503 0064 898201   		.uleb128 0x4109
+ 504 0067 01       		.byte	0x1
+ 505 0068 11       		.uleb128 0x11
+ 506 0069 01       		.uleb128 0x1
+ 507 006a 31       		.uleb128 0x31
+ 508 006b 13       		.uleb128 0x13
+ 509 006c 01       		.uleb128 0x1
+ 510 006d 13       		.uleb128 0x13
+ 511 006e 00       		.byte	0
+ 512 006f 00       		.byte	0
+ 513 0070 08       		.uleb128 0x8
+ 514 0071 8A8201   		.uleb128 0x410a
+ 515 0074 00       		.byte	0
+ 516 0075 02       		.uleb128 0x2
+ 517 0076 0A       		.uleb128 0xa
+ 518 0077 9142     		.uleb128 0x2111
+ 519 0079 0A       		.uleb128 0xa
+ 520 007a 00       		.byte	0
+ 521 007b 00       		.byte	0
+ 522 007c 09       		.uleb128 0x9
+ 523 007d 898201   		.uleb128 0x4109
+ 524 0080 01       		.byte	0x1
+ 525 0081 11       		.uleb128 0x11
+ 526 0082 01       		.uleb128 0x1
+ 527 0083 31       		.uleb128 0x31
+ 528 0084 13       		.uleb128 0x13
+ 529 0085 00       		.byte	0
+ 530 0086 00       		.byte	0
+ 531 0087 0A       		.uleb128 0xa
+ 532 0088 2E       		.uleb128 0x2e
+ 533 0089 01       		.byte	0x1
+ 534 008a 3F       		.uleb128 0x3f
+ 535 008b 0C       		.uleb128 0xc
+ 536 008c 03       		.uleb128 0x3
+ 537 008d 0E       		.uleb128 0xe
+ 538 008e 3A       		.uleb128 0x3a
+ 539 008f 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 13
+
+
+ 540 0090 3B       		.uleb128 0x3b
+ 541 0091 0B       		.uleb128 0xb
+ 542 0092 27       		.uleb128 0x27
+ 543 0093 0C       		.uleb128 0xc
+ 544 0094 11       		.uleb128 0x11
+ 545 0095 01       		.uleb128 0x1
+ 546 0096 12       		.uleb128 0x12
+ 547 0097 01       		.uleb128 0x1
+ 548 0098 40       		.uleb128 0x40
+ 549 0099 0A       		.uleb128 0xa
+ 550 009a 9742     		.uleb128 0x2117
+ 551 009c 0C       		.uleb128 0xc
+ 552 009d 01       		.uleb128 0x1
+ 553 009e 13       		.uleb128 0x13
+ 554 009f 00       		.byte	0
+ 555 00a0 00       		.byte	0
+ 556 00a1 0B       		.uleb128 0xb
+ 557 00a2 898201   		.uleb128 0x4109
+ 558 00a5 00       		.byte	0
+ 559 00a6 11       		.uleb128 0x11
+ 560 00a7 01       		.uleb128 0x1
+ 561 00a8 9542     		.uleb128 0x2115
+ 562 00aa 0C       		.uleb128 0xc
+ 563 00ab 31       		.uleb128 0x31
+ 564 00ac 13       		.uleb128 0x13
+ 565 00ad 00       		.byte	0
+ 566 00ae 00       		.byte	0
+ 567 00af 0C       		.uleb128 0xc
+ 568 00b0 34       		.uleb128 0x34
+ 569 00b1 00       		.byte	0
+ 570 00b2 03       		.uleb128 0x3
+ 571 00b3 0E       		.uleb128 0xe
+ 572 00b4 3A       		.uleb128 0x3a
+ 573 00b5 0B       		.uleb128 0xb
+ 574 00b6 3B       		.uleb128 0x3b
+ 575 00b7 0B       		.uleb128 0xb
+ 576 00b8 49       		.uleb128 0x49
+ 577 00b9 13       		.uleb128 0x13
+ 578 00ba 3F       		.uleb128 0x3f
+ 579 00bb 0C       		.uleb128 0xc
+ 580 00bc 02       		.uleb128 0x2
+ 581 00bd 0A       		.uleb128 0xa
+ 582 00be 00       		.byte	0
+ 583 00bf 00       		.byte	0
+ 584 00c0 0D       		.uleb128 0xd
+ 585 00c1 2E       		.uleb128 0x2e
+ 586 00c2 01       		.byte	0x1
+ 587 00c3 3F       		.uleb128 0x3f
+ 588 00c4 0C       		.uleb128 0xc
+ 589 00c5 03       		.uleb128 0x3
+ 590 00c6 0E       		.uleb128 0xe
+ 591 00c7 3A       		.uleb128 0x3a
+ 592 00c8 0B       		.uleb128 0xb
+ 593 00c9 3B       		.uleb128 0x3b
+ 594 00ca 0B       		.uleb128 0xb
+ 595 00cb 27       		.uleb128 0x27
+ 596 00cc 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 14
+
+
+ 597 00cd 49       		.uleb128 0x49
+ 598 00ce 13       		.uleb128 0x13
+ 599 00cf 3C       		.uleb128 0x3c
+ 600 00d0 0C       		.uleb128 0xc
+ 601 00d1 01       		.uleb128 0x1
+ 602 00d2 13       		.uleb128 0x13
+ 603 00d3 00       		.byte	0
+ 604 00d4 00       		.byte	0
+ 605 00d5 0E       		.uleb128 0xe
+ 606 00d6 05       		.uleb128 0x5
+ 607 00d7 00       		.byte	0
+ 608 00d8 49       		.uleb128 0x49
+ 609 00d9 13       		.uleb128 0x13
+ 610 00da 00       		.byte	0
+ 611 00db 00       		.byte	0
+ 612 00dc 0F       		.uleb128 0xf
+ 613 00dd 2E       		.uleb128 0x2e
+ 614 00de 01       		.byte	0x1
+ 615 00df 3F       		.uleb128 0x3f
+ 616 00e0 0C       		.uleb128 0xc
+ 617 00e1 03       		.uleb128 0x3
+ 618 00e2 0E       		.uleb128 0xe
+ 619 00e3 3A       		.uleb128 0x3a
+ 620 00e4 0B       		.uleb128 0xb
+ 621 00e5 3B       		.uleb128 0x3b
+ 622 00e6 0B       		.uleb128 0xb
+ 623 00e7 27       		.uleb128 0x27
+ 624 00e8 0C       		.uleb128 0xc
+ 625 00e9 49       		.uleb128 0x49
+ 626 00ea 13       		.uleb128 0x13
+ 627 00eb 3C       		.uleb128 0x3c
+ 628 00ec 0C       		.uleb128 0xc
+ 629 00ed 00       		.byte	0
+ 630 00ee 00       		.byte	0
+ 631 00ef 00       		.byte	0
+ 632              		.section	.debug_loc,"",%progbits
+ 633              	.Ldebug_loc0:
+ 634              	.LLST0:
+ 635 0000 00000000 		.4byte	.LFB0
+ 636 0004 02000000 		.4byte	.LCFI0
+ 637 0008 0200     		.2byte	0x2
+ 638 000a 7D       		.byte	0x7d
+ 639 000b 00       		.sleb128 0
+ 640 000c 02000000 		.4byte	.LCFI0
+ 641 0010 38000000 		.4byte	.LFE0
+ 642 0014 0200     		.2byte	0x2
+ 643 0016 7D       		.byte	0x7d
+ 644 0017 20       		.sleb128 32
+ 645 0018 00000000 		.4byte	0
+ 646 001c 00000000 		.4byte	0
+ 647              	.LLST1:
+ 648 0020 00000000 		.4byte	.LVL0
+ 649 0024 16000000 		.4byte	.LVL3
+ 650 0028 0100     		.2byte	0x1
+ 651 002a 50       		.byte	0x50
+ 652 002b 16000000 		.4byte	.LVL3
+ 653 002f 38000000 		.4byte	.LFE0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 15
+
+
+ 654 0033 0400     		.2byte	0x4
+ 655 0035 F3       		.byte	0xf3
+ 656 0036 01       		.uleb128 0x1
+ 657 0037 50       		.byte	0x50
+ 658 0038 9F       		.byte	0x9f
+ 659 0039 00000000 		.4byte	0
+ 660 003d 00000000 		.4byte	0
+ 661              	.LLST2:
+ 662 0041 00000000 		.4byte	.LVL0
+ 663 0045 0E000000 		.4byte	.LVL2
+ 664 0049 0100     		.2byte	0x1
+ 665 004b 51       		.byte	0x51
+ 666 004c 0E000000 		.4byte	.LVL2
+ 667 0050 38000000 		.4byte	.LFE0
+ 668 0054 0400     		.2byte	0x4
+ 669 0056 F3       		.byte	0xf3
+ 670 0057 01       		.uleb128 0x1
+ 671 0058 51       		.byte	0x51
+ 672 0059 9F       		.byte	0x9f
+ 673 005a 00000000 		.4byte	0
+ 674 005e 00000000 		.4byte	0
+ 675              	.LLST3:
+ 676 0062 00000000 		.4byte	.LVL0
+ 677 0066 18000000 		.4byte	.LVL4
+ 678 006a 0100     		.2byte	0x1
+ 679 006c 52       		.byte	0x52
+ 680 006d 18000000 		.4byte	.LVL4
+ 681 0071 38000000 		.4byte	.LFE0
+ 682 0075 0400     		.2byte	0x4
+ 683 0077 F3       		.byte	0xf3
+ 684 0078 01       		.uleb128 0x1
+ 685 0079 52       		.byte	0x52
+ 686 007a 9F       		.byte	0x9f
+ 687 007b 00000000 		.4byte	0
+ 688 007f 00000000 		.4byte	0
+ 689              	.LLST4:
+ 690 0083 00000000 		.4byte	.LVL0
+ 691 0087 0C000000 		.4byte	.LVL1
+ 692 008b 0100     		.2byte	0x1
+ 693 008d 53       		.byte	0x53
+ 694 008e 0C000000 		.4byte	.LVL1
+ 695 0092 38000000 		.4byte	.LFE0
+ 696 0096 0400     		.2byte	0x4
+ 697 0098 F3       		.byte	0xf3
+ 698 0099 01       		.uleb128 0x1
+ 699 009a 53       		.byte	0x53
+ 700 009b 9F       		.byte	0x9f
+ 701 009c 00000000 		.4byte	0
+ 702 00a0 00000000 		.4byte	0
+ 703              		.section	.debug_aranges,"",%progbits
+ 704 0000 24000000 		.4byte	0x24
+ 705 0004 0200     		.2byte	0x2
+ 706 0006 00000000 		.4byte	.Ldebug_info0
+ 707 000a 04       		.byte	0x4
+ 708 000b 00       		.byte	0
+ 709 000c 0000     		.2byte	0
+ 710 000e 0000     		.2byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 16
+
+
+ 711 0010 00000000 		.4byte	.LFB0
+ 712 0014 38000000 		.4byte	.LFE0-.LFB0
+ 713 0018 00000000 		.4byte	.LFB1
+ 714 001c 0C000000 		.4byte	.LFE1-.LFB1
+ 715 0020 00000000 		.4byte	0
+ 716 0024 00000000 		.4byte	0
+ 717              		.section	.debug_ranges,"",%progbits
+ 718              	.Ldebug_ranges0:
+ 719 0000 00000000 		.4byte	.LFB0
+ 720 0004 38000000 		.4byte	.LFE0
+ 721 0008 00000000 		.4byte	.LFB1
+ 722 000c 0C000000 		.4byte	.LFE1
+ 723 0010 00000000 		.4byte	0
+ 724 0014 00000000 		.4byte	0
+ 725              		.section	.debug_line,"",%progbits
+ 726              	.Ldebug_line0:
+ 727 0000 98000000 		.section	.debug_str,"MS",%progbits,1
+ 727      02006100 
+ 727      00000201 
+ 727      FB0E0D00 
+ 727      01010101 
+ 728              	.LASF15:
+ 729 0000 63797374 		.ascii	"cystatus\000"
+ 729      61747573 
+ 729      00
+ 730              	.LASF28:
+ 731 0009 57617665 		.ascii	"WaveDAC8_Wave2_DMA_DmaHandle\000"
+ 731      44414338 
+ 731      5F576176 
+ 731      65325F44 
+ 731      4D415F44 
+ 732              	.LASF18:
+ 733 0026 55707065 		.ascii	"UpperSrcAddress\000"
+ 733      72537263 
+ 733      41646472 
+ 733      65737300 
+ 734              	.LASF22:
+ 735 0036 4379446D 		.ascii	"CyDmaChPriority\000"
+ 735      61436850 
+ 735      72696F72 
+ 735      69747900 
+ 736              	.LASF17:
+ 737 0046 52657165 		.ascii	"ReqestPerBurst\000"
+ 737      73745065 
+ 737      72427572 
+ 737      737400
+ 738              	.LASF3:
+ 739 0055 73686F72 		.ascii	"short unsigned int\000"
+ 739      7420756E 
+ 739      7369676E 
+ 739      65642069 
+ 739      6E7400
+ 740              	.LASF26:
+ 741 0068 57617665 		.ascii	"WaveDAC8_Wave2_DMA_DmaInitialize\000"
+ 741      44414338 
+ 741      5F576176 
+ 741      65325F44 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 17
+
+
+ 741      4D415F44 
+ 742              	.LASF13:
+ 743 0089 666C6F61 		.ascii	"float\000"
+ 743      7400
+ 744              	.LASF1:
+ 745 008f 756E7369 		.ascii	"unsigned char\000"
+ 745      676E6564 
+ 745      20636861 
+ 745      7200
+ 746              	.LASF16:
+ 747 009d 42757273 		.ascii	"BurstCount\000"
+ 747      74436F75 
+ 747      6E7400
+ 748              	.LASF9:
+ 749 00a8 6C6F6E67 		.ascii	"long unsigned int\000"
+ 749      20756E73 
+ 749      69676E65 
+ 749      6420696E 
+ 749      7400
+ 750              	.LASF25:
+ 751 00ba 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 751      73657273 
+ 751      5C477261 
+ 751      7A69616E 
+ 751      6F5C4465 
+ 752 00e8 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 752      525C5665 
+ 752      72732E30 
+ 752      2E302D54 
+ 752      30352032 
+ 753 0119 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 753      65446972 
+ 753      2E637964 
+ 753      736E00
+ 754              	.LASF14:
+ 755 0128 646F7562 		.ascii	"double\000"
+ 755      6C6500
+ 756              	.LASF27:
+ 757 012f 57617665 		.ascii	"WaveDAC8_Wave2_DMA_DmaRelease\000"
+ 757      44414338 
+ 757      5F576176 
+ 757      65325F44 
+ 757      4D415F44 
+ 758              	.LASF12:
+ 759 014d 75696E74 		.ascii	"uint16\000"
+ 759      313600
+ 760              	.LASF4:
+ 761 0154 756E7369 		.ascii	"unsigned int\000"
+ 761      676E6564 
+ 761      20696E74 
+ 761      00
+ 762              	.LASF6:
+ 763 0161 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 763      206C6F6E 
+ 763      6720756E 
+ 763      7369676E 
+ 763      65642069 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 18
+
+
+ 764              	.LASF19:
+ 765 0178 55707065 		.ascii	"UpperDestAddress\000"
+ 765      72446573 
+ 765      74416464 
+ 765      72657373 
+ 765      00
+ 766              	.LASF8:
+ 767 0189 73697A65 		.ascii	"sizetype\000"
+ 767      74797065 
+ 767      00
+ 768              	.LASF5:
+ 769 0192 6C6F6E67 		.ascii	"long long int\000"
+ 769      206C6F6E 
+ 769      6720696E 
+ 769      7400
+ 770              	.LASF21:
+ 771 01a0 4379446D 		.ascii	"CyDmaChSetExtendedAddress\000"
+ 771      61436853 
+ 771      65744578 
+ 771      74656E64 
+ 771      65644164 
+ 772              	.LASF10:
+ 773 01ba 63686172 		.ascii	"char\000"
+ 773      00
+ 774              	.LASF2:
+ 775 01bf 73686F72 		.ascii	"short int\000"
+ 775      7420696E 
+ 775      7400
+ 776              	.LASF11:
+ 777 01c9 75696E74 		.ascii	"uint8\000"
+ 777      3800
+ 778              	.LASF23:
+ 779 01cf 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 779      4320342E 
+ 779      372E3320 
+ 779      32303133 
+ 779      30333132 
+ 780 0202 616E6368 		.ascii	"anch revision 196615]\000"
+ 780      20726576 
+ 780      6973696F 
+ 780      6E203139 
+ 780      36363135 
+ 781              	.LASF24:
+ 782 0218 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\WaveDAC8_Wave2_DMA_dma."
+ 782      6E657261 
+ 782      7465645F 
+ 782      536F7572 
+ 782      63655C50 
+ 783 0248 6300     		.ascii	"c\000"
+ 784              	.LASF7:
+ 785 024a 6C6F6E67 		.ascii	"long int\000"
+ 785      20696E74 
+ 785      00
+ 786              	.LASF0:
+ 787 0253 7369676E 		.ascii	"signed char\000"
+ 787      65642063 
+ 787      68617200 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccpf1ETH.s 			page 19
+
+
+ 788              	.LASF29:
+ 789 025f 4379446D 		.ascii	"CyDmaChDisable\000"
+ 789      61436844 
+ 789      69736162 
+ 789      6C6500
+ 790              	.LASF20:
+ 791 026e 4379446D 		.ascii	"CyDmaChSetConfiguration\000"
+ 791      61436853 
+ 791      6574436F 
+ 791      6E666967 
+ 791      75726174 
+ 792              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

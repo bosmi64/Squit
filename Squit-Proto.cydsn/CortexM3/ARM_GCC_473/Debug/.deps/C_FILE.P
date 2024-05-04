@@ -1,0 +1,312 @@
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/CortexM3/ARM_GCC_473/Debug/XTR-8LR100.o : C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC_Ext_CP_Clk.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC_IRQ.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC_theACLK.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_ST.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_ST_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_X.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_X_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Y.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Y_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Z.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Z_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/AMuxSeq.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ANAPOS_OUTPUT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ANAPOS_OUTPUT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ASTIM_OUTPUT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ASTIM_OUTPUT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_CHRGn.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_CHRGn_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_FAULTn.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_FAULTn_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BUZ.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BUZ_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SCL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SCL_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SDA.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SDA_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_nALCC.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_nALCC_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CYDMAC.H C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CYFITTER.H C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Clock_2.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Clock_CTRL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Clock_SYS.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_BUZ.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_LED.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_LORA.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_LORA_RESET.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_MOTOR.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_SYS.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_WS.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Counter_LED.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CyDmac.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CyFlash.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CyLib.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CySpc.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/DEBUG_LED.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/DEBUG_LED_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/EEPROM.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_PAN.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_PAN_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_TILT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_TILT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/I2C_COULOMB.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/I2C_COULOMB_PVT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_RX.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_RX_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_TX.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_TX_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ITG_INT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ITG_INT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_FAULT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_FAULT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_OK.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_OK_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_FAULT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_FAULT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_OK.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_OK_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/MOT_SLEEPn.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/MOT_SLEEPn_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCA.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCA_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCB.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCB_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_FL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_FL_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN1.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN1_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN2.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN2_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PGA_ASTIM.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PWM_MOTOR_PAN.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PWM_MOTOR_TILT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN_Cnt16.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN_PVT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN_isr.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT_Cnt16.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT_PVT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT_isr.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_IPAN.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_IPAN_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_ITILT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_ITILT_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_VCC.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_VCC_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Status_Reg_BUTTON.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Status_Reg_MOTORS.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Status_Reg_SYS.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCA.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCA_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCB.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCB_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_FL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_FL_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN1.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN1_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN2.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN2_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/UART_USB.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/UART_USB_IntClock.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V3_nSHDN.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V3_nSHDN_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V5_PHER_nSHDN.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V5_PHER_nSHDN_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/VDAC8_ANAPOS.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/VREF.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/VREF_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_BuffAmp.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_DacClk.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_VDAC8.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_Wave1_DMA_dma.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_Wave2_DMA_dma.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cm3.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cmFunc.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cmInstr.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cyPm.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cydevice.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cydevice_trm.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cydisabledsheets.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cyfitter.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cypins.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cytypes.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_BUTTON.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_CLU_EXEC.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_CTRL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_EVENTS_IDENTIF.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_FAULT_CTRL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_LIMIT_CTRL.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_TORQUESTAT.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_Ticks.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CCW.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CCW_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CW.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CW_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_PUSH.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_PUSH_aliases.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/project.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/XTR-8LR100.c C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/XTR-8LR100.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/device.h C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/gobee.h 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC_Ext_CP_Clk.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC_IRQ.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADC_theACLK.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_ST.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_ST_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_X.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_X_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Y.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Y_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Z.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ADXL_Z_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/AMuxSeq.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ANAPOS_OUTPUT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ANAPOS_OUTPUT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ASTIM_OUTPUT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ASTIM_OUTPUT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_CHRGn.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_CHRGn_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_FAULTn.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BAT_FAULTn_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BUZ.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/BUZ_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SCL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SCL_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SDA.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_SDA_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_nALCC.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CC_nALCC_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CYDMAC.H : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CYFITTER.H : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Clock_2.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Clock_CTRL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Clock_SYS.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_BUZ.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_LED.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_LORA.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_LORA_RESET.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_MOTOR.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_SYS.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Control_Reg_WS.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Counter_LED.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/DEBUG_LED.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/DEBUG_LED_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/EEPROM.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_PAN.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_PAN_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_TILT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/HOME_TILT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/I2C_COULOMB.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/I2C_COULOMB_PVT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_RX.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_RX_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_TX.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/IMU_UM7_TX_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ITG_INT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/ITG_INT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_FAULT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_FAULT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_OK.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_OK_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_FAULT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_FAULT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_OK.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/LED_WIFI_OK_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/MOT_SLEEPn.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/MOT_SLEEPn_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCA.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCA_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCB.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_ENCB_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_FL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_FL_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN1.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN1_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN2.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PAN_MOT_IN2_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PGA_ASTIM.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PWM_MOTOR_PAN.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/PWM_MOTOR_TILT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN_Cnt16.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN_PVT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_PAN_isr.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT_Cnt16.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT_PVT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/QuadDec_TILT_isr.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_IPAN.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_IPAN_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_ITILT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_ITILT_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_VCC.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/SENSE_VCC_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Status_Reg_BUTTON.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Status_Reg_MOTORS.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/Status_Reg_SYS.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCA.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCA_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCB.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_ENCB_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_FL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_FL_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN1.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN1_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN2.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/TILT_MOT_IN2_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/UART_USB.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/UART_USB_IntClock.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V3_nSHDN.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V3_nSHDN_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V5_PHER_nSHDN.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/V5_PHER_nSHDN_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/VDAC8_ANAPOS.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/VREF.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/VREF_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_BuffAmp.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_DacClk.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_VDAC8.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_Wave1_DMA_dma.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/WaveDAC8_Wave2_DMA_dma.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cmFunc.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/core_cmInstr.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_BUTTON.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_CLU_EXEC.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_CTRL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_EVENTS_IDENTIF.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_FAULT_CTRL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_LIMIT_CTRL.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_TORQUESTAT.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/isr_Ticks.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CCW.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CCW_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CW.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_CW_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_PUSH.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/nBUTTON_PUSH_aliases.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/Generated_Source/PSoC5/project.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/XTR-8LR100.c : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/XTR-8LR100.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/device.h : 
+
+C:/Users/Graziano\ G.\ Ravizza/Documents/PSoC\ Creator/SQUIT/Vers.0.0-T00\ 2019-0208\ C3.0\ (start)/Squit-Proto.cydsn/gobee.h : 
+

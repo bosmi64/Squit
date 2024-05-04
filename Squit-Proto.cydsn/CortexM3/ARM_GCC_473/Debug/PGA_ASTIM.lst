@@ -1,0 +1,1514 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"PGA_ASTIM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	PGA_ASTIM_initVar
+  19              		.bss
+  20              		.type	PGA_ASTIM_initVar, %object
+  21              		.size	PGA_ASTIM_initVar, 1
+  22              	PGA_ASTIM_initVar:
+  23 0000 00       		.space	1
+  24              		.section	.text.PGA_ASTIM_Init,"ax",%progbits
+  25              		.align	2
+  26              		.global	PGA_ASTIM_Init
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	PGA_ASTIM_Init, %function
+  30              	PGA_ASTIM_Init:
+  31              	.LFB0:
+  32              		.file 1 ".\\Generated_Source\\PSoC5\\PGA_ASTIM.c"
+   1:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * File Name: PGA_ASTIM.c  
+   3:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Version 2.0
+   4:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+   5:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Description:
+   6:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  This file provides the source code to the API for the PGA 
+   7:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  User Module.
+   8:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+   9:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Note:
+  10:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  11:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  18:.\Generated_Source\PSoC5/PGA_ASTIM.c **** #include "PGA_ASTIM.h"
+  19:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  20:.\Generated_Source\PSoC5/PGA_ASTIM.c **** #if (!CY_PSOC5A)
+  21:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #if (CYDEV_VARIABLE_VDDA == 1u)
+  22:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         #include "CyScBoostClk.h"
+  23:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+  24:.\Generated_Source\PSoC5/PGA_ASTIM.c **** #endif /* (!CY_PSOC5A) */
+  25:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 2
+
+
+  26:.\Generated_Source\PSoC5/PGA_ASTIM.c **** #if (CY_PSOC5A)
+  27:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     static PGA_ASTIM_BACKUP_STRUCT  PGA_ASTIM_P5backup;
+  28:.\Generated_Source\PSoC5/PGA_ASTIM.c **** #endif /* (CY_ PSOC5A) */
+  29:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  30:.\Generated_Source\PSoC5/PGA_ASTIM.c **** uint8 PGA_ASTIM_initVar = 0u;
+  31:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  32:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  33:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************   
+  34:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Function Name: PGA_ASTIM_Init
+  35:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+  36:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  37:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Summary:
+  38:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  Initialize component's parameters to the parameters set by user in the 
+  39:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  customizer of the component placed onto schematic. Usually called in 
+  40:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  PGA_ASTIM_Start().
+  41:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  42:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Parameters:
+  43:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+  44:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  45:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Return:
+  46:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+  47:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  48:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+  49:.\Generated_Source\PSoC5/PGA_ASTIM.c **** void PGA_ASTIM_Init(void) 
+  50:.\Generated_Source\PSoC5/PGA_ASTIM.c **** {
+  33              		.loc 1 50 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_register 7
+  51:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Set PGA mode */
+  52:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_CR0_REG = PGA_ASTIM_MODE_PGA;      
+  45              		.loc 1 52 0
+  46 0004 45F60803 		movw	r3, #22536
+  47 0008 C4F20003 		movt	r3, 16384
+  48 000c 4FF00C02 		mov	r2, #12
+  49 0010 1A70     		strb	r2, [r3, #0]
+  53:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Set non-inverting PGA mode and reference mode */
+  54:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_CR1_REG |= PGA_ASTIM_PGA_NINV;  
+  50              		.loc 1 54 0
+  51 0012 45F60903 		movw	r3, #22537
+  52 0016 C4F20003 		movt	r3, 16384
+  53 001a 45F60902 		movw	r2, #22537
+  54 001e C4F20002 		movt	r2, 16384
+  55 0022 1278     		ldrb	r2, [r2, #0]
+  56 0024 D2B2     		uxtb	r2, r2
+  57 0026 42F02002 		orr	r2, r2, #32
+  58 002a D2B2     		uxtb	r2, r2
+  59 002c 1A70     		strb	r2, [r3, #0]
+  55:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Set default gain and ref mode */
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 3
+
+
+  56:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_CR2_REG = PGA_ASTIM_VREF_MODE;
+  60              		.loc 1 56 0
+  61 002e 45F60A03 		movw	r3, #22538
+  62 0032 C4F20003 		movt	r3, 16384
+  63 0036 4FF00002 		mov	r2, #0
+  64 003a 1A70     		strb	r2, [r3, #0]
+  57:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Set gain and compensation */
+  58:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_SetGain(PGA_ASTIM_DEFAULT_GAIN);
+  65              		.loc 1 58 0
+  66 003c 4FF00000 		mov	r0, #0
+  67 0040 FFF7FEFF 		bl	PGA_ASTIM_SetGain
+  59:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Set power */
+  60:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_SetPower(PGA_ASTIM_DEFAULT_POWER);
+  68              		.loc 1 60 0
+  69 0044 4FF00000 		mov	r0, #0
+  70 0048 FFF7FEFF 		bl	PGA_ASTIM_SetPower
+  61:.\Generated_Source\PSoC5/PGA_ASTIM.c **** }
+  71              		.loc 1 61 0
+  72 004c 80BD     		pop	{r7, pc}
+  73              		.cfi_endproc
+  74              	.LFE0:
+  75              		.size	PGA_ASTIM_Init, .-PGA_ASTIM_Init
+  76 004e 00BF     		.section	.text.PGA_ASTIM_Enable,"ax",%progbits
+  77              		.align	2
+  78              		.global	PGA_ASTIM_Enable
+  79              		.thumb
+  80              		.thumb_func
+  81              		.type	PGA_ASTIM_Enable, %function
+  82              	PGA_ASTIM_Enable:
+  83              	.LFB1:
+  62:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  63:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  64:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************   
+  65:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Function Name: PGA_ASTIM_Enable
+  66:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+  67:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  68:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Summary:
+  69:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  Enables the PGA block operation.
+  70:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  71:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Parameters:
+  72:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+  73:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  74:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Return:
+  75:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+  76:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+  77:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+  78:.\Generated_Source\PSoC5/PGA_ASTIM.c **** void PGA_ASTIM_Enable(void) 
+  79:.\Generated_Source\PSoC5/PGA_ASTIM.c **** {
+  84              		.loc 1 79 0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 1, uses_anonymous_args = 0
+  88              		@ link register save eliminated.
+  89 0000 80B4     		push	{r7}
+  90              	.LCFI2:
+  91              		.cfi_def_cfa_offset 4
+  92              		.cfi_offset 7, -4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 4
+
+
+  93 0002 00AF     		add	r7, sp, #0
+  94              	.LCFI3:
+  95              		.cfi_def_cfa_register 7
+  80:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* This is to restore the value of register CR1 and CR2 which is saved 
+  81:.\Generated_Source\PSoC5/PGA_ASTIM.c ****       in prior to the modifications in stop() API */
+  82:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #if (CY_PSOC5A)
+  83:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         if(PGA_ASTIM_P5backup.enableState == 1u)
+  84:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         {
+  85:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             PGA_ASTIM_CR1_REG = PGA_ASTIM_P5backup.scCR1Reg;
+  86:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             PGA_ASTIM_CR2_REG = PGA_ASTIM_P5backup.scCR2Reg;
+  87:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             PGA_ASTIM_P5backup.enableState = 0u;
+  88:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         }
+  89:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #endif /* CY_PSOC5A */   
+  90:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  91:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Enable power to the Amp in Active mode*/
+  92:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_PM_ACT_CFG_REG |= PGA_ASTIM_ACT_PWR_EN;
+  96              		.loc 1 92 0
+  97 0004 44F2A933 		movw	r3, #17321
+  98 0008 C4F20003 		movt	r3, 16384
+  99 000c 44F2A932 		movw	r2, #17321
+ 100 0010 C4F20002 		movt	r2, 16384
+ 101 0014 1278     		ldrb	r2, [r2, #0]
+ 102 0016 D2B2     		uxtb	r2, r2
+ 103 0018 42F00402 		orr	r2, r2, #4
+ 104 001c D2B2     		uxtb	r2, r2
+ 105 001e 1A70     		strb	r2, [r3, #0]
+  93:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+  94:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Enable power to the Amp in Alternative Active mode*/
+  95:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_PM_STBY_CFG_REG |= PGA_ASTIM_STBY_PWR_EN;
+ 106              		.loc 1 95 0
+ 107 0020 44F2B933 		movw	r3, #17337
+ 108 0024 C4F20003 		movt	r3, 16384
+ 109 0028 44F2B932 		movw	r2, #17337
+ 110 002c C4F20002 		movt	r2, 16384
+ 111 0030 1278     		ldrb	r2, [r2, #0]
+ 112 0032 D2B2     		uxtb	r2, r2
+ 113 0034 42F00402 		orr	r2, r2, #4
+ 114 0038 D2B2     		uxtb	r2, r2
+ 115 003a 1A70     		strb	r2, [r3, #0]
+  96:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     
+  97:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_PUMP_CR1_REG |= PGA_ASTIM_PUMP_CR1_SC_CLKSEL;
+ 116              		.loc 1 97 0
+ 117 003c 45F67703 		movw	r3, #22647
+ 118 0040 C4F20003 		movt	r3, 16384
+ 119 0044 45F67702 		movw	r2, #22647
+ 120 0048 C4F20002 		movt	r2, 16384
+ 121 004c 1278     		ldrb	r2, [r2, #0]
+ 122 004e D2B2     		uxtb	r2, r2
+ 123 0050 62F07F02 		orn	r2, r2, #127
+ 124 0054 D2B2     		uxtb	r2, r2
+ 125 0056 1A70     		strb	r2, [r3, #0]
+  98:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     
+  99:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #if (!CY_PSOC5A)
+ 100:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 101:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             if(CyScPumpEnabled == 1u)
+ 102:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             {
+ 103:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_BSTCLK_REG &= (uint8)(~PGA_ASTIM_BST_CLK_INDEX_MASK);
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 5
+
+
+ 104:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_BSTCLK_REG |= PGA_ASTIM_BST_CLK_EN | CyScBoostClk__INDEX;
+ 105:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_SC_MISC_REG |= PGA_ASTIM_PUMP_FORCE;
+ 106:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 CyScBoostClk_Start();
+ 107:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             }
+ 108:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             else
+ 109:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             {
+ 110:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_BSTCLK_REG &= (uint8)(~PGA_ASTIM_BST_CLK_EN);
+ 111:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_SC_MISC_REG &= (uint8)(~PGA_ASTIM_PUMP_FORCE);
+ 112:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             }
+ 113:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+ 114:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #endif /* (!CY_PSOC5A) */
+ 115:.\Generated_Source\PSoC5/PGA_ASTIM.c **** }
+ 126              		.loc 1 115 0
+ 127 0058 BD46     		mov	sp, r7
+ 128 005a 80BC     		pop	{r7}
+ 129 005c 7047     		bx	lr
+ 130              		.cfi_endproc
+ 131              	.LFE1:
+ 132              		.size	PGA_ASTIM_Enable, .-PGA_ASTIM_Enable
+ 133 005e 00BF     		.section	.text.PGA_ASTIM_Start,"ax",%progbits
+ 134              		.align	2
+ 135              		.global	PGA_ASTIM_Start
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.type	PGA_ASTIM_Start, %function
+ 139              	PGA_ASTIM_Start:
+ 140              	.LFB2:
+ 116:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 117:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 118:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************
+ 119:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Function Name: PGA_ASTIM_Start
+ 120:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+ 121:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 122:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Summary:
+ 123:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  The start function initializes the PGA with the default values and sets
+ 124:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  the power to the given level. A power level of 0, is same as executing
+ 125:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  the stop function.
+ 126:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 127:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Parameters:
+ 128:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+ 129:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 130:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Return:
+ 131:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+ 132:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 133:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+ 134:.\Generated_Source\PSoC5/PGA_ASTIM.c **** void PGA_ASTIM_Start(void) 
+ 135:.\Generated_Source\PSoC5/PGA_ASTIM.c **** {
+ 141              		.loc 1 135 0
+ 142              		.cfi_startproc
+ 143              		@ args = 0, pretend = 0, frame = 0
+ 144              		@ frame_needed = 1, uses_anonymous_args = 0
+ 145 0000 80B5     		push	{r7, lr}
+ 146              	.LCFI4:
+ 147              		.cfi_def_cfa_offset 8
+ 148              		.cfi_offset 7, -8
+ 149              		.cfi_offset 14, -4
+ 150 0002 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 6
+
+
+ 151              	.LCFI5:
+ 152              		.cfi_def_cfa_register 7
+ 136:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 137:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* This is to restore the value of register CR1 and CR2 which is saved 
+ 138:.\Generated_Source\PSoC5/PGA_ASTIM.c ****       in prior to the modification in stop() API */
+ 139:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 140:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     if(PGA_ASTIM_initVar == 0u)
+ 153              		.loc 1 140 0
+ 154 0004 40F20003 		movw	r3, #:lower16:PGA_ASTIM_initVar
+ 155 0008 C0F20003 		movt	r3, #:upper16:PGA_ASTIM_initVar
+ 156 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 157 000e 002B     		cmp	r3, #0
+ 158 0010 08D1     		bne	.L4
+ 141:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     {
+ 142:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_Init();
+ 159              		.loc 1 142 0
+ 160 0012 FFF7FEFF 		bl	PGA_ASTIM_Init
+ 143:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_initVar = 1u;
+ 161              		.loc 1 143 0
+ 162 0016 40F20003 		movw	r3, #:lower16:PGA_ASTIM_initVar
+ 163 001a C0F20003 		movt	r3, #:upper16:PGA_ASTIM_initVar
+ 164 001e 4FF00102 		mov	r2, #1
+ 165 0022 1A70     		strb	r2, [r3, #0]
+ 166              	.L4:
+ 144:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     }
+ 145:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 146:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_Enable();
+ 167              		.loc 1 146 0
+ 168 0024 FFF7FEFF 		bl	PGA_ASTIM_Enable
+ 147:.\Generated_Source\PSoC5/PGA_ASTIM.c **** }
+ 169              		.loc 1 147 0
+ 170 0028 80BD     		pop	{r7, pc}
+ 171              		.cfi_endproc
+ 172              	.LFE2:
+ 173              		.size	PGA_ASTIM_Start, .-PGA_ASTIM_Start
+ 174 002a 00BF     		.section	.text.PGA_ASTIM_Stop,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	PGA_ASTIM_Stop
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.type	PGA_ASTIM_Stop, %function
+ 180              	PGA_ASTIM_Stop:
+ 181              	.LFB3:
+ 148:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 149:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 150:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************
+ 151:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Function Name: PGA_ASTIM_Stop
+ 152:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+ 153:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 154:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Summary:
+ 155:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  Powers down amplifier to lowest power state.
+ 156:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 157:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Parameters:
+ 158:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+ 159:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 160:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Return:
+ 161:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 7
+
+
+ 162:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 163:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+ 164:.\Generated_Source\PSoC5/PGA_ASTIM.c **** void PGA_ASTIM_Stop(void) 
+ 165:.\Generated_Source\PSoC5/PGA_ASTIM.c **** { 
+ 182              		.loc 1 165 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 1, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+ 187 0000 80B4     		push	{r7}
+ 188              	.LCFI6:
+ 189              		.cfi_def_cfa_offset 4
+ 190              		.cfi_offset 7, -4
+ 191 0002 00AF     		add	r7, sp, #0
+ 192              	.LCFI7:
+ 193              		.cfi_def_cfa_register 7
+ 166:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Disble power to the Amp in Active mode template */
+ 167:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_PM_ACT_CFG_REG &= (uint8)(~PGA_ASTIM_ACT_PWR_EN);
+ 194              		.loc 1 167 0
+ 195 0004 44F2A933 		movw	r3, #17321
+ 196 0008 C4F20003 		movt	r3, 16384
+ 197 000c 44F2A932 		movw	r2, #17321
+ 198 0010 C4F20002 		movt	r2, 16384
+ 199 0014 1278     		ldrb	r2, [r2, #0]
+ 200 0016 D2B2     		uxtb	r2, r2
+ 201 0018 22F00402 		bic	r2, r2, #4
+ 202 001c D2B2     		uxtb	r2, r2
+ 203 001e 1A70     		strb	r2, [r3, #0]
+ 168:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 169:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Disble power to the Amp in Alternative Active mode template */
+ 170:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_PM_STBY_CFG_REG &= (uint8)(~PGA_ASTIM_STBY_PWR_EN);
+ 204              		.loc 1 170 0
+ 205 0020 44F2B933 		movw	r3, #17337
+ 206 0024 C4F20003 		movt	r3, 16384
+ 207 0028 44F2B932 		movw	r2, #17337
+ 208 002c C4F20002 		movt	r2, 16384
+ 209 0030 1278     		ldrb	r2, [r2, #0]
+ 210 0032 D2B2     		uxtb	r2, r2
+ 211 0034 22F00402 		bic	r2, r2, #4
+ 212 0038 D2B2     		uxtb	r2, r2
+ 213 003a 1A70     		strb	r2, [r3, #0]
+ 171:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 172:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #if (!CY_PSOC5A)
+ 173:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 174:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             PGA_ASTIM_BSTCLK_REG &= (uint8)(~PGA_ASTIM_BST_CLK_EN);
+ 175:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             /* Disable pumps only if there aren't any SC block in use */
+ 176:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             if ((PGA_ASTIM_PM_ACT_CFG_REG & PGA_ASTIM_PM_ACT_CFG_MASK) == 0u)
+ 177:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             {
+ 178:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_SC_MISC_REG &= (uint8)(~PGA_ASTIM_PUMP_FORCE);
+ 179:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 PGA_ASTIM_PUMP_CR1_REG &= (uint8)(~PGA_ASTIM_PUMP_CR1_SC_CLKSEL);
+ 180:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                 CyScBoostClk_Stop();
+ 181:.\Generated_Source\PSoC5/PGA_ASTIM.c ****             }
+ 182:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         #endif /* CYDEV_VARIABLE_VDDA == 1u */
+ 183:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+ 184:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 185:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* This sets PGA in zero current mode and output routes are valid */
+ 186:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #if (CY_PSOC5A)
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 8
+
+
+ 187:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_P5backup.scCR1Reg = PGA_ASTIM_CR1_REG;
+ 188:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_P5backup.scCR2Reg = PGA_ASTIM_CR2_REG;
+ 189:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR1_REG = 0x00u;
+ 190:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR2_REG = 0x00u;
+ 191:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_P5backup.enableState = 1u;
+ 192:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     #endif /* CY_PSOC5A */
+ 193:.\Generated_Source\PSoC5/PGA_ASTIM.c **** }
+ 214              		.loc 1 193 0
+ 215 003c BD46     		mov	sp, r7
+ 216 003e 80BC     		pop	{r7}
+ 217 0040 7047     		bx	lr
+ 218              		.cfi_endproc
+ 219              	.LFE3:
+ 220              		.size	PGA_ASTIM_Stop, .-PGA_ASTIM_Stop
+ 221 0042 00BF     		.section	.text.PGA_ASTIM_SetPower,"ax",%progbits
+ 222              		.align	2
+ 223              		.global	PGA_ASTIM_SetPower
+ 224              		.thumb
+ 225              		.thumb_func
+ 226              		.type	PGA_ASTIM_SetPower, %function
+ 227              	PGA_ASTIM_SetPower:
+ 228              	.LFB4:
+ 194:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 195:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 196:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************
+ 197:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Function Name: PGA_ASTIM_SetPower
+ 198:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+ 199:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 200:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Summary:
+ 201:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  Set the power of the PGA.
+ 202:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 203:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Parameters:
+ 204:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  power: Sets power level between (0) and (3) high power
+ 205:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 206:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Return:
+ 207:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void
+ 208:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 209:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+ 210:.\Generated_Source\PSoC5/PGA_ASTIM.c **** void PGA_ASTIM_SetPower(uint8 power) 
+ 211:.\Generated_Source\PSoC5/PGA_ASTIM.c **** {
+ 229              		.loc 1 211 0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 16
+ 232              		@ frame_needed = 1, uses_anonymous_args = 0
+ 233              		@ link register save eliminated.
+ 234 0000 80B4     		push	{r7}
+ 235              	.LCFI8:
+ 236              		.cfi_def_cfa_offset 4
+ 237              		.cfi_offset 7, -4
+ 238 0002 85B0     		sub	sp, sp, #20
+ 239              	.LCFI9:
+ 240              		.cfi_def_cfa_offset 24
+ 241 0004 00AF     		add	r7, sp, #0
+ 242              	.LCFI10:
+ 243              		.cfi_def_cfa_register 7
+ 244 0006 0346     		mov	r3, r0
+ 245 0008 FB71     		strb	r3, [r7, #7]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 9
+
+
+ 212:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     uint8 tmpCR;
+ 213:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 214:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     tmpCR = PGA_ASTIM_CR1_REG & (uint8)(~PGA_ASTIM_DRIVE_MASK);
+ 246              		.loc 1 214 0
+ 247 000a 45F60903 		movw	r3, #22537
+ 248 000e C4F20003 		movt	r3, 16384
+ 249 0012 1B78     		ldrb	r3, [r3, #0]
+ 250 0014 DBB2     		uxtb	r3, r3
+ 251 0016 23F00303 		bic	r3, r3, #3
+ 252 001a FB73     		strb	r3, [r7, #15]
+ 215:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     tmpCR |= (power & PGA_ASTIM_DRIVE_MASK);
+ 253              		.loc 1 215 0
+ 254 001c FB79     		ldrb	r3, [r7, #7]
+ 255 001e 03F00303 		and	r3, r3, #3
+ 256 0022 DAB2     		uxtb	r2, r3
+ 257 0024 FB7B     		ldrb	r3, [r7, #15]
+ 258 0026 1343     		orrs	r3, r3, r2
+ 259 0028 FB73     		strb	r3, [r7, #15]
+ 216:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     PGA_ASTIM_CR1_REG = tmpCR;  
+ 260              		.loc 1 216 0
+ 261 002a 45F60903 		movw	r3, #22537
+ 262 002e C4F20003 		movt	r3, 16384
+ 263 0032 FA7B     		ldrb	r2, [r7, #15]
+ 264 0034 1A70     		strb	r2, [r3, #0]
+ 217:.\Generated_Source\PSoC5/PGA_ASTIM.c **** }
+ 265              		.loc 1 217 0
+ 266 0036 07F11407 		add	r7, r7, #20
+ 267 003a BD46     		mov	sp, r7
+ 268 003c 80BC     		pop	{r7}
+ 269 003e 7047     		bx	lr
+ 270              		.cfi_endproc
+ 271              	.LFE4:
+ 272              		.size	PGA_ASTIM_SetPower, .-PGA_ASTIM_SetPower
+ 273              		.section	.rodata
+ 274              		.align	2
+ 275              	.LC0:
+ 276 0000 01       		.byte	1
+ 277 0001 11       		.byte	17
+ 278 0002 21       		.byte	33
+ 279 0003 31       		.byte	49
+ 280 0004 41       		.byte	65
+ 281 0005 61       		.byte	97
+ 282 0006 53       		.byte	83
+ 283 0007 63       		.byte	99
+ 284 0008 73       		.byte	115
+ 285 0009 000000   		.align	2
+ 286              	.LC1:
+ 287 000c 08       		.byte	8
+ 288 000d 09       		.byte	9
+ 289 000e 01       		.byte	1
+ 290 000f 01       		.byte	1
+ 291 0010 05       		.byte	5
+ 292 0011 07       		.byte	7
+ 293 0012 07       		.byte	7
+ 294 0013 04       		.byte	4
+ 295 0014 04       		.byte	4
+ 296 0015 000000   		.section	.text.PGA_ASTIM_SetGain,"ax",%progbits
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 10
+
+
+ 297              		.align	2
+ 298              		.global	PGA_ASTIM_SetGain
+ 299              		.thumb
+ 300              		.thumb_func
+ 301              		.type	PGA_ASTIM_SetGain, %function
+ 302              	PGA_ASTIM_SetGain:
+ 303              	.LFB5:
+ 218:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 219:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 220:.\Generated_Source\PSoC5/PGA_ASTIM.c **** /*******************************************************************************
+ 221:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Function Name: PGA_ASTIM_SetGain
+ 222:.\Generated_Source\PSoC5/PGA_ASTIM.c **** ********************************************************************************
+ 223:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 224:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Summary:
+ 225:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  This function sets values of the input and feedback resistors to set a 
+ 226:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  specific gain of the amplifier.
+ 227:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 228:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Parameters:
+ 229:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  gain: Gain value of PGA (See header file for gain values.)
+ 230:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 231:.\Generated_Source\PSoC5/PGA_ASTIM.c **** * Return:
+ 232:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *  void 
+ 233:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *
+ 234:.\Generated_Source\PSoC5/PGA_ASTIM.c **** *******************************************************************************/
+ 235:.\Generated_Source\PSoC5/PGA_ASTIM.c **** void PGA_ASTIM_SetGain(uint8 gain) 
+ 236:.\Generated_Source\PSoC5/PGA_ASTIM.c **** {
+ 304              		.loc 1 236 0
+ 305              		.cfi_startproc
+ 306              		@ args = 0, pretend = 0, frame = 32
+ 307              		@ frame_needed = 1, uses_anonymous_args = 0
+ 308              		@ link register save eliminated.
+ 309 0000 80B4     		push	{r7}
+ 310              	.LCFI11:
+ 311              		.cfi_def_cfa_offset 4
+ 312              		.cfi_offset 7, -4
+ 313 0002 89B0     		sub	sp, sp, #36
+ 314              	.LCFI12:
+ 315              		.cfi_def_cfa_offset 40
+ 316 0004 00AF     		add	r7, sp, #0
+ 317              	.LCFI13:
+ 318              		.cfi_def_cfa_register 7
+ 319 0006 0346     		mov	r3, r0
+ 320 0008 FB71     		strb	r3, [r7, #7]
+ 237:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Constant array for gain settings */
+ 238:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     const uint8 PGA_ASTIM_GainArray[9] = { 
+ 321              		.loc 1 238 0
+ 322 000a 40F20002 		movw	r2, #:lower16:.LC0
+ 323 000e C0F20002 		movt	r2, #:upper16:.LC0
+ 324 0012 07F11403 		add	r3, r7, #20
+ 325 0016 1068     		ldr	r0, [r2, #0]	@ unaligned
+ 326 0018 5168     		ldr	r1, [r2, #4]	@ unaligned
+ 327 001a 03C3     		stmia	r3!, {r0, r1}
+ 328 001c 127A     		ldrb	r2, [r2, #8]
+ 329 001e 1A70     		strb	r2, [r3, #0]
+ 239:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_0K   | PGA_ASTIM_R20_40B_40K | PGA_ASTIM_BIAS_LOW), /* G=1  */
+ 240:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_40K  | PGA_ASTIM_R20_40B_40K | PGA_ASTIM_BIAS_LOW), /* G=2  */
+ 241:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_120K | PGA_ASTIM_R20_40B_40K | PGA_ASTIM_BIAS_LOW), /* G=4  */
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 11
+
+
+ 242:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_280K | PGA_ASTIM_R20_40B_40K | PGA_ASTIM_BIAS_LOW), /* G=8  */
+ 243:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_600K | PGA_ASTIM_R20_40B_40K | PGA_ASTIM_BIAS_LOW), /* G=16 */
+ 244:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_460K | PGA_ASTIM_R20_40B_40K | PGA_ASTIM_BIAS_LOW), /* G=24, Sets Rin as 20
+ 245:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_620K | PGA_ASTIM_R20_40B_20K | PGA_ASTIM_BIAS_LOW), /* G=32 */
+ 246:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_470K | PGA_ASTIM_R20_40B_20K | PGA_ASTIM_BIAS_LOW), /* G=48, Sets Rin as 10
+ 247:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         (PGA_ASTIM_RVAL_490K | PGA_ASTIM_R20_40B_20K | PGA_ASTIM_BIAS_LOW)  /* G=50, Sets Rin as 10
+ 248:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     };
+ 249:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     
+ 250:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Constant array for gain compenstion settings */
+ 251:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     const uint8 PGA_ASTIM_GainComp[9] = { 
+ 330              		.loc 1 251 0
+ 331 0020 40F20002 		movw	r2, #:lower16:.LC1
+ 332 0024 C0F20002 		movt	r2, #:upper16:.LC1
+ 333 0028 07F10803 		add	r3, r7, #8
+ 334 002c 1068     		ldr	r0, [r2, #0]	@ unaligned
+ 335 002e 5168     		ldr	r1, [r2, #4]	@ unaligned
+ 336 0030 03C3     		stmia	r3!, {r0, r1}
+ 337 0032 127A     		ldrb	r2, [r2, #8]
+ 338 0034 1A70     		strb	r2, [r3, #0]
+ 252:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_4P35PF  | (uint8)( PGA_ASTIM_REDC_00 >> 2 )), /* G=1  */
+ 253:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_4P35PF  | (uint8)( PGA_ASTIM_REDC_01 >> 2 )), /* G=2  */
+ 254:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P0PF   | (uint8)( PGA_ASTIM_REDC_01 >> 2 )), /* G=4  */
+ 255:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P0PF   | (uint8)( PGA_ASTIM_REDC_01 >> 2 )), /* G=8  */
+ 256:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P6PF   | (uint8)( PGA_ASTIM_REDC_01 >> 2 )), /* G=16 */
+ 257:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P6PF   | (uint8)( PGA_ASTIM_REDC_11 >> 2 )), /* G=24 */
+ 258:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P6PF   | (uint8)( PGA_ASTIM_REDC_11 >> 2 )), /* G=32 */
+ 259:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P6PF   | (uint8)( PGA_ASTIM_REDC_00 >> 2 )), /* G=48 */
+ 260:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         ( PGA_ASTIM_COMP_3P6PF   | (uint8)( PGA_ASTIM_REDC_00 >> 2 ))  /* G=50 */
+ 261:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     };
+ 262:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     
+ 263:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     /* Only set new gain if it is a valid gain */
+ 264:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     if( gain <= PGA_ASTIM_GAIN_MAX)
+ 339              		.loc 1 264 0
+ 340 0036 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 341 0038 082B     		cmp	r3, #8
+ 342 003a 52D8     		bhi	.L7
+ 265:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     {
+ 266:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         /* Clear resistors, redc, and bias */
+ 267:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR2_REG &= (uint8)(~(PGA_ASTIM_RVAL_MASK | PGA_ASTIM_R20_40B_MASK | 
+ 343              		.loc 1 267 0
+ 344 003c 45F60A03 		movw	r3, #22538
+ 345 0040 C4F20003 		movt	r3, 16384
+ 346 0044 45F60A02 		movw	r2, #22538
+ 347 0048 C4F20002 		movt	r2, 16384
+ 348 004c 1278     		ldrb	r2, [r2, #0]
+ 349 004e D2B2     		uxtb	r2, r2
+ 350 0050 22F07F02 		bic	r2, r2, #127
+ 351 0054 D2B2     		uxtb	r2, r2
+ 352 0056 1A70     		strb	r2, [r3, #0]
+ 268:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                                 PGA_ASTIM_REDC_MASK | PGA_ASTIM_BIAS_MASK ));
+ 269:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 270:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         /* Set gain value resistors, redc comp, and bias */
+ 271:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR2_REG |= (PGA_ASTIM_GainArray[gain] |
+ 353              		.loc 1 271 0
+ 354 0058 45F60A03 		movw	r3, #22538
+ 355 005c C4F20003 		movt	r3, 16384
+ 356 0060 45F60A02 		movw	r2, #22538
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 12
+
+
+ 357 0064 C4F20002 		movt	r2, 16384
+ 358 0068 1278     		ldrb	r2, [r2, #0]
+ 359 006a D1B2     		uxtb	r1, r2
+ 360 006c FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 361 006e 07F12000 		add	r0, r7, #32
+ 362 0072 8218     		adds	r2, r0, r2
+ 363 0074 12F80C0C 		ldrb	r0, [r2, #-12]	@ zero_extendqisi2
+ 272:.\Generated_Source\PSoC5/PGA_ASTIM.c ****                                 ((uint8)(PGA_ASTIM_GainComp[gain] << 2 ) & PGA_ASTIM_REDC_MASK));
+ 364              		.loc 1 272 0
+ 365 0078 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 366 007a 07F1200C 		add	ip, r7, #32
+ 367 007e 6244     		add	r2, ip, r2
+ 368 0080 12F8182C 		ldrb	r2, [r2, #-24]	@ zero_extendqisi2
+ 369 0084 4FEA8202 		lsl	r2, r2, #2
+ 370 0088 D2B2     		uxtb	r2, r2
+ 271:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR2_REG |= (PGA_ASTIM_GainArray[gain] |
+ 371              		.loc 1 271 0
+ 372 008a 02F00C02 		and	r2, r2, #12
+ 373 008e D2B2     		uxtb	r2, r2
+ 374 0090 0243     		orrs	r2, r2, r0
+ 375 0092 D2B2     		uxtb	r2, r2
+ 376 0094 0A43     		orrs	r2, r2, r1
+ 377 0096 D2B2     		uxtb	r2, r2
+ 378 0098 1A70     		strb	r2, [r3, #0]
+ 273:.\Generated_Source\PSoC5/PGA_ASTIM.c **** 
+ 274:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         /* Clear sc_comp  */
+ 275:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR1_REG &= (uint8)(~PGA_ASTIM_COMP_MASK);
+ 379              		.loc 1 275 0
+ 380 009a 45F60903 		movw	r3, #22537
+ 381 009e C4F20003 		movt	r3, 16384
+ 382 00a2 45F60902 		movw	r2, #22537
+ 383 00a6 C4F20002 		movt	r2, 16384
+ 384 00aa 1278     		ldrb	r2, [r2, #0]
+ 385 00ac D2B2     		uxtb	r2, r2
+ 386 00ae 22F00C02 		bic	r2, r2, #12
+ 387 00b2 D2B2     		uxtb	r2, r2
+ 388 00b4 1A70     		strb	r2, [r3, #0]
+ 276:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         /* Set sc_comp  */
+ 277:.\Generated_Source\PSoC5/PGA_ASTIM.c ****         PGA_ASTIM_CR1_REG |= ( PGA_ASTIM_GainComp[gain] | PGA_ASTIM_COMP_MASK );
+ 389              		.loc 1 277 0
+ 390 00b6 45F60903 		movw	r3, #22537
+ 391 00ba C4F20003 		movt	r3, 16384
+ 392 00be 45F60902 		movw	r2, #22537
+ 393 00c2 C4F20002 		movt	r2, 16384
+ 394 00c6 1278     		ldrb	r2, [r2, #0]
+ 395 00c8 D1B2     		uxtb	r1, r2
+ 396 00ca FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 397 00cc 07F12000 		add	r0, r7, #32
+ 398 00d0 8218     		adds	r2, r0, r2
+ 399 00d2 12F8182C 		ldrb	r2, [r2, #-24]	@ zero_extendqisi2
+ 400 00d6 0A43     		orrs	r2, r2, r1
+ 401 00d8 D2B2     		uxtb	r2, r2
+ 402 00da 42F00C02 		orr	r2, r2, #12
+ 403 00de D2B2     		uxtb	r2, r2
+ 404 00e0 1A70     		strb	r2, [r3, #0]
+ 405              	.L7:
+ 278:.\Generated_Source\PSoC5/PGA_ASTIM.c ****     }
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 13
+
+
+ 279:.\Generated_Source\PSoC5/PGA_ASTIM.c **** }
+ 406              		.loc 1 279 0
+ 407 00e2 07F12407 		add	r7, r7, #36
+ 408 00e6 BD46     		mov	sp, r7
+ 409 00e8 80BC     		pop	{r7}
+ 410 00ea 7047     		bx	lr
+ 411              		.cfi_endproc
+ 412              	.LFE5:
+ 413              		.size	PGA_ASTIM_SetGain, .-PGA_ASTIM_SetGain
+ 414              		.text
+ 415              	.Letext0:
+ 416              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 417              		.section	.debug_info,"",%progbits
+ 418              	.Ldebug_info0:
+ 419 0000 A3010000 		.4byte	0x1a3
+ 420 0004 0200     		.2byte	0x2
+ 421 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 422 000a 04       		.byte	0x4
+ 423 000b 01       		.uleb128 0x1
+ 424 000c D2010000 		.4byte	.LASF26
+ 425 0010 01       		.byte	0x1
+ 426 0011 A7000000 		.4byte	.LASF27
+ 427 0015 D3000000 		.4byte	.LASF28
+ 428 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 429 001d 00000000 		.4byte	0
+ 430 0021 00000000 		.4byte	0
+ 431 0025 00000000 		.4byte	.Ldebug_line0
+ 432 0029 02       		.uleb128 0x2
+ 433 002a 01       		.byte	0x1
+ 434 002b 06       		.byte	0x6
+ 435 002c 24020000 		.4byte	.LASF0
+ 436 0030 02       		.uleb128 0x2
+ 437 0031 01       		.byte	0x1
+ 438 0032 08       		.byte	0x8
+ 439 0033 7C000000 		.4byte	.LASF1
+ 440 0037 02       		.uleb128 0x2
+ 441 0038 02       		.byte	0x2
+ 442 0039 05       		.byte	0x5
+ 443 003a B6010000 		.4byte	.LASF2
+ 444 003e 02       		.uleb128 0x2
+ 445 003f 02       		.byte	0x2
+ 446 0040 07       		.byte	0x7
+ 447 0041 39000000 		.4byte	.LASF3
+ 448 0045 02       		.uleb128 0x2
+ 449 0046 04       		.byte	0x4
+ 450 0047 05       		.byte	0x5
+ 451 0048 1B020000 		.4byte	.LASF4
+ 452 004c 02       		.uleb128 0x2
+ 453 004d 04       		.byte	0x4
+ 454 004e 07       		.byte	0x7
+ 455 004f 8F000000 		.4byte	.LASF5
+ 456 0053 02       		.uleb128 0x2
+ 457 0054 08       		.byte	0x8
+ 458 0055 05       		.byte	0x5
+ 459 0056 A3010000 		.4byte	.LASF6
+ 460 005a 02       		.uleb128 0x2
+ 461 005b 08       		.byte	0x8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 14
+
+
+ 462 005c 07       		.byte	0x7
+ 463 005d 64010000 		.4byte	.LASF7
+ 464 0061 03       		.uleb128 0x3
+ 465 0062 04       		.byte	0x4
+ 466 0063 05       		.byte	0x5
+ 467 0064 696E7400 		.ascii	"int\000"
+ 468 0068 02       		.uleb128 0x2
+ 469 0069 04       		.byte	0x4
+ 470 006a 07       		.byte	0x7
+ 471 006b 43010000 		.4byte	.LASF8
+ 472 006f 04       		.uleb128 0x4
+ 473 0070 A1000000 		.4byte	.LASF12
+ 474 0074 02       		.byte	0x2
+ 475 0075 5B       		.byte	0x5b
+ 476 0076 30000000 		.4byte	0x30
+ 477 007a 02       		.uleb128 0x2
+ 478 007b 04       		.byte	0x4
+ 479 007c 04       		.byte	0x4
+ 480 007d 76000000 		.4byte	.LASF9
+ 481 0081 02       		.uleb128 0x2
+ 482 0082 08       		.byte	0x8
+ 483 0083 04       		.byte	0x4
+ 484 0084 CC000000 		.4byte	.LASF10
+ 485 0088 02       		.uleb128 0x2
+ 486 0089 01       		.byte	0x1
+ 487 008a 08       		.byte	0x8
+ 488 008b B1010000 		.4byte	.LASF11
+ 489 008f 04       		.uleb128 0x4
+ 490 0090 8A000000 		.4byte	.LASF13
+ 491 0094 02       		.byte	0x2
+ 492 0095 F0       		.byte	0xf0
+ 493 0096 9A000000 		.4byte	0x9a
+ 494 009a 05       		.uleb128 0x5
+ 495 009b 6F000000 		.4byte	0x6f
+ 496 009f 02       		.uleb128 0x2
+ 497 00a0 04       		.byte	0x4
+ 498 00a1 07       		.byte	0x7
+ 499 00a2 8B010000 		.4byte	.LASF14
+ 500 00a6 06       		.uleb128 0x6
+ 501 00a7 01       		.byte	0x1
+ 502 00a8 94010000 		.4byte	.LASF15
+ 503 00ac 01       		.byte	0x1
+ 504 00ad 31       		.byte	0x31
+ 505 00ae 01       		.byte	0x1
+ 506 00af 00000000 		.4byte	.LFB0
+ 507 00b3 4E000000 		.4byte	.LFE0
+ 508 00b7 00000000 		.4byte	.LLST0
+ 509 00bb 01       		.byte	0x1
+ 510 00bc 07       		.uleb128 0x7
+ 511 00bd 01       		.byte	0x1
+ 512 00be 15000000 		.4byte	.LASF16
+ 513 00c2 01       		.byte	0x1
+ 514 00c3 4E       		.byte	0x4e
+ 515 00c4 01       		.byte	0x1
+ 516 00c5 00000000 		.4byte	.LFB1
+ 517 00c9 5E000000 		.4byte	.LFE1
+ 518 00cd 2C000000 		.4byte	.LLST1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 15
+
+
+ 519 00d1 01       		.byte	0x1
+ 520 00d2 06       		.uleb128 0x6
+ 521 00d3 01       		.byte	0x1
+ 522 00d4 7B010000 		.4byte	.LASF17
+ 523 00d8 01       		.byte	0x1
+ 524 00d9 86       		.byte	0x86
+ 525 00da 01       		.byte	0x1
+ 526 00db 00000000 		.4byte	.LFB2
+ 527 00df 2A000000 		.4byte	.LFE2
+ 528 00e3 58000000 		.4byte	.LLST2
+ 529 00e7 01       		.byte	0x1
+ 530 00e8 07       		.uleb128 0x7
+ 531 00e9 01       		.byte	0x1
+ 532 00ea 06000000 		.4byte	.LASF18
+ 533 00ee 01       		.byte	0x1
+ 534 00ef A4       		.byte	0xa4
+ 535 00f0 01       		.byte	0x1
+ 536 00f1 00000000 		.4byte	.LFB3
+ 537 00f5 42000000 		.4byte	.LFE3
+ 538 00f9 84000000 		.4byte	.LLST3
+ 539 00fd 01       		.byte	0x1
+ 540 00fe 08       		.uleb128 0x8
+ 541 00ff 01       		.byte	0x1
+ 542 0100 63000000 		.4byte	.LASF19
+ 543 0104 01       		.byte	0x1
+ 544 0105 D2       		.byte	0xd2
+ 545 0106 01       		.byte	0x1
+ 546 0107 00000000 		.4byte	.LFB4
+ 547 010b 40000000 		.4byte	.LFE4
+ 548 010f B0000000 		.4byte	.LLST4
+ 549 0113 01       		.byte	0x1
+ 550 0114 35010000 		.4byte	0x135
+ 551 0118 09       		.uleb128 0x9
+ 552 0119 30020000 		.4byte	.LASF21
+ 553 011d 01       		.byte	0x1
+ 554 011e D2       		.byte	0xd2
+ 555 011f 6F000000 		.4byte	0x6f
+ 556 0123 02       		.byte	0x2
+ 557 0124 91       		.byte	0x91
+ 558 0125 6F       		.sleb128 -17
+ 559 0126 0A       		.uleb128 0xa
+ 560 0127 00000000 		.4byte	.LASF23
+ 561 012b 01       		.byte	0x1
+ 562 012c D4       		.byte	0xd4
+ 563 012d 6F000000 		.4byte	0x6f
+ 564 0131 02       		.byte	0x2
+ 565 0132 91       		.byte	0x91
+ 566 0133 77       		.sleb128 -9
+ 567 0134 00       		.byte	0
+ 568 0135 08       		.uleb128 0x8
+ 569 0136 01       		.byte	0x1
+ 570 0137 4C000000 		.4byte	.LASF20
+ 571 013b 01       		.byte	0x1
+ 572 013c EB       		.byte	0xeb
+ 573 013d 01       		.byte	0x1
+ 574 013e 00000000 		.4byte	.LFB5
+ 575 0142 EC000000 		.4byte	.LFE5
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 16
+
+
+ 576 0146 E8000000 		.4byte	.LLST5
+ 577 014a 01       		.byte	0x1
+ 578 014b 7A010000 		.4byte	0x17a
+ 579 014f 09       		.uleb128 0x9
+ 580 0150 5E000000 		.4byte	.LASF22
+ 581 0154 01       		.byte	0x1
+ 582 0155 EB       		.byte	0xeb
+ 583 0156 6F000000 		.4byte	0x6f
+ 584 015a 02       		.byte	0x2
+ 585 015b 91       		.byte	0x91
+ 586 015c 5F       		.sleb128 -33
+ 587 015d 0A       		.uleb128 0xa
+ 588 015e 50010000 		.4byte	.LASF24
+ 589 0162 01       		.byte	0x1
+ 590 0163 EE       		.byte	0xee
+ 591 0164 8A010000 		.4byte	0x18a
+ 592 0168 02       		.byte	0x2
+ 593 0169 91       		.byte	0x91
+ 594 016a 6C       		.sleb128 -20
+ 595 016b 0A       		.uleb128 0xa
+ 596 016c 26000000 		.4byte	.LASF25
+ 597 0170 01       		.byte	0x1
+ 598 0171 FB       		.byte	0xfb
+ 599 0172 8F010000 		.4byte	0x18f
+ 600 0176 02       		.byte	0x2
+ 601 0177 91       		.byte	0x91
+ 602 0178 60       		.sleb128 -32
+ 603 0179 00       		.byte	0
+ 604 017a 0B       		.uleb128 0xb
+ 605 017b 6F000000 		.4byte	0x6f
+ 606 017f 8A010000 		.4byte	0x18a
+ 607 0183 0C       		.uleb128 0xc
+ 608 0184 9F000000 		.4byte	0x9f
+ 609 0188 08       		.byte	0x8
+ 610 0189 00       		.byte	0
+ 611 018a 0D       		.uleb128 0xd
+ 612 018b 7A010000 		.4byte	0x17a
+ 613 018f 0D       		.uleb128 0xd
+ 614 0190 7A010000 		.4byte	0x17a
+ 615 0194 0E       		.uleb128 0xe
+ 616 0195 C0010000 		.4byte	.LASF29
+ 617 0199 01       		.byte	0x1
+ 618 019a 1E       		.byte	0x1e
+ 619 019b 6F000000 		.4byte	0x6f
+ 620 019f 01       		.byte	0x1
+ 621 01a0 05       		.byte	0x5
+ 622 01a1 03       		.byte	0x3
+ 623 01a2 00000000 		.4byte	PGA_ASTIM_initVar
+ 624 01a6 00       		.byte	0
+ 625              		.section	.debug_abbrev,"",%progbits
+ 626              	.Ldebug_abbrev0:
+ 627 0000 01       		.uleb128 0x1
+ 628 0001 11       		.uleb128 0x11
+ 629 0002 01       		.byte	0x1
+ 630 0003 25       		.uleb128 0x25
+ 631 0004 0E       		.uleb128 0xe
+ 632 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 17
+
+
+ 633 0006 0B       		.uleb128 0xb
+ 634 0007 03       		.uleb128 0x3
+ 635 0008 0E       		.uleb128 0xe
+ 636 0009 1B       		.uleb128 0x1b
+ 637 000a 0E       		.uleb128 0xe
+ 638 000b 55       		.uleb128 0x55
+ 639 000c 06       		.uleb128 0x6
+ 640 000d 11       		.uleb128 0x11
+ 641 000e 01       		.uleb128 0x1
+ 642 000f 52       		.uleb128 0x52
+ 643 0010 01       		.uleb128 0x1
+ 644 0011 10       		.uleb128 0x10
+ 645 0012 06       		.uleb128 0x6
+ 646 0013 00       		.byte	0
+ 647 0014 00       		.byte	0
+ 648 0015 02       		.uleb128 0x2
+ 649 0016 24       		.uleb128 0x24
+ 650 0017 00       		.byte	0
+ 651 0018 0B       		.uleb128 0xb
+ 652 0019 0B       		.uleb128 0xb
+ 653 001a 3E       		.uleb128 0x3e
+ 654 001b 0B       		.uleb128 0xb
+ 655 001c 03       		.uleb128 0x3
+ 656 001d 0E       		.uleb128 0xe
+ 657 001e 00       		.byte	0
+ 658 001f 00       		.byte	0
+ 659 0020 03       		.uleb128 0x3
+ 660 0021 24       		.uleb128 0x24
+ 661 0022 00       		.byte	0
+ 662 0023 0B       		.uleb128 0xb
+ 663 0024 0B       		.uleb128 0xb
+ 664 0025 3E       		.uleb128 0x3e
+ 665 0026 0B       		.uleb128 0xb
+ 666 0027 03       		.uleb128 0x3
+ 667 0028 08       		.uleb128 0x8
+ 668 0029 00       		.byte	0
+ 669 002a 00       		.byte	0
+ 670 002b 04       		.uleb128 0x4
+ 671 002c 16       		.uleb128 0x16
+ 672 002d 00       		.byte	0
+ 673 002e 03       		.uleb128 0x3
+ 674 002f 0E       		.uleb128 0xe
+ 675 0030 3A       		.uleb128 0x3a
+ 676 0031 0B       		.uleb128 0xb
+ 677 0032 3B       		.uleb128 0x3b
+ 678 0033 0B       		.uleb128 0xb
+ 679 0034 49       		.uleb128 0x49
+ 680 0035 13       		.uleb128 0x13
+ 681 0036 00       		.byte	0
+ 682 0037 00       		.byte	0
+ 683 0038 05       		.uleb128 0x5
+ 684 0039 35       		.uleb128 0x35
+ 685 003a 00       		.byte	0
+ 686 003b 49       		.uleb128 0x49
+ 687 003c 13       		.uleb128 0x13
+ 688 003d 00       		.byte	0
+ 689 003e 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 18
+
+
+ 690 003f 06       		.uleb128 0x6
+ 691 0040 2E       		.uleb128 0x2e
+ 692 0041 00       		.byte	0
+ 693 0042 3F       		.uleb128 0x3f
+ 694 0043 0C       		.uleb128 0xc
+ 695 0044 03       		.uleb128 0x3
+ 696 0045 0E       		.uleb128 0xe
+ 697 0046 3A       		.uleb128 0x3a
+ 698 0047 0B       		.uleb128 0xb
+ 699 0048 3B       		.uleb128 0x3b
+ 700 0049 0B       		.uleb128 0xb
+ 701 004a 27       		.uleb128 0x27
+ 702 004b 0C       		.uleb128 0xc
+ 703 004c 11       		.uleb128 0x11
+ 704 004d 01       		.uleb128 0x1
+ 705 004e 12       		.uleb128 0x12
+ 706 004f 01       		.uleb128 0x1
+ 707 0050 40       		.uleb128 0x40
+ 708 0051 06       		.uleb128 0x6
+ 709 0052 9642     		.uleb128 0x2116
+ 710 0054 0C       		.uleb128 0xc
+ 711 0055 00       		.byte	0
+ 712 0056 00       		.byte	0
+ 713 0057 07       		.uleb128 0x7
+ 714 0058 2E       		.uleb128 0x2e
+ 715 0059 00       		.byte	0
+ 716 005a 3F       		.uleb128 0x3f
+ 717 005b 0C       		.uleb128 0xc
+ 718 005c 03       		.uleb128 0x3
+ 719 005d 0E       		.uleb128 0xe
+ 720 005e 3A       		.uleb128 0x3a
+ 721 005f 0B       		.uleb128 0xb
+ 722 0060 3B       		.uleb128 0x3b
+ 723 0061 0B       		.uleb128 0xb
+ 724 0062 27       		.uleb128 0x27
+ 725 0063 0C       		.uleb128 0xc
+ 726 0064 11       		.uleb128 0x11
+ 727 0065 01       		.uleb128 0x1
+ 728 0066 12       		.uleb128 0x12
+ 729 0067 01       		.uleb128 0x1
+ 730 0068 40       		.uleb128 0x40
+ 731 0069 06       		.uleb128 0x6
+ 732 006a 9742     		.uleb128 0x2117
+ 733 006c 0C       		.uleb128 0xc
+ 734 006d 00       		.byte	0
+ 735 006e 00       		.byte	0
+ 736 006f 08       		.uleb128 0x8
+ 737 0070 2E       		.uleb128 0x2e
+ 738 0071 01       		.byte	0x1
+ 739 0072 3F       		.uleb128 0x3f
+ 740 0073 0C       		.uleb128 0xc
+ 741 0074 03       		.uleb128 0x3
+ 742 0075 0E       		.uleb128 0xe
+ 743 0076 3A       		.uleb128 0x3a
+ 744 0077 0B       		.uleb128 0xb
+ 745 0078 3B       		.uleb128 0x3b
+ 746 0079 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 19
+
+
+ 747 007a 27       		.uleb128 0x27
+ 748 007b 0C       		.uleb128 0xc
+ 749 007c 11       		.uleb128 0x11
+ 750 007d 01       		.uleb128 0x1
+ 751 007e 12       		.uleb128 0x12
+ 752 007f 01       		.uleb128 0x1
+ 753 0080 40       		.uleb128 0x40
+ 754 0081 06       		.uleb128 0x6
+ 755 0082 9742     		.uleb128 0x2117
+ 756 0084 0C       		.uleb128 0xc
+ 757 0085 01       		.uleb128 0x1
+ 758 0086 13       		.uleb128 0x13
+ 759 0087 00       		.byte	0
+ 760 0088 00       		.byte	0
+ 761 0089 09       		.uleb128 0x9
+ 762 008a 05       		.uleb128 0x5
+ 763 008b 00       		.byte	0
+ 764 008c 03       		.uleb128 0x3
+ 765 008d 0E       		.uleb128 0xe
+ 766 008e 3A       		.uleb128 0x3a
+ 767 008f 0B       		.uleb128 0xb
+ 768 0090 3B       		.uleb128 0x3b
+ 769 0091 0B       		.uleb128 0xb
+ 770 0092 49       		.uleb128 0x49
+ 771 0093 13       		.uleb128 0x13
+ 772 0094 02       		.uleb128 0x2
+ 773 0095 0A       		.uleb128 0xa
+ 774 0096 00       		.byte	0
+ 775 0097 00       		.byte	0
+ 776 0098 0A       		.uleb128 0xa
+ 777 0099 34       		.uleb128 0x34
+ 778 009a 00       		.byte	0
+ 779 009b 03       		.uleb128 0x3
+ 780 009c 0E       		.uleb128 0xe
+ 781 009d 3A       		.uleb128 0x3a
+ 782 009e 0B       		.uleb128 0xb
+ 783 009f 3B       		.uleb128 0x3b
+ 784 00a0 0B       		.uleb128 0xb
+ 785 00a1 49       		.uleb128 0x49
+ 786 00a2 13       		.uleb128 0x13
+ 787 00a3 02       		.uleb128 0x2
+ 788 00a4 0A       		.uleb128 0xa
+ 789 00a5 00       		.byte	0
+ 790 00a6 00       		.byte	0
+ 791 00a7 0B       		.uleb128 0xb
+ 792 00a8 01       		.uleb128 0x1
+ 793 00a9 01       		.byte	0x1
+ 794 00aa 49       		.uleb128 0x49
+ 795 00ab 13       		.uleb128 0x13
+ 796 00ac 01       		.uleb128 0x1
+ 797 00ad 13       		.uleb128 0x13
+ 798 00ae 00       		.byte	0
+ 799 00af 00       		.byte	0
+ 800 00b0 0C       		.uleb128 0xc
+ 801 00b1 21       		.uleb128 0x21
+ 802 00b2 00       		.byte	0
+ 803 00b3 49       		.uleb128 0x49
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 20
+
+
+ 804 00b4 13       		.uleb128 0x13
+ 805 00b5 2F       		.uleb128 0x2f
+ 806 00b6 0B       		.uleb128 0xb
+ 807 00b7 00       		.byte	0
+ 808 00b8 00       		.byte	0
+ 809 00b9 0D       		.uleb128 0xd
+ 810 00ba 26       		.uleb128 0x26
+ 811 00bb 00       		.byte	0
+ 812 00bc 49       		.uleb128 0x49
+ 813 00bd 13       		.uleb128 0x13
+ 814 00be 00       		.byte	0
+ 815 00bf 00       		.byte	0
+ 816 00c0 0E       		.uleb128 0xe
+ 817 00c1 34       		.uleb128 0x34
+ 818 00c2 00       		.byte	0
+ 819 00c3 03       		.uleb128 0x3
+ 820 00c4 0E       		.uleb128 0xe
+ 821 00c5 3A       		.uleb128 0x3a
+ 822 00c6 0B       		.uleb128 0xb
+ 823 00c7 3B       		.uleb128 0x3b
+ 824 00c8 0B       		.uleb128 0xb
+ 825 00c9 49       		.uleb128 0x49
+ 826 00ca 13       		.uleb128 0x13
+ 827 00cb 3F       		.uleb128 0x3f
+ 828 00cc 0C       		.uleb128 0xc
+ 829 00cd 02       		.uleb128 0x2
+ 830 00ce 0A       		.uleb128 0xa
+ 831 00cf 00       		.byte	0
+ 832 00d0 00       		.byte	0
+ 833 00d1 00       		.byte	0
+ 834              		.section	.debug_loc,"",%progbits
+ 835              	.Ldebug_loc0:
+ 836              	.LLST0:
+ 837 0000 00000000 		.4byte	.LFB0
+ 838 0004 02000000 		.4byte	.LCFI0
+ 839 0008 0200     		.2byte	0x2
+ 840 000a 7D       		.byte	0x7d
+ 841 000b 00       		.sleb128 0
+ 842 000c 02000000 		.4byte	.LCFI0
+ 843 0010 04000000 		.4byte	.LCFI1
+ 844 0014 0200     		.2byte	0x2
+ 845 0016 7D       		.byte	0x7d
+ 846 0017 08       		.sleb128 8
+ 847 0018 04000000 		.4byte	.LCFI1
+ 848 001c 4E000000 		.4byte	.LFE0
+ 849 0020 0200     		.2byte	0x2
+ 850 0022 77       		.byte	0x77
+ 851 0023 08       		.sleb128 8
+ 852 0024 00000000 		.4byte	0
+ 853 0028 00000000 		.4byte	0
+ 854              	.LLST1:
+ 855 002c 00000000 		.4byte	.LFB1
+ 856 0030 02000000 		.4byte	.LCFI2
+ 857 0034 0200     		.2byte	0x2
+ 858 0036 7D       		.byte	0x7d
+ 859 0037 00       		.sleb128 0
+ 860 0038 02000000 		.4byte	.LCFI2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 21
+
+
+ 861 003c 04000000 		.4byte	.LCFI3
+ 862 0040 0200     		.2byte	0x2
+ 863 0042 7D       		.byte	0x7d
+ 864 0043 04       		.sleb128 4
+ 865 0044 04000000 		.4byte	.LCFI3
+ 866 0048 5E000000 		.4byte	.LFE1
+ 867 004c 0200     		.2byte	0x2
+ 868 004e 77       		.byte	0x77
+ 869 004f 04       		.sleb128 4
+ 870 0050 00000000 		.4byte	0
+ 871 0054 00000000 		.4byte	0
+ 872              	.LLST2:
+ 873 0058 00000000 		.4byte	.LFB2
+ 874 005c 02000000 		.4byte	.LCFI4
+ 875 0060 0200     		.2byte	0x2
+ 876 0062 7D       		.byte	0x7d
+ 877 0063 00       		.sleb128 0
+ 878 0064 02000000 		.4byte	.LCFI4
+ 879 0068 04000000 		.4byte	.LCFI5
+ 880 006c 0200     		.2byte	0x2
+ 881 006e 7D       		.byte	0x7d
+ 882 006f 08       		.sleb128 8
+ 883 0070 04000000 		.4byte	.LCFI5
+ 884 0074 2A000000 		.4byte	.LFE2
+ 885 0078 0200     		.2byte	0x2
+ 886 007a 77       		.byte	0x77
+ 887 007b 08       		.sleb128 8
+ 888 007c 00000000 		.4byte	0
+ 889 0080 00000000 		.4byte	0
+ 890              	.LLST3:
+ 891 0084 00000000 		.4byte	.LFB3
+ 892 0088 02000000 		.4byte	.LCFI6
+ 893 008c 0200     		.2byte	0x2
+ 894 008e 7D       		.byte	0x7d
+ 895 008f 00       		.sleb128 0
+ 896 0090 02000000 		.4byte	.LCFI6
+ 897 0094 04000000 		.4byte	.LCFI7
+ 898 0098 0200     		.2byte	0x2
+ 899 009a 7D       		.byte	0x7d
+ 900 009b 04       		.sleb128 4
+ 901 009c 04000000 		.4byte	.LCFI7
+ 902 00a0 42000000 		.4byte	.LFE3
+ 903 00a4 0200     		.2byte	0x2
+ 904 00a6 77       		.byte	0x77
+ 905 00a7 04       		.sleb128 4
+ 906 00a8 00000000 		.4byte	0
+ 907 00ac 00000000 		.4byte	0
+ 908              	.LLST4:
+ 909 00b0 00000000 		.4byte	.LFB4
+ 910 00b4 02000000 		.4byte	.LCFI8
+ 911 00b8 0200     		.2byte	0x2
+ 912 00ba 7D       		.byte	0x7d
+ 913 00bb 00       		.sleb128 0
+ 914 00bc 02000000 		.4byte	.LCFI8
+ 915 00c0 04000000 		.4byte	.LCFI9
+ 916 00c4 0200     		.2byte	0x2
+ 917 00c6 7D       		.byte	0x7d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 22
+
+
+ 918 00c7 04       		.sleb128 4
+ 919 00c8 04000000 		.4byte	.LCFI9
+ 920 00cc 06000000 		.4byte	.LCFI10
+ 921 00d0 0200     		.2byte	0x2
+ 922 00d2 7D       		.byte	0x7d
+ 923 00d3 18       		.sleb128 24
+ 924 00d4 06000000 		.4byte	.LCFI10
+ 925 00d8 40000000 		.4byte	.LFE4
+ 926 00dc 0200     		.2byte	0x2
+ 927 00de 77       		.byte	0x77
+ 928 00df 18       		.sleb128 24
+ 929 00e0 00000000 		.4byte	0
+ 930 00e4 00000000 		.4byte	0
+ 931              	.LLST5:
+ 932 00e8 00000000 		.4byte	.LFB5
+ 933 00ec 02000000 		.4byte	.LCFI11
+ 934 00f0 0200     		.2byte	0x2
+ 935 00f2 7D       		.byte	0x7d
+ 936 00f3 00       		.sleb128 0
+ 937 00f4 02000000 		.4byte	.LCFI11
+ 938 00f8 04000000 		.4byte	.LCFI12
+ 939 00fc 0200     		.2byte	0x2
+ 940 00fe 7D       		.byte	0x7d
+ 941 00ff 04       		.sleb128 4
+ 942 0100 04000000 		.4byte	.LCFI12
+ 943 0104 06000000 		.4byte	.LCFI13
+ 944 0108 0200     		.2byte	0x2
+ 945 010a 7D       		.byte	0x7d
+ 946 010b 28       		.sleb128 40
+ 947 010c 06000000 		.4byte	.LCFI13
+ 948 0110 EC000000 		.4byte	.LFE5
+ 949 0114 0200     		.2byte	0x2
+ 950 0116 77       		.byte	0x77
+ 951 0117 28       		.sleb128 40
+ 952 0118 00000000 		.4byte	0
+ 953 011c 00000000 		.4byte	0
+ 954              		.section	.debug_aranges,"",%progbits
+ 955 0000 44000000 		.4byte	0x44
+ 956 0004 0200     		.2byte	0x2
+ 957 0006 00000000 		.4byte	.Ldebug_info0
+ 958 000a 04       		.byte	0x4
+ 959 000b 00       		.byte	0
+ 960 000c 0000     		.2byte	0
+ 961 000e 0000     		.2byte	0
+ 962 0010 00000000 		.4byte	.LFB0
+ 963 0014 4E000000 		.4byte	.LFE0-.LFB0
+ 964 0018 00000000 		.4byte	.LFB1
+ 965 001c 5E000000 		.4byte	.LFE1-.LFB1
+ 966 0020 00000000 		.4byte	.LFB2
+ 967 0024 2A000000 		.4byte	.LFE2-.LFB2
+ 968 0028 00000000 		.4byte	.LFB3
+ 969 002c 42000000 		.4byte	.LFE3-.LFB3
+ 970 0030 00000000 		.4byte	.LFB4
+ 971 0034 40000000 		.4byte	.LFE4-.LFB4
+ 972 0038 00000000 		.4byte	.LFB5
+ 973 003c EC000000 		.4byte	.LFE5-.LFB5
+ 974 0040 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 23
+
+
+ 975 0044 00000000 		.4byte	0
+ 976              		.section	.debug_ranges,"",%progbits
+ 977              	.Ldebug_ranges0:
+ 978 0000 00000000 		.4byte	.LFB0
+ 979 0004 4E000000 		.4byte	.LFE0
+ 980 0008 00000000 		.4byte	.LFB1
+ 981 000c 5E000000 		.4byte	.LFE1
+ 982 0010 00000000 		.4byte	.LFB2
+ 983 0014 2A000000 		.4byte	.LFE2
+ 984 0018 00000000 		.4byte	.LFB3
+ 985 001c 42000000 		.4byte	.LFE3
+ 986 0020 00000000 		.4byte	.LFB4
+ 987 0024 40000000 		.4byte	.LFE4
+ 988 0028 00000000 		.4byte	.LFB5
+ 989 002c EC000000 		.4byte	.LFE5
+ 990 0030 00000000 		.4byte	0
+ 991 0034 00000000 		.4byte	0
+ 992              		.section	.debug_line,"",%progbits
+ 993              	.Ldebug_line0:
+ 994 0000 D8000000 		.section	.debug_str,"MS",%progbits,1
+ 994      02004800 
+ 994      00000201 
+ 994      FB0E0D00 
+ 994      01010101 
+ 995              	.LASF23:
+ 996 0000 746D7043 		.ascii	"tmpCR\000"
+ 996      5200
+ 997              	.LASF18:
+ 998 0006 5047415F 		.ascii	"PGA_ASTIM_Stop\000"
+ 998      41535449 
+ 998      4D5F5374 
+ 998      6F7000
+ 999              	.LASF16:
+ 1000 0015 5047415F 		.ascii	"PGA_ASTIM_Enable\000"
+ 1000      41535449 
+ 1000      4D5F456E 
+ 1000      61626C65 
+ 1000      00
+ 1001              	.LASF25:
+ 1002 0026 5047415F 		.ascii	"PGA_ASTIM_GainComp\000"
+ 1002      41535449 
+ 1002      4D5F4761 
+ 1002      696E436F 
+ 1002      6D7000
+ 1003              	.LASF3:
+ 1004 0039 73686F72 		.ascii	"short unsigned int\000"
+ 1004      7420756E 
+ 1004      7369676E 
+ 1004      65642069 
+ 1004      6E7400
+ 1005              	.LASF20:
+ 1006 004c 5047415F 		.ascii	"PGA_ASTIM_SetGain\000"
+ 1006      41535449 
+ 1006      4D5F5365 
+ 1006      74476169 
+ 1006      6E00
+ 1007              	.LASF22:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 24
+
+
+ 1008 005e 6761696E 		.ascii	"gain\000"
+ 1008      00
+ 1009              	.LASF19:
+ 1010 0063 5047415F 		.ascii	"PGA_ASTIM_SetPower\000"
+ 1010      41535449 
+ 1010      4D5F5365 
+ 1010      74506F77 
+ 1010      657200
+ 1011              	.LASF9:
+ 1012 0076 666C6F61 		.ascii	"float\000"
+ 1012      7400
+ 1013              	.LASF1:
+ 1014 007c 756E7369 		.ascii	"unsigned char\000"
+ 1014      676E6564 
+ 1014      20636861 
+ 1014      7200
+ 1015              	.LASF13:
+ 1016 008a 72656738 		.ascii	"reg8\000"
+ 1016      00
+ 1017              	.LASF5:
+ 1018 008f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1018      20756E73 
+ 1018      69676E65 
+ 1018      6420696E 
+ 1018      7400
+ 1019              	.LASF12:
+ 1020 00a1 75696E74 		.ascii	"uint8\000"
+ 1020      3800
+ 1021              	.LASF27:
+ 1022 00a7 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PGA_ASTIM.c\000"
+ 1022      6E657261 
+ 1022      7465645F 
+ 1022      536F7572 
+ 1022      63655C50 
+ 1023              	.LASF10:
+ 1024 00cc 646F7562 		.ascii	"double\000"
+ 1024      6C6500
+ 1025              	.LASF28:
+ 1026 00d3 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 1026      73657273 
+ 1026      5C477261 
+ 1026      7A69616E 
+ 1026      6F20472E 
+ 1027 0102 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 1027      5C535155 
+ 1027      49545C56 
+ 1027      6572732E 
+ 1027      302E302D 
+ 1028 0132 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 1028      2D50726F 
+ 1028      746F2E63 
+ 1028      7964736E 
+ 1028      00
+ 1029              	.LASF8:
+ 1030 0143 756E7369 		.ascii	"unsigned int\000"
+ 1030      676E6564 
+ 1030      20696E74 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 25
+
+
+ 1030      00
+ 1031              	.LASF24:
+ 1032 0150 5047415F 		.ascii	"PGA_ASTIM_GainArray\000"
+ 1032      41535449 
+ 1032      4D5F4761 
+ 1032      696E4172 
+ 1032      72617900 
+ 1033              	.LASF7:
+ 1034 0164 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1034      206C6F6E 
+ 1034      6720756E 
+ 1034      7369676E 
+ 1034      65642069 
+ 1035              	.LASF17:
+ 1036 017b 5047415F 		.ascii	"PGA_ASTIM_Start\000"
+ 1036      41535449 
+ 1036      4D5F5374 
+ 1036      61727400 
+ 1037              	.LASF14:
+ 1038 018b 73697A65 		.ascii	"sizetype\000"
+ 1038      74797065 
+ 1038      00
+ 1039              	.LASF15:
+ 1040 0194 5047415F 		.ascii	"PGA_ASTIM_Init\000"
+ 1040      41535449 
+ 1040      4D5F496E 
+ 1040      697400
+ 1041              	.LASF6:
+ 1042 01a3 6C6F6E67 		.ascii	"long long int\000"
+ 1042      206C6F6E 
+ 1042      6720696E 
+ 1042      7400
+ 1043              	.LASF11:
+ 1044 01b1 63686172 		.ascii	"char\000"
+ 1044      00
+ 1045              	.LASF2:
+ 1046 01b6 73686F72 		.ascii	"short int\000"
+ 1046      7420696E 
+ 1046      7400
+ 1047              	.LASF29:
+ 1048 01c0 5047415F 		.ascii	"PGA_ASTIM_initVar\000"
+ 1048      41535449 
+ 1048      4D5F696E 
+ 1048      69745661 
+ 1048      7200
+ 1049              	.LASF26:
+ 1050 01d2 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1050      4320342E 
+ 1050      372E3320 
+ 1050      32303133 
+ 1050      30333132 
+ 1051 0205 616E6368 		.ascii	"anch revision 196615]\000"
+ 1051      20726576 
+ 1051      6973696F 
+ 1051      6E203139 
+ 1051      36363135 
+ 1052              	.LASF4:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccaXR5AQ.s 			page 26
+
+
+ 1053 021b 6C6F6E67 		.ascii	"long int\000"
+ 1053      20696E74 
+ 1053      00
+ 1054              	.LASF0:
+ 1055 0224 7369676E 		.ascii	"signed char\000"
+ 1055      65642063 
+ 1055      68617200 
+ 1056              	.LASF21:
+ 1057 0230 706F7765 		.ascii	"power\000"
+ 1057      7200
+ 1058              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,224 @@
+# Squit-Proto
+# 2019-02-08 11:26:46Z
+
+# IO_0@[IOP=(1)][IoId=(0)] is reserved: SWDDebugEnabled
+dont_use_io iocell 1 0
+# IO_1@[IOP=(1)][IoId=(1)] is reserved: SWDDebugEnabled
+dont_use_io iocell 1 1
+# IO_3@[IOP=(1)][IoId=(3)] is reserved: SWDDebugEnabled
+dont_use_io iocell 1 3
+# IO_0@[IOP=(15)][IoId=(0)] is reserved: MhzXtalEnabled
+dont_use_io iocell 15 0
+# IO_1@[IOP=(15)][IoId=(1)] is reserved: MhzXtalEnabled
+dont_use_io iocell 15 1
+set_io "ADXL_ST(0)" iocell 15 2
+set_io "ADXL_X(0)" iocell 0 4
+set_io "ADXL_Y(0)" iocell 0 6
+set_io "ADXL_Z(0)" iocell 0 5
+set_io "ANAPOS_OUTPUT(0)" iocell 1 5
+set_io "ASTIM_OUTPUT(0)" iocell 6 2
+set_io "BAT_CHRGn(0)" iocell 1 7
+set_location "BAT_CHRGn(0)_SYNC" 0 1 5 0
+set_io "BAT_FAULTn(0)" iocell 1 6
+set_location "BAT_FAULTn(0)_SYNC" 3 2 5 0
+set_io "BUZ(0)" iocell 2 4
+set_io "CC_SCL(0)" iocell 12 4
+set_location "CC_SCL(0)_SYNC" 2 5 5 0
+set_io "CC_SDA(0)" iocell 12 5
+set_location "CC_SDA(0)_SYNC" 2 5 5 1
+set_io "CC_nALCC(0)" iocell 6 7
+set_location "CC_nALCC(0)_SYNC" 0 2 5 3
+set_location "CLK_25Hz" 2 2 0 0
+set_location "ClockBlock" clockblockcell -1 -1 0
+set_io "DEBUG_LED(0)" iocell 5 7
+set_io "Dedicated_Output" iocell 0 0
+set_io "HOME_PAN(0)" iocell 15 5
+set_io "HOME_TILT(0)" iocell 15 4
+set_io "IMU_UM7_RX(0)" iocell 5 6
+set_io "IMU_UM7_TX(0)" iocell 0 7
+set_io "ITG_CS_NEW(0)" iocell 3 2
+set_io "ITG_INT(0)" iocell 3 4
+set_location "ITG_INT(0)_SYNC" 3 2 5 1
+set_io "LED_FAULT(0)" iocell 2 2
+set_io "LED_OK(0)" iocell 2 3
+set_io "LED_WIFI_FAULT(0)" iocell 2 0
+set_io "LED_WIFI_OK(0)" iocell 2 1
+set_io "LORA_CTSn(0)" iocell 4 1
+set_io "LORA_RESET_SETB(0)" iocell 4 2
+set_io "LORA_RTSn(0)" iocell 3 7
+set_io "LORA_RX(0)" iocell 12 0
+set_io "LORA_SETA(0)" iocell 3 6
+set_io "LORA_TX(0)" iocell 12 1
+set_io "MOT_SLEEPn(0)" iocell 5 1
+set_location "Net_1105" 0 1 1 3
+set_location "Net_1297" 0 2 0 0
+set_location "Net_1802" 0 2 0 1
+set_location "Net_1861" 2 5 0 3
+set_location "Net_2785" 1 1 1 0
+set_location "Net_404" 3 0 1 1
+set_io "OLED_4D_RX(0)" iocell 4 0
+set_io "OLED_4D_TX(0)" iocell 15 3
+set_io "PAN_ENCA(0)" iocell 2 5
+set_location "PAN_ENCA(0)_SYNC" 0 2 5 0
+set_io "PAN_ENCB(0)" iocell 2 6
+set_location "PAN_ENCB(0)_SYNC" 0 2 5 1
+set_io "PAN_MOT_FL(0)" iocell 5 0
+set_location "PAN_MOT_FL(0)_SYNC" 2 4 5 1
+set_io "PAN_MOT_IN1(0)" iocell 5 2
+set_io "PAN_MOT_IN2(0)" iocell 5 3
+set_io "PSOC_RX(0)" iocell 6 5
+set_location "PSOC_RX(0)_SYNC" 3 5 5 0
+set_io "PSOC_TX(0)" iocell 6 3
+set_io "SENSE_IPAN(0)" iocell 0 3
+set_io "SENSE_ITILT(0)" iocell 0 2
+set_io "SENSE_VCC(0)" iocell 6 0
+set_io "TILT_ENCA(0)" iocell 2 7
+set_location "TILT_ENCA(0)_SYNC" 2 4 5 0
+set_io "TILT_ENCB(0)" iocell 12 6
+set_location "TILT_ENCB(0)_SYNC" 0 2 5 2
+set_io "TILT_MOT_FL(0)" iocell 12 7
+set_location "TILT_MOT_FL(0)_SYNC" 0 1 5 1
+set_io "TILT_MOT_IN1(0)" iocell 6 4
+set_io "TILT_MOT_IN2(0)" iocell 6 6
+set_io "V3_nSHDN(0)" iocell 5 5
+set_io "V5_PHER_nSHDN(0)" iocell 5 4
+set_io "VREF(0)" iocell 6 1
+set_location "\ADC:DEC\" decimatorcell -1 -1 0
+set_location "\ADC:DSM\" dsmodcell -1 -1 0
+set_location "\ADC:IRQ\" interrupt -1 -1 29
+set_location "\Control_Reg_BUZ:Sync:ctrl_reg\" 1 2 6
+set_location "\Control_Reg_LED:Sync:ctrl_reg\" 2 3 6
+set_location "\Control_Reg_LORA:Sync:ctrl_reg\" 3 0 6
+set_location "\Control_Reg_LORA_RESET:Sync:ctrl_reg\" 3 2 6
+set_location "\Control_Reg_MOTOR:Sync:ctrl_reg\" 2 0 6
+set_location "\Control_Reg_SYS:Sync:ctrl_reg\" 3 1 6
+set_location "\Control_Reg_WS:Sync:ctrl_reg\" 0 2 6
+set_location "\Counter_LED:CounterHW\" timercell -1 -1 0
+set_location "\FreqDiv_TORQUESTAT:count_0\" 3 1 1 1
+set_location "\FreqDiv_TORQUESTAT:count_1\" 3 1 1 0
+set_location "\FreqDiv_TORQUESTAT:count_2\" 1 1 1 3
+set_location "\FreqDiv_TORQUESTAT:count_3\" 1 1 1 2
+set_location "\FreqDiv_TORQUESTAT:count_4\" 1 1 1 1
+set_location "\FreqDiv_TORQUESTAT:not_last_reset\" 3 1 0 1
+set_location "\I2C_COULOMB:I2C_FF\" i2ccell -1 -1 0
+set_location "\I2C_COULOMB:I2C_IRQ\" interrupt -1 -1 15
+set_location "\PGA_ASTIM:SC\" sccell -1 -1 2
+set_location "\PWM_MOTOR_PAN:PWMHW\" timercell -1 -1 1
+set_location "\PWM_MOTOR_TILT:PWMHW\" timercell -1 -1 2
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:count_enable\" 2 1 1 0
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:count_stored_i\" 2 1 0 0
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:overflow_reg_i\" 2 1 0 2
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:prevCompare\" 2 0 1 2
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:reload\" 2 0 1 0
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:sC16:counterdp:u0\" 3 1 2
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:sC16:counterdp:u1\" 2 1 2
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:sCTRLReg:SyncCtl:ctrlreg\" 2 1 6
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:sSTSReg:rstSts:stsreg\" 2 1 4
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:status_0\" 2 0 0 0
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:status_2\" 2 1 0 1
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:status_3\" 2 1 1 3
+set_location "\QuadDec_PAN:Cnt16:CounterUDB:underflow_reg_i\" 2 1 1 1
+set_location "\QuadDec_PAN:Net_1203\" 1 2 0 0
+set_location "\QuadDec_PAN:Net_1203_split\" 2 2 0 1
+set_location "\QuadDec_PAN:Net_1251\" 3 0 0 0
+set_location "\QuadDec_PAN:Net_1251_split\" 3 0 1 0
+set_location "\QuadDec_PAN:Net_1260\" 2 0 1 3
+set_location "\QuadDec_PAN:Net_1275\" 2 0 1 1
+set_location "\QuadDec_PAN:Net_530\" 2 0 0 1
+set_location "\QuadDec_PAN:Net_611\" 2 0 0 2
+set_location "\QuadDec_PAN:bQuadDec:Stsreg\" 2 0 4
+set_location "\QuadDec_PAN:bQuadDec:error\" 1 2 1 0
+set_location "\QuadDec_PAN:bQuadDec:quad_A_filt\" 0 2 1 2
+set_location "\QuadDec_PAN:bQuadDec:quad_B_filt\" 1 2 0 2
+set_location "\QuadDec_PAN:bQuadDec:state_0\" 3 0 0 1
+set_location "\QuadDec_PAN:bQuadDec:state_1\" 1 2 0 1
+set_location "\QuadDec_PAN:isr\" interrupt -1 -1 0
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:count_enable\" 3 3 1 3
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:count_stored_i\" 3 4 1 0
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:overflow_reg_i\" 2 0 0 3
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:prevCompare\" 2 3 1 1
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:reload\" 2 2 1 0
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:sC16:counterdp:u0\" 3 4 2
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:sC16:counterdp:u1\" 2 4 2
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:sCTRLReg:SyncCtl:ctrlreg\" 3 3 6
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:sSTSReg:rstSts:stsreg\" 2 3 4
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:status_0\" 2 3 1 0
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:status_2\" 2 2 1 2
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:status_3\" 2 3 0 3
+set_location "\QuadDec_TILT:Cnt16:CounterUDB:underflow_reg_i\" 2 3 0 0
+set_location "\QuadDec_TILT:Net_1203\" 3 2 0 3
+set_location "\QuadDec_TILT:Net_1203_split\" 3 2 1 0
+set_location "\QuadDec_TILT:Net_1251\" 2 3 0 2
+set_location "\QuadDec_TILT:Net_1251_split\" 2 4 0 0
+set_location "\QuadDec_TILT:Net_1260\" 2 4 1 2
+set_location "\QuadDec_TILT:Net_1275\" 2 2 1 1
+set_location "\QuadDec_TILT:Net_530\" 2 3 1 2
+set_location "\QuadDec_TILT:Net_611\" 2 3 1 3
+set_location "\QuadDec_TILT:bQuadDec:Stsreg\" 3 1 4
+set_location "\QuadDec_TILT:bQuadDec:error\" 3 3 0 2
+set_location "\QuadDec_TILT:bQuadDec:quad_A_delayed_0\" 2 5 1 2
+set_location "\QuadDec_TILT:bQuadDec:quad_A_delayed_1\" 2 5 0 1
+set_location "\QuadDec_TILT:bQuadDec:quad_A_delayed_2\" 2 5 0 0
+set_location "\QuadDec_TILT:bQuadDec:quad_A_filt\" 2 5 0 2
+set_location "\QuadDec_TILT:bQuadDec:quad_B_delayed_0\" 1 2 1 1
+set_location "\QuadDec_TILT:bQuadDec:quad_B_delayed_1\" 3 2 0 2
+set_location "\QuadDec_TILT:bQuadDec:quad_B_delayed_2\" 3 2 0 1
+set_location "\QuadDec_TILT:bQuadDec:quad_B_filt\" 3 2 0 0
+set_location "\QuadDec_TILT:bQuadDec:state_0\" 3 3 0 0
+set_location "\QuadDec_TILT:bQuadDec:state_1\" 2 4 1 1
+set_location "\QuadDec_TILT:isr\" interrupt -1 -1 1
+set_location "\Status_Reg_BUTTON:sts:sts_reg\" 3 0 3
+set_location "\Status_Reg_MOTORS:sts:sts_reg\" 1 2 3
+set_location "\Status_Reg_SYS:sts:sts_reg\" 3 3 3
+set_location "\UART_USB:BUART:counter_load_not\" 1 1 0 0
+set_location "\UART_USB:BUART:rx_address_detected\" 1 1 0 3
+set_location "\UART_USB:BUART:rx_bitclk_enable\" 3 4 0 1
+set_location "\UART_USB:BUART:rx_counter_load\" 3 5 1 2
+set_location "\UART_USB:BUART:rx_last\" 3 5 0 3
+set_location "\UART_USB:BUART:rx_load_fifo\" 3 5 1 3
+set_location "\UART_USB:BUART:rx_state_0\" 3 5 1 1
+set_location "\UART_USB:BUART:rx_state_2\" 3 5 0 2
+set_location "\UART_USB:BUART:rx_state_3\" 3 5 0 1
+set_location "\UART_USB:BUART:rx_state_stop1_reg\" 3 5 1 0
+set_location "\UART_USB:BUART:rx_status_3\" 3 5 0 0
+set_location "\UART_USB:BUART:rx_status_4\" 3 4 0 2
+set_location "\UART_USB:BUART:rx_status_5\" 3 1 0 3
+set_location "\UART_USB:BUART:sRX:RxBitCounter\" 3 4 7
+set_location "\UART_USB:BUART:sRX:RxShifter:u0\" 3 5 2
+set_location "\UART_USB:BUART:sRX:RxSts\" 2 2 4
+set_location "\UART_USB:BUART:sTX:TxShifter:u0\" 1 1 2
+set_location "\UART_USB:BUART:sTX:TxSts\" 1 1 4
+set_location "\UART_USB:BUART:sTX:sCLOCK:TxBitClkGen\" 1 2 2
+set_location "\UART_USB:BUART:tx_bitclk\" 1 1 0 1
+set_location "\UART_USB:BUART:tx_bitclk_enable_pre\" 1 2 1 2
+set_location "\UART_USB:BUART:tx_state_0\" 0 1 1 2
+set_location "\UART_USB:BUART:tx_state_1\" 0 1 0 0
+set_location "\UART_USB:BUART:tx_state_2\" 0 1 0 1
+set_location "\UART_USB:BUART:tx_status_0\" 0 1 1 0
+set_location "\UART_USB:BUART:tx_status_2\" 2 4 1 3
+set_location "\UART_USB:BUART:txn\" 1 1 0 2
+set_location "\VDAC8_ANAPOS:viDAC8\" vidaccell -1 -1 1
+set_location "\WaveDAC8:BuffAmp:ABuf\" abufcell -1 -1 2
+set_location "\WaveDAC8:Net_107\" 0 2 1 3
+set_location "\WaveDAC8:Net_134\" 0 2 0 3
+set_location "\WaveDAC8:Net_183\" 0 2 1 0
+set_location "\WaveDAC8:VDAC8:viDAC8\" vidaccell -1 -1 2
+set_location "\WaveDAC8:Wave1_DMA\" drqcell -1 -1 0
+set_location "\WaveDAC8:Wave2_DMA\" drqcell -1 -1 1
+set_location "__ONE__" 1 5 0 3
+set_location "__ZERO__" 2 2 0 3
+set_location "cydff_1" 2 4 0 2
+set_location "isr_BUTTON" interrupt -1 -1 2
+set_location "isr_CLU_EXEC" interrupt -1 -1 3
+set_location "isr_CTRL" interrupt -1 -1 4
+set_location "isr_EVENTS_IDENTIF" interrupt -1 -1 5
+set_location "isr_FAULT_CTRL" interrupt -1 -1 6
+set_location "isr_LIMIT_CTRL" interrupt -1 -1 7
+set_location "isr_TORQUESTAT" interrupt -1 -1 8
+set_location "isr_Ticks" interrupt -1 -1 9
+set_io "nBUTTON_CCW(0)" iocell 4 7
+set_location "nBUTTON_CCW(0)_SYNC" 3 5 5 1
+set_io "nBUTTON_CW(0)" iocell 4 5
+set_location "nBUTTON_CW(0)_SYNC" 3 2 5 2
+set_io "nBUTTON_PUSH(0)" iocell 4 6
+set_location "nBUTTON_PUSH(0)_SYNC" 3 2 5 3

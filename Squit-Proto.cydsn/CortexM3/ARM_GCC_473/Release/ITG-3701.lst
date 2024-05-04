@@ -1,0 +1,2804 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ITG-3701.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.ITG3701_ReadByte,"ax",%progbits
+  19              		.align	1
+  20              		.global	ITG3701_ReadByte
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	ITG3701_ReadByte, %function
+  24              	ITG3701_ReadByte:
+  25              	.LFB56:
+  26              		.file 1 ".\\ITG-3701.c"
+   1:.\ITG-3701.c  **** /* ========================================
+   2:.\ITG-3701.c  ****  *
+   3:.\ITG-3701.c  ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\ITG-3701.c  ****  * All Rights Reserved
+   5:.\ITG-3701.c  ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\ITG-3701.c  ****  *
+   7:.\ITG-3701.c  ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\ITG-3701.c  ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\ITG-3701.c  ****  *
+  10:.\ITG-3701.c  ****  * ========================================
+  11:.\ITG-3701.c  **** */
+  12:.\ITG-3701.c  **** 
+  13:.\ITG-3701.c  **** /* PSOC Include Files */
+  14:.\ITG-3701.c  **** #include <device.h>
+  15:.\ITG-3701.c  **** #include <math.h>
+  16:.\ITG-3701.c  **** #include <stdio.h>
+  17:.\ITG-3701.c  **** 
+  18:.\ITG-3701.c  **** /* This PRJ Include Files */
+  19:.\ITG-3701.c  **** #include <ITG-3701.h>
+  20:.\ITG-3701.c  **** 
+  21:.\ITG-3701.c  **** // Specify Gyro Sensor Parameters
+  22:.\ITG-3701.c  **** uint8 Gscale = GFS_4000DPS; 	// gyro full scale
+  23:.\ITG-3701.c  **** uint8 Godr   = GODR_190Hz;   	// gyro data sample rate
+  24:.\ITG-3701.c  **** uint8 Gbw    = GBW_highest;     // gyro data bandwidth
+  25:.\ITG-3701.c  **** float gRes;      				// scale resolutions per LSB for the sensors
+  26:.\ITG-3701.c  **** 
+  27:.\ITG-3701.c  **** int16 gyroCount[3];  			// Stores the 16-bit signed gyro output
+  28:.\ITG-3701.c  **** float gx, gy, gz; 				// variables to hold latest sensor data values 
+  29:.\ITG-3701.c  **** float gyroBias[3] = {0, 0, 0}; 	// Bias corrections for gyro, accelerometer, and magnetometer
+  30:.\ITG-3701.c  **** float temperature;          	// Stores the ITG3701yro internal chip temperature in degrees Celsius
+  31:.\ITG-3701.c  **** 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 2
+
+
+  32:.\ITG-3701.c  **** uint8 dummy;
+  33:.\ITG-3701.c  **** 
+  34:.\ITG-3701.c  **** uint8 ITG3701_ReadByte(uint8 slaveAddress, uint8 registerAddress)
+  35:.\ITG-3701.c  **** {
+  27              		.loc 1 35 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  36:.\ITG-3701.c  **** 	uint8 belbyte;
+  37:.\ITG-3701.c  **** 	uint8 error_status __attribute__ ((unused));
+  38:.\ITG-3701.c  **** 	
+  39:.\ITG-3701.c  **** #if ITG_3701_ENABLED	
+  40:.\ITG-3701.c  **** 	error_status = I2C_ITG3701_MasterSendStart(slaveAddress, I2C_ITG3701_WRITE_XFER_MODE);
+  41:.\ITG-3701.c  **** 	
+  42:.\ITG-3701.c  **** //	if (error_status == I2C_ITG3701_MSTR_NO_ERROR)
+  43:.\ITG-3701.c  **** //	{
+  44:.\ITG-3701.c  **** 		//ACK from Slave?
+  45:.\ITG-3701.c  **** 		//CyDelay(1);
+  46:.\ITG-3701.c  **** 		I2C_ITG3701_MasterWriteByte(registerAddress);
+  47:.\ITG-3701.c  **** 		//ACK from Slave?
+  48:.\ITG-3701.c  **** 		//CyDelay(1);	
+  49:.\ITG-3701.c  **** 		I2C_ITG3701_MasterSendRestart(slaveAddress, I2C_ITG3701_READ_XFER_MODE);
+  50:.\ITG-3701.c  **** 		//ACK from Slave?
+  51:.\ITG-3701.c  **** 		//CyDelay(1);	
+  52:.\ITG-3701.c  **** 		belbyte = I2C_ITG3701_MasterReadByte(I2C_ITG3701_NAK_DATA);	
+  53:.\ITG-3701.c  **** 		//CyDelay(1);	
+  54:.\ITG-3701.c  **** 		I2C_ITG3701_MasterSendStop();
+  55:.\ITG-3701.c  **** #endif		
+  56:.\ITG-3701.c  **** 		return belbyte;
+  57:.\ITG-3701.c  **** //	}
+  58:.\ITG-3701.c  **** //	else
+  59:.\ITG-3701.c  **** //	{
+  60:.\ITG-3701.c  **** //		return error_status;
+  61:.\ITG-3701.c  **** //	}
+  62:.\ITG-3701.c  **** }
+  33              		.loc 1 62 0
+  34 0000 0020     		movs	r0, #0
+  35              	.LVL1:
+  36 0002 7047     		bx	lr
+  37              		.cfi_endproc
+  38              	.LFE56:
+  39              		.size	ITG3701_ReadByte, .-ITG3701_ReadByte
+  40              		.section	.text.ITG3701_ReadBytes,"ax",%progbits
+  41              		.align	1
+  42              		.global	ITG3701_ReadBytes
+  43              		.thumb
+  44              		.thumb_func
+  45              		.type	ITG3701_ReadBytes, %function
+  46              	ITG3701_ReadBytes:
+  47              	.LFB57:
+  63:.\ITG-3701.c  **** 
+  64:.\ITG-3701.c  **** void ITG3701_ReadBytes(uint8 slaveAddress, uint8 registerAddress, uint8 count, uint8 * dest)
+  65:.\ITG-3701.c  **** {  
+  48              		.loc 1 65 0
+  49              		.cfi_startproc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 3
+
+
+  50              		@ args = 0, pretend = 0, frame = 0
+  51              		@ frame_needed = 0, uses_anonymous_args = 0
+  52              		@ link register save eliminated.
+  53              	.LVL2:
+  54 0000 7047     		bx	lr
+  55              		.cfi_endproc
+  56              	.LFE57:
+  57              		.size	ITG3701_ReadBytes, .-ITG3701_ReadBytes
+  58              		.section	.text.ITG3701_WriteByte,"ax",%progbits
+  59              		.align	1
+  60              		.global	ITG3701_WriteByte
+  61              		.thumb
+  62              		.thumb_func
+  63              		.type	ITG3701_WriteByte, %function
+  64              	ITG3701_WriteByte:
+  65              	.LFB58:
+  66:.\ITG-3701.c  **** //	Wire.beginTransmission(address);   // Initialize the Tx buffer
+  67:.\ITG-3701.c  **** //	Wire.write(0x80 | subAddress);     // Put slave register address in Tx buffer, include 0x80 for 
+  68:.\ITG-3701.c  **** //	Wire.endTransmission(I2C_NOSTOP);  // Send the Tx buffer, but send a restart to keep connection 
+  69:.\ITG-3701.c  **** ////	Wire.endTransmission(false);       // Send the Tx buffer, but send a restart to keep connectio
+  70:.\ITG-3701.c  **** //	uint8_t i = 0;
+  71:.\ITG-3701.c  **** ////        Wire.requestFrom(address, count);  // Read bytes from slave register address 
+  72:.\ITG-3701.c  **** //        Wire.requestFrom(address, (size_t) count);  // Read bytes from slave register address 
+  73:.\ITG-3701.c  **** //	while (Wire.available()) {
+  74:.\ITG-3701.c  **** //        dest[i++] = Wire.read(); }         // Put read results in the Rx buffer
+  75:.\ITG-3701.c  **** 
+  76:.\ITG-3701.c  **** #if ITG_3701_ENABLED	
+  77:.\ITG-3701.c  **** 	uint8 i = 0;	
+  78:.\ITG-3701.c  **** 	
+  79:.\ITG-3701.c  **** 	I2C_ITG3701_MasterSendStart(slaveAddress, I2C_ITG3701_WRITE_XFER_MODE);
+  80:.\ITG-3701.c  **** 	//ACK from Slave?
+  81:.\ITG-3701.c  **** 	I2C_ITG3701_MasterWriteByte(registerAddress);
+  82:.\ITG-3701.c  **** 	//ACK from Slave?
+  83:.\ITG-3701.c  **** 	I2C_ITG3701_MasterSendRestart(slaveAddress, I2C_ITG3701_READ_XFER_MODE);
+  84:.\ITG-3701.c  **** 	//ACK from Slave?	
+  85:.\ITG-3701.c  **** 	while(count>2)
+  86:.\ITG-3701.c  **** 	{
+  87:.\ITG-3701.c  **** 		dest[i++] = I2C_ITG3701_MasterReadByte(I2C_ITG3701_ACK_DATA); 	//after reading from the slave, th
+  88:.\ITG-3701.c  **** 		count--;	
+  89:.\ITG-3701.c  **** 	}
+  90:.\ITG-3701.c  **** 	dest[i] = I2C_ITG3701_MasterReadByte(I2C_ITG3701_NAK_DATA);			//after last read, the master sends 
+  91:.\ITG-3701.c  **** 	I2C_ITG3701_MasterSendStop();
+  92:.\ITG-3701.c  **** #endif	
+  93:.\ITG-3701.c  **** }
+  94:.\ITG-3701.c  **** 
+  95:.\ITG-3701.c  **** 
+  96:.\ITG-3701.c  **** void ITG3701_WriteByte(uint8 address, uint8 registerAddress, uint8 data_byte)
+  97:.\ITG-3701.c  **** {	
+  66              		.loc 1 97 0
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              		@ link register save eliminated.
+  71              	.LVL3:
+  72 0000 7047     		bx	lr
+  73              		.cfi_endproc
+  74              	.LFE58:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 4
+
+
+  75              		.size	ITG3701_WriteByte, .-ITG3701_WriteByte
+  76              		.section	.text.getGres,"ax",%progbits
+  77              		.align	1
+  78              		.global	getGres
+  79              		.thumb
+  80              		.thumb_func
+  81              		.type	getGres, %function
+  82              	getGres:
+  83              	.LFB59:
+  98:.\ITG-3701.c  **** //	Wire.beginTransmission(address);  // Initialize the Tx buffer
+  99:.\ITG-3701.c  **** //	Wire.write(subAddress);           // Put slave register address in Tx buffer
+ 100:.\ITG-3701.c  **** //	Wire.write(data);                 // Put data in Tx buffer
+ 101:.\ITG-3701.c  **** //	Wire.endTransmission();           // Send the Tx buffer
+ 102:.\ITG-3701.c  **** 
+ 103:.\ITG-3701.c  **** #if ITG_3701_ENABLED	
+ 104:.\ITG-3701.c  **** 	I2C_ITG3701_MasterSendStart(address, I2C_ITG3701_WRITE_XFER_MODE);
+ 105:.\ITG-3701.c  **** 	//ACK from Slave?
+ 106:.\ITG-3701.c  **** 	I2C_ITG3701_MasterWriteByte(registerAddress);
+ 107:.\ITG-3701.c  **** 	//ACK from Slave?
+ 108:.\ITG-3701.c  **** 	I2C_ITG3701_MasterWriteByte(data_byte);
+ 109:.\ITG-3701.c  **** 	//ACK from Slave?	
+ 110:.\ITG-3701.c  **** 	I2C_ITG3701_MasterSendStop();	
+ 111:.\ITG-3701.c  **** #endif	
+ 112:.\ITG-3701.c  **** }
+ 113:.\ITG-3701.c  **** 
+ 114:.\ITG-3701.c  **** 
+ 115:.\ITG-3701.c  **** //======================================================
+ 116:.\ITG-3701.c  **** //====== Set of useful function to access gyroscope data
+ 117:.\ITG-3701.c  **** //======================================================
+ 118:.\ITG-3701.c  **** void getGres()
+ 119:.\ITG-3701.c  **** {
+  84              		.loc 1 119 0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88              		@ link register save eliminated.
+ 120:.\ITG-3701.c  **** 	switch (Gscale)
+  89              		.loc 1 120 0
+  90 0000 084B     		ldr	r3, .L13
+  91 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  92 0004 0328     		cmp	r0, #3
+  93 0006 0CD8     		bhi	.L4
+  94 0008 DFE800F0 		tbb	[pc, r0]
+  95              	.L10:
+  96 000c 02       		.byte	(.L6-.L10)/2
+  97 000d 04       		.byte	(.L7-.L10)/2
+  98 000e 06       		.byte	(.L8-.L10)/2
+  99 000f 08       		.byte	(.L9-.L10)/2
+ 100              		.align	1
+ 101              	.L6:
+ 121:.\ITG-3701.c  **** 	{
+ 122:.\ITG-3701.c  **** 	 	// Possible gyro scales (and their register bit settings) are:
+ 123:.\ITG-3701.c  **** 		// 500 DPS (00), 1000 DPS (01), 2000 DPS (10) and 4000 DPS  (11). 
+ 124:.\ITG-3701.c  **** 	    case GFS_500DPS:
+ 125:.\ITG-3701.c  **** 	          gRes = 500.0/32768.0;
+ 102              		.loc 1 125 0
+ 103 0010 054A     		ldr	r2, .L13+4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 5
+
+
+ 104 0012 04E0     		b	.L11
+ 105              	.L7:
+ 126:.\ITG-3701.c  **** 	          break;
+ 127:.\ITG-3701.c  **** 	    case GFS_1000DPS:
+ 128:.\ITG-3701.c  **** 	          gRes = 1000.0/32768.0;
+ 106              		.loc 1 128 0
+ 107 0014 054A     		ldr	r2, .L13+8
+ 108 0016 02E0     		b	.L11
+ 109              	.L8:
+ 129:.\ITG-3701.c  **** 	          break;
+ 130:.\ITG-3701.c  **** 	    case GFS_2000DPS:
+ 131:.\ITG-3701.c  **** 	          gRes = 2000.0/32768.0;
+ 110              		.loc 1 131 0
+ 111 0018 054A     		ldr	r2, .L13+12
+ 112 001a 00E0     		b	.L11
+ 113              	.L9:
+ 132:.\ITG-3701.c  **** 	          break;
+ 133:.\ITG-3701.c  **** 	    case GFS_4000DPS:
+ 134:.\ITG-3701.c  **** 	          gRes = 4000.0/32768.0;
+ 114              		.loc 1 134 0
+ 115 001c 054A     		ldr	r2, .L13+16
+ 116              	.L11:
+ 117 001e 0649     		ldr	r1, .L13+20
+ 118 0020 0A60     		str	r2, [r1, #0]	@ float
+ 119              	.L4:
+ 120 0022 7047     		bx	lr
+ 121              	.L14:
+ 122              		.align	2
+ 123              	.L13:
+ 124 0024 00000000 		.word	.LANCHOR0
+ 125 0028 00007A3C 		.word	1014628352
+ 126 002c 0000FA3C 		.word	1023016960
+ 127 0030 00007A3D 		.word	1031405568
+ 128 0034 0000FA3D 		.word	1039794176
+ 129 0038 00000000 		.word	gRes
+ 130              		.cfi_endproc
+ 131              	.LFE59:
+ 132              		.size	getGres, .-getGres
+ 133              		.section	.text.readGyroData,"ax",%progbits
+ 134              		.align	1
+ 135              		.global	readGyroData
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.type	readGyroData, %function
+ 139              	readGyroData:
+ 140              	.LFB60:
+ 135:.\ITG-3701.c  **** 	          break;
+ 136:.\ITG-3701.c  ****   	}
+ 137:.\ITG-3701.c  **** }
+ 138:.\ITG-3701.c  **** 
+ 139:.\ITG-3701.c  **** 
+ 140:.\ITG-3701.c  **** void readGyroData(int16_t * destination)
+ 141:.\ITG-3701.c  **** {
+ 141              		.loc 1 141 0
+ 142              		.cfi_startproc
+ 143              		@ args = 0, pretend = 0, frame = 8
+ 144              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 6
+
+
+ 145              		@ link register save eliminated.
+ 146              	.LVL4:
+ 147 0000 82B0     		sub	sp, sp, #8
+ 148              	.LCFI0:
+ 149              		.cfi_def_cfa_offset 8
+ 150              	.LVL5:
+ 142:.\ITG-3701.c  ****   uint8_t rawData[6];  // x/y/z gyro register data stored here
+ 143:.\ITG-3701.c  ****   ITG3701_ReadBytes(ITG3701_ADDRESS, ITG3701_GYRO_XOUT_H, 6, &rawData[0]);  // Read the six raw dat
+ 144:.\ITG-3701.c  **** 																			//   into data array
+ 145:.\ITG-3701.c  ****   destination[0] = ((int16_t)rawData[0] << 8) | rawData[1] ;  				// Turn the MSB and LSB into a si
+ 151              		.loc 1 145 0
+ 152 0002 9DF80020 		ldrb	r2, [sp, #0]	@ zero_extendqisi2
+ 153 0006 9DF80130 		ldrb	r3, [sp, #1]	@ zero_extendqisi2
+ 154 000a 43EA0221 		orr	r1, r3, r2, lsl #8
+ 146:.\ITG-3701.c  ****   destination[1] = ((int16_t)rawData[2] << 8) | rawData[3] ;  
+ 155              		.loc 1 146 0
+ 156 000e 9DF80220 		ldrb	r2, [sp, #2]	@ zero_extendqisi2
+ 157 0012 9DF80330 		ldrb	r3, [sp, #3]	@ zero_extendqisi2
+ 145:.\ITG-3701.c  ****   destination[0] = ((int16_t)rawData[0] << 8) | rawData[1] ;  				// Turn the MSB and LSB into a si
+ 158              		.loc 1 145 0
+ 159 0016 0180     		strh	r1, [r0, #0]	@ movhi
+ 160              		.loc 1 146 0
+ 161 0018 43EA0221 		orr	r1, r3, r2, lsl #8
+ 147:.\ITG-3701.c  ****   destination[2] = ((int16_t)rawData[4] << 8) | rawData[5] ; 
+ 162              		.loc 1 147 0
+ 163 001c 9DF80420 		ldrb	r2, [sp, #4]	@ zero_extendqisi2
+ 164 0020 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 146:.\ITG-3701.c  ****   destination[1] = ((int16_t)rawData[2] << 8) | rawData[3] ;  
+ 165              		.loc 1 146 0
+ 166 0024 4180     		strh	r1, [r0, #2]	@ movhi
+ 167              		.loc 1 147 0
+ 168 0026 43EA0221 		orr	r1, r3, r2, lsl #8
+ 169 002a 8180     		strh	r1, [r0, #4]	@ movhi
+ 148:.\ITG-3701.c  **** }
+ 170              		.loc 1 148 0
+ 171 002c 02B0     		add	sp, sp, #8
+ 172 002e 7047     		bx	lr
+ 173              		.cfi_endproc
+ 174              	.LFE60:
+ 175              		.size	readGyroData, .-readGyroData
+ 176              		.section	.text.initITG3701,"ax",%progbits
+ 177              		.align	1
+ 178              		.global	initITG3701
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.type	initITG3701, %function
+ 182              	initITG3701:
+ 183              	.LFB61:
+ 149:.\ITG-3701.c  **** 
+ 150:.\ITG-3701.c  **** void initITG3701(void)
+ 151:.\ITG-3701.c  **** {  
+ 184              		.loc 1 151 0
+ 185              		.cfi_startproc
+ 186              		@ args = 0, pretend = 0, frame = 0
+ 187              		@ frame_needed = 0, uses_anonymous_args = 0
+ 188              	.LVL6:
+ 189 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 7
+
+
+ 190              	.LCFI1:
+ 191              		.cfi_def_cfa_offset 8
+ 192              		.cfi_offset 3, -8
+ 193              		.cfi_offset 14, -4
+ 152:.\ITG-3701.c  ****  // wake up device
+ 153:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_PWR_MGMT_1, 0x00); // Clear sleep mode bit (6), enable
+ 154:.\ITG-3701.c  ****   CyDelay(100); // Wait for all registers to reset 
+ 194              		.loc 1 154 0
+ 195 0002 6420     		movs	r0, #100
+ 196 0004 FFF7FEFF 		bl	CyDelay
+ 197              	.LVL7:
+ 155:.\ITG-3701.c  **** 
+ 156:.\ITG-3701.c  ****  // get stable time source
+ 157:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_PWR_MGMT_1, 0x01);  // Auto select clock source to be 
+ 158:.\ITG-3701.c  ****   CyDelay(200); 
+ 198              		.loc 1 158 0
+ 199 0008 C820     		movs	r0, #200
+ 200 000a FFF7FEFF 		bl	CyDelay
+ 201              	.LVL8:
+ 159:.\ITG-3701.c  ****   
+ 160:.\ITG-3701.c  ****  // Configure Gyro and Thermometer
+ 161:.\ITG-3701.c  ****  // Disable FSYNC and set thermometer and gyro bandwidth to 41 and 42 Hz, respectively; 
+ 162:.\ITG-3701.c  ****  // minimum delay time for this setting is 5.9 ms, which means sensor fusion update rates cannot
+ 163:.\ITG-3701.c  ****  // be higher than 1 / 0.0059 = 170 Hz
+ 164:.\ITG-3701.c  ****  // DLPF_CFG = bits 2:0 = 011; this limits the sample rate to 1000 Hz for both
+ 165:.\ITG-3701.c  ****  // With the ITG3701, it is possible to get gyro sample rates of 32 kHz (!), 8 kHz, or 1 kHz
+ 166:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_CONFIG, 0x03);  
+ 167:.\ITG-3701.c  **** 
+ 168:.\ITG-3701.c  ****  // Set sample rate = gyroscope output rate/(1 + SMPLRT_DIV)
+ 169:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_SMPLRT_DIV, 0x04);  // Use a 200 Hz rate; a rate consi
+ 170:.\ITG-3701.c  ****                                     // determined inset in CONFIG above
+ 171:.\ITG-3701.c  ****  
+ 172:.\ITG-3701.c  ****  // Set gyroscope full scale range
+ 173:.\ITG-3701.c  ****  // Range selects FS_SEL and AFS_SEL are 0 - 3, so 2-bit values are left-shifted into positions 4:3
+ 174:.\ITG-3701.c  ****   uint8_t c = ITG3701_ReadByte(ITG3701_ADDRESS, ITG3701_GYRO_CONFIG);
+ 175:.\ITG-3701.c  **** //  writeRegister(GYRO_CONFIG, c & ~0xE0); // Clear self-test bits [7:5] 
+ 176:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_GYRO_CONFIG, c & ~0x02); // Clear Fchoice bits [1:0] 
+ 177:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_GYRO_CONFIG, c & ~0x18); // Clear AFS bits [4:3]
+ 178:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_GYRO_CONFIG, c | Gscale << 3); // Set full scale range
+ 179:.\ITG-3701.c  ****  // writeRegister(GYRO_CONFIG, c | 0x00); // Set Fchoice for the gyro to 11 by writing its inverse 
+ 180:.\ITG-3701.c  **** 
+ 181:.\ITG-3701.c  ****  // Configure Interrupts and Bypass Enable
+ 182:.\ITG-3701.c  ****   // Set interrupt pin active high, push-pull, hold interrupt pin level HIGH until interrupt cleare
+ 183:.\ITG-3701.c  ****   // clear on read of INT_STATUS, and enable I2C_BYPASS_EN so additional chips 
+ 184:.\ITG-3701.c  ****   // can join the I2C bus and all can be controlled by the Arduino as master
+ 185:.\ITG-3701.c  ****    ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_INT_PIN_CFG, 0x20);    
+ 186:.\ITG-3701.c  ****    ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_INT_ENABLE, 0x01);  // Enable data ready (bit 0) inte
+ 187:.\ITG-3701.c  ****    CyDelay(100);
+ 202              		.loc 1 187 0
+ 203 000e 6420     		movs	r0, #100
+ 188:.\ITG-3701.c  **** }
+ 204              		.loc 1 188 0
+ 205 0010 BDE80840 		pop	{r3, lr}
+ 187:.\ITG-3701.c  ****    CyDelay(100);
+ 206              		.loc 1 187 0
+ 207 0014 FFF7FEBF 		b	CyDelay
+ 208              	.LVL9:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 8
+
+
+ 209              		.cfi_endproc
+ 210              	.LFE61:
+ 211              		.size	initITG3701, .-initITG3701
+ 212              		.global	__aeabi_i2f
+ 213              		.global	__aeabi_fmul
+ 214              		.section	.text.gyrocalITG3701,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	gyrocalITG3701
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.type	gyrocalITG3701, %function
+ 220              	gyrocalITG3701:
+ 221              	.LFB62:
+ 189:.\ITG-3701.c  **** 
+ 190:.\ITG-3701.c  **** 
+ 191:.\ITG-3701.c  **** // Function which accumulates gyro data after device initialization. It calculates the average
+ 192:.\ITG-3701.c  **** // of the at-rest readings and then loads the resulting offsets into gyro bias registers.
+ 193:.\ITG-3701.c  **** void gyrocalITG3701(float * dest1)
+ 194:.\ITG-3701.c  **** {  
+ 222              		.loc 1 194 0
+ 223              		.cfi_startproc
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              	.LVL10:
+ 227 0000 38B5     		push	{r3, r4, r5, lr}
+ 228              	.LCFI2:
+ 229              		.cfi_def_cfa_offset 16
+ 230              		.cfi_offset 3, -16
+ 231              		.cfi_offset 4, -12
+ 232              		.cfi_offset 5, -8
+ 233              		.cfi_offset 14, -4
+ 234              		.loc 1 194 0
+ 235 0002 0446     		mov	r4, r0
+ 195:.\ITG-3701.c  ****   uint8_t data[6]; // data array to hold gyro x, y, z, data
+ 196:.\ITG-3701.c  ****   uint16_t ii, packet_count;
+ 197:.\ITG-3701.c  ****   uint16_t fifo_count __attribute__ ((unused));
+ 198:.\ITG-3701.c  ****   int32_t gyro_bias[3]  = {0, 0, 0};
+ 199:.\ITG-3701.c  ****   
+ 200:.\ITG-3701.c  ****  // reset device
+ 201:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_PWR_MGMT_1, 0x80); // Write a one to bit 7 reset bit; 
+ 202:.\ITG-3701.c  ****   CyDelay(100);
+ 236              		.loc 1 202 0
+ 237 0004 6420     		movs	r0, #100
+ 238              	.LVL11:
+ 239 0006 FFF7FEFF 		bl	CyDelay
+ 240              	.LVL12:
+ 203:.\ITG-3701.c  ****    
+ 204:.\ITG-3701.c  ****  // get stable time source; Auto select clock source to be PLL gyroscope reference if ready 
+ 205:.\ITG-3701.c  ****  // else use the internal oscillator, bits 2:0 = 001
+ 206:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_PWR_MGMT_1, 0x01);  
+ 207:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_PWR_MGMT_2, 0x00);
+ 208:.\ITG-3701.c  ****   CyDelay(200);                                    
+ 241              		.loc 1 208 0
+ 242 000a C820     		movs	r0, #200
+ 243 000c FFF7FEFF 		bl	CyDelay
+ 244              	.LVL13:
+ 209:.\ITG-3701.c  **** 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 9
+
+
+ 210:.\ITG-3701.c  **** 	// Configure device for bias calculation
+ 211:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_INT_ENABLE, 0x00);   // Disable all interrupts
+ 212:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_FIFO_EN, 0x00);      // Disable FIFO
+ 213:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_PWR_MGMT_1, 0x00);   // Turn on internal clock source
+ 214:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_USER_CTRL, 0x00);    // Disable FIFO 
+ 215:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_USER_CTRL, 0x04);    // Reset FIFO 
+ 216:.\ITG-3701.c  ****   CyDelay(15);
+ 245              		.loc 1 216 0
+ 246 0010 0F20     		movs	r0, #15
+ 247 0012 FFF7FEFF 		bl	CyDelay
+ 248              	.LVL14:
+ 217:.\ITG-3701.c  ****   
+ 218:.\ITG-3701.c  **** //	// Configure ITG3701 gyro for bias calculation
+ 219:.\ITG-3701.c  **** //  ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_CONFIG, 0x01);      // Set low-pass filter to 184 Hz
+ 220:.\ITG-3701.c  **** //  ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_SMPLRT_DIV, 0x00);  // Set sample rate to 1 kHz
+ 221:.\ITG-3701.c  **** //  ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_GYRO_CONFIG, 0x00); // Set gyro full-scale to 500 de
+ 222:.\ITG-3701.c  ****  
+ 223:.\ITG-3701.c  ****   // Configure FIFO to capture accelerometer and gyro data for bias calculation
+ 224:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_USER_CTRL, 0x40);   // Enable FIFO  
+ 225:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_FIFO_EN, 0x70);     // Enable gyro sensors for FIFO  (
+ 226:.\ITG-3701.c  ****   CyDelay(100); // accumulate 80 samples in 80 milliseconds = 480 bytes
+ 249              		.loc 1 226 0
+ 250 0016 6420     		movs	r0, #100
+ 251 0018 FFF7FEFF 		bl	CyDelay
+ 252              	.LVL15:
+ 253              	.LBB55:
+ 227:.\ITG-3701.c  **** 
+ 228:.\ITG-3701.c  ****   // At end of sample accumulation, turn off FIFO sensor read
+ 229:.\ITG-3701.c  ****   ITG3701_WriteByte(ITG3701_ADDRESS, ITG3701_FIFO_EN, 0x00);        // Disable gyro sensors for FIF
+ 230:.\ITG-3701.c  ****   ITG3701_ReadBytes(ITG3701_ADDRESS, ITG3701_FIFO_COUNTH, 2, &data[0]); // read FIFO sample count
+ 231:.\ITG-3701.c  ****   fifo_count = (uint16_t)((uint16_t)data[0] << 8) | data[1];
+ 232:.\ITG-3701.c  **** //  packet_count = fifo_count/6; // How many sets of full gyro data for averaging
+ 233:.\ITG-3701.c  ****   packet_count = 128; // How many sets of full gyro data for averaging
+ 234:.\ITG-3701.c  **** 
+ 235:.\ITG-3701.c  ****   for (ii = 0; ii < packet_count; ii++)
+ 236:.\ITG-3701.c  **** 	{
+ 237:.\ITG-3701.c  **** 	    int16_t gyro_temp[3] = {0, 0, 0};
+ 238:.\ITG-3701.c  **** 		//    readBytes(ITG3701_ADDRESS, ITG3701_FIFO_R_W, 6, &data[0]); // read data for averaging
+ 239:.\ITG-3701.c  **** 	    ITG3701_ReadBytes(ITG3701_ADDRESS, ITG3701_GYRO_XOUT_H, 6, &data[0]); // read data for averagi
+ 240:.\ITG-3701.c  **** 	    gyro_temp[0]  = (int16_t) (((int16_t)data[0] << 8) | data[1]) ;
+ 241:.\ITG-3701.c  **** 	    gyro_temp[1]  = (int16_t) (((int16_t)data[2] << 8) | data[3]) ;
+ 242:.\ITG-3701.c  **** 	    gyro_temp[2]  = (int16_t) (((int16_t)data[4] << 8) | data[5]) ;
+ 243:.\ITG-3701.c  **** 	    
+ 244:.\ITG-3701.c  **** 	    gyro_bias[0]  += (int32_t) gyro_temp[0];
+ 245:.\ITG-3701.c  **** 	    gyro_bias[1]  += (int32_t) gyro_temp[1];
+ 246:.\ITG-3701.c  **** 	    gyro_bias[2]  += (int32_t) gyro_temp[2];
+ 254              		.loc 1 246 0
+ 255 001c 8025     		movs	r5, #128
+ 256              	.LVL16:
+ 257              	.L18:
+ 258 001e 013D     		subs	r5, r5, #1
+ 247:.\ITG-3701.c  **** 	    CyDelay(5);
+ 259              		.loc 1 247 0 discriminator 2
+ 260 0020 0520     		movs	r0, #5
+ 261 0022 ADB2     		uxth	r5, r5
+ 262 0024 FFF7FEFF 		bl	CyDelay
+ 263              	.LVL17:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 10
+
+
+ 264              	.LBE55:
+ 235:.\ITG-3701.c  ****   for (ii = 0; ii < packet_count; ii++)
+ 265              		.loc 1 235 0 discriminator 2
+ 266 0028 002D     		cmp	r5, #0
+ 267 002a F8D1     		bne	.L18
+ 268              	.LVL18:
+ 248:.\ITG-3701.c  **** 	}
+ 249:.\ITG-3701.c  **** 	
+ 250:.\ITG-3701.c  ****     gyro_bias[0]  /= (int32_t) packet_count;
+ 251:.\ITG-3701.c  ****     gyro_bias[1]  /= (int32_t) packet_count;
+ 252:.\ITG-3701.c  ****     gyro_bias[2]  /= (int32_t) packet_count;
+ 253:.\ITG-3701.c  ****       
+ 254:.\ITG-3701.c  **** 	// Construct the gyro biases for push to the hardware gyro bias registers, which are reset to zero
+ 255:.\ITG-3701.c  ****   	data[0] = (-gyro_bias[0]  >> 8) & 0xFF;  
+ 256:.\ITG-3701.c  ****   	data[1] = (-gyro_bias[0])       & 0xFF; // Biases are additive, so change sign on calculated ave
+ 257:.\ITG-3701.c  ****   	data[2] = (-gyro_bias[1]  >> 8) & 0xFF;
+ 258:.\ITG-3701.c  ****   	data[3] = (-gyro_bias[1])       & 0xFF;
+ 259:.\ITG-3701.c  ****   	data[4] = (-gyro_bias[2]  >> 8) & 0xFF;
+ 260:.\ITG-3701.c  ****   	data[5] = (-gyro_bias[2])       & 0xFF;
+ 261:.\ITG-3701.c  ****   
+ 262:.\ITG-3701.c  **** 	// Push gyro biases to hardware registers
+ 263:.\ITG-3701.c  **** 	//  writeByte(ITG3701_ADDRESS, ITG3701_XG_OFFS_USRH, data[0]);
+ 264:.\ITG-3701.c  **** 	//  writeByte(ITG3701_ADDRESS, ITG3701_XG_OFFS_USRL, data[1]);
+ 265:.\ITG-3701.c  **** 	//  writeByte(ITG3701_ADDRESS, ITG3701_YG_OFFS_USRH, data[2]);
+ 266:.\ITG-3701.c  **** 	//  writeByte(ITG3701_ADDRESS, ITG3701_YG_OFFS_USRL, data[3]);
+ 267:.\ITG-3701.c  **** 	//  writeByte(ITG3701_ADDRESS, ITG3701_ZG_OFFS_USRH, data[4]);
+ 268:.\ITG-3701.c  **** 	//  writeByte(ITG3701_ADDRESS, ITG3701_ZG_OFFS_USRL, data[5]);
+ 269:.\ITG-3701.c  ****   
+ 270:.\ITG-3701.c  **** 	// Output scaled gyro biases for display in the main program
+ 271:.\ITG-3701.c  **** 	dest1[0] = (float) gyro_bias[0]*gRes;  
+ 269              		.loc 1 271 0
+ 270 002c 0B4D     		ldr	r5, .L20
+ 271 002e 0020     		movs	r0, #0
+ 272 0030 FFF7FEFF 		bl	__aeabi_i2f
+ 273              	.LVL19:
+ 274 0034 2968     		ldr	r1, [r5, #0]	@ float
+ 275 0036 FFF7FEFF 		bl	__aeabi_fmul
+ 276              	.LVL20:
+ 277 003a 2060     		str	r0, [r4, #0]	@ float
+ 272:.\ITG-3701.c  **** 	dest1[1] = (float) gyro_bias[1]*gRes;
+ 278              		.loc 1 272 0
+ 279 003c 2D68     		ldr	r5, [r5, #0]	@ float
+ 280 003e 0020     		movs	r0, #0
+ 281 0040 FFF7FEFF 		bl	__aeabi_i2f
+ 282              	.LVL21:
+ 283 0044 2946     		mov	r1, r5
+ 284 0046 FFF7FEFF 		bl	__aeabi_fmul
+ 285              	.LVL22:
+ 286 004a 6060     		str	r0, [r4, #4]	@ float
+ 273:.\ITG-3701.c  **** 	dest1[2] = (float) gyro_bias[2]*gRes;
+ 287              		.loc 1 273 0
+ 288 004c 0020     		movs	r0, #0
+ 289 004e FFF7FEFF 		bl	__aeabi_i2f
+ 290              	.LVL23:
+ 291 0052 2946     		mov	r1, r5
+ 292 0054 FFF7FEFF 		bl	__aeabi_fmul
+ 293              	.LVL24:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 11
+
+
+ 294 0058 A060     		str	r0, [r4, #8]	@ float
+ 295 005a 38BD     		pop	{r3, r4, r5, pc}
+ 296              	.L21:
+ 297              		.align	2
+ 298              	.L20:
+ 299 005c 00000000 		.word	gRes
+ 300              		.cfi_endproc
+ 301              	.LFE62:
+ 302              		.size	gyrocalITG3701, .-gyrocalITG3701
+ 303              		.global	__aeabi_fdiv
+ 304              		.global	__aeabi_f2d
+ 305              		.global	__aeabi_fsub
+ 306              		.section	.text.ITG3701_test,"ax",%progbits
+ 307              		.align	1
+ 308              		.global	ITG3701_test
+ 309              		.thumb
+ 310              		.thumb_func
+ 311              		.type	ITG3701_test, %function
+ 312              	ITG3701_test:
+ 313              	.LFB63:
+ 274:.\ITG-3701.c  **** }
+ 275:.\ITG-3701.c  **** 
+ 276:.\ITG-3701.c  **** 
+ 277:.\ITG-3701.c  **** 
+ 278:.\ITG-3701.c  **** void ITG3701_test(void)
+ 279:.\ITG-3701.c  **** {
+ 314              		.loc 1 279 0
+ 315              		.cfi_startproc
+ 316              		@ args = 0, pretend = 0, frame = 0
+ 317              		@ frame_needed = 0, uses_anonymous_args = 0
+ 318              	.LVL25:
+ 319 0000 7FB5     		push	{r0, r1, r2, r3, r4, r5, r6, lr}
+ 320              	.LCFI3:
+ 321              		.cfi_def_cfa_offset 32
+ 322              		.cfi_offset 0, -32
+ 323              		.cfi_offset 1, -28
+ 324              		.cfi_offset 2, -24
+ 325              		.cfi_offset 3, -20
+ 326              		.cfi_offset 4, -16
+ 327              		.cfi_offset 5, -12
+ 328              		.cfi_offset 6, -8
+ 329              		.cfi_offset 14, -4
+ 280:.\ITG-3701.c  **** 	uint8 index;
+ 281:.\ITG-3701.c  **** 	
+ 282:.\ITG-3701.c  **** 	// Verify HW connection
+ 283:.\ITG-3701.c  **** 	dummy = ITG3701_ReadByte(ITG3701_ADDRESS, ITG3701_WHO_AM_I);  // Read WHO_AM_I register for ITG370
+ 330              		.loc 1 283 0
+ 331 0002 1D4B     		ldr	r3, .L29
+ 332 0004 0021     		movs	r1, #0
+ 284:.\ITG-3701.c  ****   	printf("ITG3701 gyro; I AM 0x%02X (should be 0x68)\r\n",(uint16)dummy);
+ 333              		.loc 1 284 0
+ 334 0006 1D48     		ldr	r0, .L29+4
+ 283:.\ITG-3701.c  **** 	dummy = ITG3701_ReadByte(ITG3701_ADDRESS, ITG3701_WHO_AM_I);  // Read WHO_AM_I register for ITG370
+ 335              		.loc 1 283 0
+ 336 0008 1970     		strb	r1, [r3, #0]
+ 337              		.loc 1 284 0
+ 338 000a FFF7FEFF 		bl	printf
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 12
+
+
+ 339              	.LVL26:
+ 285:.\ITG-3701.c  **** 	CyDelay(1);
+ 340              		.loc 1 285 0
+ 341 000e 0120     		movs	r0, #1
+ 342 0010 FFF7FEFF 		bl	CyDelay
+ 343              	.LVL27:
+ 286:.\ITG-3701.c  **** 	
+ 287:.\ITG-3701.c  **** 	// Initialize ITG-3701 gyro
+ 288:.\ITG-3701.c  **** 	initITG3701();
+ 344              		.loc 1 288 0
+ 345 0014 FFF7FEFF 		bl	initITG3701
+ 346              	.LVL28:
+ 289:.\ITG-3701.c  **** 
+ 290:.\ITG-3701.c  ****     // Calibrate gyro loading biases in bias registers
+ 291:.\ITG-3701.c  ****     gyrocalITG3701(gyroBias);
+ 347              		.loc 1 291 0
+ 348 0018 1948     		ldr	r0, .L29+8
+ 349 001a FFF7FEFF 		bl	gyrocalITG3701
+ 350              	.LVL29:
+ 292:.\ITG-3701.c  **** 
+ 293:.\ITG-3701.c  **** 	// get sensor resolutions, only need to do this once (calculates gRes)
+ 294:.\ITG-3701.c  ****    	getGres();	
+ 351              		.loc 1 294 0
+ 352 001e FFF7FEFF 		bl	getGres
+ 353              	.LVL30:
+ 295:.\ITG-3701.c  ****    	printf("ITG3701 gyro sensitivity is %1.4f LSB/dps\r\n", (float)1.0/(gRes));
+ 354              		.loc 1 295 0
+ 355 0022 1849     		ldr	r1, .L29+12
+ 356 0024 4FF07E50 		mov	r0, #1065353216
+ 357 0028 0968     		ldr	r1, [r1, #0]	@ float
+ 358 002a FFF7FEFF 		bl	__aeabi_fdiv
+ 359              	.LVL31:
+ 360 002e FFF7FEFF 		bl	__aeabi_f2d
+ 361              	.LVL32:
+ 362 0032 0246     		mov	r2, r0
+ 363 0034 0B46     		mov	r3, r1
+ 364 0036 1448     		ldr	r0, .L29+16
+ 365 0038 FFF7FEFF 		bl	printf
+ 366              	.LVL33:
+ 367 003c 1426     		movs	r6, #20
+ 368              	.LVL34:
+ 369              	.L23:
+ 296:.\ITG-3701.c  **** 	
+ 297:.\ITG-3701.c  **** 	for(index=0;index<20;index++)
+ 298:.\ITG-3701.c  **** 	{
+ 299:.\ITG-3701.c  **** 		if (ITG3701_ReadByte(ITG3701_ADDRESS, ITG3701_INT_STATUS) & 0x01)  // check if new gyro data is r
+ 300:.\ITG-3701.c  **** 		{
+ 301:.\ITG-3701.c  **** 			readGyroData(gyroCount);  // Read the x/y/z adc values
+ 302:.\ITG-3701.c  **** 
+ 303:.\ITG-3701.c  **** 		    // Calculate the gyro value into actual degrees per second
+ 304:.\ITG-3701.c  **** 		    gx = (float)gyroCount[0]*gRes - gyroBias[0];  // get actual gyro value, this depends on scale
+ 305:.\ITG-3701.c  **** 		    gy = (float)gyroCount[1]*gRes - gyroBias[1];  
+ 306:.\ITG-3701.c  **** 		    gz = (float)gyroCount[2]*gRes - gyroBias[2]; 
+ 307:.\ITG-3701.c  **** 		}
+ 308:.\ITG-3701.c  **** 		printf("ITG3701 gx=%1.4f gy=%1.4f gz=%1.4f\r\n",(float)gx, (float)gy, (float)gz);
+ 370              		.loc 1 308 0
+ 371 003e 1348     		ldr	r0, .L29+20
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 13
+
+
+ 372 0040 013E     		subs	r6, r6, #1
+ 373 0042 0068     		ldr	r0, [r0, #0]	@ float
+ 374 0044 FFF7FEFF 		bl	__aeabi_f2d
+ 375              	.LVL35:
+ 376 0048 114A     		ldr	r2, .L29+24
+ 377 004a 0446     		mov	r4, r0
+ 378 004c 1068     		ldr	r0, [r2, #0]	@ float
+ 379 004e 0D46     		mov	r5, r1
+ 380 0050 FFF7FEFF 		bl	__aeabi_f2d
+ 381              	.LVL36:
+ 382 0054 CDE90001 		strd	r0, [sp]
+ 383 0058 0E4B     		ldr	r3, .L29+28
+ 384 005a 1868     		ldr	r0, [r3, #0]	@ float
+ 385 005c FFF7FEFF 		bl	__aeabi_f2d
+ 386              	.LVL37:
+ 387 0060 2246     		mov	r2, r4
+ 388 0062 CDE90201 		strd	r0, [sp, #8]
+ 389 0066 2B46     		mov	r3, r5
+ 390 0068 0B48     		ldr	r0, .L29+32
+ 391 006a FFF7FEFF 		bl	printf
+ 392              	.LVL38:
+ 297:.\ITG-3701.c  **** 	for(index=0;index<20;index++)
+ 393              		.loc 1 297 0
+ 394 006e 16F0FF06 		ands	r6, r6, #255
+ 395 0072 E4D1     		bne	.L23
+ 309:.\ITG-3701.c  **** 	}
+ 310:.\ITG-3701.c  **** }
+ 396              		.loc 1 310 0
+ 397 0074 7FBD     		pop	{r0, r1, r2, r3, r4, r5, r6, pc}
+ 398              	.L30:
+ 399 0076 00BF     		.align	2
+ 400              	.L29:
+ 401 0078 00000000 		.word	dummy
+ 402 007c 00000000 		.word	.LC0
+ 403 0080 00000000 		.word	.LANCHOR1
+ 404 0084 00000000 		.word	gRes
+ 405 0088 2D000000 		.word	.LC1
+ 406 008c 00000000 		.word	gx
+ 407 0090 00000000 		.word	gy
+ 408 0094 00000000 		.word	gz
+ 409 0098 59000000 		.word	.LC2
+ 410              		.cfi_endproc
+ 411              	.LFE63:
+ 412              		.size	ITG3701_test, .-ITG3701_test
+ 413              		.comm	dummy,1,1
+ 414              		.comm	temperature,4,4
+ 415              		.global	gyroBias
+ 416              		.comm	gz,4,4
+ 417              		.comm	gy,4,4
+ 418              		.comm	gx,4,4
+ 419              		.comm	gyroCount,6,2
+ 420              		.comm	gRes,4,4
+ 421              		.global	Gbw
+ 422              		.global	Godr
+ 423              		.global	Gscale
+ 424              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 425              	.LC0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 14
+
+
+ 426 0000 49544733 		.ascii	"ITG3701 gyro; I AM 0x%02X (should be 0x68)\015\012\000"
+ 426      37303120 
+ 426      6779726F 
+ 426      3B204920 
+ 426      414D2030 
+ 427              	.LC1:
+ 428 002d 49544733 		.ascii	"ITG3701 gyro sensitivity is %1.4f LSB/dps\015\012\000"
+ 428      37303120 
+ 428      6779726F 
+ 428      2073656E 
+ 428      73697469 
+ 429              	.LC2:
+ 430 0059 49544733 		.ascii	"ITG3701 gx=%1.4f gy=%1.4f gz=%1.4f\015\012\000"
+ 430      37303120 
+ 430      67783D25 
+ 430      312E3466 
+ 430      2067793D 
+ 431              		.data
+ 432              		.set	.LANCHOR0,. + 0
+ 433              		.type	Gscale, %object
+ 434              		.size	Gscale, 1
+ 435              	Gscale:
+ 436 0000 03       		.byte	3
+ 437              		.type	Gbw, %object
+ 438              		.size	Gbw, 1
+ 439              	Gbw:
+ 440 0001 03       		.byte	3
+ 441              		.type	Godr, %object
+ 442              		.size	Godr, 1
+ 443              	Godr:
+ 444 0002 01       		.byte	1
+ 445              		.bss
+ 446              		.align	2
+ 447              		.set	.LANCHOR1,. + 0
+ 448              		.type	gyroBias, %object
+ 449              		.size	gyroBias, 12
+ 450              	gyroBias:
+ 451 0000 00000000 		.space	12
+ 451      00000000 
+ 451      00000000 
+ 452              		.text
+ 453              	.Letext0:
+ 454              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 455              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 456              		.file 4 "./ITG-3701.h"
+ 457              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 458              		.file 6 "./Generated_Source/PSoC5/CyLib.h"
+ 459              		.file 7 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 460              		.section	.debug_info,"",%progbits
+ 461              	.Ldebug_info0:
+ 462 0000 2A060000 		.4byte	0x62a
+ 463 0004 0200     		.2byte	0x2
+ 464 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 465 000a 04       		.byte	0x4
+ 466 000b 01       		.uleb128 0x1
+ 467 000c D4010000 		.4byte	.LASF67
+ 468 0010 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 15
+
+
+ 469 0011 B1010000 		.4byte	.LASF68
+ 470 0015 D8020000 		.4byte	.LASF69
+ 471 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 472 001d 00000000 		.4byte	0
+ 473 0021 00000000 		.4byte	0
+ 474 0025 00000000 		.4byte	.Ldebug_line0
+ 475 0029 02       		.uleb128 0x2
+ 476 002a 01       		.byte	0x1
+ 477 002b 06       		.byte	0x6
+ 478 002c 8E010000 		.4byte	.LASF0
+ 479 0030 03       		.uleb128 0x3
+ 480 0031 46030000 		.4byte	.LASF2
+ 481 0035 02       		.byte	0x2
+ 482 0036 2A       		.byte	0x2a
+ 483 0037 3B000000 		.4byte	0x3b
+ 484 003b 02       		.uleb128 0x2
+ 485 003c 01       		.byte	0x1
+ 486 003d 08       		.byte	0x8
+ 487 003e 4D010000 		.4byte	.LASF1
+ 488 0042 03       		.uleb128 0x3
+ 489 0043 5A020000 		.4byte	.LASF3
+ 490 0047 02       		.byte	0x2
+ 491 0048 35       		.byte	0x35
+ 492 0049 4D000000 		.4byte	0x4d
+ 493 004d 02       		.uleb128 0x2
+ 494 004e 02       		.byte	0x2
+ 495 004f 05       		.byte	0x5
+ 496 0050 52000000 		.4byte	.LASF4
+ 497 0054 03       		.uleb128 0x3
+ 498 0055 CB010000 		.4byte	.LASF5
+ 499 0059 02       		.byte	0x2
+ 500 005a 36       		.byte	0x36
+ 501 005b 5F000000 		.4byte	0x5f
+ 502 005f 02       		.uleb128 0x2
+ 503 0060 02       		.byte	0x2
+ 504 0061 07       		.byte	0x7
+ 505 0062 1D020000 		.4byte	.LASF6
+ 506 0066 03       		.uleb128 0x3
+ 507 0067 52020000 		.4byte	.LASF7
+ 508 006b 02       		.byte	0x2
+ 509 006c 4F       		.byte	0x4f
+ 510 006d 71000000 		.4byte	0x71
+ 511 0071 02       		.uleb128 0x2
+ 512 0072 04       		.byte	0x4
+ 513 0073 05       		.byte	0x5
+ 514 0074 49020000 		.4byte	.LASF8
+ 515 0078 02       		.uleb128 0x2
+ 516 0079 04       		.byte	0x4
+ 517 007a 07       		.byte	0x7
+ 518 007b 95020000 		.4byte	.LASF9
+ 519 007f 02       		.uleb128 0x2
+ 520 0080 08       		.byte	0x8
+ 521 0081 05       		.byte	0x5
+ 522 0082 DF000000 		.4byte	.LASF10
+ 523 0086 02       		.uleb128 0x2
+ 524 0087 08       		.byte	0x8
+ 525 0088 07       		.byte	0x7
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 16
+
+
+ 526 0089 9A010000 		.4byte	.LASF11
+ 527 008d 04       		.uleb128 0x4
+ 528 008e 04       		.byte	0x4
+ 529 008f 05       		.byte	0x5
+ 530 0090 696E7400 		.ascii	"int\000"
+ 531 0094 02       		.uleb128 0x2
+ 532 0095 04       		.byte	0x4
+ 533 0096 07       		.byte	0x7
+ 534 0097 BE010000 		.4byte	.LASF12
+ 535 009b 03       		.uleb128 0x3
+ 536 009c CB000000 		.4byte	.LASF13
+ 537 00a0 03       		.byte	0x3
+ 538 00a1 5B       		.byte	0x5b
+ 539 00a2 3B000000 		.4byte	0x3b
+ 540 00a6 03       		.uleb128 0x3
+ 541 00a7 A9000000 		.4byte	.LASF14
+ 542 00ab 03       		.byte	0x3
+ 543 00ac 5C       		.byte	0x5c
+ 544 00ad 5F000000 		.4byte	0x5f
+ 545 00b1 03       		.uleb128 0x3
+ 546 00b2 8E020000 		.4byte	.LASF15
+ 547 00b6 03       		.byte	0x3
+ 548 00b7 5D       		.byte	0x5d
+ 549 00b8 78000000 		.4byte	0x78
+ 550 00bc 03       		.uleb128 0x3
+ 551 00bd C5000000 		.4byte	.LASF16
+ 552 00c1 03       		.byte	0x3
+ 553 00c2 5F       		.byte	0x5f
+ 554 00c3 4D000000 		.4byte	0x4d
+ 555 00c7 02       		.uleb128 0x2
+ 556 00c8 04       		.byte	0x4
+ 557 00c9 04       		.byte	0x4
+ 558 00ca 08000000 		.4byte	.LASF17
+ 559 00ce 02       		.uleb128 0x2
+ 560 00cf 08       		.byte	0x8
+ 561 00d0 04       		.byte	0x4
+ 562 00d1 B3020000 		.4byte	.LASF18
+ 563 00d5 02       		.uleb128 0x2
+ 564 00d6 01       		.byte	0x1
+ 565 00d7 08       		.byte	0x8
+ 566 00d8 44020000 		.4byte	.LASF19
+ 567 00dc 02       		.uleb128 0x2
+ 568 00dd 04       		.byte	0x4
+ 569 00de 07       		.byte	0x7
+ 570 00df 5C000000 		.4byte	.LASF20
+ 571 00e3 05       		.uleb128 0x5
+ 572 00e4 04       		.byte	0x4
+ 573 00e5 E9000000 		.4byte	0xe9
+ 574 00e9 06       		.uleb128 0x6
+ 575 00ea D5000000 		.4byte	0xd5
+ 576 00ee 02       		.uleb128 0x2
+ 577 00ef 08       		.byte	0x8
+ 578 00f0 04       		.byte	0x4
+ 579 00f1 75010000 		.4byte	.LASF21
+ 580 00f5 07       		.uleb128 0x7
+ 581 00f6 BE000000 		.4byte	.LASF26
+ 582 00fa 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 17
+
+
+ 583 00fb 04       		.byte	0x4
+ 584 00fc 5C       		.byte	0x5c
+ 585 00fd 1A010000 		.4byte	0x11a
+ 586 0101 08       		.uleb128 0x8
+ 587 0102 36000000 		.4byte	.LASF22
+ 588 0106 00       		.sleb128 0
+ 589 0107 08       		.uleb128 0x8
+ 590 0108 62030000 		.4byte	.LASF23
+ 591 010c 01       		.sleb128 1
+ 592 010d 08       		.uleb128 0x8
+ 593 010e 41010000 		.4byte	.LASF24
+ 594 0112 02       		.sleb128 2
+ 595 0113 08       		.uleb128 0x8
+ 596 0114 0E000000 		.4byte	.LASF25
+ 597 0118 03       		.sleb128 3
+ 598 0119 00       		.byte	0
+ 599 011a 07       		.uleb128 0x7
+ 600 011b 05010000 		.4byte	.LASF27
+ 601 011f 01       		.byte	0x1
+ 602 0120 04       		.byte	0x4
+ 603 0121 63       		.byte	0x63
+ 604 0122 3F010000 		.4byte	0x13f
+ 605 0126 08       		.uleb128 0x8
+ 606 0127 78000000 		.4byte	.LASF28
+ 607 012b 00       		.sleb128 0
+ 608 012c 08       		.uleb128 0x8
+ 609 012d 17010000 		.4byte	.LASF29
+ 610 0131 01       		.sleb128 1
+ 611 0132 08       		.uleb128 0x8
+ 612 0133 4E030000 		.4byte	.LASF30
+ 613 0137 02       		.sleb128 2
+ 614 0138 08       		.uleb128 0x8
+ 615 0139 83020000 		.4byte	.LASF31
+ 616 013d 03       		.sleb128 3
+ 617 013e 00       		.byte	0
+ 618 013f 09       		.uleb128 0x9
+ 619 0140 47627700 		.ascii	"Gbw\000"
+ 620 0144 01       		.byte	0x1
+ 621 0145 04       		.byte	0x4
+ 622 0146 6A       		.byte	0x6a
+ 623 0147 64010000 		.4byte	0x164
+ 624 014b 08       		.uleb128 0x8
+ 625 014c 39010000 		.4byte	.LASF32
+ 626 0150 00       		.sleb128 0
+ 627 0151 08       		.uleb128 0x8
+ 628 0152 6D010000 		.4byte	.LASF33
+ 629 0156 01       		.sleb128 1
+ 630 0157 08       		.uleb128 0x8
+ 631 0158 D6000000 		.4byte	.LASF34
+ 632 015c 02       		.sleb128 2
+ 633 015d 08       		.uleb128 0x8
+ 634 015e CC020000 		.4byte	.LASF35
+ 635 0162 03       		.sleb128 3
+ 636 0163 00       		.byte	0
+ 637 0164 0A       		.uleb128 0xa
+ 638 0165 01       		.byte	0x1
+ 639 0166 5B010000 		.4byte	.LASF40
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 18
+
+
+ 640 016a 01       		.byte	0x1
+ 641 016b 40       		.byte	0x40
+ 642 016c 01       		.byte	0x1
+ 643 016d 01       		.byte	0x1
+ 644 016e 9F010000 		.4byte	0x19f
+ 645 0172 0B       		.uleb128 0xb
+ 646 0173 ED000000 		.4byte	.LASF36
+ 647 0177 01       		.byte	0x1
+ 648 0178 40       		.byte	0x40
+ 649 0179 9B000000 		.4byte	0x9b
+ 650 017d 0B       		.uleb128 0xb
+ 651 017e 82000000 		.4byte	.LASF37
+ 652 0182 01       		.byte	0x1
+ 653 0183 40       		.byte	0x40
+ 654 0184 9B000000 		.4byte	0x9b
+ 655 0188 0B       		.uleb128 0xb
+ 656 0189 C6020000 		.4byte	.LASF38
+ 657 018d 01       		.byte	0x1
+ 658 018e 40       		.byte	0x40
+ 659 018f 9B000000 		.4byte	0x9b
+ 660 0193 0B       		.uleb128 0xb
+ 661 0194 31000000 		.4byte	.LASF39
+ 662 0198 01       		.byte	0x1
+ 663 0199 40       		.byte	0x40
+ 664 019a 9F010000 		.4byte	0x19f
+ 665 019e 00       		.byte	0
+ 666 019f 05       		.uleb128 0x5
+ 667 01a0 04       		.byte	0x4
+ 668 01a1 9B000000 		.4byte	0x9b
+ 669 01a5 0A       		.uleb128 0xa
+ 670 01a6 01       		.byte	0x1
+ 671 01a7 67020000 		.4byte	.LASF41
+ 672 01ab 01       		.byte	0x1
+ 673 01ac 60       		.byte	0x60
+ 674 01ad 01       		.byte	0x1
+ 675 01ae 01       		.byte	0x1
+ 676 01af D5010000 		.4byte	0x1d5
+ 677 01b3 0B       		.uleb128 0xb
+ 678 01b4 B0000000 		.4byte	.LASF42
+ 679 01b8 01       		.byte	0x1
+ 680 01b9 60       		.byte	0x60
+ 681 01ba 9B000000 		.4byte	0x9b
+ 682 01be 0B       		.uleb128 0xb
+ 683 01bf 82000000 		.4byte	.LASF37
+ 684 01c3 01       		.byte	0x1
+ 685 01c4 60       		.byte	0x60
+ 686 01c5 9B000000 		.4byte	0x9b
+ 687 01c9 0B       		.uleb128 0xb
+ 688 01ca 6E030000 		.4byte	.LASF43
+ 689 01ce 01       		.byte	0x1
+ 690 01cf 60       		.byte	0x60
+ 691 01d0 9B000000 		.4byte	0x9b
+ 692 01d4 00       		.byte	0
+ 693 01d5 0C       		.uleb128 0xc
+ 694 01d6 01       		.byte	0x1
+ 695 01d7 41000000 		.4byte	.LASF70
+ 696 01db 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 19
+
+
+ 697 01dc 22       		.byte	0x22
+ 698 01dd 01       		.byte	0x1
+ 699 01de 9B000000 		.4byte	0x9b
+ 700 01e2 01       		.byte	0x1
+ 701 01e3 14020000 		.4byte	0x214
+ 702 01e7 0B       		.uleb128 0xb
+ 703 01e8 ED000000 		.4byte	.LASF36
+ 704 01ec 01       		.byte	0x1
+ 705 01ed 22       		.byte	0x22
+ 706 01ee 9B000000 		.4byte	0x9b
+ 707 01f2 0B       		.uleb128 0xb
+ 708 01f3 82000000 		.4byte	.LASF37
+ 709 01f7 01       		.byte	0x1
+ 710 01f8 22       		.byte	0x22
+ 711 01f9 9B000000 		.4byte	0x9b
+ 712 01fd 0D       		.uleb128 0xd
+ 713 01fe 3C020000 		.4byte	.LASF44
+ 714 0202 01       		.byte	0x1
+ 715 0203 24       		.byte	0x24
+ 716 0204 9B000000 		.4byte	0x9b
+ 717 0208 0D       		.uleb128 0xd
+ 718 0209 1A000000 		.4byte	.LASF45
+ 719 020d 01       		.byte	0x1
+ 720 020e 25       		.byte	0x25
+ 721 020f 9B000000 		.4byte	0x9b
+ 722 0213 00       		.byte	0
+ 723 0214 0E       		.uleb128 0xe
+ 724 0215 D5010000 		.4byte	0x1d5
+ 725 0219 00000000 		.4byte	.LFB56
+ 726 021d 04000000 		.4byte	.LFE56
+ 727 0221 02       		.byte	0x2
+ 728 0222 7D       		.byte	0x7d
+ 729 0223 00       		.sleb128 0
+ 730 0224 01       		.byte	0x1
+ 731 0225 44020000 		.4byte	0x244
+ 732 0229 0F       		.uleb128 0xf
+ 733 022a E7010000 		.4byte	0x1e7
+ 734 022e 00000000 		.4byte	.LLST0
+ 735 0232 10       		.uleb128 0x10
+ 736 0233 F2010000 		.4byte	0x1f2
+ 737 0237 01       		.byte	0x1
+ 738 0238 51       		.byte	0x51
+ 739 0239 11       		.uleb128 0x11
+ 740 023a FD010000 		.4byte	0x1fd
+ 741 023e 11       		.uleb128 0x11
+ 742 023f 08020000 		.4byte	0x208
+ 743 0243 00       		.byte	0
+ 744 0244 0E       		.uleb128 0xe
+ 745 0245 64010000 		.4byte	0x164
+ 746 0249 00000000 		.4byte	.LFB57
+ 747 024d 02000000 		.4byte	.LFE57
+ 748 0251 02       		.byte	0x2
+ 749 0252 7D       		.byte	0x7d
+ 750 0253 00       		.sleb128 0
+ 751 0254 01       		.byte	0x1
+ 752 0255 76020000 		.4byte	0x276
+ 753 0259 10       		.uleb128 0x10
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 20
+
+
+ 754 025a 72010000 		.4byte	0x172
+ 755 025e 01       		.byte	0x1
+ 756 025f 50       		.byte	0x50
+ 757 0260 10       		.uleb128 0x10
+ 758 0261 7D010000 		.4byte	0x17d
+ 759 0265 01       		.byte	0x1
+ 760 0266 51       		.byte	0x51
+ 761 0267 10       		.uleb128 0x10
+ 762 0268 88010000 		.4byte	0x188
+ 763 026c 01       		.byte	0x1
+ 764 026d 52       		.byte	0x52
+ 765 026e 10       		.uleb128 0x10
+ 766 026f 93010000 		.4byte	0x193
+ 767 0273 01       		.byte	0x1
+ 768 0274 53       		.byte	0x53
+ 769 0275 00       		.byte	0
+ 770 0276 0E       		.uleb128 0xe
+ 771 0277 A5010000 		.4byte	0x1a5
+ 772 027b 00000000 		.4byte	.LFB58
+ 773 027f 02000000 		.4byte	.LFE58
+ 774 0283 02       		.byte	0x2
+ 775 0284 7D       		.byte	0x7d
+ 776 0285 00       		.sleb128 0
+ 777 0286 01       		.byte	0x1
+ 778 0287 A1020000 		.4byte	0x2a1
+ 779 028b 10       		.uleb128 0x10
+ 780 028c B3010000 		.4byte	0x1b3
+ 781 0290 01       		.byte	0x1
+ 782 0291 50       		.byte	0x50
+ 783 0292 10       		.uleb128 0x10
+ 784 0293 BE010000 		.4byte	0x1be
+ 785 0297 01       		.byte	0x1
+ 786 0298 51       		.byte	0x51
+ 787 0299 10       		.uleb128 0x10
+ 788 029a C9010000 		.4byte	0x1c9
+ 789 029e 01       		.byte	0x1
+ 790 029f 52       		.byte	0x52
+ 791 02a0 00       		.byte	0
+ 792 02a1 12       		.uleb128 0x12
+ 793 02a2 01       		.byte	0x1
+ 794 02a3 00000000 		.4byte	.LASF71
+ 795 02a7 01       		.byte	0x1
+ 796 02a8 76       		.byte	0x76
+ 797 02a9 00000000 		.4byte	.LFB59
+ 798 02ad 3C000000 		.4byte	.LFE59
+ 799 02b1 02       		.byte	0x2
+ 800 02b2 7D       		.byte	0x7d
+ 801 02b3 00       		.sleb128 0
+ 802 02b4 01       		.byte	0x1
+ 803 02b5 13       		.uleb128 0x13
+ 804 02b6 01       		.byte	0x1
+ 805 02b7 2C010000 		.4byte	.LASF46
+ 806 02bb 01       		.byte	0x1
+ 807 02bc 8C       		.byte	0x8c
+ 808 02bd 01       		.byte	0x1
+ 809 02be 00000000 		.4byte	.LFB60
+ 810 02c2 30000000 		.4byte	.LFE60
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 21
+
+
+ 811 02c6 21000000 		.4byte	.LLST1
+ 812 02ca 01       		.byte	0x1
+ 813 02cb EB020000 		.4byte	0x2eb
+ 814 02cf 14       		.uleb128 0x14
+ 815 02d0 A7020000 		.4byte	.LASF49
+ 816 02d4 01       		.byte	0x1
+ 817 02d5 8C       		.byte	0x8c
+ 818 02d6 EB020000 		.4byte	0x2eb
+ 819 02da 01       		.byte	0x1
+ 820 02db 50       		.byte	0x50
+ 821 02dc 15       		.uleb128 0x15
+ 822 02dd 92000000 		.4byte	.LASF52
+ 823 02e1 01       		.byte	0x1
+ 824 02e2 8E       		.byte	0x8e
+ 825 02e3 F1020000 		.4byte	0x2f1
+ 826 02e7 02       		.byte	0x2
+ 827 02e8 91       		.byte	0x91
+ 828 02e9 78       		.sleb128 -8
+ 829 02ea 00       		.byte	0
+ 830 02eb 05       		.uleb128 0x5
+ 831 02ec 04       		.byte	0x4
+ 832 02ed 42000000 		.4byte	0x42
+ 833 02f1 16       		.uleb128 0x16
+ 834 02f2 30000000 		.4byte	0x30
+ 835 02f6 01030000 		.4byte	0x301
+ 836 02fa 17       		.uleb128 0x17
+ 837 02fb DC000000 		.4byte	0xdc
+ 838 02ff 05       		.byte	0x5
+ 839 0300 00       		.byte	0
+ 840 0301 13       		.uleb128 0x13
+ 841 0302 01       		.byte	0x1
+ 842 0303 30020000 		.4byte	.LASF47
+ 843 0307 01       		.byte	0x1
+ 844 0308 96       		.byte	0x96
+ 845 0309 01       		.byte	0x1
+ 846 030a 00000000 		.4byte	.LFB61
+ 847 030e 18000000 		.4byte	.LFE61
+ 848 0312 41000000 		.4byte	.LLST2
+ 849 0316 01       		.byte	0x1
+ 850 0317 5E030000 		.4byte	0x35e
+ 851 031b 18       		.uleb128 0x18
+ 852 031c 6300     		.ascii	"c\000"
+ 853 031e 01       		.byte	0x1
+ 854 031f AE       		.byte	0xae
+ 855 0320 30000000 		.4byte	0x30
+ 856 0324 19       		.uleb128 0x19
+ 857 0325 08000000 		.4byte	.LVL7
+ 858 0329 04060000 		.4byte	0x604
+ 859 032d 38030000 		.4byte	0x338
+ 860 0331 1A       		.uleb128 0x1a
+ 861 0332 01       		.byte	0x1
+ 862 0333 50       		.byte	0x50
+ 863 0334 02       		.byte	0x2
+ 864 0335 08       		.byte	0x8
+ 865 0336 64       		.byte	0x64
+ 866 0337 00       		.byte	0
+ 867 0338 19       		.uleb128 0x19
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 22
+
+
+ 868 0339 0E000000 		.4byte	.LVL8
+ 869 033d 04060000 		.4byte	0x604
+ 870 0341 4C030000 		.4byte	0x34c
+ 871 0345 1A       		.uleb128 0x1a
+ 872 0346 01       		.byte	0x1
+ 873 0347 50       		.byte	0x50
+ 874 0348 02       		.byte	0x2
+ 875 0349 08       		.byte	0x8
+ 876 034a C8       		.byte	0xc8
+ 877 034b 00       		.byte	0
+ 878 034c 1B       		.uleb128 0x1b
+ 879 034d 18000000 		.4byte	.LVL9
+ 880 0351 01       		.byte	0x1
+ 881 0352 04060000 		.4byte	0x604
+ 882 0356 1A       		.uleb128 0x1a
+ 883 0357 01       		.byte	0x1
+ 884 0358 50       		.byte	0x50
+ 885 0359 02       		.byte	0x2
+ 886 035a 08       		.byte	0x8
+ 887 035b 64       		.byte	0x64
+ 888 035c 00       		.byte	0
+ 889 035d 00       		.byte	0
+ 890 035e 1C       		.uleb128 0x1c
+ 891 035f 01       		.byte	0x1
+ 892 0360 9A000000 		.4byte	.LASF48
+ 893 0364 01       		.byte	0x1
+ 894 0365 C1       		.byte	0xc1
+ 895 0366 01       		.byte	0x1
+ 896 0367 00000000 		.4byte	.LFB62
+ 897 036b 60000000 		.4byte	.LFE62
+ 898 036f 61000000 		.4byte	.LLST3
+ 899 0373 01       		.byte	0x1
+ 900 0374 3A040000 		.4byte	0x43a
+ 901 0378 1D       		.uleb128 0x1d
+ 902 0379 72000000 		.4byte	.LASF50
+ 903 037d 01       		.byte	0x1
+ 904 037e C1       		.byte	0xc1
+ 905 037f 3A040000 		.4byte	0x43a
+ 906 0383 81000000 		.4byte	.LLST4
+ 907 0387 0D       		.uleb128 0xd
+ 908 0388 62020000 		.4byte	.LASF51
+ 909 038c 01       		.byte	0x1
+ 910 038d C3       		.byte	0xc3
+ 911 038e F1020000 		.4byte	0x2f1
+ 912 0392 1E       		.uleb128 0x1e
+ 913 0393 696900   		.ascii	"ii\000"
+ 914 0396 01       		.byte	0x1
+ 915 0397 C4       		.byte	0xc4
+ 916 0398 54000000 		.4byte	0x54
+ 917 039c 9F000000 		.4byte	.LLST5
+ 918 03a0 1F       		.uleb128 0x1f
+ 919 03a1 65000000 		.4byte	.LASF53
+ 920 03a5 01       		.byte	0x1
+ 921 03a6 C4       		.byte	0xc4
+ 922 03a7 54000000 		.4byte	0x54
+ 923 03ab 80       		.byte	0x80
+ 924 03ac 0D       		.uleb128 0xd
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 23
+
+
+ 925 03ad FA000000 		.4byte	.LASF54
+ 926 03b1 01       		.byte	0x1
+ 927 03b2 C5       		.byte	0xc5
+ 928 03b3 54000000 		.4byte	0x54
+ 929 03b7 20       		.uleb128 0x20
+ 930 03b8 22010000 		.4byte	.LASF55
+ 931 03bc 01       		.byte	0x1
+ 932 03bd C6       		.byte	0xc6
+ 933 03be 40040000 		.4byte	0x440
+ 934 03c2 B3000000 		.4byte	.LLST6
+ 935 03c6 21       		.uleb128 0x21
+ 936 03c7 1C000000 		.4byte	.LBB55
+ 937 03cb 28000000 		.4byte	.LBE55
+ 938 03cf EE030000 		.4byte	0x3ee
+ 939 03d3 0D       		.uleb128 0xd
+ 940 03d4 79020000 		.4byte	.LASF56
+ 941 03d8 01       		.byte	0x1
+ 942 03d9 ED       		.byte	0xed
+ 943 03da 50040000 		.4byte	0x450
+ 944 03de 22       		.uleb128 0x22
+ 945 03df 28000000 		.4byte	.LVL17
+ 946 03e3 04060000 		.4byte	0x604
+ 947 03e7 1A       		.uleb128 0x1a
+ 948 03e8 01       		.byte	0x1
+ 949 03e9 50       		.byte	0x50
+ 950 03ea 01       		.byte	0x1
+ 951 03eb 35       		.byte	0x35
+ 952 03ec 00       		.byte	0
+ 953 03ed 00       		.byte	0
+ 954 03ee 19       		.uleb128 0x19
+ 955 03ef 0A000000 		.4byte	.LVL12
+ 956 03f3 04060000 		.4byte	0x604
+ 957 03f7 02040000 		.4byte	0x402
+ 958 03fb 1A       		.uleb128 0x1a
+ 959 03fc 01       		.byte	0x1
+ 960 03fd 50       		.byte	0x50
+ 961 03fe 02       		.byte	0x2
+ 962 03ff 08       		.byte	0x8
+ 963 0400 64       		.byte	0x64
+ 964 0401 00       		.byte	0
+ 965 0402 19       		.uleb128 0x19
+ 966 0403 10000000 		.4byte	.LVL13
+ 967 0407 04060000 		.4byte	0x604
+ 968 040b 16040000 		.4byte	0x416
+ 969 040f 1A       		.uleb128 0x1a
+ 970 0410 01       		.byte	0x1
+ 971 0411 50       		.byte	0x50
+ 972 0412 02       		.byte	0x2
+ 973 0413 08       		.byte	0x8
+ 974 0414 C8       		.byte	0xc8
+ 975 0415 00       		.byte	0
+ 976 0416 19       		.uleb128 0x19
+ 977 0417 16000000 		.4byte	.LVL14
+ 978 041b 04060000 		.4byte	0x604
+ 979 041f 29040000 		.4byte	0x429
+ 980 0423 1A       		.uleb128 0x1a
+ 981 0424 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 24
+
+
+ 982 0425 50       		.byte	0x50
+ 983 0426 01       		.byte	0x1
+ 984 0427 3F       		.byte	0x3f
+ 985 0428 00       		.byte	0
+ 986 0429 22       		.uleb128 0x22
+ 987 042a 1C000000 		.4byte	.LVL15
+ 988 042e 04060000 		.4byte	0x604
+ 989 0432 1A       		.uleb128 0x1a
+ 990 0433 01       		.byte	0x1
+ 991 0434 50       		.byte	0x50
+ 992 0435 02       		.byte	0x2
+ 993 0436 08       		.byte	0x8
+ 994 0437 64       		.byte	0x64
+ 995 0438 00       		.byte	0
+ 996 0439 00       		.byte	0
+ 997 043a 05       		.uleb128 0x5
+ 998 043b 04       		.byte	0x4
+ 999 043c C7000000 		.4byte	0xc7
+ 1000 0440 16       		.uleb128 0x16
+ 1001 0441 66000000 		.4byte	0x66
+ 1002 0445 50040000 		.4byte	0x450
+ 1003 0449 17       		.uleb128 0x17
+ 1004 044a DC000000 		.4byte	0xdc
+ 1005 044e 02       		.byte	0x2
+ 1006 044f 00       		.byte	0
+ 1007 0450 16       		.uleb128 0x16
+ 1008 0451 42000000 		.4byte	0x42
+ 1009 0455 60040000 		.4byte	0x460
+ 1010 0459 17       		.uleb128 0x17
+ 1011 045a DC000000 		.4byte	0xdc
+ 1012 045e 02       		.byte	0x2
+ 1013 045f 00       		.byte	0
+ 1014 0460 23       		.uleb128 0x23
+ 1015 0461 01       		.byte	0x1
+ 1016 0462 81010000 		.4byte	.LASF57
+ 1017 0466 01       		.byte	0x1
+ 1018 0467 1601     		.2byte	0x116
+ 1019 0469 01       		.byte	0x1
+ 1020 046a 00000000 		.4byte	.LFB63
+ 1021 046e 9C000000 		.4byte	.LFE63
+ 1022 0472 D1000000 		.4byte	.LLST7
+ 1023 0476 01       		.byte	0x1
+ 1024 0477 0E050000 		.4byte	0x50e
+ 1025 047b 24       		.uleb128 0x24
+ 1026 047c B8000000 		.4byte	.LASF58
+ 1027 0480 01       		.byte	0x1
+ 1028 0481 1801     		.2byte	0x118
+ 1029 0483 9B000000 		.4byte	0x9b
+ 1030 0487 F1000000 		.4byte	.LLST8
+ 1031 048b 19       		.uleb128 0x19
+ 1032 048c 0E000000 		.4byte	.LVL26
+ 1033 0490 18060000 		.4byte	0x618
+ 1034 0494 A7040000 		.4byte	0x4a7
+ 1035 0498 1A       		.uleb128 0x1a
+ 1036 0499 01       		.byte	0x1
+ 1037 049a 51       		.byte	0x51
+ 1038 049b 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 25
+
+
+ 1039 049c 30       		.byte	0x30
+ 1040 049d 1A       		.uleb128 0x1a
+ 1041 049e 01       		.byte	0x1
+ 1042 049f 50       		.byte	0x50
+ 1043 04a0 05       		.byte	0x5
+ 1044 04a1 03       		.byte	0x3
+ 1045 04a2 00000000 		.4byte	.LC0
+ 1046 04a6 00       		.byte	0
+ 1047 04a7 19       		.uleb128 0x19
+ 1048 04a8 14000000 		.4byte	.LVL27
+ 1049 04ac 04060000 		.4byte	0x604
+ 1050 04b0 BA040000 		.4byte	0x4ba
+ 1051 04b4 1A       		.uleb128 0x1a
+ 1052 04b5 01       		.byte	0x1
+ 1053 04b6 50       		.byte	0x50
+ 1054 04b7 01       		.byte	0x1
+ 1055 04b8 31       		.byte	0x31
+ 1056 04b9 00       		.byte	0
+ 1057 04ba 25       		.uleb128 0x25
+ 1058 04bb 18000000 		.4byte	.LVL28
+ 1059 04bf 01030000 		.4byte	0x301
+ 1060 04c3 19       		.uleb128 0x19
+ 1061 04c4 1E000000 		.4byte	.LVL29
+ 1062 04c8 5E030000 		.4byte	0x35e
+ 1063 04cc DA040000 		.4byte	0x4da
+ 1064 04d0 1A       		.uleb128 0x1a
+ 1065 04d1 01       		.byte	0x1
+ 1066 04d2 50       		.byte	0x50
+ 1067 04d3 05       		.byte	0x5
+ 1068 04d4 03       		.byte	0x3
+ 1069 04d5 00000000 		.4byte	.LANCHOR1
+ 1070 04d9 00       		.byte	0
+ 1071 04da 25       		.uleb128 0x25
+ 1072 04db 22000000 		.4byte	.LVL30
+ 1073 04df A1020000 		.4byte	0x2a1
+ 1074 04e3 19       		.uleb128 0x19
+ 1075 04e4 3C000000 		.4byte	.LVL33
+ 1076 04e8 18060000 		.4byte	0x618
+ 1077 04ec FA040000 		.4byte	0x4fa
+ 1078 04f0 1A       		.uleb128 0x1a
+ 1079 04f1 01       		.byte	0x1
+ 1080 04f2 50       		.byte	0x50
+ 1081 04f3 05       		.byte	0x5
+ 1082 04f4 03       		.byte	0x3
+ 1083 04f5 2D000000 		.4byte	.LC1
+ 1084 04f9 00       		.byte	0
+ 1085 04fa 22       		.uleb128 0x22
+ 1086 04fb 6E000000 		.4byte	.LVL38
+ 1087 04ff 18060000 		.4byte	0x618
+ 1088 0503 1A       		.uleb128 0x1a
+ 1089 0504 01       		.byte	0x1
+ 1090 0505 50       		.byte	0x50
+ 1091 0506 05       		.byte	0x5
+ 1092 0507 03       		.byte	0x3
+ 1093 0508 59000000 		.4byte	.LC2
+ 1094 050c 00       		.byte	0
+ 1095 050d 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 26
+
+
+ 1096 050e 26       		.uleb128 0x26
+ 1097 050f 78030000 		.4byte	.LASF59
+ 1098 0513 05       		.byte	0x5
+ 1099 0514 1606     		.2byte	0x616
+ 1100 0516 1C050000 		.4byte	0x51c
+ 1101 051a 01       		.byte	0x1
+ 1102 051b 01       		.byte	0x1
+ 1103 051c 27       		.uleb128 0x27
+ 1104 051d 66000000 		.4byte	0x66
+ 1105 0521 28       		.uleb128 0x28
+ 1106 0522 BE000000 		.4byte	.LASF26
+ 1107 0526 01       		.byte	0x1
+ 1108 0527 16       		.byte	0x16
+ 1109 0528 9B000000 		.4byte	0x9b
+ 1110 052c 01       		.byte	0x1
+ 1111 052d 05       		.byte	0x5
+ 1112 052e 03       		.byte	0x3
+ 1113 052f 00000000 		.4byte	Gscale
+ 1114 0533 28       		.uleb128 0x28
+ 1115 0534 05010000 		.4byte	.LASF27
+ 1116 0538 01       		.byte	0x1
+ 1117 0539 17       		.byte	0x17
+ 1118 053a 9B000000 		.4byte	0x9b
+ 1119 053e 01       		.byte	0x1
+ 1120 053f 05       		.byte	0x5
+ 1121 0540 03       		.byte	0x3
+ 1122 0541 00000000 		.4byte	Godr
+ 1123 0545 29       		.uleb128 0x29
+ 1124 0546 47627700 		.ascii	"Gbw\000"
+ 1125 054a 01       		.byte	0x1
+ 1126 054b 18       		.byte	0x18
+ 1127 054c 9B000000 		.4byte	0x9b
+ 1128 0550 01       		.byte	0x1
+ 1129 0551 05       		.byte	0x5
+ 1130 0552 03       		.byte	0x3
+ 1131 0553 00000000 		.4byte	Gbw
+ 1132 0557 28       		.uleb128 0x28
+ 1133 0558 D1000000 		.4byte	.LASF60
+ 1134 055c 01       		.byte	0x1
+ 1135 055d 19       		.byte	0x19
+ 1136 055e C7000000 		.4byte	0xc7
+ 1137 0562 01       		.byte	0x1
+ 1138 0563 05       		.byte	0x5
+ 1139 0564 03       		.byte	0x3
+ 1140 0565 00000000 		.4byte	gRes
+ 1141 0569 16       		.uleb128 0x16
+ 1142 056a BC000000 		.4byte	0xbc
+ 1143 056e 79050000 		.4byte	0x579
+ 1144 0572 17       		.uleb128 0x17
+ 1145 0573 DC000000 		.4byte	0xdc
+ 1146 0577 02       		.byte	0x2
+ 1147 0578 00       		.byte	0
+ 1148 0579 28       		.uleb128 0x28
+ 1149 057a 27000000 		.4byte	.LASF61
+ 1150 057e 01       		.byte	0x1
+ 1151 057f 1B       		.byte	0x1b
+ 1152 0580 69050000 		.4byte	0x569
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 27
+
+
+ 1153 0584 01       		.byte	0x1
+ 1154 0585 05       		.byte	0x5
+ 1155 0586 03       		.byte	0x3
+ 1156 0587 00000000 		.4byte	gyroCount
+ 1157 058b 29       		.uleb128 0x29
+ 1158 058c 677800   		.ascii	"gx\000"
+ 1159 058f 01       		.byte	0x1
+ 1160 0590 1C       		.byte	0x1c
+ 1161 0591 C7000000 		.4byte	0xc7
+ 1162 0595 01       		.byte	0x1
+ 1163 0596 05       		.byte	0x5
+ 1164 0597 03       		.byte	0x3
+ 1165 0598 00000000 		.4byte	gx
+ 1166 059c 29       		.uleb128 0x29
+ 1167 059d 677900   		.ascii	"gy\000"
+ 1168 05a0 01       		.byte	0x1
+ 1169 05a1 1C       		.byte	0x1c
+ 1170 05a2 C7000000 		.4byte	0xc7
+ 1171 05a6 01       		.byte	0x1
+ 1172 05a7 05       		.byte	0x5
+ 1173 05a8 03       		.byte	0x3
+ 1174 05a9 00000000 		.4byte	gy
+ 1175 05ad 29       		.uleb128 0x29
+ 1176 05ae 677A00   		.ascii	"gz\000"
+ 1177 05b1 01       		.byte	0x1
+ 1178 05b2 1C       		.byte	0x1c
+ 1179 05b3 C7000000 		.4byte	0xc7
+ 1180 05b7 01       		.byte	0x1
+ 1181 05b8 05       		.byte	0x5
+ 1182 05b9 03       		.byte	0x3
+ 1183 05ba 00000000 		.4byte	gz
+ 1184 05be 16       		.uleb128 0x16
+ 1185 05bf C7000000 		.4byte	0xc7
+ 1186 05c3 CE050000 		.4byte	0x5ce
+ 1187 05c7 17       		.uleb128 0x17
+ 1188 05c8 DC000000 		.4byte	0xdc
+ 1189 05cc 02       		.byte	0x2
+ 1190 05cd 00       		.byte	0
+ 1191 05ce 28       		.uleb128 0x28
+ 1192 05cf 59030000 		.4byte	.LASF62
+ 1193 05d3 01       		.byte	0x1
+ 1194 05d4 1D       		.byte	0x1d
+ 1195 05d5 BE050000 		.4byte	0x5be
+ 1196 05d9 01       		.byte	0x1
+ 1197 05da 05       		.byte	0x5
+ 1198 05db 03       		.byte	0x3
+ 1199 05dc 00000000 		.4byte	gyroBias
+ 1200 05e0 28       		.uleb128 0x28
+ 1201 05e1 BA020000 		.4byte	.LASF63
+ 1202 05e5 01       		.byte	0x1
+ 1203 05e6 1E       		.byte	0x1e
+ 1204 05e7 C7000000 		.4byte	0xc7
+ 1205 05eb 01       		.byte	0x1
+ 1206 05ec 05       		.byte	0x5
+ 1207 05ed 03       		.byte	0x3
+ 1208 05ee 00000000 		.4byte	temperature
+ 1209 05f2 28       		.uleb128 0x28
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 28
+
+
+ 1210 05f3 11010000 		.4byte	.LASF64
+ 1211 05f7 01       		.byte	0x1
+ 1212 05f8 20       		.byte	0x20
+ 1213 05f9 9B000000 		.4byte	0x9b
+ 1214 05fd 01       		.byte	0x1
+ 1215 05fe 05       		.byte	0x5
+ 1216 05ff 03       		.byte	0x3
+ 1217 0600 00000000 		.4byte	dummy
+ 1218 0604 2A       		.uleb128 0x2a
+ 1219 0605 01       		.byte	0x1
+ 1220 0606 85030000 		.4byte	.LASF65
+ 1221 060a 06       		.byte	0x6
+ 1222 060b 77       		.byte	0x77
+ 1223 060c 01       		.byte	0x1
+ 1224 060d 01       		.byte	0x1
+ 1225 060e 18060000 		.4byte	0x618
+ 1226 0612 2B       		.uleb128 0x2b
+ 1227 0613 B1000000 		.4byte	0xb1
+ 1228 0617 00       		.byte	0
+ 1229 0618 2C       		.uleb128 0x2c
+ 1230 0619 01       		.byte	0x1
+ 1231 061a 0A010000 		.4byte	.LASF66
+ 1232 061e 07       		.byte	0x7
+ 1233 061f B6       		.byte	0xb6
+ 1234 0620 01       		.byte	0x1
+ 1235 0621 8D000000 		.4byte	0x8d
+ 1236 0625 01       		.byte	0x1
+ 1237 0626 2B       		.uleb128 0x2b
+ 1238 0627 E3000000 		.4byte	0xe3
+ 1239 062b 2D       		.uleb128 0x2d
+ 1240 062c 00       		.byte	0
+ 1241 062d 00       		.byte	0
+ 1242              		.section	.debug_abbrev,"",%progbits
+ 1243              	.Ldebug_abbrev0:
+ 1244 0000 01       		.uleb128 0x1
+ 1245 0001 11       		.uleb128 0x11
+ 1246 0002 01       		.byte	0x1
+ 1247 0003 25       		.uleb128 0x25
+ 1248 0004 0E       		.uleb128 0xe
+ 1249 0005 13       		.uleb128 0x13
+ 1250 0006 0B       		.uleb128 0xb
+ 1251 0007 03       		.uleb128 0x3
+ 1252 0008 0E       		.uleb128 0xe
+ 1253 0009 1B       		.uleb128 0x1b
+ 1254 000a 0E       		.uleb128 0xe
+ 1255 000b 55       		.uleb128 0x55
+ 1256 000c 06       		.uleb128 0x6
+ 1257 000d 11       		.uleb128 0x11
+ 1258 000e 01       		.uleb128 0x1
+ 1259 000f 52       		.uleb128 0x52
+ 1260 0010 01       		.uleb128 0x1
+ 1261 0011 10       		.uleb128 0x10
+ 1262 0012 06       		.uleb128 0x6
+ 1263 0013 00       		.byte	0
+ 1264 0014 00       		.byte	0
+ 1265 0015 02       		.uleb128 0x2
+ 1266 0016 24       		.uleb128 0x24
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 29
+
+
+ 1267 0017 00       		.byte	0
+ 1268 0018 0B       		.uleb128 0xb
+ 1269 0019 0B       		.uleb128 0xb
+ 1270 001a 3E       		.uleb128 0x3e
+ 1271 001b 0B       		.uleb128 0xb
+ 1272 001c 03       		.uleb128 0x3
+ 1273 001d 0E       		.uleb128 0xe
+ 1274 001e 00       		.byte	0
+ 1275 001f 00       		.byte	0
+ 1276 0020 03       		.uleb128 0x3
+ 1277 0021 16       		.uleb128 0x16
+ 1278 0022 00       		.byte	0
+ 1279 0023 03       		.uleb128 0x3
+ 1280 0024 0E       		.uleb128 0xe
+ 1281 0025 3A       		.uleb128 0x3a
+ 1282 0026 0B       		.uleb128 0xb
+ 1283 0027 3B       		.uleb128 0x3b
+ 1284 0028 0B       		.uleb128 0xb
+ 1285 0029 49       		.uleb128 0x49
+ 1286 002a 13       		.uleb128 0x13
+ 1287 002b 00       		.byte	0
+ 1288 002c 00       		.byte	0
+ 1289 002d 04       		.uleb128 0x4
+ 1290 002e 24       		.uleb128 0x24
+ 1291 002f 00       		.byte	0
+ 1292 0030 0B       		.uleb128 0xb
+ 1293 0031 0B       		.uleb128 0xb
+ 1294 0032 3E       		.uleb128 0x3e
+ 1295 0033 0B       		.uleb128 0xb
+ 1296 0034 03       		.uleb128 0x3
+ 1297 0035 08       		.uleb128 0x8
+ 1298 0036 00       		.byte	0
+ 1299 0037 00       		.byte	0
+ 1300 0038 05       		.uleb128 0x5
+ 1301 0039 0F       		.uleb128 0xf
+ 1302 003a 00       		.byte	0
+ 1303 003b 0B       		.uleb128 0xb
+ 1304 003c 0B       		.uleb128 0xb
+ 1305 003d 49       		.uleb128 0x49
+ 1306 003e 13       		.uleb128 0x13
+ 1307 003f 00       		.byte	0
+ 1308 0040 00       		.byte	0
+ 1309 0041 06       		.uleb128 0x6
+ 1310 0042 26       		.uleb128 0x26
+ 1311 0043 00       		.byte	0
+ 1312 0044 49       		.uleb128 0x49
+ 1313 0045 13       		.uleb128 0x13
+ 1314 0046 00       		.byte	0
+ 1315 0047 00       		.byte	0
+ 1316 0048 07       		.uleb128 0x7
+ 1317 0049 04       		.uleb128 0x4
+ 1318 004a 01       		.byte	0x1
+ 1319 004b 03       		.uleb128 0x3
+ 1320 004c 0E       		.uleb128 0xe
+ 1321 004d 0B       		.uleb128 0xb
+ 1322 004e 0B       		.uleb128 0xb
+ 1323 004f 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 30
+
+
+ 1324 0050 0B       		.uleb128 0xb
+ 1325 0051 3B       		.uleb128 0x3b
+ 1326 0052 0B       		.uleb128 0xb
+ 1327 0053 01       		.uleb128 0x1
+ 1328 0054 13       		.uleb128 0x13
+ 1329 0055 00       		.byte	0
+ 1330 0056 00       		.byte	0
+ 1331 0057 08       		.uleb128 0x8
+ 1332 0058 28       		.uleb128 0x28
+ 1333 0059 00       		.byte	0
+ 1334 005a 03       		.uleb128 0x3
+ 1335 005b 0E       		.uleb128 0xe
+ 1336 005c 1C       		.uleb128 0x1c
+ 1337 005d 0D       		.uleb128 0xd
+ 1338 005e 00       		.byte	0
+ 1339 005f 00       		.byte	0
+ 1340 0060 09       		.uleb128 0x9
+ 1341 0061 04       		.uleb128 0x4
+ 1342 0062 01       		.byte	0x1
+ 1343 0063 03       		.uleb128 0x3
+ 1344 0064 08       		.uleb128 0x8
+ 1345 0065 0B       		.uleb128 0xb
+ 1346 0066 0B       		.uleb128 0xb
+ 1347 0067 3A       		.uleb128 0x3a
+ 1348 0068 0B       		.uleb128 0xb
+ 1349 0069 3B       		.uleb128 0x3b
+ 1350 006a 0B       		.uleb128 0xb
+ 1351 006b 01       		.uleb128 0x1
+ 1352 006c 13       		.uleb128 0x13
+ 1353 006d 00       		.byte	0
+ 1354 006e 00       		.byte	0
+ 1355 006f 0A       		.uleb128 0xa
+ 1356 0070 2E       		.uleb128 0x2e
+ 1357 0071 01       		.byte	0x1
+ 1358 0072 3F       		.uleb128 0x3f
+ 1359 0073 0C       		.uleb128 0xc
+ 1360 0074 03       		.uleb128 0x3
+ 1361 0075 0E       		.uleb128 0xe
+ 1362 0076 3A       		.uleb128 0x3a
+ 1363 0077 0B       		.uleb128 0xb
+ 1364 0078 3B       		.uleb128 0x3b
+ 1365 0079 0B       		.uleb128 0xb
+ 1366 007a 27       		.uleb128 0x27
+ 1367 007b 0C       		.uleb128 0xc
+ 1368 007c 20       		.uleb128 0x20
+ 1369 007d 0B       		.uleb128 0xb
+ 1370 007e 01       		.uleb128 0x1
+ 1371 007f 13       		.uleb128 0x13
+ 1372 0080 00       		.byte	0
+ 1373 0081 00       		.byte	0
+ 1374 0082 0B       		.uleb128 0xb
+ 1375 0083 05       		.uleb128 0x5
+ 1376 0084 00       		.byte	0
+ 1377 0085 03       		.uleb128 0x3
+ 1378 0086 0E       		.uleb128 0xe
+ 1379 0087 3A       		.uleb128 0x3a
+ 1380 0088 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 31
+
+
+ 1381 0089 3B       		.uleb128 0x3b
+ 1382 008a 0B       		.uleb128 0xb
+ 1383 008b 49       		.uleb128 0x49
+ 1384 008c 13       		.uleb128 0x13
+ 1385 008d 00       		.byte	0
+ 1386 008e 00       		.byte	0
+ 1387 008f 0C       		.uleb128 0xc
+ 1388 0090 2E       		.uleb128 0x2e
+ 1389 0091 01       		.byte	0x1
+ 1390 0092 3F       		.uleb128 0x3f
+ 1391 0093 0C       		.uleb128 0xc
+ 1392 0094 03       		.uleb128 0x3
+ 1393 0095 0E       		.uleb128 0xe
+ 1394 0096 3A       		.uleb128 0x3a
+ 1395 0097 0B       		.uleb128 0xb
+ 1396 0098 3B       		.uleb128 0x3b
+ 1397 0099 0B       		.uleb128 0xb
+ 1398 009a 27       		.uleb128 0x27
+ 1399 009b 0C       		.uleb128 0xc
+ 1400 009c 49       		.uleb128 0x49
+ 1401 009d 13       		.uleb128 0x13
+ 1402 009e 20       		.uleb128 0x20
+ 1403 009f 0B       		.uleb128 0xb
+ 1404 00a0 01       		.uleb128 0x1
+ 1405 00a1 13       		.uleb128 0x13
+ 1406 00a2 00       		.byte	0
+ 1407 00a3 00       		.byte	0
+ 1408 00a4 0D       		.uleb128 0xd
+ 1409 00a5 34       		.uleb128 0x34
+ 1410 00a6 00       		.byte	0
+ 1411 00a7 03       		.uleb128 0x3
+ 1412 00a8 0E       		.uleb128 0xe
+ 1413 00a9 3A       		.uleb128 0x3a
+ 1414 00aa 0B       		.uleb128 0xb
+ 1415 00ab 3B       		.uleb128 0x3b
+ 1416 00ac 0B       		.uleb128 0xb
+ 1417 00ad 49       		.uleb128 0x49
+ 1418 00ae 13       		.uleb128 0x13
+ 1419 00af 00       		.byte	0
+ 1420 00b0 00       		.byte	0
+ 1421 00b1 0E       		.uleb128 0xe
+ 1422 00b2 2E       		.uleb128 0x2e
+ 1423 00b3 01       		.byte	0x1
+ 1424 00b4 31       		.uleb128 0x31
+ 1425 00b5 13       		.uleb128 0x13
+ 1426 00b6 11       		.uleb128 0x11
+ 1427 00b7 01       		.uleb128 0x1
+ 1428 00b8 12       		.uleb128 0x12
+ 1429 00b9 01       		.uleb128 0x1
+ 1430 00ba 40       		.uleb128 0x40
+ 1431 00bb 0A       		.uleb128 0xa
+ 1432 00bc 9742     		.uleb128 0x2117
+ 1433 00be 0C       		.uleb128 0xc
+ 1434 00bf 01       		.uleb128 0x1
+ 1435 00c0 13       		.uleb128 0x13
+ 1436 00c1 00       		.byte	0
+ 1437 00c2 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 32
+
+
+ 1438 00c3 0F       		.uleb128 0xf
+ 1439 00c4 05       		.uleb128 0x5
+ 1440 00c5 00       		.byte	0
+ 1441 00c6 31       		.uleb128 0x31
+ 1442 00c7 13       		.uleb128 0x13
+ 1443 00c8 02       		.uleb128 0x2
+ 1444 00c9 06       		.uleb128 0x6
+ 1445 00ca 00       		.byte	0
+ 1446 00cb 00       		.byte	0
+ 1447 00cc 10       		.uleb128 0x10
+ 1448 00cd 05       		.uleb128 0x5
+ 1449 00ce 00       		.byte	0
+ 1450 00cf 31       		.uleb128 0x31
+ 1451 00d0 13       		.uleb128 0x13
+ 1452 00d1 02       		.uleb128 0x2
+ 1453 00d2 0A       		.uleb128 0xa
+ 1454 00d3 00       		.byte	0
+ 1455 00d4 00       		.byte	0
+ 1456 00d5 11       		.uleb128 0x11
+ 1457 00d6 34       		.uleb128 0x34
+ 1458 00d7 00       		.byte	0
+ 1459 00d8 31       		.uleb128 0x31
+ 1460 00d9 13       		.uleb128 0x13
+ 1461 00da 00       		.byte	0
+ 1462 00db 00       		.byte	0
+ 1463 00dc 12       		.uleb128 0x12
+ 1464 00dd 2E       		.uleb128 0x2e
+ 1465 00de 00       		.byte	0
+ 1466 00df 3F       		.uleb128 0x3f
+ 1467 00e0 0C       		.uleb128 0xc
+ 1468 00e1 03       		.uleb128 0x3
+ 1469 00e2 0E       		.uleb128 0xe
+ 1470 00e3 3A       		.uleb128 0x3a
+ 1471 00e4 0B       		.uleb128 0xb
+ 1472 00e5 3B       		.uleb128 0x3b
+ 1473 00e6 0B       		.uleb128 0xb
+ 1474 00e7 11       		.uleb128 0x11
+ 1475 00e8 01       		.uleb128 0x1
+ 1476 00e9 12       		.uleb128 0x12
+ 1477 00ea 01       		.uleb128 0x1
+ 1478 00eb 40       		.uleb128 0x40
+ 1479 00ec 0A       		.uleb128 0xa
+ 1480 00ed 9742     		.uleb128 0x2117
+ 1481 00ef 0C       		.uleb128 0xc
+ 1482 00f0 00       		.byte	0
+ 1483 00f1 00       		.byte	0
+ 1484 00f2 13       		.uleb128 0x13
+ 1485 00f3 2E       		.uleb128 0x2e
+ 1486 00f4 01       		.byte	0x1
+ 1487 00f5 3F       		.uleb128 0x3f
+ 1488 00f6 0C       		.uleb128 0xc
+ 1489 00f7 03       		.uleb128 0x3
+ 1490 00f8 0E       		.uleb128 0xe
+ 1491 00f9 3A       		.uleb128 0x3a
+ 1492 00fa 0B       		.uleb128 0xb
+ 1493 00fb 3B       		.uleb128 0x3b
+ 1494 00fc 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 33
+
+
+ 1495 00fd 27       		.uleb128 0x27
+ 1496 00fe 0C       		.uleb128 0xc
+ 1497 00ff 11       		.uleb128 0x11
+ 1498 0100 01       		.uleb128 0x1
+ 1499 0101 12       		.uleb128 0x12
+ 1500 0102 01       		.uleb128 0x1
+ 1501 0103 40       		.uleb128 0x40
+ 1502 0104 06       		.uleb128 0x6
+ 1503 0105 9742     		.uleb128 0x2117
+ 1504 0107 0C       		.uleb128 0xc
+ 1505 0108 01       		.uleb128 0x1
+ 1506 0109 13       		.uleb128 0x13
+ 1507 010a 00       		.byte	0
+ 1508 010b 00       		.byte	0
+ 1509 010c 14       		.uleb128 0x14
+ 1510 010d 05       		.uleb128 0x5
+ 1511 010e 00       		.byte	0
+ 1512 010f 03       		.uleb128 0x3
+ 1513 0110 0E       		.uleb128 0xe
+ 1514 0111 3A       		.uleb128 0x3a
+ 1515 0112 0B       		.uleb128 0xb
+ 1516 0113 3B       		.uleb128 0x3b
+ 1517 0114 0B       		.uleb128 0xb
+ 1518 0115 49       		.uleb128 0x49
+ 1519 0116 13       		.uleb128 0x13
+ 1520 0117 02       		.uleb128 0x2
+ 1521 0118 0A       		.uleb128 0xa
+ 1522 0119 00       		.byte	0
+ 1523 011a 00       		.byte	0
+ 1524 011b 15       		.uleb128 0x15
+ 1525 011c 34       		.uleb128 0x34
+ 1526 011d 00       		.byte	0
+ 1527 011e 03       		.uleb128 0x3
+ 1528 011f 0E       		.uleb128 0xe
+ 1529 0120 3A       		.uleb128 0x3a
+ 1530 0121 0B       		.uleb128 0xb
+ 1531 0122 3B       		.uleb128 0x3b
+ 1532 0123 0B       		.uleb128 0xb
+ 1533 0124 49       		.uleb128 0x49
+ 1534 0125 13       		.uleb128 0x13
+ 1535 0126 02       		.uleb128 0x2
+ 1536 0127 0A       		.uleb128 0xa
+ 1537 0128 00       		.byte	0
+ 1538 0129 00       		.byte	0
+ 1539 012a 16       		.uleb128 0x16
+ 1540 012b 01       		.uleb128 0x1
+ 1541 012c 01       		.byte	0x1
+ 1542 012d 49       		.uleb128 0x49
+ 1543 012e 13       		.uleb128 0x13
+ 1544 012f 01       		.uleb128 0x1
+ 1545 0130 13       		.uleb128 0x13
+ 1546 0131 00       		.byte	0
+ 1547 0132 00       		.byte	0
+ 1548 0133 17       		.uleb128 0x17
+ 1549 0134 21       		.uleb128 0x21
+ 1550 0135 00       		.byte	0
+ 1551 0136 49       		.uleb128 0x49
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 34
+
+
+ 1552 0137 13       		.uleb128 0x13
+ 1553 0138 2F       		.uleb128 0x2f
+ 1554 0139 0B       		.uleb128 0xb
+ 1555 013a 00       		.byte	0
+ 1556 013b 00       		.byte	0
+ 1557 013c 18       		.uleb128 0x18
+ 1558 013d 34       		.uleb128 0x34
+ 1559 013e 00       		.byte	0
+ 1560 013f 03       		.uleb128 0x3
+ 1561 0140 08       		.uleb128 0x8
+ 1562 0141 3A       		.uleb128 0x3a
+ 1563 0142 0B       		.uleb128 0xb
+ 1564 0143 3B       		.uleb128 0x3b
+ 1565 0144 0B       		.uleb128 0xb
+ 1566 0145 49       		.uleb128 0x49
+ 1567 0146 13       		.uleb128 0x13
+ 1568 0147 00       		.byte	0
+ 1569 0148 00       		.byte	0
+ 1570 0149 19       		.uleb128 0x19
+ 1571 014a 898201   		.uleb128 0x4109
+ 1572 014d 01       		.byte	0x1
+ 1573 014e 11       		.uleb128 0x11
+ 1574 014f 01       		.uleb128 0x1
+ 1575 0150 31       		.uleb128 0x31
+ 1576 0151 13       		.uleb128 0x13
+ 1577 0152 01       		.uleb128 0x1
+ 1578 0153 13       		.uleb128 0x13
+ 1579 0154 00       		.byte	0
+ 1580 0155 00       		.byte	0
+ 1581 0156 1A       		.uleb128 0x1a
+ 1582 0157 8A8201   		.uleb128 0x410a
+ 1583 015a 00       		.byte	0
+ 1584 015b 02       		.uleb128 0x2
+ 1585 015c 0A       		.uleb128 0xa
+ 1586 015d 9142     		.uleb128 0x2111
+ 1587 015f 0A       		.uleb128 0xa
+ 1588 0160 00       		.byte	0
+ 1589 0161 00       		.byte	0
+ 1590 0162 1B       		.uleb128 0x1b
+ 1591 0163 898201   		.uleb128 0x4109
+ 1592 0166 01       		.byte	0x1
+ 1593 0167 11       		.uleb128 0x11
+ 1594 0168 01       		.uleb128 0x1
+ 1595 0169 9542     		.uleb128 0x2115
+ 1596 016b 0C       		.uleb128 0xc
+ 1597 016c 31       		.uleb128 0x31
+ 1598 016d 13       		.uleb128 0x13
+ 1599 016e 00       		.byte	0
+ 1600 016f 00       		.byte	0
+ 1601 0170 1C       		.uleb128 0x1c
+ 1602 0171 2E       		.uleb128 0x2e
+ 1603 0172 01       		.byte	0x1
+ 1604 0173 3F       		.uleb128 0x3f
+ 1605 0174 0C       		.uleb128 0xc
+ 1606 0175 03       		.uleb128 0x3
+ 1607 0176 0E       		.uleb128 0xe
+ 1608 0177 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 35
+
+
+ 1609 0178 0B       		.uleb128 0xb
+ 1610 0179 3B       		.uleb128 0x3b
+ 1611 017a 0B       		.uleb128 0xb
+ 1612 017b 27       		.uleb128 0x27
+ 1613 017c 0C       		.uleb128 0xc
+ 1614 017d 11       		.uleb128 0x11
+ 1615 017e 01       		.uleb128 0x1
+ 1616 017f 12       		.uleb128 0x12
+ 1617 0180 01       		.uleb128 0x1
+ 1618 0181 40       		.uleb128 0x40
+ 1619 0182 06       		.uleb128 0x6
+ 1620 0183 9642     		.uleb128 0x2116
+ 1621 0185 0C       		.uleb128 0xc
+ 1622 0186 01       		.uleb128 0x1
+ 1623 0187 13       		.uleb128 0x13
+ 1624 0188 00       		.byte	0
+ 1625 0189 00       		.byte	0
+ 1626 018a 1D       		.uleb128 0x1d
+ 1627 018b 05       		.uleb128 0x5
+ 1628 018c 00       		.byte	0
+ 1629 018d 03       		.uleb128 0x3
+ 1630 018e 0E       		.uleb128 0xe
+ 1631 018f 3A       		.uleb128 0x3a
+ 1632 0190 0B       		.uleb128 0xb
+ 1633 0191 3B       		.uleb128 0x3b
+ 1634 0192 0B       		.uleb128 0xb
+ 1635 0193 49       		.uleb128 0x49
+ 1636 0194 13       		.uleb128 0x13
+ 1637 0195 02       		.uleb128 0x2
+ 1638 0196 06       		.uleb128 0x6
+ 1639 0197 00       		.byte	0
+ 1640 0198 00       		.byte	0
+ 1641 0199 1E       		.uleb128 0x1e
+ 1642 019a 34       		.uleb128 0x34
+ 1643 019b 00       		.byte	0
+ 1644 019c 03       		.uleb128 0x3
+ 1645 019d 08       		.uleb128 0x8
+ 1646 019e 3A       		.uleb128 0x3a
+ 1647 019f 0B       		.uleb128 0xb
+ 1648 01a0 3B       		.uleb128 0x3b
+ 1649 01a1 0B       		.uleb128 0xb
+ 1650 01a2 49       		.uleb128 0x49
+ 1651 01a3 13       		.uleb128 0x13
+ 1652 01a4 02       		.uleb128 0x2
+ 1653 01a5 06       		.uleb128 0x6
+ 1654 01a6 00       		.byte	0
+ 1655 01a7 00       		.byte	0
+ 1656 01a8 1F       		.uleb128 0x1f
+ 1657 01a9 34       		.uleb128 0x34
+ 1658 01aa 00       		.byte	0
+ 1659 01ab 03       		.uleb128 0x3
+ 1660 01ac 0E       		.uleb128 0xe
+ 1661 01ad 3A       		.uleb128 0x3a
+ 1662 01ae 0B       		.uleb128 0xb
+ 1663 01af 3B       		.uleb128 0x3b
+ 1664 01b0 0B       		.uleb128 0xb
+ 1665 01b1 49       		.uleb128 0x49
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 36
+
+
+ 1666 01b2 13       		.uleb128 0x13
+ 1667 01b3 1C       		.uleb128 0x1c
+ 1668 01b4 0B       		.uleb128 0xb
+ 1669 01b5 00       		.byte	0
+ 1670 01b6 00       		.byte	0
+ 1671 01b7 20       		.uleb128 0x20
+ 1672 01b8 34       		.uleb128 0x34
+ 1673 01b9 00       		.byte	0
+ 1674 01ba 03       		.uleb128 0x3
+ 1675 01bb 0E       		.uleb128 0xe
+ 1676 01bc 3A       		.uleb128 0x3a
+ 1677 01bd 0B       		.uleb128 0xb
+ 1678 01be 3B       		.uleb128 0x3b
+ 1679 01bf 0B       		.uleb128 0xb
+ 1680 01c0 49       		.uleb128 0x49
+ 1681 01c1 13       		.uleb128 0x13
+ 1682 01c2 02       		.uleb128 0x2
+ 1683 01c3 06       		.uleb128 0x6
+ 1684 01c4 00       		.byte	0
+ 1685 01c5 00       		.byte	0
+ 1686 01c6 21       		.uleb128 0x21
+ 1687 01c7 0B       		.uleb128 0xb
+ 1688 01c8 01       		.byte	0x1
+ 1689 01c9 11       		.uleb128 0x11
+ 1690 01ca 01       		.uleb128 0x1
+ 1691 01cb 12       		.uleb128 0x12
+ 1692 01cc 01       		.uleb128 0x1
+ 1693 01cd 01       		.uleb128 0x1
+ 1694 01ce 13       		.uleb128 0x13
+ 1695 01cf 00       		.byte	0
+ 1696 01d0 00       		.byte	0
+ 1697 01d1 22       		.uleb128 0x22
+ 1698 01d2 898201   		.uleb128 0x4109
+ 1699 01d5 01       		.byte	0x1
+ 1700 01d6 11       		.uleb128 0x11
+ 1701 01d7 01       		.uleb128 0x1
+ 1702 01d8 31       		.uleb128 0x31
+ 1703 01d9 13       		.uleb128 0x13
+ 1704 01da 00       		.byte	0
+ 1705 01db 00       		.byte	0
+ 1706 01dc 23       		.uleb128 0x23
+ 1707 01dd 2E       		.uleb128 0x2e
+ 1708 01de 01       		.byte	0x1
+ 1709 01df 3F       		.uleb128 0x3f
+ 1710 01e0 0C       		.uleb128 0xc
+ 1711 01e1 03       		.uleb128 0x3
+ 1712 01e2 0E       		.uleb128 0xe
+ 1713 01e3 3A       		.uleb128 0x3a
+ 1714 01e4 0B       		.uleb128 0xb
+ 1715 01e5 3B       		.uleb128 0x3b
+ 1716 01e6 05       		.uleb128 0x5
+ 1717 01e7 27       		.uleb128 0x27
+ 1718 01e8 0C       		.uleb128 0xc
+ 1719 01e9 11       		.uleb128 0x11
+ 1720 01ea 01       		.uleb128 0x1
+ 1721 01eb 12       		.uleb128 0x12
+ 1722 01ec 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 37
+
+
+ 1723 01ed 40       		.uleb128 0x40
+ 1724 01ee 06       		.uleb128 0x6
+ 1725 01ef 9642     		.uleb128 0x2116
+ 1726 01f1 0C       		.uleb128 0xc
+ 1727 01f2 01       		.uleb128 0x1
+ 1728 01f3 13       		.uleb128 0x13
+ 1729 01f4 00       		.byte	0
+ 1730 01f5 00       		.byte	0
+ 1731 01f6 24       		.uleb128 0x24
+ 1732 01f7 34       		.uleb128 0x34
+ 1733 01f8 00       		.byte	0
+ 1734 01f9 03       		.uleb128 0x3
+ 1735 01fa 0E       		.uleb128 0xe
+ 1736 01fb 3A       		.uleb128 0x3a
+ 1737 01fc 0B       		.uleb128 0xb
+ 1738 01fd 3B       		.uleb128 0x3b
+ 1739 01fe 05       		.uleb128 0x5
+ 1740 01ff 49       		.uleb128 0x49
+ 1741 0200 13       		.uleb128 0x13
+ 1742 0201 02       		.uleb128 0x2
+ 1743 0202 06       		.uleb128 0x6
+ 1744 0203 00       		.byte	0
+ 1745 0204 00       		.byte	0
+ 1746 0205 25       		.uleb128 0x25
+ 1747 0206 898201   		.uleb128 0x4109
+ 1748 0209 00       		.byte	0
+ 1749 020a 11       		.uleb128 0x11
+ 1750 020b 01       		.uleb128 0x1
+ 1751 020c 31       		.uleb128 0x31
+ 1752 020d 13       		.uleb128 0x13
+ 1753 020e 00       		.byte	0
+ 1754 020f 00       		.byte	0
+ 1755 0210 26       		.uleb128 0x26
+ 1756 0211 34       		.uleb128 0x34
+ 1757 0212 00       		.byte	0
+ 1758 0213 03       		.uleb128 0x3
+ 1759 0214 0E       		.uleb128 0xe
+ 1760 0215 3A       		.uleb128 0x3a
+ 1761 0216 0B       		.uleb128 0xb
+ 1762 0217 3B       		.uleb128 0x3b
+ 1763 0218 05       		.uleb128 0x5
+ 1764 0219 49       		.uleb128 0x49
+ 1765 021a 13       		.uleb128 0x13
+ 1766 021b 3F       		.uleb128 0x3f
+ 1767 021c 0C       		.uleb128 0xc
+ 1768 021d 3C       		.uleb128 0x3c
+ 1769 021e 0C       		.uleb128 0xc
+ 1770 021f 00       		.byte	0
+ 1771 0220 00       		.byte	0
+ 1772 0221 27       		.uleb128 0x27
+ 1773 0222 35       		.uleb128 0x35
+ 1774 0223 00       		.byte	0
+ 1775 0224 49       		.uleb128 0x49
+ 1776 0225 13       		.uleb128 0x13
+ 1777 0226 00       		.byte	0
+ 1778 0227 00       		.byte	0
+ 1779 0228 28       		.uleb128 0x28
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 38
+
+
+ 1780 0229 34       		.uleb128 0x34
+ 1781 022a 00       		.byte	0
+ 1782 022b 03       		.uleb128 0x3
+ 1783 022c 0E       		.uleb128 0xe
+ 1784 022d 3A       		.uleb128 0x3a
+ 1785 022e 0B       		.uleb128 0xb
+ 1786 022f 3B       		.uleb128 0x3b
+ 1787 0230 0B       		.uleb128 0xb
+ 1788 0231 49       		.uleb128 0x49
+ 1789 0232 13       		.uleb128 0x13
+ 1790 0233 3F       		.uleb128 0x3f
+ 1791 0234 0C       		.uleb128 0xc
+ 1792 0235 02       		.uleb128 0x2
+ 1793 0236 0A       		.uleb128 0xa
+ 1794 0237 00       		.byte	0
+ 1795 0238 00       		.byte	0
+ 1796 0239 29       		.uleb128 0x29
+ 1797 023a 34       		.uleb128 0x34
+ 1798 023b 00       		.byte	0
+ 1799 023c 03       		.uleb128 0x3
+ 1800 023d 08       		.uleb128 0x8
+ 1801 023e 3A       		.uleb128 0x3a
+ 1802 023f 0B       		.uleb128 0xb
+ 1803 0240 3B       		.uleb128 0x3b
+ 1804 0241 0B       		.uleb128 0xb
+ 1805 0242 49       		.uleb128 0x49
+ 1806 0243 13       		.uleb128 0x13
+ 1807 0244 3F       		.uleb128 0x3f
+ 1808 0245 0C       		.uleb128 0xc
+ 1809 0246 02       		.uleb128 0x2
+ 1810 0247 0A       		.uleb128 0xa
+ 1811 0248 00       		.byte	0
+ 1812 0249 00       		.byte	0
+ 1813 024a 2A       		.uleb128 0x2a
+ 1814 024b 2E       		.uleb128 0x2e
+ 1815 024c 01       		.byte	0x1
+ 1816 024d 3F       		.uleb128 0x3f
+ 1817 024e 0C       		.uleb128 0xc
+ 1818 024f 03       		.uleb128 0x3
+ 1819 0250 0E       		.uleb128 0xe
+ 1820 0251 3A       		.uleb128 0x3a
+ 1821 0252 0B       		.uleb128 0xb
+ 1822 0253 3B       		.uleb128 0x3b
+ 1823 0254 0B       		.uleb128 0xb
+ 1824 0255 27       		.uleb128 0x27
+ 1825 0256 0C       		.uleb128 0xc
+ 1826 0257 3C       		.uleb128 0x3c
+ 1827 0258 0C       		.uleb128 0xc
+ 1828 0259 01       		.uleb128 0x1
+ 1829 025a 13       		.uleb128 0x13
+ 1830 025b 00       		.byte	0
+ 1831 025c 00       		.byte	0
+ 1832 025d 2B       		.uleb128 0x2b
+ 1833 025e 05       		.uleb128 0x5
+ 1834 025f 00       		.byte	0
+ 1835 0260 49       		.uleb128 0x49
+ 1836 0261 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 39
+
+
+ 1837 0262 00       		.byte	0
+ 1838 0263 00       		.byte	0
+ 1839 0264 2C       		.uleb128 0x2c
+ 1840 0265 2E       		.uleb128 0x2e
+ 1841 0266 01       		.byte	0x1
+ 1842 0267 3F       		.uleb128 0x3f
+ 1843 0268 0C       		.uleb128 0xc
+ 1844 0269 03       		.uleb128 0x3
+ 1845 026a 0E       		.uleb128 0xe
+ 1846 026b 3A       		.uleb128 0x3a
+ 1847 026c 0B       		.uleb128 0xb
+ 1848 026d 3B       		.uleb128 0x3b
+ 1849 026e 0B       		.uleb128 0xb
+ 1850 026f 27       		.uleb128 0x27
+ 1851 0270 0C       		.uleb128 0xc
+ 1852 0271 49       		.uleb128 0x49
+ 1853 0272 13       		.uleb128 0x13
+ 1854 0273 3C       		.uleb128 0x3c
+ 1855 0274 0C       		.uleb128 0xc
+ 1856 0275 00       		.byte	0
+ 1857 0276 00       		.byte	0
+ 1858 0277 2D       		.uleb128 0x2d
+ 1859 0278 18       		.uleb128 0x18
+ 1860 0279 00       		.byte	0
+ 1861 027a 00       		.byte	0
+ 1862 027b 00       		.byte	0
+ 1863 027c 00       		.byte	0
+ 1864              		.section	.debug_loc,"",%progbits
+ 1865              	.Ldebug_loc0:
+ 1866              	.LLST0:
+ 1867 0000 00000000 		.4byte	.LVL0
+ 1868 0004 02000000 		.4byte	.LVL1
+ 1869 0008 0100     		.2byte	0x1
+ 1870 000a 50       		.byte	0x50
+ 1871 000b 02000000 		.4byte	.LVL1
+ 1872 000f 04000000 		.4byte	.LFE56
+ 1873 0013 0400     		.2byte	0x4
+ 1874 0015 F3       		.byte	0xf3
+ 1875 0016 01       		.uleb128 0x1
+ 1876 0017 50       		.byte	0x50
+ 1877 0018 9F       		.byte	0x9f
+ 1878 0019 00000000 		.4byte	0
+ 1879 001d 00000000 		.4byte	0
+ 1880              	.LLST1:
+ 1881 0021 00000000 		.4byte	.LFB60
+ 1882 0025 02000000 		.4byte	.LCFI0
+ 1883 0029 0200     		.2byte	0x2
+ 1884 002b 7D       		.byte	0x7d
+ 1885 002c 00       		.sleb128 0
+ 1886 002d 02000000 		.4byte	.LCFI0
+ 1887 0031 30000000 		.4byte	.LFE60
+ 1888 0035 0200     		.2byte	0x2
+ 1889 0037 7D       		.byte	0x7d
+ 1890 0038 08       		.sleb128 8
+ 1891 0039 00000000 		.4byte	0
+ 1892 003d 00000000 		.4byte	0
+ 1893              	.LLST2:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 40
+
+
+ 1894 0041 00000000 		.4byte	.LFB61
+ 1895 0045 02000000 		.4byte	.LCFI1
+ 1896 0049 0200     		.2byte	0x2
+ 1897 004b 7D       		.byte	0x7d
+ 1898 004c 00       		.sleb128 0
+ 1899 004d 02000000 		.4byte	.LCFI1
+ 1900 0051 18000000 		.4byte	.LFE61
+ 1901 0055 0200     		.2byte	0x2
+ 1902 0057 7D       		.byte	0x7d
+ 1903 0058 08       		.sleb128 8
+ 1904 0059 00000000 		.4byte	0
+ 1905 005d 00000000 		.4byte	0
+ 1906              	.LLST3:
+ 1907 0061 00000000 		.4byte	.LFB62
+ 1908 0065 02000000 		.4byte	.LCFI2
+ 1909 0069 0200     		.2byte	0x2
+ 1910 006b 7D       		.byte	0x7d
+ 1911 006c 00       		.sleb128 0
+ 1912 006d 02000000 		.4byte	.LCFI2
+ 1913 0071 60000000 		.4byte	.LFE62
+ 1914 0075 0200     		.2byte	0x2
+ 1915 0077 7D       		.byte	0x7d
+ 1916 0078 10       		.sleb128 16
+ 1917 0079 00000000 		.4byte	0
+ 1918 007d 00000000 		.4byte	0
+ 1919              	.LLST4:
+ 1920 0081 00000000 		.4byte	.LVL10
+ 1921 0085 06000000 		.4byte	.LVL11
+ 1922 0089 0100     		.2byte	0x1
+ 1923 008b 50       		.byte	0x50
+ 1924 008c 06000000 		.4byte	.LVL11
+ 1925 0090 60000000 		.4byte	.LFE62
+ 1926 0094 0100     		.2byte	0x1
+ 1927 0096 54       		.byte	0x54
+ 1928 0097 00000000 		.4byte	0
+ 1929 009b 00000000 		.4byte	0
+ 1930              	.LLST5:
+ 1931 009f 1C000000 		.4byte	.LVL15
+ 1932 00a3 1E000000 		.4byte	.LVL16
+ 1933 00a7 0200     		.2byte	0x2
+ 1934 00a9 30       		.byte	0x30
+ 1935 00aa 9F       		.byte	0x9f
+ 1936 00ab 00000000 		.4byte	0
+ 1937 00af 00000000 		.4byte	0
+ 1938              	.LLST6:
+ 1939 00b3 00000000 		.4byte	.LVL10
+ 1940 00b7 1E000000 		.4byte	.LVL16
+ 1941 00bb 0C00     		.2byte	0xc
+ 1942 00bd 30       		.byte	0x30
+ 1943 00be 9F       		.byte	0x9f
+ 1944 00bf 93       		.byte	0x93
+ 1945 00c0 04       		.uleb128 0x4
+ 1946 00c1 30       		.byte	0x30
+ 1947 00c2 9F       		.byte	0x9f
+ 1948 00c3 93       		.byte	0x93
+ 1949 00c4 04       		.uleb128 0x4
+ 1950 00c5 30       		.byte	0x30
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 41
+
+
+ 1951 00c6 9F       		.byte	0x9f
+ 1952 00c7 93       		.byte	0x93
+ 1953 00c8 04       		.uleb128 0x4
+ 1954 00c9 00000000 		.4byte	0
+ 1955 00cd 00000000 		.4byte	0
+ 1956              	.LLST7:
+ 1957 00d1 00000000 		.4byte	.LFB63
+ 1958 00d5 02000000 		.4byte	.LCFI3
+ 1959 00d9 0200     		.2byte	0x2
+ 1960 00db 7D       		.byte	0x7d
+ 1961 00dc 00       		.sleb128 0
+ 1962 00dd 02000000 		.4byte	.LCFI3
+ 1963 00e1 9C000000 		.4byte	.LFE63
+ 1964 00e5 0200     		.2byte	0x2
+ 1965 00e7 7D       		.byte	0x7d
+ 1966 00e8 20       		.sleb128 32
+ 1967 00e9 00000000 		.4byte	0
+ 1968 00ed 00000000 		.4byte	0
+ 1969              	.LLST8:
+ 1970 00f1 3C000000 		.4byte	.LVL33
+ 1971 00f5 3E000000 		.4byte	.LVL34
+ 1972 00f9 0200     		.2byte	0x2
+ 1973 00fb 30       		.byte	0x30
+ 1974 00fc 9F       		.byte	0x9f
+ 1975 00fd 00000000 		.4byte	0
+ 1976 0101 00000000 		.4byte	0
+ 1977              		.section	.debug_aranges,"",%progbits
+ 1978 0000 54000000 		.4byte	0x54
+ 1979 0004 0200     		.2byte	0x2
+ 1980 0006 00000000 		.4byte	.Ldebug_info0
+ 1981 000a 04       		.byte	0x4
+ 1982 000b 00       		.byte	0
+ 1983 000c 0000     		.2byte	0
+ 1984 000e 0000     		.2byte	0
+ 1985 0010 00000000 		.4byte	.LFB56
+ 1986 0014 04000000 		.4byte	.LFE56-.LFB56
+ 1987 0018 00000000 		.4byte	.LFB57
+ 1988 001c 02000000 		.4byte	.LFE57-.LFB57
+ 1989 0020 00000000 		.4byte	.LFB58
+ 1990 0024 02000000 		.4byte	.LFE58-.LFB58
+ 1991 0028 00000000 		.4byte	.LFB59
+ 1992 002c 3C000000 		.4byte	.LFE59-.LFB59
+ 1993 0030 00000000 		.4byte	.LFB60
+ 1994 0034 30000000 		.4byte	.LFE60-.LFB60
+ 1995 0038 00000000 		.4byte	.LFB61
+ 1996 003c 18000000 		.4byte	.LFE61-.LFB61
+ 1997 0040 00000000 		.4byte	.LFB62
+ 1998 0044 60000000 		.4byte	.LFE62-.LFB62
+ 1999 0048 00000000 		.4byte	.LFB63
+ 2000 004c 9C000000 		.4byte	.LFE63-.LFB63
+ 2001 0050 00000000 		.4byte	0
+ 2002 0054 00000000 		.4byte	0
+ 2003              		.section	.debug_ranges,"",%progbits
+ 2004              	.Ldebug_ranges0:
+ 2005 0000 00000000 		.4byte	.LFB56
+ 2006 0004 04000000 		.4byte	.LFE56
+ 2007 0008 00000000 		.4byte	.LFB57
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 42
+
+
+ 2008 000c 02000000 		.4byte	.LFE57
+ 2009 0010 00000000 		.4byte	.LFB58
+ 2010 0014 02000000 		.4byte	.LFE58
+ 2011 0018 00000000 		.4byte	.LFB59
+ 2012 001c 3C000000 		.4byte	.LFE59
+ 2013 0020 00000000 		.4byte	.LFB60
+ 2014 0024 30000000 		.4byte	.LFE60
+ 2015 0028 00000000 		.4byte	.LFB61
+ 2016 002c 18000000 		.4byte	.LFE61
+ 2017 0030 00000000 		.4byte	.LFB62
+ 2018 0034 60000000 		.4byte	.LFE62
+ 2019 0038 00000000 		.4byte	.LFB63
+ 2020 003c 9C000000 		.4byte	.LFE63
+ 2021 0040 00000000 		.4byte	0
+ 2022 0044 00000000 		.4byte	0
+ 2023              		.section	.debug_line,"",%progbits
+ 2024              	.Ldebug_line0:
+ 2025 0000 ED010000 		.section	.debug_str,"MS",%progbits,1
+ 2025      02002301 
+ 2025      00000201 
+ 2025      FB0E0D00 
+ 2025      01010101 
+ 2026              	.LASF71:
+ 2027 0000 67657447 		.ascii	"getGres\000"
+ 2027      72657300 
+ 2028              	.LASF17:
+ 2029 0008 666C6F61 		.ascii	"float\000"
+ 2029      7400
+ 2030              	.LASF25:
+ 2031 000e 4746535F 		.ascii	"GFS_4000DPS\000"
+ 2031      34303030 
+ 2031      44505300 
+ 2032              	.LASF45:
+ 2033 001a 6572726F 		.ascii	"error_status\000"
+ 2033      725F7374 
+ 2033      61747573 
+ 2033      00
+ 2034              	.LASF61:
+ 2035 0027 6779726F 		.ascii	"gyroCount\000"
+ 2035      436F756E 
+ 2035      7400
+ 2036              	.LASF39:
+ 2037 0031 64657374 		.ascii	"dest\000"
+ 2037      00
+ 2038              	.LASF22:
+ 2039 0036 4746535F 		.ascii	"GFS_500DPS\000"
+ 2039      35303044 
+ 2039      505300
+ 2040              	.LASF70:
+ 2041 0041 49544733 		.ascii	"ITG3701_ReadByte\000"
+ 2041      3730315F 
+ 2041      52656164 
+ 2041      42797465 
+ 2041      00
+ 2042              	.LASF4:
+ 2043 0052 73686F72 		.ascii	"short int\000"
+ 2043      7420696E 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 43
+
+
+ 2043      7400
+ 2044              	.LASF20:
+ 2045 005c 73697A65 		.ascii	"sizetype\000"
+ 2045      74797065 
+ 2045      00
+ 2046              	.LASF53:
+ 2047 0065 7061636B 		.ascii	"packet_count\000"
+ 2047      65745F63 
+ 2047      6F756E74 
+ 2047      00
+ 2048              	.LASF50:
+ 2049 0072 64657374 		.ascii	"dest1\000"
+ 2049      3100
+ 2050              	.LASF28:
+ 2051 0078 474F4452 		.ascii	"GODR_95Hz\000"
+ 2051      5F393548 
+ 2051      7A00
+ 2052              	.LASF37:
+ 2053 0082 72656769 		.ascii	"registerAddress\000"
+ 2053      73746572 
+ 2053      41646472 
+ 2053      65737300 
+ 2054              	.LASF52:
+ 2055 0092 72617744 		.ascii	"rawData\000"
+ 2055      61746100 
+ 2056              	.LASF48:
+ 2057 009a 6779726F 		.ascii	"gyrocalITG3701\000"
+ 2057      63616C49 
+ 2057      54473337 
+ 2057      303100
+ 2058              	.LASF14:
+ 2059 00a9 75696E74 		.ascii	"uint16\000"
+ 2059      313600
+ 2060              	.LASF42:
+ 2061 00b0 61646472 		.ascii	"address\000"
+ 2061      65737300 
+ 2062              	.LASF58:
+ 2063 00b8 696E6465 		.ascii	"index\000"
+ 2063      7800
+ 2064              	.LASF26:
+ 2065 00be 47736361 		.ascii	"Gscale\000"
+ 2065      6C6500
+ 2066              	.LASF16:
+ 2067 00c5 696E7431 		.ascii	"int16\000"
+ 2067      3600
+ 2068              	.LASF13:
+ 2069 00cb 75696E74 		.ascii	"uint8\000"
+ 2069      3800
+ 2070              	.LASF60:
+ 2071 00d1 67526573 		.ascii	"gRes\000"
+ 2071      00
+ 2072              	.LASF34:
+ 2073 00d6 4742575F 		.ascii	"GBW_high\000"
+ 2073      68696768 
+ 2073      00
+ 2074              	.LASF10:
+ 2075 00df 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 44
+
+
+ 2075      206C6F6E 
+ 2075      6720696E 
+ 2075      7400
+ 2076              	.LASF36:
+ 2077 00ed 736C6176 		.ascii	"slaveAddress\000"
+ 2077      65416464 
+ 2077      72657373 
+ 2077      00
+ 2078              	.LASF54:
+ 2079 00fa 6669666F 		.ascii	"fifo_count\000"
+ 2079      5F636F75 
+ 2079      6E7400
+ 2080              	.LASF27:
+ 2081 0105 476F6472 		.ascii	"Godr\000"
+ 2081      00
+ 2082              	.LASF66:
+ 2083 010a 7072696E 		.ascii	"printf\000"
+ 2083      746600
+ 2084              	.LASF64:
+ 2085 0111 64756D6D 		.ascii	"dummy\000"
+ 2085      7900
+ 2086              	.LASF29:
+ 2087 0117 474F4452 		.ascii	"GODR_190Hz\000"
+ 2087      5F313930 
+ 2087      487A00
+ 2088              	.LASF55:
+ 2089 0122 6779726F 		.ascii	"gyro_bias\000"
+ 2089      5F626961 
+ 2089      7300
+ 2090              	.LASF46:
+ 2091 012c 72656164 		.ascii	"readGyroData\000"
+ 2091      4779726F 
+ 2091      44617461 
+ 2091      00
+ 2092              	.LASF32:
+ 2093 0139 4742575F 		.ascii	"GBW_low\000"
+ 2093      6C6F7700 
+ 2094              	.LASF24:
+ 2095 0141 4746535F 		.ascii	"GFS_2000DPS\000"
+ 2095      32303030 
+ 2095      44505300 
+ 2096              	.LASF1:
+ 2097 014d 756E7369 		.ascii	"unsigned char\000"
+ 2097      676E6564 
+ 2097      20636861 
+ 2097      7200
+ 2098              	.LASF40:
+ 2099 015b 49544733 		.ascii	"ITG3701_ReadBytes\000"
+ 2099      3730315F 
+ 2099      52656164 
+ 2099      42797465 
+ 2099      7300
+ 2100              	.LASF33:
+ 2101 016d 4742575F 		.ascii	"GBW_med\000"
+ 2101      6D656400 
+ 2102              	.LASF21:
+ 2103 0175 6C6F6E67 		.ascii	"long double\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 45
+
+
+ 2103      20646F75 
+ 2103      626C6500 
+ 2104              	.LASF57:
+ 2105 0181 49544733 		.ascii	"ITG3701_test\000"
+ 2105      3730315F 
+ 2105      74657374 
+ 2105      00
+ 2106              	.LASF0:
+ 2107 018e 7369676E 		.ascii	"signed char\000"
+ 2107      65642063 
+ 2107      68617200 
+ 2108              	.LASF11:
+ 2109 019a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2109      206C6F6E 
+ 2109      6720756E 
+ 2109      7369676E 
+ 2109      65642069 
+ 2110              	.LASF68:
+ 2111 01b1 2E5C4954 		.ascii	".\\ITG-3701.c\000"
+ 2111      472D3337 
+ 2111      30312E63 
+ 2111      00
+ 2112              	.LASF12:
+ 2113 01be 756E7369 		.ascii	"unsigned int\000"
+ 2113      676E6564 
+ 2113      20696E74 
+ 2113      00
+ 2114              	.LASF5:
+ 2115 01cb 75696E74 		.ascii	"uint16_t\000"
+ 2115      31365F74 
+ 2115      00
+ 2116              	.LASF67:
+ 2117 01d4 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2117      4320342E 
+ 2117      372E3320 
+ 2117      32303133 
+ 2117      30333132 
+ 2118 0207 616E6368 		.ascii	"anch revision 196615]\000"
+ 2118      20726576 
+ 2118      6973696F 
+ 2118      6E203139 
+ 2118      36363135 
+ 2119              	.LASF6:
+ 2120 021d 73686F72 		.ascii	"short unsigned int\000"
+ 2120      7420756E 
+ 2120      7369676E 
+ 2120      65642069 
+ 2120      6E7400
+ 2121              	.LASF47:
+ 2122 0230 696E6974 		.ascii	"initITG3701\000"
+ 2122      49544733 
+ 2122      37303100 
+ 2123              	.LASF44:
+ 2124 023c 62656C62 		.ascii	"belbyte\000"
+ 2124      79746500 
+ 2125              	.LASF19:
+ 2126 0244 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 46
+
+
+ 2126      00
+ 2127              	.LASF8:
+ 2128 0249 6C6F6E67 		.ascii	"long int\000"
+ 2128      20696E74 
+ 2128      00
+ 2129              	.LASF7:
+ 2130 0252 696E7433 		.ascii	"int32_t\000"
+ 2130      325F7400 
+ 2131              	.LASF3:
+ 2132 025a 696E7431 		.ascii	"int16_t\000"
+ 2132      365F7400 
+ 2133              	.LASF51:
+ 2134 0262 64617461 		.ascii	"data\000"
+ 2134      00
+ 2135              	.LASF41:
+ 2136 0267 49544733 		.ascii	"ITG3701_WriteByte\000"
+ 2136      3730315F 
+ 2136      57726974 
+ 2136      65427974 
+ 2136      6500
+ 2137              	.LASF56:
+ 2138 0279 6779726F 		.ascii	"gyro_temp\000"
+ 2138      5F74656D 
+ 2138      7000
+ 2139              	.LASF31:
+ 2140 0283 474F4452 		.ascii	"GODR_760Hz\000"
+ 2140      5F373630 
+ 2140      487A00
+ 2141              	.LASF15:
+ 2142 028e 75696E74 		.ascii	"uint32\000"
+ 2142      333200
+ 2143              	.LASF9:
+ 2144 0295 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2144      20756E73 
+ 2144      69676E65 
+ 2144      6420696E 
+ 2144      7400
+ 2145              	.LASF49:
+ 2146 02a7 64657374 		.ascii	"destination\000"
+ 2146      696E6174 
+ 2146      696F6E00 
+ 2147              	.LASF18:
+ 2148 02b3 646F7562 		.ascii	"double\000"
+ 2148      6C6500
+ 2149              	.LASF63:
+ 2150 02ba 74656D70 		.ascii	"temperature\000"
+ 2150      65726174 
+ 2150      75726500 
+ 2151              	.LASF38:
+ 2152 02c6 636F756E 		.ascii	"count\000"
+ 2152      7400
+ 2153              	.LASF35:
+ 2154 02cc 4742575F 		.ascii	"GBW_highest\000"
+ 2154      68696768 
+ 2154      65737400 
+ 2155              	.LASF69:
+ 2156 02d8 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cckdhHJd.s 			page 47
+
+
+ 2156      73657273 
+ 2156      5C477261 
+ 2156      7A69616E 
+ 2156      6F5C4465 
+ 2157 0306 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 2157      525C5665 
+ 2157      72732E30 
+ 2157      2E302D54 
+ 2157      30352032 
+ 2158 0337 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 2158      65446972 
+ 2158      2E637964 
+ 2158      736E00
+ 2159              	.LASF2:
+ 2160 0346 75696E74 		.ascii	"uint8_t\000"
+ 2160      385F7400 
+ 2161              	.LASF30:
+ 2162 034e 474F4452 		.ascii	"GODR_380Hz\000"
+ 2162      5F333830 
+ 2162      487A00
+ 2163              	.LASF62:
+ 2164 0359 6779726F 		.ascii	"gyroBias\000"
+ 2164      42696173 
+ 2164      00
+ 2165              	.LASF23:
+ 2166 0362 4746535F 		.ascii	"GFS_1000DPS\000"
+ 2166      31303030 
+ 2166      44505300 
+ 2167              	.LASF43:
+ 2168 036e 64617461 		.ascii	"data_byte\000"
+ 2168      5F627974 
+ 2168      6500
+ 2169              	.LASF59:
+ 2170 0378 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2170      52784275 
+ 2170      66666572 
+ 2170      00
+ 2171              	.LASF65:
+ 2172 0385 43794465 		.ascii	"CyDelay\000"
+ 2172      6C617900 
+ 2173              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,3032 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ME_geometry.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.offset_heading,"ax",%progbits
+  19              		.align	2
+  20              		.global	offset_heading
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	offset_heading, %function
+  24              	offset_heading:
+  25              	.LFB0:
+  26              		.file 1 ".\\ME_geometry.c"
+   1:.\ME_geometry.c **** /**************************************************************************************************
+   2:.\ME_geometry.c ****   
+   3:.\ME_geometry.c ****   Modulo "Geometry" (v0.20B)
+   4:.\ME_geometry.c ****   (c) 2013-2015 Movie Engineering
+   5:.\ME_geometry.c **** 
+   6:.\ME_geometry.c ****   Vedi header file.
+   7:.\ME_geometry.c ****    
+   8:.\ME_geometry.c **** ***************************************************************************************************
+   9:.\ME_geometry.c **** #include <stdio.h>
+  10:.\ME_geometry.c **** #include <math.h>
+  11:.\ME_geometry.c **** 
+  12:.\ME_geometry.c **** #include "ME_common.h"
+  13:.\ME_geometry.c **** #include "ME_geometry.h"
+  14:.\ME_geometry.c **** 
+  15:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  16:.\ME_geometry.c **** 
+  17:.\ME_geometry.c **** 
+  18:.\ME_geometry.c **** INT offset_heading(WORD raw, WORD offset)
+  19:.\ME_geometry.c **** {
+  27              		.loc 1 19 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 2
+
+
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+  42 0006 0246     		mov	r2, r0
+  43 0008 0B46     		mov	r3, r1
+  44 000a FA80     		strh	r2, [r7, #6]	@ movhi
+  45 000c BB80     		strh	r3, [r7, #4]	@ movhi
+  20:.\ME_geometry.c ****     INT heading ;
+  21:.\ME_geometry.c **** 
+  22:.\ME_geometry.c ****     heading = raw - offset ;                                  // Tiene in considerazione l'offset
+  46              		.loc 1 22 0
+  47 000e FA88     		ldrh	r2, [r7, #6]	@ movhi
+  48 0010 BB88     		ldrh	r3, [r7, #4]	@ movhi
+  49 0012 D31A     		subs	r3, r2, r3
+  50 0014 9BB2     		uxth	r3, r3
+  51 0016 FB81     		strh	r3, [r7, #14]	@ movhi
+  23:.\ME_geometry.c **** 
+  24:.\ME_geometry.c ****     if ( ( offset <= 1800 ) && ( raw >= offset+1800 ) )       // Offset piccolo zona da correggere 
+  52              		.loc 1 24 0
+  53 0018 BB88     		ldrh	r3, [r7, #4]
+  54 001a B3F5E16F 		cmp	r3, #1800
+  55 001e 0ED8     		bhi	.L2
+  56              		.loc 1 24 0 is_stmt 0 discriminator 1
+  57 0020 FA88     		ldrh	r2, [r7, #6]
+  58 0022 BB88     		ldrh	r3, [r7, #4]
+  59 0024 03F5E163 		add	r3, r3, #1800
+  60 0028 9A42     		cmp	r2, r3
+  61 002a 08DB     		blt	.L2
+  25:.\ME_geometry.c ****     {
+  26:.\ME_geometry.c ****         heading = raw - offset - 3600 ;
+  62              		.loc 1 26 0 is_stmt 1
+  63 002c FA88     		ldrh	r2, [r7, #6]	@ movhi
+  64 002e BB88     		ldrh	r3, [r7, #4]	@ movhi
+  65 0030 D31A     		subs	r3, r2, r3
+  66 0032 9BB2     		uxth	r3, r3
+  67 0034 A3F56163 		sub	r3, r3, #3600
+  68 0038 9BB2     		uxth	r3, r3
+  69 003a FB81     		strh	r3, [r7, #14]	@ movhi
+  70 003c 12E0     		b	.L3
+  71              	.L2:
+  27:.\ME_geometry.c ****     }
+  28:.\ME_geometry.c ****     else if ( ( offset >= 1800 ) && ( raw <= offset-1800 ) )  // Offset grande zona da correggere
+  72              		.loc 1 28 0
+  73 003e BA88     		ldrh	r2, [r7, #4]
+  74 0040 40F20773 		movw	r3, #1799
+  75 0044 9A42     		cmp	r2, r3
+  76 0046 0DD9     		bls	.L3
+  77              		.loc 1 28 0 is_stmt 0 discriminator 1
+  78 0048 FA88     		ldrh	r2, [r7, #6]
+  79 004a BB88     		ldrh	r3, [r7, #4]
+  80 004c A3F5E163 		sub	r3, r3, #1800
+  81 0050 9A42     		cmp	r2, r3
+  82 0052 07DC     		bgt	.L3
+  29:.\ME_geometry.c ****     {
+  30:.\ME_geometry.c ****         heading = raw - offset + 3600 ;
+  83              		.loc 1 30 0 is_stmt 1
+  84 0054 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 3
+
+
+  85 0056 BB88     		ldrh	r3, [r7, #4]	@ movhi
+  86 0058 D31A     		subs	r3, r2, r3
+  87 005a 9BB2     		uxth	r3, r3
+  88 005c 03F56163 		add	r3, r3, #3600
+  89 0060 9BB2     		uxth	r3, r3
+  90 0062 FB81     		strh	r3, [r7, #14]	@ movhi
+  91              	.L3:
+  31:.\ME_geometry.c ****     }
+  32:.\ME_geometry.c **** 
+  33:.\ME_geometry.c ****     return heading ;
+  92              		.loc 1 33 0
+  93 0064 FB89     		ldrh	r3, [r7, #14]
+  94 0066 1BB2     		sxth	r3, r3
+  34:.\ME_geometry.c **** }
+  95              		.loc 1 34 0
+  96 0068 1846     		mov	r0, r3
+  97 006a 07F11407 		add	r7, r7, #20
+  98 006e BD46     		mov	sp, r7
+  99 0070 80BC     		pop	{r7}
+ 100 0072 7047     		bx	lr
+ 101              		.cfi_endproc
+ 102              	.LFE0:
+ 103              		.size	offset_heading, .-offset_heading
+ 104              		.global	__aeabi_f2d
+ 105              		.global	__aeabi_dmul
+ 106              		.global	__aeabi_d2f
+ 107              		.section	.text.euler_rad_to_deg,"ax",%progbits
+ 108              		.align	2
+ 109              		.global	euler_rad_to_deg
+ 110              		.thumb
+ 111              		.thumb_func
+ 112              		.type	euler_rad_to_deg, %function
+ 113              	euler_rad_to_deg:
+ 114              	.LFB1:
+  35:.\ME_geometry.c **** 
+  36:.\ME_geometry.c **** 
+  37:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  38:.\ME_geometry.c **** 
+  39:.\ME_geometry.c **** void euler_rad_to_deg(EULER_ANGLES *e)
+  40:.\ME_geometry.c **** {
+ 115              		.loc 1 40 0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 8
+ 118              		@ frame_needed = 1, uses_anonymous_args = 0
+ 119 0000 80B5     		push	{r7, lr}
+ 120              	.LCFI3:
+ 121              		.cfi_def_cfa_offset 8
+ 122              		.cfi_offset 7, -8
+ 123              		.cfi_offset 14, -4
+ 124 0002 82B0     		sub	sp, sp, #8
+ 125              	.LCFI4:
+ 126              		.cfi_def_cfa_offset 16
+ 127 0004 00AF     		add	r7, sp, #0
+ 128              	.LCFI5:
+ 129              		.cfi_def_cfa_register 7
+ 130 0006 7860     		str	r0, [r7, #4]
+  41:.\ME_geometry.c ****     e->phi   *= RAD_TO_DEG ;          // Sufficiente la costante di proporzionalità
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 4
+
+
+ 131              		.loc 1 41 0
+ 132 0008 7B68     		ldr	r3, [r7, #4]
+ 133 000a 1B68     		ldr	r3, [r3, #0]	@ float
+ 134 000c 1846     		mov	r0, r3
+ 135 000e FFF7FEFF 		bl	__aeabi_f2d
+ 136 0012 0246     		mov	r2, r0
+ 137 0014 0B46     		mov	r3, r1
+ 138 0016 1046     		mov	r0, r2
+ 139 0018 1946     		mov	r1, r3
+ 140 001a 21A3     		adr	r3, .L6
+ 141 001c D3E90023 		ldrd	r2, [r3]
+ 142 0020 FFF7FEFF 		bl	__aeabi_dmul
+ 143 0024 0246     		mov	r2, r0
+ 144 0026 0B46     		mov	r3, r1
+ 145 0028 1046     		mov	r0, r2
+ 146 002a 1946     		mov	r1, r3
+ 147 002c FFF7FEFF 		bl	__aeabi_d2f
+ 148 0030 0246     		mov	r2, r0
+ 149 0032 7B68     		ldr	r3, [r7, #4]
+ 150 0034 1A60     		str	r2, [r3, #0]	@ float
+  42:.\ME_geometry.c ****     e->theta *= RAD_TO_DEG ;
+ 151              		.loc 1 42 0
+ 152 0036 7B68     		ldr	r3, [r7, #4]
+ 153 0038 5B68     		ldr	r3, [r3, #4]	@ float
+ 154 003a 1846     		mov	r0, r3
+ 155 003c FFF7FEFF 		bl	__aeabi_f2d
+ 156 0040 0246     		mov	r2, r0
+ 157 0042 0B46     		mov	r3, r1
+ 158 0044 1046     		mov	r0, r2
+ 159 0046 1946     		mov	r1, r3
+ 160 0048 15A3     		adr	r3, .L6
+ 161 004a D3E90023 		ldrd	r2, [r3]
+ 162 004e FFF7FEFF 		bl	__aeabi_dmul
+ 163 0052 0246     		mov	r2, r0
+ 164 0054 0B46     		mov	r3, r1
+ 165 0056 1046     		mov	r0, r2
+ 166 0058 1946     		mov	r1, r3
+ 167 005a FFF7FEFF 		bl	__aeabi_d2f
+ 168 005e 0246     		mov	r2, r0
+ 169 0060 7B68     		ldr	r3, [r7, #4]
+ 170 0062 5A60     		str	r2, [r3, #4]	@ float
+  43:.\ME_geometry.c ****     e->psi   *= RAD_TO_DEG ;
+ 171              		.loc 1 43 0
+ 172 0064 7B68     		ldr	r3, [r7, #4]
+ 173 0066 9B68     		ldr	r3, [r3, #8]	@ float
+ 174 0068 1846     		mov	r0, r3
+ 175 006a FFF7FEFF 		bl	__aeabi_f2d
+ 176 006e 0246     		mov	r2, r0
+ 177 0070 0B46     		mov	r3, r1
+ 178 0072 1046     		mov	r0, r2
+ 179 0074 1946     		mov	r1, r3
+ 180 0076 0AA3     		adr	r3, .L6
+ 181 0078 D3E90023 		ldrd	r2, [r3]
+ 182 007c FFF7FEFF 		bl	__aeabi_dmul
+ 183 0080 0246     		mov	r2, r0
+ 184 0082 0B46     		mov	r3, r1
+ 185 0084 1046     		mov	r0, r2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 5
+
+
+ 186 0086 1946     		mov	r1, r3
+ 187 0088 FFF7FEFF 		bl	__aeabi_d2f
+ 188 008c 0246     		mov	r2, r0
+ 189 008e 7B68     		ldr	r3, [r7, #4]
+ 190 0090 9A60     		str	r2, [r3, #8]	@ float
+  44:.\ME_geometry.c **** }
+ 191              		.loc 1 44 0
+ 192 0092 07F10807 		add	r7, r7, #8
+ 193 0096 BD46     		mov	sp, r7
+ 194 0098 80BD     		pop	{r7, pc}
+ 195              	.L7:
+ 196 009a 00BFAFF3 		.align	3
+ 196      0080
+ 197              	.L6:
+ 198 00a0 F8C1631A 		.word	442745336
+ 199 00a4 DCA54C40 		.word	1078765020
+ 200              		.cfi_endproc
+ 201              	.LFE1:
+ 202              		.size	euler_rad_to_deg, .-euler_rad_to_deg
+ 203              		.global	__aeabi_fmul
+ 204              		.global	__aeabi_fadd
+ 205              		.global	__aeabi_dcmpgt
+ 206              		.global	__aeabi_dadd
+ 207              		.global	__aeabi_dcmplt
+ 208              		.global	__aeabi_fsub
+ 209              		.section	.text.quaternion_to_euler,"ax",%progbits
+ 210              		.align	2
+ 211              		.global	quaternion_to_euler
+ 212              		.thumb
+ 213              		.thumb_func
+ 214              		.type	quaternion_to_euler, %function
+ 215              	quaternion_to_euler:
+ 216              	.LFB2:
+  45:.\ME_geometry.c **** 
+  46:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  47:.\ME_geometry.c **** 
+  48:.\ME_geometry.c **** #define SINGULARITY_THRESHOLD 0.49999
+  49:.\ME_geometry.c **** 
+  50:.\ME_geometry.c **** // Originle funzionante 
+  51:.\ME_geometry.c **** //
+  52:.\ME_geometry.c **** //void quaternion_to_euler(QUATERNION q, EULER_ANGLES *e)
+  53:.\ME_geometry.c **** //{
+  54:.\ME_geometry.c **** //    FLOAT test = q.x * q.y + q.z * q.w ;
+  55:.\ME_geometry.c **** //    FLOAT sqx, sqy, sqz ;
+  56:.\ME_geometry.c **** //    
+  57:.\ME_geometry.c **** //    if (test > SINGULARITY_THRESHOLD)
+  58:.\ME_geometry.c **** //    {
+  59:.\ME_geometry.c **** //        e->phi = 2 * atan2(q.x, q.w) ;
+  60:.\ME_geometry.c **** //        e->theta = PI_2 ;
+  61:.\ME_geometry.c **** //        e->psi = 0 ;
+  62:.\ME_geometry.c **** //        return ;
+  63:.\ME_geometry.c **** //    }
+  64:.\ME_geometry.c **** //    
+  65:.\ME_geometry.c **** //    if (test < -SINGULARITY_THRESHOLD)
+  66:.\ME_geometry.c **** //    {
+  67:.\ME_geometry.c **** //        e->phi = -2 * atan2(q.x, q.w) ;
+  68:.\ME_geometry.c **** //        e->theta = -PI_2 ;
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 6
+
+
+  69:.\ME_geometry.c **** //        e->psi = 0 ;
+  70:.\ME_geometry.c **** //        return ;
+  71:.\ME_geometry.c **** //    }
+  72:.\ME_geometry.c **** //
+  73:.\ME_geometry.c **** //    sqx = q.x * q.x ;
+  74:.\ME_geometry.c **** //    sqy = q.y * q.y ;
+  75:.\ME_geometry.c **** //    sqz = q.z * q.z ;
+  76:.\ME_geometry.c **** //    
+  77:.\ME_geometry.c **** //    e->phi = atan2(2*q.y*q.w - 2*q.x*q.z , 1 - 2*sqy - 2*sqz);
+  78:.\ME_geometry.c **** //	e->theta = asin(2*test);
+  79:.\ME_geometry.c **** //	e->psi = atan2(2*q.x*q.w-2*q.y*q.z , 1 - 2*sqx - 2*sqz);
+  80:.\ME_geometry.c **** //    
+  81:.\ME_geometry.c **** //}
+  82:.\ME_geometry.c ****  
+  83:.\ME_geometry.c **** void quaternion_to_euler(QUATERNION q, EULER_ANGLES *e)
+  84:.\ME_geometry.c **** {
+ 217              		.loc 1 84 0
+ 218              		.cfi_startproc
+ 219              		@ args = 4, pretend = 0, frame = 16
+ 220              		@ frame_needed = 1, uses_anonymous_args = 0
+ 221 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 222              	.LCFI6:
+ 223              		.cfi_def_cfa_offset 32
+ 224              		.cfi_offset 4, -32
+ 225              		.cfi_offset 5, -28
+ 226              		.cfi_offset 6, -24
+ 227              		.cfi_offset 7, -20
+ 228              		.cfi_offset 8, -16
+ 229              		.cfi_offset 9, -12
+ 230              		.cfi_offset 10, -8
+ 231              		.cfi_offset 14, -4
+ 232 0004 84B0     		sub	sp, sp, #16
+ 233              	.LCFI7:
+ 234              		.cfi_def_cfa_offset 48
+ 235 0006 00AF     		add	r7, sp, #0
+ 236              	.LCFI8:
+ 237              		.cfi_def_cfa_register 7
+ 238 0008 3C46     		mov	r4, r7
+ 239 000a 84E80F00 		stmia	r4, {r0, r1, r2, r3}
+  85:.\ME_geometry.c ****     register FLOAT test = q.x * q.y + q.z * q.w ;
+ 240              		.loc 1 85 0
+ 241 000e 7A68     		ldr	r2, [r7, #4]	@ float
+ 242 0010 BB68     		ldr	r3, [r7, #8]	@ float
+ 243 0012 1046     		mov	r0, r2
+ 244 0014 1946     		mov	r1, r3
+ 245 0016 FFF7FEFF 		bl	__aeabi_fmul
+ 246 001a 0346     		mov	r3, r0
+ 247 001c 1C46     		mov	r4, r3
+ 248 001e FA68     		ldr	r2, [r7, #12]	@ float
+ 249 0020 3B68     		ldr	r3, [r7, #0]	@ float
+ 250 0022 1046     		mov	r0, r2
+ 251 0024 1946     		mov	r1, r3
+ 252 0026 FFF7FEFF 		bl	__aeabi_fmul
+ 253 002a 0346     		mov	r3, r0
+ 254 002c 2046     		mov	r0, r4
+ 255 002e 1946     		mov	r1, r3
+ 256 0030 FFF7FEFF 		bl	__aeabi_fadd
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 7
+
+
+ 257 0034 0346     		mov	r3, r0
+ 258 0036 1C46     		mov	r4, r3
+  86:.\ME_geometry.c ****     register FLOAT sqx, sqy, sqz ;
+  87:.\ME_geometry.c ****     
+  88:.\ME_geometry.c ****     if (test > SINGULARITY_THRESHOLD)
+ 259              		.loc 1 88 0
+ 260 0038 2046     		mov	r0, r4
+ 261 003a FFF7FEFF 		bl	__aeabi_f2d
+ 262 003e 0246     		mov	r2, r0
+ 263 0040 0B46     		mov	r3, r1
+ 264 0042 1046     		mov	r0, r2
+ 265 0044 1946     		mov	r1, r3
+ 266 0046 92A3     		adr	r3, .L18
+ 267 0048 D3E90023 		ldrd	r2, [r3]
+ 268 004c FFF7FEFF 		bl	__aeabi_dcmpgt
+ 269 0050 0346     		mov	r3, r0
+ 270 0052 002B     		cmp	r3, #0
+ 271 0054 29D0     		beq	.L16
+ 272              	.L14:
+  89:.\ME_geometry.c ****     {
+  90:.\ME_geometry.c ****         e->phi = 2 * atan2(q.x, q.w) ;
+ 273              		.loc 1 90 0
+ 274 0056 7B68     		ldr	r3, [r7, #4]	@ float
+ 275 0058 1846     		mov	r0, r3
+ 276 005a FFF7FEFF 		bl	__aeabi_f2d
+ 277 005e 0446     		mov	r4, r0
+ 278 0060 0D46     		mov	r5, r1
+ 279 0062 3B68     		ldr	r3, [r7, #0]	@ float
+ 280 0064 1846     		mov	r0, r3
+ 281 0066 FFF7FEFF 		bl	__aeabi_f2d
+ 282 006a 0246     		mov	r2, r0
+ 283 006c 0B46     		mov	r3, r1
+ 284 006e 2046     		mov	r0, r4
+ 285 0070 2946     		mov	r1, r5
+ 286 0072 FFF7FEFF 		bl	atan2
+ 287 0076 0246     		mov	r2, r0
+ 288 0078 0B46     		mov	r3, r1
+ 289 007a 1046     		mov	r0, r2
+ 290 007c 1946     		mov	r1, r3
+ 291 007e FFF7FEFF 		bl	__aeabi_dadd
+ 292 0082 0246     		mov	r2, r0
+ 293 0084 0B46     		mov	r3, r1
+ 294 0086 1046     		mov	r0, r2
+ 295 0088 1946     		mov	r1, r3
+ 296 008a FFF7FEFF 		bl	__aeabi_d2f
+ 297 008e 0246     		mov	r2, r0
+ 298 0090 3B6B     		ldr	r3, [r7, #48]
+ 299 0092 1A60     		str	r2, [r3, #0]	@ float
+  91:.\ME_geometry.c ****         e->theta = PI_2 ;
+ 300              		.loc 1 91 0
+ 301 0094 3B6B     		ldr	r3, [r7, #48]
+ 302 0096 40F6DB72 		movw	r2, #4059
+ 303 009a C3F6C972 		movt	r2, 16329
+ 304 009e 5A60     		str	r2, [r3, #4]	@ float
+  92:.\ME_geometry.c ****         e->psi = 0 ;
+ 305              		.loc 1 92 0
+ 306 00a0 3B6B     		ldr	r3, [r7, #48]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 8
+
+
+ 307 00a2 4FF00002 		mov	r2, #0
+ 308 00a6 9A60     		str	r2, [r3, #8]	@ float
+  93:.\ME_geometry.c ****         return ;
+ 309              		.loc 1 93 0
+ 310 00a8 EBE0     		b	.L8
+ 311              	.L16:
+  94:.\ME_geometry.c ****     }
+  95:.\ME_geometry.c ****     
+  96:.\ME_geometry.c ****     if (test < -SINGULARITY_THRESHOLD)
+ 312              		.loc 1 96 0
+ 313 00aa 2046     		mov	r0, r4
+ 314 00ac FFF7FEFF 		bl	__aeabi_f2d
+ 315 00b0 0246     		mov	r2, r0
+ 316 00b2 0B46     		mov	r3, r1
+ 317 00b4 1046     		mov	r0, r2
+ 318 00b6 1946     		mov	r1, r3
+ 319 00b8 77A3     		adr	r3, .L18+8
+ 320 00ba D3E90023 		ldrd	r2, [r3]
+ 321 00be FFF7FEFF 		bl	__aeabi_dcmplt
+ 322 00c2 0346     		mov	r3, r0
+ 323 00c4 002B     		cmp	r3, #0
+ 324 00c6 2DD0     		beq	.L17
+ 325              	.L15:
+  97:.\ME_geometry.c ****     {
+  98:.\ME_geometry.c ****         e->phi = -2 * atan2(q.x, q.w) ;
+ 326              		.loc 1 98 0
+ 327 00c8 7B68     		ldr	r3, [r7, #4]	@ float
+ 328 00ca 1846     		mov	r0, r3
+ 329 00cc FFF7FEFF 		bl	__aeabi_f2d
+ 330 00d0 0446     		mov	r4, r0
+ 331 00d2 0D46     		mov	r5, r1
+ 332 00d4 3B68     		ldr	r3, [r7, #0]	@ float
+ 333 00d6 1846     		mov	r0, r3
+ 334 00d8 FFF7FEFF 		bl	__aeabi_f2d
+ 335 00dc 0246     		mov	r2, r0
+ 336 00de 0B46     		mov	r3, r1
+ 337 00e0 2046     		mov	r0, r4
+ 338 00e2 2946     		mov	r1, r5
+ 339 00e4 FFF7FEFF 		bl	atan2
+ 340 00e8 0246     		mov	r2, r0
+ 341 00ea 0B46     		mov	r3, r1
+ 342 00ec 1046     		mov	r0, r2
+ 343 00ee 1946     		mov	r1, r3
+ 344 00f0 4FF00002 		mov	r2, #0
+ 345 00f4 4FF04043 		mov	r3, #-1073741824
+ 346 00f8 FFF7FEFF 		bl	__aeabi_dmul
+ 347 00fc 0246     		mov	r2, r0
+ 348 00fe 0B46     		mov	r3, r1
+ 349 0100 1046     		mov	r0, r2
+ 350 0102 1946     		mov	r1, r3
+ 351 0104 FFF7FEFF 		bl	__aeabi_d2f
+ 352 0108 0246     		mov	r2, r0
+ 353 010a 3B6B     		ldr	r3, [r7, #48]
+ 354 010c 1A60     		str	r2, [r3, #0]	@ float
+  99:.\ME_geometry.c ****         e->theta = -PI_2 ;
+ 355              		.loc 1 99 0
+ 356 010e 3B6B     		ldr	r3, [r7, #48]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 9
+
+
+ 357 0110 40F6DB72 		movw	r2, #4059
+ 358 0114 CBF6C972 		movt	r2, 49097
+ 359 0118 5A60     		str	r2, [r3, #4]	@ float
+ 100:.\ME_geometry.c ****         e->psi = 0 ;
+ 360              		.loc 1 100 0
+ 361 011a 3B6B     		ldr	r3, [r7, #48]
+ 362 011c 4FF00002 		mov	r2, #0
+ 363 0120 9A60     		str	r2, [r3, #8]	@ float
+ 101:.\ME_geometry.c ****         return ;
+ 364              		.loc 1 101 0
+ 365 0122 AEE0     		b	.L8
+ 366              	.L17:
+ 102:.\ME_geometry.c ****     }
+ 103:.\ME_geometry.c **** 
+ 104:.\ME_geometry.c ****     sqx = q.x * q.x ;
+ 367              		.loc 1 104 0
+ 368 0124 7A68     		ldr	r2, [r7, #4]	@ float
+ 369 0126 7B68     		ldr	r3, [r7, #4]	@ float
+ 370 0128 1046     		mov	r0, r2
+ 371 012a 1946     		mov	r1, r3
+ 372 012c FFF7FEFF 		bl	__aeabi_fmul
+ 373 0130 0346     		mov	r3, r0
+ 374 0132 9A46     		mov	sl, r3
+ 105:.\ME_geometry.c ****     sqy = q.y * q.y ;
+ 375              		.loc 1 105 0
+ 376 0134 BA68     		ldr	r2, [r7, #8]	@ float
+ 377 0136 BB68     		ldr	r3, [r7, #8]	@ float
+ 378 0138 1046     		mov	r0, r2
+ 379 013a 1946     		mov	r1, r3
+ 380 013c FFF7FEFF 		bl	__aeabi_fmul
+ 381 0140 0346     		mov	r3, r0
+ 382 0142 1D46     		mov	r5, r3
+ 106:.\ME_geometry.c ****     sqz = q.z * q.z ;
+ 383              		.loc 1 106 0
+ 384 0144 FA68     		ldr	r2, [r7, #12]	@ float
+ 385 0146 FB68     		ldr	r3, [r7, #12]	@ float
+ 386 0148 1046     		mov	r0, r2
+ 387 014a 1946     		mov	r1, r3
+ 388 014c FFF7FEFF 		bl	__aeabi_fmul
+ 389 0150 0346     		mov	r3, r0
+ 390 0152 1E46     		mov	r6, r3
+ 107:.\ME_geometry.c ****     
+ 108:.\ME_geometry.c ****     e->phi = atan2(2 * ( q.y*q.w + q.x*q.z ) , 1 - 2 * ( sqy + sqz ) );
+ 391              		.loc 1 108 0
+ 392 0154 BA68     		ldr	r2, [r7, #8]	@ float
+ 393 0156 3B68     		ldr	r3, [r7, #0]	@ float
+ 394 0158 1046     		mov	r0, r2
+ 395 015a 1946     		mov	r1, r3
+ 396 015c FFF7FEFF 		bl	__aeabi_fmul
+ 397 0160 0346     		mov	r3, r0
+ 398 0162 9846     		mov	r8, r3
+ 399 0164 7A68     		ldr	r2, [r7, #4]	@ float
+ 400 0166 FB68     		ldr	r3, [r7, #12]	@ float
+ 401 0168 1046     		mov	r0, r2
+ 402 016a 1946     		mov	r1, r3
+ 403 016c FFF7FEFF 		bl	__aeabi_fmul
+ 404 0170 0346     		mov	r3, r0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 10
+
+
+ 405 0172 4046     		mov	r0, r8
+ 406 0174 1946     		mov	r1, r3
+ 407 0176 FFF7FEFF 		bl	__aeabi_fadd
+ 408 017a 0346     		mov	r3, r0
+ 409 017c 1846     		mov	r0, r3
+ 410 017e 1946     		mov	r1, r3
+ 411 0180 FFF7FEFF 		bl	__aeabi_fadd
+ 412 0184 0346     		mov	r3, r0
+ 413 0186 1846     		mov	r0, r3
+ 414 0188 FFF7FEFF 		bl	__aeabi_f2d
+ 415 018c 8046     		mov	r8, r0
+ 416 018e 8946     		mov	r9, r1
+ 417 0190 2846     		mov	r0, r5
+ 418 0192 3146     		mov	r1, r6
+ 419 0194 FFF7FEFF 		bl	__aeabi_fadd
+ 420 0198 0346     		mov	r3, r0
+ 421 019a 1846     		mov	r0, r3
+ 422 019c 1946     		mov	r1, r3
+ 423 019e FFF7FEFF 		bl	__aeabi_fadd
+ 424 01a2 0346     		mov	r3, r0
+ 425 01a4 4FF07E50 		mov	r0, #1065353216
+ 426 01a8 1946     		mov	r1, r3
+ 427 01aa FFF7FEFF 		bl	__aeabi_fsub
+ 428 01ae 0346     		mov	r3, r0
+ 429 01b0 1846     		mov	r0, r3
+ 430 01b2 FFF7FEFF 		bl	__aeabi_f2d
+ 431 01b6 0246     		mov	r2, r0
+ 432 01b8 0B46     		mov	r3, r1
+ 433 01ba 4046     		mov	r0, r8
+ 434 01bc 4946     		mov	r1, r9
+ 435 01be FFF7FEFF 		bl	atan2
+ 436 01c2 0246     		mov	r2, r0
+ 437 01c4 0B46     		mov	r3, r1
+ 438 01c6 1046     		mov	r0, r2
+ 439 01c8 1946     		mov	r1, r3
+ 440 01ca FFF7FEFF 		bl	__aeabi_d2f
+ 441 01ce 0246     		mov	r2, r0
+ 442 01d0 3B6B     		ldr	r3, [r7, #48]
+ 443 01d2 1A60     		str	r2, [r3, #0]	@ float
+ 109:.\ME_geometry.c **** 	e->theta = asin(2*test);
+ 444              		.loc 1 109 0
+ 445 01d4 2046     		mov	r0, r4
+ 446 01d6 2146     		mov	r1, r4
+ 447 01d8 FFF7FEFF 		bl	__aeabi_fadd
+ 448 01dc 0346     		mov	r3, r0
+ 449 01de 1846     		mov	r0, r3
+ 450 01e0 FFF7FEFF 		bl	__aeabi_f2d
+ 451 01e4 0246     		mov	r2, r0
+ 452 01e6 0B46     		mov	r3, r1
+ 453 01e8 1046     		mov	r0, r2
+ 454 01ea 1946     		mov	r1, r3
+ 455 01ec FFF7FEFF 		bl	asin
+ 456 01f0 0246     		mov	r2, r0
+ 457 01f2 0B46     		mov	r3, r1
+ 458 01f4 1046     		mov	r0, r2
+ 459 01f6 1946     		mov	r1, r3
+ 460 01f8 FFF7FEFF 		bl	__aeabi_d2f
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 11
+
+
+ 461 01fc 0246     		mov	r2, r0
+ 462 01fe 3B6B     		ldr	r3, [r7, #48]
+ 463 0200 5A60     		str	r2, [r3, #4]	@ float
+ 110:.\ME_geometry.c **** 	e->psi = atan2( 2 * ( q.x*q.w + q.y*q.z ) , 1 - 2 * ( sqx + sqz ) );
+ 464              		.loc 1 110 0
+ 465 0202 7A68     		ldr	r2, [r7, #4]	@ float
+ 466 0204 3B68     		ldr	r3, [r7, #0]	@ float
+ 467 0206 1046     		mov	r0, r2
+ 468 0208 1946     		mov	r1, r3
+ 469 020a FFF7FEFF 		bl	__aeabi_fmul
+ 470 020e 0346     		mov	r3, r0
+ 471 0210 1C46     		mov	r4, r3
+ 472 0212 BA68     		ldr	r2, [r7, #8]	@ float
+ 473 0214 FB68     		ldr	r3, [r7, #12]	@ float
+ 474 0216 1046     		mov	r0, r2
+ 475 0218 1946     		mov	r1, r3
+ 476 021a FFF7FEFF 		bl	__aeabi_fmul
+ 477 021e 0346     		mov	r3, r0
+ 478 0220 2046     		mov	r0, r4
+ 479 0222 1946     		mov	r1, r3
+ 480 0224 FFF7FEFF 		bl	__aeabi_fadd
+ 481 0228 0346     		mov	r3, r0
+ 482 022a 1846     		mov	r0, r3
+ 483 022c 1946     		mov	r1, r3
+ 484 022e FFF7FEFF 		bl	__aeabi_fadd
+ 485 0232 0346     		mov	r3, r0
+ 486 0234 1846     		mov	r0, r3
+ 487 0236 FFF7FEFF 		bl	__aeabi_f2d
+ 488 023a 0446     		mov	r4, r0
+ 489 023c 0D46     		mov	r5, r1
+ 490 023e 5046     		mov	r0, sl
+ 491 0240 3146     		mov	r1, r6
+ 492 0242 FFF7FEFF 		bl	__aeabi_fadd
+ 493 0246 0346     		mov	r3, r0
+ 494 0248 1846     		mov	r0, r3
+ 495 024a 1946     		mov	r1, r3
+ 496 024c FFF7FEFF 		bl	__aeabi_fadd
+ 497 0250 0346     		mov	r3, r0
+ 498 0252 4FF07E50 		mov	r0, #1065353216
+ 499 0256 1946     		mov	r1, r3
+ 500 0258 FFF7FEFF 		bl	__aeabi_fsub
+ 501 025c 0346     		mov	r3, r0
+ 502 025e 1846     		mov	r0, r3
+ 503 0260 FFF7FEFF 		bl	__aeabi_f2d
+ 504 0264 0246     		mov	r2, r0
+ 505 0266 0B46     		mov	r3, r1
+ 506 0268 2046     		mov	r0, r4
+ 507 026a 2946     		mov	r1, r5
+ 508 026c FFF7FEFF 		bl	atan2
+ 509 0270 0246     		mov	r2, r0
+ 510 0272 0B46     		mov	r3, r1
+ 511 0274 1046     		mov	r0, r2
+ 512 0276 1946     		mov	r1, r3
+ 513 0278 FFF7FEFF 		bl	__aeabi_d2f
+ 514 027c 0246     		mov	r2, r0
+ 515 027e 3B6B     		ldr	r3, [r7, #48]
+ 516 0280 9A60     		str	r2, [r3, #8]	@ float
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 12
+
+
+ 517              	.L8:
+ 111:.\ME_geometry.c ****     
+ 112:.\ME_geometry.c **** } 
+ 518              		.loc 1 112 0
+ 519 0282 07F11007 		add	r7, r7, #16
+ 520 0286 BD46     		mov	sp, r7
+ 521 0288 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 522              	.L19:
+ 523 028c AFF30080 		.align	3
+ 524              	.L18:
+ 525 0290 39EE940E 		.word	244641337
+ 526 0294 D6FFDF3F 		.word	1071644630
+ 527 0298 39EE940E 		.word	244641337
+ 528 029c D6FFDFBF 		.word	-1075839018
+ 529              		.cfi_endproc
+ 530              	.LFE2:
+ 531              		.size	quaternion_to_euler, .-quaternion_to_euler
+ 532              		.section	.text.quaternion_multiply,"ax",%progbits
+ 533              		.align	2
+ 534              		.global	quaternion_multiply
+ 535              		.thumb
+ 536              		.thumb_func
+ 537              		.type	quaternion_multiply, %function
+ 538              	quaternion_multiply:
+ 539              	.LFB3:
+ 113:.\ME_geometry.c **** 
+ 114:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 115:.\ME_geometry.c **** 
+ 116:.\ME_geometry.c **** void quaternion_multiply(QUATERNION *q3, QUATERNION q1, QUATERNION q2)
+ 117:.\ME_geometry.c **** {
+ 540              		.loc 1 117 0
+ 541              		.cfi_startproc
+ 542              		@ args = 36, pretend = 16, frame = 8
+ 543              		@ frame_needed = 1, uses_anonymous_args = 0
+ 544 0000 84B0     		sub	sp, sp, #16
+ 545              	.LCFI9:
+ 546              		.cfi_def_cfa_offset 16
+ 547 0002 90B5     		push	{r4, r7, lr}
+ 548              	.LCFI10:
+ 549              		.cfi_def_cfa_offset 28
+ 550              		.cfi_offset 4, -28
+ 551              		.cfi_offset 7, -24
+ 552              		.cfi_offset 14, -20
+ 553 0004 83B0     		sub	sp, sp, #12
+ 554              	.LCFI11:
+ 555              		.cfi_def_cfa_offset 40
+ 556 0006 00AF     		add	r7, sp, #0
+ 557              	.LCFI12:
+ 558              		.cfi_def_cfa_register 7
+ 559 0008 7860     		str	r0, [r7, #4]
+ 560 000a 07F11C00 		add	r0, r7, #28
+ 561 000e 80E80E00 		stmia	r0, {r1, r2, r3}
+ 118:.\ME_geometry.c ****     q3->w = q1.w*q2.w - q1.x*q2.x - q1.y*q2.y - q1.z*q2.z ;
+ 562              		.loc 1 118 0
+ 563 0012 FA69     		ldr	r2, [r7, #28]	@ float
+ 564 0014 FB6A     		ldr	r3, [r7, #44]	@ float
+ 565 0016 1046     		mov	r0, r2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 13
+
+
+ 566 0018 1946     		mov	r1, r3
+ 567 001a FFF7FEFF 		bl	__aeabi_fmul
+ 568 001e 0346     		mov	r3, r0
+ 569 0020 1C46     		mov	r4, r3
+ 570 0022 3A6A     		ldr	r2, [r7, #32]	@ float
+ 571 0024 3B6B     		ldr	r3, [r7, #48]	@ float
+ 572 0026 1046     		mov	r0, r2
+ 573 0028 1946     		mov	r1, r3
+ 574 002a FFF7FEFF 		bl	__aeabi_fmul
+ 575 002e 0346     		mov	r3, r0
+ 576 0030 2046     		mov	r0, r4
+ 577 0032 1946     		mov	r1, r3
+ 578 0034 FFF7FEFF 		bl	__aeabi_fsub
+ 579 0038 0346     		mov	r3, r0
+ 580 003a 1C46     		mov	r4, r3
+ 581 003c 7A6A     		ldr	r2, [r7, #36]	@ float
+ 582 003e 7B6B     		ldr	r3, [r7, #52]	@ float
+ 583 0040 1046     		mov	r0, r2
+ 584 0042 1946     		mov	r1, r3
+ 585 0044 FFF7FEFF 		bl	__aeabi_fmul
+ 586 0048 0346     		mov	r3, r0
+ 587 004a 2046     		mov	r0, r4
+ 588 004c 1946     		mov	r1, r3
+ 589 004e FFF7FEFF 		bl	__aeabi_fsub
+ 590 0052 0346     		mov	r3, r0
+ 591 0054 1C46     		mov	r4, r3
+ 592 0056 BA6A     		ldr	r2, [r7, #40]	@ float
+ 593 0058 BB6B     		ldr	r3, [r7, #56]	@ float
+ 594 005a 1046     		mov	r0, r2
+ 595 005c 1946     		mov	r1, r3
+ 596 005e FFF7FEFF 		bl	__aeabi_fmul
+ 597 0062 0346     		mov	r3, r0
+ 598 0064 2046     		mov	r0, r4
+ 599 0066 1946     		mov	r1, r3
+ 600 0068 FFF7FEFF 		bl	__aeabi_fsub
+ 601 006c 0346     		mov	r3, r0
+ 602 006e 1A46     		mov	r2, r3
+ 603 0070 7B68     		ldr	r3, [r7, #4]
+ 604 0072 1A60     		str	r2, [r3, #0]	@ float
+ 119:.\ME_geometry.c ****     q3->x = q1.w*q2.x + q1.x*q2.w + q1.y*q2.z - q1.z*q2.y ;
+ 605              		.loc 1 119 0
+ 606 0074 FA69     		ldr	r2, [r7, #28]	@ float
+ 607 0076 3B6B     		ldr	r3, [r7, #48]	@ float
+ 608 0078 1046     		mov	r0, r2
+ 609 007a 1946     		mov	r1, r3
+ 610 007c FFF7FEFF 		bl	__aeabi_fmul
+ 611 0080 0346     		mov	r3, r0
+ 612 0082 1C46     		mov	r4, r3
+ 613 0084 3A6A     		ldr	r2, [r7, #32]	@ float
+ 614 0086 FB6A     		ldr	r3, [r7, #44]	@ float
+ 615 0088 1046     		mov	r0, r2
+ 616 008a 1946     		mov	r1, r3
+ 617 008c FFF7FEFF 		bl	__aeabi_fmul
+ 618 0090 0346     		mov	r3, r0
+ 619 0092 2046     		mov	r0, r4
+ 620 0094 1946     		mov	r1, r3
+ 621 0096 FFF7FEFF 		bl	__aeabi_fadd
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 14
+
+
+ 622 009a 0346     		mov	r3, r0
+ 623 009c 1C46     		mov	r4, r3
+ 624 009e 7A6A     		ldr	r2, [r7, #36]	@ float
+ 625 00a0 BB6B     		ldr	r3, [r7, #56]	@ float
+ 626 00a2 1046     		mov	r0, r2
+ 627 00a4 1946     		mov	r1, r3
+ 628 00a6 FFF7FEFF 		bl	__aeabi_fmul
+ 629 00aa 0346     		mov	r3, r0
+ 630 00ac 2046     		mov	r0, r4
+ 631 00ae 1946     		mov	r1, r3
+ 632 00b0 FFF7FEFF 		bl	__aeabi_fadd
+ 633 00b4 0346     		mov	r3, r0
+ 634 00b6 1C46     		mov	r4, r3
+ 635 00b8 BA6A     		ldr	r2, [r7, #40]	@ float
+ 636 00ba 7B6B     		ldr	r3, [r7, #52]	@ float
+ 637 00bc 1046     		mov	r0, r2
+ 638 00be 1946     		mov	r1, r3
+ 639 00c0 FFF7FEFF 		bl	__aeabi_fmul
+ 640 00c4 0346     		mov	r3, r0
+ 641 00c6 2046     		mov	r0, r4
+ 642 00c8 1946     		mov	r1, r3
+ 643 00ca FFF7FEFF 		bl	__aeabi_fsub
+ 644 00ce 0346     		mov	r3, r0
+ 645 00d0 1A46     		mov	r2, r3
+ 646 00d2 7B68     		ldr	r3, [r7, #4]
+ 647 00d4 5A60     		str	r2, [r3, #4]	@ float
+ 120:.\ME_geometry.c ****     q3->y = q1.w*q2.y - q1.x*q2.z + q1.y*q2.w + q1.z*q2.x ;
+ 648              		.loc 1 120 0
+ 649 00d6 FA69     		ldr	r2, [r7, #28]	@ float
+ 650 00d8 7B6B     		ldr	r3, [r7, #52]	@ float
+ 651 00da 1046     		mov	r0, r2
+ 652 00dc 1946     		mov	r1, r3
+ 653 00de FFF7FEFF 		bl	__aeabi_fmul
+ 654 00e2 0346     		mov	r3, r0
+ 655 00e4 1C46     		mov	r4, r3
+ 656 00e6 3A6A     		ldr	r2, [r7, #32]	@ float
+ 657 00e8 BB6B     		ldr	r3, [r7, #56]	@ float
+ 658 00ea 1046     		mov	r0, r2
+ 659 00ec 1946     		mov	r1, r3
+ 660 00ee FFF7FEFF 		bl	__aeabi_fmul
+ 661 00f2 0346     		mov	r3, r0
+ 662 00f4 2046     		mov	r0, r4
+ 663 00f6 1946     		mov	r1, r3
+ 664 00f8 FFF7FEFF 		bl	__aeabi_fsub
+ 665 00fc 0346     		mov	r3, r0
+ 666 00fe 1C46     		mov	r4, r3
+ 667 0100 7A6A     		ldr	r2, [r7, #36]	@ float
+ 668 0102 FB6A     		ldr	r3, [r7, #44]	@ float
+ 669 0104 1046     		mov	r0, r2
+ 670 0106 1946     		mov	r1, r3
+ 671 0108 FFF7FEFF 		bl	__aeabi_fmul
+ 672 010c 0346     		mov	r3, r0
+ 673 010e 2046     		mov	r0, r4
+ 674 0110 1946     		mov	r1, r3
+ 675 0112 FFF7FEFF 		bl	__aeabi_fadd
+ 676 0116 0346     		mov	r3, r0
+ 677 0118 1C46     		mov	r4, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 15
+
+
+ 678 011a BA6A     		ldr	r2, [r7, #40]	@ float
+ 679 011c 3B6B     		ldr	r3, [r7, #48]	@ float
+ 680 011e 1046     		mov	r0, r2
+ 681 0120 1946     		mov	r1, r3
+ 682 0122 FFF7FEFF 		bl	__aeabi_fmul
+ 683 0126 0346     		mov	r3, r0
+ 684 0128 2046     		mov	r0, r4
+ 685 012a 1946     		mov	r1, r3
+ 686 012c FFF7FEFF 		bl	__aeabi_fadd
+ 687 0130 0346     		mov	r3, r0
+ 688 0132 1A46     		mov	r2, r3
+ 689 0134 7B68     		ldr	r3, [r7, #4]
+ 690 0136 9A60     		str	r2, [r3, #8]	@ float
+ 121:.\ME_geometry.c ****     q3->z = q1.w*q2.z + q1.x*q2.y - q1.y*q2.x + q1.z*q2.w ;
+ 691              		.loc 1 121 0
+ 692 0138 FA69     		ldr	r2, [r7, #28]	@ float
+ 693 013a BB6B     		ldr	r3, [r7, #56]	@ float
+ 694 013c 1046     		mov	r0, r2
+ 695 013e 1946     		mov	r1, r3
+ 696 0140 FFF7FEFF 		bl	__aeabi_fmul
+ 697 0144 0346     		mov	r3, r0
+ 698 0146 1C46     		mov	r4, r3
+ 699 0148 3A6A     		ldr	r2, [r7, #32]	@ float
+ 700 014a 7B6B     		ldr	r3, [r7, #52]	@ float
+ 701 014c 1046     		mov	r0, r2
+ 702 014e 1946     		mov	r1, r3
+ 703 0150 FFF7FEFF 		bl	__aeabi_fmul
+ 704 0154 0346     		mov	r3, r0
+ 705 0156 2046     		mov	r0, r4
+ 706 0158 1946     		mov	r1, r3
+ 707 015a FFF7FEFF 		bl	__aeabi_fadd
+ 708 015e 0346     		mov	r3, r0
+ 709 0160 1C46     		mov	r4, r3
+ 710 0162 7A6A     		ldr	r2, [r7, #36]	@ float
+ 711 0164 3B6B     		ldr	r3, [r7, #48]	@ float
+ 712 0166 1046     		mov	r0, r2
+ 713 0168 1946     		mov	r1, r3
+ 714 016a FFF7FEFF 		bl	__aeabi_fmul
+ 715 016e 0346     		mov	r3, r0
+ 716 0170 2046     		mov	r0, r4
+ 717 0172 1946     		mov	r1, r3
+ 718 0174 FFF7FEFF 		bl	__aeabi_fsub
+ 719 0178 0346     		mov	r3, r0
+ 720 017a 1C46     		mov	r4, r3
+ 721 017c BA6A     		ldr	r2, [r7, #40]	@ float
+ 722 017e FB6A     		ldr	r3, [r7, #44]	@ float
+ 723 0180 1046     		mov	r0, r2
+ 724 0182 1946     		mov	r1, r3
+ 725 0184 FFF7FEFF 		bl	__aeabi_fmul
+ 726 0188 0346     		mov	r3, r0
+ 727 018a 2046     		mov	r0, r4
+ 728 018c 1946     		mov	r1, r3
+ 729 018e FFF7FEFF 		bl	__aeabi_fadd
+ 730 0192 0346     		mov	r3, r0
+ 731 0194 1A46     		mov	r2, r3
+ 732 0196 7B68     		ldr	r3, [r7, #4]
+ 733 0198 DA60     		str	r2, [r3, #12]	@ float
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 16
+
+
+ 122:.\ME_geometry.c **** }
+ 734              		.loc 1 122 0
+ 735 019a 07F10C07 		add	r7, r7, #12
+ 736 019e BD46     		mov	sp, r7
+ 737 01a0 BDE89040 		pop	{r4, r7, lr}
+ 738 01a4 04B0     		add	sp, sp, #16
+ 739 01a6 7047     		bx	lr
+ 740              		.cfi_endproc
+ 741              	.LFE3:
+ 742              		.size	quaternion_multiply, .-quaternion_multiply
+ 743              		.section	.rodata
+ 744              		.align	2
+ 745              	.LC0:
+ 746 0000 5B583A25 		.ascii	"[X:%6.3f|Y:%6.3f|Z:%6.3f|W:%6.3f]\000"
+ 746      362E3366 
+ 746      7C593A25 
+ 746      362E3366 
+ 746      7C5A3A25 
+ 747              		.section	.text.print_quaternion,"ax",%progbits
+ 748              		.align	2
+ 749              		.global	print_quaternion
+ 750              		.thumb
+ 751              		.thumb_func
+ 752              		.type	print_quaternion, %function
+ 753              	print_quaternion:
+ 754              	.LFB4:
+ 123:.\ME_geometry.c **** 
+ 124:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 125:.\ME_geometry.c ****  
+ 126:.\ME_geometry.c **** void print_quaternion(QUATERNION q)
+ 127:.\ME_geometry.c **** {
+ 755              		.loc 1 127 0
+ 756              		.cfi_startproc
+ 757              		@ args = 0, pretend = 0, frame = 16
+ 758              		@ frame_needed = 1, uses_anonymous_args = 0
+ 759 0000 2DE9B04F 		push	{r4, r5, r7, r8, r9, sl, fp, lr}
+ 760              	.LCFI13:
+ 761              		.cfi_def_cfa_offset 32
+ 762              		.cfi_offset 4, -32
+ 763              		.cfi_offset 5, -28
+ 764              		.cfi_offset 7, -24
+ 765              		.cfi_offset 8, -20
+ 766              		.cfi_offset 9, -16
+ 767              		.cfi_offset 10, -12
+ 768              		.cfi_offset 11, -8
+ 769              		.cfi_offset 14, -4
+ 770 0004 8AB0     		sub	sp, sp, #40
+ 771              	.LCFI14:
+ 772              		.cfi_def_cfa_offset 72
+ 773 0006 06AF     		add	r7, sp, #24
+ 774              	.LCFI15:
+ 775              		.cfi_def_cfa 7, 48
+ 776 0008 3C46     		mov	r4, r7
+ 777 000a 84E80F00 		stmia	r4, {r0, r1, r2, r3}
+ 128:.\ME_geometry.c ****     printf("[X:%6.3f|Y:%6.3f|Z:%6.3f|W:%6.3f]", q.x, q.y, q.z, q.w);
+ 778              		.loc 1 128 0
+ 779 000e 7B68     		ldr	r3, [r7, #4]	@ float
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 17
+
+
+ 780 0010 1846     		mov	r0, r3
+ 781 0012 FFF7FEFF 		bl	__aeabi_f2d
+ 782 0016 0446     		mov	r4, r0
+ 783 0018 0D46     		mov	r5, r1
+ 784 001a BB68     		ldr	r3, [r7, #8]	@ float
+ 785 001c 1846     		mov	r0, r3
+ 786 001e FFF7FEFF 		bl	__aeabi_f2d
+ 787 0022 8246     		mov	sl, r0
+ 788 0024 8B46     		mov	fp, r1
+ 789 0026 FB68     		ldr	r3, [r7, #12]	@ float
+ 790 0028 1846     		mov	r0, r3
+ 791 002a FFF7FEFF 		bl	__aeabi_f2d
+ 792 002e 8046     		mov	r8, r0
+ 793 0030 8946     		mov	r9, r1
+ 794 0032 3B68     		ldr	r3, [r7, #0]	@ float
+ 795 0034 1846     		mov	r0, r3
+ 796 0036 FFF7FEFF 		bl	__aeabi_f2d
+ 797 003a 0246     		mov	r2, r0
+ 798 003c 0B46     		mov	r3, r1
+ 799 003e CDE900AB 		strd	sl, [sp]
+ 800 0042 CDE90289 		strd	r8, [sp, #8]
+ 801 0046 CDE90423 		strd	r2, [sp, #16]
+ 802 004a 40F20000 		movw	r0, #:lower16:.LC0
+ 803 004e C0F20000 		movt	r0, #:upper16:.LC0
+ 804 0052 2246     		mov	r2, r4
+ 805 0054 2B46     		mov	r3, r5
+ 806 0056 FFF7FEFF 		bl	printf
+ 129:.\ME_geometry.c **** }
+ 807              		.loc 1 129 0
+ 808 005a 07F11007 		add	r7, r7, #16
+ 809 005e BD46     		mov	sp, r7
+ 810 0060 BDE8B08F 		pop	{r4, r5, r7, r8, r9, sl, fp, pc}
+ 811              		.cfi_endproc
+ 812              	.LFE4:
+ 813              		.size	print_quaternion, .-print_quaternion
+ 814              		.section	.rodata
+ 815 0022 0000     		.align	2
+ 816              	.LC1:
+ 817 0024 50534928 		.ascii	"PSI(pan):%6.3f | THETA(tilt):%6.3f | PHI(roll):%6.3"
+ 817      70616E29 
+ 817      3A25362E 
+ 817      3366207C 
+ 817      20544845 
+ 818 0057 66207C20 		.ascii	"f | \000"
+ 818      00
+ 819              		.section	.text.print_euler_angles,"ax",%progbits
+ 820              		.align	2
+ 821              		.global	print_euler_angles
+ 822              		.thumb
+ 823              		.thumb_func
+ 824              		.type	print_euler_angles, %function
+ 825              	print_euler_angles:
+ 826              	.LFB5:
+ 130:.\ME_geometry.c **** 
+ 131:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 132:.\ME_geometry.c **** 
+ 133:.\ME_geometry.c **** void print_euler_angles(EULER_ANGLES *e)
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 18
+
+
+ 134:.\ME_geometry.c **** {
+ 827              		.loc 1 134 0
+ 828              		.cfi_startproc
+ 829              		@ args = 0, pretend = 0, frame = 8
+ 830              		@ frame_needed = 1, uses_anonymous_args = 0
+ 831 0000 2DE9B043 		push	{r4, r5, r7, r8, r9, lr}
+ 832              	.LCFI16:
+ 833              		.cfi_def_cfa_offset 24
+ 834              		.cfi_offset 4, -24
+ 835              		.cfi_offset 5, -20
+ 836              		.cfi_offset 7, -16
+ 837              		.cfi_offset 8, -12
+ 838              		.cfi_offset 9, -8
+ 839              		.cfi_offset 14, -4
+ 840 0004 86B0     		sub	sp, sp, #24
+ 841              	.LCFI17:
+ 842              		.cfi_def_cfa_offset 48
+ 843 0006 04AF     		add	r7, sp, #16
+ 844              	.LCFI18:
+ 845              		.cfi_def_cfa 7, 32
+ 846 0008 7860     		str	r0, [r7, #4]
+ 135:.\ME_geometry.c ****     printf("PSI(pan):%6.3f | THETA(tilt):%6.3f | PHI(roll):%6.3f | ", e->psi, e->theta, e->phi);
+ 847              		.loc 1 135 0
+ 848 000a 7B68     		ldr	r3, [r7, #4]
+ 849 000c 9B68     		ldr	r3, [r3, #8]	@ float
+ 850 000e 1846     		mov	r0, r3
+ 851 0010 FFF7FEFF 		bl	__aeabi_f2d
+ 852 0014 0446     		mov	r4, r0
+ 853 0016 0D46     		mov	r5, r1
+ 854 0018 7B68     		ldr	r3, [r7, #4]
+ 855 001a 5B68     		ldr	r3, [r3, #4]	@ float
+ 856 001c 1846     		mov	r0, r3
+ 857 001e FFF7FEFF 		bl	__aeabi_f2d
+ 858 0022 8046     		mov	r8, r0
+ 859 0024 8946     		mov	r9, r1
+ 860 0026 7B68     		ldr	r3, [r7, #4]
+ 861 0028 1B68     		ldr	r3, [r3, #0]	@ float
+ 862 002a 1846     		mov	r0, r3
+ 863 002c FFF7FEFF 		bl	__aeabi_f2d
+ 864 0030 0246     		mov	r2, r0
+ 865 0032 0B46     		mov	r3, r1
+ 866 0034 CDE90089 		strd	r8, [sp]
+ 867 0038 CDE90223 		strd	r2, [sp, #8]
+ 868 003c 40F20000 		movw	r0, #:lower16:.LC1
+ 869 0040 C0F20000 		movt	r0, #:upper16:.LC1
+ 870 0044 2246     		mov	r2, r4
+ 871 0046 2B46     		mov	r3, r5
+ 872 0048 FFF7FEFF 		bl	printf
+ 136:.\ME_geometry.c **** }
+ 873              		.loc 1 136 0
+ 874 004c 07F10807 		add	r7, r7, #8
+ 875 0050 BD46     		mov	sp, r7
+ 876 0052 BDE8B083 		pop	{r4, r5, r7, r8, r9, pc}
+ 877              		.cfi_endproc
+ 878              	.LFE5:
+ 879              		.size	print_euler_angles, .-print_euler_angles
+ 880 0056 00BF     		.section	.rodata
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 19
+
+
+ 881              		.align	2
+ 882              	.LC2:
+ 883 005c 5B783A25 		.ascii	"[x:%6.2f|y:%6.2f|z:%6.2f]\000"
+ 883      362E3266 
+ 883      7C793A25 
+ 883      362E3266 
+ 883      7C7A3A25 
+ 884 0076 0000     		.section	.text.print_acceleration_vector,"ax",%progbits
+ 885              		.align	2
+ 886              		.global	print_acceleration_vector
+ 887              		.thumb
+ 888              		.thumb_func
+ 889              		.type	print_acceleration_vector, %function
+ 890              	print_acceleration_vector:
+ 891              	.LFB6:
+ 137:.\ME_geometry.c **** 
+ 138:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 139:.\ME_geometry.c **** 
+ 140:.\ME_geometry.c **** void print_acceleration_vector(ACCELERATION *a)
+ 141:.\ME_geometry.c **** {
+ 892              		.loc 1 141 0
+ 893              		.cfi_startproc
+ 894              		@ args = 0, pretend = 0, frame = 8
+ 895              		@ frame_needed = 1, uses_anonymous_args = 0
+ 896 0000 2DE9B043 		push	{r4, r5, r7, r8, r9, lr}
+ 897              	.LCFI19:
+ 898              		.cfi_def_cfa_offset 24
+ 899              		.cfi_offset 4, -24
+ 900              		.cfi_offset 5, -20
+ 901              		.cfi_offset 7, -16
+ 902              		.cfi_offset 8, -12
+ 903              		.cfi_offset 9, -8
+ 904              		.cfi_offset 14, -4
+ 905 0004 86B0     		sub	sp, sp, #24
+ 906              	.LCFI20:
+ 907              		.cfi_def_cfa_offset 48
+ 908 0006 04AF     		add	r7, sp, #16
+ 909              	.LCFI21:
+ 910              		.cfi_def_cfa 7, 32
+ 911 0008 7860     		str	r0, [r7, #4]
+ 142:.\ME_geometry.c ****     printf("[x:%6.2f|y:%6.2f|z:%6.2f]", a->x, a->y, a->z);
+ 912              		.loc 1 142 0
+ 913 000a 7B68     		ldr	r3, [r7, #4]
+ 914 000c 1B68     		ldr	r3, [r3, #0]	@ float
+ 915 000e 1846     		mov	r0, r3
+ 916 0010 FFF7FEFF 		bl	__aeabi_f2d
+ 917 0014 0446     		mov	r4, r0
+ 918 0016 0D46     		mov	r5, r1
+ 919 0018 7B68     		ldr	r3, [r7, #4]
+ 920 001a 5B68     		ldr	r3, [r3, #4]	@ float
+ 921 001c 1846     		mov	r0, r3
+ 922 001e FFF7FEFF 		bl	__aeabi_f2d
+ 923 0022 8046     		mov	r8, r0
+ 924 0024 8946     		mov	r9, r1
+ 925 0026 7B68     		ldr	r3, [r7, #4]
+ 926 0028 9B68     		ldr	r3, [r3, #8]	@ float
+ 927 002a 1846     		mov	r0, r3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 20
+
+
+ 928 002c FFF7FEFF 		bl	__aeabi_f2d
+ 929 0030 0246     		mov	r2, r0
+ 930 0032 0B46     		mov	r3, r1
+ 931 0034 CDE90089 		strd	r8, [sp]
+ 932 0038 CDE90223 		strd	r2, [sp, #8]
+ 933 003c 40F20000 		movw	r0, #:lower16:.LC2
+ 934 0040 C0F20000 		movt	r0, #:upper16:.LC2
+ 935 0044 2246     		mov	r2, r4
+ 936 0046 2B46     		mov	r3, r5
+ 937 0048 FFF7FEFF 		bl	printf
+ 143:.\ME_geometry.c **** }
+ 938              		.loc 1 143 0
+ 939 004c 07F10807 		add	r7, r7, #8
+ 940 0050 BD46     		mov	sp, r7
+ 941 0052 BDE8B083 		pop	{r4, r5, r7, r8, r9, pc}
+ 942              		.cfi_endproc
+ 943              	.LFE6:
+ 944              		.size	print_acceleration_vector, .-print_acceleration_vector
+ 945 0056 00BF     		.section	.text.angular_init,"ax",%progbits
+ 946              		.align	2
+ 947              		.global	angular_init
+ 948              		.thumb
+ 949              		.thumb_func
+ 950              		.type	angular_init, %function
+ 951              	angular_init:
+ 952              	.LFB7:
+ 144:.\ME_geometry.c **** 
+ 145:.\ME_geometry.c **** 
+ 146:.\ME_geometry.c **** 
+ 147:.\ME_geometry.c **** ////  FUNZIONI PER TIPI ANGULAR  //////////////////////////////////////////////////////////////////
+ 148:.\ME_geometry.c **** 
+ 149:.\ME_geometry.c **** void angular_init(ANGULAR *a, DOUBLE val, FLOAT ofs)
+ 150:.\ME_geometry.c **** {
+ 953              		.loc 1 150 0
+ 954              		.cfi_startproc
+ 955              		@ args = 4, pretend = 0, frame = 16
+ 956              		@ frame_needed = 1, uses_anonymous_args = 0
+ 957              		@ link register save eliminated.
+ 958 0000 80B4     		push	{r7}
+ 959              	.LCFI22:
+ 960              		.cfi_def_cfa_offset 4
+ 961              		.cfi_offset 7, -4
+ 962 0002 85B0     		sub	sp, sp, #20
+ 963              	.LCFI23:
+ 964              		.cfi_def_cfa_offset 24
+ 965 0004 00AF     		add	r7, sp, #0
+ 966              	.LCFI24:
+ 967              		.cfi_def_cfa_register 7
+ 968 0006 F860     		str	r0, [r7, #12]
+ 969 0008 C7E90023 		strd	r2, [r7]
+ 151:.\ME_geometry.c ****     a->old_raw = 0 ;
+ 970              		.loc 1 151 0
+ 971 000c FB68     		ldr	r3, [r7, #12]
+ 972 000e 4FF00002 		mov	r2, #0
+ 973 0012 9A60     		str	r2, [r3, #8]	@ float
+ 152:.\ME_geometry.c ****     a->value = val ;
+ 974              		.loc 1 152 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 21
+
+
+ 975 0014 F968     		ldr	r1, [r7, #12]
+ 976 0016 D7E90023 		ldrd	r2, [r7]
+ 977 001a C1E90023 		strd	r2, [r1]
+ 153:.\ME_geometry.c ****     a->offset = ofs ;
+ 978              		.loc 1 153 0
+ 979 001e FB68     		ldr	r3, [r7, #12]
+ 980 0020 BA69     		ldr	r2, [r7, #24]	@ float
+ 981 0022 DA60     		str	r2, [r3, #12]	@ float
+ 154:.\ME_geometry.c **** }
+ 982              		.loc 1 154 0
+ 983 0024 07F11407 		add	r7, r7, #20
+ 984 0028 BD46     		mov	sp, r7
+ 985 002a 80BC     		pop	{r7}
+ 986 002c 7047     		bx	lr
+ 987              		.cfi_endproc
+ 988              	.LFE7:
+ 989              		.size	angular_init, .-angular_init
+ 990              		.global	__aeabi_fcmpge
+ 991              		.global	__aeabi_fcmple
+ 992              		.global	__aeabi_fcmplt
+ 993              		.section	.text.angular_add,"ax",%progbits
+ 994              		.align	2
+ 995              		.global	angular_add
+ 996              		.thumb
+ 997              		.thumb_func
+ 998              		.type	angular_add, %function
+ 999              	angular_add:
+ 1000              	.LFB8:
+ 155:.\ME_geometry.c **** 
+ 156:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 157:.\ME_geometry.c **** 
+ 158:.\ME_geometry.c **** DOUBLE angular_add(ANGULAR *a, FLOAT raw)
+ 159:.\ME_geometry.c **** {
+ 1001              		.loc 1 159 0
+ 1002              		.cfi_startproc
+ 1003              		@ args = 0, pretend = 0, frame = 16
+ 1004              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1005 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1006              	.LCFI25:
+ 1007              		.cfi_def_cfa_offset 16
+ 1008              		.cfi_offset 4, -16
+ 1009              		.cfi_offset 5, -12
+ 1010              		.cfi_offset 7, -8
+ 1011              		.cfi_offset 14, -4
+ 1012 0002 84B0     		sub	sp, sp, #16
+ 1013              	.LCFI26:
+ 1014              		.cfi_def_cfa_offset 32
+ 1015 0004 00AF     		add	r7, sp, #0
+ 1016              	.LCFI27:
+ 1017              		.cfi_def_cfa_register 7
+ 1018 0006 7860     		str	r0, [r7, #4]
+ 1019 0008 3960     		str	r1, [r7, #0]	@ float
+ 160:.\ME_geometry.c ****     FLOAT delta = raw - a->old_raw ;            // La variazione è tra dati -180..+180
+ 1020              		.loc 1 160 0
+ 1021 000a 7B68     		ldr	r3, [r7, #4]
+ 1022 000c 9B68     		ldr	r3, [r3, #8]	@ float
+ 1023 000e 3868     		ldr	r0, [r7, #0]	@ float
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 22
+
+
+ 1024 0010 1946     		mov	r1, r3
+ 1025 0012 FFF7FEFF 		bl	__aeabi_fsub
+ 1026 0016 0346     		mov	r3, r0
+ 1027 0018 FB60     		str	r3, [r7, #12]	@ float
+ 161:.\ME_geometry.c ****  
+ 162:.\ME_geometry.c ****     if (ABS(delta)>= 180.0)                     // Caso particolare per variazioni grandi
+ 1028              		.loc 1 162 0
+ 1029 001a F868     		ldr	r0, [r7, #12]	@ float
+ 1030 001c 4FF00001 		mov	r1, #0
+ 1031 0020 FFF7FEFF 		bl	__aeabi_fcmpge
+ 1032 0024 0346     		mov	r3, r0
+ 1033 0026 002B     		cmp	r3, #0
+ 1034 0028 11D0     		beq	.L37
+ 1035              	.L35:
+ 1036              		.loc 1 162 0 is_stmt 0 discriminator 1
+ 1037 002a 4FF00103 		mov	r3, #1
+ 1038 002e 1C46     		mov	r4, r3
+ 1039 0030 F868     		ldr	r0, [r7, #12]	@ float
+ 1040 0032 4FF00001 		mov	r1, #0
+ 1041 0036 C4F23431 		movt	r1, 17204
+ 1042 003a FFF7FEFF 		bl	__aeabi_fcmpge
+ 1043 003e 0346     		mov	r3, r0
+ 1044 0040 002B     		cmp	r3, #0
+ 1045 0042 02D1     		bne	.L28
+ 1046 0044 4FF00003 		mov	r3, #0
+ 1047 0048 1C46     		mov	r4, r3
+ 1048              	.L28:
+ 1049 004a E3B2     		uxtb	r3, r4
+ 1050 004c 10E0     		b	.L29
+ 1051              	.L37:
+ 1052              		.loc 1 162 0 discriminator 2
+ 1053 004e 4FF00103 		mov	r3, #1
+ 1054 0052 1C46     		mov	r4, r3
+ 1055 0054 F868     		ldr	r0, [r7, #12]	@ float
+ 1056 0056 4FF00001 		mov	r1, #0
+ 1057 005a CCF23431 		movt	r1, 49972
+ 1058 005e FFF7FEFF 		bl	__aeabi_fcmple
+ 1059 0062 0346     		mov	r3, r0
+ 1060 0064 002B     		cmp	r3, #0
+ 1061 0066 02D1     		bne	.L30
+ 1062 0068 4FF00003 		mov	r3, #0
+ 1063 006c 1C46     		mov	r4, r3
+ 1064              	.L30:
+ 1065 006e E3B2     		uxtb	r3, r4
+ 1066              	.L29:
+ 1067              		.loc 1 162 0 discriminator 3
+ 1068 0070 002B     		cmp	r3, #0
+ 1069 0072 1AD0     		beq	.L31
+ 163:.\ME_geometry.c ****     {
+ 164:.\ME_geometry.c ****       if (delta<0)                              // Corregge la variazione tenendo conto dei 
+ 1070              		.loc 1 164 0 is_stmt 1
+ 1071 0074 F868     		ldr	r0, [r7, #12]	@ float
+ 1072 0076 4FF00001 		mov	r1, #0
+ 1073 007a FFF7FEFF 		bl	__aeabi_fcmplt
+ 1074 007e 0346     		mov	r3, r0
+ 1075 0080 002B     		cmp	r3, #0
+ 1076 0082 09D0     		beq	.L38
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 23
+
+
+ 1077              	.L36:
+ 165:.\ME_geometry.c ****         delta = 360.0 + delta ;                 // ribaltamenti
+ 1078              		.loc 1 165 0
+ 1079 0084 F868     		ldr	r0, [r7, #12]	@ float
+ 1080 0086 4FF00001 		mov	r1, #0
+ 1081 008a C4F2B431 		movt	r1, 17332
+ 1082 008e FFF7FEFF 		bl	__aeabi_fadd
+ 1083 0092 0346     		mov	r3, r0
+ 1084 0094 FB60     		str	r3, [r7, #12]	@ float
+ 1085 0096 08E0     		b	.L31
+ 1086              	.L38:
+ 166:.\ME_geometry.c ****       else
+ 167:.\ME_geometry.c ****         delta = delta - 360.0 ;     
+ 1087              		.loc 1 167 0
+ 1088 0098 F868     		ldr	r0, [r7, #12]	@ float
+ 1089 009a 4FF00001 		mov	r1, #0
+ 1090 009e C4F2B431 		movt	r1, 17332
+ 1091 00a2 FFF7FEFF 		bl	__aeabi_fsub
+ 1092 00a6 0346     		mov	r3, r0
+ 1093 00a8 FB60     		str	r3, [r7, #12]	@ float
+ 1094              	.L31:
+ 168:.\ME_geometry.c ****     }
+ 169:.\ME_geometry.c **** 
+ 170:.\ME_geometry.c ****     a->value += delta ;                         // Aggiorna il valore finale
+ 1095              		.loc 1 170 0
+ 1096 00aa 7B68     		ldr	r3, [r7, #4]
+ 1097 00ac D3E90045 		ldrd	r4, [r3]
+ 1098 00b0 F868     		ldr	r0, [r7, #12]	@ float
+ 1099 00b2 FFF7FEFF 		bl	__aeabi_f2d
+ 1100 00b6 0246     		mov	r2, r0
+ 1101 00b8 0B46     		mov	r3, r1
+ 1102 00ba 2046     		mov	r0, r4
+ 1103 00bc 2946     		mov	r1, r5
+ 1104 00be FFF7FEFF 		bl	__aeabi_dadd
+ 1105 00c2 0246     		mov	r2, r0
+ 1106 00c4 0B46     		mov	r3, r1
+ 1107 00c6 7968     		ldr	r1, [r7, #4]
+ 1108 00c8 C1E90023 		strd	r2, [r1]
+ 171:.\ME_geometry.c ****     a->old_raw = raw ;                          // Memorizza il valore attuale in ingresso
+ 1109              		.loc 1 171 0
+ 1110 00cc 7B68     		ldr	r3, [r7, #4]
+ 1111 00ce 3A68     		ldr	r2, [r7, #0]	@ float
+ 1112 00d0 9A60     		str	r2, [r3, #8]	@ float
+ 172:.\ME_geometry.c ****     
+ 173:.\ME_geometry.c ****     return a->value + a->offset ;               // Può essere comodo avere il valore finale 
+ 1113              		.loc 1 173 0
+ 1114 00d2 7B68     		ldr	r3, [r7, #4]
+ 1115 00d4 D3E90045 		ldrd	r4, [r3]
+ 1116 00d8 7B68     		ldr	r3, [r7, #4]
+ 1117 00da DB68     		ldr	r3, [r3, #12]	@ float
+ 1118 00dc 1846     		mov	r0, r3
+ 1119 00de FFF7FEFF 		bl	__aeabi_f2d
+ 1120 00e2 0246     		mov	r2, r0
+ 1121 00e4 0B46     		mov	r3, r1
+ 1122 00e6 2046     		mov	r0, r4
+ 1123 00e8 2946     		mov	r1, r5
+ 1124 00ea FFF7FEFF 		bl	__aeabi_dadd
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 24
+
+
+ 1125 00ee 0246     		mov	r2, r0
+ 1126 00f0 0B46     		mov	r3, r1
+ 174:.\ME_geometry.c **** }
+ 1127              		.loc 1 174 0
+ 1128 00f2 1046     		mov	r0, r2
+ 1129 00f4 1946     		mov	r1, r3
+ 1130 00f6 07F11007 		add	r7, r7, #16
+ 1131 00fa BD46     		mov	sp, r7
+ 1132 00fc B0BD     		pop	{r4, r5, r7, pc}
+ 1133              		.cfi_endproc
+ 1134              	.LFE8:
+ 1135              		.size	angular_add, .-angular_add
+ 1136 00fe 00BF     		.section	.text.angular_get,"ax",%progbits
+ 1137              		.align	2
+ 1138              		.global	angular_get
+ 1139              		.thumb
+ 1140              		.thumb_func
+ 1141              		.type	angular_get, %function
+ 1142              	angular_get:
+ 1143              	.LFB9:
+ 175:.\ME_geometry.c **** 
+ 176:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 177:.\ME_geometry.c **** 
+ 178:.\ME_geometry.c **** 
+ 179:.\ME_geometry.c **** DOUBLE angular_get(ANGULAR *a)
+ 180:.\ME_geometry.c **** {    
+ 1144              		.loc 1 180 0
+ 1145              		.cfi_startproc
+ 1146              		@ args = 0, pretend = 0, frame = 8
+ 1147              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1148 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1149              	.LCFI28:
+ 1150              		.cfi_def_cfa_offset 16
+ 1151              		.cfi_offset 4, -16
+ 1152              		.cfi_offset 5, -12
+ 1153              		.cfi_offset 7, -8
+ 1154              		.cfi_offset 14, -4
+ 1155 0002 82B0     		sub	sp, sp, #8
+ 1156              	.LCFI29:
+ 1157              		.cfi_def_cfa_offset 24
+ 1158 0004 00AF     		add	r7, sp, #0
+ 1159              	.LCFI30:
+ 1160              		.cfi_def_cfa_register 7
+ 1161 0006 7860     		str	r0, [r7, #4]
+ 181:.\ME_geometry.c ****     return a->value + a->offset ;
+ 1162              		.loc 1 181 0
+ 1163 0008 7B68     		ldr	r3, [r7, #4]
+ 1164 000a D3E90045 		ldrd	r4, [r3]
+ 1165 000e 7B68     		ldr	r3, [r7, #4]
+ 1166 0010 DB68     		ldr	r3, [r3, #12]	@ float
+ 1167 0012 1846     		mov	r0, r3
+ 1168 0014 FFF7FEFF 		bl	__aeabi_f2d
+ 1169 0018 0246     		mov	r2, r0
+ 1170 001a 0B46     		mov	r3, r1
+ 1171 001c 2046     		mov	r0, r4
+ 1172 001e 2946     		mov	r1, r5
+ 1173 0020 FFF7FEFF 		bl	__aeabi_dadd
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 25
+
+
+ 1174 0024 0246     		mov	r2, r0
+ 1175 0026 0B46     		mov	r3, r1
+ 182:.\ME_geometry.c **** }
+ 1176              		.loc 1 182 0
+ 1177 0028 1046     		mov	r0, r2
+ 1178 002a 1946     		mov	r1, r3
+ 1179 002c 07F10807 		add	r7, r7, #8
+ 1180 0030 BD46     		mov	sp, r7
+ 1181 0032 B0BD     		pop	{r4, r5, r7, pc}
+ 1182              		.cfi_endproc
+ 1183              	.LFE9:
+ 1184              		.size	angular_get, .-angular_get
+ 1185              		.section	.text.angular_set_offset,"ax",%progbits
+ 1186              		.align	2
+ 1187              		.global	angular_set_offset
+ 1188              		.thumb
+ 1189              		.thumb_func
+ 1190              		.type	angular_set_offset, %function
+ 1191              	angular_set_offset:
+ 1192              	.LFB10:
+ 183:.\ME_geometry.c **** 
+ 184:.\ME_geometry.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 185:.\ME_geometry.c **** 
+ 186:.\ME_geometry.c **** DOUBLE angular_set_offset(ANGULAR *a, FLOAT ofs)
+ 187:.\ME_geometry.c **** {   
+ 1193              		.loc 1 187 0
+ 1194              		.cfi_startproc
+ 1195              		@ args = 0, pretend = 0, frame = 8
+ 1196              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1197 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1198              	.LCFI31:
+ 1199              		.cfi_def_cfa_offset 16
+ 1200              		.cfi_offset 4, -16
+ 1201              		.cfi_offset 5, -12
+ 1202              		.cfi_offset 7, -8
+ 1203              		.cfi_offset 14, -4
+ 1204 0002 82B0     		sub	sp, sp, #8
+ 1205              	.LCFI32:
+ 1206              		.cfi_def_cfa_offset 24
+ 1207 0004 00AF     		add	r7, sp, #0
+ 1208              	.LCFI33:
+ 1209              		.cfi_def_cfa_register 7
+ 1210 0006 7860     		str	r0, [r7, #4]
+ 1211 0008 3960     		str	r1, [r7, #0]	@ float
+ 188:.\ME_geometry.c ****     a->offset = ofs ;
+ 1212              		.loc 1 188 0
+ 1213 000a 7B68     		ldr	r3, [r7, #4]
+ 1214 000c 3A68     		ldr	r2, [r7, #0]	@ float
+ 1215 000e DA60     		str	r2, [r3, #12]	@ float
+ 189:.\ME_geometry.c ****     return a->value + a->offset ;
+ 1216              		.loc 1 189 0
+ 1217 0010 7B68     		ldr	r3, [r7, #4]
+ 1218 0012 D3E90045 		ldrd	r4, [r3]
+ 1219 0016 7B68     		ldr	r3, [r7, #4]
+ 1220 0018 DB68     		ldr	r3, [r3, #12]	@ float
+ 1221 001a 1846     		mov	r0, r3
+ 1222 001c FFF7FEFF 		bl	__aeabi_f2d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 26
+
+
+ 1223 0020 0246     		mov	r2, r0
+ 1224 0022 0B46     		mov	r3, r1
+ 1225 0024 2046     		mov	r0, r4
+ 1226 0026 2946     		mov	r1, r5
+ 1227 0028 FFF7FEFF 		bl	__aeabi_dadd
+ 1228 002c 0246     		mov	r2, r0
+ 1229 002e 0B46     		mov	r3, r1
+ 190:.\ME_geometry.c **** }
+ 1230              		.loc 1 190 0
+ 1231 0030 1046     		mov	r0, r2
+ 1232 0032 1946     		mov	r1, r3
+ 1233 0034 07F10807 		add	r7, r7, #8
+ 1234 0038 BD46     		mov	sp, r7
+ 1235 003a B0BD     		pop	{r4, r5, r7, pc}
+ 1236              		.cfi_endproc
+ 1237              	.LFE10:
+ 1238              		.size	angular_set_offset, .-angular_set_offset
+ 1239              		.text
+ 1240              	.Letext0:
+ 1241              		.file 2 ".\\ME_common.h"
+ 1242              		.file 3 ".\\ME_geometry.h"
+ 1243              		.section	.debug_info,"",%progbits
+ 1244              	.Ldebug_info0:
+ 1245 0000 53040000 		.4byte	0x453
+ 1246 0004 0200     		.2byte	0x2
+ 1247 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1248 000a 04       		.byte	0x4
+ 1249 000b 01       		.uleb128 0x1
+ 1250 000c 29020000 		.4byte	.LASF39
+ 1251 0010 01       		.byte	0x1
+ 1252 0011 82000000 		.4byte	.LASF40
+ 1253 0015 E6000000 		.4byte	.LASF41
+ 1254 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1255 001d 00000000 		.4byte	0
+ 1256 0021 00000000 		.4byte	0
+ 1257 0025 00000000 		.4byte	.Ldebug_line0
+ 1258 0029 02       		.uleb128 0x2
+ 1259 002a 04       		.byte	0x4
+ 1260 002b 07       		.byte	0x7
+ 1261 002c 62010000 		.4byte	.LASF0
+ 1262 0030 02       		.uleb128 0x2
+ 1263 0031 01       		.byte	0x1
+ 1264 0032 06       		.byte	0x6
+ 1265 0033 87020000 		.4byte	.LASF1
+ 1266 0037 02       		.uleb128 0x2
+ 1267 0038 01       		.byte	0x1
+ 1268 0039 08       		.byte	0x8
+ 1269 003a 74000000 		.4byte	.LASF2
+ 1270 003e 02       		.uleb128 0x2
+ 1271 003f 02       		.byte	0x2
+ 1272 0040 05       		.byte	0x5
+ 1273 0041 1F020000 		.4byte	.LASF3
+ 1274 0045 02       		.uleb128 0x2
+ 1275 0046 02       		.byte	0x2
+ 1276 0047 07       		.byte	0x7
+ 1277 0048 B1000000 		.4byte	.LASF4
+ 1278 004c 03       		.uleb128 0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 27
+
+
+ 1279 004d 04       		.byte	0x4
+ 1280 004e 05       		.byte	0x5
+ 1281 004f 696E7400 		.ascii	"int\000"
+ 1282 0053 02       		.uleb128 0x2
+ 1283 0054 08       		.byte	0x8
+ 1284 0055 05       		.byte	0x5
+ 1285 0056 F8010000 		.4byte	.LASF5
+ 1286 005a 02       		.uleb128 0x2
+ 1287 005b 08       		.byte	0x8
+ 1288 005c 07       		.byte	0x7
+ 1289 005d 6F010000 		.4byte	.LASF6
+ 1290 0061 02       		.uleb128 0x2
+ 1291 0062 04       		.byte	0x4
+ 1292 0063 05       		.byte	0x5
+ 1293 0064 72020000 		.4byte	.LASF7
+ 1294 0068 02       		.uleb128 0x2
+ 1295 0069 04       		.byte	0x4
+ 1296 006a 07       		.byte	0x7
+ 1297 006b D5010000 		.4byte	.LASF8
+ 1298 006f 02       		.uleb128 0x2
+ 1299 0070 04       		.byte	0x4
+ 1300 0071 07       		.byte	0x7
+ 1301 0072 92000000 		.4byte	.LASF9
+ 1302 0076 02       		.uleb128 0x2
+ 1303 0077 01       		.byte	0x1
+ 1304 0078 08       		.byte	0x8
+ 1305 0079 06020000 		.4byte	.LASF10
+ 1306 007d 02       		.uleb128 0x2
+ 1307 007e 08       		.byte	0x8
+ 1308 007f 04       		.byte	0x4
+ 1309 0080 DF000000 		.4byte	.LASF11
+ 1310 0084 02       		.uleb128 0x2
+ 1311 0085 04       		.byte	0x4
+ 1312 0086 04       		.byte	0x4
+ 1313 0087 63000000 		.4byte	.LASF12
+ 1314 008b 02       		.uleb128 0x2
+ 1315 008c 08       		.byte	0x8
+ 1316 008d 04       		.byte	0x4
+ 1317 008e 7B020000 		.4byte	.LASF13
+ 1318 0092 04       		.uleb128 0x4
+ 1319 0093 1A000000 		.4byte	.LASF14
+ 1320 0097 02       		.byte	0x2
+ 1321 0098 35       		.byte	0x35
+ 1322 0099 45000000 		.4byte	0x45
+ 1323 009d 05       		.uleb128 0x5
+ 1324 009e 494E5400 		.ascii	"INT\000"
+ 1325 00a2 02       		.byte	0x2
+ 1326 00a3 38       		.byte	0x38
+ 1327 00a4 3E000000 		.4byte	0x3e
+ 1328 00a8 04       		.uleb128 0x4
+ 1329 00a9 D9000000 		.4byte	.LASF15
+ 1330 00ad 02       		.byte	0x2
+ 1331 00ae 3A       		.byte	0x3a
+ 1332 00af 84000000 		.4byte	0x84
+ 1333 00b3 04       		.uleb128 0x4
+ 1334 00b4 56010000 		.4byte	.LASF16
+ 1335 00b8 02       		.byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 28
+
+
+ 1336 00b9 3B       		.byte	0x3b
+ 1337 00ba 7D000000 		.4byte	0x7d
+ 1338 00be 06       		.uleb128 0x6
+ 1339 00bf CD010000 		.4byte	.LASF20
+ 1340 00c3 10       		.byte	0x10
+ 1341 00c4 03       		.byte	0x3
+ 1342 00c5 33       		.byte	0x33
+ 1343 00c6 F5000000 		.4byte	0xf5
+ 1344 00ca 07       		.uleb128 0x7
+ 1345 00cb 14000000 		.4byte	.LASF17
+ 1346 00cf 03       		.byte	0x3
+ 1347 00d0 35       		.byte	0x35
+ 1348 00d1 B3000000 		.4byte	0xb3
+ 1349 00d5 02       		.byte	0x2
+ 1350 00d6 23       		.byte	0x23
+ 1351 00d7 00       		.uleb128 0
+ 1352 00d8 07       		.uleb128 0x7
+ 1353 00d9 5B000000 		.4byte	.LASF18
+ 1354 00dd 03       		.byte	0x3
+ 1355 00de 36       		.byte	0x36
+ 1356 00df A8000000 		.4byte	0xa8
+ 1357 00e3 02       		.byte	0x2
+ 1358 00e4 23       		.byte	0x23
+ 1359 00e5 08       		.uleb128 0x8
+ 1360 00e6 07       		.uleb128 0x7
+ 1361 00e7 18020000 		.4byte	.LASF19
+ 1362 00eb 03       		.byte	0x3
+ 1363 00ec 37       		.byte	0x37
+ 1364 00ed A8000000 		.4byte	0xa8
+ 1365 00f1 02       		.byte	0x2
+ 1366 00f2 23       		.byte	0x23
+ 1367 00f3 0C       		.uleb128 0xc
+ 1368 00f4 00       		.byte	0
+ 1369 00f5 04       		.uleb128 0x4
+ 1370 00f6 CD010000 		.4byte	.LASF20
+ 1371 00fa 03       		.byte	0x3
+ 1372 00fb 39       		.byte	0x39
+ 1373 00fc BE000000 		.4byte	0xbe
+ 1374 0100 06       		.uleb128 0x6
+ 1375 0101 0B020000 		.4byte	.LASF21
+ 1376 0105 0C       		.byte	0xc
+ 1377 0106 03       		.byte	0x3
+ 1378 0107 3E       		.byte	0x3e
+ 1379 0108 37010000 		.4byte	0x137
+ 1380 010c 08       		.uleb128 0x8
+ 1381 010d 70686900 		.ascii	"phi\000"
+ 1382 0111 03       		.byte	0x3
+ 1383 0112 40       		.byte	0x40
+ 1384 0113 A8000000 		.4byte	0xa8
+ 1385 0117 02       		.byte	0x2
+ 1386 0118 23       		.byte	0x23
+ 1387 0119 00       		.uleb128 0
+ 1388 011a 07       		.uleb128 0x7
+ 1389 011b 1F000000 		.4byte	.LASF22
+ 1390 011f 03       		.byte	0x3
+ 1391 0120 41       		.byte	0x41
+ 1392 0121 A8000000 		.4byte	0xa8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 29
+
+
+ 1393 0125 02       		.byte	0x2
+ 1394 0126 23       		.byte	0x23
+ 1395 0127 04       		.uleb128 0x4
+ 1396 0128 08       		.uleb128 0x8
+ 1397 0129 70736900 		.ascii	"psi\000"
+ 1398 012d 03       		.byte	0x3
+ 1399 012e 42       		.byte	0x42
+ 1400 012f A8000000 		.4byte	0xa8
+ 1401 0133 02       		.byte	0x2
+ 1402 0134 23       		.byte	0x23
+ 1403 0135 08       		.uleb128 0x8
+ 1404 0136 00       		.byte	0
+ 1405 0137 04       		.uleb128 0x4
+ 1406 0138 0B020000 		.4byte	.LASF21
+ 1407 013c 03       		.byte	0x3
+ 1408 013d 43       		.byte	0x43
+ 1409 013e 00010000 		.4byte	0x100
+ 1410 0142 06       		.uleb128 0x6
+ 1411 0143 69000000 		.4byte	.LASF23
+ 1412 0147 10       		.byte	0x10
+ 1413 0148 03       		.byte	0x3
+ 1414 0149 48       		.byte	0x48
+ 1415 014a 7F010000 		.4byte	0x17f
+ 1416 014e 08       		.uleb128 0x8
+ 1417 014f 7700     		.ascii	"w\000"
+ 1418 0151 03       		.byte	0x3
+ 1419 0152 4A       		.byte	0x4a
+ 1420 0153 A8000000 		.4byte	0xa8
+ 1421 0157 02       		.byte	0x2
+ 1422 0158 23       		.byte	0x23
+ 1423 0159 00       		.uleb128 0
+ 1424 015a 08       		.uleb128 0x8
+ 1425 015b 7800     		.ascii	"x\000"
+ 1426 015d 03       		.byte	0x3
+ 1427 015e 4A       		.byte	0x4a
+ 1428 015f A8000000 		.4byte	0xa8
+ 1429 0163 02       		.byte	0x2
+ 1430 0164 23       		.byte	0x23
+ 1431 0165 04       		.uleb128 0x4
+ 1432 0166 08       		.uleb128 0x8
+ 1433 0167 7900     		.ascii	"y\000"
+ 1434 0169 03       		.byte	0x3
+ 1435 016a 4A       		.byte	0x4a
+ 1436 016b A8000000 		.4byte	0xa8
+ 1437 016f 02       		.byte	0x2
+ 1438 0170 23       		.byte	0x23
+ 1439 0171 08       		.uleb128 0x8
+ 1440 0172 08       		.uleb128 0x8
+ 1441 0173 7A00     		.ascii	"z\000"
+ 1442 0175 03       		.byte	0x3
+ 1443 0176 4A       		.byte	0x4a
+ 1444 0177 A8000000 		.4byte	0xa8
+ 1445 017b 02       		.byte	0x2
+ 1446 017c 23       		.byte	0x23
+ 1447 017d 0C       		.uleb128 0xc
+ 1448 017e 00       		.byte	0
+ 1449 017f 04       		.uleb128 0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 30
+
+
+ 1450 0180 69000000 		.4byte	.LASF23
+ 1451 0184 03       		.byte	0x3
+ 1452 0185 4B       		.byte	0x4b
+ 1453 0186 42010000 		.4byte	0x142
+ 1454 018a 06       		.uleb128 0x6
+ 1455 018b A4000000 		.4byte	.LASF24
+ 1456 018f 0C       		.byte	0xc
+ 1457 0190 03       		.byte	0x3
+ 1458 0191 50       		.byte	0x50
+ 1459 0192 BB010000 		.4byte	0x1bb
+ 1460 0196 08       		.uleb128 0x8
+ 1461 0197 7800     		.ascii	"x\000"
+ 1462 0199 03       		.byte	0x3
+ 1463 019a 52       		.byte	0x52
+ 1464 019b A8000000 		.4byte	0xa8
+ 1465 019f 02       		.byte	0x2
+ 1466 01a0 23       		.byte	0x23
+ 1467 01a1 00       		.uleb128 0
+ 1468 01a2 08       		.uleb128 0x8
+ 1469 01a3 7900     		.ascii	"y\000"
+ 1470 01a5 03       		.byte	0x3
+ 1471 01a6 52       		.byte	0x52
+ 1472 01a7 A8000000 		.4byte	0xa8
+ 1473 01ab 02       		.byte	0x2
+ 1474 01ac 23       		.byte	0x23
+ 1475 01ad 04       		.uleb128 0x4
+ 1476 01ae 08       		.uleb128 0x8
+ 1477 01af 7A00     		.ascii	"z\000"
+ 1478 01b1 03       		.byte	0x3
+ 1479 01b2 52       		.byte	0x52
+ 1480 01b3 A8000000 		.4byte	0xa8
+ 1481 01b7 02       		.byte	0x2
+ 1482 01b8 23       		.byte	0x23
+ 1483 01b9 08       		.uleb128 0x8
+ 1484 01ba 00       		.byte	0
+ 1485 01bb 04       		.uleb128 0x4
+ 1486 01bc A4000000 		.4byte	.LASF24
+ 1487 01c0 03       		.byte	0x3
+ 1488 01c1 53       		.byte	0x53
+ 1489 01c2 8A010000 		.4byte	0x18a
+ 1490 01c6 09       		.uleb128 0x9
+ 1491 01c7 01       		.byte	0x1
+ 1492 01c8 86010000 		.4byte	.LASF34
+ 1493 01cc 01       		.byte	0x1
+ 1494 01cd 12       		.byte	0x12
+ 1495 01ce 01       		.byte	0x1
+ 1496 01cf 9D000000 		.4byte	0x9d
+ 1497 01d3 00000000 		.4byte	.LFB0
+ 1498 01d7 74000000 		.4byte	.LFE0
+ 1499 01db 00000000 		.4byte	.LLST0
+ 1500 01df 01       		.byte	0x1
+ 1501 01e0 0F020000 		.4byte	0x20f
+ 1502 01e4 0A       		.uleb128 0xa
+ 1503 01e5 72617700 		.ascii	"raw\000"
+ 1504 01e9 01       		.byte	0x1
+ 1505 01ea 12       		.byte	0x12
+ 1506 01eb 92000000 		.4byte	0x92
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 31
+
+
+ 1507 01ef 02       		.byte	0x2
+ 1508 01f0 91       		.byte	0x91
+ 1509 01f1 6E       		.sleb128 -18
+ 1510 01f2 0B       		.uleb128 0xb
+ 1511 01f3 18020000 		.4byte	.LASF19
+ 1512 01f7 01       		.byte	0x1
+ 1513 01f8 12       		.byte	0x12
+ 1514 01f9 92000000 		.4byte	0x92
+ 1515 01fd 02       		.byte	0x2
+ 1516 01fe 91       		.byte	0x91
+ 1517 01ff 6C       		.sleb128 -20
+ 1518 0200 0C       		.uleb128 0xc
+ 1519 0201 D1000000 		.4byte	.LASF27
+ 1520 0205 01       		.byte	0x1
+ 1521 0206 14       		.byte	0x14
+ 1522 0207 9D000000 		.4byte	0x9d
+ 1523 020b 02       		.byte	0x2
+ 1524 020c 91       		.byte	0x91
+ 1525 020d 76       		.sleb128 -10
+ 1526 020e 00       		.byte	0
+ 1527 020f 0D       		.uleb128 0xd
+ 1528 0210 01       		.byte	0x1
+ 1529 0211 95010000 		.4byte	.LASF25
+ 1530 0215 01       		.byte	0x1
+ 1531 0216 27       		.byte	0x27
+ 1532 0217 01       		.byte	0x1
+ 1533 0218 00000000 		.4byte	.LFB1
+ 1534 021c A8000000 		.4byte	.LFE1
+ 1535 0220 38000000 		.4byte	.LLST1
+ 1536 0224 01       		.byte	0x1
+ 1537 0225 36020000 		.4byte	0x236
+ 1538 0229 0A       		.uleb128 0xa
+ 1539 022a 6500     		.ascii	"e\000"
+ 1540 022c 01       		.byte	0x1
+ 1541 022d 27       		.byte	0x27
+ 1542 022e 36020000 		.4byte	0x236
+ 1543 0232 02       		.byte	0x2
+ 1544 0233 91       		.byte	0x91
+ 1545 0234 74       		.sleb128 -12
+ 1546 0235 00       		.byte	0
+ 1547 0236 0E       		.uleb128 0xe
+ 1548 0237 04       		.byte	0x4
+ 1549 0238 37010000 		.4byte	0x137
+ 1550 023c 0D       		.uleb128 0xd
+ 1551 023d 01       		.byte	0x1
+ 1552 023e 00000000 		.4byte	.LASF26
+ 1553 0242 01       		.byte	0x1
+ 1554 0243 53       		.byte	0x53
+ 1555 0244 01       		.byte	0x1
+ 1556 0245 00000000 		.4byte	.LFB2
+ 1557 0249 A0020000 		.4byte	.LFE2
+ 1558 024d 70000000 		.4byte	.LLST2
+ 1559 0251 01       		.byte	0x1
+ 1560 0252 A3020000 		.4byte	0x2a3
+ 1561 0256 0A       		.uleb128 0xa
+ 1562 0257 7100     		.ascii	"q\000"
+ 1563 0259 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 32
+
+
+ 1564 025a 53       		.byte	0x53
+ 1565 025b 7F010000 		.4byte	0x17f
+ 1566 025f 02       		.byte	0x2
+ 1567 0260 91       		.byte	0x91
+ 1568 0261 50       		.sleb128 -48
+ 1569 0262 0A       		.uleb128 0xa
+ 1570 0263 6500     		.ascii	"e\000"
+ 1571 0265 01       		.byte	0x1
+ 1572 0266 53       		.byte	0x53
+ 1573 0267 36020000 		.4byte	0x236
+ 1574 026b 02       		.byte	0x2
+ 1575 026c 91       		.byte	0x91
+ 1576 026d 00       		.sleb128 0
+ 1577 026e 0C       		.uleb128 0xc
+ 1578 026f 5D010000 		.4byte	.LASF28
+ 1579 0273 01       		.byte	0x1
+ 1580 0274 55       		.byte	0x55
+ 1581 0275 A8000000 		.4byte	0xa8
+ 1582 0279 01       		.byte	0x1
+ 1583 027a 54       		.byte	0x54
+ 1584 027b 0F       		.uleb128 0xf
+ 1585 027c 73717800 		.ascii	"sqx\000"
+ 1586 0280 01       		.byte	0x1
+ 1587 0281 56       		.byte	0x56
+ 1588 0282 A8000000 		.4byte	0xa8
+ 1589 0286 01       		.byte	0x1
+ 1590 0287 5A       		.byte	0x5a
+ 1591 0288 0F       		.uleb128 0xf
+ 1592 0289 73717900 		.ascii	"sqy\000"
+ 1593 028d 01       		.byte	0x1
+ 1594 028e 56       		.byte	0x56
+ 1595 028f A8000000 		.4byte	0xa8
+ 1596 0293 01       		.byte	0x1
+ 1597 0294 55       		.byte	0x55
+ 1598 0295 0F       		.uleb128 0xf
+ 1599 0296 73717A00 		.ascii	"sqz\000"
+ 1600 029a 01       		.byte	0x1
+ 1601 029b 56       		.byte	0x56
+ 1602 029c A8000000 		.4byte	0xa8
+ 1603 02a0 01       		.byte	0x1
+ 1604 02a1 56       		.byte	0x56
+ 1605 02a2 00       		.byte	0
+ 1606 02a3 0D       		.uleb128 0xd
+ 1607 02a4 01       		.byte	0x1
+ 1608 02a5 B9010000 		.4byte	.LASF29
+ 1609 02a9 01       		.byte	0x1
+ 1610 02aa 74       		.byte	0x74
+ 1611 02ab 01       		.byte	0x1
+ 1612 02ac 00000000 		.4byte	.LFB3
+ 1613 02b0 A8010000 		.4byte	.LFE3
+ 1614 02b4 A8000000 		.4byte	.LLST3
+ 1615 02b8 01       		.byte	0x1
+ 1616 02b9 E5020000 		.4byte	0x2e5
+ 1617 02bd 0A       		.uleb128 0xa
+ 1618 02be 713300   		.ascii	"q3\000"
+ 1619 02c1 01       		.byte	0x1
+ 1620 02c2 74       		.byte	0x74
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 33
+
+
+ 1621 02c3 E5020000 		.4byte	0x2e5
+ 1622 02c7 02       		.byte	0x2
+ 1623 02c8 91       		.byte	0x91
+ 1624 02c9 5C       		.sleb128 -36
+ 1625 02ca 0A       		.uleb128 0xa
+ 1626 02cb 713100   		.ascii	"q1\000"
+ 1627 02ce 01       		.byte	0x1
+ 1628 02cf 74       		.byte	0x74
+ 1629 02d0 7F010000 		.4byte	0x17f
+ 1630 02d4 02       		.byte	0x2
+ 1631 02d5 91       		.byte	0x91
+ 1632 02d6 74       		.sleb128 -12
+ 1633 02d7 0A       		.uleb128 0xa
+ 1634 02d8 713200   		.ascii	"q2\000"
+ 1635 02db 01       		.byte	0x1
+ 1636 02dc 74       		.byte	0x74
+ 1637 02dd 7F010000 		.4byte	0x17f
+ 1638 02e1 02       		.byte	0x2
+ 1639 02e2 91       		.byte	0x91
+ 1640 02e3 04       		.sleb128 4
+ 1641 02e4 00       		.byte	0
+ 1642 02e5 0E       		.uleb128 0xe
+ 1643 02e6 04       		.byte	0x4
+ 1644 02e7 7F010000 		.4byte	0x17f
+ 1645 02eb 0D       		.uleb128 0xd
+ 1646 02ec 01       		.byte	0x1
+ 1647 02ed 3E000000 		.4byte	.LASF30
+ 1648 02f1 01       		.byte	0x1
+ 1649 02f2 7E       		.byte	0x7e
+ 1650 02f3 01       		.byte	0x1
+ 1651 02f4 00000000 		.4byte	.LFB4
+ 1652 02f8 64000000 		.4byte	.LFE4
+ 1653 02fc EC000000 		.4byte	.LLST4
+ 1654 0300 01       		.byte	0x1
+ 1655 0301 12030000 		.4byte	0x312
+ 1656 0305 0A       		.uleb128 0xa
+ 1657 0306 7100     		.ascii	"q\000"
+ 1658 0308 01       		.byte	0x1
+ 1659 0309 7E       		.byte	0x7e
+ 1660 030a 7F010000 		.4byte	0x17f
+ 1661 030e 02       		.byte	0x2
+ 1662 030f 91       		.byte	0x91
+ 1663 0310 50       		.sleb128 -48
+ 1664 0311 00       		.byte	0
+ 1665 0312 0D       		.uleb128 0xd
+ 1666 0313 01       		.byte	0x1
+ 1667 0314 A6010000 		.4byte	.LASF31
+ 1668 0318 01       		.byte	0x1
+ 1669 0319 85       		.byte	0x85
+ 1670 031a 01       		.byte	0x1
+ 1671 031b 00000000 		.4byte	.LFB5
+ 1672 031f 56000000 		.4byte	.LFE5
+ 1673 0323 25010000 		.4byte	.LLST5
+ 1674 0327 01       		.byte	0x1
+ 1675 0328 39030000 		.4byte	0x339
+ 1676 032c 0A       		.uleb128 0xa
+ 1677 032d 6500     		.ascii	"e\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 34
+
+
+ 1678 032f 01       		.byte	0x1
+ 1679 0330 85       		.byte	0x85
+ 1680 0331 36020000 		.4byte	0x236
+ 1681 0335 02       		.byte	0x2
+ 1682 0336 91       		.byte	0x91
+ 1683 0337 64       		.sleb128 -28
+ 1684 0338 00       		.byte	0
+ 1685 0339 0D       		.uleb128 0xd
+ 1686 033a 01       		.byte	0x1
+ 1687 033b DE010000 		.4byte	.LASF32
+ 1688 033f 01       		.byte	0x1
+ 1689 0340 8C       		.byte	0x8c
+ 1690 0341 01       		.byte	0x1
+ 1691 0342 00000000 		.4byte	.LFB6
+ 1692 0346 56000000 		.4byte	.LFE6
+ 1693 034a 5D010000 		.4byte	.LLST6
+ 1694 034e 01       		.byte	0x1
+ 1695 034f 60030000 		.4byte	0x360
+ 1696 0353 0A       		.uleb128 0xa
+ 1697 0354 6100     		.ascii	"a\000"
+ 1698 0356 01       		.byte	0x1
+ 1699 0357 8C       		.byte	0x8c
+ 1700 0358 60030000 		.4byte	0x360
+ 1701 035c 02       		.byte	0x2
+ 1702 035d 91       		.byte	0x91
+ 1703 035e 64       		.sleb128 -28
+ 1704 035f 00       		.byte	0
+ 1705 0360 0E       		.uleb128 0xe
+ 1706 0361 04       		.byte	0x4
+ 1707 0362 BB010000 		.4byte	0x1bb
+ 1708 0366 10       		.uleb128 0x10
+ 1709 0367 01       		.byte	0x1
+ 1710 0368 C4000000 		.4byte	.LASF33
+ 1711 036c 01       		.byte	0x1
+ 1712 036d 95       		.byte	0x95
+ 1713 036e 01       		.byte	0x1
+ 1714 036f 00000000 		.4byte	.LFB7
+ 1715 0373 2E000000 		.4byte	.LFE7
+ 1716 0377 95010000 		.4byte	.LLST7
+ 1717 037b 01       		.byte	0x1
+ 1718 037c A9030000 		.4byte	0x3a9
+ 1719 0380 0A       		.uleb128 0xa
+ 1720 0381 6100     		.ascii	"a\000"
+ 1721 0383 01       		.byte	0x1
+ 1722 0384 95       		.byte	0x95
+ 1723 0385 A9030000 		.4byte	0x3a9
+ 1724 0389 02       		.byte	0x2
+ 1725 038a 91       		.byte	0x91
+ 1726 038b 74       		.sleb128 -12
+ 1727 038c 0A       		.uleb128 0xa
+ 1728 038d 76616C00 		.ascii	"val\000"
+ 1729 0391 01       		.byte	0x1
+ 1730 0392 95       		.byte	0x95
+ 1731 0393 B3000000 		.4byte	0xb3
+ 1732 0397 02       		.byte	0x2
+ 1733 0398 91       		.byte	0x91
+ 1734 0399 68       		.sleb128 -24
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 35
+
+
+ 1735 039a 0A       		.uleb128 0xa
+ 1736 039b 6F667300 		.ascii	"ofs\000"
+ 1737 039f 01       		.byte	0x1
+ 1738 03a0 95       		.byte	0x95
+ 1739 03a1 A8000000 		.4byte	0xa8
+ 1740 03a5 02       		.byte	0x2
+ 1741 03a6 91       		.byte	0x91
+ 1742 03a7 00       		.sleb128 0
+ 1743 03a8 00       		.byte	0
+ 1744 03a9 0E       		.uleb128 0xe
+ 1745 03aa 04       		.byte	0x4
+ 1746 03ab F5000000 		.4byte	0xf5
+ 1747 03af 11       		.uleb128 0x11
+ 1748 03b0 01       		.byte	0x1
+ 1749 03b1 4F000000 		.4byte	.LASF35
+ 1750 03b5 01       		.byte	0x1
+ 1751 03b6 9E       		.byte	0x9e
+ 1752 03b7 01       		.byte	0x1
+ 1753 03b8 B3000000 		.4byte	0xb3
+ 1754 03bc 00000000 		.4byte	.LFB8
+ 1755 03c0 FE000000 		.4byte	.LFE8
+ 1756 03c4 CD010000 		.4byte	.LLST8
+ 1757 03c8 01       		.byte	0x1
+ 1758 03c9 F6030000 		.4byte	0x3f6
+ 1759 03cd 0A       		.uleb128 0xa
+ 1760 03ce 6100     		.ascii	"a\000"
+ 1761 03d0 01       		.byte	0x1
+ 1762 03d1 9E       		.byte	0x9e
+ 1763 03d2 A9030000 		.4byte	0x3a9
+ 1764 03d6 02       		.byte	0x2
+ 1765 03d7 91       		.byte	0x91
+ 1766 03d8 64       		.sleb128 -28
+ 1767 03d9 0A       		.uleb128 0xa
+ 1768 03da 72617700 		.ascii	"raw\000"
+ 1769 03de 01       		.byte	0x1
+ 1770 03df 9E       		.byte	0x9e
+ 1771 03e0 A8000000 		.4byte	0xa8
+ 1772 03e4 02       		.byte	0x2
+ 1773 03e5 91       		.byte	0x91
+ 1774 03e6 60       		.sleb128 -32
+ 1775 03e7 0C       		.uleb128 0xc
+ 1776 03e8 25000000 		.4byte	.LASF36
+ 1777 03ec 01       		.byte	0x1
+ 1778 03ed A0       		.byte	0xa0
+ 1779 03ee A8000000 		.4byte	0xa8
+ 1780 03f2 02       		.byte	0x2
+ 1781 03f3 91       		.byte	0x91
+ 1782 03f4 6C       		.sleb128 -20
+ 1783 03f5 00       		.byte	0
+ 1784 03f6 11       		.uleb128 0x11
+ 1785 03f7 01       		.byte	0x1
+ 1786 03f8 93020000 		.4byte	.LASF37
+ 1787 03fc 01       		.byte	0x1
+ 1788 03fd B3       		.byte	0xb3
+ 1789 03fe 01       		.byte	0x1
+ 1790 03ff B3000000 		.4byte	0xb3
+ 1791 0403 00000000 		.4byte	.LFB9
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 36
+
+
+ 1792 0407 34000000 		.4byte	.LFE9
+ 1793 040b 05020000 		.4byte	.LLST9
+ 1794 040f 01       		.byte	0x1
+ 1795 0410 21040000 		.4byte	0x421
+ 1796 0414 0A       		.uleb128 0xa
+ 1797 0415 6100     		.ascii	"a\000"
+ 1798 0417 01       		.byte	0x1
+ 1799 0418 B3       		.byte	0xb3
+ 1800 0419 A9030000 		.4byte	0x3a9
+ 1801 041d 02       		.byte	0x2
+ 1802 041e 91       		.byte	0x91
+ 1803 041f 6C       		.sleb128 -20
+ 1804 0420 00       		.byte	0
+ 1805 0421 12       		.uleb128 0x12
+ 1806 0422 01       		.byte	0x1
+ 1807 0423 2B000000 		.4byte	.LASF38
+ 1808 0427 01       		.byte	0x1
+ 1809 0428 BA       		.byte	0xba
+ 1810 0429 01       		.byte	0x1
+ 1811 042a B3000000 		.4byte	0xb3
+ 1812 042e 00000000 		.4byte	.LFB10
+ 1813 0432 3C000000 		.4byte	.LFE10
+ 1814 0436 3D020000 		.4byte	.LLST10
+ 1815 043a 01       		.byte	0x1
+ 1816 043b 0A       		.uleb128 0xa
+ 1817 043c 6100     		.ascii	"a\000"
+ 1818 043e 01       		.byte	0x1
+ 1819 043f BA       		.byte	0xba
+ 1820 0440 A9030000 		.4byte	0x3a9
+ 1821 0444 02       		.byte	0x2
+ 1822 0445 91       		.byte	0x91
+ 1823 0446 6C       		.sleb128 -20
+ 1824 0447 0A       		.uleb128 0xa
+ 1825 0448 6F667300 		.ascii	"ofs\000"
+ 1826 044c 01       		.byte	0x1
+ 1827 044d BA       		.byte	0xba
+ 1828 044e A8000000 		.4byte	0xa8
+ 1829 0452 02       		.byte	0x2
+ 1830 0453 91       		.byte	0x91
+ 1831 0454 68       		.sleb128 -24
+ 1832 0455 00       		.byte	0
+ 1833 0456 00       		.byte	0
+ 1834              		.section	.debug_abbrev,"",%progbits
+ 1835              	.Ldebug_abbrev0:
+ 1836 0000 01       		.uleb128 0x1
+ 1837 0001 11       		.uleb128 0x11
+ 1838 0002 01       		.byte	0x1
+ 1839 0003 25       		.uleb128 0x25
+ 1840 0004 0E       		.uleb128 0xe
+ 1841 0005 13       		.uleb128 0x13
+ 1842 0006 0B       		.uleb128 0xb
+ 1843 0007 03       		.uleb128 0x3
+ 1844 0008 0E       		.uleb128 0xe
+ 1845 0009 1B       		.uleb128 0x1b
+ 1846 000a 0E       		.uleb128 0xe
+ 1847 000b 55       		.uleb128 0x55
+ 1848 000c 06       		.uleb128 0x6
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 37
+
+
+ 1849 000d 11       		.uleb128 0x11
+ 1850 000e 01       		.uleb128 0x1
+ 1851 000f 52       		.uleb128 0x52
+ 1852 0010 01       		.uleb128 0x1
+ 1853 0011 10       		.uleb128 0x10
+ 1854 0012 06       		.uleb128 0x6
+ 1855 0013 00       		.byte	0
+ 1856 0014 00       		.byte	0
+ 1857 0015 02       		.uleb128 0x2
+ 1858 0016 24       		.uleb128 0x24
+ 1859 0017 00       		.byte	0
+ 1860 0018 0B       		.uleb128 0xb
+ 1861 0019 0B       		.uleb128 0xb
+ 1862 001a 3E       		.uleb128 0x3e
+ 1863 001b 0B       		.uleb128 0xb
+ 1864 001c 03       		.uleb128 0x3
+ 1865 001d 0E       		.uleb128 0xe
+ 1866 001e 00       		.byte	0
+ 1867 001f 00       		.byte	0
+ 1868 0020 03       		.uleb128 0x3
+ 1869 0021 24       		.uleb128 0x24
+ 1870 0022 00       		.byte	0
+ 1871 0023 0B       		.uleb128 0xb
+ 1872 0024 0B       		.uleb128 0xb
+ 1873 0025 3E       		.uleb128 0x3e
+ 1874 0026 0B       		.uleb128 0xb
+ 1875 0027 03       		.uleb128 0x3
+ 1876 0028 08       		.uleb128 0x8
+ 1877 0029 00       		.byte	0
+ 1878 002a 00       		.byte	0
+ 1879 002b 04       		.uleb128 0x4
+ 1880 002c 16       		.uleb128 0x16
+ 1881 002d 00       		.byte	0
+ 1882 002e 03       		.uleb128 0x3
+ 1883 002f 0E       		.uleb128 0xe
+ 1884 0030 3A       		.uleb128 0x3a
+ 1885 0031 0B       		.uleb128 0xb
+ 1886 0032 3B       		.uleb128 0x3b
+ 1887 0033 0B       		.uleb128 0xb
+ 1888 0034 49       		.uleb128 0x49
+ 1889 0035 13       		.uleb128 0x13
+ 1890 0036 00       		.byte	0
+ 1891 0037 00       		.byte	0
+ 1892 0038 05       		.uleb128 0x5
+ 1893 0039 16       		.uleb128 0x16
+ 1894 003a 00       		.byte	0
+ 1895 003b 03       		.uleb128 0x3
+ 1896 003c 08       		.uleb128 0x8
+ 1897 003d 3A       		.uleb128 0x3a
+ 1898 003e 0B       		.uleb128 0xb
+ 1899 003f 3B       		.uleb128 0x3b
+ 1900 0040 0B       		.uleb128 0xb
+ 1901 0041 49       		.uleb128 0x49
+ 1902 0042 13       		.uleb128 0x13
+ 1903 0043 00       		.byte	0
+ 1904 0044 00       		.byte	0
+ 1905 0045 06       		.uleb128 0x6
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 38
+
+
+ 1906 0046 13       		.uleb128 0x13
+ 1907 0047 01       		.byte	0x1
+ 1908 0048 03       		.uleb128 0x3
+ 1909 0049 0E       		.uleb128 0xe
+ 1910 004a 0B       		.uleb128 0xb
+ 1911 004b 0B       		.uleb128 0xb
+ 1912 004c 3A       		.uleb128 0x3a
+ 1913 004d 0B       		.uleb128 0xb
+ 1914 004e 3B       		.uleb128 0x3b
+ 1915 004f 0B       		.uleb128 0xb
+ 1916 0050 01       		.uleb128 0x1
+ 1917 0051 13       		.uleb128 0x13
+ 1918 0052 00       		.byte	0
+ 1919 0053 00       		.byte	0
+ 1920 0054 07       		.uleb128 0x7
+ 1921 0055 0D       		.uleb128 0xd
+ 1922 0056 00       		.byte	0
+ 1923 0057 03       		.uleb128 0x3
+ 1924 0058 0E       		.uleb128 0xe
+ 1925 0059 3A       		.uleb128 0x3a
+ 1926 005a 0B       		.uleb128 0xb
+ 1927 005b 3B       		.uleb128 0x3b
+ 1928 005c 0B       		.uleb128 0xb
+ 1929 005d 49       		.uleb128 0x49
+ 1930 005e 13       		.uleb128 0x13
+ 1931 005f 38       		.uleb128 0x38
+ 1932 0060 0A       		.uleb128 0xa
+ 1933 0061 00       		.byte	0
+ 1934 0062 00       		.byte	0
+ 1935 0063 08       		.uleb128 0x8
+ 1936 0064 0D       		.uleb128 0xd
+ 1937 0065 00       		.byte	0
+ 1938 0066 03       		.uleb128 0x3
+ 1939 0067 08       		.uleb128 0x8
+ 1940 0068 3A       		.uleb128 0x3a
+ 1941 0069 0B       		.uleb128 0xb
+ 1942 006a 3B       		.uleb128 0x3b
+ 1943 006b 0B       		.uleb128 0xb
+ 1944 006c 49       		.uleb128 0x49
+ 1945 006d 13       		.uleb128 0x13
+ 1946 006e 38       		.uleb128 0x38
+ 1947 006f 0A       		.uleb128 0xa
+ 1948 0070 00       		.byte	0
+ 1949 0071 00       		.byte	0
+ 1950 0072 09       		.uleb128 0x9
+ 1951 0073 2E       		.uleb128 0x2e
+ 1952 0074 01       		.byte	0x1
+ 1953 0075 3F       		.uleb128 0x3f
+ 1954 0076 0C       		.uleb128 0xc
+ 1955 0077 03       		.uleb128 0x3
+ 1956 0078 0E       		.uleb128 0xe
+ 1957 0079 3A       		.uleb128 0x3a
+ 1958 007a 0B       		.uleb128 0xb
+ 1959 007b 3B       		.uleb128 0x3b
+ 1960 007c 0B       		.uleb128 0xb
+ 1961 007d 27       		.uleb128 0x27
+ 1962 007e 0C       		.uleb128 0xc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 39
+
+
+ 1963 007f 49       		.uleb128 0x49
+ 1964 0080 13       		.uleb128 0x13
+ 1965 0081 11       		.uleb128 0x11
+ 1966 0082 01       		.uleb128 0x1
+ 1967 0083 12       		.uleb128 0x12
+ 1968 0084 01       		.uleb128 0x1
+ 1969 0085 40       		.uleb128 0x40
+ 1970 0086 06       		.uleb128 0x6
+ 1971 0087 9742     		.uleb128 0x2117
+ 1972 0089 0C       		.uleb128 0xc
+ 1973 008a 01       		.uleb128 0x1
+ 1974 008b 13       		.uleb128 0x13
+ 1975 008c 00       		.byte	0
+ 1976 008d 00       		.byte	0
+ 1977 008e 0A       		.uleb128 0xa
+ 1978 008f 05       		.uleb128 0x5
+ 1979 0090 00       		.byte	0
+ 1980 0091 03       		.uleb128 0x3
+ 1981 0092 08       		.uleb128 0x8
+ 1982 0093 3A       		.uleb128 0x3a
+ 1983 0094 0B       		.uleb128 0xb
+ 1984 0095 3B       		.uleb128 0x3b
+ 1985 0096 0B       		.uleb128 0xb
+ 1986 0097 49       		.uleb128 0x49
+ 1987 0098 13       		.uleb128 0x13
+ 1988 0099 02       		.uleb128 0x2
+ 1989 009a 0A       		.uleb128 0xa
+ 1990 009b 00       		.byte	0
+ 1991 009c 00       		.byte	0
+ 1992 009d 0B       		.uleb128 0xb
+ 1993 009e 05       		.uleb128 0x5
+ 1994 009f 00       		.byte	0
+ 1995 00a0 03       		.uleb128 0x3
+ 1996 00a1 0E       		.uleb128 0xe
+ 1997 00a2 3A       		.uleb128 0x3a
+ 1998 00a3 0B       		.uleb128 0xb
+ 1999 00a4 3B       		.uleb128 0x3b
+ 2000 00a5 0B       		.uleb128 0xb
+ 2001 00a6 49       		.uleb128 0x49
+ 2002 00a7 13       		.uleb128 0x13
+ 2003 00a8 02       		.uleb128 0x2
+ 2004 00a9 0A       		.uleb128 0xa
+ 2005 00aa 00       		.byte	0
+ 2006 00ab 00       		.byte	0
+ 2007 00ac 0C       		.uleb128 0xc
+ 2008 00ad 34       		.uleb128 0x34
+ 2009 00ae 00       		.byte	0
+ 2010 00af 03       		.uleb128 0x3
+ 2011 00b0 0E       		.uleb128 0xe
+ 2012 00b1 3A       		.uleb128 0x3a
+ 2013 00b2 0B       		.uleb128 0xb
+ 2014 00b3 3B       		.uleb128 0x3b
+ 2015 00b4 0B       		.uleb128 0xb
+ 2016 00b5 49       		.uleb128 0x49
+ 2017 00b6 13       		.uleb128 0x13
+ 2018 00b7 02       		.uleb128 0x2
+ 2019 00b8 0A       		.uleb128 0xa
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 40
+
+
+ 2020 00b9 00       		.byte	0
+ 2021 00ba 00       		.byte	0
+ 2022 00bb 0D       		.uleb128 0xd
+ 2023 00bc 2E       		.uleb128 0x2e
+ 2024 00bd 01       		.byte	0x1
+ 2025 00be 3F       		.uleb128 0x3f
+ 2026 00bf 0C       		.uleb128 0xc
+ 2027 00c0 03       		.uleb128 0x3
+ 2028 00c1 0E       		.uleb128 0xe
+ 2029 00c2 3A       		.uleb128 0x3a
+ 2030 00c3 0B       		.uleb128 0xb
+ 2031 00c4 3B       		.uleb128 0x3b
+ 2032 00c5 0B       		.uleb128 0xb
+ 2033 00c6 27       		.uleb128 0x27
+ 2034 00c7 0C       		.uleb128 0xc
+ 2035 00c8 11       		.uleb128 0x11
+ 2036 00c9 01       		.uleb128 0x1
+ 2037 00ca 12       		.uleb128 0x12
+ 2038 00cb 01       		.uleb128 0x1
+ 2039 00cc 40       		.uleb128 0x40
+ 2040 00cd 06       		.uleb128 0x6
+ 2041 00ce 9642     		.uleb128 0x2116
+ 2042 00d0 0C       		.uleb128 0xc
+ 2043 00d1 01       		.uleb128 0x1
+ 2044 00d2 13       		.uleb128 0x13
+ 2045 00d3 00       		.byte	0
+ 2046 00d4 00       		.byte	0
+ 2047 00d5 0E       		.uleb128 0xe
+ 2048 00d6 0F       		.uleb128 0xf
+ 2049 00d7 00       		.byte	0
+ 2050 00d8 0B       		.uleb128 0xb
+ 2051 00d9 0B       		.uleb128 0xb
+ 2052 00da 49       		.uleb128 0x49
+ 2053 00db 13       		.uleb128 0x13
+ 2054 00dc 00       		.byte	0
+ 2055 00dd 00       		.byte	0
+ 2056 00de 0F       		.uleb128 0xf
+ 2057 00df 34       		.uleb128 0x34
+ 2058 00e0 00       		.byte	0
+ 2059 00e1 03       		.uleb128 0x3
+ 2060 00e2 08       		.uleb128 0x8
+ 2061 00e3 3A       		.uleb128 0x3a
+ 2062 00e4 0B       		.uleb128 0xb
+ 2063 00e5 3B       		.uleb128 0x3b
+ 2064 00e6 0B       		.uleb128 0xb
+ 2065 00e7 49       		.uleb128 0x49
+ 2066 00e8 13       		.uleb128 0x13
+ 2067 00e9 02       		.uleb128 0x2
+ 2068 00ea 0A       		.uleb128 0xa
+ 2069 00eb 00       		.byte	0
+ 2070 00ec 00       		.byte	0
+ 2071 00ed 10       		.uleb128 0x10
+ 2072 00ee 2E       		.uleb128 0x2e
+ 2073 00ef 01       		.byte	0x1
+ 2074 00f0 3F       		.uleb128 0x3f
+ 2075 00f1 0C       		.uleb128 0xc
+ 2076 00f2 03       		.uleb128 0x3
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 41
+
+
+ 2077 00f3 0E       		.uleb128 0xe
+ 2078 00f4 3A       		.uleb128 0x3a
+ 2079 00f5 0B       		.uleb128 0xb
+ 2080 00f6 3B       		.uleb128 0x3b
+ 2081 00f7 0B       		.uleb128 0xb
+ 2082 00f8 27       		.uleb128 0x27
+ 2083 00f9 0C       		.uleb128 0xc
+ 2084 00fa 11       		.uleb128 0x11
+ 2085 00fb 01       		.uleb128 0x1
+ 2086 00fc 12       		.uleb128 0x12
+ 2087 00fd 01       		.uleb128 0x1
+ 2088 00fe 40       		.uleb128 0x40
+ 2089 00ff 06       		.uleb128 0x6
+ 2090 0100 9742     		.uleb128 0x2117
+ 2091 0102 0C       		.uleb128 0xc
+ 2092 0103 01       		.uleb128 0x1
+ 2093 0104 13       		.uleb128 0x13
+ 2094 0105 00       		.byte	0
+ 2095 0106 00       		.byte	0
+ 2096 0107 11       		.uleb128 0x11
+ 2097 0108 2E       		.uleb128 0x2e
+ 2098 0109 01       		.byte	0x1
+ 2099 010a 3F       		.uleb128 0x3f
+ 2100 010b 0C       		.uleb128 0xc
+ 2101 010c 03       		.uleb128 0x3
+ 2102 010d 0E       		.uleb128 0xe
+ 2103 010e 3A       		.uleb128 0x3a
+ 2104 010f 0B       		.uleb128 0xb
+ 2105 0110 3B       		.uleb128 0x3b
+ 2106 0111 0B       		.uleb128 0xb
+ 2107 0112 27       		.uleb128 0x27
+ 2108 0113 0C       		.uleb128 0xc
+ 2109 0114 49       		.uleb128 0x49
+ 2110 0115 13       		.uleb128 0x13
+ 2111 0116 11       		.uleb128 0x11
+ 2112 0117 01       		.uleb128 0x1
+ 2113 0118 12       		.uleb128 0x12
+ 2114 0119 01       		.uleb128 0x1
+ 2115 011a 40       		.uleb128 0x40
+ 2116 011b 06       		.uleb128 0x6
+ 2117 011c 9642     		.uleb128 0x2116
+ 2118 011e 0C       		.uleb128 0xc
+ 2119 011f 01       		.uleb128 0x1
+ 2120 0120 13       		.uleb128 0x13
+ 2121 0121 00       		.byte	0
+ 2122 0122 00       		.byte	0
+ 2123 0123 12       		.uleb128 0x12
+ 2124 0124 2E       		.uleb128 0x2e
+ 2125 0125 01       		.byte	0x1
+ 2126 0126 3F       		.uleb128 0x3f
+ 2127 0127 0C       		.uleb128 0xc
+ 2128 0128 03       		.uleb128 0x3
+ 2129 0129 0E       		.uleb128 0xe
+ 2130 012a 3A       		.uleb128 0x3a
+ 2131 012b 0B       		.uleb128 0xb
+ 2132 012c 3B       		.uleb128 0x3b
+ 2133 012d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 42
+
+
+ 2134 012e 27       		.uleb128 0x27
+ 2135 012f 0C       		.uleb128 0xc
+ 2136 0130 49       		.uleb128 0x49
+ 2137 0131 13       		.uleb128 0x13
+ 2138 0132 11       		.uleb128 0x11
+ 2139 0133 01       		.uleb128 0x1
+ 2140 0134 12       		.uleb128 0x12
+ 2141 0135 01       		.uleb128 0x1
+ 2142 0136 40       		.uleb128 0x40
+ 2143 0137 06       		.uleb128 0x6
+ 2144 0138 9642     		.uleb128 0x2116
+ 2145 013a 0C       		.uleb128 0xc
+ 2146 013b 00       		.byte	0
+ 2147 013c 00       		.byte	0
+ 2148 013d 00       		.byte	0
+ 2149              		.section	.debug_loc,"",%progbits
+ 2150              	.Ldebug_loc0:
+ 2151              	.LLST0:
+ 2152 0000 00000000 		.4byte	.LFB0
+ 2153 0004 02000000 		.4byte	.LCFI0
+ 2154 0008 0200     		.2byte	0x2
+ 2155 000a 7D       		.byte	0x7d
+ 2156 000b 00       		.sleb128 0
+ 2157 000c 02000000 		.4byte	.LCFI0
+ 2158 0010 04000000 		.4byte	.LCFI1
+ 2159 0014 0200     		.2byte	0x2
+ 2160 0016 7D       		.byte	0x7d
+ 2161 0017 04       		.sleb128 4
+ 2162 0018 04000000 		.4byte	.LCFI1
+ 2163 001c 06000000 		.4byte	.LCFI2
+ 2164 0020 0200     		.2byte	0x2
+ 2165 0022 7D       		.byte	0x7d
+ 2166 0023 18       		.sleb128 24
+ 2167 0024 06000000 		.4byte	.LCFI2
+ 2168 0028 74000000 		.4byte	.LFE0
+ 2169 002c 0200     		.2byte	0x2
+ 2170 002e 77       		.byte	0x77
+ 2171 002f 18       		.sleb128 24
+ 2172 0030 00000000 		.4byte	0
+ 2173 0034 00000000 		.4byte	0
+ 2174              	.LLST1:
+ 2175 0038 00000000 		.4byte	.LFB1
+ 2176 003c 02000000 		.4byte	.LCFI3
+ 2177 0040 0200     		.2byte	0x2
+ 2178 0042 7D       		.byte	0x7d
+ 2179 0043 00       		.sleb128 0
+ 2180 0044 02000000 		.4byte	.LCFI3
+ 2181 0048 04000000 		.4byte	.LCFI4
+ 2182 004c 0200     		.2byte	0x2
+ 2183 004e 7D       		.byte	0x7d
+ 2184 004f 08       		.sleb128 8
+ 2185 0050 04000000 		.4byte	.LCFI4
+ 2186 0054 06000000 		.4byte	.LCFI5
+ 2187 0058 0200     		.2byte	0x2
+ 2188 005a 7D       		.byte	0x7d
+ 2189 005b 10       		.sleb128 16
+ 2190 005c 06000000 		.4byte	.LCFI5
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 43
+
+
+ 2191 0060 A8000000 		.4byte	.LFE1
+ 2192 0064 0200     		.2byte	0x2
+ 2193 0066 77       		.byte	0x77
+ 2194 0067 10       		.sleb128 16
+ 2195 0068 00000000 		.4byte	0
+ 2196 006c 00000000 		.4byte	0
+ 2197              	.LLST2:
+ 2198 0070 00000000 		.4byte	.LFB2
+ 2199 0074 04000000 		.4byte	.LCFI6
+ 2200 0078 0200     		.2byte	0x2
+ 2201 007a 7D       		.byte	0x7d
+ 2202 007b 00       		.sleb128 0
+ 2203 007c 04000000 		.4byte	.LCFI6
+ 2204 0080 06000000 		.4byte	.LCFI7
+ 2205 0084 0200     		.2byte	0x2
+ 2206 0086 7D       		.byte	0x7d
+ 2207 0087 20       		.sleb128 32
+ 2208 0088 06000000 		.4byte	.LCFI7
+ 2209 008c 08000000 		.4byte	.LCFI8
+ 2210 0090 0200     		.2byte	0x2
+ 2211 0092 7D       		.byte	0x7d
+ 2212 0093 30       		.sleb128 48
+ 2213 0094 08000000 		.4byte	.LCFI8
+ 2214 0098 A0020000 		.4byte	.LFE2
+ 2215 009c 0200     		.2byte	0x2
+ 2216 009e 77       		.byte	0x77
+ 2217 009f 30       		.sleb128 48
+ 2218 00a0 00000000 		.4byte	0
+ 2219 00a4 00000000 		.4byte	0
+ 2220              	.LLST3:
+ 2221 00a8 00000000 		.4byte	.LFB3
+ 2222 00ac 02000000 		.4byte	.LCFI9
+ 2223 00b0 0200     		.2byte	0x2
+ 2224 00b2 7D       		.byte	0x7d
+ 2225 00b3 00       		.sleb128 0
+ 2226 00b4 02000000 		.4byte	.LCFI9
+ 2227 00b8 04000000 		.4byte	.LCFI10
+ 2228 00bc 0200     		.2byte	0x2
+ 2229 00be 7D       		.byte	0x7d
+ 2230 00bf 10       		.sleb128 16
+ 2231 00c0 04000000 		.4byte	.LCFI10
+ 2232 00c4 06000000 		.4byte	.LCFI11
+ 2233 00c8 0200     		.2byte	0x2
+ 2234 00ca 7D       		.byte	0x7d
+ 2235 00cb 1C       		.sleb128 28
+ 2236 00cc 06000000 		.4byte	.LCFI11
+ 2237 00d0 08000000 		.4byte	.LCFI12
+ 2238 00d4 0200     		.2byte	0x2
+ 2239 00d6 7D       		.byte	0x7d
+ 2240 00d7 28       		.sleb128 40
+ 2241 00d8 08000000 		.4byte	.LCFI12
+ 2242 00dc A8010000 		.4byte	.LFE3
+ 2243 00e0 0200     		.2byte	0x2
+ 2244 00e2 77       		.byte	0x77
+ 2245 00e3 28       		.sleb128 40
+ 2246 00e4 00000000 		.4byte	0
+ 2247 00e8 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 44
+
+
+ 2248              	.LLST4:
+ 2249 00ec 00000000 		.4byte	.LFB4
+ 2250 00f0 04000000 		.4byte	.LCFI13
+ 2251 00f4 0200     		.2byte	0x2
+ 2252 00f6 7D       		.byte	0x7d
+ 2253 00f7 00       		.sleb128 0
+ 2254 00f8 04000000 		.4byte	.LCFI13
+ 2255 00fc 06000000 		.4byte	.LCFI14
+ 2256 0100 0200     		.2byte	0x2
+ 2257 0102 7D       		.byte	0x7d
+ 2258 0103 20       		.sleb128 32
+ 2259 0104 06000000 		.4byte	.LCFI14
+ 2260 0108 08000000 		.4byte	.LCFI15
+ 2261 010c 0300     		.2byte	0x3
+ 2262 010e 7D       		.byte	0x7d
+ 2263 010f C800     		.sleb128 72
+ 2264 0111 08000000 		.4byte	.LCFI15
+ 2265 0115 64000000 		.4byte	.LFE4
+ 2266 0119 0200     		.2byte	0x2
+ 2267 011b 77       		.byte	0x77
+ 2268 011c 30       		.sleb128 48
+ 2269 011d 00000000 		.4byte	0
+ 2270 0121 00000000 		.4byte	0
+ 2271              	.LLST5:
+ 2272 0125 00000000 		.4byte	.LFB5
+ 2273 0129 04000000 		.4byte	.LCFI16
+ 2274 012d 0200     		.2byte	0x2
+ 2275 012f 7D       		.byte	0x7d
+ 2276 0130 00       		.sleb128 0
+ 2277 0131 04000000 		.4byte	.LCFI16
+ 2278 0135 06000000 		.4byte	.LCFI17
+ 2279 0139 0200     		.2byte	0x2
+ 2280 013b 7D       		.byte	0x7d
+ 2281 013c 18       		.sleb128 24
+ 2282 013d 06000000 		.4byte	.LCFI17
+ 2283 0141 08000000 		.4byte	.LCFI18
+ 2284 0145 0200     		.2byte	0x2
+ 2285 0147 7D       		.byte	0x7d
+ 2286 0148 30       		.sleb128 48
+ 2287 0149 08000000 		.4byte	.LCFI18
+ 2288 014d 56000000 		.4byte	.LFE5
+ 2289 0151 0200     		.2byte	0x2
+ 2290 0153 77       		.byte	0x77
+ 2291 0154 20       		.sleb128 32
+ 2292 0155 00000000 		.4byte	0
+ 2293 0159 00000000 		.4byte	0
+ 2294              	.LLST6:
+ 2295 015d 00000000 		.4byte	.LFB6
+ 2296 0161 04000000 		.4byte	.LCFI19
+ 2297 0165 0200     		.2byte	0x2
+ 2298 0167 7D       		.byte	0x7d
+ 2299 0168 00       		.sleb128 0
+ 2300 0169 04000000 		.4byte	.LCFI19
+ 2301 016d 06000000 		.4byte	.LCFI20
+ 2302 0171 0200     		.2byte	0x2
+ 2303 0173 7D       		.byte	0x7d
+ 2304 0174 18       		.sleb128 24
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 45
+
+
+ 2305 0175 06000000 		.4byte	.LCFI20
+ 2306 0179 08000000 		.4byte	.LCFI21
+ 2307 017d 0200     		.2byte	0x2
+ 2308 017f 7D       		.byte	0x7d
+ 2309 0180 30       		.sleb128 48
+ 2310 0181 08000000 		.4byte	.LCFI21
+ 2311 0185 56000000 		.4byte	.LFE6
+ 2312 0189 0200     		.2byte	0x2
+ 2313 018b 77       		.byte	0x77
+ 2314 018c 20       		.sleb128 32
+ 2315 018d 00000000 		.4byte	0
+ 2316 0191 00000000 		.4byte	0
+ 2317              	.LLST7:
+ 2318 0195 00000000 		.4byte	.LFB7
+ 2319 0199 02000000 		.4byte	.LCFI22
+ 2320 019d 0200     		.2byte	0x2
+ 2321 019f 7D       		.byte	0x7d
+ 2322 01a0 00       		.sleb128 0
+ 2323 01a1 02000000 		.4byte	.LCFI22
+ 2324 01a5 04000000 		.4byte	.LCFI23
+ 2325 01a9 0200     		.2byte	0x2
+ 2326 01ab 7D       		.byte	0x7d
+ 2327 01ac 04       		.sleb128 4
+ 2328 01ad 04000000 		.4byte	.LCFI23
+ 2329 01b1 06000000 		.4byte	.LCFI24
+ 2330 01b5 0200     		.2byte	0x2
+ 2331 01b7 7D       		.byte	0x7d
+ 2332 01b8 18       		.sleb128 24
+ 2333 01b9 06000000 		.4byte	.LCFI24
+ 2334 01bd 2E000000 		.4byte	.LFE7
+ 2335 01c1 0200     		.2byte	0x2
+ 2336 01c3 77       		.byte	0x77
+ 2337 01c4 18       		.sleb128 24
+ 2338 01c5 00000000 		.4byte	0
+ 2339 01c9 00000000 		.4byte	0
+ 2340              	.LLST8:
+ 2341 01cd 00000000 		.4byte	.LFB8
+ 2342 01d1 02000000 		.4byte	.LCFI25
+ 2343 01d5 0200     		.2byte	0x2
+ 2344 01d7 7D       		.byte	0x7d
+ 2345 01d8 00       		.sleb128 0
+ 2346 01d9 02000000 		.4byte	.LCFI25
+ 2347 01dd 04000000 		.4byte	.LCFI26
+ 2348 01e1 0200     		.2byte	0x2
+ 2349 01e3 7D       		.byte	0x7d
+ 2350 01e4 10       		.sleb128 16
+ 2351 01e5 04000000 		.4byte	.LCFI26
+ 2352 01e9 06000000 		.4byte	.LCFI27
+ 2353 01ed 0200     		.2byte	0x2
+ 2354 01ef 7D       		.byte	0x7d
+ 2355 01f0 20       		.sleb128 32
+ 2356 01f1 06000000 		.4byte	.LCFI27
+ 2357 01f5 FE000000 		.4byte	.LFE8
+ 2358 01f9 0200     		.2byte	0x2
+ 2359 01fb 77       		.byte	0x77
+ 2360 01fc 20       		.sleb128 32
+ 2361 01fd 00000000 		.4byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 46
+
+
+ 2362 0201 00000000 		.4byte	0
+ 2363              	.LLST9:
+ 2364 0205 00000000 		.4byte	.LFB9
+ 2365 0209 02000000 		.4byte	.LCFI28
+ 2366 020d 0200     		.2byte	0x2
+ 2367 020f 7D       		.byte	0x7d
+ 2368 0210 00       		.sleb128 0
+ 2369 0211 02000000 		.4byte	.LCFI28
+ 2370 0215 04000000 		.4byte	.LCFI29
+ 2371 0219 0200     		.2byte	0x2
+ 2372 021b 7D       		.byte	0x7d
+ 2373 021c 10       		.sleb128 16
+ 2374 021d 04000000 		.4byte	.LCFI29
+ 2375 0221 06000000 		.4byte	.LCFI30
+ 2376 0225 0200     		.2byte	0x2
+ 2377 0227 7D       		.byte	0x7d
+ 2378 0228 18       		.sleb128 24
+ 2379 0229 06000000 		.4byte	.LCFI30
+ 2380 022d 34000000 		.4byte	.LFE9
+ 2381 0231 0200     		.2byte	0x2
+ 2382 0233 77       		.byte	0x77
+ 2383 0234 18       		.sleb128 24
+ 2384 0235 00000000 		.4byte	0
+ 2385 0239 00000000 		.4byte	0
+ 2386              	.LLST10:
+ 2387 023d 00000000 		.4byte	.LFB10
+ 2388 0241 02000000 		.4byte	.LCFI31
+ 2389 0245 0200     		.2byte	0x2
+ 2390 0247 7D       		.byte	0x7d
+ 2391 0248 00       		.sleb128 0
+ 2392 0249 02000000 		.4byte	.LCFI31
+ 2393 024d 04000000 		.4byte	.LCFI32
+ 2394 0251 0200     		.2byte	0x2
+ 2395 0253 7D       		.byte	0x7d
+ 2396 0254 10       		.sleb128 16
+ 2397 0255 04000000 		.4byte	.LCFI32
+ 2398 0259 06000000 		.4byte	.LCFI33
+ 2399 025d 0200     		.2byte	0x2
+ 2400 025f 7D       		.byte	0x7d
+ 2401 0260 18       		.sleb128 24
+ 2402 0261 06000000 		.4byte	.LCFI33
+ 2403 0265 3C000000 		.4byte	.LFE10
+ 2404 0269 0200     		.2byte	0x2
+ 2405 026b 77       		.byte	0x77
+ 2406 026c 18       		.sleb128 24
+ 2407 026d 00000000 		.4byte	0
+ 2408 0271 00000000 		.4byte	0
+ 2409              		.section	.debug_aranges,"",%progbits
+ 2410 0000 6C000000 		.4byte	0x6c
+ 2411 0004 0200     		.2byte	0x2
+ 2412 0006 00000000 		.4byte	.Ldebug_info0
+ 2413 000a 04       		.byte	0x4
+ 2414 000b 00       		.byte	0
+ 2415 000c 0000     		.2byte	0
+ 2416 000e 0000     		.2byte	0
+ 2417 0010 00000000 		.4byte	.LFB0
+ 2418 0014 74000000 		.4byte	.LFE0-.LFB0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 47
+
+
+ 2419 0018 00000000 		.4byte	.LFB1
+ 2420 001c A8000000 		.4byte	.LFE1-.LFB1
+ 2421 0020 00000000 		.4byte	.LFB2
+ 2422 0024 A0020000 		.4byte	.LFE2-.LFB2
+ 2423 0028 00000000 		.4byte	.LFB3
+ 2424 002c A8010000 		.4byte	.LFE3-.LFB3
+ 2425 0030 00000000 		.4byte	.LFB4
+ 2426 0034 64000000 		.4byte	.LFE4-.LFB4
+ 2427 0038 00000000 		.4byte	.LFB5
+ 2428 003c 56000000 		.4byte	.LFE5-.LFB5
+ 2429 0040 00000000 		.4byte	.LFB6
+ 2430 0044 56000000 		.4byte	.LFE6-.LFB6
+ 2431 0048 00000000 		.4byte	.LFB7
+ 2432 004c 2E000000 		.4byte	.LFE7-.LFB7
+ 2433 0050 00000000 		.4byte	.LFB8
+ 2434 0054 FE000000 		.4byte	.LFE8-.LFB8
+ 2435 0058 00000000 		.4byte	.LFB9
+ 2436 005c 34000000 		.4byte	.LFE9-.LFB9
+ 2437 0060 00000000 		.4byte	.LFB10
+ 2438 0064 3C000000 		.4byte	.LFE10-.LFB10
+ 2439 0068 00000000 		.4byte	0
+ 2440 006c 00000000 		.4byte	0
+ 2441              		.section	.debug_ranges,"",%progbits
+ 2442              	.Ldebug_ranges0:
+ 2443 0000 00000000 		.4byte	.LFB0
+ 2444 0004 74000000 		.4byte	.LFE0
+ 2445 0008 00000000 		.4byte	.LFB1
+ 2446 000c A8000000 		.4byte	.LFE1
+ 2447 0010 00000000 		.4byte	.LFB2
+ 2448 0014 A0020000 		.4byte	.LFE2
+ 2449 0018 00000000 		.4byte	.LFB3
+ 2450 001c A8010000 		.4byte	.LFE3
+ 2451 0020 00000000 		.4byte	.LFB4
+ 2452 0024 64000000 		.4byte	.LFE4
+ 2453 0028 00000000 		.4byte	.LFB5
+ 2454 002c 56000000 		.4byte	.LFE5
+ 2455 0030 00000000 		.4byte	.LFB6
+ 2456 0034 56000000 		.4byte	.LFE6
+ 2457 0038 00000000 		.4byte	.LFB7
+ 2458 003c 2E000000 		.4byte	.LFE7
+ 2459 0040 00000000 		.4byte	.LFB8
+ 2460 0044 FE000000 		.4byte	.LFE8
+ 2461 0048 00000000 		.4byte	.LFB9
+ 2462 004c 34000000 		.4byte	.LFE9
+ 2463 0050 00000000 		.4byte	.LFB10
+ 2464 0054 3C000000 		.4byte	.LFE10
+ 2465 0058 00000000 		.4byte	0
+ 2466 005c 00000000 		.4byte	0
+ 2467              		.section	.debug_line,"",%progbits
+ 2468              	.Ldebug_line0:
+ 2469 0000 72010000 		.section	.debug_str,"MS",%progbits,1
+ 2469      02004A00 
+ 2469      00000201 
+ 2469      FB0E0D00 
+ 2469      01010101 
+ 2470              	.LASF26:
+ 2471 0000 71756174 		.ascii	"quaternion_to_euler\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 48
+
+
+ 2471      65726E69 
+ 2471      6F6E5F74 
+ 2471      6F5F6575 
+ 2471      6C657200 
+ 2472              	.LASF17:
+ 2473 0014 76616C75 		.ascii	"value\000"
+ 2473      6500
+ 2474              	.LASF14:
+ 2475 001a 574F5244 		.ascii	"WORD\000"
+ 2475      00
+ 2476              	.LASF22:
+ 2477 001f 74686574 		.ascii	"theta\000"
+ 2477      6100
+ 2478              	.LASF36:
+ 2479 0025 64656C74 		.ascii	"delta\000"
+ 2479      6100
+ 2480              	.LASF38:
+ 2481 002b 616E6775 		.ascii	"angular_set_offset\000"
+ 2481      6C61725F 
+ 2481      7365745F 
+ 2481      6F666673 
+ 2481      657400
+ 2482              	.LASF30:
+ 2483 003e 7072696E 		.ascii	"print_quaternion\000"
+ 2483      745F7175 
+ 2483      61746572 
+ 2483      6E696F6E 
+ 2483      00
+ 2484              	.LASF35:
+ 2485 004f 616E6775 		.ascii	"angular_add\000"
+ 2485      6C61725F 
+ 2485      61646400 
+ 2486              	.LASF18:
+ 2487 005b 6F6C645F 		.ascii	"old_raw\000"
+ 2487      72617700 
+ 2488              	.LASF12:
+ 2489 0063 666C6F61 		.ascii	"float\000"
+ 2489      7400
+ 2490              	.LASF23:
+ 2491 0069 51554154 		.ascii	"QUATERNION\000"
+ 2491      45524E49 
+ 2491      4F4E00
+ 2492              	.LASF2:
+ 2493 0074 756E7369 		.ascii	"unsigned char\000"
+ 2493      676E6564 
+ 2493      20636861 
+ 2493      7200
+ 2494              	.LASF40:
+ 2495 0082 2E5C4D45 		.ascii	".\\ME_geometry.c\000"
+ 2495      5F67656F 
+ 2495      6D657472 
+ 2495      792E6300 
+ 2496              	.LASF9:
+ 2497 0092 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2497      20756E73 
+ 2497      69676E65 
+ 2497      6420696E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 49
+
+
+ 2497      7400
+ 2498              	.LASF24:
+ 2499 00a4 41434345 		.ascii	"ACCELERATION\000"
+ 2499      4C455241 
+ 2499      54494F4E 
+ 2499      00
+ 2500              	.LASF4:
+ 2501 00b1 73686F72 		.ascii	"short unsigned int\000"
+ 2501      7420756E 
+ 2501      7369676E 
+ 2501      65642069 
+ 2501      6E7400
+ 2502              	.LASF33:
+ 2503 00c4 616E6775 		.ascii	"angular_init\000"
+ 2503      6C61725F 
+ 2503      696E6974 
+ 2503      00
+ 2504              	.LASF27:
+ 2505 00d1 68656164 		.ascii	"heading\000"
+ 2505      696E6700 
+ 2506              	.LASF15:
+ 2507 00d9 464C4F41 		.ascii	"FLOAT\000"
+ 2507      5400
+ 2508              	.LASF11:
+ 2509 00df 646F7562 		.ascii	"double\000"
+ 2509      6C6500
+ 2510              	.LASF41:
+ 2511 00e6 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 2511      73657273 
+ 2511      5C477261 
+ 2511      7A69616E 
+ 2511      6F20472E 
+ 2512 0115 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 2512      5C535155 
+ 2512      49545C56 
+ 2512      6572732E 
+ 2512      302E302D 
+ 2513 0145 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 2513      2D50726F 
+ 2513      746F2E63 
+ 2513      7964736E 
+ 2513      00
+ 2514              	.LASF16:
+ 2515 0156 444F5542 		.ascii	"DOUBLE\000"
+ 2515      4C4500
+ 2516              	.LASF28:
+ 2517 015d 74657374 		.ascii	"test\000"
+ 2517      00
+ 2518              	.LASF0:
+ 2519 0162 756E7369 		.ascii	"unsigned int\000"
+ 2519      676E6564 
+ 2519      20696E74 
+ 2519      00
+ 2520              	.LASF6:
+ 2521 016f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2521      206C6F6E 
+ 2521      6720756E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 50
+
+
+ 2521      7369676E 
+ 2521      65642069 
+ 2522              	.LASF34:
+ 2523 0186 6F666673 		.ascii	"offset_heading\000"
+ 2523      65745F68 
+ 2523      65616469 
+ 2523      6E6700
+ 2524              	.LASF25:
+ 2525 0195 65756C65 		.ascii	"euler_rad_to_deg\000"
+ 2525      725F7261 
+ 2525      645F746F 
+ 2525      5F646567 
+ 2525      00
+ 2526              	.LASF31:
+ 2527 01a6 7072696E 		.ascii	"print_euler_angles\000"
+ 2527      745F6575 
+ 2527      6C65725F 
+ 2527      616E676C 
+ 2527      657300
+ 2528              	.LASF29:
+ 2529 01b9 71756174 		.ascii	"quaternion_multiply\000"
+ 2529      65726E69 
+ 2529      6F6E5F6D 
+ 2529      756C7469 
+ 2529      706C7900 
+ 2530              	.LASF20:
+ 2531 01cd 414E4755 		.ascii	"ANGULAR\000"
+ 2531      4C415200 
+ 2532              	.LASF8:
+ 2533 01d5 73697A65 		.ascii	"sizetype\000"
+ 2533      74797065 
+ 2533      00
+ 2534              	.LASF32:
+ 2535 01de 7072696E 		.ascii	"print_acceleration_vector\000"
+ 2535      745F6163 
+ 2535      63656C65 
+ 2535      72617469 
+ 2535      6F6E5F76 
+ 2536              	.LASF5:
+ 2537 01f8 6C6F6E67 		.ascii	"long long int\000"
+ 2537      206C6F6E 
+ 2537      6720696E 
+ 2537      7400
+ 2538              	.LASF10:
+ 2539 0206 63686172 		.ascii	"char\000"
+ 2539      00
+ 2540              	.LASF21:
+ 2541 020b 45554C45 		.ascii	"EULER_ANGLES\000"
+ 2541      525F414E 
+ 2541      474C4553 
+ 2541      00
+ 2542              	.LASF19:
+ 2543 0218 6F666673 		.ascii	"offset\000"
+ 2543      657400
+ 2544              	.LASF3:
+ 2545 021f 73686F72 		.ascii	"short int\000"
+ 2545      7420696E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc5K4lp0.s 			page 51
+
+
+ 2545      7400
+ 2546              	.LASF39:
+ 2547 0229 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2547      4320342E 
+ 2547      372E3320 
+ 2547      32303133 
+ 2547      30333132 
+ 2548 025c 616E6368 		.ascii	"anch revision 196615]\000"
+ 2548      20726576 
+ 2548      6973696F 
+ 2548      6E203139 
+ 2548      36363135 
+ 2549              	.LASF7:
+ 2550 0272 6C6F6E67 		.ascii	"long int\000"
+ 2550      20696E74 
+ 2550      00
+ 2551              	.LASF13:
+ 2552 027b 6C6F6E67 		.ascii	"long double\000"
+ 2552      20646F75 
+ 2552      626C6500 
+ 2553              	.LASF1:
+ 2554 0287 7369676E 		.ascii	"signed char\000"
+ 2554      65642063 
+ 2554      68617200 
+ 2555              	.LASF37:
+ 2556 0293 616E6775 		.ascii	"angular_get\000"
+ 2556      6C61725F 
+ 2556      67657400 
+ 2557              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

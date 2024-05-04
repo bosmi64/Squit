@@ -1,0 +1,3083 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"motor_CTRL.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	__aeabi_i2f
+  19              		.global	__aeabi_fmul
+  20              		.global	__aeabi_fsub
+  21              		.global	__aeabi_fcmpgt
+  22              		.global	__aeabi_fcmplt
+  23              		.global	__aeabi_fadd
+  24              		.global	__aeabi_f2uiz
+  25              		.section	.text.AnalogShowPan,"ax",%progbits
+  26              		.align	1
+  27              		.global	AnalogShowPan
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	AnalogShowPan, %function
+  31              	AnalogShowPan:
+  32              	.LFB56:
+  33              		.file 1 ".\\motor_CTRL.c"
+   1:.\motor_CTRL.c **** /* ========================================
+   2:.\motor_CTRL.c ****  *
+   3:.\motor_CTRL.c ****  * Copyright Logic brainstorm, 2015
+   4:.\motor_CTRL.c ****  * All Rights Reserved
+   5:.\motor_CTRL.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\motor_CTRL.c ****  *
+   7:.\motor_CTRL.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\motor_CTRL.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\motor_CTRL.c ****  *
+  10:.\motor_CTRL.c ****  * ========================================
+  11:.\motor_CTRL.c **** */
+  12:.\motor_CTRL.c **** 
+  13:.\motor_CTRL.c **** #include <device.h>
+  14:.\motor_CTRL.c **** #include <gobee.h>
+  15:.\motor_CTRL.c **** #include <gobeelib.h>
+  16:.\motor_CTRL.c **** #include <math.h>
+  17:.\motor_CTRL.c **** #include <estimators.h>
+  18:.\motor_CTRL.c **** #include <pid_lib.h>
+  19:.\motor_CTRL.c **** #include <mover.h>
+  20:.\motor_CTRL.c **** #include <motor_CTRL.h>
+  21:.\motor_CTRL.c **** 
+  22:.\motor_CTRL.c **** /* External Gobee Machine State */
+  23:.\motor_CTRL.c **** extern uint8 machine_state;			/* Initial Machine State = POWERON 					*/
+  24:.\motor_CTRL.c **** 									/* Machine States = [POWERON | OPERATIVE | FAULT]	*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 2
+
+
+  25:.\motor_CTRL.c **** 
+  26:.\motor_CTRL.c **** extern uint8 machine_state_backup;	/* machine state backup var for test mode			*/
+  27:.\motor_CTRL.c **** 
+  28:.\motor_CTRL.c **** 
+  29:.\motor_CTRL.c **** /* External GoBee Parameters */
+  30:.\motor_CTRL.c **** extern struct GOBEE_PARAMS gobee_param;
+  31:.\motor_CTRL.c **** 
+  32:.\motor_CTRL.c **** /* EXTERNAL Feedback Encoders */
+  33:.\motor_CTRL.c **** extern struct ENCODER pan_feedback_encoder;  /* PAN  Feedback Encoder Parameters & RT Datas */
+  34:.\motor_CTRL.c **** extern struct ENCODER tilt_feedback_encoder; /* TILT Feedback Encoder Parameters & RT Datas */
+  35:.\motor_CTRL.c **** 
+  36:.\motor_CTRL.c **** /* External Motor Axis 		 */
+  37:.\motor_CTRL.c **** extern struct MOTOR_AXIS pan_axis; 			/* PAN Motor Axis Parameters & RT Datas	    */
+  38:.\motor_CTRL.c **** extern struct MOTOR_AXIS tilt_axis; 		/* TILT Motor Axis Parameters & RT Datas	*/
+  39:.\motor_CTRL.c **** 
+  40:.\motor_CTRL.c **** /* EXTERN MOVER PATH Array */
+  41:.\motor_CTRL.c **** /* 16 paths 			   */
+  42:.\motor_CTRL.c **** extern path_type path[PATH_N_MAX];		/* path array structure 	*/
+  43:.\motor_CTRL.c **** extern mover_type mover;				/* mover structure			*/
+  44:.\motor_CTRL.c **** 
+  45:.\motor_CTRL.c **** //extern uint8  mover_trapezoid_index;
+  46:.\motor_CTRL.c **** //extern uint32 mover_ticks;
+  47:.\motor_CTRL.c **** //extern double mover_remainder_double;	/* mover remainder [double steps]	*/
+  48:.\motor_CTRL.c **** //extern int32  mover_steps;				/* mover steps		   [steps]		*/
+  49:.\motor_CTRL.c **** //extern int32  mover_steps_integral;		/* mover steps integral [steps]		*/
+  50:.\motor_CTRL.c **** //extern uint8  mover_path_to_move;		/* global mover path to move number	*/
+  51:.\motor_CTRL.c **** 
+  52:.\motor_CTRL.c **** /* extern Analog External ADXRS646 gyroscope vars) */
+  53:.\motor_CTRL.c **** extern struct ANALOG_GYRO agyro;
+  54:.\motor_CTRL.c **** 
+  55:.\motor_CTRL.c **** /* extern Sensor ADC array */
+  56:.\motor_CTRL.c **** extern int16 AdcValue[ADC_MUX_LENGHT];
+  57:.\motor_CTRL.c **** 
+  58:.\motor_CTRL.c **** /* extern anapos vars */
+  59:.\motor_CTRL.c **** extern float anapos;					/* Analog Position Output(t) 				*/
+  60:.\motor_CTRL.c **** extern int32 anapos_offset;				/* Analog Position Output Offset			*/
+  61:.\motor_CTRL.c **** //extern int16 anapos_bef;				/* Analog Position Output(t-1) 				*/
+  62:.\motor_CTRL.c **** 
+  63:.\motor_CTRL.c **** 
+  64:.\motor_CTRL.c **** /********************************************************************/
+  65:.\motor_CTRL.c **** /* ANAPOS OR ANAVEL SHOW											*/
+  66:.\motor_CTRL.c **** /* DAC_ANAOUT <-- Selected ENCODER	* Gain_ANAOUT					*/
+  67:.\motor_CTRL.c **** /*			  <-- d/dt(Selected ENCODER) * Gain_ANAOUT				*/
+  68:.\motor_CTRL.c **** /********************************************************************/
+  69:.\motor_CTRL.c **** void AnalogShowPan()
+  70:.\motor_CTRL.c **** {
+  34              		.loc 1 70 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  38 0000 38B5     		push	{r3, r4, r5, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 16
+  41              		.cfi_offset 3, -16
+  42              		.cfi_offset 4, -12
+  43              		.cfi_offset 5, -8
+  44              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 3
+
+
+  71:.\motor_CTRL.c **** 	/* ANAPOS Selection based on *paxis (pan, tilt or roll?) and color (backslash or slave?)	*/
+  72:.\motor_CTRL.c **** 
+  73:.\motor_CTRL.c **** 	if (pan_axis.param.color == SLAVE_ENC_POS)
+  45              		.loc 1 73 0
+  46 0002 3C4C     		ldr	r4, .L23
+  47 0004 3C4D     		ldr	r5, .L23+4
+  48 0006 94F82430 		ldrb	r3, [r4, #36]	@ zero_extendqisi2
+  49 000a 012B     		cmp	r3, #1
+  50 000c 07D1     		bne	.L2
+  74:.\motor_CTRL.c **** 	{
+  75:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*(float)(pan_feedback_encoder.position - anapos_offset);
+  51              		.loc 1 75 0
+  52 000e 3B48     		ldr	r0, .L23+8
+  53 0010 3B4A     		ldr	r2, .L23+12
+  54 0012 0168     		ldr	r1, [r0, #0]
+  55 0014 1368     		ldr	r3, [r2, #0]
+  56 0016 C81A     		subs	r0, r1, r3
+  57 0018 FFF7FEFF 		bl	__aeabi_i2f
+  58              	.LVL0:
+  59 001c 0AE0     		b	.L18
+  60              	.L2:
+  76:.\motor_CTRL.c **** 	}
+  77:.\motor_CTRL.c **** 	else if (pan_axis.param.color == SLAVE_ENC_VEL)
+  61              		.loc 1 77 0
+  62 001e 022B     		cmp	r3, #2
+  63 0020 0ED1     		bne	.L4
+  78:.\motor_CTRL.c **** 	{
+  79:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*(float)(pan_feedback_encoder.velocity - anapos_offset);
+  64              		.loc 1 79 0
+  65 0022 374A     		ldr	r2, .L23+12
+  66 0024 1068     		ldr	r0, [r2, #0]
+  67 0026 FFF7FEFF 		bl	__aeabi_i2f
+  68              	.LVL1:
+  69 002a 344B     		ldr	r3, .L23+8
+  70 002c 0146     		mov	r1, r0
+  71 002e 5868     		ldr	r0, [r3, #4]	@ float
+  72              	.L20:
+  73 0030 FFF7FEFF 		bl	__aeabi_fsub
+  74              	.LVL2:
+  75              	.L18:
+  76 0034 0146     		mov	r1, r0
+  77 0036 206A     		ldr	r0, [r4, #32]	@ float
+  78              	.L19:
+  79 0038 FFF7FEFF 		bl	__aeabi_fmul
+  80              	.LVL3:
+  81 003c 2860     		str	r0, [r5, #0]	@ float
+  82 003e 3BE0     		b	.L3
+  83              	.L4:
+  80:.\motor_CTRL.c **** 	}	
+  81:.\motor_CTRL.c **** 	else if (pan_axis.param.color == ASTIM_IN)
+  84              		.loc 1 81 0
+  85 0040 032B     		cmp	r3, #3
+  86 0042 02D1     		bne	.L5
+  82:.\motor_CTRL.c **** 	{
+  83:.\motor_CTRL.c **** 		//anapos = pan_axis.param.Gain_ANAOUT.fnum*(pan_axis.mc.Float_ASTIM - (float)anapos_offset);
+  84:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*pan_axis.mc.Float_ASTIM;
+  87              		.loc 1 84 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 4
+
+
+  88 0044 206A     		ldr	r0, [r4, #32]	@ float
+  89 0046 216D     		ldr	r1, [r4, #80]	@ float
+  90 0048 F6E7     		b	.L19
+  91              	.L5:
+  85:.\motor_CTRL.c **** 		
+  86:.\motor_CTRL.c **** 	}
+  87:.\motor_CTRL.c **** 	else if (pan_axis.param.color == CTRL_ERROR)
+  92              		.loc 1 87 0
+  93 004a 042B     		cmp	r3, #4
+  94 004c 06D1     		bne	.L6
+  88:.\motor_CTRL.c **** 	{
+  89:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*(pan_axis.mc.error - (float)anapos_offset);	
+  95              		.loc 1 89 0
+  96 004e 2C49     		ldr	r1, .L23+12
+  97 0050 0868     		ldr	r0, [r1, #0]
+  98 0052 FFF7FEFF 		bl	__aeabi_i2f
+  99              	.LVL4:
+ 100 0056 0146     		mov	r1, r0
+ 101 0058 E06A     		ldr	r0, [r4, #44]	@ float
+ 102 005a E9E7     		b	.L20
+ 103              	.L6:
+  90:.\motor_CTRL.c **** 	}
+  91:.\motor_CTRL.c **** 	else if (pan_axis.param.color == CTRL_DERROR)
+ 104              		.loc 1 91 0
+ 105 005c 052B     		cmp	r3, #5
+ 106 005e 06D1     		bne	.L7
+  92:.\motor_CTRL.c **** 	{
+  93:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*(pan_axis.mc.derror - (float)anapos_offset);	
+ 107              		.loc 1 93 0
+ 108 0060 2748     		ldr	r0, .L23+12
+ 109 0062 0068     		ldr	r0, [r0, #0]
+ 110 0064 FFF7FEFF 		bl	__aeabi_i2f
+ 111              	.LVL5:
+ 112 0068 0146     		mov	r1, r0
+ 113 006a A06B     		ldr	r0, [r4, #56]	@ float
+ 114 006c E0E7     		b	.L20
+ 115              	.L7:
+  94:.\motor_CTRL.c **** 	}
+  95:.\motor_CTRL.c **** 	else if (pan_axis.param.color == CTRL_IERROR)
+ 116              		.loc 1 95 0
+ 117 006e 062B     		cmp	r3, #6
+ 118 0070 06D1     		bne	.L8
+  96:.\motor_CTRL.c **** 	{
+  97:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*(pan_axis.mc.ierror - (float)anapos_offset);	
+ 119              		.loc 1 97 0
+ 120 0072 234B     		ldr	r3, .L23+12
+ 121 0074 1868     		ldr	r0, [r3, #0]
+ 122 0076 FFF7FEFF 		bl	__aeabi_i2f
+ 123              	.LVL6:
+ 124 007a 0146     		mov	r1, r0
+ 125 007c 606B     		ldr	r0, [r4, #52]	@ float
+ 126 007e D7E7     		b	.L20
+ 127              	.L8:
+  98:.\motor_CTRL.c **** 	}
+  99:.\motor_CTRL.c **** 	else if (pan_axis.param.color == CTRL_CV)
+ 128              		.loc 1 99 0
+ 129 0080 082B     		cmp	r3, #8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 5
+
+
+ 130 0082 01D1     		bne	.L9
+ 100:.\motor_CTRL.c **** 	{
+ 101:.\motor_CTRL.c **** 		anapos = pan_axis.mc.ctrl_var * 128/MOTOR_PWM_PERIOD_HALF;	//fixed 4Vpp Output at PWM MAX	
+ 131              		.loc 1 101 0
+ 132 0084 606C     		ldr	r0, [r4, #68]	@ float
+ 133 0086 0EE0     		b	.L21
+ 134              	.L9:
+ 102:.\motor_CTRL.c **** 	}	
+ 103:.\motor_CTRL.c **** 	else if (pan_axis.param.color == GYRO_RATE)
+ 135              		.loc 1 103 0
+ 136 0088 3BB9     		cbnz	r3, .L10
+ 104:.\motor_CTRL.c **** 	{
+ 105:.\motor_CTRL.c **** 		anapos = pan_axis.param.Gain_ANAOUT.fnum*(agyro.rate - (float)anapos_offset);			
+ 137              		.loc 1 105 0
+ 138 008a 1D49     		ldr	r1, .L23+12
+ 139 008c 0868     		ldr	r0, [r1, #0]
+ 140 008e FFF7FEFF 		bl	__aeabi_i2f
+ 141              	.LVL7:
+ 142 0092 1C4A     		ldr	r2, .L23+16
+ 143 0094 0146     		mov	r1, r0
+ 144 0096 9068     		ldr	r0, [r2, #8]	@ float
+ 145 0098 CAE7     		b	.L20
+ 146              	.L10:
+ 106:.\motor_CTRL.c **** 	}	
+ 107:.\motor_CTRL.c **** 	else if (pan_axis.param.color == CTRL_AZIERROR)
+ 147              		.loc 1 107 0
+ 148 009a 072B     		cmp	r3, #7
+ 149 009c 0AD1     		bne	.L11
+ 108:.\motor_CTRL.c **** 	{
+ 109:.\motor_CTRL.c **** 		anapos = pan_axis.param.Kif.fnum * pan_axis.mc.ierror * 128/MOTOR_PWM_PERIOD_HALF;	//fixed 4Vpp O
+ 150              		.loc 1 109 0
+ 151 009e 6069     		ldr	r0, [r4, #20]	@ float
+ 152 00a0 616B     		ldr	r1, [r4, #52]	@ float
+ 153 00a2 FFF7FEFF 		bl	__aeabi_fmul
+ 154              	.LVL8:
+ 155              	.L21:
+ 156 00a6 4FF08641 		mov	r1, #1124073472
+ 157 00aa FFF7FEFF 		bl	__aeabi_fmul
+ 158              	.LVL9:
+ 159 00ae 4FF06A51 		mov	r1, #981467136
+ 160 00b2 C1E7     		b	.L19
+ 161              	.L11:
+ 110:.\motor_CTRL.c **** 	}		
+ 111:.\motor_CTRL.c **** 
+ 112:.\motor_CTRL.c **** 	else
+ 113:.\motor_CTRL.c **** 	{
+ 114:.\motor_CTRL.c **** 		anapos = 0;	/* Internal Firmware Error */
+ 162              		.loc 1 114 0
+ 163 00b4 0020     		movs	r0, #0
+ 164 00b6 2860     		str	r0, [r5, #0]	@ float
+ 165              	.L3:
+ 115:.\motor_CTRL.c **** 	}
+ 116:.\motor_CTRL.c **** 			
+ 117:.\motor_CTRL.c **** 		/* anapos 8 bit saturation */
+ 118:.\motor_CTRL.c **** 		if (anapos>127)
+ 166              		.loc 1 118 0
+ 167 00b8 0F4D     		ldr	r5, .L23+4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 6
+
+
+ 168 00ba 134C     		ldr	r4, .L23+20
+ 169 00bc 2868     		ldr	r0, [r5, #0]	@ float
+ 170 00be 2146     		mov	r1, r4
+ 171 00c0 FFF7FEFF 		bl	__aeabi_fcmpgt
+ 172              	.LVL10:
+ 173 00c4 00B1     		cbz	r0, .L12
+ 119:.\motor_CTRL.c **** 		{
+ 120:.\motor_CTRL.c **** 			anapos = 127;
+ 174              		.loc 1 120 0
+ 175 00c6 2C60     		str	r4, [r5, #0]	@ float
+ 176              	.L12:
+ 121:.\motor_CTRL.c **** 		}
+ 122:.\motor_CTRL.c **** 		if (anapos < -127)
+ 177              		.loc 1 122 0
+ 178 00c8 104C     		ldr	r4, .L23+24
+ 179 00ca 2868     		ldr	r0, [r5, #0]	@ float
+ 180 00cc 2146     		mov	r1, r4
+ 181 00ce FFF7FEFF 		bl	__aeabi_fcmplt
+ 182              	.LVL11:
+ 183 00d2 08B1     		cbz	r0, .L14
+ 123:.\motor_CTRL.c **** 		{
+ 124:.\motor_CTRL.c **** 			anapos = -127;
+ 184              		.loc 1 124 0
+ 185 00d4 0848     		ldr	r0, .L23+4
+ 186 00d6 0460     		str	r4, [r0, #0]	@ float
+ 187              	.L14:
+ 125:.\motor_CTRL.c **** 		}
+ 126:.\motor_CTRL.c **** 		
+ 127:.\motor_CTRL.c **** 		VDAC8_ANAPOS_SetValue((uint8)(anapos+128));		/* Anapos DAC Refresh <-- position(t)		*/	
+ 188              		.loc 1 127 0
+ 189 00d8 0749     		ldr	r1, .L23+4
+ 190 00da 0868     		ldr	r0, [r1, #0]	@ float
+ 191 00dc 4FF08641 		mov	r1, #1124073472
+ 192 00e0 FFF7FEFF 		bl	__aeabi_fadd
+ 193              	.LVL12:
+ 194 00e4 FFF7FEFF 		bl	__aeabi_f2uiz
+ 195              	.LVL13:
+ 196 00e8 C0B2     		uxtb	r0, r0
+ 128:.\motor_CTRL.c **** }
+ 197              		.loc 1 128 0
+ 198 00ea BDE83840 		pop	{r3, r4, r5, lr}
+ 127:.\motor_CTRL.c **** 		VDAC8_ANAPOS_SetValue((uint8)(anapos+128));		/* Anapos DAC Refresh <-- position(t)		*/	
+ 199              		.loc 1 127 0
+ 200 00ee FFF7FEBF 		b	VDAC8_ANAPOS_SetValue
+ 201              	.LVL14:
+ 202              	.L24:
+ 203 00f2 00BF     		.align	2
+ 204              	.L23:
+ 205 00f4 00000000 		.word	pan_axis
+ 206 00f8 00000000 		.word	anapos
+ 207 00fc 00000000 		.word	pan_feedback_encoder
+ 208 0100 00000000 		.word	anapos_offset
+ 209 0104 00000000 		.word	agyro
+ 210 0108 0000FE42 		.word	1123942400
+ 211 010c 0000FEC2 		.word	-1023541248
+ 212              		.cfi_endproc
+ 213              	.LFE56:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 7
+
+
+ 214              		.size	AnalogShowPan, .-AnalogShowPan
+ 215              		.global	__aeabi_f2d
+ 216              		.global	__aeabi_dmul
+ 217              		.global	__aeabi_d2f
+ 218              		.global	__aeabi_fcmpge
+ 219              		.global	__aeabi_fcmple
+ 220              		.section	.text.motor_control,"ax",%progbits
+ 221              		.align	1
+ 222              		.global	motor_control
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.type	motor_control, %function
+ 226              	motor_control:
+ 227              	.LFB57:
+ 129:.\motor_CTRL.c **** 
+ 130:.\motor_CTRL.c **** 
+ 131:.\motor_CTRL.c **** /************************************************/
+ 132:.\motor_CTRL.c **** /*** AXIS MOTOR CONTROL CODE       			  ***/
+ 133:.\motor_CTRL.c **** /************************************************/
+ 134:.\motor_CTRL.c **** /* *paxis = [&pan_axis, &roll_axis]				*/
+ 135:.\motor_CTRL.c **** /************************************************/
+ 136:.\motor_CTRL.c **** void motor_control(struct MOTOR_AXIS *paxis)
+ 137:.\motor_CTRL.c **** {
+ 228              		.loc 1 137 0
+ 229              		.cfi_startproc
+ 230              		@ args = 0, pretend = 0, frame = 0
+ 231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 232              	.LVL15:
+ 233 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 234              	.LCFI1:
+ 235              		.cfi_def_cfa_offset 24
+ 236              		.cfi_offset 3, -24
+ 237              		.cfi_offset 4, -20
+ 238              		.cfi_offset 5, -16
+ 239              		.cfi_offset 6, -12
+ 240              		.cfi_offset 7, -8
+ 241              		.cfi_offset 14, -4
+ 242              		.loc 1 137 0
+ 243 0002 0446     		mov	r4, r0
+ 138:.\motor_CTRL.c **** 	/********************************/
+ 139:.\motor_CTRL.c **** 	/* Analog SHOW			        */
+ 140:.\motor_CTRL.c ****     /* Solo PAN per adesso          */
+ 141:.\motor_CTRL.c **** 	/********************************/
+ 142:.\motor_CTRL.c ****     AnalogShowPan();
+ 244              		.loc 1 142 0
+ 245 0004 FFF7FEFF 		bl	AnalogShowPan
+ 246              	.LVL16:
+ 143:.\motor_CTRL.c ****     
+ 144:.\motor_CTRL.c **** 	/********************************/
+ 145:.\motor_CTRL.c **** 	/* current(t) Sampling			*/
+ 146:.\motor_CTRL.c **** 	/********************************/
+ 147:.\motor_CTRL.c **** 	if (paxis == &pan_axis)
+ 247              		.loc 1 147 0
+ 248 0008 714B     		ldr	r3, .L52+8
+ 249 000a 9C42     		cmp	r4, r3
+ 250 000c 1DD1     		bne	.L26
+ 148:.\motor_CTRL.c **** 	{	
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 8
+
+
+ 149:.\motor_CTRL.c **** 		//-----------------------------------------------------------------------------------------------
+ 150:.\motor_CTRL.c **** 		// Rsense R63 = 0,27 // 0,27 = 0,135[Ohm] --> ItripMAX = 0,2 / 0,135 = 1,48A <= IMAX
+ 151:.\motor_CTRL.c **** 		// R50= 24,9k; R51=1k --> Analog Gain = 25,9
+ 152:.\motor_CTRL.c **** 		// R35, R41, R46, C64: REMOVE
+ 153:.\motor_CTRL.c **** 		// TP21 --> pin 3 U17 (Katode of D7): CONNECT
+ 154:.\motor_CTRL.c **** 		//-----------------------------------------------------------------------------------------------
+ 155:.\motor_CTRL.c **** 		// Rsense = 0,135[Ohm]; Analog Gain = 25,9; --> V[ADC] = 0,135[Ohm] * 1,48 [A] * 25,9 = 5,17[V] (
+ 156:.\motor_CTRL.c **** 		// --> I[mA] = (1500[mA]/4096) * (ADC_Count + 2048)
+ 157:.\motor_CTRL.c **** 		pan_axis.mc.current = (float)(AdcValue[SENSE_IPAN] + ADC_CURR_ZERO_OFFSET) * 0.366211;		/* [mA] *
+ 251              		.loc 1 157 0
+ 252 000e 714B     		ldr	r3, .L52+12
+ 158:.\motor_CTRL.c **** 	}
+ 159:.\motor_CTRL.c ****     else if (paxis == &tilt_axis)
+ 160:.\motor_CTRL.c **** 	{	
+ 161:.\motor_CTRL.c **** 		//-----------------------------------------------------------------------------------------------
+ 162:.\motor_CTRL.c **** 		// Rsense = 0,135[Ohm]; Analog Gain = 25,9; --> V[ADC] = 0,135[Ohm] * 1,48 [A] * 25,9 = 5,17[V] (
+ 163:.\motor_CTRL.c **** 		// --> I[mA] = (1500[mA]/4096) * (ADC_Count + 2048)
+ 164:.\motor_CTRL.c **** 		tilt_axis.mc.current = (float)(AdcValue[SENSE_ITILT] + ADC_CURR_ZERO_OFFSET) * 0.366211;		/* [mA]
+ 165:.\motor_CTRL.c **** 	}    
+ 166:.\motor_CTRL.c ****         
+ 167:.\motor_CTRL.c **** 	/********************************/
+ 168:.\motor_CTRL.c **** 	/* SlaveEncoder(t) Sampling		*/
+ 169:.\motor_CTRL.c **** 	/********************************/
+ 170:.\motor_CTRL.c **** 	if (paxis == &pan_axis)
+ 171:.\motor_CTRL.c **** 	{
+ 172:.\motor_CTRL.c **** 		/* Feedback Encoder PositionSampling	*/	
+ 173:.\motor_CTRL.c **** 		pan_feedback_encoder.position = QuadDec_PAN_GetCounter();								/* Position(t)   [step] 	*/
+ 253              		.loc 1 173 0
+ 254 0010 714D     		ldr	r5, .L52+16
+ 157:.\motor_CTRL.c **** 		pan_axis.mc.current = (float)(AdcValue[SENSE_IPAN] + ADC_CURR_ZERO_OFFSET) * 0.366211;		/* [mA] *
+ 255              		.loc 1 157 0
+ 256 0012 B3F90000 		ldrsh	r0, [r3, #0]
+ 257 0016 00F50060 		add	r0, r0, #2048
+ 258 001a FFF7FEFF 		bl	__aeabi_i2f
+ 259              	.LVL17:
+ 260 001e FFF7FEFF 		bl	__aeabi_f2d
+ 261              	.LVL18:
+ 262 0022 69A3     		adr	r3, .L52
+ 263 0024 D3E90023 		ldrd	r2, [r3]
+ 264 0028 FFF7FEFF 		bl	__aeabi_dmul
+ 265              	.LVL19:
+ 266 002c FFF7FEFF 		bl	__aeabi_d2f
+ 267              	.LVL20:
+ 268 0030 E064     		str	r0, [r4, #76]	@ float
+ 269              		.loc 1 173 0
+ 270 0032 FFF7FEFF 		bl	QuadDec_PAN_GetCounter
+ 271              	.LVL21:
+ 272 0036 0646     		mov	r6, r0
+ 273 0038 2860     		str	r0, [r5, #0]
+ 174:.\motor_CTRL.c **** 		
+ 175:.\motor_CTRL.c **** 		pan_feedback_encoder.angle = pan_feedback_encoder.position /
+ 274              		.loc 1 175 0
+ 275 003a 2869     		ldr	r0, [r5, #16]
+ 276 003c 96FBF0F0 		sdiv	r0, r6, r0
+ 277 0040 FFF7FEFF 		bl	__aeabi_i2f
+ 278              	.LVL22:
+ 279 0044 A860     		str	r0, [r5, #8]	@ float
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 9
+
+
+ 176:.\motor_CTRL.c **** 									 pan_feedback_encoder.parameter.resolution;
+ 177:.\motor_CTRL.c ****         
+ 178:.\motor_CTRL.c **** 		/* Feedback Encoder Velocity Sampling */
+ 179:.\motor_CTRL.c **** 		//pan_feedback_encoder.velocity = VelocityEstimator(pan_feedback_encoder.position); /* Velocity(t
+ 180:.\motor_CTRL.c **** 		pan_feedback_encoder.velocity = VelocityEstimatorII(pan_feedback_encoder.position); /* Velocity(t
+ 280              		.loc 1 180 0
+ 281 0046 3046     		mov	r0, r6
+ 282 0048 1FE0     		b	.L48
+ 283              	.L26:
+ 159:.\motor_CTRL.c ****     else if (paxis == &tilt_axis)
+ 284              		.loc 1 159 0
+ 285 004a 6448     		ldr	r0, .L52+20
+ 286 004c 8442     		cmp	r4, r0
+ 287 004e 2CD1     		bne	.L27
+ 164:.\motor_CTRL.c **** 		tilt_axis.mc.current = (float)(AdcValue[SENSE_ITILT] + ADC_CURR_ZERO_OFFSET) * 0.366211;		/* [mA]
+ 288              		.loc 1 164 0
+ 289 0050 604B     		ldr	r3, .L52+12
+ 181:.\motor_CTRL.c **** 	}	
+ 182:.\motor_CTRL.c ****     else if (paxis == &tilt_axis)
+ 183:.\motor_CTRL.c ****     {
+ 184:.\motor_CTRL.c ****  		/* Feedback Encoder PositionSampling	*/	
+ 185:.\motor_CTRL.c **** 		tilt_feedback_encoder.position = QuadDec_TILT_GetCounter();								/* Position(t)   [step] 	*/
+ 290              		.loc 1 185 0
+ 291 0052 634D     		ldr	r5, .L52+24
+ 164:.\motor_CTRL.c **** 		tilt_axis.mc.current = (float)(AdcValue[SENSE_ITILT] + ADC_CURR_ZERO_OFFSET) * 0.366211;		/* [mA]
+ 292              		.loc 1 164 0
+ 293 0054 B3F90200 		ldrsh	r0, [r3, #2]
+ 294 0058 00F50060 		add	r0, r0, #2048
+ 295 005c FFF7FEFF 		bl	__aeabi_i2f
+ 296              	.LVL23:
+ 297 0060 FFF7FEFF 		bl	__aeabi_f2d
+ 298              	.LVL24:
+ 299 0064 58A3     		adr	r3, .L52
+ 300 0066 D3E90023 		ldrd	r2, [r3]
+ 301 006a FFF7FEFF 		bl	__aeabi_dmul
+ 302              	.LVL25:
+ 303 006e FFF7FEFF 		bl	__aeabi_d2f
+ 304              	.LVL26:
+ 305 0072 E064     		str	r0, [r4, #76]	@ float
+ 306              		.loc 1 185 0
+ 307 0074 FFF7FEFF 		bl	QuadDec_TILT_GetCounter
+ 308              	.LVL27:
+ 186:.\motor_CTRL.c **** 		
+ 187:.\motor_CTRL.c **** 		tilt_feedback_encoder.angle = tilt_feedback_encoder.position /
+ 309              		.loc 1 187 0
+ 310 0078 2B69     		ldr	r3, [r5, #16]
+ 185:.\motor_CTRL.c **** 		tilt_feedback_encoder.position = QuadDec_TILT_GetCounter();								/* Position(t)   [step] 	*/
+ 311              		.loc 1 185 0
+ 312 007a 2860     		str	r0, [r5, #0]
+ 313              		.loc 1 187 0
+ 314 007c 90FBF3F0 		sdiv	r0, r0, r3
+ 315 0080 FFF7FEFF 		bl	__aeabi_i2f
+ 316              	.LVL28:
+ 188:.\motor_CTRL.c **** 									  tilt_feedback_encoder.parameter.resolution;     
+ 189:.\motor_CTRL.c **** 		
+ 190:.\motor_CTRL.c ****         /* Feedback Encoder Velocity Sampling */
+ 191:.\motor_CTRL.c **** 		//tilt_feedback_encoder.velocity = VelocityEstimator(pan_feedback_encoder.position); /* Velocity(
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 10
+
+
+ 192:.\motor_CTRL.c **** 		tilt_feedback_encoder.velocity = VelocityEstimatorII(pan_feedback_encoder.position); /* Velocity(
+ 317              		.loc 1 192 0
+ 318 0084 544B     		ldr	r3, .L52+16
+ 187:.\motor_CTRL.c **** 		tilt_feedback_encoder.angle = tilt_feedback_encoder.position /
+ 319              		.loc 1 187 0
+ 320 0086 A860     		str	r0, [r5, #8]	@ float
+ 321              		.loc 1 192 0
+ 322 0088 1868     		ldr	r0, [r3, #0]
+ 323              	.L48:
+ 324 008a FFF7FEFF 		bl	VelocityEstimatorII
+ 325              	.LVL29:
+ 193:.\motor_CTRL.c ****     }
+ 194:.\motor_CTRL.c **** 		
+ 195:.\motor_CTRL.c **** 	/****************************************************************************/
+ 196:.\motor_CTRL.c **** 	/* e(t) Calculus #1: Feedback Selection	(DIRECT LOS)	   					*/
+ 197:.\motor_CTRL.c **** 	/****************************************************************************/
+ 198:.\motor_CTRL.c **** 	if (paxis == &pan_axis)
+ 199:.\motor_CTRL.c **** 	{
+ 200:.\motor_CTRL.c **** 		(*paxis).mc.error = -pan_feedback_encoder.position;
+ 201:.\motor_CTRL.c **** 	}
+ 202:.\motor_CTRL.c ****     else if (paxis == &tilt_axis)
+ 203:.\motor_CTRL.c **** 	{
+ 204:.\motor_CTRL.c **** 		(*paxis).mc.error = -tilt_feedback_encoder.position;
+ 326              		.loc 1 204 0
+ 327 008e 2968     		ldr	r1, [r5, #0]
+ 192:.\motor_CTRL.c **** 		tilt_feedback_encoder.velocity = VelocityEstimatorII(pan_feedback_encoder.position); /* Velocity(
+ 328              		.loc 1 192 0
+ 329 0090 6860     		str	r0, [r5, #4]	@ float
+ 330              		.loc 1 204 0
+ 331 0092 4842     		negs	r0, r1
+ 332 0094 FFF7FEFF 		bl	__aeabi_i2f
+ 333              	.LVL30:
+ 334 0098 0546     		mov	r5, r0
+ 205:.\motor_CTRL.c **** 	}
+ 206:.\motor_CTRL.c **** 
+ 207:.\motor_CTRL.c **** 	/****************************************************************************/
+ 208:.\motor_CTRL.c **** 	/* e(t) Calculus #2: Mover Input											*/
+ 209:.\motor_CTRL.c **** 	/****************************************************************************/
+ 210:.\motor_CTRL.c **** 	if (paxis == &pan_axis)
+ 211:.\motor_CTRL.c **** 	{	
+ 212:.\motor_CTRL.c **** //		if (mover.status == MOVER_STARTED)
+ 213:.\motor_CTRL.c **** //		{
+ 214:.\motor_CTRL.c **** //			mover.steps = MoverGeneratedSteps(&path[mover.path_to_move], mover.ticks);		 /* Mover Generate
+ 215:.\motor_CTRL.c **** //			(*paxis).mc.master_enc_position = (*paxis).mc.master_enc_position + mover.steps; /* master_enc
+ 216:.\motor_CTRL.c **** //			mover.steps_integral = mover.steps_integral + mover.steps;
+ 217:.\motor_CTRL.c **** //			mover.ticks++;																	 /* Mover ticks Increment			*/
+ 218:.\motor_CTRL.c **** //		}  
+ 219:.\motor_CTRL.c **** 		(*paxis).mc.error = (*paxis).mc.error + (float)(*paxis).mc.master_enc_position;		 /* e(t) update	
+ 220:.\motor_CTRL.c **** 	}
+ 221:.\motor_CTRL.c **** 	else if (paxis == &tilt_axis)
+ 222:.\motor_CTRL.c **** 	{
+ 223:.\motor_CTRL.c **** //		if (mover.status == MOVER_STARTED)
+ 224:.\motor_CTRL.c **** //		{			
+ 225:.\motor_CTRL.c **** //			mover.steps = MoverGeneratedSteps(&path[mover.path_to_move], mover.ticks);		 /* Mover Generate
+ 226:.\motor_CTRL.c **** //			(*paxis).mc.master_enc_position = (*paxis).mc.master_enc_position + mover.steps; /* master_enc
+ 227:.\motor_CTRL.c **** //			mover.steps_integral = mover.steps_integral + mover.steps;
+ 228:.\motor_CTRL.c **** //			mover.ticks++;																	 /* Mover ticks Increment			*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 11
+
+
+ 229:.\motor_CTRL.c **** //		}  
+ 230:.\motor_CTRL.c **** 		(*paxis).mc.error = (*paxis).mc.error + (float)(*paxis).mc.master_enc_position;		 /* e(t) update	
+ 335              		.loc 1 230 0
+ 336 009a A06A     		ldr	r0, [r4, #40]
+ 337 009c FFF7FEFF 		bl	__aeabi_i2f
+ 338              	.LVL31:
+ 339 00a0 0146     		mov	r1, r0
+ 340 00a2 2846     		mov	r0, r5
+ 341 00a4 FFF7FEFF 		bl	__aeabi_fadd
+ 342              	.LVL32:
+ 343 00a8 E062     		str	r0, [r4, #44]	@ float
+ 344              	.L27:
+ 231:.\motor_CTRL.c **** 	}
+ 232:.\motor_CTRL.c **** 	
+ 233:.\motor_CTRL.c **** //	/****************************************/
+ 234:.\motor_CTRL.c **** //	/* e(t) = e(t) Deadband Ratioing 		*/
+ 235:.\motor_CTRL.c **** //	/****************************************/
+ 236:.\motor_CTRL.c **** //	if (fabs((*paxis).mc.error) >= (double)(*paxis).param.deadband.fnum)
+ 237:.\motor_CTRL.c **** //	{
+ 238:.\motor_CTRL.c **** //		(*paxis).mc.deadband_factor = 1.0;
+ 239:.\motor_CTRL.c **** //	}
+ 240:.\motor_CTRL.c **** //	else
+ 241:.\motor_CTRL.c **** //	{
+ 242:.\motor_CTRL.c **** //		(*paxis).mc.deadband_factor = fabs((*paxis).mc.error) / (*paxis).param.deadband.fnum;
+ 243:.\motor_CTRL.c **** //	}
+ 244:.\motor_CTRL.c **** //	
+ 245:.\motor_CTRL.c **** //	(*paxis).mc.error = (*paxis).mc.error * (*paxis).mc.deadband_factor;
+ 246:.\motor_CTRL.c **** 	
+ 247:.\motor_CTRL.c **** 	/************************************************************************/
+ 248:.\motor_CTRL.c **** 	/* d/dt(error)  Calculus												*/
+ 249:.\motor_CTRL.c **** 	/*   d/dt(error) = error(t) - error(t-1)       							*/
+ 250:.\motor_CTRL.c **** 	/************************************************************************/	
+ 251:.\motor_CTRL.c **** 	(*paxis).mc.derror = (*paxis).mc.error - (*paxis).mc.error_bef;
+ 345              		.loc 1 251 0
+ 346 00aa E76A     		ldr	r7, [r4, #44]	@ float
+ 347 00ac 216B     		ldr	r1, [r4, #48]	@ float
+ 348 00ae 3846     		mov	r0, r7
+ 349 00b0 FFF7FEFF 		bl	__aeabi_fsub
+ 350              	.LVL33:
+ 252:.\motor_CTRL.c **** 	(*paxis).mc.error_bef = (*paxis).mc.error;	
+ 253:.\motor_CTRL.c **** 	
+ 254:.\motor_CTRL.c **** 	
+ 255:.\motor_CTRL.c **** #if ASTIM_CALC_INLOOP
+ 256:.\motor_CTRL.c **** 	/********************************************************************************************/
+ 257:.\motor_CTRL.c **** 	/* WARNING!!!: AUTOSTIM VELOCITY (CONTROLLER INPUT)   										*/
+ 258:.\motor_CTRL.c **** 	/********************************************************************************************/
+ 259:.\motor_CTRL.c **** 	/*																							*/
+ 260:.\motor_CTRL.c **** 	/*							          -----------------------	  -------    				*/
+ 261:.\motor_CTRL.c **** 	/*   (0..4V)  CTRL_IN [V] --> (+) --> |* 4096[lsb]*4[V]/5[V]| --> |*Kopf| --> Float_ASTIM	*/
+ 262:.\motor_CTRL.c **** 	/*							   ^       ----------------------	  -------					*/
+ 263:.\motor_CTRL.c **** 	/*							   |															*/
+ 264:.\motor_CTRL.c **** 	/* 							  410 (offset)													*/
+ 265:.\motor_CTRL.c **** 	/* 																							*/
+ 266:.\motor_CTRL.c **** 	/* 	 Float_ASTIM(t) --->(+)---> e(t)														*/
+ 267:.\motor_CTRL.c **** 	/*					     ^																	*/
+ 268:.\motor_CTRL.c **** 	/*					     |																	*/
+ 269:.\motor_CTRL.c **** 	/*				         |------ -(gyro feedback(t))										*/
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 12
+
+
+ 270:.\motor_CTRL.c **** 	/*																							*/
+ 271:.\motor_CTRL.c **** 	/*   (Float_ASTIM)peak = Vinpp[V] * 410[lsb/V] * Kopf										*/
+ 272:.\motor_CTRL.c **** 	/*																							*/
+ 273:.\motor_CTRL.c **** 	/********************************************************************************************/
+ 274:.\motor_CTRL.c **** 	if ((paxis == &pan_axis))
+ 351              		.loc 1 274 0
+ 352 00b4 464A     		ldr	r2, .L52+8
+ 251:.\motor_CTRL.c **** 	(*paxis).mc.derror = (*paxis).mc.error - (*paxis).mc.error_bef;
+ 353              		.loc 1 251 0
+ 354 00b6 A063     		str	r0, [r4, #56]	@ float
+ 355              		.loc 1 274 0
+ 356 00b8 9442     		cmp	r4, r2
+ 252:.\motor_CTRL.c **** 	(*paxis).mc.error_bef = (*paxis).mc.error;	
+ 357              		.loc 1 252 0
+ 358 00ba 2763     		str	r7, [r4, #48]	@ float
+ 359              		.loc 1 274 0
+ 360 00bc 48D1     		bne	.L29
+ 275:.\motor_CTRL.c **** 	{	
+ 276:.\motor_CTRL.c **** 		(*paxis).mc.Float_ASTIM = ((float)(AdcValue[CTRL_IN_ASTIM_1]) + 410) * (*paxis).param.Kopf.fnum;
+ 361              		.loc 1 276 0
+ 362 00be 454D     		ldr	r5, .L52+12
+ 363 00c0 B5F90C00 		ldrsh	r0, [r5, #12]
+ 364 00c4 FFF7FEFF 		bl	__aeabi_i2f
+ 365              	.LVL34:
+ 366 00c8 4649     		ldr	r1, .L52+28
+ 367 00ca FFF7FEFF 		bl	__aeabi_fadd
+ 368              	.LVL35:
+ 369 00ce E169     		ldr	r1, [r4, #28]	@ float
+ 370 00d0 FFF7FEFF 		bl	__aeabi_fmul
+ 371              	.LVL36:
+ 277:.\motor_CTRL.c **** 
+ 278:.\motor_CTRL.c **** 		/* Sgancio Zero Cross dall'autostimolo */
+ 279:.\motor_CTRL.c **** 		if ((*paxis).vparam.astim_type == NO_ASTIM)
+ 372              		.loc 1 279 0
+ 373 00d4 2678     		ldrb	r6, [r4, #0]	@ zero_extendqisi2
+ 276:.\motor_CTRL.c **** 		(*paxis).mc.Float_ASTIM = ((float)(AdcValue[CTRL_IN_ASTIM_1]) + 410) * (*paxis).param.Kopf.fnum;
+ 374              		.loc 1 276 0
+ 375 00d6 0546     		mov	r5, r0
+ 376 00d8 2065     		str	r0, [r4, #80]	@ float
+ 377              		.loc 1 279 0
+ 378 00da AEB9     		cbnz	r6, .L30
+ 280:.\motor_CTRL.c **** 		{
+ 281:.\motor_CTRL.c **** 			if ((*paxis).mc.astim_ZCsync == ASTIM_ZC_SYNC_OK)
+ 379              		.loc 1 281 0
+ 380 00dc 94F85430 		ldrb	r3, [r4, #84]	@ zero_extendqisi2
+ 381 00e0 052B     		cmp	r3, #5
+ 382 00e2 11D1     		bne	.L30
+ 282:.\motor_CTRL.c **** 			{
+ 283:.\motor_CTRL.c **** 				if (((*paxis).mc.Float_ASTIM >= 50) || ((*paxis).mc.Float_ASTIM <= -50))
+ 383              		.loc 1 283 0
+ 384 00e4 4049     		ldr	r1, .L52+32
+ 385 00e6 FFF7FEFF 		bl	__aeabi_fcmpge
+ 386              	.LVL37:
+ 387 00ea 20B9     		cbnz	r0, .L31
+ 388              		.loc 1 283 0 is_stmt 0 discriminator 1
+ 389 00ec 2846     		mov	r0, r5
+ 390 00ee 3F49     		ldr	r1, .L52+36
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 13
+
+
+ 391 00f0 FFF7FEFF 		bl	__aeabi_fcmple
+ 392              	.LVL38:
+ 393 00f4 30B1     		cbz	r0, .L47
+ 394              	.L31:
+ 284:.\motor_CTRL.c **** 				{
+ 285:.\motor_CTRL.c **** 					(*paxis).mc.error = (*paxis).mc.error + (*paxis).mc.Float_ASTIM;		/* Velocity Stimulus Input *
+ 395              		.loc 1 285 0 is_stmt 1
+ 396 00f6 2946     		mov	r1, r5
+ 397 00f8 3846     		mov	r0, r7
+ 398 00fa FFF7FEFF 		bl	__aeabi_fadd
+ 399              	.LVL39:
+ 400 00fe 3449     		ldr	r1, .L52+8
+ 401 0100 C862     		str	r0, [r1, #44]	@ float
+ 402 0102 01E0     		b	.L30
+ 403              	.L47:
+ 286:.\motor_CTRL.c **** 				}
+ 287:.\motor_CTRL.c **** 				else
+ 288:.\motor_CTRL.c **** 				{
+ 289:.\motor_CTRL.c **** 					(*paxis).mc.astim_ZCsync = ASTIM_ZC_SYNC_TODO;
+ 404              		.loc 1 289 0
+ 405 0104 84F85460 		strb	r6, [r4, #84]
+ 406              	.L30:
+ 290:.\motor_CTRL.c **** 				}
+ 291:.\motor_CTRL.c **** 			}
+ 292:.\motor_CTRL.c **** 		}
+ 293:.\motor_CTRL.c **** 
+ 294:.\motor_CTRL.c **** 		/* Aggancio Zero Cross all'autostimolo (sine e tria) */
+ 295:.\motor_CTRL.c **** 		if (((*paxis).vparam.astim_type == SINE_ASTIM) || ((*paxis).vparam.astim_type == TRIANGLE_ASTIM))
+ 407              		.loc 1 295 0
+ 408 0108 701E     		subs	r0, r6, #1
+ 409 010a 0128     		cmp	r0, #1
+ 410 010c 18D8     		bhi	.L34
+ 296:.\motor_CTRL.c **** 		{
+ 297:.\motor_CTRL.c **** 			if ((((*paxis).mc.Float_ASTIM > 0) && ((*paxis).mc.Float_ASTIM <= 10)) || ((*paxis).mc.astim_ZCs
+ 411              		.loc 1 297 0
+ 412 010e 2846     		mov	r0, r5
+ 413 0110 0021     		movs	r1, #0
+ 414 0112 FFF7FEFF 		bl	__aeabi_fcmpgt
+ 415              	.LVL40:
+ 416 0116 20B1     		cbz	r0, .L35
+ 417              		.loc 1 297 0 is_stmt 0 discriminator 1
+ 418 0118 2846     		mov	r0, r5
+ 419 011a 3549     		ldr	r1, .L52+40
+ 420 011c FFF7FEFF 		bl	__aeabi_fcmple
+ 421              	.LVL41:
+ 422 0120 20B9     		cbnz	r0, .L37
+ 423              	.L35:
+ 424              		.loc 1 297 0 discriminator 2
+ 425 0122 2B4A     		ldr	r2, .L52+8
+ 426 0124 92F85430 		ldrb	r3, [r2, #84]	@ zero_extendqisi2
+ 427 0128 052B     		cmp	r3, #5
+ 428 012a 11D1     		bne	.L29
+ 429              	.L37:
+ 298:.\motor_CTRL.c **** 			{
+ 299:.\motor_CTRL.c **** 				(*paxis).mc.error = (*paxis).mc.error + (*paxis).mc.Float_ASTIM;	/* Velocity Stimulus Input 			
+ 430              		.loc 1 299 0 is_stmt 1
+ 431 012c 284E     		ldr	r6, .L52+8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 14
+
+
+ 432 012e 2946     		mov	r1, r5
+ 433 0130 F06A     		ldr	r0, [r6, #44]	@ float
+ 434 0132 FFF7FEFF 		bl	__aeabi_fadd
+ 435              	.LVL42:
+ 300:.\motor_CTRL.c **** 				(*paxis).mc.astim_ZCsync = ASTIM_ZC_SYNC_OK;
+ 436              		.loc 1 300 0
+ 437 0136 0521     		movs	r1, #5
+ 299:.\motor_CTRL.c **** 				(*paxis).mc.error = (*paxis).mc.error + (*paxis).mc.Float_ASTIM;	/* Velocity Stimulus Input 			
+ 438              		.loc 1 299 0
+ 439 0138 F062     		str	r0, [r6, #44]	@ float
+ 440              		.loc 1 300 0
+ 441 013a 86F85410 		strb	r1, [r6, #84]
+ 442 013e 07E0     		b	.L29
+ 443              	.L34:
+ 301:.\motor_CTRL.c **** 			}
+ 302:.\motor_CTRL.c **** 		}
+ 303:.\motor_CTRL.c **** 
+ 304:.\motor_CTRL.c **** 		/* Aggancio immediato all'autostimolo (square) */		
+ 305:.\motor_CTRL.c **** 		if ((*paxis).vparam.astim_type == SQUARE_ASTIM)
+ 444              		.loc 1 305 0
+ 445 0140 032E     		cmp	r6, #3
+ 446 0142 05D1     		bne	.L29
+ 306:.\motor_CTRL.c **** 		{
+ 307:.\motor_CTRL.c **** 			(*paxis).mc.error = (*paxis).mc.error + (*paxis).mc.Float_ASTIM;	/* Velocity Stimulus Input 				
+ 447              		.loc 1 307 0
+ 448 0144 224E     		ldr	r6, .L52+8
+ 449 0146 2946     		mov	r1, r5
+ 450 0148 F06A     		ldr	r0, [r6, #44]	@ float
+ 451 014a FFF7FEFF 		bl	__aeabi_fadd
+ 452              	.LVL43:
+ 453 014e F062     		str	r0, [r6, #44]	@ float
+ 454              	.L29:
+ 308:.\motor_CTRL.c **** 		}
+ 309:.\motor_CTRL.c **** 	}
+ 310:.\motor_CTRL.c **** #endif	
+ 311:.\motor_CTRL.c **** 
+ 312:.\motor_CTRL.c **** 	/****************************************************************************/
+ 313:.\motor_CTRL.c **** 	/* PID Calculus										   						*/
+ 314:.\motor_CTRL.c **** 	/* 	  cv(t) =   PID(e(t)) + Autostimulus									*/
+ 315:.\motor_CTRL.c **** 	/****************************************************************************/
+ 316:.\motor_CTRL.c **** 	/* cv(t) = SAT_cvS(Kp * e(t) + Kd * (e(t) - e(t-1)) + Ki * Ksi_Saturated(integral(e(t))) 	*/
+ 317:.\motor_CTRL.c **** 	/* 11 bit saturation --> cvS=MOTOR_PWM_PERIOD_HALF											*/	
+ 318:.\motor_CTRL.c **** 	(*paxis).mc.ctrl_var = fpSpid_k2(paxis, MOTOR_PWM_PERIOD_HALF);
+ 455              		.loc 1 318 0
+ 456 0150 4FF48061 		mov	r1, #1024
+ 457 0154 2046     		mov	r0, r4
+ 458 0156 FFF7FEFF 		bl	fpSpid_k2
+ 459              	.LVL44:
+ 319:.\motor_CTRL.c **** 	
+ 320:.\motor_CTRL.c **** 	
+ 321:.\motor_CTRL.c **** 	/****************************************************************************/
+ 322:.\motor_CTRL.c **** 	/* CONTROL VAR PWM refreshing: BASED ON POLARITY							*/
+ 323:.\motor_CTRL.c **** 	/****************************************************************************/
+ 324:.\motor_CTRL.c **** 	if ((*paxis).param.polarity == 0)
+ 460              		.loc 1 324 0
+ 461 015a 227A     		ldrb	r2, [r4, #8]	@ zero_extendqisi2
+ 318:.\motor_CTRL.c **** 	(*paxis).mc.ctrl_var = fpSpid_k2(paxis, MOTOR_PWM_PERIOD_HALF);
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 15
+
+
+ 462              		.loc 1 318 0
+ 463 015c 0146     		mov	r1, r0
+ 464 015e 6064     		str	r0, [r4, #68]	@ float
+ 465              		.loc 1 324 0
+ 466 0160 22B9     		cbnz	r2, .L40
+ 325:.\motor_CTRL.c **** 	{
+ 326:.\motor_CTRL.c **** 		(*paxis).mc.pwm_var = (uint16)((*paxis).mc.ctrl_var + MOTOR_PWM_PERIOD_HALF);			
+ 467              		.loc 1 326 0
+ 468 0162 4FF08941 		mov	r1, #1149239296
+ 469 0166 FFF7FEFF 		bl	__aeabi_fadd
+ 470              	.LVL45:
+ 471 016a 03E0     		b	.L49
+ 472              	.L40:
+ 327:.\motor_CTRL.c **** 	}
+ 328:.\motor_CTRL.c **** 	else
+ 329:.\motor_CTRL.c **** 	{			
+ 330:.\motor_CTRL.c **** 		(*paxis).mc.pwm_var = (uint16)(MOTOR_PWM_PERIOD_HALF - (*paxis).mc.ctrl_var);
+ 473              		.loc 1 330 0
+ 474 016c 4FF08940 		mov	r0, #1149239296
+ 475 0170 FFF7FEFF 		bl	__aeabi_fsub
+ 476              	.LVL46:
+ 477              	.L49:
+ 478 0174 FFF7FEFF 		bl	__aeabi_f2uiz
+ 479              	.LVL47:
+ 331:.\motor_CTRL.c **** 	}
+ 332:.\motor_CTRL.c **** 	
+ 333:.\motor_CTRL.c **** 	
+ 334:.\motor_CTRL.c **** 	/****************************************************************************/
+ 335:.\motor_CTRL.c **** 	/* PWM MOTOR Output (11.5bit)												*/
+ 336:.\motor_CTRL.c **** 	/****************************************************************************/
+ 337:.\motor_CTRL.c **** 	if (paxis == &pan_axis)
+ 480              		.loc 1 337 0
+ 481 0178 154B     		ldr	r3, .L52+8
+ 330:.\motor_CTRL.c **** 		(*paxis).mc.pwm_var = (uint16)(MOTOR_PWM_PERIOD_HALF - (*paxis).mc.ctrl_var);
+ 482              		.loc 1 330 0
+ 483 017a A4F84800 		strh	r0, [r4, #72]	@ movhi
+ 484              		.loc 1 337 0
+ 485 017e 9C42     		cmp	r4, r3
+ 486 0180 0BD1     		bne	.L42
+ 338:.\motor_CTRL.c **** 	{
+ 339:.\motor_CTRL.c **** 		if (machine_state == GOBEE_TEST) 
+ 487              		.loc 1 339 0
+ 488 0182 1C49     		ldr	r1, .L52+44
+ 489 0184 0A78     		ldrb	r2, [r1, #0]	@ zero_extendqisi2
+ 490 0186 022A     		cmp	r2, #2
+ 340:.\motor_CTRL.c **** 		{
+ 341:.\motor_CTRL.c **** 			PWM_MOTOR_PAN_WriteCompare((int16)pan_axis.mc.pwm_test_var);
+ 491              		.loc 1 341 0
+ 492 0188 0CBF     		ite	eq
+ 493 018a B4F84A00 		ldrheq	r0, [r4, #74]
+ 342:.\motor_CTRL.c **** 		}
+ 343:.\motor_CTRL.c **** 		else
+ 344:.\motor_CTRL.c **** 		{
+ 345:.\motor_CTRL.c **** 			PWM_MOTOR_PAN_WriteCompare((int16)pan_axis.mc.pwm_var);
+ 494              		.loc 1 345 0
+ 495 018e B4F84800 		ldrhne	r0, [r4, #72]
+ 346:.\motor_CTRL.c **** 		}
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 16
+
+
+ 347:.\motor_CTRL.c **** 	}
+ 348:.\motor_CTRL.c ****     else if (paxis == &tilt_axis)
+ 349:.\motor_CTRL.c **** 	{
+ 350:.\motor_CTRL.c **** 		if (machine_state == GOBEE_TEST) 
+ 351:.\motor_CTRL.c **** 		{
+ 352:.\motor_CTRL.c **** 			PWM_MOTOR_TILT_WriteCompare((int16)tilt_axis.mc.pwm_test_var);
+ 353:.\motor_CTRL.c **** 		}
+ 354:.\motor_CTRL.c **** 		else
+ 355:.\motor_CTRL.c **** 		{
+ 356:.\motor_CTRL.c **** 			PWM_MOTOR_TILT_WriteCompare((int16)tilt_axis.mc.pwm_var);
+ 357:.\motor_CTRL.c **** 		}
+ 358:.\motor_CTRL.c **** 	}
+ 359:.\motor_CTRL.c **** 	else		/* Firmware Internal Error */
+ 360:.\motor_CTRL.c **** 	{
+ 361:.\motor_CTRL.c **** 		PWM_MOTOR_PAN_WriteCompare(MOTOR_PWM_PERIOD_HALF);
+ 362:.\motor_CTRL.c **** 		PWM_MOTOR_TILT_WriteCompare(MOTOR_PWM_PERIOD_HALF);
+ 363:.\motor_CTRL.c **** 	}			
+ 364:.\motor_CTRL.c **** }
+ 496              		.loc 1 364 0
+ 497 0192 BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 345:.\motor_CTRL.c **** 			PWM_MOTOR_PAN_WriteCompare((int16)pan_axis.mc.pwm_var);
+ 498              		.loc 1 345 0
+ 499 0196 FFF7FEBF 		b	PWM_MOTOR_PAN_WriteCompare
+ 500              	.LVL48:
+ 501              	.L42:
+ 348:.\motor_CTRL.c ****     else if (paxis == &tilt_axis)
+ 502              		.loc 1 348 0
+ 503 019a 1049     		ldr	r1, .L52+20
+ 504 019c 8C42     		cmp	r4, r1
+ 505 019e 08D1     		bne	.L44
+ 350:.\motor_CTRL.c **** 		if (machine_state == GOBEE_TEST) 
+ 506              		.loc 1 350 0
+ 507 01a0 144A     		ldr	r2, .L52+44
+ 508 01a2 1378     		ldrb	r3, [r2, #0]	@ zero_extendqisi2
+ 509 01a4 022B     		cmp	r3, #2
+ 352:.\motor_CTRL.c **** 			PWM_MOTOR_TILT_WriteCompare((int16)tilt_axis.mc.pwm_test_var);
+ 510              		.loc 1 352 0
+ 511 01a6 0CBF     		ite	eq
+ 512 01a8 B4F84A00 		ldrheq	r0, [r4, #74]
+ 356:.\motor_CTRL.c **** 			PWM_MOTOR_TILT_WriteCompare((int16)tilt_axis.mc.pwm_var);
+ 513              		.loc 1 356 0
+ 514 01ac B4F84800 		ldrhne	r0, [r4, #72]
+ 515 01b0 05E0     		b	.L51
+ 516              	.L44:
+ 361:.\motor_CTRL.c **** 		PWM_MOTOR_PAN_WriteCompare(MOTOR_PWM_PERIOD_HALF);
+ 517              		.loc 1 361 0
+ 518 01b2 4FF48060 		mov	r0, #1024
+ 519 01b6 FFF7FEFF 		bl	PWM_MOTOR_PAN_WriteCompare
+ 520              	.LVL49:
+ 362:.\motor_CTRL.c **** 		PWM_MOTOR_TILT_WriteCompare(MOTOR_PWM_PERIOD_HALF);
+ 521              		.loc 1 362 0
+ 522 01ba 4FF48060 		mov	r0, #1024
+ 523              	.L51:
+ 524              		.loc 1 364 0
+ 525 01be BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 362:.\motor_CTRL.c **** 		PWM_MOTOR_TILT_WriteCompare(MOTOR_PWM_PERIOD_HALF);
+ 526              		.loc 1 362 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 17
+
+
+ 527 01c2 FFF7FEBF 		b	PWM_MOTOR_TILT_WriteCompare
+ 528              	.LVL50:
+ 529              	.L53:
+ 530 01c6 00BF     		.align	3
+ 531              	.L52:
+ 532 01c8 83DE1B43 		.word	1125899907
+ 533 01cc 0070D73F 		.word	1071083520
+ 534 01d0 00000000 		.word	pan_axis
+ 535 01d4 00000000 		.word	AdcValue
+ 536 01d8 00000000 		.word	pan_feedback_encoder
+ 537 01dc 00000000 		.word	tilt_axis
+ 538 01e0 00000000 		.word	tilt_feedback_encoder
+ 539 01e4 0000CD43 		.word	1137508352
+ 540 01e8 00004842 		.word	1112014848
+ 541 01ec 000048C2 		.word	-1035468800
+ 542 01f0 00002041 		.word	1092616192
+ 543 01f4 00000000 		.word	machine_state
+ 544              		.cfi_endproc
+ 545              	.LFE57:
+ 546              		.size	motor_control, .-motor_control
+ 547              		.section	.text.motor_init,"ax",%progbits
+ 548              		.align	1
+ 549              		.global	motor_init
+ 550              		.thumb
+ 551              		.thumb_func
+ 552              		.type	motor_init, %function
+ 553              	motor_init:
+ 554              	.LFB58:
+ 365:.\motor_CTRL.c **** 	
+ 366:.\motor_CTRL.c **** void motor_init(struct MOTOR_AXIS *paxis)
+ 367:.\motor_CTRL.c **** {
+ 555              		.loc 1 367 0
+ 556              		.cfi_startproc
+ 557              		@ args = 0, pretend = 0, frame = 0
+ 558              		@ frame_needed = 0, uses_anonymous_args = 0
+ 559              		@ link register save eliminated.
+ 560              	.LVL51:
+ 368:.\motor_CTRL.c **** 	(*paxis).mc.error = 0;
+ 561              		.loc 1 368 0
+ 562 0000 0023     		movs	r3, #0
+ 369:.\motor_CTRL.c **** 	
+ 370:.\motor_CTRL.c **** 	(*paxis).mc.master_enc_position = 0;
+ 563              		.loc 1 370 0
+ 564 0002 0021     		movs	r1, #0
+ 368:.\motor_CTRL.c **** 	(*paxis).mc.error = 0;
+ 565              		.loc 1 368 0
+ 566 0004 C362     		str	r3, [r0, #44]	@ float
+ 567              		.loc 1 370 0
+ 568 0006 8162     		str	r1, [r0, #40]
+ 569 0008 7047     		bx	lr
+ 570              		.cfi_endproc
+ 571              	.LFE58:
+ 572              		.size	motor_init, .-motor_init
+ 573              		.section	.text.mototor_energize,"ax",%progbits
+ 574              		.align	1
+ 575              		.global	mototor_energize
+ 576              		.thumb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 18
+
+
+ 577              		.thumb_func
+ 578              		.type	mototor_energize, %function
+ 579              	mototor_energize:
+ 580              	.LFB59:
+ 371:.\motor_CTRL.c **** }
+ 372:.\motor_CTRL.c **** 
+ 373:.\motor_CTRL.c **** void mototor_energize(struct MOTOR_AXIS *paxis)
+ 374:.\motor_CTRL.c **** {
+ 581              		.loc 1 374 0
+ 582              		.cfi_startproc
+ 583              		@ args = 0, pretend = 0, frame = 0
+ 584              		@ frame_needed = 0, uses_anonymous_args = 0
+ 585              		@ link register save eliminated.
+ 586              	.LVL52:
+ 375:.\motor_CTRL.c **** 	if ((paxis == &pan_axis) || (paxis == &tilt_axis))
+ 587              		.loc 1 375 0
+ 588 0000 044B     		ldr	r3, .L58
+ 589 0002 9842     		cmp	r0, r3
+ 590 0004 02D0     		beq	.L56
+ 591              		.loc 1 375 0 is_stmt 0 discriminator 1
+ 592 0006 0449     		ldr	r1, .L58+4
+ 593 0008 8842     		cmp	r0, r1
+ 594 000a 02D1     		bne	.L55
+ 595              	.L56:
+ 376:.\motor_CTRL.c **** 	{
+ 377:.\motor_CTRL.c **** 		Control_Reg_MOTOR_Write(0x01);
+ 596              		.loc 1 377 0 is_stmt 1
+ 597 000c 0120     		movs	r0, #1
+ 598              	.LVL53:
+ 378:.\motor_CTRL.c **** 	}
+ 379:.\motor_CTRL.c **** }
+ 599              		.loc 1 379 0
+ 377:.\motor_CTRL.c **** 		Control_Reg_MOTOR_Write(0x01);
+ 600              		.loc 1 377 0
+ 601 000e FFF7FEBF 		b	Control_Reg_MOTOR_Write
+ 602              	.LVL54:
+ 603              	.L55:
+ 604 0012 7047     		bx	lr
+ 605              	.L59:
+ 606              		.align	2
+ 607              	.L58:
+ 608 0014 00000000 		.word	pan_axis
+ 609 0018 00000000 		.word	tilt_axis
+ 610              		.cfi_endproc
+ 611              	.LFE59:
+ 612              		.size	mototor_energize, .-mototor_energize
+ 613              		.section	.text.mototor_sleep,"ax",%progbits
+ 614              		.align	1
+ 615              		.global	mototor_sleep
+ 616              		.thumb
+ 617              		.thumb_func
+ 618              		.type	mototor_sleep, %function
+ 619              	mototor_sleep:
+ 620              	.LFB60:
+ 380:.\motor_CTRL.c **** 
+ 381:.\motor_CTRL.c **** 
+ 382:.\motor_CTRL.c **** void mototor_sleep(struct MOTOR_AXIS *paxis)
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 19
+
+
+ 383:.\motor_CTRL.c **** {
+ 621              		.loc 1 383 0
+ 622              		.cfi_startproc
+ 623              		@ args = 0, pretend = 0, frame = 0
+ 624              		@ frame_needed = 0, uses_anonymous_args = 0
+ 625              		@ link register save eliminated.
+ 626              	.LVL55:
+ 384:.\motor_CTRL.c **** 	if ((paxis == &pan_axis) || (paxis == &tilt_axis))
+ 627              		.loc 1 384 0
+ 628 0000 044B     		ldr	r3, .L63
+ 629 0002 9842     		cmp	r0, r3
+ 630 0004 02D0     		beq	.L61
+ 631              		.loc 1 384 0 is_stmt 0 discriminator 1
+ 632 0006 0449     		ldr	r1, .L63+4
+ 633 0008 8842     		cmp	r0, r1
+ 634 000a 02D1     		bne	.L60
+ 635              	.L61:
+ 385:.\motor_CTRL.c **** 	{
+ 386:.\motor_CTRL.c **** 		Control_Reg_MOTOR_Write(0x00);
+ 636              		.loc 1 386 0 is_stmt 1
+ 637 000c 0020     		movs	r0, #0
+ 638              	.LVL56:
+ 387:.\motor_CTRL.c **** 	}
+ 388:.\motor_CTRL.c **** }
+ 639              		.loc 1 388 0
+ 386:.\motor_CTRL.c **** 		Control_Reg_MOTOR_Write(0x00);
+ 640              		.loc 1 386 0
+ 641 000e FFF7FEBF 		b	Control_Reg_MOTOR_Write
+ 642              	.LVL57:
+ 643              	.L60:
+ 644 0012 7047     		bx	lr
+ 645              	.L64:
+ 646              		.align	2
+ 647              	.L63:
+ 648 0014 00000000 		.word	pan_axis
+ 649 0018 00000000 		.word	tilt_axis
+ 650              		.cfi_endproc
+ 651              	.LFE60:
+ 652              		.size	mototor_sleep, .-mototor_sleep
+ 653              		.comm	gobee_vparam,0,1
+ 654              		.text
+ 655              	.Letext0:
+ 656              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 657              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 658              		.file 4 "./gobee.h"
+ 659              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 660              		.file 6 "./Generated_Source/PSoC5/QuadDec_PAN.h"
+ 661              		.file 7 "./Generated_Source/PSoC5/QuadDec_TILT.h"
+ 662              		.file 8 "./estimators.h"
+ 663              		.file 9 "./pid_lib.h"
+ 664              		.file 10 "./Generated_Source/PSoC5/VDAC8_ANAPOS.h"
+ 665              		.file 11 "./Generated_Source/PSoC5/PWM_MOTOR_PAN.h"
+ 666              		.file 12 "./Generated_Source/PSoC5/PWM_MOTOR_TILT.h"
+ 667              		.file 13 "./Generated_Source/PSoC5/Control_Reg_MOTOR.h"
+ 668              		.section	.debug_info,"",%progbits
+ 669              	.Ldebug_info0:
+ 670 0000 6E060000 		.4byte	0x66e
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 20
+
+
+ 671 0004 0200     		.2byte	0x2
+ 672 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 673 000a 04       		.byte	0x4
+ 674 000b 01       		.uleb128 0x1
+ 675 000c C9010000 		.4byte	.LASF86
+ 676 0010 01       		.byte	0x1
+ 677 0011 B8020000 		.4byte	.LASF87
+ 678 0015 6D030000 		.4byte	.LASF88
+ 679 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 680 001d 00000000 		.4byte	0
+ 681 0021 00000000 		.4byte	0
+ 682 0025 00000000 		.4byte	.Ldebug_line0
+ 683 0029 02       		.uleb128 0x2
+ 684 002a 01       		.byte	0x1
+ 685 002b 06       		.byte	0x6
+ 686 002c 78020000 		.4byte	.LASF0
+ 687 0030 02       		.uleb128 0x2
+ 688 0031 01       		.byte	0x1
+ 689 0032 08       		.byte	0x8
+ 690 0033 2B020000 		.4byte	.LASF1
+ 691 0037 02       		.uleb128 0x2
+ 692 0038 02       		.byte	0x2
+ 693 0039 05       		.byte	0x5
+ 694 003a 4C010000 		.4byte	.LASF2
+ 695 003e 02       		.uleb128 0x2
+ 696 003f 02       		.byte	0x2
+ 697 0040 07       		.byte	0x7
+ 698 0041 FB020000 		.4byte	.LASF3
+ 699 0045 03       		.uleb128 0x3
+ 700 0046 36030000 		.4byte	.LASF9
+ 701 004a 02       		.byte	0x2
+ 702 004b 4F       		.byte	0x4f
+ 703 004c 50000000 		.4byte	0x50
+ 704 0050 02       		.uleb128 0x2
+ 705 0051 04       		.byte	0x4
+ 706 0052 05       		.byte	0x5
+ 707 0053 2D030000 		.4byte	.LASF4
+ 708 0057 02       		.uleb128 0x2
+ 709 0058 04       		.byte	0x4
+ 710 0059 07       		.byte	0x7
+ 711 005a DB030000 		.4byte	.LASF5
+ 712 005e 02       		.uleb128 0x2
+ 713 005f 08       		.byte	0x8
+ 714 0060 05       		.byte	0x5
+ 715 0061 69010000 		.4byte	.LASF6
+ 716 0065 02       		.uleb128 0x2
+ 717 0066 08       		.byte	0x8
+ 718 0067 07       		.byte	0x7
+ 719 0068 84020000 		.4byte	.LASF7
+ 720 006c 04       		.uleb128 0x4
+ 721 006d 04       		.byte	0x4
+ 722 006e 05       		.byte	0x5
+ 723 006f 696E7400 		.ascii	"int\000"
+ 724 0073 02       		.uleb128 0x2
+ 725 0074 04       		.byte	0x4
+ 726 0075 07       		.byte	0x7
+ 727 0076 A1020000 		.4byte	.LASF8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 21
+
+
+ 728 007a 03       		.uleb128 0x3
+ 729 007b 22010000 		.4byte	.LASF10
+ 730 007f 03       		.byte	0x3
+ 731 0080 5B       		.byte	0x5b
+ 732 0081 30000000 		.4byte	0x30
+ 733 0085 03       		.uleb128 0x3
+ 734 0086 06010000 		.4byte	.LASF11
+ 735 008a 03       		.byte	0x3
+ 736 008b 5C       		.byte	0x5c
+ 737 008c 3E000000 		.4byte	0x3e
+ 738 0090 03       		.uleb128 0x3
+ 739 0091 1C010000 		.4byte	.LASF12
+ 740 0095 03       		.byte	0x3
+ 741 0096 5F       		.byte	0x5f
+ 742 0097 37000000 		.4byte	0x37
+ 743 009b 03       		.uleb128 0x3
+ 744 009c ED030000 		.4byte	.LASF13
+ 745 00a0 03       		.byte	0x3
+ 746 00a1 60       		.byte	0x60
+ 747 00a2 50000000 		.4byte	0x50
+ 748 00a6 02       		.uleb128 0x2
+ 749 00a7 04       		.byte	0x4
+ 750 00a8 04       		.byte	0x4
+ 751 00a9 63010000 		.4byte	.LASF14
+ 752 00ad 02       		.uleb128 0x2
+ 753 00ae 08       		.byte	0x8
+ 754 00af 04       		.byte	0x4
+ 755 00b0 F3030000 		.4byte	.LASF15
+ 756 00b4 03       		.uleb128 0x3
+ 757 00b5 BE000000 		.4byte	.LASF16
+ 758 00b9 03       		.byte	0x3
+ 759 00ba 6C       		.byte	0x6c
+ 760 00bb BF000000 		.4byte	0xbf
+ 761 00bf 02       		.uleb128 0x2
+ 762 00c0 01       		.byte	0x1
+ 763 00c1 08       		.byte	0x8
+ 764 00c2 28030000 		.4byte	.LASF17
+ 765 00c6 02       		.uleb128 0x2
+ 766 00c7 04       		.byte	0x4
+ 767 00c8 07       		.byte	0x7
+ 768 00c9 71040000 		.4byte	.LASF18
+ 769 00cd 05       		.uleb128 0x5
+ 770 00ce 04       		.byte	0x4
+ 771 00cf 04       		.byte	0x4
+ 772 00d0 CC       		.byte	0xcc
+ 773 00d1 EC000000 		.4byte	0xec
+ 774 00d5 06       		.uleb128 0x6
+ 775 00d6 D9020000 		.4byte	.LASF19
+ 776 00da 04       		.byte	0x4
+ 777 00db CE       		.byte	0xce
+ 778 00dc EC000000 		.4byte	0xec
+ 779 00e0 06       		.uleb128 0x6
+ 780 00e1 57040000 		.4byte	.LASF20
+ 781 00e5 04       		.byte	0x4
+ 782 00e6 CF       		.byte	0xcf
+ 783 00e7 A6000000 		.4byte	0xa6
+ 784 00eb 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 22
+
+
+ 785 00ec 07       		.uleb128 0x7
+ 786 00ed B4000000 		.4byte	0xb4
+ 787 00f1 FC000000 		.4byte	0xfc
+ 788 00f5 08       		.uleb128 0x8
+ 789 00f6 C6000000 		.4byte	0xc6
+ 790 00fa 03       		.byte	0x3
+ 791 00fb 00       		.byte	0
+ 792 00fc 03       		.uleb128 0x3
+ 793 00fd AE040000 		.4byte	.LASF21
+ 794 0101 04       		.byte	0x4
+ 795 0102 D0       		.byte	0xd0
+ 796 0103 CD000000 		.4byte	0xcd
+ 797 0107 09       		.uleb128 0x9
+ 798 0108 19040000 		.4byte	.LASF89
+ 799 010c 00       		.byte	0
+ 800 010d 04       		.byte	0x4
+ 801 010e DD       		.byte	0xdd
+ 802 010f 0A       		.uleb128 0xa
+ 803 0110 C4000000 		.4byte	.LASF29
+ 804 0114 1C       		.byte	0x1c
+ 805 0115 04       		.byte	0x4
+ 806 0116 3301     		.2byte	0x133
+ 807 0118 95010000 		.4byte	0x195
+ 808 011c 0B       		.uleb128 0xb
+ 809 011d A3010000 		.4byte	.LASF22
+ 810 0121 04       		.byte	0x4
+ 811 0122 3601     		.2byte	0x136
+ 812 0124 90000000 		.4byte	0x90
+ 813 0128 02       		.byte	0x2
+ 814 0129 23       		.byte	0x23
+ 815 012a 00       		.uleb128 0
+ 816 012b 0C       		.uleb128 0xc
+ 817 012c 41444300 		.ascii	"ADC\000"
+ 818 0130 04       		.byte	0x4
+ 819 0131 3701     		.2byte	0x137
+ 820 0133 90000000 		.4byte	0x90
+ 821 0137 02       		.byte	0x2
+ 822 0138 23       		.byte	0x23
+ 823 0139 02       		.uleb128 0x2
+ 824 013a 0B       		.uleb128 0xb
+ 825 013b 9B020000 		.4byte	.LASF23
+ 826 013f 04       		.byte	0x4
+ 827 0140 3801     		.2byte	0x138
+ 828 0142 A6000000 		.4byte	0xa6
+ 829 0146 02       		.byte	0x2
+ 830 0147 23       		.byte	0x23
+ 831 0148 04       		.uleb128 0x4
+ 832 0149 0B       		.uleb128 0xb
+ 833 014a 5C040000 		.4byte	.LASF24
+ 834 014e 04       		.byte	0x4
+ 835 014f 3901     		.2byte	0x139
+ 836 0151 A6000000 		.4byte	0xa6
+ 837 0155 02       		.byte	0x2
+ 838 0156 23       		.byte	0x23
+ 839 0157 08       		.uleb128 0x8
+ 840 0158 0B       		.uleb128 0xb
+ 841 0159 F9000000 		.4byte	.LASF25
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 23
+
+
+ 842 015d 04       		.byte	0x4
+ 843 015e 3A01     		.2byte	0x13a
+ 844 0160 A6000000 		.4byte	0xa6
+ 845 0164 02       		.byte	0x2
+ 846 0165 23       		.byte	0x23
+ 847 0166 0C       		.uleb128 0xc
+ 848 0167 0B       		.uleb128 0xb
+ 849 0168 0F040000 		.4byte	.LASF26
+ 850 016c 04       		.byte	0x4
+ 851 016d 3B01     		.2byte	0x13b
+ 852 016f A6000000 		.4byte	0xa6
+ 853 0173 02       		.byte	0x2
+ 854 0174 23       		.byte	0x23
+ 855 0175 10       		.uleb128 0x10
+ 856 0176 0B       		.uleb128 0xb
+ 857 0177 3B040000 		.4byte	.LASF27
+ 858 017b 04       		.byte	0x4
+ 859 017c 3C01     		.2byte	0x13c
+ 860 017e A6000000 		.4byte	0xa6
+ 861 0182 02       		.byte	0x2
+ 862 0183 23       		.byte	0x23
+ 863 0184 14       		.uleb128 0x14
+ 864 0185 0B       		.uleb128 0xb
+ 865 0186 7A040000 		.4byte	.LASF28
+ 866 018a 04       		.byte	0x4
+ 867 018b 3D01     		.2byte	0x13d
+ 868 018d A6000000 		.4byte	0xa6
+ 869 0191 02       		.byte	0x2
+ 870 0192 23       		.byte	0x23
+ 871 0193 18       		.uleb128 0x18
+ 872 0194 00       		.byte	0
+ 873 0195 0A       		.uleb128 0xa
+ 874 0196 9C040000 		.4byte	.LASF30
+ 875 019a 04       		.byte	0x4
+ 876 019b 04       		.byte	0x4
+ 877 019c 6F01     		.2byte	0x16f
+ 878 019e B2010000 		.4byte	0x1b2
+ 879 01a2 0B       		.uleb128 0xb
+ 880 01a3 3E030000 		.4byte	.LASF31
+ 881 01a7 04       		.byte	0x4
+ 882 01a8 7101     		.2byte	0x171
+ 883 01aa 9B000000 		.4byte	0x9b
+ 884 01ae 02       		.byte	0x2
+ 885 01af 23       		.byte	0x23
+ 886 01b0 00       		.uleb128 0
+ 887 01b1 00       		.byte	0
+ 888 01b2 0A       		.uleb128 0xa
+ 889 01b3 28010000 		.4byte	.LASF32
+ 890 01b7 14       		.byte	0x14
+ 891 01b8 04       		.byte	0x4
+ 892 01b9 6801     		.2byte	0x168
+ 893 01bb 0B020000 		.4byte	0x20b
+ 894 01bf 0B       		.uleb128 0xb
+ 895 01c0 86040000 		.4byte	.LASF33
+ 896 01c4 04       		.byte	0x4
+ 897 01c5 6A01     		.2byte	0x16a
+ 898 01c7 9B000000 		.4byte	0x9b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 24
+
+
+ 899 01cb 02       		.byte	0x2
+ 900 01cc 23       		.byte	0x23
+ 901 01cd 00       		.uleb128 0
+ 902 01ce 0B       		.uleb128 0xb
+ 903 01cf DC000000 		.4byte	.LASF34
+ 904 01d3 04       		.byte	0x4
+ 905 01d4 6B01     		.2byte	0x16b
+ 906 01d6 A6000000 		.4byte	0xa6
+ 907 01da 02       		.byte	0x2
+ 908 01db 23       		.byte	0x23
+ 909 01dc 04       		.uleb128 0x4
+ 910 01dd 0B       		.uleb128 0xb
+ 911 01de 7A040000 		.4byte	.LASF28
+ 912 01e2 04       		.byte	0x4
+ 913 01e3 6C01     		.2byte	0x16c
+ 914 01e5 A6000000 		.4byte	0xa6
+ 915 01e9 02       		.byte	0x2
+ 916 01ea 23       		.byte	0x23
+ 917 01eb 08       		.uleb128 0x8
+ 918 01ec 0B       		.uleb128 0xb
+ 919 01ed A6000000 		.4byte	.LASF35
+ 920 01f1 04       		.byte	0x4
+ 921 01f2 6D01     		.2byte	0x16d
+ 922 01f4 A6000000 		.4byte	0xa6
+ 923 01f8 02       		.byte	0x2
+ 924 01f9 23       		.byte	0x23
+ 925 01fa 0C       		.uleb128 0xc
+ 926 01fb 0B       		.uleb128 0xb
+ 927 01fc AE020000 		.4byte	.LASF36
+ 928 0200 04       		.byte	0x4
+ 929 0201 7501     		.2byte	0x175
+ 930 0203 95010000 		.4byte	0x195
+ 931 0207 02       		.byte	0x2
+ 932 0208 23       		.byte	0x23
+ 933 0209 10       		.uleb128 0x10
+ 934 020a 00       		.byte	0
+ 935 020b 0A       		.uleb128 0xa
+ 936 020c A6040000 		.4byte	.LASF37
+ 937 0210 01       		.byte	0x1
+ 938 0211 04       		.byte	0x4
+ 939 0212 7C01     		.2byte	0x17c
+ 940 0214 28020000 		.4byte	0x228
+ 941 0218 0B       		.uleb128 0xb
+ 942 0219 6A000000 		.4byte	.LASF38
+ 943 021d 04       		.byte	0x4
+ 944 021e 7E01     		.2byte	0x17e
+ 945 0220 7A000000 		.4byte	0x7a
+ 946 0224 02       		.byte	0x2
+ 947 0225 23       		.byte	0x23
+ 948 0226 00       		.uleb128 0
+ 949 0227 00       		.byte	0
+ 950 0228 0A       		.uleb128 0xa
+ 951 0229 E5000000 		.4byte	.LASF39
+ 952 022d 24       		.byte	0x24
+ 953 022e 04       		.byte	0x4
+ 954 022f 8501     		.2byte	0x185
+ 955 0231 BD020000 		.4byte	0x2bd
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 25
+
+
+ 956 0235 0B       		.uleb128 0xb
+ 957 0236 3E030000 		.4byte	.LASF31
+ 958 023a 04       		.byte	0x4
+ 959 023b 8701     		.2byte	0x187
+ 960 023d FC000000 		.4byte	0xfc
+ 961 0241 02       		.byte	0x2
+ 962 0242 23       		.byte	0x23
+ 963 0243 00       		.uleb128 0
+ 964 0244 0B       		.uleb128 0xb
+ 965 0245 4E040000 		.4byte	.LASF40
+ 966 0249 04       		.byte	0x4
+ 967 024a 8D01     		.2byte	0x18d
+ 968 024c 7A000000 		.4byte	0x7a
+ 969 0250 02       		.byte	0x2
+ 970 0251 23       		.byte	0x23
+ 971 0252 04       		.uleb128 0x4
+ 972 0253 0C       		.uleb128 0xc
+ 973 0254 4B706600 		.ascii	"Kpf\000"
+ 974 0258 04       		.byte	0x4
+ 975 0259 9101     		.2byte	0x191
+ 976 025b FC000000 		.4byte	0xfc
+ 977 025f 02       		.byte	0x2
+ 978 0260 23       		.byte	0x23
+ 979 0261 08       		.uleb128 0x8
+ 980 0262 0C       		.uleb128 0xc
+ 981 0263 4B646600 		.ascii	"Kdf\000"
+ 982 0267 04       		.byte	0x4
+ 983 0268 9301     		.2byte	0x193
+ 984 026a FC000000 		.4byte	0xfc
+ 985 026e 02       		.byte	0x2
+ 986 026f 23       		.byte	0x23
+ 987 0270 0C       		.uleb128 0xc
+ 988 0271 0C       		.uleb128 0xc
+ 989 0272 4B696600 		.ascii	"Kif\000"
+ 990 0276 04       		.byte	0x4
+ 991 0277 9501     		.2byte	0x195
+ 992 0279 FC000000 		.4byte	0xfc
+ 993 027d 02       		.byte	0x2
+ 994 027e 23       		.byte	0x23
+ 995 027f 10       		.uleb128 0x10
+ 996 0280 0B       		.uleb128 0xb
+ 997 0281 17010000 		.4byte	.LASF41
+ 998 0285 04       		.byte	0x4
+ 999 0286 9701     		.2byte	0x197
+ 1000 0288 FC000000 		.4byte	0xfc
+ 1001 028c 02       		.byte	0x2
+ 1002 028d 23       		.byte	0x23
+ 1003 028e 14       		.uleb128 0x14
+ 1004 028f 0B       		.uleb128 0xb
+ 1005 0290 C7020000 		.4byte	.LASF42
+ 1006 0294 04       		.byte	0x4
+ 1007 0295 9B01     		.2byte	0x19b
+ 1008 0297 FC000000 		.4byte	0xfc
+ 1009 029b 02       		.byte	0x2
+ 1010 029c 23       		.byte	0x23
+ 1011 029d 18       		.uleb128 0x18
+ 1012 029e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 26
+
+
+ 1013 029f 08000000 		.4byte	.LASF43
+ 1014 02a3 04       		.byte	0x4
+ 1015 02a4 9F01     		.2byte	0x19f
+ 1016 02a6 FC000000 		.4byte	0xfc
+ 1017 02aa 02       		.byte	0x2
+ 1018 02ab 23       		.byte	0x23
+ 1019 02ac 1C       		.uleb128 0x1c
+ 1020 02ad 0B       		.uleb128 0xb
+ 1021 02ae A0000000 		.4byte	.LASF44
+ 1022 02b2 04       		.byte	0x4
+ 1023 02b3 A101     		.2byte	0x1a1
+ 1024 02b5 7A000000 		.4byte	0x7a
+ 1025 02b9 02       		.byte	0x2
+ 1026 02ba 23       		.byte	0x23
+ 1027 02bb 20       		.uleb128 0x20
+ 1028 02bc 00       		.byte	0
+ 1029 02bd 0A       		.uleb128 0xa
+ 1030 02be 39020000 		.4byte	.LASF45
+ 1031 02c2 30       		.byte	0x30
+ 1032 02c3 04       		.byte	0x4
+ 1033 02c4 A801     		.2byte	0x1a8
+ 1034 02c6 8E030000 		.4byte	0x38e
+ 1035 02ca 0B       		.uleb128 0xb
+ 1036 02cb 77010000 		.4byte	.LASF46
+ 1037 02cf 04       		.byte	0x4
+ 1038 02d0 AA01     		.2byte	0x1aa
+ 1039 02d2 9B000000 		.4byte	0x9b
+ 1040 02d6 02       		.byte	0x2
+ 1041 02d7 23       		.byte	0x23
+ 1042 02d8 00       		.uleb128 0
+ 1043 02d9 0B       		.uleb128 0xb
+ 1044 02da 80040000 		.4byte	.LASF47
+ 1045 02de 04       		.byte	0x4
+ 1046 02df AB01     		.2byte	0x1ab
+ 1047 02e1 A6000000 		.4byte	0xa6
+ 1048 02e5 02       		.byte	0x2
+ 1049 02e6 23       		.byte	0x23
+ 1050 02e7 04       		.uleb128 0x4
+ 1051 02e8 0B       		.uleb128 0xb
+ 1052 02e9 41020000 		.4byte	.LASF48
+ 1053 02ed 04       		.byte	0x4
+ 1054 02ee AC01     		.2byte	0x1ac
+ 1055 02f0 A6000000 		.4byte	0xa6
+ 1056 02f4 02       		.byte	0x2
+ 1057 02f5 23       		.byte	0x23
+ 1058 02f6 08       		.uleb128 0x8
+ 1059 02f7 0B       		.uleb128 0xb
+ 1060 02f8 B6040000 		.4byte	.LASF49
+ 1061 02fc 04       		.byte	0x4
+ 1062 02fd AD01     		.2byte	0x1ad
+ 1063 02ff A6000000 		.4byte	0xa6
+ 1064 0303 02       		.byte	0x2
+ 1065 0304 23       		.byte	0x23
+ 1066 0305 0C       		.uleb128 0xc
+ 1067 0306 0B       		.uleb128 0xb
+ 1068 0307 B7000000 		.4byte	.LASF50
+ 1069 030b 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 27
+
+
+ 1070 030c AE01     		.2byte	0x1ae
+ 1071 030e A6000000 		.4byte	0xa6
+ 1072 0312 02       		.byte	0x2
+ 1073 0313 23       		.byte	0x23
+ 1074 0314 10       		.uleb128 0x10
+ 1075 0315 0B       		.uleb128 0xb
+ 1076 0316 BD040000 		.4byte	.LASF51
+ 1077 031a 04       		.byte	0x4
+ 1078 031b AF01     		.2byte	0x1af
+ 1079 031d A6000000 		.4byte	0xa6
+ 1080 0321 02       		.byte	0x2
+ 1081 0322 23       		.byte	0x23
+ 1082 0323 14       		.uleb128 0x14
+ 1083 0324 0B       		.uleb128 0xb
+ 1084 0325 61040000 		.4byte	.LASF52
+ 1085 0329 04       		.byte	0x4
+ 1086 032a B001     		.2byte	0x1b0
+ 1087 032c A6000000 		.4byte	0xa6
+ 1088 0330 02       		.byte	0x2
+ 1089 0331 23       		.byte	0x23
+ 1090 0332 18       		.uleb128 0x18
+ 1091 0333 0B       		.uleb128 0xb
+ 1092 0334 39000000 		.4byte	.LASF53
+ 1093 0338 04       		.byte	0x4
+ 1094 0339 B201     		.2byte	0x1b2
+ 1095 033b A6000000 		.4byte	0xa6
+ 1096 033f 02       		.byte	0x2
+ 1097 0340 23       		.byte	0x23
+ 1098 0341 1C       		.uleb128 0x1c
+ 1099 0342 0B       		.uleb128 0xb
+ 1100 0343 00000000 		.4byte	.LASF54
+ 1101 0347 04       		.byte	0x4
+ 1102 0348 B301     		.2byte	0x1b3
+ 1103 034a 90000000 		.4byte	0x90
+ 1104 034e 02       		.byte	0x2
+ 1105 034f 23       		.byte	0x23
+ 1106 0350 20       		.uleb128 0x20
+ 1107 0351 0B       		.uleb128 0xb
+ 1108 0352 EC000000 		.4byte	.LASF55
+ 1109 0356 04       		.byte	0x4
+ 1110 0357 B401     		.2byte	0x1b4
+ 1111 0359 90000000 		.4byte	0x90
+ 1112 035d 02       		.byte	0x2
+ 1113 035e 23       		.byte	0x23
+ 1114 035f 22       		.uleb128 0x22
+ 1115 0360 0B       		.uleb128 0xb
+ 1116 0361 DF020000 		.4byte	.LASF56
+ 1117 0365 04       		.byte	0x4
+ 1118 0366 B601     		.2byte	0x1b6
+ 1119 0368 A6000000 		.4byte	0xa6
+ 1120 036c 02       		.byte	0x2
+ 1121 036d 23       		.byte	0x23
+ 1122 036e 24       		.uleb128 0x24
+ 1123 036f 0B       		.uleb128 0xb
+ 1124 0370 61030000 		.4byte	.LASF57
+ 1125 0374 04       		.byte	0x4
+ 1126 0375 B801     		.2byte	0x1b8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 28
+
+
+ 1127 0377 A6000000 		.4byte	0xa6
+ 1128 037b 02       		.byte	0x2
+ 1129 037c 23       		.byte	0x23
+ 1130 037d 28       		.uleb128 0x28
+ 1131 037e 0B       		.uleb128 0xb
+ 1132 037f 56010000 		.4byte	.LASF58
+ 1133 0383 04       		.byte	0x4
+ 1134 0384 B901     		.2byte	0x1b9
+ 1135 0386 7A000000 		.4byte	0x7a
+ 1136 038a 02       		.byte	0x2
+ 1137 038b 23       		.byte	0x23
+ 1138 038c 2C       		.uleb128 0x2c
+ 1139 038d 00       		.byte	0
+ 1140 038e 0A       		.uleb128 0xa
+ 1141 038f 20020000 		.4byte	.LASF59
+ 1142 0393 58       		.byte	0x58
+ 1143 0394 04       		.byte	0x4
+ 1144 0395 7901     		.2byte	0x179
+ 1145 0397 C8030000 		.4byte	0x3c8
+ 1146 039b 0B       		.uleb128 0xb
+ 1147 039c 52000000 		.4byte	.LASF60
+ 1148 03a0 04       		.byte	0x4
+ 1149 03a1 8201     		.2byte	0x182
+ 1150 03a3 0B020000 		.4byte	0x20b
+ 1151 03a7 02       		.byte	0x2
+ 1152 03a8 23       		.byte	0x23
+ 1153 03a9 00       		.uleb128 0
+ 1154 03aa 0B       		.uleb128 0xb
+ 1155 03ab 0E030000 		.4byte	.LASF61
+ 1156 03af 04       		.byte	0x4
+ 1157 03b0 A401     		.2byte	0x1a4
+ 1158 03b2 28020000 		.4byte	0x228
+ 1159 03b6 02       		.byte	0x2
+ 1160 03b7 23       		.byte	0x23
+ 1161 03b8 04       		.uleb128 0x4
+ 1162 03b9 0C       		.uleb128 0xc
+ 1163 03ba 6D6300   		.ascii	"mc\000"
+ 1164 03bd 04       		.byte	0x4
+ 1165 03be BA01     		.2byte	0x1ba
+ 1166 03c0 BD020000 		.4byte	0x2bd
+ 1167 03c4 02       		.byte	0x2
+ 1168 03c5 23       		.byte	0x23
+ 1169 03c6 28       		.uleb128 0x28
+ 1170 03c7 00       		.byte	0
+ 1171 03c8 02       		.uleb128 0x2
+ 1172 03c9 08       		.byte	0x8
+ 1173 03ca 04       		.byte	0x4
+ 1174 03cb D0000000 		.4byte	.LASF62
+ 1175 03cf 0D       		.uleb128 0xd
+ 1176 03d0 01       		.byte	0x1
+ 1177 03d1 14000000 		.4byte	.LASF90
+ 1178 03d5 01       		.byte	0x1
+ 1179 03d6 45       		.byte	0x45
+ 1180 03d7 00000000 		.4byte	.LFB56
+ 1181 03db 10010000 		.4byte	.LFE56
+ 1182 03df 00000000 		.4byte	.LLST0
+ 1183 03e3 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 29
+
+
+ 1184 03e4 F3030000 		.4byte	0x3f3
+ 1185 03e8 0E       		.uleb128 0xe
+ 1186 03e9 F2000000 		.4byte	.LVL14
+ 1187 03ed 01       		.byte	0x1
+ 1188 03ee D4050000 		.4byte	0x5d4
+ 1189 03f2 00       		.byte	0
+ 1190 03f3 0F       		.uleb128 0xf
+ 1191 03f4 01       		.byte	0x1
+ 1192 03f5 75000000 		.4byte	.LASF63
+ 1193 03f9 01       		.byte	0x1
+ 1194 03fa 88       		.byte	0x88
+ 1195 03fb 01       		.byte	0x1
+ 1196 03fc 00000000 		.4byte	.LFB57
+ 1197 0400 F8010000 		.4byte	.LFE57
+ 1198 0404 20000000 		.4byte	.LLST1
+ 1199 0408 01       		.byte	0x1
+ 1200 0409 85040000 		.4byte	0x485
+ 1201 040d 10       		.uleb128 0x10
+ 1202 040e 4C000000 		.4byte	.LASF65
+ 1203 0412 01       		.byte	0x1
+ 1204 0413 88       		.byte	0x88
+ 1205 0414 85040000 		.4byte	0x485
+ 1206 0418 40000000 		.4byte	.LLST2
+ 1207 041c 11       		.uleb128 0x11
+ 1208 041d 08000000 		.4byte	.LVL16
+ 1209 0421 CF030000 		.4byte	0x3cf
+ 1210 0425 11       		.uleb128 0x11
+ 1211 0426 36000000 		.4byte	.LVL21
+ 1212 042a E8050000 		.4byte	0x5e8
+ 1213 042e 11       		.uleb128 0x11
+ 1214 042f 78000000 		.4byte	.LVL27
+ 1215 0433 F6050000 		.4byte	0x5f6
+ 1216 0437 11       		.uleb128 0x11
+ 1217 0438 8E000000 		.4byte	.LVL29
+ 1218 043c 04060000 		.4byte	0x604
+ 1219 0440 12       		.uleb128 0x12
+ 1220 0441 5A010000 		.4byte	.LVL44
+ 1221 0445 1C060000 		.4byte	0x61c
+ 1222 0449 5B040000 		.4byte	0x45b
+ 1223 044d 13       		.uleb128 0x13
+ 1224 044e 01       		.byte	0x1
+ 1225 044f 51       		.byte	0x51
+ 1226 0450 03       		.byte	0x3
+ 1227 0451 0A       		.byte	0xa
+ 1228 0452 0004     		.2byte	0x400
+ 1229 0454 13       		.uleb128 0x13
+ 1230 0455 01       		.byte	0x1
+ 1231 0456 50       		.byte	0x50
+ 1232 0457 02       		.byte	0x2
+ 1233 0458 74       		.byte	0x74
+ 1234 0459 00       		.sleb128 0
+ 1235 045a 00       		.byte	0
+ 1236 045b 0E       		.uleb128 0xe
+ 1237 045c 9A010000 		.4byte	.LVL48
+ 1238 0460 01       		.byte	0x1
+ 1239 0461 39060000 		.4byte	0x639
+ 1240 0465 12       		.uleb128 0x12
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 30
+
+
+ 1241 0466 BA010000 		.4byte	.LVL49
+ 1242 046a 39060000 		.4byte	0x639
+ 1243 046e 7A040000 		.4byte	0x47a
+ 1244 0472 13       		.uleb128 0x13
+ 1245 0473 01       		.byte	0x1
+ 1246 0474 50       		.byte	0x50
+ 1247 0475 03       		.byte	0x3
+ 1248 0476 0A       		.byte	0xa
+ 1249 0477 0004     		.2byte	0x400
+ 1250 0479 00       		.byte	0
+ 1251 047a 0E       		.uleb128 0xe
+ 1252 047b C6010000 		.4byte	.LVL50
+ 1253 047f 01       		.byte	0x1
+ 1254 0480 4D060000 		.4byte	0x64d
+ 1255 0484 00       		.byte	0
+ 1256 0485 14       		.uleb128 0x14
+ 1257 0486 04       		.byte	0x4
+ 1258 0487 8E030000 		.4byte	0x38e
+ 1259 048b 15       		.uleb128 0x15
+ 1260 048c 01       		.byte	0x1
+ 1261 048d E7020000 		.4byte	.LASF64
+ 1262 0491 01       		.byte	0x1
+ 1263 0492 6E01     		.2byte	0x16e
+ 1264 0494 01       		.byte	0x1
+ 1265 0495 00000000 		.4byte	.LFB58
+ 1266 0499 0A000000 		.4byte	.LFE58
+ 1267 049d 02       		.byte	0x2
+ 1268 049e 7D       		.byte	0x7d
+ 1269 049f 00       		.sleb128 0
+ 1270 04a0 01       		.byte	0x1
+ 1271 04a1 B4040000 		.4byte	0x4b4
+ 1272 04a5 16       		.uleb128 0x16
+ 1273 04a6 4C000000 		.4byte	.LASF65
+ 1274 04aa 01       		.byte	0x1
+ 1275 04ab 6E01     		.2byte	0x16e
+ 1276 04ad 85040000 		.4byte	0x485
+ 1277 04b1 01       		.byte	0x1
+ 1278 04b2 50       		.byte	0x50
+ 1279 04b3 00       		.byte	0
+ 1280 04b4 15       		.uleb128 0x15
+ 1281 04b5 01       		.byte	0x1
+ 1282 04b6 59000000 		.4byte	.LASF66
+ 1283 04ba 01       		.byte	0x1
+ 1284 04bb 7501     		.2byte	0x175
+ 1285 04bd 01       		.byte	0x1
+ 1286 04be 00000000 		.4byte	.LFB59
+ 1287 04c2 1C000000 		.4byte	.LFE59
+ 1288 04c6 02       		.byte	0x2
+ 1289 04c7 7D       		.byte	0x7d
+ 1290 04c8 00       		.sleb128 0
+ 1291 04c9 01       		.byte	0x1
+ 1292 04ca EF040000 		.4byte	0x4ef
+ 1293 04ce 17       		.uleb128 0x17
+ 1294 04cf 4C000000 		.4byte	.LASF65
+ 1295 04d3 01       		.byte	0x1
+ 1296 04d4 7501     		.2byte	0x175
+ 1297 04d6 85040000 		.4byte	0x485
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 31
+
+
+ 1298 04da 5E000000 		.4byte	.LLST3
+ 1299 04de 18       		.uleb128 0x18
+ 1300 04df 12000000 		.4byte	.LVL54
+ 1301 04e3 01       		.byte	0x1
+ 1302 04e4 61060000 		.4byte	0x661
+ 1303 04e8 13       		.uleb128 0x13
+ 1304 04e9 01       		.byte	0x1
+ 1305 04ea 50       		.byte	0x50
+ 1306 04eb 01       		.byte	0x1
+ 1307 04ec 31       		.byte	0x31
+ 1308 04ed 00       		.byte	0
+ 1309 04ee 00       		.byte	0
+ 1310 04ef 15       		.uleb128 0x15
+ 1311 04f0 01       		.byte	0x1
+ 1312 04f1 12020000 		.4byte	.LASF67
+ 1313 04f5 01       		.byte	0x1
+ 1314 04f6 7E01     		.2byte	0x17e
+ 1315 04f8 01       		.byte	0x1
+ 1316 04f9 00000000 		.4byte	.LFB60
+ 1317 04fd 1C000000 		.4byte	.LFE60
+ 1318 0501 02       		.byte	0x2
+ 1319 0502 7D       		.byte	0x7d
+ 1320 0503 00       		.sleb128 0
+ 1321 0504 01       		.byte	0x1
+ 1322 0505 2A050000 		.4byte	0x52a
+ 1323 0509 17       		.uleb128 0x17
+ 1324 050a 4C000000 		.4byte	.LASF65
+ 1325 050e 01       		.byte	0x1
+ 1326 050f 7E01     		.2byte	0x17e
+ 1327 0511 85040000 		.4byte	0x485
+ 1328 0515 8A000000 		.4byte	.LLST4
+ 1329 0519 18       		.uleb128 0x18
+ 1330 051a 12000000 		.4byte	.LVL57
+ 1331 051e 01       		.byte	0x1
+ 1332 051f 61060000 		.4byte	0x661
+ 1333 0523 13       		.uleb128 0x13
+ 1334 0524 01       		.byte	0x1
+ 1335 0525 50       		.byte	0x50
+ 1336 0526 01       		.byte	0x1
+ 1337 0527 30       		.byte	0x30
+ 1338 0528 00       		.byte	0
+ 1339 0529 00       		.byte	0
+ 1340 052a 19       		.uleb128 0x19
+ 1341 052b 8F040000 		.4byte	.LASF68
+ 1342 052f 05       		.byte	0x5
+ 1343 0530 1606     		.2byte	0x616
+ 1344 0532 38050000 		.4byte	0x538
+ 1345 0536 01       		.byte	0x1
+ 1346 0537 01       		.byte	0x1
+ 1347 0538 1A       		.uleb128 0x1a
+ 1348 0539 45000000 		.4byte	0x45
+ 1349 053d 1B       		.uleb128 0x1b
+ 1350 053e CC020000 		.4byte	.LASF69
+ 1351 0542 04       		.byte	0x4
+ 1352 0543 E2       		.byte	0xe2
+ 1353 0544 07010000 		.4byte	0x107
+ 1354 0548 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 32
+
+
+ 1355 0549 05       		.byte	0x5
+ 1356 054a 03       		.byte	0x3
+ 1357 054b 00000000 		.4byte	gobee_vparam
+ 1358 054f 1C       		.uleb128 0x1c
+ 1359 0550 14030000 		.4byte	.LASF70
+ 1360 0554 01       		.byte	0x1
+ 1361 0555 17       		.byte	0x17
+ 1362 0556 7A000000 		.4byte	0x7a
+ 1363 055a 01       		.byte	0x1
+ 1364 055b 01       		.byte	0x1
+ 1365 055c 1C       		.uleb128 0x1c
+ 1366 055d FA030000 		.4byte	.LASF71
+ 1367 0561 01       		.byte	0x1
+ 1368 0562 21       		.byte	0x21
+ 1369 0563 B2010000 		.4byte	0x1b2
+ 1370 0567 01       		.byte	0x1
+ 1371 0568 01       		.byte	0x1
+ 1372 0569 1C       		.uleb128 0x1c
+ 1373 056a 4B020000 		.4byte	.LASF72
+ 1374 056e 01       		.byte	0x1
+ 1375 056f 22       		.byte	0x22
+ 1376 0570 B2010000 		.4byte	0x1b2
+ 1377 0574 01       		.byte	0x1
+ 1378 0575 01       		.byte	0x1
+ 1379 0576 1C       		.uleb128 0x1c
+ 1380 0577 F2020000 		.4byte	.LASF73
+ 1381 057b 01       		.byte	0x1
+ 1382 057c 25       		.byte	0x25
+ 1383 057d 8E030000 		.4byte	0x38e
+ 1384 0581 01       		.byte	0x1
+ 1385 0582 01       		.byte	0x1
+ 1386 0583 1C       		.uleb128 0x1c
+ 1387 0584 0D010000 		.4byte	.LASF74
+ 1388 0588 01       		.byte	0x1
+ 1389 0589 26       		.byte	0x26
+ 1390 058a 8E030000 		.4byte	0x38e
+ 1391 058e 01       		.byte	0x1
+ 1392 058f 01       		.byte	0x1
+ 1393 0590 1C       		.uleb128 0x1c
+ 1394 0591 22030000 		.4byte	.LASF75
+ 1395 0595 01       		.byte	0x1
+ 1396 0596 35       		.byte	0x35
+ 1397 0597 0F010000 		.4byte	0x10f
+ 1398 059b 01       		.byte	0x1
+ 1399 059c 01       		.byte	0x1
+ 1400 059d 07       		.uleb128 0x7
+ 1401 059e 90000000 		.4byte	0x90
+ 1402 05a2 AD050000 		.4byte	0x5ad
+ 1403 05a6 08       		.uleb128 0x8
+ 1404 05a7 C6000000 		.4byte	0xc6
+ 1405 05ab 07       		.byte	0x7
+ 1406 05ac 00       		.byte	0
+ 1407 05ad 1C       		.uleb128 0x1c
+ 1408 05ae 6F020000 		.4byte	.LASF76
+ 1409 05b2 01       		.byte	0x1
+ 1410 05b3 38       		.byte	0x38
+ 1411 05b4 9D050000 		.4byte	0x59d
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 33
+
+
+ 1412 05b8 01       		.byte	0x1
+ 1413 05b9 01       		.byte	0x1
+ 1414 05ba 1C       		.uleb128 0x1c
+ 1415 05bb 99000000 		.4byte	.LASF77
+ 1416 05bf 01       		.byte	0x1
+ 1417 05c0 3B       		.byte	0x3b
+ 1418 05c1 A6000000 		.4byte	0xa6
+ 1419 05c5 01       		.byte	0x1
+ 1420 05c6 01       		.byte	0x1
+ 1421 05c7 1C       		.uleb128 0x1c
+ 1422 05c8 61020000 		.4byte	.LASF78
+ 1423 05cc 01       		.byte	0x1
+ 1424 05cd 3C       		.byte	0x3c
+ 1425 05ce 9B000000 		.4byte	0x9b
+ 1426 05d2 01       		.byte	0x1
+ 1427 05d3 01       		.byte	0x1
+ 1428 05d4 1D       		.uleb128 0x1d
+ 1429 05d5 01       		.byte	0x1
+ 1430 05d6 83000000 		.4byte	.LASF83
+ 1431 05da 0A       		.byte	0xa
+ 1432 05db 37       		.byte	0x37
+ 1433 05dc 01       		.byte	0x1
+ 1434 05dd 01       		.byte	0x1
+ 1435 05de E8050000 		.4byte	0x5e8
+ 1436 05e2 1E       		.uleb128 0x1e
+ 1437 05e3 7A000000 		.4byte	0x7a
+ 1438 05e7 00       		.byte	0
+ 1439 05e8 1F       		.uleb128 0x1f
+ 1440 05e9 01       		.byte	0x1
+ 1441 05ea 22000000 		.4byte	.LASF79
+ 1442 05ee 06       		.byte	0x6
+ 1443 05ef 4E       		.byte	0x4e
+ 1444 05f0 01       		.byte	0x1
+ 1445 05f1 9B000000 		.4byte	0x9b
+ 1446 05f5 01       		.byte	0x1
+ 1447 05f6 1F       		.uleb128 0x1f
+ 1448 05f7 01       		.byte	0x1
+ 1449 05f8 49030000 		.4byte	.LASF80
+ 1450 05fc 07       		.byte	0x7
+ 1451 05fd 4E       		.byte	0x4e
+ 1452 05fe 01       		.byte	0x1
+ 1453 05ff 9B000000 		.4byte	0x9b
+ 1454 0603 01       		.byte	0x1
+ 1455 0604 20       		.uleb128 0x20
+ 1456 0605 01       		.byte	0x1
+ 1457 0606 27040000 		.4byte	.LASF81
+ 1458 060a 08       		.byte	0x8
+ 1459 060b 43       		.byte	0x43
+ 1460 060c 01       		.byte	0x1
+ 1461 060d A6000000 		.4byte	0xa6
+ 1462 0611 01       		.byte	0x1
+ 1463 0612 1C060000 		.4byte	0x61c
+ 1464 0616 1E       		.uleb128 0x1e
+ 1465 0617 9B000000 		.4byte	0x9b
+ 1466 061b 00       		.byte	0
+ 1467 061c 20       		.uleb128 0x20
+ 1468 061d 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 34
+
+
+ 1469 061e 42000000 		.4byte	.LASF82
+ 1470 0622 09       		.byte	0x9
+ 1471 0623 43       		.byte	0x43
+ 1472 0624 01       		.byte	0x1
+ 1473 0625 A6000000 		.4byte	0xa6
+ 1474 0629 01       		.byte	0x1
+ 1475 062a 39060000 		.4byte	0x639
+ 1476 062e 1E       		.uleb128 0x1e
+ 1477 062f 85040000 		.4byte	0x485
+ 1478 0633 1E       		.uleb128 0x1e
+ 1479 0634 85000000 		.4byte	0x85
+ 1480 0638 00       		.byte	0
+ 1481 0639 1D       		.uleb128 0x1d
+ 1482 063a 01       		.byte	0x1
+ 1483 063b AE010000 		.4byte	.LASF84
+ 1484 063f 0B       		.byte	0xb
+ 1485 0640 BC       		.byte	0xbc
+ 1486 0641 01       		.byte	0x1
+ 1487 0642 01       		.byte	0x1
+ 1488 0643 4D060000 		.4byte	0x64d
+ 1489 0647 1E       		.uleb128 0x1e
+ 1490 0648 85000000 		.4byte	0x85
+ 1491 064c 00       		.byte	0
+ 1492 064d 1D       		.uleb128 0x1d
+ 1493 064e 01       		.byte	0x1
+ 1494 064f 30010000 		.4byte	.LASF85
+ 1495 0653 0C       		.byte	0xc
+ 1496 0654 BC       		.byte	0xbc
+ 1497 0655 01       		.byte	0x1
+ 1498 0656 01       		.byte	0x1
+ 1499 0657 61060000 		.4byte	0x661
+ 1500 065b 1E       		.uleb128 0x1e
+ 1501 065c 85000000 		.4byte	0x85
+ 1502 0660 00       		.byte	0
+ 1503 0661 21       		.uleb128 0x21
+ 1504 0662 01       		.byte	0x1
+ 1505 0663 8B010000 		.4byte	.LASF91
+ 1506 0667 0D       		.byte	0xd
+ 1507 0668 1B       		.byte	0x1b
+ 1508 0669 01       		.byte	0x1
+ 1509 066a 01       		.byte	0x1
+ 1510 066b 1E       		.uleb128 0x1e
+ 1511 066c 7A000000 		.4byte	0x7a
+ 1512 0670 00       		.byte	0
+ 1513 0671 00       		.byte	0
+ 1514              		.section	.debug_abbrev,"",%progbits
+ 1515              	.Ldebug_abbrev0:
+ 1516 0000 01       		.uleb128 0x1
+ 1517 0001 11       		.uleb128 0x11
+ 1518 0002 01       		.byte	0x1
+ 1519 0003 25       		.uleb128 0x25
+ 1520 0004 0E       		.uleb128 0xe
+ 1521 0005 13       		.uleb128 0x13
+ 1522 0006 0B       		.uleb128 0xb
+ 1523 0007 03       		.uleb128 0x3
+ 1524 0008 0E       		.uleb128 0xe
+ 1525 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 35
+
+
+ 1526 000a 0E       		.uleb128 0xe
+ 1527 000b 55       		.uleb128 0x55
+ 1528 000c 06       		.uleb128 0x6
+ 1529 000d 11       		.uleb128 0x11
+ 1530 000e 01       		.uleb128 0x1
+ 1531 000f 52       		.uleb128 0x52
+ 1532 0010 01       		.uleb128 0x1
+ 1533 0011 10       		.uleb128 0x10
+ 1534 0012 06       		.uleb128 0x6
+ 1535 0013 00       		.byte	0
+ 1536 0014 00       		.byte	0
+ 1537 0015 02       		.uleb128 0x2
+ 1538 0016 24       		.uleb128 0x24
+ 1539 0017 00       		.byte	0
+ 1540 0018 0B       		.uleb128 0xb
+ 1541 0019 0B       		.uleb128 0xb
+ 1542 001a 3E       		.uleb128 0x3e
+ 1543 001b 0B       		.uleb128 0xb
+ 1544 001c 03       		.uleb128 0x3
+ 1545 001d 0E       		.uleb128 0xe
+ 1546 001e 00       		.byte	0
+ 1547 001f 00       		.byte	0
+ 1548 0020 03       		.uleb128 0x3
+ 1549 0021 16       		.uleb128 0x16
+ 1550 0022 00       		.byte	0
+ 1551 0023 03       		.uleb128 0x3
+ 1552 0024 0E       		.uleb128 0xe
+ 1553 0025 3A       		.uleb128 0x3a
+ 1554 0026 0B       		.uleb128 0xb
+ 1555 0027 3B       		.uleb128 0x3b
+ 1556 0028 0B       		.uleb128 0xb
+ 1557 0029 49       		.uleb128 0x49
+ 1558 002a 13       		.uleb128 0x13
+ 1559 002b 00       		.byte	0
+ 1560 002c 00       		.byte	0
+ 1561 002d 04       		.uleb128 0x4
+ 1562 002e 24       		.uleb128 0x24
+ 1563 002f 00       		.byte	0
+ 1564 0030 0B       		.uleb128 0xb
+ 1565 0031 0B       		.uleb128 0xb
+ 1566 0032 3E       		.uleb128 0x3e
+ 1567 0033 0B       		.uleb128 0xb
+ 1568 0034 03       		.uleb128 0x3
+ 1569 0035 08       		.uleb128 0x8
+ 1570 0036 00       		.byte	0
+ 1571 0037 00       		.byte	0
+ 1572 0038 05       		.uleb128 0x5
+ 1573 0039 17       		.uleb128 0x17
+ 1574 003a 01       		.byte	0x1
+ 1575 003b 0B       		.uleb128 0xb
+ 1576 003c 0B       		.uleb128 0xb
+ 1577 003d 3A       		.uleb128 0x3a
+ 1578 003e 0B       		.uleb128 0xb
+ 1579 003f 3B       		.uleb128 0x3b
+ 1580 0040 0B       		.uleb128 0xb
+ 1581 0041 01       		.uleb128 0x1
+ 1582 0042 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 36
+
+
+ 1583 0043 00       		.byte	0
+ 1584 0044 00       		.byte	0
+ 1585 0045 06       		.uleb128 0x6
+ 1586 0046 0D       		.uleb128 0xd
+ 1587 0047 00       		.byte	0
+ 1588 0048 03       		.uleb128 0x3
+ 1589 0049 0E       		.uleb128 0xe
+ 1590 004a 3A       		.uleb128 0x3a
+ 1591 004b 0B       		.uleb128 0xb
+ 1592 004c 3B       		.uleb128 0x3b
+ 1593 004d 0B       		.uleb128 0xb
+ 1594 004e 49       		.uleb128 0x49
+ 1595 004f 13       		.uleb128 0x13
+ 1596 0050 00       		.byte	0
+ 1597 0051 00       		.byte	0
+ 1598 0052 07       		.uleb128 0x7
+ 1599 0053 01       		.uleb128 0x1
+ 1600 0054 01       		.byte	0x1
+ 1601 0055 49       		.uleb128 0x49
+ 1602 0056 13       		.uleb128 0x13
+ 1603 0057 01       		.uleb128 0x1
+ 1604 0058 13       		.uleb128 0x13
+ 1605 0059 00       		.byte	0
+ 1606 005a 00       		.byte	0
+ 1607 005b 08       		.uleb128 0x8
+ 1608 005c 21       		.uleb128 0x21
+ 1609 005d 00       		.byte	0
+ 1610 005e 49       		.uleb128 0x49
+ 1611 005f 13       		.uleb128 0x13
+ 1612 0060 2F       		.uleb128 0x2f
+ 1613 0061 0B       		.uleb128 0xb
+ 1614 0062 00       		.byte	0
+ 1615 0063 00       		.byte	0
+ 1616 0064 09       		.uleb128 0x9
+ 1617 0065 13       		.uleb128 0x13
+ 1618 0066 00       		.byte	0
+ 1619 0067 03       		.uleb128 0x3
+ 1620 0068 0E       		.uleb128 0xe
+ 1621 0069 0B       		.uleb128 0xb
+ 1622 006a 0B       		.uleb128 0xb
+ 1623 006b 3A       		.uleb128 0x3a
+ 1624 006c 0B       		.uleb128 0xb
+ 1625 006d 3B       		.uleb128 0x3b
+ 1626 006e 0B       		.uleb128 0xb
+ 1627 006f 00       		.byte	0
+ 1628 0070 00       		.byte	0
+ 1629 0071 0A       		.uleb128 0xa
+ 1630 0072 13       		.uleb128 0x13
+ 1631 0073 01       		.byte	0x1
+ 1632 0074 03       		.uleb128 0x3
+ 1633 0075 0E       		.uleb128 0xe
+ 1634 0076 0B       		.uleb128 0xb
+ 1635 0077 0B       		.uleb128 0xb
+ 1636 0078 3A       		.uleb128 0x3a
+ 1637 0079 0B       		.uleb128 0xb
+ 1638 007a 3B       		.uleb128 0x3b
+ 1639 007b 05       		.uleb128 0x5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 37
+
+
+ 1640 007c 01       		.uleb128 0x1
+ 1641 007d 13       		.uleb128 0x13
+ 1642 007e 00       		.byte	0
+ 1643 007f 00       		.byte	0
+ 1644 0080 0B       		.uleb128 0xb
+ 1645 0081 0D       		.uleb128 0xd
+ 1646 0082 00       		.byte	0
+ 1647 0083 03       		.uleb128 0x3
+ 1648 0084 0E       		.uleb128 0xe
+ 1649 0085 3A       		.uleb128 0x3a
+ 1650 0086 0B       		.uleb128 0xb
+ 1651 0087 3B       		.uleb128 0x3b
+ 1652 0088 05       		.uleb128 0x5
+ 1653 0089 49       		.uleb128 0x49
+ 1654 008a 13       		.uleb128 0x13
+ 1655 008b 38       		.uleb128 0x38
+ 1656 008c 0A       		.uleb128 0xa
+ 1657 008d 00       		.byte	0
+ 1658 008e 00       		.byte	0
+ 1659 008f 0C       		.uleb128 0xc
+ 1660 0090 0D       		.uleb128 0xd
+ 1661 0091 00       		.byte	0
+ 1662 0092 03       		.uleb128 0x3
+ 1663 0093 08       		.uleb128 0x8
+ 1664 0094 3A       		.uleb128 0x3a
+ 1665 0095 0B       		.uleb128 0xb
+ 1666 0096 3B       		.uleb128 0x3b
+ 1667 0097 05       		.uleb128 0x5
+ 1668 0098 49       		.uleb128 0x49
+ 1669 0099 13       		.uleb128 0x13
+ 1670 009a 38       		.uleb128 0x38
+ 1671 009b 0A       		.uleb128 0xa
+ 1672 009c 00       		.byte	0
+ 1673 009d 00       		.byte	0
+ 1674 009e 0D       		.uleb128 0xd
+ 1675 009f 2E       		.uleb128 0x2e
+ 1676 00a0 01       		.byte	0x1
+ 1677 00a1 3F       		.uleb128 0x3f
+ 1678 00a2 0C       		.uleb128 0xc
+ 1679 00a3 03       		.uleb128 0x3
+ 1680 00a4 0E       		.uleb128 0xe
+ 1681 00a5 3A       		.uleb128 0x3a
+ 1682 00a6 0B       		.uleb128 0xb
+ 1683 00a7 3B       		.uleb128 0x3b
+ 1684 00a8 0B       		.uleb128 0xb
+ 1685 00a9 11       		.uleb128 0x11
+ 1686 00aa 01       		.uleb128 0x1
+ 1687 00ab 12       		.uleb128 0x12
+ 1688 00ac 01       		.uleb128 0x1
+ 1689 00ad 40       		.uleb128 0x40
+ 1690 00ae 06       		.uleb128 0x6
+ 1691 00af 9642     		.uleb128 0x2116
+ 1692 00b1 0C       		.uleb128 0xc
+ 1693 00b2 01       		.uleb128 0x1
+ 1694 00b3 13       		.uleb128 0x13
+ 1695 00b4 00       		.byte	0
+ 1696 00b5 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 38
+
+
+ 1697 00b6 0E       		.uleb128 0xe
+ 1698 00b7 898201   		.uleb128 0x4109
+ 1699 00ba 00       		.byte	0
+ 1700 00bb 11       		.uleb128 0x11
+ 1701 00bc 01       		.uleb128 0x1
+ 1702 00bd 9542     		.uleb128 0x2115
+ 1703 00bf 0C       		.uleb128 0xc
+ 1704 00c0 31       		.uleb128 0x31
+ 1705 00c1 13       		.uleb128 0x13
+ 1706 00c2 00       		.byte	0
+ 1707 00c3 00       		.byte	0
+ 1708 00c4 0F       		.uleb128 0xf
+ 1709 00c5 2E       		.uleb128 0x2e
+ 1710 00c6 01       		.byte	0x1
+ 1711 00c7 3F       		.uleb128 0x3f
+ 1712 00c8 0C       		.uleb128 0xc
+ 1713 00c9 03       		.uleb128 0x3
+ 1714 00ca 0E       		.uleb128 0xe
+ 1715 00cb 3A       		.uleb128 0x3a
+ 1716 00cc 0B       		.uleb128 0xb
+ 1717 00cd 3B       		.uleb128 0x3b
+ 1718 00ce 0B       		.uleb128 0xb
+ 1719 00cf 27       		.uleb128 0x27
+ 1720 00d0 0C       		.uleb128 0xc
+ 1721 00d1 11       		.uleb128 0x11
+ 1722 00d2 01       		.uleb128 0x1
+ 1723 00d3 12       		.uleb128 0x12
+ 1724 00d4 01       		.uleb128 0x1
+ 1725 00d5 40       		.uleb128 0x40
+ 1726 00d6 06       		.uleb128 0x6
+ 1727 00d7 9642     		.uleb128 0x2116
+ 1728 00d9 0C       		.uleb128 0xc
+ 1729 00da 01       		.uleb128 0x1
+ 1730 00db 13       		.uleb128 0x13
+ 1731 00dc 00       		.byte	0
+ 1732 00dd 00       		.byte	0
+ 1733 00de 10       		.uleb128 0x10
+ 1734 00df 05       		.uleb128 0x5
+ 1735 00e0 00       		.byte	0
+ 1736 00e1 03       		.uleb128 0x3
+ 1737 00e2 0E       		.uleb128 0xe
+ 1738 00e3 3A       		.uleb128 0x3a
+ 1739 00e4 0B       		.uleb128 0xb
+ 1740 00e5 3B       		.uleb128 0x3b
+ 1741 00e6 0B       		.uleb128 0xb
+ 1742 00e7 49       		.uleb128 0x49
+ 1743 00e8 13       		.uleb128 0x13
+ 1744 00e9 02       		.uleb128 0x2
+ 1745 00ea 06       		.uleb128 0x6
+ 1746 00eb 00       		.byte	0
+ 1747 00ec 00       		.byte	0
+ 1748 00ed 11       		.uleb128 0x11
+ 1749 00ee 898201   		.uleb128 0x4109
+ 1750 00f1 00       		.byte	0
+ 1751 00f2 11       		.uleb128 0x11
+ 1752 00f3 01       		.uleb128 0x1
+ 1753 00f4 31       		.uleb128 0x31
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 39
+
+
+ 1754 00f5 13       		.uleb128 0x13
+ 1755 00f6 00       		.byte	0
+ 1756 00f7 00       		.byte	0
+ 1757 00f8 12       		.uleb128 0x12
+ 1758 00f9 898201   		.uleb128 0x4109
+ 1759 00fc 01       		.byte	0x1
+ 1760 00fd 11       		.uleb128 0x11
+ 1761 00fe 01       		.uleb128 0x1
+ 1762 00ff 31       		.uleb128 0x31
+ 1763 0100 13       		.uleb128 0x13
+ 1764 0101 01       		.uleb128 0x1
+ 1765 0102 13       		.uleb128 0x13
+ 1766 0103 00       		.byte	0
+ 1767 0104 00       		.byte	0
+ 1768 0105 13       		.uleb128 0x13
+ 1769 0106 8A8201   		.uleb128 0x410a
+ 1770 0109 00       		.byte	0
+ 1771 010a 02       		.uleb128 0x2
+ 1772 010b 0A       		.uleb128 0xa
+ 1773 010c 9142     		.uleb128 0x2111
+ 1774 010e 0A       		.uleb128 0xa
+ 1775 010f 00       		.byte	0
+ 1776 0110 00       		.byte	0
+ 1777 0111 14       		.uleb128 0x14
+ 1778 0112 0F       		.uleb128 0xf
+ 1779 0113 00       		.byte	0
+ 1780 0114 0B       		.uleb128 0xb
+ 1781 0115 0B       		.uleb128 0xb
+ 1782 0116 49       		.uleb128 0x49
+ 1783 0117 13       		.uleb128 0x13
+ 1784 0118 00       		.byte	0
+ 1785 0119 00       		.byte	0
+ 1786 011a 15       		.uleb128 0x15
+ 1787 011b 2E       		.uleb128 0x2e
+ 1788 011c 01       		.byte	0x1
+ 1789 011d 3F       		.uleb128 0x3f
+ 1790 011e 0C       		.uleb128 0xc
+ 1791 011f 03       		.uleb128 0x3
+ 1792 0120 0E       		.uleb128 0xe
+ 1793 0121 3A       		.uleb128 0x3a
+ 1794 0122 0B       		.uleb128 0xb
+ 1795 0123 3B       		.uleb128 0x3b
+ 1796 0124 05       		.uleb128 0x5
+ 1797 0125 27       		.uleb128 0x27
+ 1798 0126 0C       		.uleb128 0xc
+ 1799 0127 11       		.uleb128 0x11
+ 1800 0128 01       		.uleb128 0x1
+ 1801 0129 12       		.uleb128 0x12
+ 1802 012a 01       		.uleb128 0x1
+ 1803 012b 40       		.uleb128 0x40
+ 1804 012c 0A       		.uleb128 0xa
+ 1805 012d 9742     		.uleb128 0x2117
+ 1806 012f 0C       		.uleb128 0xc
+ 1807 0130 01       		.uleb128 0x1
+ 1808 0131 13       		.uleb128 0x13
+ 1809 0132 00       		.byte	0
+ 1810 0133 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 40
+
+
+ 1811 0134 16       		.uleb128 0x16
+ 1812 0135 05       		.uleb128 0x5
+ 1813 0136 00       		.byte	0
+ 1814 0137 03       		.uleb128 0x3
+ 1815 0138 0E       		.uleb128 0xe
+ 1816 0139 3A       		.uleb128 0x3a
+ 1817 013a 0B       		.uleb128 0xb
+ 1818 013b 3B       		.uleb128 0x3b
+ 1819 013c 05       		.uleb128 0x5
+ 1820 013d 49       		.uleb128 0x49
+ 1821 013e 13       		.uleb128 0x13
+ 1822 013f 02       		.uleb128 0x2
+ 1823 0140 0A       		.uleb128 0xa
+ 1824 0141 00       		.byte	0
+ 1825 0142 00       		.byte	0
+ 1826 0143 17       		.uleb128 0x17
+ 1827 0144 05       		.uleb128 0x5
+ 1828 0145 00       		.byte	0
+ 1829 0146 03       		.uleb128 0x3
+ 1830 0147 0E       		.uleb128 0xe
+ 1831 0148 3A       		.uleb128 0x3a
+ 1832 0149 0B       		.uleb128 0xb
+ 1833 014a 3B       		.uleb128 0x3b
+ 1834 014b 05       		.uleb128 0x5
+ 1835 014c 49       		.uleb128 0x49
+ 1836 014d 13       		.uleb128 0x13
+ 1837 014e 02       		.uleb128 0x2
+ 1838 014f 06       		.uleb128 0x6
+ 1839 0150 00       		.byte	0
+ 1840 0151 00       		.byte	0
+ 1841 0152 18       		.uleb128 0x18
+ 1842 0153 898201   		.uleb128 0x4109
+ 1843 0156 01       		.byte	0x1
+ 1844 0157 11       		.uleb128 0x11
+ 1845 0158 01       		.uleb128 0x1
+ 1846 0159 9542     		.uleb128 0x2115
+ 1847 015b 0C       		.uleb128 0xc
+ 1848 015c 31       		.uleb128 0x31
+ 1849 015d 13       		.uleb128 0x13
+ 1850 015e 00       		.byte	0
+ 1851 015f 00       		.byte	0
+ 1852 0160 19       		.uleb128 0x19
+ 1853 0161 34       		.uleb128 0x34
+ 1854 0162 00       		.byte	0
+ 1855 0163 03       		.uleb128 0x3
+ 1856 0164 0E       		.uleb128 0xe
+ 1857 0165 3A       		.uleb128 0x3a
+ 1858 0166 0B       		.uleb128 0xb
+ 1859 0167 3B       		.uleb128 0x3b
+ 1860 0168 05       		.uleb128 0x5
+ 1861 0169 49       		.uleb128 0x49
+ 1862 016a 13       		.uleb128 0x13
+ 1863 016b 3F       		.uleb128 0x3f
+ 1864 016c 0C       		.uleb128 0xc
+ 1865 016d 3C       		.uleb128 0x3c
+ 1866 016e 0C       		.uleb128 0xc
+ 1867 016f 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 41
+
+
+ 1868 0170 00       		.byte	0
+ 1869 0171 1A       		.uleb128 0x1a
+ 1870 0172 35       		.uleb128 0x35
+ 1871 0173 00       		.byte	0
+ 1872 0174 49       		.uleb128 0x49
+ 1873 0175 13       		.uleb128 0x13
+ 1874 0176 00       		.byte	0
+ 1875 0177 00       		.byte	0
+ 1876 0178 1B       		.uleb128 0x1b
+ 1877 0179 34       		.uleb128 0x34
+ 1878 017a 00       		.byte	0
+ 1879 017b 03       		.uleb128 0x3
+ 1880 017c 0E       		.uleb128 0xe
+ 1881 017d 3A       		.uleb128 0x3a
+ 1882 017e 0B       		.uleb128 0xb
+ 1883 017f 3B       		.uleb128 0x3b
+ 1884 0180 0B       		.uleb128 0xb
+ 1885 0181 49       		.uleb128 0x49
+ 1886 0182 13       		.uleb128 0x13
+ 1887 0183 3F       		.uleb128 0x3f
+ 1888 0184 0C       		.uleb128 0xc
+ 1889 0185 02       		.uleb128 0x2
+ 1890 0186 0A       		.uleb128 0xa
+ 1891 0187 00       		.byte	0
+ 1892 0188 00       		.byte	0
+ 1893 0189 1C       		.uleb128 0x1c
+ 1894 018a 34       		.uleb128 0x34
+ 1895 018b 00       		.byte	0
+ 1896 018c 03       		.uleb128 0x3
+ 1897 018d 0E       		.uleb128 0xe
+ 1898 018e 3A       		.uleb128 0x3a
+ 1899 018f 0B       		.uleb128 0xb
+ 1900 0190 3B       		.uleb128 0x3b
+ 1901 0191 0B       		.uleb128 0xb
+ 1902 0192 49       		.uleb128 0x49
+ 1903 0193 13       		.uleb128 0x13
+ 1904 0194 3F       		.uleb128 0x3f
+ 1905 0195 0C       		.uleb128 0xc
+ 1906 0196 3C       		.uleb128 0x3c
+ 1907 0197 0C       		.uleb128 0xc
+ 1908 0198 00       		.byte	0
+ 1909 0199 00       		.byte	0
+ 1910 019a 1D       		.uleb128 0x1d
+ 1911 019b 2E       		.uleb128 0x2e
+ 1912 019c 01       		.byte	0x1
+ 1913 019d 3F       		.uleb128 0x3f
+ 1914 019e 0C       		.uleb128 0xc
+ 1915 019f 03       		.uleb128 0x3
+ 1916 01a0 0E       		.uleb128 0xe
+ 1917 01a1 3A       		.uleb128 0x3a
+ 1918 01a2 0B       		.uleb128 0xb
+ 1919 01a3 3B       		.uleb128 0x3b
+ 1920 01a4 0B       		.uleb128 0xb
+ 1921 01a5 27       		.uleb128 0x27
+ 1922 01a6 0C       		.uleb128 0xc
+ 1923 01a7 3C       		.uleb128 0x3c
+ 1924 01a8 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 42
+
+
+ 1925 01a9 01       		.uleb128 0x1
+ 1926 01aa 13       		.uleb128 0x13
+ 1927 01ab 00       		.byte	0
+ 1928 01ac 00       		.byte	0
+ 1929 01ad 1E       		.uleb128 0x1e
+ 1930 01ae 05       		.uleb128 0x5
+ 1931 01af 00       		.byte	0
+ 1932 01b0 49       		.uleb128 0x49
+ 1933 01b1 13       		.uleb128 0x13
+ 1934 01b2 00       		.byte	0
+ 1935 01b3 00       		.byte	0
+ 1936 01b4 1F       		.uleb128 0x1f
+ 1937 01b5 2E       		.uleb128 0x2e
+ 1938 01b6 00       		.byte	0
+ 1939 01b7 3F       		.uleb128 0x3f
+ 1940 01b8 0C       		.uleb128 0xc
+ 1941 01b9 03       		.uleb128 0x3
+ 1942 01ba 0E       		.uleb128 0xe
+ 1943 01bb 3A       		.uleb128 0x3a
+ 1944 01bc 0B       		.uleb128 0xb
+ 1945 01bd 3B       		.uleb128 0x3b
+ 1946 01be 0B       		.uleb128 0xb
+ 1947 01bf 27       		.uleb128 0x27
+ 1948 01c0 0C       		.uleb128 0xc
+ 1949 01c1 49       		.uleb128 0x49
+ 1950 01c2 13       		.uleb128 0x13
+ 1951 01c3 3C       		.uleb128 0x3c
+ 1952 01c4 0C       		.uleb128 0xc
+ 1953 01c5 00       		.byte	0
+ 1954 01c6 00       		.byte	0
+ 1955 01c7 20       		.uleb128 0x20
+ 1956 01c8 2E       		.uleb128 0x2e
+ 1957 01c9 01       		.byte	0x1
+ 1958 01ca 3F       		.uleb128 0x3f
+ 1959 01cb 0C       		.uleb128 0xc
+ 1960 01cc 03       		.uleb128 0x3
+ 1961 01cd 0E       		.uleb128 0xe
+ 1962 01ce 3A       		.uleb128 0x3a
+ 1963 01cf 0B       		.uleb128 0xb
+ 1964 01d0 3B       		.uleb128 0x3b
+ 1965 01d1 0B       		.uleb128 0xb
+ 1966 01d2 27       		.uleb128 0x27
+ 1967 01d3 0C       		.uleb128 0xc
+ 1968 01d4 49       		.uleb128 0x49
+ 1969 01d5 13       		.uleb128 0x13
+ 1970 01d6 3C       		.uleb128 0x3c
+ 1971 01d7 0C       		.uleb128 0xc
+ 1972 01d8 01       		.uleb128 0x1
+ 1973 01d9 13       		.uleb128 0x13
+ 1974 01da 00       		.byte	0
+ 1975 01db 00       		.byte	0
+ 1976 01dc 21       		.uleb128 0x21
+ 1977 01dd 2E       		.uleb128 0x2e
+ 1978 01de 01       		.byte	0x1
+ 1979 01df 3F       		.uleb128 0x3f
+ 1980 01e0 0C       		.uleb128 0xc
+ 1981 01e1 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 43
+
+
+ 1982 01e2 0E       		.uleb128 0xe
+ 1983 01e3 3A       		.uleb128 0x3a
+ 1984 01e4 0B       		.uleb128 0xb
+ 1985 01e5 3B       		.uleb128 0x3b
+ 1986 01e6 0B       		.uleb128 0xb
+ 1987 01e7 27       		.uleb128 0x27
+ 1988 01e8 0C       		.uleb128 0xc
+ 1989 01e9 3C       		.uleb128 0x3c
+ 1990 01ea 0C       		.uleb128 0xc
+ 1991 01eb 00       		.byte	0
+ 1992 01ec 00       		.byte	0
+ 1993 01ed 00       		.byte	0
+ 1994              		.section	.debug_loc,"",%progbits
+ 1995              	.Ldebug_loc0:
+ 1996              	.LLST0:
+ 1997 0000 00000000 		.4byte	.LFB56
+ 1998 0004 02000000 		.4byte	.LCFI0
+ 1999 0008 0200     		.2byte	0x2
+ 2000 000a 7D       		.byte	0x7d
+ 2001 000b 00       		.sleb128 0
+ 2002 000c 02000000 		.4byte	.LCFI0
+ 2003 0010 10010000 		.4byte	.LFE56
+ 2004 0014 0200     		.2byte	0x2
+ 2005 0016 7D       		.byte	0x7d
+ 2006 0017 10       		.sleb128 16
+ 2007 0018 00000000 		.4byte	0
+ 2008 001c 00000000 		.4byte	0
+ 2009              	.LLST1:
+ 2010 0020 00000000 		.4byte	.LFB57
+ 2011 0024 02000000 		.4byte	.LCFI1
+ 2012 0028 0200     		.2byte	0x2
+ 2013 002a 7D       		.byte	0x7d
+ 2014 002b 00       		.sleb128 0
+ 2015 002c 02000000 		.4byte	.LCFI1
+ 2016 0030 F8010000 		.4byte	.LFE57
+ 2017 0034 0200     		.2byte	0x2
+ 2018 0036 7D       		.byte	0x7d
+ 2019 0037 18       		.sleb128 24
+ 2020 0038 00000000 		.4byte	0
+ 2021 003c 00000000 		.4byte	0
+ 2022              	.LLST2:
+ 2023 0040 00000000 		.4byte	.LVL15
+ 2024 0044 07000000 		.4byte	.LVL16-1
+ 2025 0048 0100     		.2byte	0x1
+ 2026 004a 50       		.byte	0x50
+ 2027 004b 07000000 		.4byte	.LVL16-1
+ 2028 004f F8010000 		.4byte	.LFE57
+ 2029 0053 0100     		.2byte	0x1
+ 2030 0055 54       		.byte	0x54
+ 2031 0056 00000000 		.4byte	0
+ 2032 005a 00000000 		.4byte	0
+ 2033              	.LLST3:
+ 2034 005e 00000000 		.4byte	.LVL52
+ 2035 0062 0E000000 		.4byte	.LVL53
+ 2036 0066 0100     		.2byte	0x1
+ 2037 0068 50       		.byte	0x50
+ 2038 0069 0E000000 		.4byte	.LVL53
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 44
+
+
+ 2039 006d 12000000 		.4byte	.LVL54
+ 2040 0071 0400     		.2byte	0x4
+ 2041 0073 F3       		.byte	0xf3
+ 2042 0074 01       		.uleb128 0x1
+ 2043 0075 50       		.byte	0x50
+ 2044 0076 9F       		.byte	0x9f
+ 2045 0077 12000000 		.4byte	.LVL54
+ 2046 007b 1C000000 		.4byte	.LFE59
+ 2047 007f 0100     		.2byte	0x1
+ 2048 0081 50       		.byte	0x50
+ 2049 0082 00000000 		.4byte	0
+ 2050 0086 00000000 		.4byte	0
+ 2051              	.LLST4:
+ 2052 008a 00000000 		.4byte	.LVL55
+ 2053 008e 0E000000 		.4byte	.LVL56
+ 2054 0092 0100     		.2byte	0x1
+ 2055 0094 50       		.byte	0x50
+ 2056 0095 0E000000 		.4byte	.LVL56
+ 2057 0099 12000000 		.4byte	.LVL57
+ 2058 009d 0400     		.2byte	0x4
+ 2059 009f F3       		.byte	0xf3
+ 2060 00a0 01       		.uleb128 0x1
+ 2061 00a1 50       		.byte	0x50
+ 2062 00a2 9F       		.byte	0x9f
+ 2063 00a3 12000000 		.4byte	.LVL57
+ 2064 00a7 1C000000 		.4byte	.LFE60
+ 2065 00ab 0100     		.2byte	0x1
+ 2066 00ad 50       		.byte	0x50
+ 2067 00ae 00000000 		.4byte	0
+ 2068 00b2 00000000 		.4byte	0
+ 2069              		.section	.debug_aranges,"",%progbits
+ 2070 0000 3C000000 		.4byte	0x3c
+ 2071 0004 0200     		.2byte	0x2
+ 2072 0006 00000000 		.4byte	.Ldebug_info0
+ 2073 000a 04       		.byte	0x4
+ 2074 000b 00       		.byte	0
+ 2075 000c 0000     		.2byte	0
+ 2076 000e 0000     		.2byte	0
+ 2077 0010 00000000 		.4byte	.LFB56
+ 2078 0014 10010000 		.4byte	.LFE56-.LFB56
+ 2079 0018 00000000 		.4byte	.LFB57
+ 2080 001c F8010000 		.4byte	.LFE57-.LFB57
+ 2081 0020 00000000 		.4byte	.LFB58
+ 2082 0024 0A000000 		.4byte	.LFE58-.LFB58
+ 2083 0028 00000000 		.4byte	.LFB59
+ 2084 002c 1C000000 		.4byte	.LFE59-.LFB59
+ 2085 0030 00000000 		.4byte	.LFB60
+ 2086 0034 1C000000 		.4byte	.LFE60-.LFB60
+ 2087 0038 00000000 		.4byte	0
+ 2088 003c 00000000 		.4byte	0
+ 2089              		.section	.debug_ranges,"",%progbits
+ 2090              	.Ldebug_ranges0:
+ 2091 0000 00000000 		.4byte	.LFB56
+ 2092 0004 10010000 		.4byte	.LFE56
+ 2093 0008 00000000 		.4byte	.LFB57
+ 2094 000c F8010000 		.4byte	.LFE57
+ 2095 0010 00000000 		.4byte	.LFB58
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 45
+
+
+ 2096 0014 0A000000 		.4byte	.LFE58
+ 2097 0018 00000000 		.4byte	.LFB59
+ 2098 001c 1C000000 		.4byte	.LFE59
+ 2099 0020 00000000 		.4byte	.LFB60
+ 2100 0024 1C000000 		.4byte	.LFE60
+ 2101 0028 00000000 		.4byte	0
+ 2102 002c 00000000 		.4byte	0
+ 2103              		.section	.debug_line,"",%progbits
+ 2104              	.Ldebug_line0:
+ 2105 0000 AE020000 		.section	.debug_str,"MS",%progbits,1
+ 2105      0200A001 
+ 2105      00000201 
+ 2105      FB0E0D00 
+ 2105      01010101 
+ 2106              	.LASF54:
+ 2107 0000 70776D5F 		.ascii	"pwm_var\000"
+ 2107      76617200 
+ 2108              	.LASF43:
+ 2109 0008 4761696E 		.ascii	"Gain_ANAOUT\000"
+ 2109      5F414E41 
+ 2109      4F555400 
+ 2110              	.LASF90:
+ 2111 0014 416E616C 		.ascii	"AnalogShowPan\000"
+ 2111      6F675368 
+ 2111      6F775061 
+ 2111      6E00
+ 2112              	.LASF79:
+ 2113 0022 51756164 		.ascii	"QuadDec_PAN_GetCounter\000"
+ 2113      4465635F 
+ 2113      50414E5F 
+ 2113      47657443 
+ 2113      6F756E74 
+ 2114              	.LASF53:
+ 2115 0039 6374726C 		.ascii	"ctrl_var\000"
+ 2115      5F766172 
+ 2115      00
+ 2116              	.LASF82:
+ 2117 0042 66705370 		.ascii	"fpSpid_k2\000"
+ 2117      69645F6B 
+ 2117      3200
+ 2118              	.LASF65:
+ 2119 004c 70617869 		.ascii	"paxis\000"
+ 2119      7300
+ 2120              	.LASF60:
+ 2121 0052 76706172 		.ascii	"vparam\000"
+ 2121      616D00
+ 2122              	.LASF66:
+ 2123 0059 6D6F746F 		.ascii	"mototor_energize\000"
+ 2123      746F725F 
+ 2123      656E6572 
+ 2123      67697A65 
+ 2123      00
+ 2124              	.LASF38:
+ 2125 006a 61737469 		.ascii	"astim_type\000"
+ 2125      6D5F7479 
+ 2125      706500
+ 2126              	.LASF63:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 46
+
+
+ 2127 0075 6D6F746F 		.ascii	"motor_control\000"
+ 2127      725F636F 
+ 2127      6E74726F 
+ 2127      6C00
+ 2128              	.LASF83:
+ 2129 0083 56444143 		.ascii	"VDAC8_ANAPOS_SetValue\000"
+ 2129      385F414E 
+ 2129      41504F53 
+ 2129      5F536574 
+ 2129      56616C75 
+ 2130              	.LASF77:
+ 2131 0099 616E6170 		.ascii	"anapos\000"
+ 2131      6F7300
+ 2132              	.LASF44:
+ 2133 00a0 636F6C6F 		.ascii	"color\000"
+ 2133      7200
+ 2134              	.LASF35:
+ 2135 00a6 616E6775 		.ascii	"angular_velocity\000"
+ 2135      6C61725F 
+ 2135      76656C6F 
+ 2135      63697479 
+ 2135      00
+ 2136              	.LASF50:
+ 2137 00b7 64657272 		.ascii	"derror\000"
+ 2137      6F7200
+ 2138              	.LASF16:
+ 2139 00be 63686172 		.ascii	"char8\000"
+ 2139      3800
+ 2140              	.LASF29:
+ 2141 00c4 414E414C 		.ascii	"ANALOG_GYRO\000"
+ 2141      4F475F47 
+ 2141      59524F00 
+ 2142              	.LASF62:
+ 2143 00d0 6C6F6E67 		.ascii	"long double\000"
+ 2143      20646F75 
+ 2143      626C6500 
+ 2144              	.LASF34:
+ 2145 00dc 76656C6F 		.ascii	"velocity\000"
+ 2145      63697479 
+ 2145      00
+ 2146              	.LASF39:
+ 2147 00e5 50415241 		.ascii	"PARAMS\000"
+ 2147      4D5300
+ 2148              	.LASF55:
+ 2149 00ec 70776D5F 		.ascii	"pwm_test_var\000"
+ 2149      74657374 
+ 2149      5F766172 
+ 2149      00
+ 2150              	.LASF25:
+ 2151 00f9 72617465 		.ascii	"rate_lowpass\000"
+ 2151      5F6C6F77 
+ 2151      70617373 
+ 2151      00
+ 2152              	.LASF11:
+ 2153 0106 75696E74 		.ascii	"uint16\000"
+ 2153      313600
+ 2154              	.LASF74:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 47
+
+
+ 2155 010d 74696C74 		.ascii	"tilt_axis\000"
+ 2155      5F617869 
+ 2155      7300
+ 2156              	.LASF41:
+ 2157 0117 4B736966 		.ascii	"Ksif\000"
+ 2157      00
+ 2158              	.LASF12:
+ 2159 011c 696E7431 		.ascii	"int16\000"
+ 2159      3600
+ 2160              	.LASF10:
+ 2161 0122 75696E74 		.ascii	"uint8\000"
+ 2161      3800
+ 2162              	.LASF32:
+ 2163 0128 454E434F 		.ascii	"ENCODER\000"
+ 2163      44455200 
+ 2164              	.LASF85:
+ 2165 0130 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteCompare\000"
+ 2165      4D4F544F 
+ 2165      525F5449 
+ 2165      4C545F57 
+ 2165      72697465 
+ 2166              	.LASF2:
+ 2167 014c 73686F72 		.ascii	"short int\000"
+ 2167      7420696E 
+ 2167      7400
+ 2168              	.LASF58:
+ 2169 0156 61737469 		.ascii	"astim_ZCsync\000"
+ 2169      6D5F5A43 
+ 2169      73796E63 
+ 2169      00
+ 2170              	.LASF14:
+ 2171 0163 666C6F61 		.ascii	"float\000"
+ 2171      7400
+ 2172              	.LASF6:
+ 2173 0169 6C6F6E67 		.ascii	"long long int\000"
+ 2173      206C6F6E 
+ 2173      6720696E 
+ 2173      7400
+ 2174              	.LASF46:
+ 2175 0177 6D617374 		.ascii	"master_enc_position\000"
+ 2175      65725F65 
+ 2175      6E635F70 
+ 2175      6F736974 
+ 2175      696F6E00 
+ 2176              	.LASF91:
+ 2177 018b 436F6E74 		.ascii	"Control_Reg_MOTOR_Write\000"
+ 2177      726F6C5F 
+ 2177      5265675F 
+ 2177      4D4F544F 
+ 2177      525F5772 
+ 2178              	.LASF22:
+ 2179 01a3 4144435F 		.ascii	"ADC_offset\000"
+ 2179      6F666673 
+ 2179      657400
+ 2180              	.LASF84:
+ 2181 01ae 50574D5F 		.ascii	"PWM_MOTOR_PAN_WriteCompare\000"
+ 2181      4D4F544F 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 48
+
+
+ 2181      525F5041 
+ 2181      4E5F5772 
+ 2181      69746543 
+ 2182              	.LASF86:
+ 2183 01c9 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2183      4320342E 
+ 2183      372E3320 
+ 2183      32303133 
+ 2183      30333132 
+ 2184 01fc 616E6368 		.ascii	"anch revision 196615]\000"
+ 2184      20726576 
+ 2184      6973696F 
+ 2184      6E203139 
+ 2184      36363135 
+ 2185              	.LASF67:
+ 2186 0212 6D6F746F 		.ascii	"mototor_sleep\000"
+ 2186      746F725F 
+ 2186      736C6565 
+ 2186      7000
+ 2187              	.LASF59:
+ 2188 0220 4D4F544F 		.ascii	"MOTOR_AXIS\000"
+ 2188      525F4158 
+ 2188      495300
+ 2189              	.LASF1:
+ 2190 022b 756E7369 		.ascii	"unsigned char\000"
+ 2190      676E6564 
+ 2190      20636861 
+ 2190      7200
+ 2191              	.LASF45:
+ 2192 0239 4D434441 		.ascii	"MCDATAS\000"
+ 2192      54415300 
+ 2193              	.LASF48:
+ 2194 0241 6572726F 		.ascii	"error_bef\000"
+ 2194      725F6265 
+ 2194      6600
+ 2195              	.LASF72:
+ 2196 024b 74696C74 		.ascii	"tilt_feedback_encoder\000"
+ 2196      5F666565 
+ 2196      64626163 
+ 2196      6B5F656E 
+ 2196      636F6465 
+ 2197              	.LASF78:
+ 2198 0261 616E6170 		.ascii	"anapos_offset\000"
+ 2198      6F735F6F 
+ 2198      66667365 
+ 2198      7400
+ 2199              	.LASF76:
+ 2200 026f 41646356 		.ascii	"AdcValue\000"
+ 2200      616C7565 
+ 2200      00
+ 2201              	.LASF0:
+ 2202 0278 7369676E 		.ascii	"signed char\000"
+ 2202      65642063 
+ 2202      68617200 
+ 2203              	.LASF7:
+ 2204 0284 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2204      206C6F6E 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 49
+
+
+ 2204      6720756E 
+ 2204      7369676E 
+ 2204      65642069 
+ 2205              	.LASF23:
+ 2206 029b 7363616C 		.ascii	"scale\000"
+ 2206      6500
+ 2207              	.LASF8:
+ 2208 02a1 756E7369 		.ascii	"unsigned int\000"
+ 2208      676E6564 
+ 2208      20696E74 
+ 2208      00
+ 2209              	.LASF36:
+ 2210 02ae 70617261 		.ascii	"parameter\000"
+ 2210      6D657465 
+ 2210      7200
+ 2211              	.LASF87:
+ 2212 02b8 2E5C6D6F 		.ascii	".\\motor_CTRL.c\000"
+ 2212      746F725F 
+ 2212      4354524C 
+ 2212      2E6300
+ 2213              	.LASF42:
+ 2214 02c7 4B6F7066 		.ascii	"Kopf\000"
+ 2214      00
+ 2215              	.LASF69:
+ 2216 02cc 676F6265 		.ascii	"gobee_vparam\000"
+ 2216      655F7670 
+ 2216      6172616D 
+ 2216      00
+ 2217              	.LASF19:
+ 2218 02d9 66627974 		.ascii	"fbyte\000"
+ 2218      6500
+ 2219              	.LASF56:
+ 2220 02df 63757272 		.ascii	"current\000"
+ 2220      656E7400 
+ 2221              	.LASF64:
+ 2222 02e7 6D6F746F 		.ascii	"motor_init\000"
+ 2222      725F696E 
+ 2222      697400
+ 2223              	.LASF73:
+ 2224 02f2 70616E5F 		.ascii	"pan_axis\000"
+ 2224      61786973 
+ 2224      00
+ 2225              	.LASF3:
+ 2226 02fb 73686F72 		.ascii	"short unsigned int\000"
+ 2226      7420756E 
+ 2226      7369676E 
+ 2226      65642069 
+ 2226      6E7400
+ 2227              	.LASF61:
+ 2228 030e 70617261 		.ascii	"param\000"
+ 2228      6D00
+ 2229              	.LASF70:
+ 2230 0314 6D616368 		.ascii	"machine_state\000"
+ 2230      696E655F 
+ 2230      73746174 
+ 2230      6500
+ 2231              	.LASF75:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 50
+
+
+ 2232 0322 61677972 		.ascii	"agyro\000"
+ 2232      6F00
+ 2233              	.LASF17:
+ 2234 0328 63686172 		.ascii	"char\000"
+ 2234      00
+ 2235              	.LASF4:
+ 2236 032d 6C6F6E67 		.ascii	"long int\000"
+ 2236      20696E74 
+ 2236      00
+ 2237              	.LASF9:
+ 2238 0336 696E7433 		.ascii	"int32_t\000"
+ 2238      325F7400 
+ 2239              	.LASF31:
+ 2240 033e 7265736F 		.ascii	"resolution\000"
+ 2240      6C757469 
+ 2240      6F6E00
+ 2241              	.LASF80:
+ 2242 0349 51756164 		.ascii	"QuadDec_TILT_GetCounter\000"
+ 2242      4465635F 
+ 2242      54494C54 
+ 2242      5F476574 
+ 2242      436F756E 
+ 2243              	.LASF57:
+ 2244 0361 466C6F61 		.ascii	"Float_ASTIM\000"
+ 2244      745F4153 
+ 2244      54494D00 
+ 2245              	.LASF88:
+ 2246 036d 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 2246      73657273 
+ 2246      5C477261 
+ 2246      7A69616E 
+ 2246      6F5C4465 
+ 2247 039b 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 2247      525C5665 
+ 2247      72732E30 
+ 2247      2E302D54 
+ 2247      30352032 
+ 2248 03cc 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 2248      65446972 
+ 2248      2E637964 
+ 2248      736E00
+ 2249              	.LASF5:
+ 2250 03db 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2250      20756E73 
+ 2250      69676E65 
+ 2250      6420696E 
+ 2250      7400
+ 2251              	.LASF13:
+ 2252 03ed 696E7433 		.ascii	"int32\000"
+ 2252      3200
+ 2253              	.LASF15:
+ 2254 03f3 646F7562 		.ascii	"double\000"
+ 2254      6C6500
+ 2255              	.LASF71:
+ 2256 03fa 70616E5F 		.ascii	"pan_feedback_encoder\000"
+ 2256      66656564 
+ 2256      6261636B 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 51
+
+
+ 2256      5F656E63 
+ 2256      6F646572 
+ 2257              	.LASF26:
+ 2258 040f 6D65616E 		.ascii	"mean_rate\000"
+ 2258      5F726174 
+ 2258      6500
+ 2259              	.LASF89:
+ 2260 0419 474F4245 		.ascii	"GOBEE_VPARAMS\000"
+ 2260      455F5650 
+ 2260      4152414D 
+ 2260      5300
+ 2261              	.LASF81:
+ 2262 0427 56656C6F 		.ascii	"VelocityEstimatorII\000"
+ 2262      63697479 
+ 2262      45737469 
+ 2262      6D61746F 
+ 2262      72494900 
+ 2263              	.LASF27:
+ 2264 043b 6D65616E 		.ascii	"mean_rate_previous\000"
+ 2264      5F726174 
+ 2264      655F7072 
+ 2264      6576696F 
+ 2264      757300
+ 2265              	.LASF40:
+ 2266 044e 706F6C61 		.ascii	"polarity\000"
+ 2266      72697479 
+ 2266      00
+ 2267              	.LASF20:
+ 2268 0457 666E756D 		.ascii	"fnum\000"
+ 2268      00
+ 2269              	.LASF24:
+ 2270 045c 72617465 		.ascii	"rate\000"
+ 2270      00
+ 2271              	.LASF52:
+ 2272 0461 64656164 		.ascii	"deadband_factor\000"
+ 2272      62616E64 
+ 2272      5F666163 
+ 2272      746F7200 
+ 2273              	.LASF18:
+ 2274 0471 73697A65 		.ascii	"sizetype\000"
+ 2274      74797065 
+ 2274      00
+ 2275              	.LASF28:
+ 2276 047a 616E676C 		.ascii	"angle\000"
+ 2276      6500
+ 2277              	.LASF47:
+ 2278 0480 6572726F 		.ascii	"error\000"
+ 2278      7200
+ 2279              	.LASF33:
+ 2280 0486 706F7369 		.ascii	"position\000"
+ 2280      74696F6E 
+ 2280      00
+ 2281              	.LASF68:
+ 2282 048f 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2282      52784275 
+ 2282      66666572 
+ 2282      00
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccSp2HWP.s 			page 52
+
+
+ 2283              	.LASF30:
+ 2284 049c 50415241 		.ascii	"PARAMETER\000"
+ 2284      4D455445 
+ 2284      5200
+ 2285              	.LASF37:
+ 2286 04a6 56504152 		.ascii	"VPARAMS\000"
+ 2286      414D5300 
+ 2287              	.LASF21:
+ 2288 04ae 666C6F61 		.ascii	"floatEE\000"
+ 2288      74454500 
+ 2289              	.LASF49:
+ 2290 04b6 69657272 		.ascii	"ierror\000"
+ 2290      6F7200
+ 2291              	.LASF51:
+ 2292 04bd 64657269 		.ascii	"derivative_lowpass\000"
+ 2292      76617469 
+ 2292      76655F6C 
+ 2292      6F777061 
+ 2292      737300
+ 2293              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

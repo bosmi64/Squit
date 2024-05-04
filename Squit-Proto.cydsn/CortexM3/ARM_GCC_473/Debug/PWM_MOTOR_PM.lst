@@ -1,0 +1,1078 @@
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"PWM_MOTOR_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.bss
+  19              		.align	2
+  20              	PWM_MOTOR_backup:
+  21 0000 00000000 		.space	10
+  21      00000000 
+  21      0000
+  22 000a 0000     		.section	.text.PWM_MOTOR_SaveConfig,"ax",%progbits
+  23              		.align	2
+  24              		.global	PWM_MOTOR_SaveConfig
+  25              		.thumb
+  26              		.thumb_func
+  27              		.type	PWM_MOTOR_SaveConfig, %function
+  28              	PWM_MOTOR_SaveConfig:
+  29              	.LFB0:
+  30              		.file 1 ".\\Generated_Source\\PSoC5\\PWM_MOTOR_PM.c"
+   1:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * File Name: PWM_MOTOR_PM.c
+   3:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Version 3.0
+   4:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+   5:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  This file provides the power management source code to API for the
+   7:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  PWM.
+   8:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+   9:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  11:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** #include "cytypes.h"
+  18:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** #include "PWM_MOTOR.h"
+  19:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+  20:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** static PWM_MOTOR_backupStruct PWM_MOTOR_backup;
+  21:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+  22:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+  23:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** /*******************************************************************************
+  24:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Function Name: PWM_MOTOR_SaveConfig
+  25:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** ********************************************************************************
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 2
+
+
+  26:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  27:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Summary:
+  28:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  Saves the current user configuration of the component.
+  29:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  
+  30:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Parameters:  
+  31:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+  32:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  33:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Return: 
+  34:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+  35:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  36:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Global variables:
+  37:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  PWM_MOTOR_backup:  Variables of this global structure are modified to 
+  38:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  store the values of non retention configuration registers when Sleep() API is 
+  39:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  called.
+  40:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  41:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *******************************************************************************/
+  42:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** void PWM_MOTOR_SaveConfig(void) 
+  43:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** {
+  31              		.loc 1 43 0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 1, uses_anonymous_args = 0
+  35 0000 80B5     		push	{r7, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40 0002 00AF     		add	r7, sp, #0
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_register 7
+  44:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     
+  45:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     #if(!PWM_MOTOR_UsingFixedFunction)
+  46:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #if(!PWM_MOTOR_PWMModeIsCenterAligned)
+  47:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_backup.PWMPeriod = PWM_MOTOR_ReadPeriod();
+  43              		.loc 1 47 0
+  44 0004 FFF7FEFF 		bl	PWM_MOTOR_ReadPeriod
+  45 0008 0346     		mov	r3, r0
+  46 000a 1A46     		mov	r2, r3
+  47 000c 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+  48 0010 C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+  49 0014 9A80     		strh	r2, [r3, #4]	@ movhi
+  48:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #endif /* (!PWM_MOTOR_PWMModeIsCenterAligned) */
+  49:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         PWM_MOTOR_backup.PWMUdb = PWM_MOTOR_ReadCounter();
+  50              		.loc 1 49 0
+  51 0016 FFF7FEFF 		bl	PWM_MOTOR_ReadCounter
+  52 001a 0346     		mov	r3, r0
+  53 001c 1A46     		mov	r2, r3
+  54 001e 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+  55 0022 C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+  56 0026 5A80     		strh	r2, [r3, #2]	@ movhi
+  50:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #if (PWM_MOTOR_UseStatus)
+  51:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_backup.InterruptMaskValue = PWM_MOTOR_STATUS_MASK;
+  57              		.loc 1 51 0
+  58 0028 46F28553 		movw	r3, #25989
+  59 002c C4F20003 		movt	r3, 16384
+  60 0030 1B78     		ldrb	r3, [r3, #0]
+  61 0032 DAB2     		uxtb	r2, r3
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 3
+
+
+  62 0034 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+  63 0038 C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+  64 003c 9A71     		strb	r2, [r3, #6]
+  52:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #endif /* (PWM_MOTOR_UseStatus) */
+  53:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         
+  54:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #if(PWM_MOTOR_DeadBandMode == PWM_MOTOR__B_PWM__DBM_256_CLOCKS || \
+  55:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_DeadBandMode == PWM_MOTOR__B_PWM__DBM_2_4_CLOCKS)
+  56:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_backup.PWMdeadBandValue = PWM_MOTOR_ReadDeadTime();
+  65              		.loc 1 56 0
+  66 003e FFF7FEFF 		bl	PWM_MOTOR_ReadDeadTime
+  67 0042 0346     		mov	r3, r0
+  68 0044 1A46     		mov	r2, r3
+  69 0046 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+  70 004a C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+  71 004e DA71     		strb	r2, [r3, #7]
+  57:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #endif /*  deadband count is either 2-4 clocks or 256 clocks */
+  58:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         
+  59:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #if(PWM_MOTOR_KillModeMinTime)
+  60:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****              PWM_MOTOR_backup.PWMKillCounterPeriod = PWM_MOTOR_ReadKillTime();
+  61:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #endif /* (PWM_MOTOR_KillModeMinTime) */
+  62:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         
+  63:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #if(PWM_MOTOR_UseControl)
+  64:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_backup.PWMControlRegister = PWM_MOTOR_ReadControlRegister();
+  72              		.loc 1 64 0
+  73 0050 FFF7FEFF 		bl	PWM_MOTOR_ReadControlRegister
+  74 0054 0346     		mov	r3, r0
+  75 0056 1A46     		mov	r2, r3
+  76 0058 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+  77 005c C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+  78 0060 1A72     		strb	r2, [r3, #8]
+  65:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #endif /* (PWM_MOTOR_UseControl) */
+  66:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     #endif  /* (!PWM_MOTOR_UsingFixedFunction) */
+  67:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** }
+  79              		.loc 1 67 0
+  80 0062 80BD     		pop	{r7, pc}
+  81              		.cfi_endproc
+  82              	.LFE0:
+  83              		.size	PWM_MOTOR_SaveConfig, .-PWM_MOTOR_SaveConfig
+  84              		.section	.text.PWM_MOTOR_RestoreConfig,"ax",%progbits
+  85              		.align	2
+  86              		.global	PWM_MOTOR_RestoreConfig
+  87              		.thumb
+  88              		.thumb_func
+  89              		.type	PWM_MOTOR_RestoreConfig, %function
+  90              	PWM_MOTOR_RestoreConfig:
+  91              	.LFB1:
+  68:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+  69:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+  70:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** /*******************************************************************************
+  71:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Function Name: PWM_MOTOR_RestoreConfig
+  72:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** ********************************************************************************
+  73:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * 
+  74:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Summary:
+  75:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  Restores the current user configuration of the component.
+  76:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  77:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Parameters:  
+  78:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 4
+
+
+  79:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  80:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Return: 
+  81:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+  82:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  83:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Global variables:
+  84:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  PWM_MOTOR_backup:  Variables of this global structure are used to  
+  85:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  restore the values of non retention registers on wakeup from sleep mode.
+  86:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+  87:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *******************************************************************************/
+  88:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** void PWM_MOTOR_RestoreConfig(void) 
+  89:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** {
+  92              		.loc 1 89 0
+  93              		.cfi_startproc
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 1, uses_anonymous_args = 0
+  96 0000 80B5     		push	{r7, lr}
+  97              	.LCFI2:
+  98              		.cfi_def_cfa_offset 8
+  99              		.cfi_offset 7, -8
+ 100              		.cfi_offset 14, -4
+ 101 0002 00AF     		add	r7, sp, #0
+ 102              	.LCFI3:
+ 103              		.cfi_def_cfa_register 7
+  90:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #if(!PWM_MOTOR_UsingFixedFunction)
+  91:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #if(!PWM_MOTOR_PWMModeIsCenterAligned)
+  92:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****                 PWM_MOTOR_WritePeriod(PWM_MOTOR_backup.PWMPeriod);
+ 104              		.loc 1 92 0
+ 105 0004 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 106 0008 C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ 107 000c 9B88     		ldrh	r3, [r3, #4]
+ 108 000e 1846     		mov	r0, r3
+ 109 0010 FFF7FEFF 		bl	PWM_MOTOR_WritePeriod
+  93:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #endif /* (!PWM_MOTOR_PWMModeIsCenterAligned) */
+  94:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_WriteCounter(PWM_MOTOR_backup.PWMUdb);
+ 110              		.loc 1 94 0
+ 111 0014 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 112 0018 C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ 113 001c 5B88     		ldrh	r3, [r3, #2]
+ 114 001e 1846     		mov	r0, r3
+ 115 0020 FFF7FEFF 		bl	PWM_MOTOR_WriteCounter
+  95:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #if (PWM_MOTOR_UseStatus)
+  96:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****                 PWM_MOTOR_STATUS_MASK = PWM_MOTOR_backup.InterruptMaskValue;
+ 116              		.loc 1 96 0
+ 117 0024 46F28553 		movw	r3, #25989
+ 118 0028 C4F20003 		movt	r3, 16384
+ 119 002c 40F20002 		movw	r2, #:lower16:PWM_MOTOR_backup
+ 120 0030 C0F20002 		movt	r2, #:upper16:PWM_MOTOR_backup
+ 121 0034 9279     		ldrb	r2, [r2, #6]	@ zero_extendqisi2
+ 122 0036 1A70     		strb	r2, [r3, #0]
+  97:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #endif /* (PWM_MOTOR_UseStatus) */
+  98:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             
+  99:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #if(PWM_MOTOR_DeadBandMode == PWM_MOTOR__B_PWM__DBM_256_CLOCKS || \
+ 100:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****                 PWM_MOTOR_DeadBandMode == PWM_MOTOR__B_PWM__DBM_2_4_CLOCKS)
+ 101:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****                 PWM_MOTOR_WriteDeadTime(PWM_MOTOR_backup.PWMdeadBandValue);
+ 123              		.loc 1 101 0
+ 124 0038 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 125 003c C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 5
+
+
+ 126 0040 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
+ 127 0042 1846     		mov	r0, r3
+ 128 0044 FFF7FEFF 		bl	PWM_MOTOR_WriteDeadTime
+ 102:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #endif /* deadband count is either 2-4 clocks or 256 clocks */
+ 103:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             
+ 104:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #if(PWM_MOTOR_KillModeMinTime)
+ 105:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****                 PWM_MOTOR_WriteKillTime(PWM_MOTOR_backup.PWMKillCounterPeriod);
+ 106:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #endif /* (PWM_MOTOR_KillModeMinTime) */
+ 107:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             
+ 108:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #if(PWM_MOTOR_UseControl)
+ 109:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****                 PWM_MOTOR_WriteControlRegister(PWM_MOTOR_backup.PWMControlRegister); 
+ 129              		.loc 1 109 0
+ 130 0048 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 131 004c C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ 132 0050 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 133 0052 1846     		mov	r0, r3
+ 134 0054 FFF7FEFF 		bl	PWM_MOTOR_WriteControlRegister
+ 110:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             #endif /* (PWM_MOTOR_UseControl) */
+ 111:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         #endif  /* (!PWM_MOTOR_UsingFixedFunction) */
+ 112:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     }
+ 135              		.loc 1 112 0
+ 136 0058 80BD     		pop	{r7, pc}
+ 137              		.cfi_endproc
+ 138              	.LFE1:
+ 139              		.size	PWM_MOTOR_RestoreConfig, .-PWM_MOTOR_RestoreConfig
+ 140 005a 00BF     		.section	.text.PWM_MOTOR_Sleep,"ax",%progbits
+ 141              		.align	2
+ 142              		.global	PWM_MOTOR_Sleep
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.type	PWM_MOTOR_Sleep, %function
+ 146              	PWM_MOTOR_Sleep:
+ 147              	.LFB2:
+ 113:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+ 114:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+ 115:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** /*******************************************************************************
+ 116:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Function Name: PWM_MOTOR_Sleep
+ 117:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** ********************************************************************************
+ 118:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * 
+ 119:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Summary:
+ 120:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  Disables block's operation and saves the user configuration. Should be called 
+ 121:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  just prior to entering sleep.
+ 122:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  
+ 123:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Parameters:  
+ 124:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+ 125:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+ 126:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Return: 
+ 127:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+ 128:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+ 129:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Global variables:
+ 130:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  PWM_MOTOR_backup.PWMEnableState:  Is modified depending on the enable 
+ 131:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  state of the block before entering sleep mode.
+ 132:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+ 133:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *******************************************************************************/
+ 134:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** void PWM_MOTOR_Sleep(void) 
+ 135:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** {
+ 148              		.loc 1 135 0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 6
+
+
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 152 0000 80B5     		push	{r7, lr}
+ 153              	.LCFI4:
+ 154              		.cfi_def_cfa_offset 8
+ 155              		.cfi_offset 7, -8
+ 156              		.cfi_offset 14, -4
+ 157 0002 00AF     		add	r7, sp, #0
+ 158              	.LCFI5:
+ 159              		.cfi_def_cfa_register 7
+ 136:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     #if(PWM_MOTOR_UseControl)
+ 137:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         if(PWM_MOTOR_CTRL_ENABLE == (PWM_MOTOR_CONTROL & PWM_MOTOR_CTRL_ENABLE))
+ 160              		.loc 1 137 0
+ 161 0004 46F27453 		movw	r3, #25972
+ 162 0008 C4F20003 		movt	r3, 16384
+ 163 000c 1B78     		ldrb	r3, [r3, #0]
+ 164 000e DBB2     		uxtb	r3, r3
+ 165 0010 DBB2     		uxtb	r3, r3
+ 166 0012 5BB2     		sxtb	r3, r3
+ 167 0014 002B     		cmp	r3, #0
+ 168 0016 07DA     		bge	.L4
+ 138:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         {
+ 139:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             /*Component is enabled */
+ 140:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_backup.PWMEnableState = 1u;
+ 169              		.loc 1 140 0
+ 170 0018 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 171 001c C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ 172 0020 4FF00102 		mov	r2, #1
+ 173 0024 1A70     		strb	r2, [r3, #0]
+ 174 0026 06E0     		b	.L5
+ 175              	.L4:
+ 141:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         }
+ 142:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         else
+ 143:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         {
+ 144:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             /* Component is disabled */
+ 145:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****             PWM_MOTOR_backup.PWMEnableState = 0u;
+ 176              		.loc 1 145 0
+ 177 0028 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 178 002c C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ 179 0030 4FF00002 		mov	r2, #0
+ 180 0034 1A70     		strb	r2, [r3, #0]
+ 181              	.L5:
+ 146:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         }
+ 147:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     #endif /* (PWM_MOTOR_UseControl) */
+ 148:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+ 149:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     /* Stop component */
+ 150:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     PWM_MOTOR_Stop();
+ 182              		.loc 1 150 0
+ 183 0036 FFF7FEFF 		bl	PWM_MOTOR_Stop
+ 151:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     
+ 152:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     /* Save registers configuration */
+ 153:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     PWM_MOTOR_SaveConfig();
+ 184              		.loc 1 153 0
+ 185 003a FFF7FEFF 		bl	PWM_MOTOR_SaveConfig
+ 154:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** }
+ 186              		.loc 1 154 0
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 7
+
+
+ 187 003e 80BD     		pop	{r7, pc}
+ 188              		.cfi_endproc
+ 189              	.LFE2:
+ 190              		.size	PWM_MOTOR_Sleep, .-PWM_MOTOR_Sleep
+ 191              		.section	.text.PWM_MOTOR_Wakeup,"ax",%progbits
+ 192              		.align	2
+ 193              		.global	PWM_MOTOR_Wakeup
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.type	PWM_MOTOR_Wakeup, %function
+ 197              	PWM_MOTOR_Wakeup:
+ 198              	.LFB3:
+ 155:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+ 156:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** 
+ 157:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** /*******************************************************************************
+ 158:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Function Name: PWM_MOTOR_Wakeup
+ 159:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** ********************************************************************************
+ 160:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * 
+ 161:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Summary:
+ 162:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  Restores and enables the user configuration. Should be called just after 
+ 163:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  awaking from sleep.
+ 164:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  
+ 165:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Parameters:  
+ 166:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+ 167:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+ 168:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Return: 
+ 169:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  None
+ 170:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+ 171:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** * Global variables:
+ 172:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  PWM_MOTOR_backup.pwmEnable:  Is used to restore the enable state of 
+ 173:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *  block on wakeup from sleep mode.
+ 174:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *
+ 175:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** *******************************************************************************/
+ 176:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** void PWM_MOTOR_Wakeup(void) 
+ 177:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** {
+ 199              		.loc 1 177 0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 1, uses_anonymous_args = 0
+ 203 0000 80B5     		push	{r7, lr}
+ 204              	.LCFI6:
+ 205              		.cfi_def_cfa_offset 8
+ 206              		.cfi_offset 7, -8
+ 207              		.cfi_offset 14, -4
+ 208 0002 00AF     		add	r7, sp, #0
+ 209              	.LCFI7:
+ 210              		.cfi_def_cfa_register 7
+ 178:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****      /* Restore registers values */
+ 179:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     PWM_MOTOR_RestoreConfig();
+ 211              		.loc 1 179 0
+ 212 0004 FFF7FEFF 		bl	PWM_MOTOR_RestoreConfig
+ 180:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     
+ 181:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     if(PWM_MOTOR_backup.PWMEnableState != 0u)
+ 213              		.loc 1 181 0
+ 214 0008 40F20003 		movw	r3, #:lower16:PWM_MOTOR_backup
+ 215 000c C0F20003 		movt	r3, #:upper16:PWM_MOTOR_backup
+ 216 0010 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 8
+
+
+ 217 0012 002B     		cmp	r3, #0
+ 218 0014 01D0     		beq	.L6
+ 182:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     {
+ 183:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         /* Enable component's operation */
+ 184:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****         PWM_MOTOR_Enable();
+ 219              		.loc 1 184 0
+ 220 0016 FFF7FEFF 		bl	PWM_MOTOR_Enable
+ 221              	.L6:
+ 185:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     } /* Do nothing if component's block was disabled before */
+ 186:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c ****     
+ 187:.\Generated_Source\PSoC5/PWM_MOTOR_PM.c **** }
+ 222              		.loc 1 187 0
+ 223 001a 80BD     		pop	{r7, pc}
+ 224              		.cfi_endproc
+ 225              	.LFE3:
+ 226              		.size	PWM_MOTOR_Wakeup, .-PWM_MOTOR_Wakeup
+ 227              		.text
+ 228              	.Letext0:
+ 229              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 230              		.file 3 ".\\Generated_Source\\PSoC5\\PWM_MOTOR.h"
+ 231              		.section	.debug_info,"",%progbits
+ 232              	.Ldebug_info0:
+ 233 0000 7F010000 		.4byte	0x17f
+ 234 0004 0200     		.2byte	0x2
+ 235 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 236 000a 04       		.byte	0x4
+ 237 000b 01       		.uleb128 0x1
+ 238 000c E3010000 		.4byte	.LASF27
+ 239 0010 01       		.byte	0x1
+ 240 0011 11000000 		.4byte	.LASF28
+ 241 0015 79000000 		.4byte	.LASF29
+ 242 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 243 001d 00000000 		.4byte	0
+ 244 0021 00000000 		.4byte	0
+ 245 0025 00000000 		.4byte	.Ldebug_line0
+ 246 0029 02       		.uleb128 0x2
+ 247 002a 01       		.byte	0x1
+ 248 002b 06       		.byte	0x6
+ 249 002c 35020000 		.4byte	.LASF0
+ 250 0030 02       		.uleb128 0x2
+ 251 0031 01       		.byte	0x1
+ 252 0032 08       		.byte	0x8
+ 253 0033 67010000 		.4byte	.LASF1
+ 254 0037 02       		.uleb128 0x2
+ 255 0038 02       		.byte	0x2
+ 256 0039 05       		.byte	0x5
+ 257 003a C8010000 		.4byte	.LASF2
+ 258 003e 02       		.uleb128 0x2
+ 259 003f 02       		.byte	0x2
+ 260 0040 07       		.byte	0x7
+ 261 0041 66000000 		.4byte	.LASF3
+ 262 0045 02       		.uleb128 0x2
+ 263 0046 04       		.byte	0x4
+ 264 0047 05       		.byte	0x5
+ 265 0048 2C020000 		.4byte	.LASF4
+ 266 004c 02       		.uleb128 0x2
+ 267 004d 04       		.byte	0x4
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 9
+
+
+ 268 004e 07       		.byte	0x7
+ 269 004f 3C010000 		.4byte	.LASF5
+ 270 0053 02       		.uleb128 0x2
+ 271 0054 08       		.byte	0x8
+ 272 0055 05       		.byte	0x5
+ 273 0056 B5010000 		.4byte	.LASF6
+ 274 005a 02       		.uleb128 0x2
+ 275 005b 08       		.byte	0x8
+ 276 005c 07       		.byte	0x7
+ 277 005d 90010000 		.4byte	.LASF7
+ 278 0061 03       		.uleb128 0x3
+ 279 0062 04       		.byte	0x4
+ 280 0063 05       		.byte	0x5
+ 281 0064 696E7400 		.ascii	"int\000"
+ 282 0068 02       		.uleb128 0x2
+ 283 0069 04       		.byte	0x4
+ 284 006a 07       		.byte	0x7
+ 285 006b 83010000 		.4byte	.LASF8
+ 286 006f 04       		.uleb128 0x4
+ 287 0070 4E010000 		.4byte	.LASF9
+ 288 0074 02       		.byte	0x2
+ 289 0075 5B       		.byte	0x5b
+ 290 0076 30000000 		.4byte	0x30
+ 291 007a 04       		.uleb128 0x4
+ 292 007b 7C010000 		.4byte	.LASF10
+ 293 007f 02       		.byte	0x2
+ 294 0080 5C       		.byte	0x5c
+ 295 0081 3E000000 		.4byte	0x3e
+ 296 0085 02       		.uleb128 0x2
+ 297 0086 04       		.byte	0x4
+ 298 0087 04       		.byte	0x4
+ 299 0088 06010000 		.4byte	.LASF11
+ 300 008c 02       		.uleb128 0x2
+ 301 008d 08       		.byte	0x8
+ 302 008e 04       		.byte	0x4
+ 303 008f 75010000 		.4byte	.LASF12
+ 304 0093 02       		.uleb128 0x2
+ 305 0094 01       		.byte	0x1
+ 306 0095 08       		.byte	0x8
+ 307 0096 C3010000 		.4byte	.LASF13
+ 308 009a 04       		.uleb128 0x4
+ 309 009b A7010000 		.4byte	.LASF14
+ 310 009f 02       		.byte	0x2
+ 311 00a0 F0       		.byte	0xf0
+ 312 00a1 A5000000 		.4byte	0xa5
+ 313 00a5 05       		.uleb128 0x5
+ 314 00a6 6F000000 		.4byte	0x6f
+ 315 00aa 02       		.uleb128 0x2
+ 316 00ab 04       		.byte	0x4
+ 317 00ac 07       		.byte	0x7
+ 318 00ad AC010000 		.4byte	.LASF15
+ 319 00b1 06       		.uleb128 0x6
+ 320 00b2 0A       		.byte	0xa
+ 321 00b3 03       		.byte	0x3
+ 322 00b4 6A       		.byte	0x6a
+ 323 00b5 0E010000 		.4byte	0x10e
+ 324 00b9 07       		.uleb128 0x7
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 10
+
+
+ 325 00ba 2D010000 		.4byte	.LASF16
+ 326 00be 03       		.byte	0x3
+ 327 00bf 6D       		.byte	0x6d
+ 328 00c0 6F000000 		.4byte	0x6f
+ 329 00c4 02       		.byte	0x2
+ 330 00c5 23       		.byte	0x23
+ 331 00c6 00       		.uleb128 0
+ 332 00c7 07       		.uleb128 0x7
+ 333 00c8 00000000 		.4byte	.LASF17
+ 334 00cc 03       		.byte	0x3
+ 335 00cd 70       		.byte	0x70
+ 336 00ce 7A000000 		.4byte	0x7a
+ 337 00d2 02       		.byte	0x2
+ 338 00d3 23       		.byte	0x23
+ 339 00d4 02       		.uleb128 0x2
+ 340 00d5 07       		.uleb128 0x7
+ 341 00d6 07000000 		.4byte	.LASF18
+ 342 00da 03       		.byte	0x3
+ 343 00db 72       		.byte	0x72
+ 344 00dc 7A000000 		.4byte	0x7a
+ 345 00e0 02       		.byte	0x2
+ 346 00e1 23       		.byte	0x23
+ 347 00e2 04       		.uleb128 0x4
+ 348 00e3 07       		.uleb128 0x7
+ 349 00e4 52020000 		.4byte	.LASF19
+ 350 00e8 03       		.byte	0x3
+ 351 00e9 75       		.byte	0x75
+ 352 00ea 6F000000 		.4byte	0x6f
+ 353 00ee 02       		.byte	0x2
+ 354 00ef 23       		.byte	0x23
+ 355 00f0 06       		.uleb128 0x6
+ 356 00f1 07       		.uleb128 0x7
+ 357 00f2 0C010000 		.4byte	.LASF20
+ 358 00f6 03       		.byte	0x3
+ 359 00f7 7B       		.byte	0x7b
+ 360 00f8 6F000000 		.4byte	0x6f
+ 361 00fc 02       		.byte	0x2
+ 362 00fd 23       		.byte	0x23
+ 363 00fe 07       		.uleb128 0x7
+ 364 00ff 07       		.uleb128 0x7
+ 365 0100 54010000 		.4byte	.LASF21
+ 366 0104 03       		.byte	0x3
+ 367 0105 85       		.byte	0x85
+ 368 0106 6F000000 		.4byte	0x6f
+ 369 010a 02       		.byte	0x2
+ 370 010b 23       		.byte	0x23
+ 371 010c 08       		.uleb128 0x8
+ 372 010d 00       		.byte	0
+ 373 010e 04       		.uleb128 0x4
+ 374 010f EF000000 		.4byte	.LASF22
+ 375 0113 03       		.byte	0x3
+ 376 0114 8A       		.byte	0x8a
+ 377 0115 B1000000 		.4byte	0xb1
+ 378 0119 08       		.uleb128 0x8
+ 379 011a 01       		.byte	0x1
+ 380 011b 51000000 		.4byte	.LASF23
+ 381 011f 01       		.byte	0x1
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 11
+
+
+ 382 0120 2A       		.byte	0x2a
+ 383 0121 01       		.byte	0x1
+ 384 0122 00000000 		.4byte	.LFB0
+ 385 0126 64000000 		.4byte	.LFE0
+ 386 012a 00000000 		.4byte	.LLST0
+ 387 012e 01       		.byte	0x1
+ 388 012f 08       		.uleb128 0x8
+ 389 0130 01       		.byte	0x1
+ 390 0131 39000000 		.4byte	.LASF24
+ 391 0135 01       		.byte	0x1
+ 392 0136 58       		.byte	0x58
+ 393 0137 01       		.byte	0x1
+ 394 0138 00000000 		.4byte	.LFB1
+ 395 013c 5A000000 		.4byte	.LFE1
+ 396 0140 2C000000 		.4byte	.LLST1
+ 397 0144 01       		.byte	0x1
+ 398 0145 08       		.uleb128 0x8
+ 399 0146 01       		.byte	0x1
+ 400 0147 1D010000 		.4byte	.LASF25
+ 401 014b 01       		.byte	0x1
+ 402 014c 86       		.byte	0x86
+ 403 014d 01       		.byte	0x1
+ 404 014e 00000000 		.4byte	.LFB2
+ 405 0152 40000000 		.4byte	.LFE2
+ 406 0156 58000000 		.4byte	.LLST2
+ 407 015a 01       		.byte	0x1
+ 408 015b 08       		.uleb128 0x8
+ 409 015c 01       		.byte	0x1
+ 410 015d 41020000 		.4byte	.LASF26
+ 411 0161 01       		.byte	0x1
+ 412 0162 B0       		.byte	0xb0
+ 413 0163 01       		.byte	0x1
+ 414 0164 00000000 		.4byte	.LFB3
+ 415 0168 1C000000 		.4byte	.LFE3
+ 416 016c 84000000 		.4byte	.LLST3
+ 417 0170 01       		.byte	0x1
+ 418 0171 09       		.uleb128 0x9
+ 419 0172 D2010000 		.4byte	.LASF30
+ 420 0176 01       		.byte	0x1
+ 421 0177 14       		.byte	0x14
+ 422 0178 0E010000 		.4byte	0x10e
+ 423 017c 05       		.byte	0x5
+ 424 017d 03       		.byte	0x3
+ 425 017e 00000000 		.4byte	PWM_MOTOR_backup
+ 426 0182 00       		.byte	0
+ 427              		.section	.debug_abbrev,"",%progbits
+ 428              	.Ldebug_abbrev0:
+ 429 0000 01       		.uleb128 0x1
+ 430 0001 11       		.uleb128 0x11
+ 431 0002 01       		.byte	0x1
+ 432 0003 25       		.uleb128 0x25
+ 433 0004 0E       		.uleb128 0xe
+ 434 0005 13       		.uleb128 0x13
+ 435 0006 0B       		.uleb128 0xb
+ 436 0007 03       		.uleb128 0x3
+ 437 0008 0E       		.uleb128 0xe
+ 438 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 12
+
+
+ 439 000a 0E       		.uleb128 0xe
+ 440 000b 55       		.uleb128 0x55
+ 441 000c 06       		.uleb128 0x6
+ 442 000d 11       		.uleb128 0x11
+ 443 000e 01       		.uleb128 0x1
+ 444 000f 52       		.uleb128 0x52
+ 445 0010 01       		.uleb128 0x1
+ 446 0011 10       		.uleb128 0x10
+ 447 0012 06       		.uleb128 0x6
+ 448 0013 00       		.byte	0
+ 449 0014 00       		.byte	0
+ 450 0015 02       		.uleb128 0x2
+ 451 0016 24       		.uleb128 0x24
+ 452 0017 00       		.byte	0
+ 453 0018 0B       		.uleb128 0xb
+ 454 0019 0B       		.uleb128 0xb
+ 455 001a 3E       		.uleb128 0x3e
+ 456 001b 0B       		.uleb128 0xb
+ 457 001c 03       		.uleb128 0x3
+ 458 001d 0E       		.uleb128 0xe
+ 459 001e 00       		.byte	0
+ 460 001f 00       		.byte	0
+ 461 0020 03       		.uleb128 0x3
+ 462 0021 24       		.uleb128 0x24
+ 463 0022 00       		.byte	0
+ 464 0023 0B       		.uleb128 0xb
+ 465 0024 0B       		.uleb128 0xb
+ 466 0025 3E       		.uleb128 0x3e
+ 467 0026 0B       		.uleb128 0xb
+ 468 0027 03       		.uleb128 0x3
+ 469 0028 08       		.uleb128 0x8
+ 470 0029 00       		.byte	0
+ 471 002a 00       		.byte	0
+ 472 002b 04       		.uleb128 0x4
+ 473 002c 16       		.uleb128 0x16
+ 474 002d 00       		.byte	0
+ 475 002e 03       		.uleb128 0x3
+ 476 002f 0E       		.uleb128 0xe
+ 477 0030 3A       		.uleb128 0x3a
+ 478 0031 0B       		.uleb128 0xb
+ 479 0032 3B       		.uleb128 0x3b
+ 480 0033 0B       		.uleb128 0xb
+ 481 0034 49       		.uleb128 0x49
+ 482 0035 13       		.uleb128 0x13
+ 483 0036 00       		.byte	0
+ 484 0037 00       		.byte	0
+ 485 0038 05       		.uleb128 0x5
+ 486 0039 35       		.uleb128 0x35
+ 487 003a 00       		.byte	0
+ 488 003b 49       		.uleb128 0x49
+ 489 003c 13       		.uleb128 0x13
+ 490 003d 00       		.byte	0
+ 491 003e 00       		.byte	0
+ 492 003f 06       		.uleb128 0x6
+ 493 0040 13       		.uleb128 0x13
+ 494 0041 01       		.byte	0x1
+ 495 0042 0B       		.uleb128 0xb
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 13
+
+
+ 496 0043 0B       		.uleb128 0xb
+ 497 0044 3A       		.uleb128 0x3a
+ 498 0045 0B       		.uleb128 0xb
+ 499 0046 3B       		.uleb128 0x3b
+ 500 0047 0B       		.uleb128 0xb
+ 501 0048 01       		.uleb128 0x1
+ 502 0049 13       		.uleb128 0x13
+ 503 004a 00       		.byte	0
+ 504 004b 00       		.byte	0
+ 505 004c 07       		.uleb128 0x7
+ 506 004d 0D       		.uleb128 0xd
+ 507 004e 00       		.byte	0
+ 508 004f 03       		.uleb128 0x3
+ 509 0050 0E       		.uleb128 0xe
+ 510 0051 3A       		.uleb128 0x3a
+ 511 0052 0B       		.uleb128 0xb
+ 512 0053 3B       		.uleb128 0x3b
+ 513 0054 0B       		.uleb128 0xb
+ 514 0055 49       		.uleb128 0x49
+ 515 0056 13       		.uleb128 0x13
+ 516 0057 38       		.uleb128 0x38
+ 517 0058 0A       		.uleb128 0xa
+ 518 0059 00       		.byte	0
+ 519 005a 00       		.byte	0
+ 520 005b 08       		.uleb128 0x8
+ 521 005c 2E       		.uleb128 0x2e
+ 522 005d 00       		.byte	0
+ 523 005e 3F       		.uleb128 0x3f
+ 524 005f 0C       		.uleb128 0xc
+ 525 0060 03       		.uleb128 0x3
+ 526 0061 0E       		.uleb128 0xe
+ 527 0062 3A       		.uleb128 0x3a
+ 528 0063 0B       		.uleb128 0xb
+ 529 0064 3B       		.uleb128 0x3b
+ 530 0065 0B       		.uleb128 0xb
+ 531 0066 27       		.uleb128 0x27
+ 532 0067 0C       		.uleb128 0xc
+ 533 0068 11       		.uleb128 0x11
+ 534 0069 01       		.uleb128 0x1
+ 535 006a 12       		.uleb128 0x12
+ 536 006b 01       		.uleb128 0x1
+ 537 006c 40       		.uleb128 0x40
+ 538 006d 06       		.uleb128 0x6
+ 539 006e 9642     		.uleb128 0x2116
+ 540 0070 0C       		.uleb128 0xc
+ 541 0071 00       		.byte	0
+ 542 0072 00       		.byte	0
+ 543 0073 09       		.uleb128 0x9
+ 544 0074 34       		.uleb128 0x34
+ 545 0075 00       		.byte	0
+ 546 0076 03       		.uleb128 0x3
+ 547 0077 0E       		.uleb128 0xe
+ 548 0078 3A       		.uleb128 0x3a
+ 549 0079 0B       		.uleb128 0xb
+ 550 007a 3B       		.uleb128 0x3b
+ 551 007b 0B       		.uleb128 0xb
+ 552 007c 49       		.uleb128 0x49
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 14
+
+
+ 553 007d 13       		.uleb128 0x13
+ 554 007e 02       		.uleb128 0x2
+ 555 007f 0A       		.uleb128 0xa
+ 556 0080 00       		.byte	0
+ 557 0081 00       		.byte	0
+ 558 0082 00       		.byte	0
+ 559              		.section	.debug_loc,"",%progbits
+ 560              	.Ldebug_loc0:
+ 561              	.LLST0:
+ 562 0000 00000000 		.4byte	.LFB0
+ 563 0004 02000000 		.4byte	.LCFI0
+ 564 0008 0200     		.2byte	0x2
+ 565 000a 7D       		.byte	0x7d
+ 566 000b 00       		.sleb128 0
+ 567 000c 02000000 		.4byte	.LCFI0
+ 568 0010 04000000 		.4byte	.LCFI1
+ 569 0014 0200     		.2byte	0x2
+ 570 0016 7D       		.byte	0x7d
+ 571 0017 08       		.sleb128 8
+ 572 0018 04000000 		.4byte	.LCFI1
+ 573 001c 64000000 		.4byte	.LFE0
+ 574 0020 0200     		.2byte	0x2
+ 575 0022 77       		.byte	0x77
+ 576 0023 08       		.sleb128 8
+ 577 0024 00000000 		.4byte	0
+ 578 0028 00000000 		.4byte	0
+ 579              	.LLST1:
+ 580 002c 00000000 		.4byte	.LFB1
+ 581 0030 02000000 		.4byte	.LCFI2
+ 582 0034 0200     		.2byte	0x2
+ 583 0036 7D       		.byte	0x7d
+ 584 0037 00       		.sleb128 0
+ 585 0038 02000000 		.4byte	.LCFI2
+ 586 003c 04000000 		.4byte	.LCFI3
+ 587 0040 0200     		.2byte	0x2
+ 588 0042 7D       		.byte	0x7d
+ 589 0043 08       		.sleb128 8
+ 590 0044 04000000 		.4byte	.LCFI3
+ 591 0048 5A000000 		.4byte	.LFE1
+ 592 004c 0200     		.2byte	0x2
+ 593 004e 77       		.byte	0x77
+ 594 004f 08       		.sleb128 8
+ 595 0050 00000000 		.4byte	0
+ 596 0054 00000000 		.4byte	0
+ 597              	.LLST2:
+ 598 0058 00000000 		.4byte	.LFB2
+ 599 005c 02000000 		.4byte	.LCFI4
+ 600 0060 0200     		.2byte	0x2
+ 601 0062 7D       		.byte	0x7d
+ 602 0063 00       		.sleb128 0
+ 603 0064 02000000 		.4byte	.LCFI4
+ 604 0068 04000000 		.4byte	.LCFI5
+ 605 006c 0200     		.2byte	0x2
+ 606 006e 7D       		.byte	0x7d
+ 607 006f 08       		.sleb128 8
+ 608 0070 04000000 		.4byte	.LCFI5
+ 609 0074 40000000 		.4byte	.LFE2
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 15
+
+
+ 610 0078 0200     		.2byte	0x2
+ 611 007a 77       		.byte	0x77
+ 612 007b 08       		.sleb128 8
+ 613 007c 00000000 		.4byte	0
+ 614 0080 00000000 		.4byte	0
+ 615              	.LLST3:
+ 616 0084 00000000 		.4byte	.LFB3
+ 617 0088 02000000 		.4byte	.LCFI6
+ 618 008c 0200     		.2byte	0x2
+ 619 008e 7D       		.byte	0x7d
+ 620 008f 00       		.sleb128 0
+ 621 0090 02000000 		.4byte	.LCFI6
+ 622 0094 04000000 		.4byte	.LCFI7
+ 623 0098 0200     		.2byte	0x2
+ 624 009a 7D       		.byte	0x7d
+ 625 009b 08       		.sleb128 8
+ 626 009c 04000000 		.4byte	.LCFI7
+ 627 00a0 1C000000 		.4byte	.LFE3
+ 628 00a4 0200     		.2byte	0x2
+ 629 00a6 77       		.byte	0x77
+ 630 00a7 08       		.sleb128 8
+ 631 00a8 00000000 		.4byte	0
+ 632 00ac 00000000 		.4byte	0
+ 633              		.section	.debug_aranges,"",%progbits
+ 634 0000 34000000 		.4byte	0x34
+ 635 0004 0200     		.2byte	0x2
+ 636 0006 00000000 		.4byte	.Ldebug_info0
+ 637 000a 04       		.byte	0x4
+ 638 000b 00       		.byte	0
+ 639 000c 0000     		.2byte	0
+ 640 000e 0000     		.2byte	0
+ 641 0010 00000000 		.4byte	.LFB0
+ 642 0014 64000000 		.4byte	.LFE0-.LFB0
+ 643 0018 00000000 		.4byte	.LFB1
+ 644 001c 5A000000 		.4byte	.LFE1-.LFB1
+ 645 0020 00000000 		.4byte	.LFB2
+ 646 0024 40000000 		.4byte	.LFE2-.LFB2
+ 647 0028 00000000 		.4byte	.LFB3
+ 648 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 649 0030 00000000 		.4byte	0
+ 650 0034 00000000 		.4byte	0
+ 651              		.section	.debug_ranges,"",%progbits
+ 652              	.Ldebug_ranges0:
+ 653 0000 00000000 		.4byte	.LFB0
+ 654 0004 64000000 		.4byte	.LFE0
+ 655 0008 00000000 		.4byte	.LFB1
+ 656 000c 5A000000 		.4byte	.LFE1
+ 657 0010 00000000 		.4byte	.LFB2
+ 658 0014 40000000 		.4byte	.LFE2
+ 659 0018 00000000 		.4byte	.LFB3
+ 660 001c 1C000000 		.4byte	.LFE3
+ 661 0020 00000000 		.4byte	0
+ 662 0024 00000000 		.4byte	0
+ 663              		.section	.debug_line,"",%progbits
+ 664              	.Ldebug_line0:
+ 665 0000 B5000000 		.section	.debug_str,"MS",%progbits,1
+ 665      02005A00 
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 16
+
+
+ 665      00000201 
+ 665      FB0E0D00 
+ 665      01010101 
+ 666              	.LASF17:
+ 667 0000 50574D55 		.ascii	"PWMUdb\000"
+ 667      646200
+ 668              	.LASF18:
+ 669 0007 50574D50 		.ascii	"PWMPeriod\000"
+ 669      6572696F 
+ 669      6400
+ 670              	.LASF28:
+ 671 0011 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PWM_MOTOR_PM.c\000"
+ 671      6E657261 
+ 671      7465645F 
+ 671      536F7572 
+ 671      63655C50 
+ 672              	.LASF24:
+ 673 0039 50574D5F 		.ascii	"PWM_MOTOR_RestoreConfig\000"
+ 673      4D4F544F 
+ 673      525F5265 
+ 673      73746F72 
+ 673      65436F6E 
+ 674              	.LASF23:
+ 675 0051 50574D5F 		.ascii	"PWM_MOTOR_SaveConfig\000"
+ 675      4D4F544F 
+ 675      525F5361 
+ 675      7665436F 
+ 675      6E666967 
+ 676              	.LASF3:
+ 677 0066 73686F72 		.ascii	"short unsigned int\000"
+ 677      7420756E 
+ 677      7369676E 
+ 677      65642069 
+ 677      6E7400
+ 678              	.LASF29:
+ 679 0079 433A5C44 		.ascii	"C:\\Documents and Settings\\user\\Documenti\\PSoC C"
+ 679      6F63756D 
+ 679      656E7473 
+ 679      20616E64 
+ 679      20536574 
+ 680 00a8 72656174 		.ascii	"reator\\GOBEE\\Vers.0.0-T10-BL 2015-0123 C3.0 (hw t"
+ 680      6F725C47 
+ 680      4F424545 
+ 680      5C566572 
+ 680      732E302E 
+ 681 00d9 65737420 		.ascii	"est V)\\GoBee-00.cydsn\000"
+ 681      56295C47 
+ 681      6F426565 
+ 681      2D30302E 
+ 681      63796473 
+ 682              	.LASF22:
+ 683 00ef 50574D5F 		.ascii	"PWM_MOTOR_backupStruct\000"
+ 683      4D4F544F 
+ 683      525F6261 
+ 683      636B7570 
+ 683      53747275 
+ 684              	.LASF11:
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 17
+
+
+ 685 0106 666C6F61 		.ascii	"float\000"
+ 685      7400
+ 686              	.LASF20:
+ 687 010c 50574D64 		.ascii	"PWMdeadBandValue\000"
+ 687      65616442 
+ 687      616E6456 
+ 687      616C7565 
+ 687      00
+ 688              	.LASF25:
+ 689 011d 50574D5F 		.ascii	"PWM_MOTOR_Sleep\000"
+ 689      4D4F544F 
+ 689      525F536C 
+ 689      65657000 
+ 690              	.LASF16:
+ 691 012d 50574D45 		.ascii	"PWMEnableState\000"
+ 691      6E61626C 
+ 691      65537461 
+ 691      746500
+ 692              	.LASF5:
+ 693 013c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 693      20756E73 
+ 693      69676E65 
+ 693      6420696E 
+ 693      7400
+ 694              	.LASF9:
+ 695 014e 75696E74 		.ascii	"uint8\000"
+ 695      3800
+ 696              	.LASF21:
+ 697 0154 50574D43 		.ascii	"PWMControlRegister\000"
+ 697      6F6E7472 
+ 697      6F6C5265 
+ 697      67697374 
+ 697      657200
+ 698              	.LASF1:
+ 699 0167 756E7369 		.ascii	"unsigned char\000"
+ 699      676E6564 
+ 699      20636861 
+ 699      7200
+ 700              	.LASF12:
+ 701 0175 646F7562 		.ascii	"double\000"
+ 701      6C6500
+ 702              	.LASF10:
+ 703 017c 75696E74 		.ascii	"uint16\000"
+ 703      313600
+ 704              	.LASF8:
+ 705 0183 756E7369 		.ascii	"unsigned int\000"
+ 705      676E6564 
+ 705      20696E74 
+ 705      00
+ 706              	.LASF7:
+ 707 0190 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 707      206C6F6E 
+ 707      6720756E 
+ 707      7369676E 
+ 707      65642069 
+ 708              	.LASF14:
+ 709 01a7 72656738 		.ascii	"reg8\000"
+ARM GAS  C:\DOCUME~1\user\IMPOST~1\Temp\cch1IoEp.s 			page 18
+
+
+ 709      00
+ 710              	.LASF15:
+ 711 01ac 73697A65 		.ascii	"sizetype\000"
+ 711      74797065 
+ 711      00
+ 712              	.LASF6:
+ 713 01b5 6C6F6E67 		.ascii	"long long int\000"
+ 713      206C6F6E 
+ 713      6720696E 
+ 713      7400
+ 714              	.LASF13:
+ 715 01c3 63686172 		.ascii	"char\000"
+ 715      00
+ 716              	.LASF2:
+ 717 01c8 73686F72 		.ascii	"short int\000"
+ 717      7420696E 
+ 717      7400
+ 718              	.LASF30:
+ 719 01d2 50574D5F 		.ascii	"PWM_MOTOR_backup\000"
+ 719      4D4F544F 
+ 719      525F6261 
+ 719      636B7570 
+ 719      00
+ 720              	.LASF27:
+ 721 01e3 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 721      4320342E 
+ 721      372E3320 
+ 721      32303133 
+ 721      30333132 
+ 722 0216 616E6368 		.ascii	"anch revision 196615]\000"
+ 722      20726576 
+ 722      6973696F 
+ 722      6E203139 
+ 722      36363135 
+ 723              	.LASF4:
+ 724 022c 6C6F6E67 		.ascii	"long int\000"
+ 724      20696E74 
+ 724      00
+ 725              	.LASF0:
+ 726 0235 7369676E 		.ascii	"signed char\000"
+ 726      65642063 
+ 726      68617200 
+ 727              	.LASF26:
+ 728 0241 50574D5F 		.ascii	"PWM_MOTOR_Wakeup\000"
+ 728      4D4F544F 
+ 728      525F5761 
+ 728      6B657570 
+ 728      00
+ 729              	.LASF19:
+ 730 0252 496E7465 		.ascii	"InterruptMaskValue\000"
+ 730      72727570 
+ 730      744D6173 
+ 730      6B56616C 
+ 730      756500
+ 731              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

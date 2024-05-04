@@ -1,0 +1,1433 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"statistics.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	__aeabi_fmul
+  19              		.global	__aeabi_f2d
+  20              		.section	.text.square,"ax",%progbits
+  21              		.align	2
+  22              		.global	square
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	square, %function
+  26              	square:
+  27              	.LFB56:
+  28              		.file 1 ".\\statistics.c"
+   1:.\statistics.c **** /* =============================================
+   2:.\statistics.c ****  * STATISTICS Library code	     				*
+   3:.\statistics.c ****  * V.2.3										*
+   4:.\statistics.c ****  * 12/10/2018									*
+   5:.\statistics.c ****  *												*
+   6:.\statistics.c ****  * Copyright 2010-2018 Logic brainstorm         *
+   7:.\statistics.c ****  * Author : Graziano G. Ravizza                 *
+   8:.\statistics.c ****  * All Rights Reserved							*
+   9:.\statistics.c ****  * UNPUBLISHED, LICENSED SOFTWARE.				*
+  10:.\statistics.c ****  *												*
+  11:.\statistics.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION		*
+  12:.\statistics.c ****  * WHICH IS THE PROPERTY OF Logic brainstorm	*
+  13:.\statistics.c ****  * =============================================
+  14:.\statistics.c **** */
+  15:.\statistics.c **** /* Include files */
+  16:.\statistics.c **** #include <device.h>
+  17:.\statistics.c **** #include <math.h>
+  18:.\statistics.c **** #include <statistics.h>
+  19:.\statistics.c **** 
+  20:.\statistics.c **** 
+  21:.\statistics.c **** /* Floating point square function	*/
+  22:.\statistics.c **** double square(float x)
+  23:.\statistics.c **** {
+  29              		.loc 1 23 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33 0000 80B5     		push	{r7, lr}
+  34              	.LCFI0:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 2
+
+
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 82B0     		sub	sp, sp, #8
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 16
+  41 0004 00AF     		add	r7, sp, #0
+  42              	.LCFI2:
+  43              		.cfi_def_cfa_register 7
+  44 0006 7860     		str	r0, [r7, #4]	@ float
+  24:.\statistics.c ****     return(x*x);
+  45              		.loc 1 24 0
+  46 0008 7868     		ldr	r0, [r7, #4]	@ float
+  47 000a 7968     		ldr	r1, [r7, #4]	@ float
+  48 000c FFF7FEFF 		bl	__aeabi_fmul
+  49 0010 0346     		mov	r3, r0
+  50 0012 1846     		mov	r0, r3
+  51 0014 FFF7FEFF 		bl	__aeabi_f2d
+  52 0018 0246     		mov	r2, r0
+  53 001a 0B46     		mov	r3, r1
+  25:.\statistics.c **** }
+  54              		.loc 1 25 0
+  55 001c 1046     		mov	r0, r2
+  56 001e 1946     		mov	r1, r3
+  57 0020 07F10807 		add	r7, r7, #8
+  58 0024 BD46     		mov	sp, r7
+  59 0026 80BD     		pop	{r7, pc}
+  60              		.cfi_endproc
+  61              	.LFE56:
+  62              		.size	square, .-square
+  63              		.section	.text.statistics_init,"ax",%progbits
+  64              		.align	2
+  65              		.global	statistics_init
+  66              		.thumb
+  67              		.thumb_func
+  68              		.type	statistics_init, %function
+  69              	statistics_init:
+  70              	.LFB57:
+  26:.\statistics.c **** 
+  27:.\statistics.c **** /********************************************************************************************/
+  28:.\statistics.c **** /* Statistics Initialization																*/
+  29:.\statistics.c **** /********************************************************************************************/
+  30:.\statistics.c **** void statistics_init(struct STATISTICS *stat)
+  31:.\statistics.c **** {
+  71              		.loc 1 31 0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 8
+  74              		@ frame_needed = 1, uses_anonymous_args = 0
+  75              		@ link register save eliminated.
+  76 0000 80B4     		push	{r7}
+  77              	.LCFI3:
+  78              		.cfi_def_cfa_offset 4
+  79              		.cfi_offset 7, -4
+  80 0002 83B0     		sub	sp, sp, #12
+  81              	.LCFI4:
+  82              		.cfi_def_cfa_offset 16
+  83 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 3
+
+
+  84              	.LCFI5:
+  85              		.cfi_def_cfa_register 7
+  86 0006 7860     		str	r0, [r7, #4]
+  32:.\statistics.c **** 	(*stat).messg = STATISTICS_STOP;	
+  87              		.loc 1 32 0
+  88 0008 7B68     		ldr	r3, [r7, #4]
+  89 000a 4FF00202 		mov	r2, #2
+  90 000e 1A70     		strb	r2, [r3, #0]
+  33:.\statistics.c **** }
+  91              		.loc 1 33 0
+  92 0010 07F10C07 		add	r7, r7, #12
+  93 0014 BD46     		mov	sp, r7
+  94 0016 80BC     		pop	{r7}
+  95 0018 7047     		bx	lr
+  96              		.cfi_endproc
+  97              	.LFE57:
+  98              		.size	statistics_init, .-statistics_init
+  99 001a 00BF     		.section	.text.statistics_start,"ax",%progbits
+ 100              		.align	2
+ 101              		.global	statistics_start
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.type	statistics_start, %function
+ 105              	statistics_start:
+ 106              	.LFB58:
+  34:.\statistics.c **** 
+  35:.\statistics.c **** /********************************************************************************************/
+  36:.\statistics.c **** /* Statistics Start																			*/
+  37:.\statistics.c **** /********************************************************************************************/
+  38:.\statistics.c **** void statistics_start(struct STATISTICS *stat)
+  39:.\statistics.c **** {
+ 107              		.loc 1 39 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 8
+ 110              		@ frame_needed = 1, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 80B4     		push	{r7}
+ 113              	.LCFI6:
+ 114              		.cfi_def_cfa_offset 4
+ 115              		.cfi_offset 7, -4
+ 116 0002 83B0     		sub	sp, sp, #12
+ 117              	.LCFI7:
+ 118              		.cfi_def_cfa_offset 16
+ 119 0004 00AF     		add	r7, sp, #0
+ 120              	.LCFI8:
+ 121              		.cfi_def_cfa_register 7
+ 122 0006 7860     		str	r0, [r7, #4]
+  40:.\statistics.c **** 	(*stat).messg = STATISTICS_START;	
+ 123              		.loc 1 40 0
+ 124 0008 7B68     		ldr	r3, [r7, #4]
+ 125 000a 4FF00102 		mov	r2, #1
+ 126 000e 1A70     		strb	r2, [r3, #0]
+  41:.\statistics.c **** }
+ 127              		.loc 1 41 0
+ 128 0010 07F10C07 		add	r7, r7, #12
+ 129 0014 BD46     		mov	sp, r7
+ 130 0016 80BC     		pop	{r7}
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 4
+
+
+ 131 0018 7047     		bx	lr
+ 132              		.cfi_endproc
+ 133              	.LFE58:
+ 134              		.size	statistics_start, .-statistics_start
+ 135 001a 00BF     		.section	.text.statistics_stop,"ax",%progbits
+ 136              		.align	2
+ 137              		.global	statistics_stop
+ 138              		.thumb
+ 139              		.thumb_func
+ 140              		.type	statistics_stop, %function
+ 141              	statistics_stop:
+ 142              	.LFB59:
+  42:.\statistics.c **** 
+  43:.\statistics.c **** 
+  44:.\statistics.c **** /********************************************************************************************/
+  45:.\statistics.c **** /* Statistics Stop																			*/
+  46:.\statistics.c **** /********************************************************************************************/
+  47:.\statistics.c **** void statistics_stop(struct STATISTICS *stat)
+  48:.\statistics.c **** {
+ 143              		.loc 1 48 0
+ 144              		.cfi_startproc
+ 145              		@ args = 0, pretend = 0, frame = 8
+ 146              		@ frame_needed = 1, uses_anonymous_args = 0
+ 147              		@ link register save eliminated.
+ 148 0000 80B4     		push	{r7}
+ 149              	.LCFI9:
+ 150              		.cfi_def_cfa_offset 4
+ 151              		.cfi_offset 7, -4
+ 152 0002 83B0     		sub	sp, sp, #12
+ 153              	.LCFI10:
+ 154              		.cfi_def_cfa_offset 16
+ 155 0004 00AF     		add	r7, sp, #0
+ 156              	.LCFI11:
+ 157              		.cfi_def_cfa_register 7
+ 158 0006 7860     		str	r0, [r7, #4]
+  49:.\statistics.c **** 	(*stat).messg = STATISTICS_STOP;	
+ 159              		.loc 1 49 0
+ 160 0008 7B68     		ldr	r3, [r7, #4]
+ 161 000a 4FF00202 		mov	r2, #2
+ 162 000e 1A70     		strb	r2, [r3, #0]
+  50:.\statistics.c **** }
+ 163              		.loc 1 50 0
+ 164 0010 07F10C07 		add	r7, r7, #12
+ 165 0014 BD46     		mov	sp, r7
+ 166 0016 80BC     		pop	{r7}
+ 167 0018 7047     		bx	lr
+ 168              		.cfi_endproc
+ 169              	.LFE59:
+ 170              		.size	statistics_stop, .-statistics_stop
+ 171              		.global	__aeabi_ui2f
+ 172              		.global	__aeabi_fadd
+ 173              		.global	__aeabi_fdiv
+ 174              		.global	__aeabi_fcmpgt
+ 175              		.global	__aeabi_fcmplt
+ 176              		.global	__aeabi_fsub
+ 177 001a 00BF     		.section	.text.statistics_elab_step,"ax",%progbits
+ 178              		.align	2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 5
+
+
+ 179              		.global	statistics_elab_step
+ 180              		.thumb
+ 181              		.thumb_func
+ 182              		.type	statistics_elab_step, %function
+ 183              	statistics_elab_step:
+ 184              	.LFB60:
+  51:.\statistics.c **** 
+  52:.\statistics.c **** 
+  53:.\statistics.c **** /********************************************************************************************/
+  54:.\statistics.c **** /* Value Statistics Iterative Calculus														*/
+  55:.\statistics.c **** /* iteration >= 2																			*/
+  56:.\statistics.c **** /* Calcola il valor medio e altre variabili statistiche del flusso di value passato			*/
+  57:.\statistics.c **** /* Fonte: http://www.cs.berkeley.edu/~mhoemmen/cs194/Tutorials/variance.pdf					*/
+  58:.\statistics.c **** /* vedi anche \Study\Statistica\variance(Computing the standard deviation efficiently).pdf	*/
+  59:.\statistics.c **** /********************************************************************************************/
+  60:.\statistics.c **** void statistics_elab_step(struct STATISTICS *stat, float value)
+  61:.\statistics.c **** {
+ 185              		.loc 1 61 0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 8
+ 188              		@ frame_needed = 1, uses_anonymous_args = 0
+ 189 0000 90B5     		push	{r4, r7, lr}
+ 190              	.LCFI12:
+ 191              		.cfi_def_cfa_offset 12
+ 192              		.cfi_offset 4, -12
+ 193              		.cfi_offset 7, -8
+ 194              		.cfi_offset 14, -4
+ 195 0002 83B0     		sub	sp, sp, #12
+ 196              	.LCFI13:
+ 197              		.cfi_def_cfa_offset 24
+ 198 0004 00AF     		add	r7, sp, #0
+ 199              	.LCFI14:
+ 200              		.cfi_def_cfa_register 7
+ 201 0006 7860     		str	r0, [r7, #4]
+ 202 0008 3960     		str	r1, [r7, #0]	@ float
+  62:.\statistics.c **** 	(*stat).tick = (*stat).tick + 1;	//increment statistic tick
+ 203              		.loc 1 62 0
+ 204 000a 7B68     		ldr	r3, [r7, #4]
+ 205 000c DB6A     		ldr	r3, [r3, #44]
+ 206 000e 03F10102 		add	r2, r3, #1
+ 207 0012 7B68     		ldr	r3, [r7, #4]
+ 208 0014 DA62     		str	r2, [r3, #44]
+  63:.\statistics.c **** 	
+  64:.\statistics.c **** 	if ((*stat).messg == STATISTICS_START)
+ 209              		.loc 1 64 0
+ 210 0016 7B68     		ldr	r3, [r7, #4]
+ 211 0018 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 212 001a 012B     		cmp	r3, #1
+ 213 001c 28D1     		bne	.L7
+  65:.\statistics.c **** 	{
+  66:.\statistics.c **** 		(*stat).tick = 0;				/* tick = 0 [ms]									*/
+ 214              		.loc 1 66 0
+ 215 001e 7B68     		ldr	r3, [r7, #4]
+ 216 0020 4FF00002 		mov	r2, #0
+ 217 0024 DA62     		str	r2, [r3, #44]
+  67:.\statistics.c **** 		(*stat).mean  = value;			/* mean value(t) 									*/
+ 218              		.loc 1 67 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 6
+
+
+ 219 0026 7B68     		ldr	r3, [r7, #4]
+ 220 0028 3A68     		ldr	r2, [r7, #0]	@ float
+ 221 002a 5A60     		str	r2, [r3, #4]	@ float
+  68:.\statistics.c **** 		(*stat).mean_previous = value; 	/* mean value(t-1)									*/		
+ 222              		.loc 1 68 0
+ 223 002c 7B68     		ldr	r3, [r7, #4]
+ 224 002e 3A68     		ldr	r2, [r7, #0]	@ float
+ 225 0030 9A60     		str	r2, [r3, #8]	@ float
+  69:.\statistics.c **** 		(*stat).min   = value;			/* minimum value(t) 								*/
+ 226              		.loc 1 69 0
+ 227 0032 7B68     		ldr	r3, [r7, #4]
+ 228 0034 3A68     		ldr	r2, [r7, #0]	@ float
+ 229 0036 DA60     		str	r2, [r3, #12]	@ float
+  70:.\statistics.c **** 		(*stat).max   = value;			/* maximum value(t) 								*/
+ 230              		.loc 1 70 0
+ 231 0038 7B68     		ldr	r3, [r7, #4]
+ 232 003a 3A68     		ldr	r2, [r7, #0]	@ float
+ 233 003c 1A61     		str	r2, [r3, #16]	@ float
+  71:.\statistics.c **** 		(*stat).range = 0;				/* range = maximum - minimum value 					*/
+ 234              		.loc 1 71 0
+ 235 003e 7B68     		ldr	r3, [r7, #4]
+ 236 0040 4FF00002 		mov	r2, #0
+ 237 0044 5A61     		str	r2, [r3, #20]	@ float
+  72:.\statistics.c **** 		(*stat).scarto = 0;				/* scarto = value - mean(value)						*/
+ 238              		.loc 1 72 0
+ 239 0046 7B68     		ldr	r3, [r7, #4]
+ 240 0048 4FF00002 		mov	r2, #0
+ 241 004c 9A61     		str	r2, [r3, #24]	@ float
+  73:.\statistics.c **** 		(*stat).Qk	= 0;				/* Qk value for sample variance iterative calculus 	*/
+ 242              		.loc 1 73 0
+ 243 004e 7B68     		ldr	r3, [r7, #4]
+ 244 0050 4FF00002 		mov	r2, #0
+ 245 0054 DA61     		str	r2, [r3, #28]	@ float
+  74:.\statistics.c **** 		(*stat).Qk_previous = 0;		/* Qk(t-1)											*/
+ 246              		.loc 1 74 0
+ 247 0056 7B68     		ldr	r3, [r7, #4]
+ 248 0058 4FF00002 		mov	r2, #0
+ 249 005c 1A62     		str	r2, [r3, #32]	@ float
+  75:.\statistics.c **** 		
+  76:.\statistics.c **** 		(*stat).iteration_num = 2;		/* iteration_num = n = 2							*/
+ 250              		.loc 1 76 0
+ 251 005e 7B68     		ldr	r3, [r7, #4]
+ 252 0060 4FF00202 		mov	r2, #2
+ 253 0064 9A62     		str	r2, [r3, #40]
+  77:.\statistics.c **** 		
+  78:.\statistics.c **** 		(*stat).messg = STATISTICS_STARTED; /* issue STAT STARTED MESSAGE 					*/
+ 254              		.loc 1 78 0
+ 255 0066 7B68     		ldr	r3, [r7, #4]
+ 256 0068 4FF00302 		mov	r2, #3
+ 257 006c 1A70     		strb	r2, [r3, #0]
+ 258 006e 54E0     		b	.L6
+ 259              	.L7:
+  79:.\statistics.c **** 	}
+  80:.\statistics.c **** 	else
+  81:.\statistics.c **** 		if ((*stat).messg != STATISTICS_STOP)
+ 260              		.loc 1 81 0
+ 261 0070 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 7
+
+
+ 262 0072 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 263 0074 022B     		cmp	r3, #2
+ 264 0076 50D0     		beq	.L6
+  82:.\statistics.c **** 		{
+  83:.\statistics.c **** 			/* Mean calculus iterative step */
+  84:.\statistics.c **** 			(*stat).mean = ((*stat).mean_previous * ((*stat).iteration_num - 1) + value) / (*stat).iteration
+ 265              		.loc 1 84 0
+ 266 0078 7B68     		ldr	r3, [r7, #4]
+ 267 007a 9C68     		ldr	r4, [r3, #8]	@ float
+ 268 007c 7B68     		ldr	r3, [r7, #4]
+ 269 007e 9B6A     		ldr	r3, [r3, #40]
+ 270 0080 03F1FF33 		add	r3, r3, #-1
+ 271 0084 1846     		mov	r0, r3
+ 272 0086 FFF7FEFF 		bl	__aeabi_ui2f
+ 273 008a 0346     		mov	r3, r0
+ 274 008c 2046     		mov	r0, r4
+ 275 008e 1946     		mov	r1, r3
+ 276 0090 FFF7FEFF 		bl	__aeabi_fmul
+ 277 0094 0346     		mov	r3, r0
+ 278 0096 1846     		mov	r0, r3
+ 279 0098 3968     		ldr	r1, [r7, #0]	@ float
+ 280 009a FFF7FEFF 		bl	__aeabi_fadd
+ 281 009e 0346     		mov	r3, r0
+ 282 00a0 1C46     		mov	r4, r3
+ 283 00a2 7B68     		ldr	r3, [r7, #4]
+ 284 00a4 9B6A     		ldr	r3, [r3, #40]
+ 285 00a6 1846     		mov	r0, r3
+ 286 00a8 FFF7FEFF 		bl	__aeabi_ui2f
+ 287 00ac 0346     		mov	r3, r0
+ 288 00ae 2046     		mov	r0, r4
+ 289 00b0 1946     		mov	r1, r3
+ 290 00b2 FFF7FEFF 		bl	__aeabi_fdiv
+ 291 00b6 0346     		mov	r3, r0
+ 292 00b8 1A46     		mov	r2, r3
+ 293 00ba 7B68     		ldr	r3, [r7, #4]
+ 294 00bc 5A60     		str	r2, [r3, #4]	@ float
+  85:.\statistics.c **** 			(*stat).mean_previous = (*stat).mean;
+ 295              		.loc 1 85 0
+ 296 00be 7B68     		ldr	r3, [r7, #4]
+ 297 00c0 5A68     		ldr	r2, [r3, #4]	@ float
+ 298 00c2 7B68     		ldr	r3, [r7, #4]
+ 299 00c4 9A60     		str	r2, [r3, #8]	@ float
+  86:.\statistics.c **** 			
+  87:.\statistics.c **** //			/* Sample Variance iterative step */
+  88:.\statistics.c **** //			(*stat).Qk = (*stat).Qk_previous + ((((*stat).iteration_num - 1 ) * pow(value - (*stat).mean_p
+  89:.\statistics.c **** //			(*stat).variance = (*stat).Qk / ((*stat).iteration_num - 1);
+  90:.\statistics.c **** //
+  91:.\statistics.c **** //			/* scarto(t) iterative step */
+  92:.\statistics.c **** //			(*stat).scarto = value - (*stat).mean;
+  93:.\statistics.c **** 			
+  94:.\statistics.c **** 			/* n = n + 1 */
+  95:.\statistics.c **** 			(*stat).iteration_num = (*stat).iteration_num + 1;
+ 300              		.loc 1 95 0
+ 301 00c6 7B68     		ldr	r3, [r7, #4]
+ 302 00c8 9B6A     		ldr	r3, [r3, #40]
+ 303 00ca 03F10102 		add	r2, r3, #1
+ 304 00ce 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 8
+
+
+ 305 00d0 9A62     		str	r2, [r3, #40]
+  96:.\statistics.c **** 			
+  97:.\statistics.c **** 			/* Angle Range calculus */
+  98:.\statistics.c **** 			if (value < (*stat).min)
+ 306              		.loc 1 98 0
+ 307 00d2 7B68     		ldr	r3, [r7, #4]
+ 308 00d4 DB68     		ldr	r3, [r3, #12]	@ float
+ 309 00d6 1846     		mov	r0, r3
+ 310 00d8 3968     		ldr	r1, [r7, #0]	@ float
+ 311 00da FFF7FEFF 		bl	__aeabi_fcmpgt
+ 312 00de 0346     		mov	r3, r0
+ 313 00e0 002B     		cmp	r3, #0
+ 314 00e2 02D0     		beq	.L9
+ 315              	.L13:
+  99:.\statistics.c **** 				(*stat).min = value;
+ 316              		.loc 1 99 0
+ 317 00e4 7B68     		ldr	r3, [r7, #4]
+ 318 00e6 3A68     		ldr	r2, [r7, #0]	@ float
+ 319 00e8 DA60     		str	r2, [r3, #12]	@ float
+ 320              	.L9:
+ 100:.\statistics.c **** 
+ 101:.\statistics.c **** 			if (value > (*stat).max)
+ 321              		.loc 1 101 0
+ 322 00ea 7B68     		ldr	r3, [r7, #4]
+ 323 00ec 1B69     		ldr	r3, [r3, #16]	@ float
+ 324 00ee 1846     		mov	r0, r3
+ 325 00f0 3968     		ldr	r1, [r7, #0]	@ float
+ 326 00f2 FFF7FEFF 		bl	__aeabi_fcmplt
+ 327 00f6 0346     		mov	r3, r0
+ 328 00f8 002B     		cmp	r3, #0
+ 329 00fa 02D0     		beq	.L11
+ 330              	.L14:
+ 102:.\statistics.c **** 				(*stat).max = value;
+ 331              		.loc 1 102 0
+ 332 00fc 7B68     		ldr	r3, [r7, #4]
+ 333 00fe 3A68     		ldr	r2, [r7, #0]	@ float
+ 334 0100 1A61     		str	r2, [r3, #16]	@ float
+ 335              	.L11:
+ 103:.\statistics.c **** 				
+ 104:.\statistics.c **** 			(*stat).range = (*stat).max - (*stat).min;	
+ 336              		.loc 1 104 0
+ 337 0102 7B68     		ldr	r3, [r7, #4]
+ 338 0104 1A69     		ldr	r2, [r3, #16]	@ float
+ 339 0106 7B68     		ldr	r3, [r7, #4]
+ 340 0108 DB68     		ldr	r3, [r3, #12]	@ float
+ 341 010a 1046     		mov	r0, r2
+ 342 010c 1946     		mov	r1, r3
+ 343 010e FFF7FEFF 		bl	__aeabi_fsub
+ 344 0112 0346     		mov	r3, r0
+ 345 0114 1A46     		mov	r2, r3
+ 346 0116 7B68     		ldr	r3, [r7, #4]
+ 347 0118 5A61     		str	r2, [r3, #20]	@ float
+ 348              	.L6:
+ 105:.\statistics.c **** 		}	
+ 106:.\statistics.c **** }
+ 349              		.loc 1 106 0
+ 350 011a 07F10C07 		add	r7, r7, #12
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 9
+
+
+ 351 011e BD46     		mov	sp, r7
+ 352 0120 90BD     		pop	{r4, r7, pc}
+ 353              		.cfi_endproc
+ 354              	.LFE60:
+ 355              		.size	statistics_elab_step, .-statistics_elab_step
+ 356 0122 00BF     		.text
+ 357              	.Letext0:
+ 358              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 359              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 360              		.file 4 "./statistics.h"
+ 361              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 362              		.section	.debug_info,"",%progbits
+ 363              	.Ldebug_info0:
+ 364 0000 5A020000 		.4byte	0x25a
+ 365 0004 0200     		.2byte	0x2
+ 366 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 367 000a 04       		.byte	0x4
+ 368 000b 01       		.uleb128 0x1
+ 369 000c C0010000 		.4byte	.LASF32
+ 370 0010 01       		.byte	0x1
+ 371 0011 00000000 		.4byte	.LASF33
+ 372 0015 E6000000 		.4byte	.LASF34
+ 373 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 374 001d 00000000 		.4byte	0
+ 375 0021 00000000 		.4byte	0
+ 376 0025 00000000 		.4byte	.Ldebug_line0
+ 377 0029 02       		.uleb128 0x2
+ 378 002a 01       		.byte	0x1
+ 379 002b 06       		.byte	0x6
+ 380 002c 2C020000 		.4byte	.LASF0
+ 381 0030 02       		.uleb128 0x2
+ 382 0031 01       		.byte	0x1
+ 383 0032 08       		.byte	0x8
+ 384 0033 5F000000 		.4byte	.LASF1
+ 385 0037 02       		.uleb128 0x2
+ 386 0038 02       		.byte	0x2
+ 387 0039 05       		.byte	0x5
+ 388 003a DC000000 		.4byte	.LASF2
+ 389 003e 02       		.uleb128 0x2
+ 390 003f 02       		.byte	0x2
+ 391 0040 07       		.byte	0x7
+ 392 0041 8D000000 		.4byte	.LASF3
+ 393 0045 03       		.uleb128 0x3
+ 394 0046 45000000 		.4byte	.LASF9
+ 395 004a 02       		.byte	0x2
+ 396 004b 4F       		.byte	0x4f
+ 397 004c 50000000 		.4byte	0x50
+ 398 0050 02       		.uleb128 0x2
+ 399 0051 04       		.byte	0x4
+ 400 0052 05       		.byte	0x5
+ 401 0053 17020000 		.4byte	.LASF4
+ 402 0057 02       		.uleb128 0x2
+ 403 0058 04       		.byte	0x4
+ 404 0059 07       		.byte	0x7
+ 405 005a BA000000 		.4byte	.LASF5
+ 406 005e 02       		.uleb128 0x2
+ 407 005f 08       		.byte	0x8
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 10
+
+
+ 408 0060 05       		.byte	0x5
+ 409 0061 A0010000 		.4byte	.LASF6
+ 410 0065 02       		.uleb128 0x2
+ 411 0066 08       		.byte	0x8
+ 412 0067 07       		.byte	0x7
+ 413 0068 6A010000 		.4byte	.LASF7
+ 414 006c 04       		.uleb128 0x4
+ 415 006d 04       		.byte	0x4
+ 416 006e 05       		.byte	0x5
+ 417 006f 696E7400 		.ascii	"int\000"
+ 418 0073 02       		.uleb128 0x2
+ 419 0074 04       		.byte	0x4
+ 420 0075 07       		.byte	0x7
+ 421 0076 5D010000 		.4byte	.LASF8
+ 422 007a 03       		.uleb128 0x3
+ 423 007b BA010000 		.4byte	.LASF10
+ 424 007f 03       		.byte	0x3
+ 425 0080 5B       		.byte	0x5b
+ 426 0081 30000000 		.4byte	0x30
+ 427 0085 03       		.uleb128 0x3
+ 428 0086 56010000 		.4byte	.LASF11
+ 429 008a 03       		.byte	0x3
+ 430 008b 5D       		.byte	0x5d
+ 431 008c 57000000 		.4byte	0x57
+ 432 0090 02       		.uleb128 0x2
+ 433 0091 04       		.byte	0x4
+ 434 0092 04       		.byte	0x4
+ 435 0093 59000000 		.4byte	.LASF12
+ 436 0097 02       		.uleb128 0x2
+ 437 0098 08       		.byte	0x8
+ 438 0099 04       		.byte	0x4
+ 439 009a 35000000 		.4byte	.LASF13
+ 440 009e 02       		.uleb128 0x2
+ 441 009f 01       		.byte	0x1
+ 442 00a0 08       		.byte	0x8
+ 443 00a1 AE010000 		.4byte	.LASF14
+ 444 00a5 02       		.uleb128 0x2
+ 445 00a6 04       		.byte	0x4
+ 446 00a7 07       		.byte	0x7
+ 447 00a8 97010000 		.4byte	.LASF15
+ 448 00ac 02       		.uleb128 0x2
+ 449 00ad 08       		.byte	0x8
+ 450 00ae 04       		.byte	0x4
+ 451 00af 20020000 		.4byte	.LASF16
+ 452 00b3 05       		.uleb128 0x5
+ 453 00b4 1A000000 		.4byte	.LASF35
+ 454 00b8 30       		.byte	0x30
+ 455 00b9 04       		.byte	0x4
+ 456 00ba 18       		.byte	0x18
+ 457 00bb 67010000 		.4byte	0x167
+ 458 00bf 06       		.uleb128 0x6
+ 459 00c0 82000000 		.4byte	.LASF17
+ 460 00c4 04       		.byte	0x4
+ 461 00c5 1A       		.byte	0x1a
+ 462 00c6 7A000000 		.4byte	0x7a
+ 463 00ca 02       		.byte	0x2
+ 464 00cb 23       		.byte	0x23
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 11
+
+
+ 465 00cc 00       		.uleb128 0
+ 466 00cd 06       		.uleb128 0x6
+ 467 00ce 81010000 		.4byte	.LASF18
+ 468 00d2 04       		.byte	0x4
+ 469 00d3 1C       		.byte	0x1c
+ 470 00d4 90000000 		.4byte	0x90
+ 471 00d8 02       		.byte	0x2
+ 472 00d9 23       		.byte	0x23
+ 473 00da 04       		.uleb128 0x4
+ 474 00db 06       		.uleb128 0x6
+ 475 00dc 09020000 		.4byte	.LASF19
+ 476 00e0 04       		.byte	0x4
+ 477 00e1 1D       		.byte	0x1d
+ 478 00e2 90000000 		.4byte	0x90
+ 479 00e6 02       		.byte	0x2
+ 480 00e7 23       		.byte	0x23
+ 481 00e8 08       		.uleb128 0x8
+ 482 00e9 07       		.uleb128 0x7
+ 483 00ea 6D696E00 		.ascii	"min\000"
+ 484 00ee 04       		.byte	0x4
+ 485 00ef 1E       		.byte	0x1e
+ 486 00f0 90000000 		.4byte	0x90
+ 487 00f4 02       		.byte	0x2
+ 488 00f5 23       		.byte	0x23
+ 489 00f6 0C       		.uleb128 0xc
+ 490 00f7 07       		.uleb128 0x7
+ 491 00f8 6D617800 		.ascii	"max\000"
+ 492 00fc 04       		.byte	0x4
+ 493 00fd 1F       		.byte	0x1f
+ 494 00fe 90000000 		.4byte	0x90
+ 495 0102 02       		.byte	0x2
+ 496 0103 23       		.byte	0x23
+ 497 0104 10       		.uleb128 0x10
+ 498 0105 06       		.uleb128 0x6
+ 499 0106 AD000000 		.4byte	.LASF20
+ 500 010a 04       		.byte	0x4
+ 501 010b 20       		.byte	0x20
+ 502 010c 90000000 		.4byte	0x90
+ 503 0110 02       		.byte	0x2
+ 504 0111 23       		.byte	0x23
+ 505 0112 14       		.uleb128 0x14
+ 506 0113 06       		.uleb128 0x6
+ 507 0114 B3010000 		.4byte	.LASF21
+ 508 0118 04       		.byte	0x4
+ 509 0119 21       		.byte	0x21
+ 510 011a 90000000 		.4byte	0x90
+ 511 011e 02       		.byte	0x2
+ 512 011f 23       		.byte	0x23
+ 513 0120 18       		.uleb128 0x18
+ 514 0121 07       		.uleb128 0x7
+ 515 0122 516B00   		.ascii	"Qk\000"
+ 516 0125 04       		.byte	0x4
+ 517 0126 22       		.byte	0x22
+ 518 0127 90000000 		.4byte	0x90
+ 519 012b 02       		.byte	0x2
+ 520 012c 23       		.byte	0x23
+ 521 012d 1C       		.uleb128 0x1c
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 12
+
+
+ 522 012e 06       		.uleb128 0x6
+ 523 012f 4D000000 		.4byte	.LASF22
+ 524 0133 04       		.byte	0x4
+ 525 0134 23       		.byte	0x23
+ 526 0135 90000000 		.4byte	0x90
+ 527 0139 02       		.byte	0x2
+ 528 013a 23       		.byte	0x23
+ 529 013b 20       		.uleb128 0x20
+ 530 013c 06       		.uleb128 0x6
+ 531 013d 3C000000 		.4byte	.LASF23
+ 532 0141 04       		.byte	0x4
+ 533 0142 24       		.byte	0x24
+ 534 0143 90000000 		.4byte	0x90
+ 535 0147 02       		.byte	0x2
+ 536 0148 23       		.byte	0x23
+ 537 0149 24       		.uleb128 0x24
+ 538 014a 06       		.uleb128 0x6
+ 539 014b 38020000 		.4byte	.LASF24
+ 540 014f 04       		.byte	0x4
+ 541 0150 26       		.byte	0x26
+ 542 0151 85000000 		.4byte	0x85
+ 543 0155 02       		.byte	0x2
+ 544 0156 23       		.byte	0x23
+ 545 0157 28       		.uleb128 0x28
+ 546 0158 06       		.uleb128 0x6
+ 547 0159 88000000 		.4byte	.LASF25
+ 548 015d 04       		.byte	0x4
+ 549 015e 28       		.byte	0x28
+ 550 015f 85000000 		.4byte	0x85
+ 551 0163 02       		.byte	0x2
+ 552 0164 23       		.byte	0x23
+ 553 0165 2C       		.uleb128 0x2c
+ 554 0166 00       		.byte	0
+ 555 0167 08       		.uleb128 0x8
+ 556 0168 01       		.byte	0x1
+ 557 0169 B3000000 		.4byte	.LASF36
+ 558 016d 01       		.byte	0x1
+ 559 016e 16       		.byte	0x16
+ 560 016f 01       		.byte	0x1
+ 561 0170 97000000 		.4byte	0x97
+ 562 0174 00000000 		.4byte	.LFB56
+ 563 0178 28000000 		.4byte	.LFE56
+ 564 017c 00000000 		.4byte	.LLST0
+ 565 0180 01       		.byte	0x1
+ 566 0181 92010000 		.4byte	0x192
+ 567 0185 09       		.uleb128 0x9
+ 568 0186 7800     		.ascii	"x\000"
+ 569 0188 01       		.byte	0x1
+ 570 0189 16       		.byte	0x16
+ 571 018a 90000000 		.4byte	0x90
+ 572 018e 02       		.byte	0x2
+ 573 018f 91       		.byte	0x91
+ 574 0190 74       		.sleb128 -12
+ 575 0191 00       		.byte	0
+ 576 0192 0A       		.uleb128 0xa
+ 577 0193 01       		.byte	0x1
+ 578 0194 25000000 		.4byte	.LASF27
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 13
+
+
+ 579 0198 01       		.byte	0x1
+ 580 0199 1E       		.byte	0x1e
+ 581 019a 01       		.byte	0x1
+ 582 019b 00000000 		.4byte	.LFB57
+ 583 019f 1A000000 		.4byte	.LFE57
+ 584 01a3 38000000 		.4byte	.LLST1
+ 585 01a7 01       		.byte	0x1
+ 586 01a8 BB010000 		.4byte	0x1bb
+ 587 01ac 0B       		.uleb128 0xb
+ 588 01ad 0F000000 		.4byte	.LASF26
+ 589 01b1 01       		.byte	0x1
+ 590 01b2 1E       		.byte	0x1e
+ 591 01b3 BB010000 		.4byte	0x1bb
+ 592 01b7 02       		.byte	0x2
+ 593 01b8 91       		.byte	0x91
+ 594 01b9 74       		.sleb128 -12
+ 595 01ba 00       		.byte	0
+ 596 01bb 0C       		.uleb128 0xc
+ 597 01bc 04       		.byte	0x4
+ 598 01bd B3000000 		.4byte	0xb3
+ 599 01c1 0A       		.uleb128 0xa
+ 600 01c2 01       		.byte	0x1
+ 601 01c3 86010000 		.4byte	.LASF28
+ 602 01c7 01       		.byte	0x1
+ 603 01c8 26       		.byte	0x26
+ 604 01c9 01       		.byte	0x1
+ 605 01ca 00000000 		.4byte	.LFB58
+ 606 01ce 1A000000 		.4byte	.LFE58
+ 607 01d2 70000000 		.4byte	.LLST2
+ 608 01d6 01       		.byte	0x1
+ 609 01d7 EA010000 		.4byte	0x1ea
+ 610 01db 0B       		.uleb128 0xb
+ 611 01dc 0F000000 		.4byte	.LASF26
+ 612 01e0 01       		.byte	0x1
+ 613 01e1 26       		.byte	0x26
+ 614 01e2 BB010000 		.4byte	0x1bb
+ 615 01e6 02       		.byte	0x2
+ 616 01e7 91       		.byte	0x91
+ 617 01e8 74       		.sleb128 -12
+ 618 01e9 00       		.byte	0
+ 619 01ea 0A       		.uleb128 0xa
+ 620 01eb 01       		.byte	0x1
+ 621 01ec CC000000 		.4byte	.LASF29
+ 622 01f0 01       		.byte	0x1
+ 623 01f1 2F       		.byte	0x2f
+ 624 01f2 01       		.byte	0x1
+ 625 01f3 00000000 		.4byte	.LFB59
+ 626 01f7 1A000000 		.4byte	.LFE59
+ 627 01fb A8000000 		.4byte	.LLST3
+ 628 01ff 01       		.byte	0x1
+ 629 0200 13020000 		.4byte	0x213
+ 630 0204 0B       		.uleb128 0xb
+ 631 0205 0F000000 		.4byte	.LASF26
+ 632 0209 01       		.byte	0x1
+ 633 020a 2F       		.byte	0x2f
+ 634 020b BB010000 		.4byte	0x1bb
+ 635 020f 02       		.byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 14
+
+
+ 636 0210 91       		.byte	0x91
+ 637 0211 74       		.sleb128 -12
+ 638 0212 00       		.byte	0
+ 639 0213 0D       		.uleb128 0xd
+ 640 0214 01       		.byte	0x1
+ 641 0215 6D000000 		.4byte	.LASF30
+ 642 0219 01       		.byte	0x1
+ 643 021a 3C       		.byte	0x3c
+ 644 021b 01       		.byte	0x1
+ 645 021c 00000000 		.4byte	.LFB60
+ 646 0220 22010000 		.4byte	.LFE60
+ 647 0224 E0000000 		.4byte	.LLST4
+ 648 0228 01       		.byte	0x1
+ 649 0229 4A020000 		.4byte	0x24a
+ 650 022d 0B       		.uleb128 0xb
+ 651 022e 0F000000 		.4byte	.LASF26
+ 652 0232 01       		.byte	0x1
+ 653 0233 3C       		.byte	0x3c
+ 654 0234 BB010000 		.4byte	0x1bb
+ 655 0238 02       		.byte	0x2
+ 656 0239 91       		.byte	0x91
+ 657 023a 6C       		.sleb128 -20
+ 658 023b 0B       		.uleb128 0xb
+ 659 023c 14000000 		.4byte	.LASF31
+ 660 0240 01       		.byte	0x1
+ 661 0241 3C       		.byte	0x3c
+ 662 0242 90000000 		.4byte	0x90
+ 663 0246 02       		.byte	0x2
+ 664 0247 91       		.byte	0x91
+ 665 0248 68       		.sleb128 -24
+ 666 0249 00       		.byte	0
+ 667 024a 0E       		.uleb128 0xe
+ 668 024b A0000000 		.4byte	.LASF37
+ 669 024f 05       		.byte	0x5
+ 670 0250 1606     		.2byte	0x616
+ 671 0252 58020000 		.4byte	0x258
+ 672 0256 01       		.byte	0x1
+ 673 0257 01       		.byte	0x1
+ 674 0258 0F       		.uleb128 0xf
+ 675 0259 45000000 		.4byte	0x45
+ 676 025d 00       		.byte	0
+ 677              		.section	.debug_abbrev,"",%progbits
+ 678              	.Ldebug_abbrev0:
+ 679 0000 01       		.uleb128 0x1
+ 680 0001 11       		.uleb128 0x11
+ 681 0002 01       		.byte	0x1
+ 682 0003 25       		.uleb128 0x25
+ 683 0004 0E       		.uleb128 0xe
+ 684 0005 13       		.uleb128 0x13
+ 685 0006 0B       		.uleb128 0xb
+ 686 0007 03       		.uleb128 0x3
+ 687 0008 0E       		.uleb128 0xe
+ 688 0009 1B       		.uleb128 0x1b
+ 689 000a 0E       		.uleb128 0xe
+ 690 000b 55       		.uleb128 0x55
+ 691 000c 06       		.uleb128 0x6
+ 692 000d 11       		.uleb128 0x11
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 15
+
+
+ 693 000e 01       		.uleb128 0x1
+ 694 000f 52       		.uleb128 0x52
+ 695 0010 01       		.uleb128 0x1
+ 696 0011 10       		.uleb128 0x10
+ 697 0012 06       		.uleb128 0x6
+ 698 0013 00       		.byte	0
+ 699 0014 00       		.byte	0
+ 700 0015 02       		.uleb128 0x2
+ 701 0016 24       		.uleb128 0x24
+ 702 0017 00       		.byte	0
+ 703 0018 0B       		.uleb128 0xb
+ 704 0019 0B       		.uleb128 0xb
+ 705 001a 3E       		.uleb128 0x3e
+ 706 001b 0B       		.uleb128 0xb
+ 707 001c 03       		.uleb128 0x3
+ 708 001d 0E       		.uleb128 0xe
+ 709 001e 00       		.byte	0
+ 710 001f 00       		.byte	0
+ 711 0020 03       		.uleb128 0x3
+ 712 0021 16       		.uleb128 0x16
+ 713 0022 00       		.byte	0
+ 714 0023 03       		.uleb128 0x3
+ 715 0024 0E       		.uleb128 0xe
+ 716 0025 3A       		.uleb128 0x3a
+ 717 0026 0B       		.uleb128 0xb
+ 718 0027 3B       		.uleb128 0x3b
+ 719 0028 0B       		.uleb128 0xb
+ 720 0029 49       		.uleb128 0x49
+ 721 002a 13       		.uleb128 0x13
+ 722 002b 00       		.byte	0
+ 723 002c 00       		.byte	0
+ 724 002d 04       		.uleb128 0x4
+ 725 002e 24       		.uleb128 0x24
+ 726 002f 00       		.byte	0
+ 727 0030 0B       		.uleb128 0xb
+ 728 0031 0B       		.uleb128 0xb
+ 729 0032 3E       		.uleb128 0x3e
+ 730 0033 0B       		.uleb128 0xb
+ 731 0034 03       		.uleb128 0x3
+ 732 0035 08       		.uleb128 0x8
+ 733 0036 00       		.byte	0
+ 734 0037 00       		.byte	0
+ 735 0038 05       		.uleb128 0x5
+ 736 0039 13       		.uleb128 0x13
+ 737 003a 01       		.byte	0x1
+ 738 003b 03       		.uleb128 0x3
+ 739 003c 0E       		.uleb128 0xe
+ 740 003d 0B       		.uleb128 0xb
+ 741 003e 0B       		.uleb128 0xb
+ 742 003f 3A       		.uleb128 0x3a
+ 743 0040 0B       		.uleb128 0xb
+ 744 0041 3B       		.uleb128 0x3b
+ 745 0042 0B       		.uleb128 0xb
+ 746 0043 01       		.uleb128 0x1
+ 747 0044 13       		.uleb128 0x13
+ 748 0045 00       		.byte	0
+ 749 0046 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 16
+
+
+ 750 0047 06       		.uleb128 0x6
+ 751 0048 0D       		.uleb128 0xd
+ 752 0049 00       		.byte	0
+ 753 004a 03       		.uleb128 0x3
+ 754 004b 0E       		.uleb128 0xe
+ 755 004c 3A       		.uleb128 0x3a
+ 756 004d 0B       		.uleb128 0xb
+ 757 004e 3B       		.uleb128 0x3b
+ 758 004f 0B       		.uleb128 0xb
+ 759 0050 49       		.uleb128 0x49
+ 760 0051 13       		.uleb128 0x13
+ 761 0052 38       		.uleb128 0x38
+ 762 0053 0A       		.uleb128 0xa
+ 763 0054 00       		.byte	0
+ 764 0055 00       		.byte	0
+ 765 0056 07       		.uleb128 0x7
+ 766 0057 0D       		.uleb128 0xd
+ 767 0058 00       		.byte	0
+ 768 0059 03       		.uleb128 0x3
+ 769 005a 08       		.uleb128 0x8
+ 770 005b 3A       		.uleb128 0x3a
+ 771 005c 0B       		.uleb128 0xb
+ 772 005d 3B       		.uleb128 0x3b
+ 773 005e 0B       		.uleb128 0xb
+ 774 005f 49       		.uleb128 0x49
+ 775 0060 13       		.uleb128 0x13
+ 776 0061 38       		.uleb128 0x38
+ 777 0062 0A       		.uleb128 0xa
+ 778 0063 00       		.byte	0
+ 779 0064 00       		.byte	0
+ 780 0065 08       		.uleb128 0x8
+ 781 0066 2E       		.uleb128 0x2e
+ 782 0067 01       		.byte	0x1
+ 783 0068 3F       		.uleb128 0x3f
+ 784 0069 0C       		.uleb128 0xc
+ 785 006a 03       		.uleb128 0x3
+ 786 006b 0E       		.uleb128 0xe
+ 787 006c 3A       		.uleb128 0x3a
+ 788 006d 0B       		.uleb128 0xb
+ 789 006e 3B       		.uleb128 0x3b
+ 790 006f 0B       		.uleb128 0xb
+ 791 0070 27       		.uleb128 0x27
+ 792 0071 0C       		.uleb128 0xc
+ 793 0072 49       		.uleb128 0x49
+ 794 0073 13       		.uleb128 0x13
+ 795 0074 11       		.uleb128 0x11
+ 796 0075 01       		.uleb128 0x1
+ 797 0076 12       		.uleb128 0x12
+ 798 0077 01       		.uleb128 0x1
+ 799 0078 40       		.uleb128 0x40
+ 800 0079 06       		.uleb128 0x6
+ 801 007a 9642     		.uleb128 0x2116
+ 802 007c 0C       		.uleb128 0xc
+ 803 007d 01       		.uleb128 0x1
+ 804 007e 13       		.uleb128 0x13
+ 805 007f 00       		.byte	0
+ 806 0080 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 17
+
+
+ 807 0081 09       		.uleb128 0x9
+ 808 0082 05       		.uleb128 0x5
+ 809 0083 00       		.byte	0
+ 810 0084 03       		.uleb128 0x3
+ 811 0085 08       		.uleb128 0x8
+ 812 0086 3A       		.uleb128 0x3a
+ 813 0087 0B       		.uleb128 0xb
+ 814 0088 3B       		.uleb128 0x3b
+ 815 0089 0B       		.uleb128 0xb
+ 816 008a 49       		.uleb128 0x49
+ 817 008b 13       		.uleb128 0x13
+ 818 008c 02       		.uleb128 0x2
+ 819 008d 0A       		.uleb128 0xa
+ 820 008e 00       		.byte	0
+ 821 008f 00       		.byte	0
+ 822 0090 0A       		.uleb128 0xa
+ 823 0091 2E       		.uleb128 0x2e
+ 824 0092 01       		.byte	0x1
+ 825 0093 3F       		.uleb128 0x3f
+ 826 0094 0C       		.uleb128 0xc
+ 827 0095 03       		.uleb128 0x3
+ 828 0096 0E       		.uleb128 0xe
+ 829 0097 3A       		.uleb128 0x3a
+ 830 0098 0B       		.uleb128 0xb
+ 831 0099 3B       		.uleb128 0x3b
+ 832 009a 0B       		.uleb128 0xb
+ 833 009b 27       		.uleb128 0x27
+ 834 009c 0C       		.uleb128 0xc
+ 835 009d 11       		.uleb128 0x11
+ 836 009e 01       		.uleb128 0x1
+ 837 009f 12       		.uleb128 0x12
+ 838 00a0 01       		.uleb128 0x1
+ 839 00a1 40       		.uleb128 0x40
+ 840 00a2 06       		.uleb128 0x6
+ 841 00a3 9742     		.uleb128 0x2117
+ 842 00a5 0C       		.uleb128 0xc
+ 843 00a6 01       		.uleb128 0x1
+ 844 00a7 13       		.uleb128 0x13
+ 845 00a8 00       		.byte	0
+ 846 00a9 00       		.byte	0
+ 847 00aa 0B       		.uleb128 0xb
+ 848 00ab 05       		.uleb128 0x5
+ 849 00ac 00       		.byte	0
+ 850 00ad 03       		.uleb128 0x3
+ 851 00ae 0E       		.uleb128 0xe
+ 852 00af 3A       		.uleb128 0x3a
+ 853 00b0 0B       		.uleb128 0xb
+ 854 00b1 3B       		.uleb128 0x3b
+ 855 00b2 0B       		.uleb128 0xb
+ 856 00b3 49       		.uleb128 0x49
+ 857 00b4 13       		.uleb128 0x13
+ 858 00b5 02       		.uleb128 0x2
+ 859 00b6 0A       		.uleb128 0xa
+ 860 00b7 00       		.byte	0
+ 861 00b8 00       		.byte	0
+ 862 00b9 0C       		.uleb128 0xc
+ 863 00ba 0F       		.uleb128 0xf
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 18
+
+
+ 864 00bb 00       		.byte	0
+ 865 00bc 0B       		.uleb128 0xb
+ 866 00bd 0B       		.uleb128 0xb
+ 867 00be 49       		.uleb128 0x49
+ 868 00bf 13       		.uleb128 0x13
+ 869 00c0 00       		.byte	0
+ 870 00c1 00       		.byte	0
+ 871 00c2 0D       		.uleb128 0xd
+ 872 00c3 2E       		.uleb128 0x2e
+ 873 00c4 01       		.byte	0x1
+ 874 00c5 3F       		.uleb128 0x3f
+ 875 00c6 0C       		.uleb128 0xc
+ 876 00c7 03       		.uleb128 0x3
+ 877 00c8 0E       		.uleb128 0xe
+ 878 00c9 3A       		.uleb128 0x3a
+ 879 00ca 0B       		.uleb128 0xb
+ 880 00cb 3B       		.uleb128 0x3b
+ 881 00cc 0B       		.uleb128 0xb
+ 882 00cd 27       		.uleb128 0x27
+ 883 00ce 0C       		.uleb128 0xc
+ 884 00cf 11       		.uleb128 0x11
+ 885 00d0 01       		.uleb128 0x1
+ 886 00d1 12       		.uleb128 0x12
+ 887 00d2 01       		.uleb128 0x1
+ 888 00d3 40       		.uleb128 0x40
+ 889 00d4 06       		.uleb128 0x6
+ 890 00d5 9642     		.uleb128 0x2116
+ 891 00d7 0C       		.uleb128 0xc
+ 892 00d8 01       		.uleb128 0x1
+ 893 00d9 13       		.uleb128 0x13
+ 894 00da 00       		.byte	0
+ 895 00db 00       		.byte	0
+ 896 00dc 0E       		.uleb128 0xe
+ 897 00dd 34       		.uleb128 0x34
+ 898 00de 00       		.byte	0
+ 899 00df 03       		.uleb128 0x3
+ 900 00e0 0E       		.uleb128 0xe
+ 901 00e1 3A       		.uleb128 0x3a
+ 902 00e2 0B       		.uleb128 0xb
+ 903 00e3 3B       		.uleb128 0x3b
+ 904 00e4 05       		.uleb128 0x5
+ 905 00e5 49       		.uleb128 0x49
+ 906 00e6 13       		.uleb128 0x13
+ 907 00e7 3F       		.uleb128 0x3f
+ 908 00e8 0C       		.uleb128 0xc
+ 909 00e9 3C       		.uleb128 0x3c
+ 910 00ea 0C       		.uleb128 0xc
+ 911 00eb 00       		.byte	0
+ 912 00ec 00       		.byte	0
+ 913 00ed 0F       		.uleb128 0xf
+ 914 00ee 35       		.uleb128 0x35
+ 915 00ef 00       		.byte	0
+ 916 00f0 49       		.uleb128 0x49
+ 917 00f1 13       		.uleb128 0x13
+ 918 00f2 00       		.byte	0
+ 919 00f3 00       		.byte	0
+ 920 00f4 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 19
+
+
+ 921              		.section	.debug_loc,"",%progbits
+ 922              	.Ldebug_loc0:
+ 923              	.LLST0:
+ 924 0000 00000000 		.4byte	.LFB56
+ 925 0004 02000000 		.4byte	.LCFI0
+ 926 0008 0200     		.2byte	0x2
+ 927 000a 7D       		.byte	0x7d
+ 928 000b 00       		.sleb128 0
+ 929 000c 02000000 		.4byte	.LCFI0
+ 930 0010 04000000 		.4byte	.LCFI1
+ 931 0014 0200     		.2byte	0x2
+ 932 0016 7D       		.byte	0x7d
+ 933 0017 08       		.sleb128 8
+ 934 0018 04000000 		.4byte	.LCFI1
+ 935 001c 06000000 		.4byte	.LCFI2
+ 936 0020 0200     		.2byte	0x2
+ 937 0022 7D       		.byte	0x7d
+ 938 0023 10       		.sleb128 16
+ 939 0024 06000000 		.4byte	.LCFI2
+ 940 0028 28000000 		.4byte	.LFE56
+ 941 002c 0200     		.2byte	0x2
+ 942 002e 77       		.byte	0x77
+ 943 002f 10       		.sleb128 16
+ 944 0030 00000000 		.4byte	0
+ 945 0034 00000000 		.4byte	0
+ 946              	.LLST1:
+ 947 0038 00000000 		.4byte	.LFB57
+ 948 003c 02000000 		.4byte	.LCFI3
+ 949 0040 0200     		.2byte	0x2
+ 950 0042 7D       		.byte	0x7d
+ 951 0043 00       		.sleb128 0
+ 952 0044 02000000 		.4byte	.LCFI3
+ 953 0048 04000000 		.4byte	.LCFI4
+ 954 004c 0200     		.2byte	0x2
+ 955 004e 7D       		.byte	0x7d
+ 956 004f 04       		.sleb128 4
+ 957 0050 04000000 		.4byte	.LCFI4
+ 958 0054 06000000 		.4byte	.LCFI5
+ 959 0058 0200     		.2byte	0x2
+ 960 005a 7D       		.byte	0x7d
+ 961 005b 10       		.sleb128 16
+ 962 005c 06000000 		.4byte	.LCFI5
+ 963 0060 1A000000 		.4byte	.LFE57
+ 964 0064 0200     		.2byte	0x2
+ 965 0066 77       		.byte	0x77
+ 966 0067 10       		.sleb128 16
+ 967 0068 00000000 		.4byte	0
+ 968 006c 00000000 		.4byte	0
+ 969              	.LLST2:
+ 970 0070 00000000 		.4byte	.LFB58
+ 971 0074 02000000 		.4byte	.LCFI6
+ 972 0078 0200     		.2byte	0x2
+ 973 007a 7D       		.byte	0x7d
+ 974 007b 00       		.sleb128 0
+ 975 007c 02000000 		.4byte	.LCFI6
+ 976 0080 04000000 		.4byte	.LCFI7
+ 977 0084 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 20
+
+
+ 978 0086 7D       		.byte	0x7d
+ 979 0087 04       		.sleb128 4
+ 980 0088 04000000 		.4byte	.LCFI7
+ 981 008c 06000000 		.4byte	.LCFI8
+ 982 0090 0200     		.2byte	0x2
+ 983 0092 7D       		.byte	0x7d
+ 984 0093 10       		.sleb128 16
+ 985 0094 06000000 		.4byte	.LCFI8
+ 986 0098 1A000000 		.4byte	.LFE58
+ 987 009c 0200     		.2byte	0x2
+ 988 009e 77       		.byte	0x77
+ 989 009f 10       		.sleb128 16
+ 990 00a0 00000000 		.4byte	0
+ 991 00a4 00000000 		.4byte	0
+ 992              	.LLST3:
+ 993 00a8 00000000 		.4byte	.LFB59
+ 994 00ac 02000000 		.4byte	.LCFI9
+ 995 00b0 0200     		.2byte	0x2
+ 996 00b2 7D       		.byte	0x7d
+ 997 00b3 00       		.sleb128 0
+ 998 00b4 02000000 		.4byte	.LCFI9
+ 999 00b8 04000000 		.4byte	.LCFI10
+ 1000 00bc 0200     		.2byte	0x2
+ 1001 00be 7D       		.byte	0x7d
+ 1002 00bf 04       		.sleb128 4
+ 1003 00c0 04000000 		.4byte	.LCFI10
+ 1004 00c4 06000000 		.4byte	.LCFI11
+ 1005 00c8 0200     		.2byte	0x2
+ 1006 00ca 7D       		.byte	0x7d
+ 1007 00cb 10       		.sleb128 16
+ 1008 00cc 06000000 		.4byte	.LCFI11
+ 1009 00d0 1A000000 		.4byte	.LFE59
+ 1010 00d4 0200     		.2byte	0x2
+ 1011 00d6 77       		.byte	0x77
+ 1012 00d7 10       		.sleb128 16
+ 1013 00d8 00000000 		.4byte	0
+ 1014 00dc 00000000 		.4byte	0
+ 1015              	.LLST4:
+ 1016 00e0 00000000 		.4byte	.LFB60
+ 1017 00e4 02000000 		.4byte	.LCFI12
+ 1018 00e8 0200     		.2byte	0x2
+ 1019 00ea 7D       		.byte	0x7d
+ 1020 00eb 00       		.sleb128 0
+ 1021 00ec 02000000 		.4byte	.LCFI12
+ 1022 00f0 04000000 		.4byte	.LCFI13
+ 1023 00f4 0200     		.2byte	0x2
+ 1024 00f6 7D       		.byte	0x7d
+ 1025 00f7 0C       		.sleb128 12
+ 1026 00f8 04000000 		.4byte	.LCFI13
+ 1027 00fc 06000000 		.4byte	.LCFI14
+ 1028 0100 0200     		.2byte	0x2
+ 1029 0102 7D       		.byte	0x7d
+ 1030 0103 18       		.sleb128 24
+ 1031 0104 06000000 		.4byte	.LCFI14
+ 1032 0108 22010000 		.4byte	.LFE60
+ 1033 010c 0200     		.2byte	0x2
+ 1034 010e 77       		.byte	0x77
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 21
+
+
+ 1035 010f 18       		.sleb128 24
+ 1036 0110 00000000 		.4byte	0
+ 1037 0114 00000000 		.4byte	0
+ 1038              		.section	.debug_aranges,"",%progbits
+ 1039 0000 3C000000 		.4byte	0x3c
+ 1040 0004 0200     		.2byte	0x2
+ 1041 0006 00000000 		.4byte	.Ldebug_info0
+ 1042 000a 04       		.byte	0x4
+ 1043 000b 00       		.byte	0
+ 1044 000c 0000     		.2byte	0
+ 1045 000e 0000     		.2byte	0
+ 1046 0010 00000000 		.4byte	.LFB56
+ 1047 0014 28000000 		.4byte	.LFE56-.LFB56
+ 1048 0018 00000000 		.4byte	.LFB57
+ 1049 001c 1A000000 		.4byte	.LFE57-.LFB57
+ 1050 0020 00000000 		.4byte	.LFB58
+ 1051 0024 1A000000 		.4byte	.LFE58-.LFB58
+ 1052 0028 00000000 		.4byte	.LFB59
+ 1053 002c 1A000000 		.4byte	.LFE59-.LFB59
+ 1054 0030 00000000 		.4byte	.LFB60
+ 1055 0034 22010000 		.4byte	.LFE60-.LFB60
+ 1056 0038 00000000 		.4byte	0
+ 1057 003c 00000000 		.4byte	0
+ 1058              		.section	.debug_ranges,"",%progbits
+ 1059              	.Ldebug_ranges0:
+ 1060 0000 00000000 		.4byte	.LFB56
+ 1061 0004 28000000 		.4byte	.LFE56
+ 1062 0008 00000000 		.4byte	.LFB57
+ 1063 000c 1A000000 		.4byte	.LFE57
+ 1064 0010 00000000 		.4byte	.LFB58
+ 1065 0014 1A000000 		.4byte	.LFE58
+ 1066 0018 00000000 		.4byte	.LFB59
+ 1067 001c 1A000000 		.4byte	.LFE59
+ 1068 0020 00000000 		.4byte	.LFB60
+ 1069 0024 22010000 		.4byte	.LFE60
+ 1070 0028 00000000 		.4byte	0
+ 1071 002c 00000000 		.4byte	0
+ 1072              		.section	.debug_line,"",%progbits
+ 1073              	.Ldebug_line0:
+ 1074 0000 85010000 		.section	.debug_str,"MS",%progbits,1
+ 1074      02001101 
+ 1074      00000201 
+ 1074      FB0E0D00 
+ 1074      01010101 
+ 1075              	.LASF33:
+ 1076 0000 2E5C7374 		.ascii	".\\statistics.c\000"
+ 1076      61746973 
+ 1076      74696373 
+ 1076      2E6300
+ 1077              	.LASF26:
+ 1078 000f 73746174 		.ascii	"stat\000"
+ 1078      00
+ 1079              	.LASF31:
+ 1080 0014 76616C75 		.ascii	"value\000"
+ 1080      6500
+ 1081              	.LASF35:
+ 1082 001a 53544154 		.ascii	"STATISTICS\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 22
+
+
+ 1082      49535449 
+ 1082      435300
+ 1083              	.LASF27:
+ 1084 0025 73746174 		.ascii	"statistics_init\000"
+ 1084      69737469 
+ 1084      63735F69 
+ 1084      6E697400 
+ 1085              	.LASF13:
+ 1086 0035 646F7562 		.ascii	"double\000"
+ 1086      6C6500
+ 1087              	.LASF23:
+ 1088 003c 76617269 		.ascii	"variance\000"
+ 1088      616E6365 
+ 1088      00
+ 1089              	.LASF9:
+ 1090 0045 696E7433 		.ascii	"int32_t\000"
+ 1090      325F7400 
+ 1091              	.LASF22:
+ 1092 004d 516B5F70 		.ascii	"Qk_previous\000"
+ 1092      72657669 
+ 1092      6F757300 
+ 1093              	.LASF12:
+ 1094 0059 666C6F61 		.ascii	"float\000"
+ 1094      7400
+ 1095              	.LASF1:
+ 1096 005f 756E7369 		.ascii	"unsigned char\000"
+ 1096      676E6564 
+ 1096      20636861 
+ 1096      7200
+ 1097              	.LASF30:
+ 1098 006d 73746174 		.ascii	"statistics_elab_step\000"
+ 1098      69737469 
+ 1098      63735F65 
+ 1098      6C61625F 
+ 1098      73746570 
+ 1099              	.LASF17:
+ 1100 0082 6D657373 		.ascii	"messg\000"
+ 1100      6700
+ 1101              	.LASF25:
+ 1102 0088 7469636B 		.ascii	"tick\000"
+ 1102      00
+ 1103              	.LASF3:
+ 1104 008d 73686F72 		.ascii	"short unsigned int\000"
+ 1104      7420756E 
+ 1104      7369676E 
+ 1104      65642069 
+ 1104      6E7400
+ 1105              	.LASF37:
+ 1106 00a0 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1106      52784275 
+ 1106      66666572 
+ 1106      00
+ 1107              	.LASF20:
+ 1108 00ad 72616E67 		.ascii	"range\000"
+ 1108      6500
+ 1109              	.LASF36:
+ 1110 00b3 73717561 		.ascii	"square\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 23
+
+
+ 1110      726500
+ 1111              	.LASF5:
+ 1112 00ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1112      20756E73 
+ 1112      69676E65 
+ 1112      6420696E 
+ 1112      7400
+ 1113              	.LASF29:
+ 1114 00cc 73746174 		.ascii	"statistics_stop\000"
+ 1114      69737469 
+ 1114      63735F73 
+ 1114      746F7000 
+ 1115              	.LASF2:
+ 1116 00dc 73686F72 		.ascii	"short int\000"
+ 1116      7420696E 
+ 1116      7400
+ 1117              	.LASF34:
+ 1118 00e6 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 1118      73657273 
+ 1118      5C477261 
+ 1118      7A69616E 
+ 1118      6F20472E 
+ 1119 0115 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 1119      5C535155 
+ 1119      49545C56 
+ 1119      6572732E 
+ 1119      302E302D 
+ 1120 0145 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 1120      2D50726F 
+ 1120      746F2E63 
+ 1120      7964736E 
+ 1120      00
+ 1121              	.LASF11:
+ 1122 0156 75696E74 		.ascii	"uint32\000"
+ 1122      333200
+ 1123              	.LASF8:
+ 1124 015d 756E7369 		.ascii	"unsigned int\000"
+ 1124      676E6564 
+ 1124      20696E74 
+ 1124      00
+ 1125              	.LASF7:
+ 1126 016a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1126      206C6F6E 
+ 1126      6720756E 
+ 1126      7369676E 
+ 1126      65642069 
+ 1127              	.LASF18:
+ 1128 0181 6D65616E 		.ascii	"mean\000"
+ 1128      00
+ 1129              	.LASF28:
+ 1130 0186 73746174 		.ascii	"statistics_start\000"
+ 1130      69737469 
+ 1130      63735F73 
+ 1130      74617274 
+ 1130      00
+ 1131              	.LASF15:
+ 1132 0197 73697A65 		.ascii	"sizetype\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccWYc2H4.s 			page 24
+
+
+ 1132      74797065 
+ 1132      00
+ 1133              	.LASF6:
+ 1134 01a0 6C6F6E67 		.ascii	"long long int\000"
+ 1134      206C6F6E 
+ 1134      6720696E 
+ 1134      7400
+ 1135              	.LASF14:
+ 1136 01ae 63686172 		.ascii	"char\000"
+ 1136      00
+ 1137              	.LASF21:
+ 1138 01b3 73636172 		.ascii	"scarto\000"
+ 1138      746F00
+ 1139              	.LASF10:
+ 1140 01ba 75696E74 		.ascii	"uint8\000"
+ 1140      3800
+ 1141              	.LASF32:
+ 1142 01c0 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1142      4320342E 
+ 1142      372E3320 
+ 1142      32303133 
+ 1142      30333132 
+ 1143 01f3 616E6368 		.ascii	"anch revision 196615]\000"
+ 1143      20726576 
+ 1143      6973696F 
+ 1143      6E203139 
+ 1143      36363135 
+ 1144              	.LASF19:
+ 1145 0209 6D65616E 		.ascii	"mean_previous\000"
+ 1145      5F707265 
+ 1145      76696F75 
+ 1145      7300
+ 1146              	.LASF4:
+ 1147 0217 6C6F6E67 		.ascii	"long int\000"
+ 1147      20696E74 
+ 1147      00
+ 1148              	.LASF16:
+ 1149 0220 6C6F6E67 		.ascii	"long double\000"
+ 1149      20646F75 
+ 1149      626C6500 
+ 1150              	.LASF0:
+ 1151 022c 7369676E 		.ascii	"signed char\000"
+ 1151      65642063 
+ 1151      68617200 
+ 1152              	.LASF24:
+ 1153 0238 69746572 		.ascii	"iteration_num\000"
+ 1153      6174696F 
+ 1153      6E5F6E75 
+ 1153      6D00
+ 1154              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

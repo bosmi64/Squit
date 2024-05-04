@@ -1,0 +1,2979 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"isr_EVENTS_IDENTIF.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.isr_EVENTS_IDENTIF_Interrupt,"ax",%progbits
+  19              		.align	1
+  20              		.global	isr_EVENTS_IDENTIF_Interrupt
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	isr_EVENTS_IDENTIF_Interrupt, %function
+  24              	isr_EVENTS_IDENTIF_Interrupt:
+  25              	.LFB3:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\isr_EVENTS_IDENTIF.c"
+   1:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * File Name: isr_EVENTS_IDENTIF.c  
+   3:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+   5:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+   8:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+   9:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  11:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  18:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  19:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #include <isr_EVENTS_IDENTIF.h>
+  22:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  23:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #if !defined(isr_EVENTS_IDENTIF__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  25:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /* `#START isr_EVENTS_IDENTIF_intc` */
+  29:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  30:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #include <gobee.h>
+  31:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #include <estimators.h>
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	
+  33:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /* extern Analog ADXL325 3D accelerometer vars) */
+  34:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** extern struct ANALOG_3D_ACCELEROMETER aacc;
+  35:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	
+  36:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /* `#END` */
+  37:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  38:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #ifndef CYINT_IRQ_BASE
+  39:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #define CYINT_IRQ_BASE      16
+  40:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #endif /* CYINT_IRQ_BASE */
+  41:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #ifndef CYINT_VECT_TABLE
+  42:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  43:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** #endif /* CYINT_VECT_TABLE */
+  44:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  45:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /* Declared in startup, used to set unused interrupts to. */
+  46:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** CY_ISR_PROTO(IntDefaultHandler);
+  47:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  48:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  49:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+  50:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_Start
+  51:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+  52:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  53:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+  54:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *  Set up the interrupt and enable it.
+  55:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  56:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:  
+  57:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+  58:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  59:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+  60:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+  61:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  62:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+  63:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_Start(void)
+  64:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+  65:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* For all we know the interrupt is active. */
+  66:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_Disable();
+  67:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  68:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Set the ISR to point to the isr_EVENTS_IDENTIF Interrupt. */
+  69:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_SetVector(&isr_EVENTS_IDENTIF_Interrupt);
+  70:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  71:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Set the priority. */
+  72:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_SetPriority((uint8)isr_EVENTS_IDENTIF_INTC_PRIOR_NUMBER);
+  73:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  74:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Enable it. */
+  75:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_Enable();
+  76:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+  77:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  78:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  79:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+  80:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_StartEx
+  81:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+  82:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  83:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+  84:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *  Set up the interrupt and enable it.
+  85:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  86:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:  
+  87:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  88:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+  90:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+  91:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+  92:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+  93:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_StartEx(cyisraddress address)
+  94:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+  95:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* For all we know the interrupt is active. */
+  96:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_Disable();
+  97:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+  98:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Set the ISR to point to the isr_EVENTS_IDENTIF Interrupt. */
+  99:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_SetVector(address);
+ 100:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 101:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Set the priority. */
+ 102:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_SetPriority((uint8)isr_EVENTS_IDENTIF_INTC_PRIOR_NUMBER);
+ 103:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 104:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Enable it. */
+ 105:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_Enable();
+ 106:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 107:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 108:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 109:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 110:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_Stop
+ 111:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 112:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 113:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 114:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Disables and removes the interrupt.
+ 115:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 116:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:  
+ 117:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 118:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 119:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 120:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 121:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 122:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_Stop(void)
+ 123:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 124:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Disable this interrupt. */
+ 125:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_Disable();
+ 126:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 127:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Set the ISR to point to the passive one. */
+ 128:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     isr_EVENTS_IDENTIF_SetVector(&IntDefaultHandler);
+ 129:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 130:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 131:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 132:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 133:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_Interrupt
+ 134:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 135:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 136:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 137:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   The default Interrupt Service Routine for isr_EVENTS_IDENTIF.
+ 138:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 139:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Add custom code between the coments to keep the next version of this file
+ 140:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   from over writting your code.
+ 141:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 142:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:  
+ 143:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 144:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 145:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 4
+
+
+ 146:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 147:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 148:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** CY_ISR(isr_EVENTS_IDENTIF_Interrupt)
+ 149:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+  27              		.loc 1 149 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+ 150:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /*  Place your Interrupt code here. */
+ 151:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* `#START isr_EVENTS_IDENTIF_Interrupt` */
+ 152:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	
+ 153:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	SimpleTiltAngleEventsEstimator(aacc.angle_estim_tilt);
+  36              		.loc 1 153 0
+  37 0002 084C     		ldr	r4, .L2
+  38 0004 206B     		ldr	r0, [r4, #48]	@ float
+  39 0006 FFF7FEFF 		bl	SimpleTiltAngleEventsEstimator
+  40              	.LVL0:
+ 154:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	//SimpleRollAngleEventsEstimator(aacc.angle_estim_roll);	
+ 155:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	SimpleVibrationEventsEstimator(aacc.system_dynamic_scalar);
+  41              		.loc 1 155 0
+  42 000a E06A     		ldr	r0, [r4, #44]	@ float
+  43 000c FFF7FEFF 		bl	SimpleVibrationEventsEstimator
+  44              	.LVL1:
+ 156:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	SimpleJumpEventEstimator(aacc.x_axis.acceleration,aacc.y_axis.acceleration,aacc.z_axis.acceleratio
+  45              		.loc 1 156 0
+  46 0010 A068     		ldr	r0, [r4, #8]	@ float
+  47 0012 6169     		ldr	r1, [r4, #20]	@ float
+  48 0014 226A     		ldr	r2, [r4, #32]	@ float
+  49 0016 A36A     		ldr	r3, [r4, #40]	@ float
+  50 0018 FFF7FEFF 		bl	SimpleJumpEventEstimator
+  51              	.LVL2:
+ 157:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	
+ 158:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	MappingStateMachineExecution();
+ 159:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	
+ 160:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* `#END` */
+ 161:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+  52              		.loc 1 161 0
+  53 001c BDE81040 		pop	{r4, lr}
+ 158:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 	MappingStateMachineExecution();
+  54              		.loc 1 158 0
+  55 0020 FFF7FEBF 		b	MappingStateMachineExecution
+  56              	.LVL3:
+  57              	.L3:
+  58              		.align	2
+  59              	.L2:
+  60 0024 00000000 		.word	aacc
+  61              		.cfi_endproc
+  62              	.LFE3:
+  63              		.size	isr_EVENTS_IDENTIF_Interrupt, .-isr_EVENTS_IDENTIF_Interrupt
+  64              		.section	.text.isr_EVENTS_IDENTIF_Start,"ax",%progbits
+  65              		.align	1
+  66              		.global	isr_EVENTS_IDENTIF_Start
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 5
+
+
+  67              		.thumb
+  68              		.thumb_func
+  69              		.type	isr_EVENTS_IDENTIF_Start, %function
+  70              	isr_EVENTS_IDENTIF_Start:
+  71              	.LFB0:
+  64:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+  72              		.loc 1 64 0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              		@ link register save eliminated.
+  77              	.LBB22:
+  78              	.LBB23:
+ 162:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 163:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 164:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 165:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_SetVector
+ 166:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 167:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 168:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 169:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Change the ISR vector for the Interrupt. Note calling isr_EVENTS_IDENTIF_Start
+ 170:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   will override any effect this method would have had. To set the vector 
+ 171:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   before the component has been started use isr_EVENTS_IDENTIF_StartEx instead.
+ 172:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 173:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 174:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 175:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 176:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 177:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 178:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 179:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 180:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_SetVector(cyisraddress address)
+ 181:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 182:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     cyisraddress * ramVectorTable;
+ 183:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 185:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 186:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER] = address;
+ 187:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 188:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 189:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 190:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 191:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_GetVector
+ 192:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 193:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 194:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 195:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 196:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 197:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 198:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 199:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 200:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 201:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Address of the ISR in the interrupt vector table.
+ 202:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 203:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 204:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** cyisraddress isr_EVENTS_IDENTIF_GetVector(void)
+ 205:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 6
+
+
+ 206:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     cyisraddress * ramVectorTable;
+ 207:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 208:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 209:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 210:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER];
+ 211:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 212:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 213:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 214:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 215:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_SetPriority
+ 216:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 217:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 218:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 219:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Sets the Priority of the Interrupt. Note calling isr_EVENTS_IDENTIF_Start
+ 220:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   or isr_EVENTS_IDENTIF_StartEx will override any effect this method 
+ 221:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   would have had. This method should only be called after 
+ 222:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   isr_EVENTS_IDENTIF_Start or isr_EVENTS_IDENTIF_StartEx has been called. To set 
+ 223:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 224:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 225:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 226:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 227:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 228:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 229:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 230:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 231:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 232:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_SetPriority(uint8 priority)
+ 233:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 235:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 236:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 237:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 238:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 239:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_GetPriority
+ 240:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 241:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 242:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 243:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Gets the Priority of the Interrupt.
+ 244:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 245:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 246:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 247:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 248:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 249:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 250:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 251:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 252:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** uint8 isr_EVENTS_IDENTIF_GetPriority(void)
+ 253:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 254:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     uint8 priority;
+ 255:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 256:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 257:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     priority = *isr_EVENTS_IDENTIF_INTC_PRIOR >> 5;
+ 258:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 259:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     return priority;
+ 260:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 261:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 262:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 7
+
+
+ 263:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 264:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_Enable
+ 265:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 266:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 267:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 268:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Enables the interrupt.
+ 269:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 270:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 271:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 272:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 273:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 274:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 275:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 276:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 277:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_Enable(void)
+ 278:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 279:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Enable the general interrupt. */
+ 280:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+ 281:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 282:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 283:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 284:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 285:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_GetState
+ 286:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 287:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 288:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 289:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 290:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 291:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 292:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 293:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 294:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 295:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   1 if enabled, 0 if disabled.
+ 296:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 297:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 298:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** uint8 isr_EVENTS_IDENTIF_GetState(void)
+ 299:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 300:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Get the state of the general interrupt. */
+ 301:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     return ((*isr_EVENTS_IDENTIF_INTC_SET_EN & (uint32)isr_EVENTS_IDENTIF__INTC_MASK) != 0u) ? 1u:0
+ 302:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 303:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 304:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 305:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 306:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_Disable
+ 307:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 308:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 309:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 310:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Disables the Interrupt.
+ 311:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 312:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 313:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 314:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 315:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 316:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 317:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 318:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 319:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_Disable(void)
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 8
+
+
+ 320:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 321:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     /* Disable the general interrupt. */
+ 322:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_CLR_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+  79              		.loc 1 322 0
+  80 0000 074A     		ldr	r2, .L5
+  81              	.LBE23:
+  82              	.LBE22:
+  83              	.LBB25:
+  84              	.LBB26:
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+  85              		.loc 1 184 0
+  86 0002 0848     		ldr	r0, .L5+4
+  87              	.LBE26:
+  88              	.LBE25:
+  89              	.LBB29:
+  90              	.LBB24:
+  91              		.loc 1 322 0
+  92 0004 2023     		movs	r3, #32
+  93 0006 1360     		str	r3, [r2, #0]
+  94              	.LVL4:
+  95              	.LBE24:
+  96              	.LBE29:
+  97              	.LBB30:
+  98              	.LBB27:
+ 186:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER] = address;
+  99              		.loc 1 186 0
+ 100 0008 0749     		ldr	r1, .L5+8
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 101              		.loc 1 184 0
+ 102 000a 0268     		ldr	r2, [r0, #0]
+ 103              	.LVL5:
+ 104              	.LBE27:
+ 105              	.LBE30:
+ 106              	.LBB31:
+ 107              	.LBB32:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 108              		.loc 1 234 0
+ 109 000c C020     		movs	r0, #192
+ 110              	.LBE32:
+ 111              	.LBE31:
+ 112              	.LBB35:
+ 113              	.LBB28:
+ 186:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER] = address;
+ 114              		.loc 1 186 0
+ 115 000e 5165     		str	r1, [r2, #84]
+ 116              	.LVL6:
+ 117              	.LBE28:
+ 118              	.LBE35:
+ 119              	.LBB36:
+ 120              	.LBB33:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 121              		.loc 1 234 0
+ 122 0010 064A     		ldr	r2, .L5+12
+ 123              	.LVL7:
+ 124              	.LBE33:
+ 125              	.LBE36:
+ 126              	.LBB37:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 9
+
+
+ 127              	.LBB38:
+ 280:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+ 128              		.loc 1 280 0
+ 129 0012 6FF44171 		mvn	r1, #772
+ 130              	.LBE38:
+ 131              	.LBE37:
+ 132              	.LBB40:
+ 133              	.LBB34:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 134              		.loc 1 234 0
+ 135 0016 1070     		strb	r0, [r2, #0]
+ 136              	.LBE34:
+ 137              	.LBE40:
+ 138              	.LBB41:
+ 139              	.LBB39:
+ 280:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+ 140              		.loc 1 280 0
+ 141 0018 5018     		adds	r0, r2, r1
+ 142 001a 0360     		str	r3, [r0, #0]
+ 143 001c 7047     		bx	lr
+ 144              	.L6:
+ 145 001e 00BF     		.align	2
+ 146              	.L5:
+ 147 0020 80E100E0 		.word	-536813184
+ 148 0024 08ED00E0 		.word	-536810232
+ 149 0028 00000000 		.word	isr_EVENTS_IDENTIF_Interrupt
+ 150 002c 05E400E0 		.word	-536812539
+ 151              	.LBE39:
+ 152              	.LBE41:
+ 153              		.cfi_endproc
+ 154              	.LFE0:
+ 155              		.size	isr_EVENTS_IDENTIF_Start, .-isr_EVENTS_IDENTIF_Start
+ 156              		.section	.text.isr_EVENTS_IDENTIF_StartEx,"ax",%progbits
+ 157              		.align	1
+ 158              		.global	isr_EVENTS_IDENTIF_StartEx
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.type	isr_EVENTS_IDENTIF_StartEx, %function
+ 162              	isr_EVENTS_IDENTIF_StartEx:
+ 163              	.LFB1:
+  94:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 164              		.loc 1 94 0
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168              		@ link register save eliminated.
+ 169              	.LVL8:
+ 170              	.LBB42:
+ 171              	.LBB43:
+ 172              		.loc 1 322 0
+ 173 0000 064A     		ldr	r2, .L8
+ 174              	.LBE43:
+ 175              	.LBE42:
+ 176              	.LBB45:
+ 177              	.LBB46:
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 178              		.loc 1 184 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 10
+
+
+ 179 0002 0749     		ldr	r1, .L8+4
+ 180              	.LBE46:
+ 181              	.LBE45:
+ 182              	.LBB49:
+ 183              	.LBB44:
+ 184              		.loc 1 322 0
+ 185 0004 2023     		movs	r3, #32
+ 186 0006 1360     		str	r3, [r2, #0]
+ 187              	.LVL9:
+ 188              	.LBE44:
+ 189              	.LBE49:
+ 190              	.LBB50:
+ 191              	.LBB47:
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 192              		.loc 1 184 0
+ 193 0008 0A68     		ldr	r2, [r1, #0]
+ 194              	.LVL10:
+ 195              	.LBE47:
+ 196              	.LBE50:
+ 197              	.LBB51:
+ 198              	.LBB52:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 199              		.loc 1 234 0
+ 200 000a 0649     		ldr	r1, .L8+8
+ 201              	.LBE52:
+ 202              	.LBE51:
+ 203              	.LBB55:
+ 204              	.LBB48:
+ 186:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER] = address;
+ 205              		.loc 1 186 0
+ 206 000c 5065     		str	r0, [r2, #84]
+ 207              	.LVL11:
+ 208              	.LBE48:
+ 209              	.LBE55:
+ 210              	.LBB56:
+ 211              	.LBB53:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 212              		.loc 1 234 0
+ 213 000e C020     		movs	r0, #192
+ 214              	.LVL12:
+ 215              	.LBE53:
+ 216              	.LBE56:
+ 217              	.LBB57:
+ 218              	.LBB58:
+ 280:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+ 219              		.loc 1 280 0
+ 220 0010 6FF44172 		mvn	r2, #772
+ 221              	.LVL13:
+ 222              	.LBE58:
+ 223              	.LBE57:
+ 224              	.LBB60:
+ 225              	.LBB54:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 226              		.loc 1 234 0
+ 227 0014 0870     		strb	r0, [r1, #0]
+ 228              	.LBE54:
+ 229              	.LBE60:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 11
+
+
+ 230              	.LBB61:
+ 231              	.LBB59:
+ 280:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+ 232              		.loc 1 280 0
+ 233 0016 8818     		adds	r0, r1, r2
+ 234 0018 0360     		str	r3, [r0, #0]
+ 235 001a 7047     		bx	lr
+ 236              	.L9:
+ 237              		.align	2
+ 238              	.L8:
+ 239 001c 80E100E0 		.word	-536813184
+ 240 0020 08ED00E0 		.word	-536810232
+ 241 0024 05E400E0 		.word	-536812539
+ 242              	.LBE59:
+ 243              	.LBE61:
+ 244              		.cfi_endproc
+ 245              	.LFE1:
+ 246              		.size	isr_EVENTS_IDENTIF_StartEx, .-isr_EVENTS_IDENTIF_StartEx
+ 247              		.section	.text.isr_EVENTS_IDENTIF_Stop,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	isr_EVENTS_IDENTIF_Stop
+ 250              		.thumb
+ 251              		.thumb_func
+ 252              		.type	isr_EVENTS_IDENTIF_Stop, %function
+ 253              	isr_EVENTS_IDENTIF_Stop:
+ 254              	.LFB2:
+ 123:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 255              		.loc 1 123 0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 0
+ 258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259              		@ link register save eliminated.
+ 260              	.LBB62:
+ 261              	.LBB63:
+ 262              		.loc 1 322 0
+ 263 0000 034B     		ldr	r3, .L11
+ 264              	.LBE63:
+ 265              	.LBE62:
+ 266              	.LBB65:
+ 267              	.LBB66:
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 268              		.loc 1 184 0
+ 269 0002 0448     		ldr	r0, .L11+4
+ 270              	.LBE66:
+ 271              	.LBE65:
+ 272              	.LBB68:
+ 273              	.LBB64:
+ 274              		.loc 1 322 0
+ 275 0004 2022     		movs	r2, #32
+ 276 0006 1A60     		str	r2, [r3, #0]
+ 277              	.LVL14:
+ 278              	.LBE64:
+ 279              	.LBE68:
+ 280              	.LBB69:
+ 281              	.LBB67:
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 282              		.loc 1 184 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 12
+
+
+ 283 0008 0168     		ldr	r1, [r0, #0]
+ 284              	.LVL15:
+ 186:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER] = address;
+ 285              		.loc 1 186 0
+ 286 000a 034A     		ldr	r2, .L11+8
+ 287 000c 4A65     		str	r2, [r1, #84]
+ 288 000e 7047     		bx	lr
+ 289              	.L12:
+ 290              		.align	2
+ 291              	.L11:
+ 292 0010 80E100E0 		.word	-536813184
+ 293 0014 08ED00E0 		.word	-536810232
+ 294 0018 00000000 		.word	IntDefaultHandler
+ 295              	.LBE67:
+ 296              	.LBE69:
+ 297              		.cfi_endproc
+ 298              	.LFE2:
+ 299              		.size	isr_EVENTS_IDENTIF_Stop, .-isr_EVENTS_IDENTIF_Stop
+ 300              		.section	.text.isr_EVENTS_IDENTIF_SetVector,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	isr_EVENTS_IDENTIF_SetVector
+ 303              		.thumb
+ 304              		.thumb_func
+ 305              		.type	isr_EVENTS_IDENTIF_SetVector, %function
+ 306              	isr_EVENTS_IDENTIF_SetVector:
+ 307              	.LFB4:
+ 181:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 308              		.loc 1 181 0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+ 313              	.LVL16:
+ 184:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 314              		.loc 1 184 0
+ 315 0000 014B     		ldr	r3, .L14
+ 316 0002 1968     		ldr	r1, [r3, #0]
+ 317              	.LVL17:
+ 186:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER] = address;
+ 318              		.loc 1 186 0
+ 319 0004 4865     		str	r0, [r1, #84]
+ 320 0006 7047     		bx	lr
+ 321              	.L15:
+ 322              		.align	2
+ 323              	.L14:
+ 324 0008 08ED00E0 		.word	-536810232
+ 325              		.cfi_endproc
+ 326              	.LFE4:
+ 327              		.size	isr_EVENTS_IDENTIF_SetVector, .-isr_EVENTS_IDENTIF_SetVector
+ 328              		.section	.text.isr_EVENTS_IDENTIF_GetVector,"ax",%progbits
+ 329              		.align	1
+ 330              		.global	isr_EVENTS_IDENTIF_GetVector
+ 331              		.thumb
+ 332              		.thumb_func
+ 333              		.type	isr_EVENTS_IDENTIF_GetVector, %function
+ 334              	isr_EVENTS_IDENTIF_GetVector:
+ 335              	.LFB5:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 13
+
+
+ 205:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 336              		.loc 1 205 0
+ 337              		.cfi_startproc
+ 338              		@ args = 0, pretend = 0, frame = 0
+ 339              		@ frame_needed = 0, uses_anonymous_args = 0
+ 340              		@ link register save eliminated.
+ 341              	.LVL18:
+ 208:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 342              		.loc 1 208 0
+ 343 0000 014B     		ldr	r3, .L17
+ 344              	.LVL19:
+ 210:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isr_EVENTS_IDENTIF__INTC_NUMBER];
+ 345              		.loc 1 210 0
+ 346 0002 1868     		ldr	r0, [r3, #0]
+ 211:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 347              		.loc 1 211 0
+ 348 0004 406D     		ldr	r0, [r0, #84]
+ 349 0006 7047     		bx	lr
+ 350              	.L18:
+ 351              		.align	2
+ 352              	.L17:
+ 353 0008 08ED00E0 		.word	-536810232
+ 354              		.cfi_endproc
+ 355              	.LFE5:
+ 356              		.size	isr_EVENTS_IDENTIF_GetVector, .-isr_EVENTS_IDENTIF_GetVector
+ 357              		.section	.text.isr_EVENTS_IDENTIF_SetPriority,"ax",%progbits
+ 358              		.align	1
+ 359              		.global	isr_EVENTS_IDENTIF_SetPriority
+ 360              		.thumb
+ 361              		.thumb_func
+ 362              		.type	isr_EVENTS_IDENTIF_SetPriority, %function
+ 363              	isr_EVENTS_IDENTIF_SetPriority:
+ 364              	.LFB6:
+ 233:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 365              		.loc 1 233 0
+ 366              		.cfi_startproc
+ 367              		@ args = 0, pretend = 0, frame = 0
+ 368              		@ frame_needed = 0, uses_anonymous_args = 0
+ 369              		@ link register save eliminated.
+ 370              	.LVL20:
+ 234:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_PRIOR = priority << 5;
+ 371              		.loc 1 234 0
+ 372 0000 4001     		lsls	r0, r0, #5
+ 373              	.LVL21:
+ 374 0002 024B     		ldr	r3, .L20
+ 375 0004 C1B2     		uxtb	r1, r0
+ 376 0006 1970     		strb	r1, [r3, #0]
+ 377 0008 7047     		bx	lr
+ 378              	.L21:
+ 379 000a 00BF     		.align	2
+ 380              	.L20:
+ 381 000c 05E400E0 		.word	-536812539
+ 382              		.cfi_endproc
+ 383              	.LFE6:
+ 384              		.size	isr_EVENTS_IDENTIF_SetPriority, .-isr_EVENTS_IDENTIF_SetPriority
+ 385              		.section	.text.isr_EVENTS_IDENTIF_GetPriority,"ax",%progbits
+ 386              		.align	1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 14
+
+
+ 387              		.global	isr_EVENTS_IDENTIF_GetPriority
+ 388              		.thumb
+ 389              		.thumb_func
+ 390              		.type	isr_EVENTS_IDENTIF_GetPriority, %function
+ 391              	isr_EVENTS_IDENTIF_GetPriority:
+ 392              	.LFB7:
+ 253:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 393              		.loc 1 253 0
+ 394              		.cfi_startproc
+ 395              		@ args = 0, pretend = 0, frame = 0
+ 396              		@ frame_needed = 0, uses_anonymous_args = 0
+ 397              		@ link register save eliminated.
+ 257:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     priority = *isr_EVENTS_IDENTIF_INTC_PRIOR >> 5;
+ 398              		.loc 1 257 0
+ 399 0000 014B     		ldr	r3, .L23
+ 400 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 401              	.LVL22:
+ 260:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 402              		.loc 1 260 0
+ 403 0004 4009     		lsrs	r0, r0, #5
+ 404              	.LVL23:
+ 405 0006 7047     		bx	lr
+ 406              	.L24:
+ 407              		.align	2
+ 408              	.L23:
+ 409 0008 05E400E0 		.word	-536812539
+ 410              		.cfi_endproc
+ 411              	.LFE7:
+ 412              		.size	isr_EVENTS_IDENTIF_GetPriority, .-isr_EVENTS_IDENTIF_GetPriority
+ 413              		.section	.text.isr_EVENTS_IDENTIF_Enable,"ax",%progbits
+ 414              		.align	1
+ 415              		.global	isr_EVENTS_IDENTIF_Enable
+ 416              		.thumb
+ 417              		.thumb_func
+ 418              		.type	isr_EVENTS_IDENTIF_Enable, %function
+ 419              	isr_EVENTS_IDENTIF_Enable:
+ 420              	.LFB8:
+ 278:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 421              		.loc 1 278 0
+ 422              		.cfi_startproc
+ 423              		@ args = 0, pretend = 0, frame = 0
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 425              		@ link register save eliminated.
+ 280:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_EN = isr_EVENTS_IDENTIF__INTC_MASK;
+ 426              		.loc 1 280 0
+ 427 0000 014B     		ldr	r3, .L26
+ 428 0002 2022     		movs	r2, #32
+ 429 0004 1A60     		str	r2, [r3, #0]
+ 430 0006 7047     		bx	lr
+ 431              	.L27:
+ 432              		.align	2
+ 433              	.L26:
+ 434 0008 00E100E0 		.word	-536813312
+ 435              		.cfi_endproc
+ 436              	.LFE8:
+ 437              		.size	isr_EVENTS_IDENTIF_Enable, .-isr_EVENTS_IDENTIF_Enable
+ 438              		.section	.text.isr_EVENTS_IDENTIF_GetState,"ax",%progbits
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 15
+
+
+ 439              		.align	1
+ 440              		.global	isr_EVENTS_IDENTIF_GetState
+ 441              		.thumb
+ 442              		.thumb_func
+ 443              		.type	isr_EVENTS_IDENTIF_GetState, %function
+ 444              	isr_EVENTS_IDENTIF_GetState:
+ 445              	.LFB9:
+ 299:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 446              		.loc 1 299 0
+ 447              		.cfi_startproc
+ 448              		@ args = 0, pretend = 0, frame = 0
+ 449              		@ frame_needed = 0, uses_anonymous_args = 0
+ 450              		@ link register save eliminated.
+ 301:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     return ((*isr_EVENTS_IDENTIF_INTC_SET_EN & (uint32)isr_EVENTS_IDENTIF__INTC_MASK) != 0u) ? 1u:0
+ 451              		.loc 1 301 0
+ 452 0000 024B     		ldr	r3, .L29
+ 453 0002 1868     		ldr	r0, [r3, #0]
+ 302:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 454              		.loc 1 302 0
+ 455 0004 C0F34010 		ubfx	r0, r0, #5, #1
+ 456 0008 7047     		bx	lr
+ 457              	.L30:
+ 458 000a 00BF     		.align	2
+ 459              	.L29:
+ 460 000c 00E100E0 		.word	-536813312
+ 461              		.cfi_endproc
+ 462              	.LFE9:
+ 463              		.size	isr_EVENTS_IDENTIF_GetState, .-isr_EVENTS_IDENTIF_GetState
+ 464              		.section	.text.isr_EVENTS_IDENTIF_Disable,"ax",%progbits
+ 465              		.align	1
+ 466              		.global	isr_EVENTS_IDENTIF_Disable
+ 467              		.thumb
+ 468              		.thumb_func
+ 469              		.type	isr_EVENTS_IDENTIF_Disable, %function
+ 470              	isr_EVENTS_IDENTIF_Disable:
+ 471              	.LFB10:
+ 320:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 472              		.loc 1 320 0
+ 473              		.cfi_startproc
+ 474              		@ args = 0, pretend = 0, frame = 0
+ 475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 476              		@ link register save eliminated.
+ 477              		.loc 1 322 0
+ 478 0000 014B     		ldr	r3, .L32
+ 479 0002 2022     		movs	r2, #32
+ 480 0004 1A60     		str	r2, [r3, #0]
+ 481 0006 7047     		bx	lr
+ 482              	.L33:
+ 483              		.align	2
+ 484              	.L32:
+ 485 0008 80E100E0 		.word	-536813184
+ 486              		.cfi_endproc
+ 487              	.LFE10:
+ 488              		.size	isr_EVENTS_IDENTIF_Disable, .-isr_EVENTS_IDENTIF_Disable
+ 489              		.section	.text.isr_EVENTS_IDENTIF_SetPending,"ax",%progbits
+ 490              		.align	1
+ 491              		.global	isr_EVENTS_IDENTIF_SetPending
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 16
+
+
+ 492              		.thumb
+ 493              		.thumb_func
+ 494              		.type	isr_EVENTS_IDENTIF_SetPending, %function
+ 495              	isr_EVENTS_IDENTIF_SetPending:
+ 496              	.LFB11:
+ 323:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 324:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 325:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 326:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 327:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_SetPending
+ 328:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ 329:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 330:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 331:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 332:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   generating the interrupt.
+ 333:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 334:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 335:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 336:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 337:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 338:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 339:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 340:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 341:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_SetPending(void)
+ 342:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 497              		.loc 1 342 0
+ 498              		.cfi_startproc
+ 499              		@ args = 0, pretend = 0, frame = 0
+ 500              		@ frame_needed = 0, uses_anonymous_args = 0
+ 501              		@ link register save eliminated.
+ 343:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_SET_PD = isr_EVENTS_IDENTIF__INTC_MASK;
+ 502              		.loc 1 343 0
+ 503 0000 014B     		ldr	r3, .L35
+ 504 0002 2022     		movs	r2, #32
+ 505 0004 1A60     		str	r2, [r3, #0]
+ 506 0006 7047     		bx	lr
+ 507              	.L36:
+ 508              		.align	2
+ 509              	.L35:
+ 510 0008 00E200E0 		.word	-536813056
+ 511              		.cfi_endproc
+ 512              	.LFE11:
+ 513              		.size	isr_EVENTS_IDENTIF_SetPending, .-isr_EVENTS_IDENTIF_SetPending
+ 514              		.section	.text.isr_EVENTS_IDENTIF_ClearPending,"ax",%progbits
+ 515              		.align	1
+ 516              		.global	isr_EVENTS_IDENTIF_ClearPending
+ 517              		.thumb
+ 518              		.thumb_func
+ 519              		.type	isr_EVENTS_IDENTIF_ClearPending, %function
+ 520              	isr_EVENTS_IDENTIF_ClearPending:
+ 521              	.LFB12:
+ 344:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** }
+ 345:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 346:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** 
+ 347:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** /*******************************************************************************
+ 348:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Function Name: isr_EVENTS_IDENTIF_ClearPending
+ 349:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** ********************************************************************************
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 17
+
+
+ 350:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 351:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Summary:
+ 352:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   Clears a pending interrupt.
+ 353:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 354:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Parameters:
+ 355:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 356:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 357:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** * Return:
+ 358:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *   None
+ 359:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *
+ 360:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** *******************************************************************************/
+ 361:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** void isr_EVENTS_IDENTIF_ClearPending(void)
+ 362:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c **** {
+ 522              		.loc 1 362 0
+ 523              		.cfi_startproc
+ 524              		@ args = 0, pretend = 0, frame = 0
+ 525              		@ frame_needed = 0, uses_anonymous_args = 0
+ 526              		@ link register save eliminated.
+ 363:.\Generated_Source\PSoC5/isr_EVENTS_IDENTIF.c ****     *isr_EVENTS_IDENTIF_INTC_CLR_PD = isr_EVENTS_IDENTIF__INTC_MASK;
+ 527              		.loc 1 363 0
+ 528 0000 014B     		ldr	r3, .L38
+ 529 0002 2022     		movs	r2, #32
+ 530 0004 1A60     		str	r2, [r3, #0]
+ 531 0006 7047     		bx	lr
+ 532              	.L39:
+ 533              		.align	2
+ 534              	.L38:
+ 535 0008 80E200E0 		.word	-536812928
+ 536              		.cfi_endproc
+ 537              	.LFE12:
+ 538              		.size	isr_EVENTS_IDENTIF_ClearPending, .-isr_EVENTS_IDENTIF_ClearPending
+ 539              		.comm	gobee_vparam,0,1
+ 540              		.text
+ 541              	.Letext0:
+ 542              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 543              		.file 3 "./gobee.h"
+ 544              		.file 4 "./estimators.h"
+ 545              		.section	.debug_info,"",%progbits
+ 546              	.Ldebug_info0:
+ 547 0000 89050000 		.4byte	0x589
+ 548 0004 0200     		.2byte	0x2
+ 549 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 550 000a 04       		.byte	0x4
+ 551 000b 01       		.uleb128 0x1
+ 552 000c 7E030000 		.4byte	.LASF54
+ 553 0010 01       		.byte	0x1
+ 554 0011 21030000 		.4byte	.LASF55
+ 555 0015 4F010000 		.4byte	.LASF56
+ 556 0019 68010000 		.4byte	.Ldebug_ranges0+0x168
+ 557 001d 00000000 		.4byte	0
+ 558 0021 00000000 		.4byte	0
+ 559 0025 00000000 		.4byte	.Ldebug_line0
+ 560 0029 02       		.uleb128 0x2
+ 561 002a 01       		.byte	0x1
+ 562 002b 06       		.byte	0x6
+ 563 002c 3D040000 		.4byte	.LASF0
+ 564 0030 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 18
+
+
+ 565 0031 01       		.byte	0x1
+ 566 0032 08       		.byte	0x8
+ 567 0033 EE000000 		.4byte	.LASF1
+ 568 0037 02       		.uleb128 0x2
+ 569 0038 02       		.byte	0x2
+ 570 0039 05       		.byte	0x5
+ 571 003a 6E030000 		.4byte	.LASF2
+ 572 003e 02       		.uleb128 0x2
+ 573 003f 02       		.byte	0x2
+ 574 0040 07       		.byte	0x7
+ 575 0041 85000000 		.4byte	.LASF3
+ 576 0045 03       		.uleb128 0x3
+ 577 0046 04       		.byte	0x4
+ 578 0047 05       		.byte	0x5
+ 579 0048 696E7400 		.ascii	"int\000"
+ 580 004c 02       		.uleb128 0x2
+ 581 004d 04       		.byte	0x4
+ 582 004e 07       		.byte	0x7
+ 583 004f 48020000 		.4byte	.LASF4
+ 584 0053 02       		.uleb128 0x2
+ 585 0054 08       		.byte	0x8
+ 586 0055 05       		.byte	0x5
+ 587 0056 E0020000 		.4byte	.LASF5
+ 588 005a 02       		.uleb128 0x2
+ 589 005b 08       		.byte	0x8
+ 590 005c 07       		.byte	0x7
+ 591 005d 72020000 		.4byte	.LASF6
+ 592 0061 02       		.uleb128 0x2
+ 593 0062 04       		.byte	0x4
+ 594 0063 05       		.byte	0x5
+ 595 0064 E2030000 		.4byte	.LASF7
+ 596 0068 02       		.uleb128 0x2
+ 597 0069 04       		.byte	0x4
+ 598 006a 07       		.byte	0x7
+ 599 006b BD020000 		.4byte	.LASF8
+ 600 006f 02       		.uleb128 0x2
+ 601 0070 04       		.byte	0x4
+ 602 0071 07       		.byte	0x7
+ 603 0072 36010000 		.4byte	.LASF9
+ 604 0076 04       		.uleb128 0x4
+ 605 0077 01       		.byte	0x1
+ 606 0078 05       		.uleb128 0x5
+ 607 0079 04       		.byte	0x4
+ 608 007a 76000000 		.4byte	0x76
+ 609 007e 02       		.uleb128 0x2
+ 610 007f 01       		.byte	0x1
+ 611 0080 08       		.byte	0x8
+ 612 0081 0D030000 		.4byte	.LASF10
+ 613 0085 06       		.uleb128 0x6
+ 614 0086 78030000 		.4byte	.LASF11
+ 615 008a 02       		.byte	0x2
+ 616 008b 5B       		.byte	0x5b
+ 617 008c 30000000 		.4byte	0x30
+ 618 0090 06       		.uleb128 0x6
+ 619 0091 3A020000 		.4byte	.LASF12
+ 620 0095 02       		.byte	0x2
+ 621 0096 5D       		.byte	0x5d
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 19
+
+
+ 622 0097 6F000000 		.4byte	0x6f
+ 623 009b 06       		.uleb128 0x6
+ 624 009c 89020000 		.4byte	.LASF13
+ 625 00a0 02       		.byte	0x2
+ 626 00a1 5F       		.byte	0x5f
+ 627 00a2 37000000 		.4byte	0x37
+ 628 00a6 02       		.uleb128 0x2
+ 629 00a7 04       		.byte	0x4
+ 630 00a8 04       		.byte	0x4
+ 631 00a9 E1000000 		.4byte	.LASF14
+ 632 00ad 02       		.uleb128 0x2
+ 633 00ae 08       		.byte	0x8
+ 634 00af 04       		.byte	0x4
+ 635 00b0 03020000 		.4byte	.LASF15
+ 636 00b4 06       		.uleb128 0x6
+ 637 00b5 15010000 		.4byte	.LASF16
+ 638 00b9 02       		.byte	0x2
+ 639 00ba F0       		.byte	0xf0
+ 640 00bb BF000000 		.4byte	0xbf
+ 641 00bf 07       		.uleb128 0x7
+ 642 00c0 85000000 		.4byte	0x85
+ 643 00c4 06       		.uleb128 0x6
+ 644 00c5 22000000 		.4byte	.LASF17
+ 645 00c9 02       		.byte	0x2
+ 646 00ca F2       		.byte	0xf2
+ 647 00cb CF000000 		.4byte	0xcf
+ 648 00cf 07       		.uleb128 0x7
+ 649 00d0 90000000 		.4byte	0x90
+ 650 00d4 08       		.uleb128 0x8
+ 651 00d5 9C020000 		.4byte	.LASF18
+ 652 00d9 02       		.byte	0x2
+ 653 00da 0201     		.2byte	0x102
+ 654 00dc 78000000 		.4byte	0x78
+ 655 00e0 09       		.uleb128 0x9
+ 656 00e1 49040000 		.4byte	.LASF57
+ 657 00e5 00       		.byte	0
+ 658 00e6 03       		.byte	0x3
+ 659 00e7 DD       		.byte	0xdd
+ 660 00e8 0A       		.uleb128 0xa
+ 661 00e9 41020000 		.4byte	.LASF21
+ 662 00ed 0C       		.byte	0xc
+ 663 00ee 03       		.byte	0x3
+ 664 00ef 4501     		.2byte	0x145
+ 665 00f1 23010000 		.4byte	0x123
+ 666 00f5 0B       		.uleb128 0xb
+ 667 00f6 41444300 		.ascii	"ADC\000"
+ 668 00fa 03       		.byte	0x3
+ 669 00fb 4701     		.2byte	0x147
+ 670 00fd 9B000000 		.4byte	0x9b
+ 671 0101 02       		.byte	0x2
+ 672 0102 23       		.byte	0x23
+ 673 0103 00       		.uleb128 0
+ 674 0104 0C       		.uleb128 0xc
+ 675 0105 D4000000 		.4byte	.LASF19
+ 676 0109 03       		.byte	0x3
+ 677 010a 4901     		.2byte	0x149
+ 678 010c A6000000 		.4byte	0xa6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 20
+
+
+ 679 0110 02       		.byte	0x2
+ 680 0111 23       		.byte	0x23
+ 681 0112 04       		.uleb128 0x4
+ 682 0113 0C       		.uleb128 0xc
+ 683 0114 8F020000 		.4byte	.LASF20
+ 684 0118 03       		.byte	0x3
+ 685 0119 4A01     		.2byte	0x14a
+ 686 011b A6000000 		.4byte	0xa6
+ 687 011f 02       		.byte	0x2
+ 688 0120 23       		.byte	0x23
+ 689 0121 08       		.uleb128 0x8
+ 690 0122 00       		.byte	0
+ 691 0123 0A       		.uleb128 0xa
+ 692 0124 E6010000 		.4byte	.LASF22
+ 693 0128 0C       		.byte	0xc
+ 694 0129 03       		.byte	0x3
+ 695 012a 4D01     		.2byte	0x14d
+ 696 012c 5E010000 		.4byte	0x15e
+ 697 0130 0B       		.uleb128 0xb
+ 698 0131 41444300 		.ascii	"ADC\000"
+ 699 0135 03       		.byte	0x3
+ 700 0136 4F01     		.2byte	0x14f
+ 701 0138 9B000000 		.4byte	0x9b
+ 702 013c 02       		.byte	0x2
+ 703 013d 23       		.byte	0x23
+ 704 013e 00       		.uleb128 0
+ 705 013f 0C       		.uleb128 0xc
+ 706 0140 D4000000 		.4byte	.LASF19
+ 707 0144 03       		.byte	0x3
+ 708 0145 5101     		.2byte	0x151
+ 709 0147 A6000000 		.4byte	0xa6
+ 710 014b 02       		.byte	0x2
+ 711 014c 23       		.byte	0x23
+ 712 014d 04       		.uleb128 0x4
+ 713 014e 0C       		.uleb128 0xc
+ 714 014f 8F020000 		.4byte	.LASF20
+ 715 0153 03       		.byte	0x3
+ 716 0154 5201     		.2byte	0x152
+ 717 0156 A6000000 		.4byte	0xa6
+ 718 015a 02       		.byte	0x2
+ 719 015b 23       		.byte	0x23
+ 720 015c 08       		.uleb128 0x8
+ 721 015d 00       		.byte	0
+ 722 015e 0A       		.uleb128 0xa
+ 723 015f DA000000 		.4byte	.LASF23
+ 724 0163 0C       		.byte	0xc
+ 725 0164 03       		.byte	0x3
+ 726 0165 5501     		.2byte	0x155
+ 727 0167 99010000 		.4byte	0x199
+ 728 016b 0B       		.uleb128 0xb
+ 729 016c 41444300 		.ascii	"ADC\000"
+ 730 0170 03       		.byte	0x3
+ 731 0171 5701     		.2byte	0x157
+ 732 0173 9B000000 		.4byte	0x9b
+ 733 0177 02       		.byte	0x2
+ 734 0178 23       		.byte	0x23
+ 735 0179 00       		.uleb128 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 21
+
+
+ 736 017a 0C       		.uleb128 0xc
+ 737 017b D4000000 		.4byte	.LASF19
+ 738 017f 03       		.byte	0x3
+ 739 0180 5901     		.2byte	0x159
+ 740 0182 A6000000 		.4byte	0xa6
+ 741 0186 02       		.byte	0x2
+ 742 0187 23       		.byte	0x23
+ 743 0188 04       		.uleb128 0x4
+ 744 0189 0C       		.uleb128 0xc
+ 745 018a 8F020000 		.4byte	.LASF20
+ 746 018e 03       		.byte	0x3
+ 747 018f 5A01     		.2byte	0x15a
+ 748 0191 A6000000 		.4byte	0xa6
+ 749 0195 02       		.byte	0x2
+ 750 0196 23       		.byte	0x23
+ 751 0197 08       		.uleb128 0x8
+ 752 0198 00       		.byte	0
+ 753 0199 0A       		.uleb128 0xa
+ 754 019a EB030000 		.4byte	.LASF24
+ 755 019e 38       		.byte	0x38
+ 756 019f 03       		.byte	0x3
+ 757 01a0 4201     		.2byte	0x142
+ 758 01a2 1F020000 		.4byte	0x21f
+ 759 01a6 0C       		.uleb128 0xc
+ 760 01a7 A9020000 		.4byte	.LASF25
+ 761 01ab 03       		.byte	0x3
+ 762 01ac 4B01     		.2byte	0x14b
+ 763 01ae E8000000 		.4byte	0xe8
+ 764 01b2 02       		.byte	0x2
+ 765 01b3 23       		.byte	0x23
+ 766 01b4 00       		.uleb128 0
+ 767 01b5 0C       		.uleb128 0xc
+ 768 01b6 1B000000 		.4byte	.LASF26
+ 769 01ba 03       		.byte	0x3
+ 770 01bb 5301     		.2byte	0x153
+ 771 01bd 23010000 		.4byte	0x123
+ 772 01c1 02       		.byte	0x2
+ 773 01c2 23       		.byte	0x23
+ 774 01c3 0C       		.uleb128 0xc
+ 775 01c4 0C       		.uleb128 0xc
+ 776 01c5 48010000 		.4byte	.LASF27
+ 777 01c9 03       		.byte	0x3
+ 778 01ca 5B01     		.2byte	0x15b
+ 779 01cc 5E010000 		.4byte	0x15e
+ 780 01d0 02       		.byte	0x2
+ 781 01d1 23       		.byte	0x23
+ 782 01d2 18       		.uleb128 0x18
+ 783 01d3 0C       		.uleb128 0xc
+ 784 01d4 B0020000 		.4byte	.LASF28
+ 785 01d8 03       		.byte	0x3
+ 786 01d9 5D01     		.2byte	0x15d
+ 787 01db A6000000 		.4byte	0xa6
+ 788 01df 02       		.byte	0x2
+ 789 01e0 23       		.byte	0x23
+ 790 01e1 24       		.uleb128 0x24
+ 791 01e2 0C       		.uleb128 0xc
+ 792 01e3 E7000000 		.4byte	.LASF29
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 22
+
+
+ 793 01e7 03       		.byte	0x3
+ 794 01e8 5E01     		.2byte	0x15e
+ 795 01ea A6000000 		.4byte	0xa6
+ 796 01ee 02       		.byte	0x2
+ 797 01ef 23       		.byte	0x23
+ 798 01f0 28       		.uleb128 0x28
+ 799 01f1 0C       		.uleb128 0xc
+ 800 01f2 ED010000 		.4byte	.LASF30
+ 801 01f6 03       		.byte	0x3
+ 802 01f7 5F01     		.2byte	0x15f
+ 803 01f9 A6000000 		.4byte	0xa6
+ 804 01fd 02       		.byte	0x2
+ 805 01fe 23       		.byte	0x23
+ 806 01ff 2C       		.uleb128 0x2c
+ 807 0200 0C       		.uleb128 0xc
+ 808 0201 0A020000 		.4byte	.LASF31
+ 809 0205 03       		.byte	0x3
+ 810 0206 6101     		.2byte	0x161
+ 811 0208 A6000000 		.4byte	0xa6
+ 812 020c 02       		.byte	0x2
+ 813 020d 23       		.byte	0x23
+ 814 020e 30       		.uleb128 0x30
+ 815 020f 0C       		.uleb128 0xc
+ 816 0210 4E000000 		.4byte	.LASF32
+ 817 0214 03       		.byte	0x3
+ 818 0215 6201     		.2byte	0x162
+ 819 0217 A6000000 		.4byte	0xa6
+ 820 021b 02       		.byte	0x2
+ 821 021c 23       		.byte	0x23
+ 822 021d 34       		.uleb128 0x34
+ 823 021e 00       		.byte	0
+ 824 021f 0D       		.uleb128 0xd
+ 825 0220 01       		.byte	0x1
+ 826 0221 00000000 		.4byte	.LASF37
+ 827 0225 01       		.byte	0x1
+ 828 0226 3F01     		.2byte	0x13f
+ 829 0228 01       		.byte	0x1
+ 830 0229 01       		.byte	0x1
+ 831 022a 0E       		.uleb128 0xe
+ 832 022b 01       		.byte	0x1
+ 833 022c 98000000 		.4byte	.LASF33
+ 834 0230 01       		.byte	0x1
+ 835 0231 B4       		.byte	0xb4
+ 836 0232 01       		.byte	0x1
+ 837 0233 01       		.byte	0x1
+ 838 0234 4F020000 		.4byte	0x24f
+ 839 0238 0F       		.uleb128 0xf
+ 840 0239 5F000000 		.4byte	.LASF35
+ 841 023d 01       		.byte	0x1
+ 842 023e B4       		.byte	0xb4
+ 843 023f D4000000 		.4byte	0xd4
+ 844 0243 10       		.uleb128 0x10
+ 845 0244 12030000 		.4byte	.LASF45
+ 846 0248 01       		.byte	0x1
+ 847 0249 B6       		.byte	0xb6
+ 848 024a 4F020000 		.4byte	0x24f
+ 849 024e 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 23
+
+
+ 850 024f 05       		.uleb128 0x5
+ 851 0250 04       		.byte	0x4
+ 852 0251 D4000000 		.4byte	0xd4
+ 853 0255 0E       		.uleb128 0xe
+ 854 0256 01       		.byte	0x1
+ 855 0257 1B020000 		.4byte	.LASF34
+ 856 025b 01       		.byte	0x1
+ 857 025c E8       		.byte	0xe8
+ 858 025d 01       		.byte	0x1
+ 859 025e 01       		.byte	0x1
+ 860 025f 6F020000 		.4byte	0x26f
+ 861 0263 0F       		.uleb128 0xf
+ 862 0264 DD010000 		.4byte	.LASF36
+ 863 0268 01       		.byte	0x1
+ 864 0269 E8       		.byte	0xe8
+ 865 026a 85000000 		.4byte	0x85
+ 866 026e 00       		.byte	0
+ 867 026f 0D       		.uleb128 0xd
+ 868 0270 01       		.byte	0x1
+ 869 0271 C6020000 		.4byte	.LASF38
+ 870 0275 01       		.byte	0x1
+ 871 0276 1501     		.2byte	0x115
+ 872 0278 01       		.byte	0x1
+ 873 0279 01       		.byte	0x1
+ 874 027a 11       		.uleb128 0x11
+ 875 027b 01       		.byte	0x1
+ 876 027c 55020000 		.4byte	.LASF39
+ 877 0280 01       		.byte	0x1
+ 878 0281 94       		.byte	0x94
+ 879 0282 01       		.byte	0x1
+ 880 0283 00000000 		.4byte	.LFB3
+ 881 0287 28000000 		.4byte	.LFE3
+ 882 028b 00000000 		.4byte	.LLST0
+ 883 028f 01       		.byte	0x1
+ 884 0290 BA020000 		.4byte	0x2ba
+ 885 0294 12       		.uleb128 0x12
+ 886 0295 0A000000 		.4byte	.LVL0
+ 887 0299 37050000 		.4byte	0x537
+ 888 029d 12       		.uleb128 0x12
+ 889 029e 10000000 		.4byte	.LVL1
+ 890 02a2 4B050000 		.4byte	0x54b
+ 891 02a6 12       		.uleb128 0x12
+ 892 02a7 1C000000 		.4byte	.LVL2
+ 893 02ab 5F050000 		.4byte	0x55f
+ 894 02af 13       		.uleb128 0x13
+ 895 02b0 24000000 		.4byte	.LVL3
+ 896 02b4 01       		.byte	0x1
+ 897 02b5 82050000 		.4byte	0x582
+ 898 02b9 00       		.byte	0
+ 899 02ba 14       		.uleb128 0x14
+ 900 02bb 01       		.byte	0x1
+ 901 02bc 35000000 		.4byte	.LASF40
+ 902 02c0 01       		.byte	0x1
+ 903 02c1 3F       		.byte	0x3f
+ 904 02c2 01       		.byte	0x1
+ 905 02c3 00000000 		.4byte	.LFB0
+ 906 02c7 30000000 		.4byte	.LFE0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 24
+
+
+ 907 02cb 02       		.byte	0x2
+ 908 02cc 7D       		.byte	0x7d
+ 909 02cd 00       		.sleb128 0
+ 910 02ce 01       		.byte	0x1
+ 911 02cf 3B030000 		.4byte	0x33b
+ 912 02d3 15       		.uleb128 0x15
+ 913 02d4 1F020000 		.4byte	0x21f
+ 914 02d8 00000000 		.4byte	.LBB22
+ 915 02dc 00000000 		.4byte	.Ldebug_ranges0+0
+ 916 02e0 01       		.byte	0x1
+ 917 02e1 42       		.byte	0x42
+ 918 02e2 16       		.uleb128 0x16
+ 919 02e3 2A020000 		.4byte	0x22a
+ 920 02e7 02000000 		.4byte	.LBB25
+ 921 02eb 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 922 02ef 01       		.byte	0x1
+ 923 02f0 45       		.byte	0x45
+ 924 02f1 11030000 		.4byte	0x311
+ 925 02f5 17       		.uleb128 0x17
+ 926 02f6 38020000 		.4byte	0x238
+ 927 02fa 06       		.byte	0x6
+ 928 02fb 03       		.byte	0x3
+ 929 02fc 00000000 		.4byte	isr_EVENTS_IDENTIF_Interrupt
+ 930 0300 9F       		.byte	0x9f
+ 931 0301 18       		.uleb128 0x18
+ 932 0302 38000000 		.4byte	.Ldebug_ranges0+0x38
+ 933 0306 19       		.uleb128 0x19
+ 934 0307 43020000 		.4byte	0x243
+ 935 030b 20000000 		.4byte	.LLST1
+ 936 030f 00       		.byte	0
+ 937 0310 00       		.byte	0
+ 938 0311 16       		.uleb128 0x16
+ 939 0312 55020000 		.4byte	0x255
+ 940 0316 0C000000 		.4byte	.LBB31
+ 941 031a 58000000 		.4byte	.Ldebug_ranges0+0x58
+ 942 031e 01       		.byte	0x1
+ 943 031f 48       		.byte	0x48
+ 944 0320 2B030000 		.4byte	0x32b
+ 945 0324 1A       		.uleb128 0x1a
+ 946 0325 63020000 		.4byte	0x263
+ 947 0329 06       		.byte	0x6
+ 948 032a 00       		.byte	0
+ 949 032b 15       		.uleb128 0x15
+ 950 032c 6F020000 		.4byte	0x26f
+ 951 0330 12000000 		.4byte	.LBB37
+ 952 0334 78000000 		.4byte	.Ldebug_ranges0+0x78
+ 953 0338 01       		.byte	0x1
+ 954 0339 4B       		.byte	0x4b
+ 955 033a 00       		.byte	0
+ 956 033b 14       		.uleb128 0x14
+ 957 033c 01       		.byte	0x1
+ 958 033d C7030000 		.4byte	.LASF41
+ 959 0341 01       		.byte	0x1
+ 960 0342 5D       		.byte	0x5d
+ 961 0343 01       		.byte	0x1
+ 962 0344 00000000 		.4byte	.LFB1
+ 963 0348 28000000 		.4byte	.LFE1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 25
+
+
+ 964 034c 02       		.byte	0x2
+ 965 034d 7D       		.byte	0x7d
+ 966 034e 00       		.sleb128 0
+ 967 034f 01       		.byte	0x1
+ 968 0350 C8030000 		.4byte	0x3c8
+ 969 0354 1B       		.uleb128 0x1b
+ 970 0355 5F000000 		.4byte	.LASF35
+ 971 0359 01       		.byte	0x1
+ 972 035a 5D       		.byte	0x5d
+ 973 035b D4000000 		.4byte	0xd4
+ 974 035f 43000000 		.4byte	.LLST2
+ 975 0363 15       		.uleb128 0x15
+ 976 0364 1F020000 		.4byte	0x21f
+ 977 0368 00000000 		.4byte	.LBB42
+ 978 036c 90000000 		.4byte	.Ldebug_ranges0+0x90
+ 979 0370 01       		.byte	0x1
+ 980 0371 60       		.byte	0x60
+ 981 0372 16       		.uleb128 0x16
+ 982 0373 2A020000 		.4byte	0x22a
+ 983 0377 02000000 		.4byte	.LBB45
+ 984 037b A8000000 		.4byte	.Ldebug_ranges0+0xa8
+ 985 037f 01       		.byte	0x1
+ 986 0380 63       		.byte	0x63
+ 987 0381 9E030000 		.4byte	0x39e
+ 988 0385 1C       		.uleb128 0x1c
+ 989 0386 38020000 		.4byte	0x238
+ 990 038a 76000000 		.4byte	.LLST3
+ 991 038e 18       		.uleb128 0x18
+ 992 038f C8000000 		.4byte	.Ldebug_ranges0+0xc8
+ 993 0393 19       		.uleb128 0x19
+ 994 0394 43020000 		.4byte	0x243
+ 995 0398 A9000000 		.4byte	.LLST4
+ 996 039c 00       		.byte	0
+ 997 039d 00       		.byte	0
+ 998 039e 16       		.uleb128 0x16
+ 999 039f 55020000 		.4byte	0x255
+ 1000 03a3 0A000000 		.4byte	.LBB51
+ 1001 03a7 E8000000 		.4byte	.Ldebug_ranges0+0xe8
+ 1002 03ab 01       		.byte	0x1
+ 1003 03ac 66       		.byte	0x66
+ 1004 03ad B8030000 		.4byte	0x3b8
+ 1005 03b1 1A       		.uleb128 0x1a
+ 1006 03b2 63020000 		.4byte	0x263
+ 1007 03b6 06       		.byte	0x6
+ 1008 03b7 00       		.byte	0
+ 1009 03b8 15       		.uleb128 0x15
+ 1010 03b9 6F020000 		.4byte	0x26f
+ 1011 03bd 10000000 		.4byte	.LBB57
+ 1012 03c1 08010000 		.4byte	.Ldebug_ranges0+0x108
+ 1013 03c5 01       		.byte	0x1
+ 1014 03c6 69       		.byte	0x69
+ 1015 03c7 00       		.byte	0
+ 1016 03c8 14       		.uleb128 0x14
+ 1017 03c9 01       		.byte	0x1
+ 1018 03ca 57040000 		.4byte	.LASF42
+ 1019 03ce 01       		.byte	0x1
+ 1020 03cf 7A       		.byte	0x7a
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 26
+
+
+ 1021 03d0 01       		.byte	0x1
+ 1022 03d1 00000000 		.4byte	.LFB2
+ 1023 03d5 1C000000 		.4byte	.LFE2
+ 1024 03d9 02       		.byte	0x2
+ 1025 03da 7D       		.byte	0x7d
+ 1026 03db 00       		.sleb128 0
+ 1027 03dc 01       		.byte	0x1
+ 1028 03dd 13040000 		.4byte	0x413
+ 1029 03e1 15       		.uleb128 0x15
+ 1030 03e2 1F020000 		.4byte	0x21f
+ 1031 03e6 00000000 		.4byte	.LBB62
+ 1032 03ea 20010000 		.4byte	.Ldebug_ranges0+0x120
+ 1033 03ee 01       		.byte	0x1
+ 1034 03ef 7D       		.byte	0x7d
+ 1035 03f0 1D       		.uleb128 0x1d
+ 1036 03f1 2A020000 		.4byte	0x22a
+ 1037 03f5 02000000 		.4byte	.LBB65
+ 1038 03f9 38010000 		.4byte	.Ldebug_ranges0+0x138
+ 1039 03fd 01       		.byte	0x1
+ 1040 03fe 80       		.byte	0x80
+ 1041 03ff 1E       		.uleb128 0x1e
+ 1042 0400 38020000 		.4byte	0x238
+ 1043 0404 18       		.uleb128 0x18
+ 1044 0405 50010000 		.4byte	.Ldebug_ranges0+0x150
+ 1045 0409 1F       		.uleb128 0x1f
+ 1046 040a 43020000 		.4byte	0x243
+ 1047 040e 01       		.byte	0x1
+ 1048 040f 51       		.byte	0x51
+ 1049 0410 00       		.byte	0
+ 1050 0411 00       		.byte	0
+ 1051 0412 00       		.byte	0
+ 1052 0413 20       		.uleb128 0x20
+ 1053 0414 2A020000 		.4byte	0x22a
+ 1054 0418 00000000 		.4byte	.LFB4
+ 1055 041c 0C000000 		.4byte	.LFE4
+ 1056 0420 02       		.byte	0x2
+ 1057 0421 7D       		.byte	0x7d
+ 1058 0422 00       		.sleb128 0
+ 1059 0423 01       		.byte	0x1
+ 1060 0424 37040000 		.4byte	0x437
+ 1061 0428 17       		.uleb128 0x17
+ 1062 0429 38020000 		.4byte	0x238
+ 1063 042d 01       		.byte	0x1
+ 1064 042e 50       		.byte	0x50
+ 1065 042f 1F       		.uleb128 0x1f
+ 1066 0430 43020000 		.4byte	0x243
+ 1067 0434 01       		.byte	0x1
+ 1068 0435 51       		.byte	0x51
+ 1069 0436 00       		.byte	0
+ 1070 0437 21       		.uleb128 0x21
+ 1071 0438 01       		.byte	0x1
+ 1072 0439 20040000 		.4byte	.LASF43
+ 1073 043d 01       		.byte	0x1
+ 1074 043e CC       		.byte	0xcc
+ 1075 043f 01       		.byte	0x1
+ 1076 0440 D4000000 		.4byte	0xd4
+ 1077 0444 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 27
+
+
+ 1078 0448 0C000000 		.4byte	.LFE5
+ 1079 044c 02       		.byte	0x2
+ 1080 044d 7D       		.byte	0x7d
+ 1081 044e 00       		.sleb128 0
+ 1082 044f 01       		.byte	0x1
+ 1083 0450 64040000 		.4byte	0x464
+ 1084 0454 22       		.uleb128 0x22
+ 1085 0455 12030000 		.4byte	.LASF45
+ 1086 0459 01       		.byte	0x1
+ 1087 045a CE       		.byte	0xce
+ 1088 045b 4F020000 		.4byte	0x24f
+ 1089 045f CC000000 		.4byte	.LLST5
+ 1090 0463 00       		.byte	0
+ 1091 0464 20       		.uleb128 0x20
+ 1092 0465 55020000 		.4byte	0x255
+ 1093 0469 00000000 		.4byte	.LFB6
+ 1094 046d 10000000 		.4byte	.LFE6
+ 1095 0471 02       		.byte	0x2
+ 1096 0472 7D       		.byte	0x7d
+ 1097 0473 00       		.sleb128 0
+ 1098 0474 01       		.byte	0x1
+ 1099 0475 83040000 		.4byte	0x483
+ 1100 0479 1C       		.uleb128 0x1c
+ 1101 047a 63020000 		.4byte	0x263
+ 1102 047e F0000000 		.4byte	.LLST6
+ 1103 0482 00       		.byte	0
+ 1104 0483 21       		.uleb128 0x21
+ 1105 0484 01       		.byte	0x1
+ 1106 0485 B5000000 		.4byte	.LASF44
+ 1107 0489 01       		.byte	0x1
+ 1108 048a FC       		.byte	0xfc
+ 1109 048b 01       		.byte	0x1
+ 1110 048c 85000000 		.4byte	0x85
+ 1111 0490 00000000 		.4byte	.LFB7
+ 1112 0494 0C000000 		.4byte	.LFE7
+ 1113 0498 02       		.byte	0x2
+ 1114 0499 7D       		.byte	0x7d
+ 1115 049a 00       		.sleb128 0
+ 1116 049b 01       		.byte	0x1
+ 1117 049c B0040000 		.4byte	0x4b0
+ 1118 04a0 22       		.uleb128 0x22
+ 1119 04a1 DD010000 		.4byte	.LASF36
+ 1120 04a5 01       		.byte	0x1
+ 1121 04a6 FE       		.byte	0xfe
+ 1122 04a7 85000000 		.4byte	0x85
+ 1123 04ab 11010000 		.4byte	.LLST7
+ 1124 04af 00       		.byte	0
+ 1125 04b0 23       		.uleb128 0x23
+ 1126 04b1 6F020000 		.4byte	0x26f
+ 1127 04b5 00000000 		.4byte	.LFB8
+ 1128 04b9 0C000000 		.4byte	.LFE8
+ 1129 04bd 02       		.byte	0x2
+ 1130 04be 7D       		.byte	0x7d
+ 1131 04bf 00       		.sleb128 0
+ 1132 04c0 01       		.byte	0x1
+ 1133 04c1 24       		.uleb128 0x24
+ 1134 04c2 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 28
+
+
+ 1135 04c3 1A010000 		.4byte	.LASF58
+ 1136 04c7 01       		.byte	0x1
+ 1137 04c8 2A01     		.2byte	0x12a
+ 1138 04ca 01       		.byte	0x1
+ 1139 04cb 85000000 		.4byte	0x85
+ 1140 04cf 00000000 		.4byte	.LFB9
+ 1141 04d3 10000000 		.4byte	.LFE9
+ 1142 04d7 02       		.byte	0x2
+ 1143 04d8 7D       		.byte	0x7d
+ 1144 04d9 00       		.sleb128 0
+ 1145 04da 01       		.byte	0x1
+ 1146 04db 23       		.uleb128 0x23
+ 1147 04dc 1F020000 		.4byte	0x21f
+ 1148 04e0 00000000 		.4byte	.LFB10
+ 1149 04e4 0C000000 		.4byte	.LFE10
+ 1150 04e8 02       		.byte	0x2
+ 1151 04e9 7D       		.byte	0x7d
+ 1152 04ea 00       		.sleb128 0
+ 1153 04eb 01       		.byte	0x1
+ 1154 04ec 25       		.uleb128 0x25
+ 1155 04ed 01       		.byte	0x1
+ 1156 04ee 67000000 		.4byte	.LASF46
+ 1157 04f2 01       		.byte	0x1
+ 1158 04f3 5501     		.2byte	0x155
+ 1159 04f5 01       		.byte	0x1
+ 1160 04f6 00000000 		.4byte	.LFB11
+ 1161 04fa 0C000000 		.4byte	.LFE11
+ 1162 04fe 02       		.byte	0x2
+ 1163 04ff 7D       		.byte	0x7d
+ 1164 0500 00       		.sleb128 0
+ 1165 0501 01       		.byte	0x1
+ 1166 0502 25       		.uleb128 0x25
+ 1167 0503 01       		.byte	0x1
+ 1168 0504 BD010000 		.4byte	.LASF47
+ 1169 0508 01       		.byte	0x1
+ 1170 0509 6901     		.2byte	0x169
+ 1171 050b 01       		.byte	0x1
+ 1172 050c 00000000 		.4byte	.LFB12
+ 1173 0510 0C000000 		.4byte	.LFE12
+ 1174 0514 02       		.byte	0x2
+ 1175 0515 7D       		.byte	0x7d
+ 1176 0516 00       		.sleb128 0
+ 1177 0517 01       		.byte	0x1
+ 1178 0518 26       		.uleb128 0x26
+ 1179 0519 28000000 		.4byte	.LASF48
+ 1180 051d 03       		.byte	0x3
+ 1181 051e E2       		.byte	0xe2
+ 1182 051f E0000000 		.4byte	0xe0
+ 1183 0523 01       		.byte	0x1
+ 1184 0524 05       		.byte	0x5
+ 1185 0525 03       		.byte	0x3
+ 1186 0526 00000000 		.4byte	gobee_vparam
+ 1187 052a 27       		.uleb128 0x27
+ 1188 052b B8020000 		.4byte	.LASF49
+ 1189 052f 01       		.byte	0x1
+ 1190 0530 22       		.byte	0x22
+ 1191 0531 99010000 		.4byte	0x199
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 29
+
+
+ 1192 0535 01       		.byte	0x1
+ 1193 0536 01       		.byte	0x1
+ 1194 0537 28       		.uleb128 0x28
+ 1195 0538 01       		.byte	0x1
+ 1196 0539 EE020000 		.4byte	.LASF50
+ 1197 053d 04       		.byte	0x4
+ 1198 053e 27       		.byte	0x27
+ 1199 053f 01       		.byte	0x1
+ 1200 0540 01       		.byte	0x1
+ 1201 0541 4B050000 		.4byte	0x54b
+ 1202 0545 29       		.uleb128 0x29
+ 1203 0546 A6000000 		.4byte	0xa6
+ 1204 054a 00       		.byte	0
+ 1205 054b 28       		.uleb128 0x28
+ 1206 054c 01       		.byte	0x1
+ 1207 054d 4F030000 		.4byte	.LASF51
+ 1208 0551 04       		.byte	0x4
+ 1209 0552 2D       		.byte	0x2d
+ 1210 0553 01       		.byte	0x1
+ 1211 0554 01       		.byte	0x1
+ 1212 0555 5F050000 		.4byte	0x55f
+ 1213 0559 29       		.uleb128 0x29
+ 1214 055a A6000000 		.4byte	0xa6
+ 1215 055e 00       		.byte	0
+ 1216 055f 28       		.uleb128 0x28
+ 1217 0560 01       		.byte	0x1
+ 1218 0561 FC000000 		.4byte	.LASF52
+ 1219 0565 04       		.byte	0x4
+ 1220 0566 1B       		.byte	0x1b
+ 1221 0567 01       		.byte	0x1
+ 1222 0568 01       		.byte	0x1
+ 1223 0569 82050000 		.4byte	0x582
+ 1224 056d 29       		.uleb128 0x29
+ 1225 056e A6000000 		.4byte	0xa6
+ 1226 0572 29       		.uleb128 0x29
+ 1227 0573 A6000000 		.4byte	0xa6
+ 1228 0577 29       		.uleb128 0x29
+ 1229 0578 A6000000 		.4byte	0xa6
+ 1230 057c 29       		.uleb128 0x29
+ 1231 057d A6000000 		.4byte	0xa6
+ 1232 0581 00       		.byte	0
+ 1233 0582 2A       		.uleb128 0x2a
+ 1234 0583 01       		.byte	0x1
+ 1235 0584 03040000 		.4byte	.LASF53
+ 1236 0588 04       		.byte	0x4
+ 1237 0589 10       		.byte	0x10
+ 1238 058a 01       		.byte	0x1
+ 1239 058b 01       		.byte	0x1
+ 1240 058c 00       		.byte	0
+ 1241              		.section	.debug_abbrev,"",%progbits
+ 1242              	.Ldebug_abbrev0:
+ 1243 0000 01       		.uleb128 0x1
+ 1244 0001 11       		.uleb128 0x11
+ 1245 0002 01       		.byte	0x1
+ 1246 0003 25       		.uleb128 0x25
+ 1247 0004 0E       		.uleb128 0xe
+ 1248 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 30
+
+
+ 1249 0006 0B       		.uleb128 0xb
+ 1250 0007 03       		.uleb128 0x3
+ 1251 0008 0E       		.uleb128 0xe
+ 1252 0009 1B       		.uleb128 0x1b
+ 1253 000a 0E       		.uleb128 0xe
+ 1254 000b 55       		.uleb128 0x55
+ 1255 000c 06       		.uleb128 0x6
+ 1256 000d 11       		.uleb128 0x11
+ 1257 000e 01       		.uleb128 0x1
+ 1258 000f 52       		.uleb128 0x52
+ 1259 0010 01       		.uleb128 0x1
+ 1260 0011 10       		.uleb128 0x10
+ 1261 0012 06       		.uleb128 0x6
+ 1262 0013 00       		.byte	0
+ 1263 0014 00       		.byte	0
+ 1264 0015 02       		.uleb128 0x2
+ 1265 0016 24       		.uleb128 0x24
+ 1266 0017 00       		.byte	0
+ 1267 0018 0B       		.uleb128 0xb
+ 1268 0019 0B       		.uleb128 0xb
+ 1269 001a 3E       		.uleb128 0x3e
+ 1270 001b 0B       		.uleb128 0xb
+ 1271 001c 03       		.uleb128 0x3
+ 1272 001d 0E       		.uleb128 0xe
+ 1273 001e 00       		.byte	0
+ 1274 001f 00       		.byte	0
+ 1275 0020 03       		.uleb128 0x3
+ 1276 0021 24       		.uleb128 0x24
+ 1277 0022 00       		.byte	0
+ 1278 0023 0B       		.uleb128 0xb
+ 1279 0024 0B       		.uleb128 0xb
+ 1280 0025 3E       		.uleb128 0x3e
+ 1281 0026 0B       		.uleb128 0xb
+ 1282 0027 03       		.uleb128 0x3
+ 1283 0028 08       		.uleb128 0x8
+ 1284 0029 00       		.byte	0
+ 1285 002a 00       		.byte	0
+ 1286 002b 04       		.uleb128 0x4
+ 1287 002c 15       		.uleb128 0x15
+ 1288 002d 00       		.byte	0
+ 1289 002e 27       		.uleb128 0x27
+ 1290 002f 0C       		.uleb128 0xc
+ 1291 0030 00       		.byte	0
+ 1292 0031 00       		.byte	0
+ 1293 0032 05       		.uleb128 0x5
+ 1294 0033 0F       		.uleb128 0xf
+ 1295 0034 00       		.byte	0
+ 1296 0035 0B       		.uleb128 0xb
+ 1297 0036 0B       		.uleb128 0xb
+ 1298 0037 49       		.uleb128 0x49
+ 1299 0038 13       		.uleb128 0x13
+ 1300 0039 00       		.byte	0
+ 1301 003a 00       		.byte	0
+ 1302 003b 06       		.uleb128 0x6
+ 1303 003c 16       		.uleb128 0x16
+ 1304 003d 00       		.byte	0
+ 1305 003e 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 31
+
+
+ 1306 003f 0E       		.uleb128 0xe
+ 1307 0040 3A       		.uleb128 0x3a
+ 1308 0041 0B       		.uleb128 0xb
+ 1309 0042 3B       		.uleb128 0x3b
+ 1310 0043 0B       		.uleb128 0xb
+ 1311 0044 49       		.uleb128 0x49
+ 1312 0045 13       		.uleb128 0x13
+ 1313 0046 00       		.byte	0
+ 1314 0047 00       		.byte	0
+ 1315 0048 07       		.uleb128 0x7
+ 1316 0049 35       		.uleb128 0x35
+ 1317 004a 00       		.byte	0
+ 1318 004b 49       		.uleb128 0x49
+ 1319 004c 13       		.uleb128 0x13
+ 1320 004d 00       		.byte	0
+ 1321 004e 00       		.byte	0
+ 1322 004f 08       		.uleb128 0x8
+ 1323 0050 16       		.uleb128 0x16
+ 1324 0051 00       		.byte	0
+ 1325 0052 03       		.uleb128 0x3
+ 1326 0053 0E       		.uleb128 0xe
+ 1327 0054 3A       		.uleb128 0x3a
+ 1328 0055 0B       		.uleb128 0xb
+ 1329 0056 3B       		.uleb128 0x3b
+ 1330 0057 05       		.uleb128 0x5
+ 1331 0058 49       		.uleb128 0x49
+ 1332 0059 13       		.uleb128 0x13
+ 1333 005a 00       		.byte	0
+ 1334 005b 00       		.byte	0
+ 1335 005c 09       		.uleb128 0x9
+ 1336 005d 13       		.uleb128 0x13
+ 1337 005e 00       		.byte	0
+ 1338 005f 03       		.uleb128 0x3
+ 1339 0060 0E       		.uleb128 0xe
+ 1340 0061 0B       		.uleb128 0xb
+ 1341 0062 0B       		.uleb128 0xb
+ 1342 0063 3A       		.uleb128 0x3a
+ 1343 0064 0B       		.uleb128 0xb
+ 1344 0065 3B       		.uleb128 0x3b
+ 1345 0066 0B       		.uleb128 0xb
+ 1346 0067 00       		.byte	0
+ 1347 0068 00       		.byte	0
+ 1348 0069 0A       		.uleb128 0xa
+ 1349 006a 13       		.uleb128 0x13
+ 1350 006b 01       		.byte	0x1
+ 1351 006c 03       		.uleb128 0x3
+ 1352 006d 0E       		.uleb128 0xe
+ 1353 006e 0B       		.uleb128 0xb
+ 1354 006f 0B       		.uleb128 0xb
+ 1355 0070 3A       		.uleb128 0x3a
+ 1356 0071 0B       		.uleb128 0xb
+ 1357 0072 3B       		.uleb128 0x3b
+ 1358 0073 05       		.uleb128 0x5
+ 1359 0074 01       		.uleb128 0x1
+ 1360 0075 13       		.uleb128 0x13
+ 1361 0076 00       		.byte	0
+ 1362 0077 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 32
+
+
+ 1363 0078 0B       		.uleb128 0xb
+ 1364 0079 0D       		.uleb128 0xd
+ 1365 007a 00       		.byte	0
+ 1366 007b 03       		.uleb128 0x3
+ 1367 007c 08       		.uleb128 0x8
+ 1368 007d 3A       		.uleb128 0x3a
+ 1369 007e 0B       		.uleb128 0xb
+ 1370 007f 3B       		.uleb128 0x3b
+ 1371 0080 05       		.uleb128 0x5
+ 1372 0081 49       		.uleb128 0x49
+ 1373 0082 13       		.uleb128 0x13
+ 1374 0083 38       		.uleb128 0x38
+ 1375 0084 0A       		.uleb128 0xa
+ 1376 0085 00       		.byte	0
+ 1377 0086 00       		.byte	0
+ 1378 0087 0C       		.uleb128 0xc
+ 1379 0088 0D       		.uleb128 0xd
+ 1380 0089 00       		.byte	0
+ 1381 008a 03       		.uleb128 0x3
+ 1382 008b 0E       		.uleb128 0xe
+ 1383 008c 3A       		.uleb128 0x3a
+ 1384 008d 0B       		.uleb128 0xb
+ 1385 008e 3B       		.uleb128 0x3b
+ 1386 008f 05       		.uleb128 0x5
+ 1387 0090 49       		.uleb128 0x49
+ 1388 0091 13       		.uleb128 0x13
+ 1389 0092 38       		.uleb128 0x38
+ 1390 0093 0A       		.uleb128 0xa
+ 1391 0094 00       		.byte	0
+ 1392 0095 00       		.byte	0
+ 1393 0096 0D       		.uleb128 0xd
+ 1394 0097 2E       		.uleb128 0x2e
+ 1395 0098 00       		.byte	0
+ 1396 0099 3F       		.uleb128 0x3f
+ 1397 009a 0C       		.uleb128 0xc
+ 1398 009b 03       		.uleb128 0x3
+ 1399 009c 0E       		.uleb128 0xe
+ 1400 009d 3A       		.uleb128 0x3a
+ 1401 009e 0B       		.uleb128 0xb
+ 1402 009f 3B       		.uleb128 0x3b
+ 1403 00a0 05       		.uleb128 0x5
+ 1404 00a1 27       		.uleb128 0x27
+ 1405 00a2 0C       		.uleb128 0xc
+ 1406 00a3 20       		.uleb128 0x20
+ 1407 00a4 0B       		.uleb128 0xb
+ 1408 00a5 00       		.byte	0
+ 1409 00a6 00       		.byte	0
+ 1410 00a7 0E       		.uleb128 0xe
+ 1411 00a8 2E       		.uleb128 0x2e
+ 1412 00a9 01       		.byte	0x1
+ 1413 00aa 3F       		.uleb128 0x3f
+ 1414 00ab 0C       		.uleb128 0xc
+ 1415 00ac 03       		.uleb128 0x3
+ 1416 00ad 0E       		.uleb128 0xe
+ 1417 00ae 3A       		.uleb128 0x3a
+ 1418 00af 0B       		.uleb128 0xb
+ 1419 00b0 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 33
+
+
+ 1420 00b1 0B       		.uleb128 0xb
+ 1421 00b2 27       		.uleb128 0x27
+ 1422 00b3 0C       		.uleb128 0xc
+ 1423 00b4 20       		.uleb128 0x20
+ 1424 00b5 0B       		.uleb128 0xb
+ 1425 00b6 01       		.uleb128 0x1
+ 1426 00b7 13       		.uleb128 0x13
+ 1427 00b8 00       		.byte	0
+ 1428 00b9 00       		.byte	0
+ 1429 00ba 0F       		.uleb128 0xf
+ 1430 00bb 05       		.uleb128 0x5
+ 1431 00bc 00       		.byte	0
+ 1432 00bd 03       		.uleb128 0x3
+ 1433 00be 0E       		.uleb128 0xe
+ 1434 00bf 3A       		.uleb128 0x3a
+ 1435 00c0 0B       		.uleb128 0xb
+ 1436 00c1 3B       		.uleb128 0x3b
+ 1437 00c2 0B       		.uleb128 0xb
+ 1438 00c3 49       		.uleb128 0x49
+ 1439 00c4 13       		.uleb128 0x13
+ 1440 00c5 00       		.byte	0
+ 1441 00c6 00       		.byte	0
+ 1442 00c7 10       		.uleb128 0x10
+ 1443 00c8 34       		.uleb128 0x34
+ 1444 00c9 00       		.byte	0
+ 1445 00ca 03       		.uleb128 0x3
+ 1446 00cb 0E       		.uleb128 0xe
+ 1447 00cc 3A       		.uleb128 0x3a
+ 1448 00cd 0B       		.uleb128 0xb
+ 1449 00ce 3B       		.uleb128 0x3b
+ 1450 00cf 0B       		.uleb128 0xb
+ 1451 00d0 49       		.uleb128 0x49
+ 1452 00d1 13       		.uleb128 0x13
+ 1453 00d2 00       		.byte	0
+ 1454 00d3 00       		.byte	0
+ 1455 00d4 11       		.uleb128 0x11
+ 1456 00d5 2E       		.uleb128 0x2e
+ 1457 00d6 01       		.byte	0x1
+ 1458 00d7 3F       		.uleb128 0x3f
+ 1459 00d8 0C       		.uleb128 0xc
+ 1460 00d9 03       		.uleb128 0x3
+ 1461 00da 0E       		.uleb128 0xe
+ 1462 00db 3A       		.uleb128 0x3a
+ 1463 00dc 0B       		.uleb128 0xb
+ 1464 00dd 3B       		.uleb128 0x3b
+ 1465 00de 0B       		.uleb128 0xb
+ 1466 00df 27       		.uleb128 0x27
+ 1467 00e0 0C       		.uleb128 0xc
+ 1468 00e1 11       		.uleb128 0x11
+ 1469 00e2 01       		.uleb128 0x1
+ 1470 00e3 12       		.uleb128 0x12
+ 1471 00e4 01       		.uleb128 0x1
+ 1472 00e5 40       		.uleb128 0x40
+ 1473 00e6 06       		.uleb128 0x6
+ 1474 00e7 9742     		.uleb128 0x2117
+ 1475 00e9 0C       		.uleb128 0xc
+ 1476 00ea 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 34
+
+
+ 1477 00eb 13       		.uleb128 0x13
+ 1478 00ec 00       		.byte	0
+ 1479 00ed 00       		.byte	0
+ 1480 00ee 12       		.uleb128 0x12
+ 1481 00ef 898201   		.uleb128 0x4109
+ 1482 00f2 00       		.byte	0
+ 1483 00f3 11       		.uleb128 0x11
+ 1484 00f4 01       		.uleb128 0x1
+ 1485 00f5 31       		.uleb128 0x31
+ 1486 00f6 13       		.uleb128 0x13
+ 1487 00f7 00       		.byte	0
+ 1488 00f8 00       		.byte	0
+ 1489 00f9 13       		.uleb128 0x13
+ 1490 00fa 898201   		.uleb128 0x4109
+ 1491 00fd 00       		.byte	0
+ 1492 00fe 11       		.uleb128 0x11
+ 1493 00ff 01       		.uleb128 0x1
+ 1494 0100 9542     		.uleb128 0x2115
+ 1495 0102 0C       		.uleb128 0xc
+ 1496 0103 31       		.uleb128 0x31
+ 1497 0104 13       		.uleb128 0x13
+ 1498 0105 00       		.byte	0
+ 1499 0106 00       		.byte	0
+ 1500 0107 14       		.uleb128 0x14
+ 1501 0108 2E       		.uleb128 0x2e
+ 1502 0109 01       		.byte	0x1
+ 1503 010a 3F       		.uleb128 0x3f
+ 1504 010b 0C       		.uleb128 0xc
+ 1505 010c 03       		.uleb128 0x3
+ 1506 010d 0E       		.uleb128 0xe
+ 1507 010e 3A       		.uleb128 0x3a
+ 1508 010f 0B       		.uleb128 0xb
+ 1509 0110 3B       		.uleb128 0x3b
+ 1510 0111 0B       		.uleb128 0xb
+ 1511 0112 27       		.uleb128 0x27
+ 1512 0113 0C       		.uleb128 0xc
+ 1513 0114 11       		.uleb128 0x11
+ 1514 0115 01       		.uleb128 0x1
+ 1515 0116 12       		.uleb128 0x12
+ 1516 0117 01       		.uleb128 0x1
+ 1517 0118 40       		.uleb128 0x40
+ 1518 0119 0A       		.uleb128 0xa
+ 1519 011a 9742     		.uleb128 0x2117
+ 1520 011c 0C       		.uleb128 0xc
+ 1521 011d 01       		.uleb128 0x1
+ 1522 011e 13       		.uleb128 0x13
+ 1523 011f 00       		.byte	0
+ 1524 0120 00       		.byte	0
+ 1525 0121 15       		.uleb128 0x15
+ 1526 0122 1D       		.uleb128 0x1d
+ 1527 0123 00       		.byte	0
+ 1528 0124 31       		.uleb128 0x31
+ 1529 0125 13       		.uleb128 0x13
+ 1530 0126 52       		.uleb128 0x52
+ 1531 0127 01       		.uleb128 0x1
+ 1532 0128 55       		.uleb128 0x55
+ 1533 0129 06       		.uleb128 0x6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 35
+
+
+ 1534 012a 58       		.uleb128 0x58
+ 1535 012b 0B       		.uleb128 0xb
+ 1536 012c 59       		.uleb128 0x59
+ 1537 012d 0B       		.uleb128 0xb
+ 1538 012e 00       		.byte	0
+ 1539 012f 00       		.byte	0
+ 1540 0130 16       		.uleb128 0x16
+ 1541 0131 1D       		.uleb128 0x1d
+ 1542 0132 01       		.byte	0x1
+ 1543 0133 31       		.uleb128 0x31
+ 1544 0134 13       		.uleb128 0x13
+ 1545 0135 52       		.uleb128 0x52
+ 1546 0136 01       		.uleb128 0x1
+ 1547 0137 55       		.uleb128 0x55
+ 1548 0138 06       		.uleb128 0x6
+ 1549 0139 58       		.uleb128 0x58
+ 1550 013a 0B       		.uleb128 0xb
+ 1551 013b 59       		.uleb128 0x59
+ 1552 013c 0B       		.uleb128 0xb
+ 1553 013d 01       		.uleb128 0x1
+ 1554 013e 13       		.uleb128 0x13
+ 1555 013f 00       		.byte	0
+ 1556 0140 00       		.byte	0
+ 1557 0141 17       		.uleb128 0x17
+ 1558 0142 05       		.uleb128 0x5
+ 1559 0143 00       		.byte	0
+ 1560 0144 31       		.uleb128 0x31
+ 1561 0145 13       		.uleb128 0x13
+ 1562 0146 02       		.uleb128 0x2
+ 1563 0147 0A       		.uleb128 0xa
+ 1564 0148 00       		.byte	0
+ 1565 0149 00       		.byte	0
+ 1566 014a 18       		.uleb128 0x18
+ 1567 014b 0B       		.uleb128 0xb
+ 1568 014c 01       		.byte	0x1
+ 1569 014d 55       		.uleb128 0x55
+ 1570 014e 06       		.uleb128 0x6
+ 1571 014f 00       		.byte	0
+ 1572 0150 00       		.byte	0
+ 1573 0151 19       		.uleb128 0x19
+ 1574 0152 34       		.uleb128 0x34
+ 1575 0153 00       		.byte	0
+ 1576 0154 31       		.uleb128 0x31
+ 1577 0155 13       		.uleb128 0x13
+ 1578 0156 02       		.uleb128 0x2
+ 1579 0157 06       		.uleb128 0x6
+ 1580 0158 00       		.byte	0
+ 1581 0159 00       		.byte	0
+ 1582 015a 1A       		.uleb128 0x1a
+ 1583 015b 05       		.uleb128 0x5
+ 1584 015c 00       		.byte	0
+ 1585 015d 31       		.uleb128 0x31
+ 1586 015e 13       		.uleb128 0x13
+ 1587 015f 1C       		.uleb128 0x1c
+ 1588 0160 0B       		.uleb128 0xb
+ 1589 0161 00       		.byte	0
+ 1590 0162 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 36
+
+
+ 1591 0163 1B       		.uleb128 0x1b
+ 1592 0164 05       		.uleb128 0x5
+ 1593 0165 00       		.byte	0
+ 1594 0166 03       		.uleb128 0x3
+ 1595 0167 0E       		.uleb128 0xe
+ 1596 0168 3A       		.uleb128 0x3a
+ 1597 0169 0B       		.uleb128 0xb
+ 1598 016a 3B       		.uleb128 0x3b
+ 1599 016b 0B       		.uleb128 0xb
+ 1600 016c 49       		.uleb128 0x49
+ 1601 016d 13       		.uleb128 0x13
+ 1602 016e 02       		.uleb128 0x2
+ 1603 016f 06       		.uleb128 0x6
+ 1604 0170 00       		.byte	0
+ 1605 0171 00       		.byte	0
+ 1606 0172 1C       		.uleb128 0x1c
+ 1607 0173 05       		.uleb128 0x5
+ 1608 0174 00       		.byte	0
+ 1609 0175 31       		.uleb128 0x31
+ 1610 0176 13       		.uleb128 0x13
+ 1611 0177 02       		.uleb128 0x2
+ 1612 0178 06       		.uleb128 0x6
+ 1613 0179 00       		.byte	0
+ 1614 017a 00       		.byte	0
+ 1615 017b 1D       		.uleb128 0x1d
+ 1616 017c 1D       		.uleb128 0x1d
+ 1617 017d 01       		.byte	0x1
+ 1618 017e 31       		.uleb128 0x31
+ 1619 017f 13       		.uleb128 0x13
+ 1620 0180 52       		.uleb128 0x52
+ 1621 0181 01       		.uleb128 0x1
+ 1622 0182 55       		.uleb128 0x55
+ 1623 0183 06       		.uleb128 0x6
+ 1624 0184 58       		.uleb128 0x58
+ 1625 0185 0B       		.uleb128 0xb
+ 1626 0186 59       		.uleb128 0x59
+ 1627 0187 0B       		.uleb128 0xb
+ 1628 0188 00       		.byte	0
+ 1629 0189 00       		.byte	0
+ 1630 018a 1E       		.uleb128 0x1e
+ 1631 018b 05       		.uleb128 0x5
+ 1632 018c 00       		.byte	0
+ 1633 018d 31       		.uleb128 0x31
+ 1634 018e 13       		.uleb128 0x13
+ 1635 018f 00       		.byte	0
+ 1636 0190 00       		.byte	0
+ 1637 0191 1F       		.uleb128 0x1f
+ 1638 0192 34       		.uleb128 0x34
+ 1639 0193 00       		.byte	0
+ 1640 0194 31       		.uleb128 0x31
+ 1641 0195 13       		.uleb128 0x13
+ 1642 0196 02       		.uleb128 0x2
+ 1643 0197 0A       		.uleb128 0xa
+ 1644 0198 00       		.byte	0
+ 1645 0199 00       		.byte	0
+ 1646 019a 20       		.uleb128 0x20
+ 1647 019b 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 37
+
+
+ 1648 019c 01       		.byte	0x1
+ 1649 019d 31       		.uleb128 0x31
+ 1650 019e 13       		.uleb128 0x13
+ 1651 019f 11       		.uleb128 0x11
+ 1652 01a0 01       		.uleb128 0x1
+ 1653 01a1 12       		.uleb128 0x12
+ 1654 01a2 01       		.uleb128 0x1
+ 1655 01a3 40       		.uleb128 0x40
+ 1656 01a4 0A       		.uleb128 0xa
+ 1657 01a5 9742     		.uleb128 0x2117
+ 1658 01a7 0C       		.uleb128 0xc
+ 1659 01a8 01       		.uleb128 0x1
+ 1660 01a9 13       		.uleb128 0x13
+ 1661 01aa 00       		.byte	0
+ 1662 01ab 00       		.byte	0
+ 1663 01ac 21       		.uleb128 0x21
+ 1664 01ad 2E       		.uleb128 0x2e
+ 1665 01ae 01       		.byte	0x1
+ 1666 01af 3F       		.uleb128 0x3f
+ 1667 01b0 0C       		.uleb128 0xc
+ 1668 01b1 03       		.uleb128 0x3
+ 1669 01b2 0E       		.uleb128 0xe
+ 1670 01b3 3A       		.uleb128 0x3a
+ 1671 01b4 0B       		.uleb128 0xb
+ 1672 01b5 3B       		.uleb128 0x3b
+ 1673 01b6 0B       		.uleb128 0xb
+ 1674 01b7 27       		.uleb128 0x27
+ 1675 01b8 0C       		.uleb128 0xc
+ 1676 01b9 49       		.uleb128 0x49
+ 1677 01ba 13       		.uleb128 0x13
+ 1678 01bb 11       		.uleb128 0x11
+ 1679 01bc 01       		.uleb128 0x1
+ 1680 01bd 12       		.uleb128 0x12
+ 1681 01be 01       		.uleb128 0x1
+ 1682 01bf 40       		.uleb128 0x40
+ 1683 01c0 0A       		.uleb128 0xa
+ 1684 01c1 9742     		.uleb128 0x2117
+ 1685 01c3 0C       		.uleb128 0xc
+ 1686 01c4 01       		.uleb128 0x1
+ 1687 01c5 13       		.uleb128 0x13
+ 1688 01c6 00       		.byte	0
+ 1689 01c7 00       		.byte	0
+ 1690 01c8 22       		.uleb128 0x22
+ 1691 01c9 34       		.uleb128 0x34
+ 1692 01ca 00       		.byte	0
+ 1693 01cb 03       		.uleb128 0x3
+ 1694 01cc 0E       		.uleb128 0xe
+ 1695 01cd 3A       		.uleb128 0x3a
+ 1696 01ce 0B       		.uleb128 0xb
+ 1697 01cf 3B       		.uleb128 0x3b
+ 1698 01d0 0B       		.uleb128 0xb
+ 1699 01d1 49       		.uleb128 0x49
+ 1700 01d2 13       		.uleb128 0x13
+ 1701 01d3 02       		.uleb128 0x2
+ 1702 01d4 06       		.uleb128 0x6
+ 1703 01d5 00       		.byte	0
+ 1704 01d6 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 38
+
+
+ 1705 01d7 23       		.uleb128 0x23
+ 1706 01d8 2E       		.uleb128 0x2e
+ 1707 01d9 00       		.byte	0
+ 1708 01da 31       		.uleb128 0x31
+ 1709 01db 13       		.uleb128 0x13
+ 1710 01dc 11       		.uleb128 0x11
+ 1711 01dd 01       		.uleb128 0x1
+ 1712 01de 12       		.uleb128 0x12
+ 1713 01df 01       		.uleb128 0x1
+ 1714 01e0 40       		.uleb128 0x40
+ 1715 01e1 0A       		.uleb128 0xa
+ 1716 01e2 9742     		.uleb128 0x2117
+ 1717 01e4 0C       		.uleb128 0xc
+ 1718 01e5 00       		.byte	0
+ 1719 01e6 00       		.byte	0
+ 1720 01e7 24       		.uleb128 0x24
+ 1721 01e8 2E       		.uleb128 0x2e
+ 1722 01e9 00       		.byte	0
+ 1723 01ea 3F       		.uleb128 0x3f
+ 1724 01eb 0C       		.uleb128 0xc
+ 1725 01ec 03       		.uleb128 0x3
+ 1726 01ed 0E       		.uleb128 0xe
+ 1727 01ee 3A       		.uleb128 0x3a
+ 1728 01ef 0B       		.uleb128 0xb
+ 1729 01f0 3B       		.uleb128 0x3b
+ 1730 01f1 05       		.uleb128 0x5
+ 1731 01f2 27       		.uleb128 0x27
+ 1732 01f3 0C       		.uleb128 0xc
+ 1733 01f4 49       		.uleb128 0x49
+ 1734 01f5 13       		.uleb128 0x13
+ 1735 01f6 11       		.uleb128 0x11
+ 1736 01f7 01       		.uleb128 0x1
+ 1737 01f8 12       		.uleb128 0x12
+ 1738 01f9 01       		.uleb128 0x1
+ 1739 01fa 40       		.uleb128 0x40
+ 1740 01fb 0A       		.uleb128 0xa
+ 1741 01fc 9742     		.uleb128 0x2117
+ 1742 01fe 0C       		.uleb128 0xc
+ 1743 01ff 00       		.byte	0
+ 1744 0200 00       		.byte	0
+ 1745 0201 25       		.uleb128 0x25
+ 1746 0202 2E       		.uleb128 0x2e
+ 1747 0203 00       		.byte	0
+ 1748 0204 3F       		.uleb128 0x3f
+ 1749 0205 0C       		.uleb128 0xc
+ 1750 0206 03       		.uleb128 0x3
+ 1751 0207 0E       		.uleb128 0xe
+ 1752 0208 3A       		.uleb128 0x3a
+ 1753 0209 0B       		.uleb128 0xb
+ 1754 020a 3B       		.uleb128 0x3b
+ 1755 020b 05       		.uleb128 0x5
+ 1756 020c 27       		.uleb128 0x27
+ 1757 020d 0C       		.uleb128 0xc
+ 1758 020e 11       		.uleb128 0x11
+ 1759 020f 01       		.uleb128 0x1
+ 1760 0210 12       		.uleb128 0x12
+ 1761 0211 01       		.uleb128 0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 39
+
+
+ 1762 0212 40       		.uleb128 0x40
+ 1763 0213 0A       		.uleb128 0xa
+ 1764 0214 9742     		.uleb128 0x2117
+ 1765 0216 0C       		.uleb128 0xc
+ 1766 0217 00       		.byte	0
+ 1767 0218 00       		.byte	0
+ 1768 0219 26       		.uleb128 0x26
+ 1769 021a 34       		.uleb128 0x34
+ 1770 021b 00       		.byte	0
+ 1771 021c 03       		.uleb128 0x3
+ 1772 021d 0E       		.uleb128 0xe
+ 1773 021e 3A       		.uleb128 0x3a
+ 1774 021f 0B       		.uleb128 0xb
+ 1775 0220 3B       		.uleb128 0x3b
+ 1776 0221 0B       		.uleb128 0xb
+ 1777 0222 49       		.uleb128 0x49
+ 1778 0223 13       		.uleb128 0x13
+ 1779 0224 3F       		.uleb128 0x3f
+ 1780 0225 0C       		.uleb128 0xc
+ 1781 0226 02       		.uleb128 0x2
+ 1782 0227 0A       		.uleb128 0xa
+ 1783 0228 00       		.byte	0
+ 1784 0229 00       		.byte	0
+ 1785 022a 27       		.uleb128 0x27
+ 1786 022b 34       		.uleb128 0x34
+ 1787 022c 00       		.byte	0
+ 1788 022d 03       		.uleb128 0x3
+ 1789 022e 0E       		.uleb128 0xe
+ 1790 022f 3A       		.uleb128 0x3a
+ 1791 0230 0B       		.uleb128 0xb
+ 1792 0231 3B       		.uleb128 0x3b
+ 1793 0232 0B       		.uleb128 0xb
+ 1794 0233 49       		.uleb128 0x49
+ 1795 0234 13       		.uleb128 0x13
+ 1796 0235 3F       		.uleb128 0x3f
+ 1797 0236 0C       		.uleb128 0xc
+ 1798 0237 3C       		.uleb128 0x3c
+ 1799 0238 0C       		.uleb128 0xc
+ 1800 0239 00       		.byte	0
+ 1801 023a 00       		.byte	0
+ 1802 023b 28       		.uleb128 0x28
+ 1803 023c 2E       		.uleb128 0x2e
+ 1804 023d 01       		.byte	0x1
+ 1805 023e 3F       		.uleb128 0x3f
+ 1806 023f 0C       		.uleb128 0xc
+ 1807 0240 03       		.uleb128 0x3
+ 1808 0241 0E       		.uleb128 0xe
+ 1809 0242 3A       		.uleb128 0x3a
+ 1810 0243 0B       		.uleb128 0xb
+ 1811 0244 3B       		.uleb128 0x3b
+ 1812 0245 0B       		.uleb128 0xb
+ 1813 0246 27       		.uleb128 0x27
+ 1814 0247 0C       		.uleb128 0xc
+ 1815 0248 3C       		.uleb128 0x3c
+ 1816 0249 0C       		.uleb128 0xc
+ 1817 024a 01       		.uleb128 0x1
+ 1818 024b 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 40
+
+
+ 1819 024c 00       		.byte	0
+ 1820 024d 00       		.byte	0
+ 1821 024e 29       		.uleb128 0x29
+ 1822 024f 05       		.uleb128 0x5
+ 1823 0250 00       		.byte	0
+ 1824 0251 49       		.uleb128 0x49
+ 1825 0252 13       		.uleb128 0x13
+ 1826 0253 00       		.byte	0
+ 1827 0254 00       		.byte	0
+ 1828 0255 2A       		.uleb128 0x2a
+ 1829 0256 2E       		.uleb128 0x2e
+ 1830 0257 00       		.byte	0
+ 1831 0258 3F       		.uleb128 0x3f
+ 1832 0259 0C       		.uleb128 0xc
+ 1833 025a 03       		.uleb128 0x3
+ 1834 025b 0E       		.uleb128 0xe
+ 1835 025c 3A       		.uleb128 0x3a
+ 1836 025d 0B       		.uleb128 0xb
+ 1837 025e 3B       		.uleb128 0x3b
+ 1838 025f 0B       		.uleb128 0xb
+ 1839 0260 27       		.uleb128 0x27
+ 1840 0261 0C       		.uleb128 0xc
+ 1841 0262 3C       		.uleb128 0x3c
+ 1842 0263 0C       		.uleb128 0xc
+ 1843 0264 00       		.byte	0
+ 1844 0265 00       		.byte	0
+ 1845 0266 00       		.byte	0
+ 1846              		.section	.debug_loc,"",%progbits
+ 1847              	.Ldebug_loc0:
+ 1848              	.LLST0:
+ 1849 0000 00000000 		.4byte	.LFB3
+ 1850 0004 02000000 		.4byte	.LCFI0
+ 1851 0008 0200     		.2byte	0x2
+ 1852 000a 7D       		.byte	0x7d
+ 1853 000b 00       		.sleb128 0
+ 1854 000c 02000000 		.4byte	.LCFI0
+ 1855 0010 28000000 		.4byte	.LFE3
+ 1856 0014 0200     		.2byte	0x2
+ 1857 0016 7D       		.byte	0x7d
+ 1858 0017 08       		.sleb128 8
+ 1859 0018 00000000 		.4byte	0
+ 1860 001c 00000000 		.4byte	0
+ 1861              	.LLST1:
+ 1862 0020 0C000000 		.4byte	.LVL5
+ 1863 0024 12000000 		.4byte	.LVL7
+ 1864 0028 0100     		.2byte	0x1
+ 1865 002a 52       		.byte	0x52
+ 1866 002b 12000000 		.4byte	.LVL7
+ 1867 002f 30000000 		.4byte	.LFE0
+ 1868 0033 0600     		.2byte	0x6
+ 1869 0035 11       		.byte	0x11
+ 1870 0036 88DA8380 		.sleb128 -536810232
+ 1870      7E
+ 1871 003b 00000000 		.4byte	0
+ 1872 003f 00000000 		.4byte	0
+ 1873              	.LLST2:
+ 1874 0043 00000000 		.4byte	.LVL8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 41
+
+
+ 1875 0047 10000000 		.4byte	.LVL12
+ 1876 004b 0100     		.2byte	0x1
+ 1877 004d 50       		.byte	0x50
+ 1878 004e 10000000 		.4byte	.LVL12
+ 1879 0052 14000000 		.4byte	.LVL13
+ 1880 0056 0300     		.2byte	0x3
+ 1881 0058 72       		.byte	0x72
+ 1882 0059 D400     		.sleb128 84
+ 1883 005b 14000000 		.4byte	.LVL13
+ 1884 005f 28000000 		.4byte	.LFE1
+ 1885 0063 0900     		.2byte	0x9
+ 1886 0065 11       		.byte	0x11
+ 1887 0066 88DA8380 		.sleb128 -536810232
+ 1887      7E
+ 1888 006b 06       		.byte	0x6
+ 1889 006c 23       		.byte	0x23
+ 1890 006d 54       		.uleb128 0x54
+ 1891 006e 00000000 		.4byte	0
+ 1892 0072 00000000 		.4byte	0
+ 1893              	.LLST3:
+ 1894 0076 08000000 		.4byte	.LVL9
+ 1895 007a 10000000 		.4byte	.LVL12
+ 1896 007e 0100     		.2byte	0x1
+ 1897 0080 50       		.byte	0x50
+ 1898 0081 10000000 		.4byte	.LVL12
+ 1899 0085 14000000 		.4byte	.LVL13
+ 1900 0089 0300     		.2byte	0x3
+ 1901 008b 72       		.byte	0x72
+ 1902 008c D400     		.sleb128 84
+ 1903 008e 14000000 		.4byte	.LVL13
+ 1904 0092 28000000 		.4byte	.LFE1
+ 1905 0096 0900     		.2byte	0x9
+ 1906 0098 11       		.byte	0x11
+ 1907 0099 88DA8380 		.sleb128 -536810232
+ 1907      7E
+ 1908 009e 06       		.byte	0x6
+ 1909 009f 23       		.byte	0x23
+ 1910 00a0 54       		.uleb128 0x54
+ 1911 00a1 00000000 		.4byte	0
+ 1912 00a5 00000000 		.4byte	0
+ 1913              	.LLST4:
+ 1914 00a9 0A000000 		.4byte	.LVL10
+ 1915 00ad 14000000 		.4byte	.LVL13
+ 1916 00b1 0100     		.2byte	0x1
+ 1917 00b3 52       		.byte	0x52
+ 1918 00b4 14000000 		.4byte	.LVL13
+ 1919 00b8 28000000 		.4byte	.LFE1
+ 1920 00bc 0600     		.2byte	0x6
+ 1921 00be 11       		.byte	0x11
+ 1922 00bf 88DA8380 		.sleb128 -536810232
+ 1922      7E
+ 1923 00c4 00000000 		.4byte	0
+ 1924 00c8 00000000 		.4byte	0
+ 1925              	.LLST5:
+ 1926 00cc 00000000 		.4byte	.LVL18
+ 1927 00d0 02000000 		.4byte	.LVL19
+ 1928 00d4 0600     		.2byte	0x6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 42
+
+
+ 1929 00d6 11       		.byte	0x11
+ 1930 00d7 88DA8380 		.sleb128 -536810232
+ 1930      7E
+ 1931 00dc 02000000 		.4byte	.LVL19
+ 1932 00e0 0C000000 		.4byte	.LFE5
+ 1933 00e4 0200     		.2byte	0x2
+ 1934 00e6 73       		.byte	0x73
+ 1935 00e7 00       		.sleb128 0
+ 1936 00e8 00000000 		.4byte	0
+ 1937 00ec 00000000 		.4byte	0
+ 1938              	.LLST6:
+ 1939 00f0 00000000 		.4byte	.LVL20
+ 1940 00f4 02000000 		.4byte	.LVL21
+ 1941 00f8 0100     		.2byte	0x1
+ 1942 00fa 50       		.byte	0x50
+ 1943 00fb 02000000 		.4byte	.LVL21
+ 1944 00ff 10000000 		.4byte	.LFE6
+ 1945 0103 0400     		.2byte	0x4
+ 1946 0105 F3       		.byte	0xf3
+ 1947 0106 01       		.uleb128 0x1
+ 1948 0107 50       		.byte	0x50
+ 1949 0108 9F       		.byte	0x9f
+ 1950 0109 00000000 		.4byte	0
+ 1951 010d 00000000 		.4byte	0
+ 1952              	.LLST7:
+ 1953 0111 04000000 		.4byte	.LVL22
+ 1954 0115 06000000 		.4byte	.LVL23
+ 1955 0119 0500     		.2byte	0x5
+ 1956 011b 70       		.byte	0x70
+ 1957 011c 00       		.sleb128 0
+ 1958 011d 35       		.byte	0x35
+ 1959 011e 25       		.byte	0x25
+ 1960 011f 9F       		.byte	0x9f
+ 1961 0120 00000000 		.4byte	0
+ 1962 0124 00000000 		.4byte	0
+ 1963              		.section	.debug_aranges,"",%progbits
+ 1964 0000 7C000000 		.4byte	0x7c
+ 1965 0004 0200     		.2byte	0x2
+ 1966 0006 00000000 		.4byte	.Ldebug_info0
+ 1967 000a 04       		.byte	0x4
+ 1968 000b 00       		.byte	0
+ 1969 000c 0000     		.2byte	0
+ 1970 000e 0000     		.2byte	0
+ 1971 0010 00000000 		.4byte	.LFB3
+ 1972 0014 28000000 		.4byte	.LFE3-.LFB3
+ 1973 0018 00000000 		.4byte	.LFB0
+ 1974 001c 30000000 		.4byte	.LFE0-.LFB0
+ 1975 0020 00000000 		.4byte	.LFB1
+ 1976 0024 28000000 		.4byte	.LFE1-.LFB1
+ 1977 0028 00000000 		.4byte	.LFB2
+ 1978 002c 1C000000 		.4byte	.LFE2-.LFB2
+ 1979 0030 00000000 		.4byte	.LFB4
+ 1980 0034 0C000000 		.4byte	.LFE4-.LFB4
+ 1981 0038 00000000 		.4byte	.LFB5
+ 1982 003c 0C000000 		.4byte	.LFE5-.LFB5
+ 1983 0040 00000000 		.4byte	.LFB6
+ 1984 0044 10000000 		.4byte	.LFE6-.LFB6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 43
+
+
+ 1985 0048 00000000 		.4byte	.LFB7
+ 1986 004c 0C000000 		.4byte	.LFE7-.LFB7
+ 1987 0050 00000000 		.4byte	.LFB8
+ 1988 0054 0C000000 		.4byte	.LFE8-.LFB8
+ 1989 0058 00000000 		.4byte	.LFB9
+ 1990 005c 10000000 		.4byte	.LFE9-.LFB9
+ 1991 0060 00000000 		.4byte	.LFB10
+ 1992 0064 0C000000 		.4byte	.LFE10-.LFB10
+ 1993 0068 00000000 		.4byte	.LFB11
+ 1994 006c 0C000000 		.4byte	.LFE11-.LFB11
+ 1995 0070 00000000 		.4byte	.LFB12
+ 1996 0074 0C000000 		.4byte	.LFE12-.LFB12
+ 1997 0078 00000000 		.4byte	0
+ 1998 007c 00000000 		.4byte	0
+ 1999              		.section	.debug_ranges,"",%progbits
+ 2000              	.Ldebug_ranges0:
+ 2001 0000 00000000 		.4byte	.LBB22
+ 2002 0004 02000000 		.4byte	.LBE22
+ 2003 0008 04000000 		.4byte	.LBB29
+ 2004 000c 08000000 		.4byte	.LBE29
+ 2005 0010 00000000 		.4byte	0
+ 2006 0014 00000000 		.4byte	0
+ 2007 0018 02000000 		.4byte	.LBB25
+ 2008 001c 04000000 		.4byte	.LBE25
+ 2009 0020 08000000 		.4byte	.LBB30
+ 2010 0024 0C000000 		.4byte	.LBE30
+ 2011 0028 0E000000 		.4byte	.LBB35
+ 2012 002c 10000000 		.4byte	.LBE35
+ 2013 0030 00000000 		.4byte	0
+ 2014 0034 00000000 		.4byte	0
+ 2015 0038 02000000 		.4byte	.LBB26
+ 2016 003c 04000000 		.4byte	.LBE26
+ 2017 0040 08000000 		.4byte	.LBB27
+ 2018 0044 0C000000 		.4byte	.LBE27
+ 2019 0048 0E000000 		.4byte	.LBB28
+ 2020 004c 10000000 		.4byte	.LBE28
+ 2021 0050 00000000 		.4byte	0
+ 2022 0054 00000000 		.4byte	0
+ 2023 0058 0C000000 		.4byte	.LBB31
+ 2024 005c 0E000000 		.4byte	.LBE31
+ 2025 0060 10000000 		.4byte	.LBB36
+ 2026 0064 12000000 		.4byte	.LBE36
+ 2027 0068 16000000 		.4byte	.LBB40
+ 2028 006c 18000000 		.4byte	.LBE40
+ 2029 0070 00000000 		.4byte	0
+ 2030 0074 00000000 		.4byte	0
+ 2031 0078 12000000 		.4byte	.LBB37
+ 2032 007c 16000000 		.4byte	.LBE37
+ 2033 0080 18000000 		.4byte	.LBB41
+ 2034 0084 30000000 		.4byte	.LBE41
+ 2035 0088 00000000 		.4byte	0
+ 2036 008c 00000000 		.4byte	0
+ 2037 0090 00000000 		.4byte	.LBB42
+ 2038 0094 02000000 		.4byte	.LBE42
+ 2039 0098 04000000 		.4byte	.LBB49
+ 2040 009c 08000000 		.4byte	.LBE49
+ 2041 00a0 00000000 		.4byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 44
+
+
+ 2042 00a4 00000000 		.4byte	0
+ 2043 00a8 02000000 		.4byte	.LBB45
+ 2044 00ac 04000000 		.4byte	.LBE45
+ 2045 00b0 08000000 		.4byte	.LBB50
+ 2046 00b4 0A000000 		.4byte	.LBE50
+ 2047 00b8 0C000000 		.4byte	.LBB55
+ 2048 00bc 0E000000 		.4byte	.LBE55
+ 2049 00c0 00000000 		.4byte	0
+ 2050 00c4 00000000 		.4byte	0
+ 2051 00c8 02000000 		.4byte	.LBB46
+ 2052 00cc 04000000 		.4byte	.LBE46
+ 2053 00d0 08000000 		.4byte	.LBB47
+ 2054 00d4 0A000000 		.4byte	.LBE47
+ 2055 00d8 0C000000 		.4byte	.LBB48
+ 2056 00dc 0E000000 		.4byte	.LBE48
+ 2057 00e0 00000000 		.4byte	0
+ 2058 00e4 00000000 		.4byte	0
+ 2059 00e8 0A000000 		.4byte	.LBB51
+ 2060 00ec 0C000000 		.4byte	.LBE51
+ 2061 00f0 0E000000 		.4byte	.LBB56
+ 2062 00f4 10000000 		.4byte	.LBE56
+ 2063 00f8 14000000 		.4byte	.LBB60
+ 2064 00fc 16000000 		.4byte	.LBE60
+ 2065 0100 00000000 		.4byte	0
+ 2066 0104 00000000 		.4byte	0
+ 2067 0108 10000000 		.4byte	.LBB57
+ 2068 010c 14000000 		.4byte	.LBE57
+ 2069 0110 16000000 		.4byte	.LBB61
+ 2070 0114 28000000 		.4byte	.LBE61
+ 2071 0118 00000000 		.4byte	0
+ 2072 011c 00000000 		.4byte	0
+ 2073 0120 00000000 		.4byte	.LBB62
+ 2074 0124 02000000 		.4byte	.LBE62
+ 2075 0128 04000000 		.4byte	.LBB68
+ 2076 012c 08000000 		.4byte	.LBE68
+ 2077 0130 00000000 		.4byte	0
+ 2078 0134 00000000 		.4byte	0
+ 2079 0138 02000000 		.4byte	.LBB65
+ 2080 013c 04000000 		.4byte	.LBE65
+ 2081 0140 08000000 		.4byte	.LBB69
+ 2082 0144 1C000000 		.4byte	.LBE69
+ 2083 0148 00000000 		.4byte	0
+ 2084 014c 00000000 		.4byte	0
+ 2085 0150 02000000 		.4byte	.LBB66
+ 2086 0154 04000000 		.4byte	.LBE66
+ 2087 0158 08000000 		.4byte	.LBB67
+ 2088 015c 1C000000 		.4byte	.LBE67
+ 2089 0160 00000000 		.4byte	0
+ 2090 0164 00000000 		.4byte	0
+ 2091 0168 00000000 		.4byte	.LFB3
+ 2092 016c 28000000 		.4byte	.LFE3
+ 2093 0170 00000000 		.4byte	.LFB0
+ 2094 0174 30000000 		.4byte	.LFE0
+ 2095 0178 00000000 		.4byte	.LFB1
+ 2096 017c 28000000 		.4byte	.LFE1
+ 2097 0180 00000000 		.4byte	.LFB2
+ 2098 0184 1C000000 		.4byte	.LFE2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 45
+
+
+ 2099 0188 00000000 		.4byte	.LFB4
+ 2100 018c 0C000000 		.4byte	.LFE4
+ 2101 0190 00000000 		.4byte	.LFB5
+ 2102 0194 0C000000 		.4byte	.LFE5
+ 2103 0198 00000000 		.4byte	.LFB6
+ 2104 019c 10000000 		.4byte	.LFE6
+ 2105 01a0 00000000 		.4byte	.LFB7
+ 2106 01a4 0C000000 		.4byte	.LFE7
+ 2107 01a8 00000000 		.4byte	.LFB8
+ 2108 01ac 0C000000 		.4byte	.LFE8
+ 2109 01b0 00000000 		.4byte	.LFB9
+ 2110 01b4 10000000 		.4byte	.LFE9
+ 2111 01b8 00000000 		.4byte	.LFB10
+ 2112 01bc 0C000000 		.4byte	.LFE10
+ 2113 01c0 00000000 		.4byte	.LFB11
+ 2114 01c4 0C000000 		.4byte	.LFE11
+ 2115 01c8 00000000 		.4byte	.LFB12
+ 2116 01cc 0C000000 		.4byte	.LFE12
+ 2117 01d0 00000000 		.4byte	0
+ 2118 01d4 00000000 		.4byte	0
+ 2119              		.section	.debug_line,"",%progbits
+ 2120              	.Ldebug_line0:
+ 2121 0000 AE010000 		.section	.debug_str,"MS",%progbits,1
+ 2121      02007000 
+ 2121      00000201 
+ 2121      FB0E0D00 
+ 2121      01010101 
+ 2122              	.LASF37:
+ 2123 0000 6973725F 		.ascii	"isr_EVENTS_IDENTIF_Disable\000"
+ 2123      4556454E 
+ 2123      54535F49 
+ 2123      44454E54 
+ 2123      49465F44 
+ 2124              	.LASF26:
+ 2125 001b 795F6178 		.ascii	"y_axis\000"
+ 2125      697300
+ 2126              	.LASF17:
+ 2127 0022 72656733 		.ascii	"reg32\000"
+ 2127      3200
+ 2128              	.LASF48:
+ 2129 0028 676F6265 		.ascii	"gobee_vparam\000"
+ 2129      655F7670 
+ 2129      6172616D 
+ 2129      00
+ 2130              	.LASF40:
+ 2131 0035 6973725F 		.ascii	"isr_EVENTS_IDENTIF_Start\000"
+ 2131      4556454E 
+ 2131      54535F49 
+ 2131      44454E54 
+ 2131      49465F53 
+ 2132              	.LASF32:
+ 2133 004e 616E676C 		.ascii	"angle_estim_roll\000"
+ 2133      655F6573 
+ 2133      74696D5F 
+ 2133      726F6C6C 
+ 2133      00
+ 2134              	.LASF35:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 46
+
+
+ 2135 005f 61646472 		.ascii	"address\000"
+ 2135      65737300 
+ 2136              	.LASF46:
+ 2137 0067 6973725F 		.ascii	"isr_EVENTS_IDENTIF_SetPending\000"
+ 2137      4556454E 
+ 2137      54535F49 
+ 2137      44454E54 
+ 2137      49465F53 
+ 2138              	.LASF3:
+ 2139 0085 73686F72 		.ascii	"short unsigned int\000"
+ 2139      7420756E 
+ 2139      7369676E 
+ 2139      65642069 
+ 2139      6E7400
+ 2140              	.LASF33:
+ 2141 0098 6973725F 		.ascii	"isr_EVENTS_IDENTIF_SetVector\000"
+ 2141      4556454E 
+ 2141      54535F49 
+ 2141      44454E54 
+ 2141      49465F53 
+ 2142              	.LASF44:
+ 2143 00b5 6973725F 		.ascii	"isr_EVENTS_IDENTIF_GetPriority\000"
+ 2143      4556454E 
+ 2143      54535F49 
+ 2143      44454E54 
+ 2143      49465F47 
+ 2144              	.LASF19:
+ 2145 00d4 7363616C 		.ascii	"scale\000"
+ 2145      6500
+ 2146              	.LASF23:
+ 2147 00da 5A5F4158 		.ascii	"Z_AXIS\000"
+ 2147      495300
+ 2148              	.LASF14:
+ 2149 00e1 666C6F61 		.ascii	"float\000"
+ 2149      7400
+ 2150              	.LASF29:
+ 2151 00e7 6D6F6475 		.ascii	"modulo\000"
+ 2151      6C6F00
+ 2152              	.LASF1:
+ 2153 00ee 756E7369 		.ascii	"unsigned char\000"
+ 2153      676E6564 
+ 2153      20636861 
+ 2153      7200
+ 2154              	.LASF52:
+ 2155 00fc 53696D70 		.ascii	"SimpleJumpEventEstimator\000"
+ 2155      6C654A75 
+ 2155      6D704576 
+ 2155      656E7445 
+ 2155      7374696D 
+ 2156              	.LASF16:
+ 2157 0115 72656738 		.ascii	"reg8\000"
+ 2157      00
+ 2158              	.LASF58:
+ 2159 011a 6973725F 		.ascii	"isr_EVENTS_IDENTIF_GetState\000"
+ 2159      4556454E 
+ 2159      54535F49 
+ 2159      44454E54 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 47
+
+
+ 2159      49465F47 
+ 2160              	.LASF9:
+ 2161 0136 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2161      20756E73 
+ 2161      69676E65 
+ 2161      6420696E 
+ 2161      7400
+ 2162              	.LASF27:
+ 2163 0148 7A5F6178 		.ascii	"z_axis\000"
+ 2163      697300
+ 2164              	.LASF56:
+ 2165 014f 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 2165      73657273 
+ 2165      5C477261 
+ 2165      7A69616E 
+ 2165      6F5C4465 
+ 2166 017d 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 2166      525C5665 
+ 2166      72732E30 
+ 2166      2E302D54 
+ 2166      30352032 
+ 2167 01ae 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 2167      65446972 
+ 2167      2E637964 
+ 2167      736E00
+ 2168              	.LASF47:
+ 2169 01bd 6973725F 		.ascii	"isr_EVENTS_IDENTIF_ClearPending\000"
+ 2169      4556454E 
+ 2169      54535F49 
+ 2169      44454E54 
+ 2169      49465F43 
+ 2170              	.LASF36:
+ 2171 01dd 7072696F 		.ascii	"priority\000"
+ 2171      72697479 
+ 2171      00
+ 2172              	.LASF22:
+ 2173 01e6 595F4158 		.ascii	"Y_AXIS\000"
+ 2173      495300
+ 2174              	.LASF30:
+ 2175 01ed 73797374 		.ascii	"system_dynamic_scalar\000"
+ 2175      656D5F64 
+ 2175      796E616D 
+ 2175      69635F73 
+ 2175      63616C61 
+ 2176              	.LASF15:
+ 2177 0203 646F7562 		.ascii	"double\000"
+ 2177      6C6500
+ 2178              	.LASF31:
+ 2179 020a 616E676C 		.ascii	"angle_estim_tilt\000"
+ 2179      655F6573 
+ 2179      74696D5F 
+ 2179      74696C74 
+ 2179      00
+ 2180              	.LASF34:
+ 2181 021b 6973725F 		.ascii	"isr_EVENTS_IDENTIF_SetPriority\000"
+ 2181      4556454E 
+ 2181      54535F49 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 48
+
+
+ 2181      44454E54 
+ 2181      49465F53 
+ 2182              	.LASF12:
+ 2183 023a 75696E74 		.ascii	"uint32\000"
+ 2183      333200
+ 2184              	.LASF21:
+ 2185 0241 585F4158 		.ascii	"X_AXIS\000"
+ 2185      495300
+ 2186              	.LASF4:
+ 2187 0248 756E7369 		.ascii	"unsigned int\000"
+ 2187      676E6564 
+ 2187      20696E74 
+ 2187      00
+ 2188              	.LASF39:
+ 2189 0255 6973725F 		.ascii	"isr_EVENTS_IDENTIF_Interrupt\000"
+ 2189      4556454E 
+ 2189      54535F49 
+ 2189      44454E54 
+ 2189      49465F49 
+ 2190              	.LASF6:
+ 2191 0272 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2191      206C6F6E 
+ 2191      6720756E 
+ 2191      7369676E 
+ 2191      65642069 
+ 2192              	.LASF13:
+ 2193 0289 696E7431 		.ascii	"int16\000"
+ 2193      3600
+ 2194              	.LASF20:
+ 2195 028f 61636365 		.ascii	"acceleration\000"
+ 2195      6C657261 
+ 2195      74696F6E 
+ 2195      00
+ 2196              	.LASF18:
+ 2197 029c 63796973 		.ascii	"cyisraddress\000"
+ 2197      72616464 
+ 2197      72657373 
+ 2197      00
+ 2198              	.LASF25:
+ 2199 02a9 785F6178 		.ascii	"x_axis\000"
+ 2199      697300
+ 2200              	.LASF28:
+ 2201 02b0 73717561 		.ascii	"squared\000"
+ 2201      72656400 
+ 2202              	.LASF49:
+ 2203 02b8 61616363 		.ascii	"aacc\000"
+ 2203      00
+ 2204              	.LASF8:
+ 2205 02bd 73697A65 		.ascii	"sizetype\000"
+ 2205      74797065 
+ 2205      00
+ 2206              	.LASF38:
+ 2207 02c6 6973725F 		.ascii	"isr_EVENTS_IDENTIF_Enable\000"
+ 2207      4556454E 
+ 2207      54535F49 
+ 2207      44454E54 
+ 2207      49465F45 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 49
+
+
+ 2208              	.LASF5:
+ 2209 02e0 6C6F6E67 		.ascii	"long long int\000"
+ 2209      206C6F6E 
+ 2209      6720696E 
+ 2209      7400
+ 2210              	.LASF50:
+ 2211 02ee 53696D70 		.ascii	"SimpleTiltAngleEventsEstimator\000"
+ 2211      6C655469 
+ 2211      6C74416E 
+ 2211      676C6545 
+ 2211      76656E74 
+ 2212              	.LASF10:
+ 2213 030d 63686172 		.ascii	"char\000"
+ 2213      00
+ 2214              	.LASF45:
+ 2215 0312 72616D56 		.ascii	"ramVectorTable\000"
+ 2215      6563746F 
+ 2215      72546162 
+ 2215      6C6500
+ 2216              	.LASF55:
+ 2217 0321 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isr_EVENTS_IDENTIF.c\000"
+ 2217      6E657261 
+ 2217      7465645F 
+ 2217      536F7572 
+ 2217      63655C50 
+ 2218              	.LASF51:
+ 2219 034f 53696D70 		.ascii	"SimpleVibrationEventsEstimator\000"
+ 2219      6C655669 
+ 2219      62726174 
+ 2219      696F6E45 
+ 2219      76656E74 
+ 2220              	.LASF2:
+ 2221 036e 73686F72 		.ascii	"short int\000"
+ 2221      7420696E 
+ 2221      7400
+ 2222              	.LASF11:
+ 2223 0378 75696E74 		.ascii	"uint8\000"
+ 2223      3800
+ 2224              	.LASF54:
+ 2225 037e 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 2225      4320342E 
+ 2225      372E3320 
+ 2225      32303133 
+ 2225      30333132 
+ 2226 03b1 616E6368 		.ascii	"anch revision 196615]\000"
+ 2226      20726576 
+ 2226      6973696F 
+ 2226      6E203139 
+ 2226      36363135 
+ 2227              	.LASF41:
+ 2228 03c7 6973725F 		.ascii	"isr_EVENTS_IDENTIF_StartEx\000"
+ 2228      4556454E 
+ 2228      54535F49 
+ 2228      44454E54 
+ 2228      49465F53 
+ 2229              	.LASF7:
+ 2230 03e2 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccRk9WKl.s 			page 50
+
+
+ 2230      20696E74 
+ 2230      00
+ 2231              	.LASF24:
+ 2232 03eb 414E414C 		.ascii	"ANALOG_3D_ACCELEROMETER\000"
+ 2232      4F475F33 
+ 2232      445F4143 
+ 2232      43454C45 
+ 2232      524F4D45 
+ 2233              	.LASF53:
+ 2234 0403 4D617070 		.ascii	"MappingStateMachineExecution\000"
+ 2234      696E6753 
+ 2234      74617465 
+ 2234      4D616368 
+ 2234      696E6545 
+ 2235              	.LASF43:
+ 2236 0420 6973725F 		.ascii	"isr_EVENTS_IDENTIF_GetVector\000"
+ 2236      4556454E 
+ 2236      54535F49 
+ 2236      44454E54 
+ 2236      49465F47 
+ 2237              	.LASF0:
+ 2238 043d 7369676E 		.ascii	"signed char\000"
+ 2238      65642063 
+ 2238      68617200 
+ 2239              	.LASF57:
+ 2240 0449 474F4245 		.ascii	"GOBEE_VPARAMS\000"
+ 2240      455F5650 
+ 2240      4152414D 
+ 2240      5300
+ 2241              	.LASF42:
+ 2242 0457 6973725F 		.ascii	"isr_EVENTS_IDENTIF_Stop\000"
+ 2242      4556454E 
+ 2242      54535F49 
+ 2242      44454E54 
+ 2242      49465F53 
+ 2243              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

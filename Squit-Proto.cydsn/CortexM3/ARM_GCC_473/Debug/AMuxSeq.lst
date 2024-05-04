@@ -1,0 +1,870 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"AMuxSeq.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	AMuxSeq_initVar
+  19              		.bss
+  20              		.type	AMuxSeq_initVar, %object
+  21              		.size	AMuxSeq_initVar, 1
+  22              	AMuxSeq_initVar:
+  23 0000 00       		.space	1
+  24              		.section	.text.AMuxSeq_Start,"ax",%progbits
+  25              		.align	2
+  26              		.global	AMuxSeq_Start
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	AMuxSeq_Start, %function
+  30              	AMuxSeq_Start:
+  31              	.LFB0:
+  32              		.file 1 ".\\Generated_Source\\PSoC5\\AMuxSeq.c"
+   1:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/AMuxSeq.c **** * File Name: AMuxSeq.c
+   3:.\Generated_Source\PSoC5/AMuxSeq.c **** * Version 1.80
+   4:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+   5:.\Generated_Source\PSoC5/AMuxSeq.c **** *  Description:
+   6:.\Generated_Source\PSoC5/AMuxSeq.c **** *    This file contains functions for the AMuxSeq.
+   7:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+   8:.\Generated_Source\PSoC5/AMuxSeq.c **** *   Note:
+   9:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  10:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************
+  11:.\Generated_Source\PSoC5/AMuxSeq.c **** * Copyright 2008-2010, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/AMuxSeq.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:.\Generated_Source\PSoC5/AMuxSeq.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:.\Generated_Source\PSoC5/AMuxSeq.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************/
+  16:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  17:.\Generated_Source\PSoC5/AMuxSeq.c **** #include "AMuxSeq.h"
+  18:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  19:.\Generated_Source\PSoC5/AMuxSeq.c **** uint8 AMuxSeq_initVar = 0u;
+  20:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  21:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  22:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+  23:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_Start
+  24:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+  25:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 2
+
+
+  26:.\Generated_Source\PSoC5/AMuxSeq.c **** *  Disconnect all channels. The next time Next is called, channel 0 will be
+  27:.\Generated_Source\PSoC5/AMuxSeq.c **** *  connected.
+  28:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  29:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+  30:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  31:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  32:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+  33:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  34:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  35:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+  36:.\Generated_Source\PSoC5/AMuxSeq.c **** void AMuxSeq_Start(void)
+  37:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+  33              		.loc 1 37 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_register 7
+  38:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_DisconnectAll();
+  45              		.loc 1 38 0
+  46 0004 FFF7FEFF 		bl	AMuxSeq_DisconnectAll
+  39:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_initVar = 1u;
+  47              		.loc 1 39 0
+  48 0008 40F20003 		movw	r3, #:lower16:AMuxSeq_initVar
+  49 000c C0F20003 		movt	r3, #:upper16:AMuxSeq_initVar
+  50 0010 4FF00102 		mov	r2, #1
+  51 0014 1A70     		strb	r2, [r3, #0]
+  40:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+  52              		.loc 1 40 0
+  53 0016 80BD     		pop	{r7, pc}
+  54              		.cfi_endproc
+  55              	.LFE0:
+  56              		.size	AMuxSeq_Start, .-AMuxSeq_Start
+  57              		.section	.text.AMuxSeq_Init,"ax",%progbits
+  58              		.align	2
+  59              		.global	AMuxSeq_Init
+  60              		.thumb
+  61              		.thumb_func
+  62              		.type	AMuxSeq_Init, %function
+  63              	AMuxSeq_Init:
+  64              	.LFB1:
+  41:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  42:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  43:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+  44:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_Init
+  45:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+  47:.\Generated_Source\PSoC5/AMuxSeq.c **** *  Disconnect all channels. The next time Next is called, channel 0 will be
+  48:.\Generated_Source\PSoC5/AMuxSeq.c **** *  connected.
+  49:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  50:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 3
+
+
+  51:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  52:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  53:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+  54:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  55:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  56:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/AMuxSeq.c **** void AMuxSeq_Init(void)
+  58:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+  65              		.loc 1 58 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 1, uses_anonymous_args = 0
+  69 0000 80B5     		push	{r7, lr}
+  70              	.LCFI2:
+  71              		.cfi_def_cfa_offset 8
+  72              		.cfi_offset 7, -8
+  73              		.cfi_offset 14, -4
+  74 0002 00AF     		add	r7, sp, #0
+  75              	.LCFI3:
+  76              		.cfi_def_cfa_register 7
+  59:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_DisconnectAll();
+  77              		.loc 1 59 0
+  78 0004 FFF7FEFF 		bl	AMuxSeq_DisconnectAll
+  60:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+  79              		.loc 1 60 0
+  80 0008 80BD     		pop	{r7, pc}
+  81              		.cfi_endproc
+  82              	.LFE1:
+  83              		.size	AMuxSeq_Init, .-AMuxSeq_Init
+  84 000a 00BF     		.section	.text.AMuxSeq_Stop,"ax",%progbits
+  85              		.align	2
+  86              		.global	AMuxSeq_Stop
+  87              		.thumb
+  88              		.thumb_func
+  89              		.type	AMuxSeq_Stop, %function
+  90              	AMuxSeq_Stop:
+  91              	.LFB2:
+  61:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  62:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  63:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+  64:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_Stop
+  65:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+  66:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+  67:.\Generated_Source\PSoC5/AMuxSeq.c **** *  Disconnect all channels. The next time Next is called, channel 0 will be
+  68:.\Generated_Source\PSoC5/AMuxSeq.c **** *  connected.
+  69:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  70:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+  71:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  72:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  73:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+  74:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  75:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  76:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+  77:.\Generated_Source\PSoC5/AMuxSeq.c **** void AMuxSeq_Stop(void)
+  78:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+  92              		.loc 1 78 0
+  93              		.cfi_startproc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 4
+
+
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 1, uses_anonymous_args = 0
+  96 0000 80B5     		push	{r7, lr}
+  97              	.LCFI4:
+  98              		.cfi_def_cfa_offset 8
+  99              		.cfi_offset 7, -8
+ 100              		.cfi_offset 14, -4
+ 101 0002 00AF     		add	r7, sp, #0
+ 102              	.LCFI5:
+ 103              		.cfi_def_cfa_register 7
+  79:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_DisconnectAll();
+ 104              		.loc 1 79 0
+ 105 0004 FFF7FEFF 		bl	AMuxSeq_DisconnectAll
+  80:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+ 106              		.loc 1 80 0
+ 107 0008 80BD     		pop	{r7, pc}
+ 108              		.cfi_endproc
+ 109              	.LFE2:
+ 110              		.size	AMuxSeq_Stop, .-AMuxSeq_Stop
+ 111 000a 00BF     		.section	.text.AMuxSeq_GetChannel,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	AMuxSeq_GetChannel
+ 114              		.thumb
+ 115              		.thumb_func
+ 116              		.type	AMuxSeq_GetChannel, %function
+ 117              	AMuxSeq_GetChannel:
+ 118              	.LFB3:
+  81:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  82:.\Generated_Source\PSoC5/AMuxSeq.c **** #if (AMuxSeq_MUXTYPE == AMuxSeq_MUX_DIFF)
+  83:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+  84:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+  85:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_Next
+  86:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+  87:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+  88:.\Generated_Source\PSoC5/AMuxSeq.c **** *  Disconnects the previous channel and connects the next one in the sequence.
+  89:.\Generated_Source\PSoC5/AMuxSeq.c **** *  When Next is called for the first time after Init, Start, Enable, Stop, or
+  90:.\Generated_Source\PSoC5/AMuxSeq.c **** *  DisconnectAll, it connects channel 0.
+  91:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  92:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+  93:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  94:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  95:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+  96:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+  97:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+  98:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+  99:.\Generated_Source\PSoC5/AMuxSeq.c **** void AMuxSeq_Next(void)
+ 100:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+ 101:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_CYAMUXSIDE_A_Next();
+ 102:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_CYAMUXSIDE_B_Next();
+ 103:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+ 104:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+ 105:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+ 106:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+ 107:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_DisconnectAll
+ 108:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+ 109:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+ 110:.\Generated_Source\PSoC5/AMuxSeq.c **** *  This function disconnects all channels. The next time Next is called, channel
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 5
+
+
+ 111:.\Generated_Source\PSoC5/AMuxSeq.c **** *  0 will be connected.
+ 112:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 113:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+ 114:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+ 115:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 116:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+ 117:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+ 118:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 119:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+ 120:.\Generated_Source\PSoC5/AMuxSeq.c **** void AMuxSeq_DisconnectAll(void)
+ 121:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+ 122:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_CYAMUXSIDE_A_DisconnectAll();
+ 123:.\Generated_Source\PSoC5/AMuxSeq.c ****     AMuxSeq_CYAMUXSIDE_B_DisconnectAll();
+ 124:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+ 125:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+ 126:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+ 127:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+ 128:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_GetChannel
+ 129:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+ 130:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+ 131:.\Generated_Source\PSoC5/AMuxSeq.c **** *  The currently connected channel is retuned. If no channel is connected
+ 132:.\Generated_Source\PSoC5/AMuxSeq.c **** *  returns -1.
+ 133:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 134:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+ 135:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+ 136:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 137:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+ 138:.\Generated_Source\PSoC5/AMuxSeq.c **** *  The current channel or -1.
+ 139:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 140:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+ 141:.\Generated_Source\PSoC5/AMuxSeq.c **** int8 AMuxSeq_GetChannel(void)
+ 142:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+ 143:.\Generated_Source\PSoC5/AMuxSeq.c ****     return AMuxSeq_CYAMUXSIDE_A_curChannel;
+ 144:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+ 145:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+ 146:.\Generated_Source\PSoC5/AMuxSeq.c **** #else
+ 147:.\Generated_Source\PSoC5/AMuxSeq.c **** 
+ 148:.\Generated_Source\PSoC5/AMuxSeq.c **** /*******************************************************************************
+ 149:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_GetChannel
+ 150:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
+ 151:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
+ 152:.\Generated_Source\PSoC5/AMuxSeq.c **** *  The currently connected channel is retuned. If no channel is connected
+ 153:.\Generated_Source\PSoC5/AMuxSeq.c **** *  returns -1.
+ 154:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 155:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
+ 156:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
+ 157:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 158:.\Generated_Source\PSoC5/AMuxSeq.c **** * Return:
+ 159:.\Generated_Source\PSoC5/AMuxSeq.c **** *  The current channel or -1.
+ 160:.\Generated_Source\PSoC5/AMuxSeq.c **** *
+ 161:.\Generated_Source\PSoC5/AMuxSeq.c **** *******************************************************************************/
+ 162:.\Generated_Source\PSoC5/AMuxSeq.c **** int8 AMuxSeq_GetChannel(void)
+ 163:.\Generated_Source\PSoC5/AMuxSeq.c **** {
+ 119              		.loc 1 163 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 6
+
+
+ 123              		@ link register save eliminated.
+ 124 0000 80B4     		push	{r7}
+ 125              	.LCFI6:
+ 126              		.cfi_def_cfa_offset 4
+ 127              		.cfi_offset 7, -4
+ 128 0002 00AF     		add	r7, sp, #0
+ 129              	.LCFI7:
+ 130              		.cfi_def_cfa_register 7
+ 164:.\Generated_Source\PSoC5/AMuxSeq.c ****     return AMuxSeq_curChannel;
+ 131              		.loc 1 164 0
+ 132 0004 40F20003 		movw	r3, #:lower16:AMuxSeq_curChannel
+ 133 0008 C0F20003 		movt	r3, #:upper16:AMuxSeq_curChannel
+ 134 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 135 000e 5BB2     		sxtb	r3, r3
+ 165:.\Generated_Source\PSoC5/AMuxSeq.c **** }
+ 136              		.loc 1 165 0
+ 137 0010 1846     		mov	r0, r3
+ 138 0012 BD46     		mov	sp, r7
+ 139 0014 80BC     		pop	{r7}
+ 140 0016 7047     		bx	lr
+ 141              		.cfi_endproc
+ 142              	.LFE3:
+ 143              		.size	AMuxSeq_GetChannel, .-AMuxSeq_GetChannel
+ 144              		.text
+ 145              	.Letext0:
+ 146              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 147              		.file 3 ".\\Generated_Source\\PSoC5\\cyfitter_cfg.h"
+ 148              		.section	.debug_info,"",%progbits
+ 149              	.Ldebug_info0:
+ 150 0000 12010000 		.4byte	0x112
+ 151 0004 0200     		.2byte	0x2
+ 152 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 153 000a 04       		.byte	0x4
+ 154 000b 01       		.uleb128 0x1
+ 155 000c 3D010000 		.4byte	.LASF19
+ 156 0010 01       		.byte	0x1
+ 157 0011 B8010000 		.4byte	.LASF20
+ 158 0015 60000000 		.4byte	.LASF21
+ 159 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 160 001d 00000000 		.4byte	0
+ 161 0021 00000000 		.4byte	0
+ 162 0025 00000000 		.4byte	.Ldebug_line0
+ 163 0029 02       		.uleb128 0x2
+ 164 002a 01       		.byte	0x1
+ 165 002b 06       		.byte	0x6
+ 166 002c 9C010000 		.4byte	.LASF0
+ 167 0030 02       		.uleb128 0x2
+ 168 0031 01       		.byte	0x1
+ 169 0032 08       		.byte	0x8
+ 170 0033 26000000 		.4byte	.LASF1
+ 171 0037 02       		.uleb128 0x2
+ 172 0038 02       		.byte	0x2
+ 173 0039 05       		.byte	0x5
+ 174 003a 2D010000 		.4byte	.LASF2
+ 175 003e 02       		.uleb128 0x2
+ 176 003f 02       		.byte	0x2
+ 177 0040 07       		.byte	0x7
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 7
+
+
+ 178 0041 46000000 		.4byte	.LASF3
+ 179 0045 02       		.uleb128 0x2
+ 180 0046 04       		.byte	0x4
+ 181 0047 05       		.byte	0x5
+ 182 0048 93010000 		.4byte	.LASF4
+ 183 004c 02       		.uleb128 0x2
+ 184 004d 04       		.byte	0x4
+ 185 004e 07       		.byte	0x7
+ 186 004f 34000000 		.4byte	.LASF5
+ 187 0053 02       		.uleb128 0x2
+ 188 0054 08       		.byte	0x8
+ 189 0055 05       		.byte	0x5
+ 190 0056 1A010000 		.4byte	.LASF6
+ 191 005a 02       		.uleb128 0x2
+ 192 005b 08       		.byte	0x8
+ 193 005c 07       		.byte	0x7
+ 194 005d E2000000 		.4byte	.LASF7
+ 195 0061 03       		.uleb128 0x3
+ 196 0062 04       		.byte	0x4
+ 197 0063 05       		.byte	0x5
+ 198 0064 696E7400 		.ascii	"int\000"
+ 199 0068 02       		.uleb128 0x2
+ 200 0069 04       		.byte	0x4
+ 201 006a 07       		.byte	0x7
+ 202 006b D5000000 		.4byte	.LASF8
+ 203 006f 04       		.uleb128 0x4
+ 204 0070 37010000 		.4byte	.LASF9
+ 205 0074 02       		.byte	0x2
+ 206 0075 5B       		.byte	0x5b
+ 207 0076 30000000 		.4byte	0x30
+ 208 007a 04       		.uleb128 0x4
+ 209 007b D0000000 		.4byte	.LASF10
+ 210 007f 02       		.byte	0x2
+ 211 0080 5E       		.byte	0x5e
+ 212 0081 29000000 		.4byte	0x29
+ 213 0085 02       		.uleb128 0x2
+ 214 0086 04       		.byte	0x4
+ 215 0087 04       		.byte	0x4
+ 216 0088 20000000 		.4byte	.LASF11
+ 217 008c 02       		.uleb128 0x2
+ 218 008d 08       		.byte	0x8
+ 219 008e 04       		.byte	0x4
+ 220 008f 59000000 		.4byte	.LASF12
+ 221 0093 02       		.uleb128 0x2
+ 222 0094 01       		.byte	0x1
+ 223 0095 08       		.byte	0x8
+ 224 0096 28010000 		.4byte	.LASF13
+ 225 009a 05       		.uleb128 0x5
+ 226 009b 01       		.byte	0x1
+ 227 009c 0C010000 		.4byte	.LASF14
+ 228 00a0 01       		.byte	0x1
+ 229 00a1 24       		.byte	0x24
+ 230 00a2 01       		.byte	0x1
+ 231 00a3 00000000 		.4byte	.LFB0
+ 232 00a7 18000000 		.4byte	.LFE0
+ 233 00ab 00000000 		.4byte	.LLST0
+ 234 00af 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 8
+
+
+ 235 00b0 05       		.uleb128 0x5
+ 236 00b1 01       		.byte	0x1
+ 237 00b2 13000000 		.4byte	.LASF15
+ 238 00b6 01       		.byte	0x1
+ 239 00b7 39       		.byte	0x39
+ 240 00b8 01       		.byte	0x1
+ 241 00b9 00000000 		.4byte	.LFB1
+ 242 00bd 0A000000 		.4byte	.LFE1
+ 243 00c1 2C000000 		.4byte	.LLST1
+ 244 00c5 01       		.byte	0x1
+ 245 00c6 05       		.uleb128 0x5
+ 246 00c7 01       		.byte	0x1
+ 247 00c8 86010000 		.4byte	.LASF16
+ 248 00cc 01       		.byte	0x1
+ 249 00cd 4D       		.byte	0x4d
+ 250 00ce 01       		.byte	0x1
+ 251 00cf 00000000 		.4byte	.LFB2
+ 252 00d3 0A000000 		.4byte	.LFE2
+ 253 00d7 58000000 		.4byte	.LLST2
+ 254 00db 01       		.byte	0x1
+ 255 00dc 06       		.uleb128 0x6
+ 256 00dd 01       		.byte	0x1
+ 257 00de 00000000 		.4byte	.LASF22
+ 258 00e2 01       		.byte	0x1
+ 259 00e3 A2       		.byte	0xa2
+ 260 00e4 01       		.byte	0x1
+ 261 00e5 7A000000 		.4byte	0x7a
+ 262 00e9 00000000 		.4byte	.LFB3
+ 263 00ed 18000000 		.4byte	.LFE3
+ 264 00f1 84000000 		.4byte	.LLST3
+ 265 00f5 01       		.byte	0x1
+ 266 00f6 07       		.uleb128 0x7
+ 267 00f7 F9000000 		.4byte	.LASF17
+ 268 00fb 03       		.byte	0x3
+ 269 00fc 1A       		.byte	0x1a
+ 270 00fd 7A000000 		.4byte	0x7a
+ 271 0101 01       		.byte	0x1
+ 272 0102 01       		.byte	0x1
+ 273 0103 08       		.uleb128 0x8
+ 274 0104 A8010000 		.4byte	.LASF18
+ 275 0108 01       		.byte	0x1
+ 276 0109 13       		.byte	0x13
+ 277 010a 6F000000 		.4byte	0x6f
+ 278 010e 01       		.byte	0x1
+ 279 010f 05       		.byte	0x5
+ 280 0110 03       		.byte	0x3
+ 281 0111 00000000 		.4byte	AMuxSeq_initVar
+ 282 0115 00       		.byte	0
+ 283              		.section	.debug_abbrev,"",%progbits
+ 284              	.Ldebug_abbrev0:
+ 285 0000 01       		.uleb128 0x1
+ 286 0001 11       		.uleb128 0x11
+ 287 0002 01       		.byte	0x1
+ 288 0003 25       		.uleb128 0x25
+ 289 0004 0E       		.uleb128 0xe
+ 290 0005 13       		.uleb128 0x13
+ 291 0006 0B       		.uleb128 0xb
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 9
+
+
+ 292 0007 03       		.uleb128 0x3
+ 293 0008 0E       		.uleb128 0xe
+ 294 0009 1B       		.uleb128 0x1b
+ 295 000a 0E       		.uleb128 0xe
+ 296 000b 55       		.uleb128 0x55
+ 297 000c 06       		.uleb128 0x6
+ 298 000d 11       		.uleb128 0x11
+ 299 000e 01       		.uleb128 0x1
+ 300 000f 52       		.uleb128 0x52
+ 301 0010 01       		.uleb128 0x1
+ 302 0011 10       		.uleb128 0x10
+ 303 0012 06       		.uleb128 0x6
+ 304 0013 00       		.byte	0
+ 305 0014 00       		.byte	0
+ 306 0015 02       		.uleb128 0x2
+ 307 0016 24       		.uleb128 0x24
+ 308 0017 00       		.byte	0
+ 309 0018 0B       		.uleb128 0xb
+ 310 0019 0B       		.uleb128 0xb
+ 311 001a 3E       		.uleb128 0x3e
+ 312 001b 0B       		.uleb128 0xb
+ 313 001c 03       		.uleb128 0x3
+ 314 001d 0E       		.uleb128 0xe
+ 315 001e 00       		.byte	0
+ 316 001f 00       		.byte	0
+ 317 0020 03       		.uleb128 0x3
+ 318 0021 24       		.uleb128 0x24
+ 319 0022 00       		.byte	0
+ 320 0023 0B       		.uleb128 0xb
+ 321 0024 0B       		.uleb128 0xb
+ 322 0025 3E       		.uleb128 0x3e
+ 323 0026 0B       		.uleb128 0xb
+ 324 0027 03       		.uleb128 0x3
+ 325 0028 08       		.uleb128 0x8
+ 326 0029 00       		.byte	0
+ 327 002a 00       		.byte	0
+ 328 002b 04       		.uleb128 0x4
+ 329 002c 16       		.uleb128 0x16
+ 330 002d 00       		.byte	0
+ 331 002e 03       		.uleb128 0x3
+ 332 002f 0E       		.uleb128 0xe
+ 333 0030 3A       		.uleb128 0x3a
+ 334 0031 0B       		.uleb128 0xb
+ 335 0032 3B       		.uleb128 0x3b
+ 336 0033 0B       		.uleb128 0xb
+ 337 0034 49       		.uleb128 0x49
+ 338 0035 13       		.uleb128 0x13
+ 339 0036 00       		.byte	0
+ 340 0037 00       		.byte	0
+ 341 0038 05       		.uleb128 0x5
+ 342 0039 2E       		.uleb128 0x2e
+ 343 003a 00       		.byte	0
+ 344 003b 3F       		.uleb128 0x3f
+ 345 003c 0C       		.uleb128 0xc
+ 346 003d 03       		.uleb128 0x3
+ 347 003e 0E       		.uleb128 0xe
+ 348 003f 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 10
+
+
+ 349 0040 0B       		.uleb128 0xb
+ 350 0041 3B       		.uleb128 0x3b
+ 351 0042 0B       		.uleb128 0xb
+ 352 0043 27       		.uleb128 0x27
+ 353 0044 0C       		.uleb128 0xc
+ 354 0045 11       		.uleb128 0x11
+ 355 0046 01       		.uleb128 0x1
+ 356 0047 12       		.uleb128 0x12
+ 357 0048 01       		.uleb128 0x1
+ 358 0049 40       		.uleb128 0x40
+ 359 004a 06       		.uleb128 0x6
+ 360 004b 9642     		.uleb128 0x2116
+ 361 004d 0C       		.uleb128 0xc
+ 362 004e 00       		.byte	0
+ 363 004f 00       		.byte	0
+ 364 0050 06       		.uleb128 0x6
+ 365 0051 2E       		.uleb128 0x2e
+ 366 0052 00       		.byte	0
+ 367 0053 3F       		.uleb128 0x3f
+ 368 0054 0C       		.uleb128 0xc
+ 369 0055 03       		.uleb128 0x3
+ 370 0056 0E       		.uleb128 0xe
+ 371 0057 3A       		.uleb128 0x3a
+ 372 0058 0B       		.uleb128 0xb
+ 373 0059 3B       		.uleb128 0x3b
+ 374 005a 0B       		.uleb128 0xb
+ 375 005b 27       		.uleb128 0x27
+ 376 005c 0C       		.uleb128 0xc
+ 377 005d 49       		.uleb128 0x49
+ 378 005e 13       		.uleb128 0x13
+ 379 005f 11       		.uleb128 0x11
+ 380 0060 01       		.uleb128 0x1
+ 381 0061 12       		.uleb128 0x12
+ 382 0062 01       		.uleb128 0x1
+ 383 0063 40       		.uleb128 0x40
+ 384 0064 06       		.uleb128 0x6
+ 385 0065 9742     		.uleb128 0x2117
+ 386 0067 0C       		.uleb128 0xc
+ 387 0068 00       		.byte	0
+ 388 0069 00       		.byte	0
+ 389 006a 07       		.uleb128 0x7
+ 390 006b 34       		.uleb128 0x34
+ 391 006c 00       		.byte	0
+ 392 006d 03       		.uleb128 0x3
+ 393 006e 0E       		.uleb128 0xe
+ 394 006f 3A       		.uleb128 0x3a
+ 395 0070 0B       		.uleb128 0xb
+ 396 0071 3B       		.uleb128 0x3b
+ 397 0072 0B       		.uleb128 0xb
+ 398 0073 49       		.uleb128 0x49
+ 399 0074 13       		.uleb128 0x13
+ 400 0075 3F       		.uleb128 0x3f
+ 401 0076 0C       		.uleb128 0xc
+ 402 0077 3C       		.uleb128 0x3c
+ 403 0078 0C       		.uleb128 0xc
+ 404 0079 00       		.byte	0
+ 405 007a 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 11
+
+
+ 406 007b 08       		.uleb128 0x8
+ 407 007c 34       		.uleb128 0x34
+ 408 007d 00       		.byte	0
+ 409 007e 03       		.uleb128 0x3
+ 410 007f 0E       		.uleb128 0xe
+ 411 0080 3A       		.uleb128 0x3a
+ 412 0081 0B       		.uleb128 0xb
+ 413 0082 3B       		.uleb128 0x3b
+ 414 0083 0B       		.uleb128 0xb
+ 415 0084 49       		.uleb128 0x49
+ 416 0085 13       		.uleb128 0x13
+ 417 0086 3F       		.uleb128 0x3f
+ 418 0087 0C       		.uleb128 0xc
+ 419 0088 02       		.uleb128 0x2
+ 420 0089 0A       		.uleb128 0xa
+ 421 008a 00       		.byte	0
+ 422 008b 00       		.byte	0
+ 423 008c 00       		.byte	0
+ 424              		.section	.debug_loc,"",%progbits
+ 425              	.Ldebug_loc0:
+ 426              	.LLST0:
+ 427 0000 00000000 		.4byte	.LFB0
+ 428 0004 02000000 		.4byte	.LCFI0
+ 429 0008 0200     		.2byte	0x2
+ 430 000a 7D       		.byte	0x7d
+ 431 000b 00       		.sleb128 0
+ 432 000c 02000000 		.4byte	.LCFI0
+ 433 0010 04000000 		.4byte	.LCFI1
+ 434 0014 0200     		.2byte	0x2
+ 435 0016 7D       		.byte	0x7d
+ 436 0017 08       		.sleb128 8
+ 437 0018 04000000 		.4byte	.LCFI1
+ 438 001c 18000000 		.4byte	.LFE0
+ 439 0020 0200     		.2byte	0x2
+ 440 0022 77       		.byte	0x77
+ 441 0023 08       		.sleb128 8
+ 442 0024 00000000 		.4byte	0
+ 443 0028 00000000 		.4byte	0
+ 444              	.LLST1:
+ 445 002c 00000000 		.4byte	.LFB1
+ 446 0030 02000000 		.4byte	.LCFI2
+ 447 0034 0200     		.2byte	0x2
+ 448 0036 7D       		.byte	0x7d
+ 449 0037 00       		.sleb128 0
+ 450 0038 02000000 		.4byte	.LCFI2
+ 451 003c 04000000 		.4byte	.LCFI3
+ 452 0040 0200     		.2byte	0x2
+ 453 0042 7D       		.byte	0x7d
+ 454 0043 08       		.sleb128 8
+ 455 0044 04000000 		.4byte	.LCFI3
+ 456 0048 0A000000 		.4byte	.LFE1
+ 457 004c 0200     		.2byte	0x2
+ 458 004e 77       		.byte	0x77
+ 459 004f 08       		.sleb128 8
+ 460 0050 00000000 		.4byte	0
+ 461 0054 00000000 		.4byte	0
+ 462              	.LLST2:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 12
+
+
+ 463 0058 00000000 		.4byte	.LFB2
+ 464 005c 02000000 		.4byte	.LCFI4
+ 465 0060 0200     		.2byte	0x2
+ 466 0062 7D       		.byte	0x7d
+ 467 0063 00       		.sleb128 0
+ 468 0064 02000000 		.4byte	.LCFI4
+ 469 0068 04000000 		.4byte	.LCFI5
+ 470 006c 0200     		.2byte	0x2
+ 471 006e 7D       		.byte	0x7d
+ 472 006f 08       		.sleb128 8
+ 473 0070 04000000 		.4byte	.LCFI5
+ 474 0074 0A000000 		.4byte	.LFE2
+ 475 0078 0200     		.2byte	0x2
+ 476 007a 77       		.byte	0x77
+ 477 007b 08       		.sleb128 8
+ 478 007c 00000000 		.4byte	0
+ 479 0080 00000000 		.4byte	0
+ 480              	.LLST3:
+ 481 0084 00000000 		.4byte	.LFB3
+ 482 0088 02000000 		.4byte	.LCFI6
+ 483 008c 0200     		.2byte	0x2
+ 484 008e 7D       		.byte	0x7d
+ 485 008f 00       		.sleb128 0
+ 486 0090 02000000 		.4byte	.LCFI6
+ 487 0094 04000000 		.4byte	.LCFI7
+ 488 0098 0200     		.2byte	0x2
+ 489 009a 7D       		.byte	0x7d
+ 490 009b 04       		.sleb128 4
+ 491 009c 04000000 		.4byte	.LCFI7
+ 492 00a0 18000000 		.4byte	.LFE3
+ 493 00a4 0200     		.2byte	0x2
+ 494 00a6 77       		.byte	0x77
+ 495 00a7 04       		.sleb128 4
+ 496 00a8 00000000 		.4byte	0
+ 497 00ac 00000000 		.4byte	0
+ 498              		.section	.debug_aranges,"",%progbits
+ 499 0000 34000000 		.4byte	0x34
+ 500 0004 0200     		.2byte	0x2
+ 501 0006 00000000 		.4byte	.Ldebug_info0
+ 502 000a 04       		.byte	0x4
+ 503 000b 00       		.byte	0
+ 504 000c 0000     		.2byte	0
+ 505 000e 0000     		.2byte	0
+ 506 0010 00000000 		.4byte	.LFB0
+ 507 0014 18000000 		.4byte	.LFE0-.LFB0
+ 508 0018 00000000 		.4byte	.LFB1
+ 509 001c 0A000000 		.4byte	.LFE1-.LFB1
+ 510 0020 00000000 		.4byte	.LFB2
+ 511 0024 0A000000 		.4byte	.LFE2-.LFB2
+ 512 0028 00000000 		.4byte	.LFB3
+ 513 002c 18000000 		.4byte	.LFE3-.LFB3
+ 514 0030 00000000 		.4byte	0
+ 515 0034 00000000 		.4byte	0
+ 516              		.section	.debug_ranges,"",%progbits
+ 517              	.Ldebug_ranges0:
+ 518 0000 00000000 		.4byte	.LFB0
+ 519 0004 18000000 		.4byte	.LFE0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 13
+
+
+ 520 0008 00000000 		.4byte	.LFB1
+ 521 000c 0A000000 		.4byte	.LFE1
+ 522 0010 00000000 		.4byte	.LFB2
+ 523 0014 0A000000 		.4byte	.LFE2
+ 524 0018 00000000 		.4byte	.LFB3
+ 525 001c 18000000 		.4byte	.LFE3
+ 526 0020 00000000 		.4byte	0
+ 527 0024 00000000 		.4byte	0
+ 528              		.section	.debug_line,"",%progbits
+ 529              	.Ldebug_line0:
+ 530 0000 A5000000 		.section	.debug_str,"MS",%progbits,1
+ 530      02005800 
+ 530      00000201 
+ 530      FB0E0D00 
+ 530      01010101 
+ 531              	.LASF22:
+ 532 0000 414D7578 		.ascii	"AMuxSeq_GetChannel\000"
+ 532      5365715F 
+ 532      47657443 
+ 532      68616E6E 
+ 532      656C00
+ 533              	.LASF15:
+ 534 0013 414D7578 		.ascii	"AMuxSeq_Init\000"
+ 534      5365715F 
+ 534      496E6974 
+ 534      00
+ 535              	.LASF11:
+ 536 0020 666C6F61 		.ascii	"float\000"
+ 536      7400
+ 537              	.LASF1:
+ 538 0026 756E7369 		.ascii	"unsigned char\000"
+ 538      676E6564 
+ 538      20636861 
+ 538      7200
+ 539              	.LASF5:
+ 540 0034 6C6F6E67 		.ascii	"long unsigned int\000"
+ 540      20756E73 
+ 540      69676E65 
+ 540      6420696E 
+ 540      7400
+ 541              	.LASF3:
+ 542 0046 73686F72 		.ascii	"short unsigned int\000"
+ 542      7420756E 
+ 542      7369676E 
+ 542      65642069 
+ 542      6E7400
+ 543              	.LASF12:
+ 544 0059 646F7562 		.ascii	"double\000"
+ 544      6C6500
+ 545              	.LASF21:
+ 546 0060 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 546      73657273 
+ 546      5C477261 
+ 546      7A69616E 
+ 546      6F20472E 
+ 547 008f 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 547      5C535155 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 14
+
+
+ 547      49545C56 
+ 547      6572732E 
+ 547      302E302D 
+ 548 00bf 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 548      2D50726F 
+ 548      746F2E63 
+ 548      7964736E 
+ 548      00
+ 549              	.LASF10:
+ 550 00d0 696E7438 		.ascii	"int8\000"
+ 550      00
+ 551              	.LASF8:
+ 552 00d5 756E7369 		.ascii	"unsigned int\000"
+ 552      676E6564 
+ 552      20696E74 
+ 552      00
+ 553              	.LASF7:
+ 554 00e2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 554      206C6F6E 
+ 554      6720756E 
+ 554      7369676E 
+ 554      65642069 
+ 555              	.LASF17:
+ 556 00f9 414D7578 		.ascii	"AMuxSeq_curChannel\000"
+ 556      5365715F 
+ 556      63757243 
+ 556      68616E6E 
+ 556      656C00
+ 557              	.LASF14:
+ 558 010c 414D7578 		.ascii	"AMuxSeq_Start\000"
+ 558      5365715F 
+ 558      53746172 
+ 558      7400
+ 559              	.LASF6:
+ 560 011a 6C6F6E67 		.ascii	"long long int\000"
+ 560      206C6F6E 
+ 560      6720696E 
+ 560      7400
+ 561              	.LASF13:
+ 562 0128 63686172 		.ascii	"char\000"
+ 562      00
+ 563              	.LASF2:
+ 564 012d 73686F72 		.ascii	"short int\000"
+ 564      7420696E 
+ 564      7400
+ 565              	.LASF9:
+ 566 0137 75696E74 		.ascii	"uint8\000"
+ 566      3800
+ 567              	.LASF19:
+ 568 013d 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 568      4320342E 
+ 568      372E3320 
+ 568      32303133 
+ 568      30333132 
+ 569 0170 616E6368 		.ascii	"anch revision 196615]\000"
+ 569      20726576 
+ 569      6973696F 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 15
+
+
+ 569      6E203139 
+ 569      36363135 
+ 570              	.LASF16:
+ 571 0186 414D7578 		.ascii	"AMuxSeq_Stop\000"
+ 571      5365715F 
+ 571      53746F70 
+ 571      00
+ 572              	.LASF4:
+ 573 0193 6C6F6E67 		.ascii	"long int\000"
+ 573      20696E74 
+ 573      00
+ 574              	.LASF0:
+ 575 019c 7369676E 		.ascii	"signed char\000"
+ 575      65642063 
+ 575      68617200 
+ 576              	.LASF18:
+ 577 01a8 414D7578 		.ascii	"AMuxSeq_initVar\000"
+ 577      5365715F 
+ 577      696E6974 
+ 577      56617200 
+ 578              	.LASF20:
+ 579 01b8 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\AMuxSeq.c\000"
+ 579      6E657261 
+ 579      7465645F 
+ 579      536F7572 
+ 579      63655C50 
+ 580              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

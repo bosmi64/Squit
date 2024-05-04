@@ -1,0 +1,581 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"QuadDec_PAN_INT.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.QuadDec_PAN_ISR,"ax",%progbits
+  19              		.align	1
+  20              		.global	QuadDec_PAN_ISR
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	QuadDec_PAN_ISR, %function
+  24              	QuadDec_PAN_ISR:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\QuadDec_PAN_INT.c"
+   1:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * File Name: QuadDec_PAN_INT.c
+   3:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Version 2.40
+   4:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+   5:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Description:
+   6:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  This file contains the Interrupt Service Routine (ISR) for the Quadrature
+   7:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  Decoder component.
+   8:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+   9:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Note:
+  10:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  None.
+  11:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+  12:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** ********************************************************************************
+  13:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *******************************************************************************/
+  18:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  19:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** #include "QuadDec_PAN.h"
+  20:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** #include "QuadDec_PAN_PVT.h"
+  21:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  22:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** volatile int32 QuadDec_PAN_count32SoftPart = 0;
+  23:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  24:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  25:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * FUNCTION NAME: void QuadDec_PAN_ISR
+  27:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** ********************************************************************************
+  28:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+  29:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Summary:
+  30:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  Interrupt Service Routine for Quadrature Decoder Component.
+  31:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Parameters:
+  33:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  None.
+  34:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+  35:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Return:
+  36:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  None.
+  37:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+  38:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** * Global variables:
+  39:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  QuadDec_PAN_count32SoftPart - modified to update hi 16 bit for current
+  40:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  value of the 32-bit counter, when Counter size equal 32-bit.
+  41:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  QuadDec_PAN_swStatus - modified with the updated values of STATUS
+  42:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *  register.
+  43:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *
+  44:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** *******************************************************************************/
+  45:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** CY_ISR( QuadDec_PAN_ISR )
+  46:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** {
+  27              		.loc 1 46 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  47:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****    uint8 QuadDec_PAN_swStatus;
+  48:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  49:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****    QuadDec_PAN_swStatus = QuadDec_PAN_STATUS_REG;
+  32              		.loc 1 49 0
+  33 0000 0D4B     		ldr	r3, .L13
+  34 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  35              	.LVL0:
+  50:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  51:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     /* User code required at start of ISR */
+  52:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     /* `#START QuadDec_PAN_ISR_START` */
+  53:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  54:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     /* `#END` */
+  55:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c **** 
+  56:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     if (0u != (QuadDec_PAN_swStatus & QuadDec_PAN_COUNTER_OVERFLOW))
+  36              		.loc 1 56 0
+  37 0004 C207     		lsls	r2, r0, #31
+  38 0006 05D5     		bpl	.L2
+  57:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     {
+  58:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****         QuadDec_PAN_count32SoftPart += (int32) QuadDec_PAN_COUNTER_MAX_VALUE;
+  39              		.loc 1 58 0
+  40 0008 0C4B     		ldr	r3, .L13+4
+  41 000a 1A68     		ldr	r2, [r3, #0]
+  42 000c 02F5FF41 		add	r1, r2, #32640
+  43 0010 7F31     		adds	r1, r1, #127
+  44 0012 07E0     		b	.L11
+  45              	.L2:
+  59:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     }
+  60:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     else if (0u != (QuadDec_PAN_swStatus & QuadDec_PAN_COUNTER_UNDERFLOW))
+  46              		.loc 1 60 0
+  47 0014 00F00202 		and	r2, r0, #2
+  48 0018 D1B2     		uxtb	r1, r2
+  49 001a 21B1     		cbz	r1, .L3
+  61:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     {
+  62:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****         QuadDec_PAN_count32SoftPart -= (int32) QuadDec_PAN_COUNTER_INIT_VALUE;
+  50              		.loc 1 62 0
+  51 001c 074B     		ldr	r3, .L13+4
+  52 001e 1A68     		ldr	r2, [r3, #0]
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 3
+
+
+  53 0020 A2F50041 		sub	r1, r2, #32768
+  54              	.L11:
+  55 0024 1960     		str	r1, [r3, #0]
+  56              	.L3:
+  63:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     }
+  64:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     else
+  65:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     {
+  66:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****         /* Nothing to do here */
+  67:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     }
+  68:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     
+  69:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     if (0u != (QuadDec_PAN_swStatus & QuadDec_PAN_COUNTER_RESET))
+  57              		.loc 1 69 0
+  58 0026 00F00400 		and	r0, r0, #4
+  59              	.LVL1:
+  60 002a C3B2     		uxtb	r3, r0
+  61 002c 13B1     		cbz	r3, .L1
+  70:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****     {
+  71:.\Generated_Source\PSoC5/QuadDec_PAN_INT.c ****         QuadDec_PAN_count32SoftPart = 0;
+  62              		.loc 1 71 0
+  63 002e 034A     		ldr	r2, .L13+4
+  64 0030 0021     		movs	r1, #0
+  65 0032 1160     		str	r1, [r2, #0]
+  66              	.L1:
+  67 0034 7047     		bx	lr
+  68              	.L14:
+  69 0036 00BF     		.align	2
+  70              	.L13:
+  71 0038 66640040 		.word	1073767526
+  72 003c 00000000 		.word	.LANCHOR0
+  73              		.cfi_endproc
+  74              	.LFE0:
+  75              		.size	QuadDec_PAN_ISR, .-QuadDec_PAN_ISR
+  76              		.global	QuadDec_PAN_count32SoftPart
+  77              		.bss
+  78              		.align	2
+  79              		.set	.LANCHOR0,. + 0
+  80              		.type	QuadDec_PAN_count32SoftPart, %object
+  81              		.size	QuadDec_PAN_count32SoftPart, 4
+  82              	QuadDec_PAN_count32SoftPart:
+  83 0000 00000000 		.space	4
+  84              		.text
+  85              	.Letext0:
+  86              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+  87              		.section	.debug_info,"",%progbits
+  88              	.Ldebug_info0:
+  89 0000 EE000000 		.4byte	0xee
+  90 0004 0200     		.2byte	0x2
+  91 0006 00000000 		.4byte	.Ldebug_abbrev0
+  92 000a 04       		.byte	0x4
+  93 000b 01       		.uleb128 0x1
+  94 000c 5B000000 		.4byte	.LASF16
+  95 0010 01       		.byte	0x1
+  96 0011 0E000000 		.4byte	.LASF17
+  97 0015 D1000000 		.4byte	.LASF18
+  98 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  99 001d 00000000 		.4byte	0
+ 100 0021 00000000 		.4byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 4
+
+
+ 101 0025 00000000 		.4byte	.Ldebug_line0
+ 102 0029 02       		.uleb128 0x2
+ 103 002a 01       		.byte	0x1
+ 104 002b 06       		.byte	0x6
+ 105 002c 87010000 		.4byte	.LASF0
+ 106 0030 02       		.uleb128 0x2
+ 107 0031 01       		.byte	0x1
+ 108 0032 08       		.byte	0x8
+ 109 0033 3F010000 		.4byte	.LASF1
+ 110 0037 02       		.uleb128 0x2
+ 111 0038 02       		.byte	0x2
+ 112 0039 05       		.byte	0x5
+ 113 003a B5010000 		.4byte	.LASF2
+ 114 003e 02       		.uleb128 0x2
+ 115 003f 02       		.byte	0x2
+ 116 0040 07       		.byte	0x7
+ 117 0041 74010000 		.4byte	.LASF3
+ 118 0045 03       		.uleb128 0x3
+ 119 0046 04       		.byte	0x4
+ 120 0047 05       		.byte	0x5
+ 121 0048 696E7400 		.ascii	"int\000"
+ 122 004c 02       		.uleb128 0x2
+ 123 004d 04       		.byte	0x4
+ 124 004e 07       		.byte	0x7
+ 125 004f 39000000 		.4byte	.LASF4
+ 126 0053 02       		.uleb128 0x2
+ 127 0054 08       		.byte	0x8
+ 128 0055 05       		.byte	0x5
+ 129 0056 00000000 		.4byte	.LASF5
+ 130 005a 02       		.uleb128 0x2
+ 131 005b 08       		.byte	0x8
+ 132 005c 07       		.byte	0x7
+ 133 005d BA000000 		.4byte	.LASF6
+ 134 0061 02       		.uleb128 0x2
+ 135 0062 04       		.byte	0x4
+ 136 0063 05       		.byte	0x5
+ 137 0064 52010000 		.4byte	.LASF7
+ 138 0068 02       		.uleb128 0x2
+ 139 0069 04       		.byte	0x4
+ 140 006a 07       		.byte	0x7
+ 141 006b C4010000 		.4byte	.LASF8
+ 142 006f 02       		.uleb128 0x2
+ 143 0070 04       		.byte	0x4
+ 144 0071 07       		.byte	0x7
+ 145 0072 5B010000 		.4byte	.LASF9
+ 146 0076 02       		.uleb128 0x2
+ 147 0077 01       		.byte	0x1
+ 148 0078 08       		.byte	0x8
+ 149 0079 4D010000 		.4byte	.LASF10
+ 150 007d 04       		.uleb128 0x4
+ 151 007e A4000000 		.4byte	.LASF11
+ 152 0082 02       		.byte	0x2
+ 153 0083 5B       		.byte	0x5b
+ 154 0084 30000000 		.4byte	0x30
+ 155 0088 04       		.uleb128 0x4
+ 156 0089 CD010000 		.4byte	.LASF12
+ 157 008d 02       		.byte	0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 5
+
+
+ 158 008e 60       		.byte	0x60
+ 159 008f 61000000 		.4byte	0x61
+ 160 0093 02       		.uleb128 0x2
+ 161 0094 04       		.byte	0x4
+ 162 0095 04       		.byte	0x4
+ 163 0096 AF010000 		.4byte	.LASF13
+ 164 009a 02       		.uleb128 0x2
+ 165 009b 08       		.byte	0x8
+ 166 009c 04       		.byte	0x4
+ 167 009d 6D010000 		.4byte	.LASF14
+ 168 00a1 04       		.uleb128 0x4
+ 169 00a2 BF010000 		.4byte	.LASF15
+ 170 00a6 02       		.byte	0x2
+ 171 00a7 F0       		.byte	0xf0
+ 172 00a8 AC000000 		.4byte	0xac
+ 173 00ac 05       		.uleb128 0x5
+ 174 00ad 7D000000 		.4byte	0x7d
+ 175 00b1 06       		.uleb128 0x6
+ 176 00b2 01       		.byte	0x1
+ 177 00b3 AA000000 		.4byte	.LASF19
+ 178 00b7 01       		.byte	0x1
+ 179 00b8 2D       		.byte	0x2d
+ 180 00b9 01       		.byte	0x1
+ 181 00ba 00000000 		.4byte	.LFB0
+ 182 00be 40000000 		.4byte	.LFE0
+ 183 00c2 02       		.byte	0x2
+ 184 00c3 7D       		.byte	0x7d
+ 185 00c4 00       		.sleb128 0
+ 186 00c5 01       		.byte	0x1
+ 187 00c6 DA000000 		.4byte	0xda
+ 188 00ca 07       		.uleb128 0x7
+ 189 00cb 46000000 		.4byte	.LASF20
+ 190 00cf 01       		.byte	0x1
+ 191 00d0 2F       		.byte	0x2f
+ 192 00d1 7D000000 		.4byte	0x7d
+ 193 00d5 00000000 		.4byte	.LLST0
+ 194 00d9 00       		.byte	0
+ 195 00da 08       		.uleb128 0x8
+ 196 00db 93010000 		.4byte	.LASF21
+ 197 00df 01       		.byte	0x1
+ 198 00e0 16       		.byte	0x16
+ 199 00e1 EC000000 		.4byte	0xec
+ 200 00e5 01       		.byte	0x1
+ 201 00e6 05       		.byte	0x5
+ 202 00e7 03       		.byte	0x3
+ 203 00e8 00000000 		.4byte	QuadDec_PAN_count32SoftPart
+ 204 00ec 05       		.uleb128 0x5
+ 205 00ed 88000000 		.4byte	0x88
+ 206 00f1 00       		.byte	0
+ 207              		.section	.debug_abbrev,"",%progbits
+ 208              	.Ldebug_abbrev0:
+ 209 0000 01       		.uleb128 0x1
+ 210 0001 11       		.uleb128 0x11
+ 211 0002 01       		.byte	0x1
+ 212 0003 25       		.uleb128 0x25
+ 213 0004 0E       		.uleb128 0xe
+ 214 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 6
+
+
+ 215 0006 0B       		.uleb128 0xb
+ 216 0007 03       		.uleb128 0x3
+ 217 0008 0E       		.uleb128 0xe
+ 218 0009 1B       		.uleb128 0x1b
+ 219 000a 0E       		.uleb128 0xe
+ 220 000b 55       		.uleb128 0x55
+ 221 000c 06       		.uleb128 0x6
+ 222 000d 11       		.uleb128 0x11
+ 223 000e 01       		.uleb128 0x1
+ 224 000f 52       		.uleb128 0x52
+ 225 0010 01       		.uleb128 0x1
+ 226 0011 10       		.uleb128 0x10
+ 227 0012 06       		.uleb128 0x6
+ 228 0013 00       		.byte	0
+ 229 0014 00       		.byte	0
+ 230 0015 02       		.uleb128 0x2
+ 231 0016 24       		.uleb128 0x24
+ 232 0017 00       		.byte	0
+ 233 0018 0B       		.uleb128 0xb
+ 234 0019 0B       		.uleb128 0xb
+ 235 001a 3E       		.uleb128 0x3e
+ 236 001b 0B       		.uleb128 0xb
+ 237 001c 03       		.uleb128 0x3
+ 238 001d 0E       		.uleb128 0xe
+ 239 001e 00       		.byte	0
+ 240 001f 00       		.byte	0
+ 241 0020 03       		.uleb128 0x3
+ 242 0021 24       		.uleb128 0x24
+ 243 0022 00       		.byte	0
+ 244 0023 0B       		.uleb128 0xb
+ 245 0024 0B       		.uleb128 0xb
+ 246 0025 3E       		.uleb128 0x3e
+ 247 0026 0B       		.uleb128 0xb
+ 248 0027 03       		.uleb128 0x3
+ 249 0028 08       		.uleb128 0x8
+ 250 0029 00       		.byte	0
+ 251 002a 00       		.byte	0
+ 252 002b 04       		.uleb128 0x4
+ 253 002c 16       		.uleb128 0x16
+ 254 002d 00       		.byte	0
+ 255 002e 03       		.uleb128 0x3
+ 256 002f 0E       		.uleb128 0xe
+ 257 0030 3A       		.uleb128 0x3a
+ 258 0031 0B       		.uleb128 0xb
+ 259 0032 3B       		.uleb128 0x3b
+ 260 0033 0B       		.uleb128 0xb
+ 261 0034 49       		.uleb128 0x49
+ 262 0035 13       		.uleb128 0x13
+ 263 0036 00       		.byte	0
+ 264 0037 00       		.byte	0
+ 265 0038 05       		.uleb128 0x5
+ 266 0039 35       		.uleb128 0x35
+ 267 003a 00       		.byte	0
+ 268 003b 49       		.uleb128 0x49
+ 269 003c 13       		.uleb128 0x13
+ 270 003d 00       		.byte	0
+ 271 003e 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 7
+
+
+ 272 003f 06       		.uleb128 0x6
+ 273 0040 2E       		.uleb128 0x2e
+ 274 0041 01       		.byte	0x1
+ 275 0042 3F       		.uleb128 0x3f
+ 276 0043 0C       		.uleb128 0xc
+ 277 0044 03       		.uleb128 0x3
+ 278 0045 0E       		.uleb128 0xe
+ 279 0046 3A       		.uleb128 0x3a
+ 280 0047 0B       		.uleb128 0xb
+ 281 0048 3B       		.uleb128 0x3b
+ 282 0049 0B       		.uleb128 0xb
+ 283 004a 27       		.uleb128 0x27
+ 284 004b 0C       		.uleb128 0xc
+ 285 004c 11       		.uleb128 0x11
+ 286 004d 01       		.uleb128 0x1
+ 287 004e 12       		.uleb128 0x12
+ 288 004f 01       		.uleb128 0x1
+ 289 0050 40       		.uleb128 0x40
+ 290 0051 0A       		.uleb128 0xa
+ 291 0052 9742     		.uleb128 0x2117
+ 292 0054 0C       		.uleb128 0xc
+ 293 0055 01       		.uleb128 0x1
+ 294 0056 13       		.uleb128 0x13
+ 295 0057 00       		.byte	0
+ 296 0058 00       		.byte	0
+ 297 0059 07       		.uleb128 0x7
+ 298 005a 34       		.uleb128 0x34
+ 299 005b 00       		.byte	0
+ 300 005c 03       		.uleb128 0x3
+ 301 005d 0E       		.uleb128 0xe
+ 302 005e 3A       		.uleb128 0x3a
+ 303 005f 0B       		.uleb128 0xb
+ 304 0060 3B       		.uleb128 0x3b
+ 305 0061 0B       		.uleb128 0xb
+ 306 0062 49       		.uleb128 0x49
+ 307 0063 13       		.uleb128 0x13
+ 308 0064 02       		.uleb128 0x2
+ 309 0065 06       		.uleb128 0x6
+ 310 0066 00       		.byte	0
+ 311 0067 00       		.byte	0
+ 312 0068 08       		.uleb128 0x8
+ 313 0069 34       		.uleb128 0x34
+ 314 006a 00       		.byte	0
+ 315 006b 03       		.uleb128 0x3
+ 316 006c 0E       		.uleb128 0xe
+ 317 006d 3A       		.uleb128 0x3a
+ 318 006e 0B       		.uleb128 0xb
+ 319 006f 3B       		.uleb128 0x3b
+ 320 0070 0B       		.uleb128 0xb
+ 321 0071 49       		.uleb128 0x49
+ 322 0072 13       		.uleb128 0x13
+ 323 0073 3F       		.uleb128 0x3f
+ 324 0074 0C       		.uleb128 0xc
+ 325 0075 02       		.uleb128 0x2
+ 326 0076 0A       		.uleb128 0xa
+ 327 0077 00       		.byte	0
+ 328 0078 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 8
+
+
+ 329 0079 00       		.byte	0
+ 330              		.section	.debug_loc,"",%progbits
+ 331              	.Ldebug_loc0:
+ 332              	.LLST0:
+ 333 0000 04000000 		.4byte	.LVL0
+ 334 0004 2A000000 		.4byte	.LVL1
+ 335 0008 0100     		.2byte	0x1
+ 336 000a 50       		.byte	0x50
+ 337 000b 00000000 		.4byte	0
+ 338 000f 00000000 		.4byte	0
+ 339              		.section	.debug_aranges,"",%progbits
+ 340 0000 1C000000 		.4byte	0x1c
+ 341 0004 0200     		.2byte	0x2
+ 342 0006 00000000 		.4byte	.Ldebug_info0
+ 343 000a 04       		.byte	0x4
+ 344 000b 00       		.byte	0
+ 345 000c 0000     		.2byte	0
+ 346 000e 0000     		.2byte	0
+ 347 0010 00000000 		.4byte	.LFB0
+ 348 0014 40000000 		.4byte	.LFE0-.LFB0
+ 349 0018 00000000 		.4byte	0
+ 350 001c 00000000 		.4byte	0
+ 351              		.section	.debug_ranges,"",%progbits
+ 352              	.Ldebug_ranges0:
+ 353 0000 00000000 		.4byte	.LFB0
+ 354 0004 40000000 		.4byte	.LFE0
+ 355 0008 00000000 		.4byte	0
+ 356 000c 00000000 		.4byte	0
+ 357              		.section	.debug_line,"",%progbits
+ 358              	.Ldebug_line0:
+ 359 0000 6A000000 		.section	.debug_str,"MS",%progbits,1
+ 359      02004E00 
+ 359      00000201 
+ 359      FB0E0D00 
+ 359      01010101 
+ 360              	.LASF5:
+ 361 0000 6C6F6E67 		.ascii	"long long int\000"
+ 361      206C6F6E 
+ 361      6720696E 
+ 361      7400
+ 362              	.LASF17:
+ 363 000e 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\QuadDec_PAN_INT.c\000"
+ 363      6E657261 
+ 363      7465645F 
+ 363      536F7572 
+ 363      63655C50 
+ 364              	.LASF4:
+ 365 0039 756E7369 		.ascii	"unsigned int\000"
+ 365      676E6564 
+ 365      20696E74 
+ 365      00
+ 366              	.LASF20:
+ 367 0046 51756164 		.ascii	"QuadDec_PAN_swStatus\000"
+ 367      4465635F 
+ 367      50414E5F 
+ 367      73775374 
+ 367      61747573 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 9
+
+
+ 368              	.LASF16:
+ 369 005b 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 369      4320342E 
+ 369      372E3320 
+ 369      32303133 
+ 369      30333132 
+ 370 008e 616E6368 		.ascii	"anch revision 196615]\000"
+ 370      20726576 
+ 370      6973696F 
+ 370      6E203139 
+ 370      36363135 
+ 371              	.LASF11:
+ 372 00a4 75696E74 		.ascii	"uint8\000"
+ 372      3800
+ 373              	.LASF19:
+ 374 00aa 51756164 		.ascii	"QuadDec_PAN_ISR\000"
+ 374      4465635F 
+ 374      50414E5F 
+ 374      49535200 
+ 375              	.LASF6:
+ 376 00ba 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 376      206C6F6E 
+ 376      6720756E 
+ 376      7369676E 
+ 376      65642069 
+ 377              	.LASF18:
+ 378 00d1 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 378      73657273 
+ 378      5C477261 
+ 378      7A69616E 
+ 378      6F5C4465 
+ 379 00ff 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 379      525C5665 
+ 379      72732E30 
+ 379      2E302D54 
+ 379      30352032 
+ 380 0130 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 380      65446972 
+ 380      2E637964 
+ 380      736E00
+ 381              	.LASF1:
+ 382 013f 756E7369 		.ascii	"unsigned char\000"
+ 382      676E6564 
+ 382      20636861 
+ 382      7200
+ 383              	.LASF10:
+ 384 014d 63686172 		.ascii	"char\000"
+ 384      00
+ 385              	.LASF7:
+ 386 0152 6C6F6E67 		.ascii	"long int\000"
+ 386      20696E74 
+ 386      00
+ 387              	.LASF9:
+ 388 015b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 388      20756E73 
+ 388      69676E65 
+ 388      6420696E 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cclyk3Cd.s 			page 10
+
+
+ 388      7400
+ 389              	.LASF14:
+ 390 016d 646F7562 		.ascii	"double\000"
+ 390      6C6500
+ 391              	.LASF3:
+ 392 0174 73686F72 		.ascii	"short unsigned int\000"
+ 392      7420756E 
+ 392      7369676E 
+ 392      65642069 
+ 392      6E7400
+ 393              	.LASF0:
+ 394 0187 7369676E 		.ascii	"signed char\000"
+ 394      65642063 
+ 394      68617200 
+ 395              	.LASF21:
+ 396 0193 51756164 		.ascii	"QuadDec_PAN_count32SoftPart\000"
+ 396      4465635F 
+ 396      50414E5F 
+ 396      636F756E 
+ 396      74333253 
+ 397              	.LASF13:
+ 398 01af 666C6F61 		.ascii	"float\000"
+ 398      7400
+ 399              	.LASF2:
+ 400 01b5 73686F72 		.ascii	"short int\000"
+ 400      7420696E 
+ 400      7400
+ 401              	.LASF15:
+ 402 01bf 72656738 		.ascii	"reg8\000"
+ 402      00
+ 403              	.LASF8:
+ 404 01c4 73697A65 		.ascii	"sizetype\000"
+ 404      74797065 
+ 404      00
+ 405              	.LASF12:
+ 406 01cd 696E7433 		.ascii	"int32\000"
+ 406      3200
+ 407              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

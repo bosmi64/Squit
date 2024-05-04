@@ -1,0 +1,1608 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"I2C_COULOMB_INT.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.I2C_COULOMB_ISR,"ax",%progbits
+  19              		.align	1
+  20              		.global	I2C_COULOMB_ISR
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	I2C_COULOMB_ISR, %function
+  24              	I2C_COULOMB_ISR:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\I2C_COULOMB_INT.c"
+   1:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * File Name: I2C_COULOMB_INT.c
+   3:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Version 3.30
+   4:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+   5:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Description:
+   6:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  This file provides the source code of Interrupt Service Routine (ISR)
+   7:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  for I2C component.
+   8:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+   9:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  Note:
+  10:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+  11:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  18:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** #include "I2C_COULOMB_PVT.h"
+  19:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  20:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  21:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** /*******************************************************************************
+  22:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  Place your includes, defines and code here
+  23:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** ********************************************************************************/
+  24:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** /* `#START I2C_COULOMB_ISR_intc` */
+  25:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  26:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** /* `#END` */
+  27:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  28:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  29:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** /*******************************************************************************
+  30:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Function Name: I2C_COULOMB_ISR
+  31:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** ********************************************************************************
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+  33:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Summary:
+  34:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  Handler for I2C interrupt. The Slave and Master operations are handled here.
+  35:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+  36:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Parameters:
+  37:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  void
+  38:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+  39:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Return:
+  40:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  void
+  41:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+  42:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** * Reentrant:
+  43:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *  No
+  44:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *
+  45:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** *******************************************************************************/
+  46:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** CY_ISR(I2C_COULOMB_ISR)
+  47:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** {
+  27              		.loc 1 47 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  48:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+  49:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****        uint8  tmp8;
+  50:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #endif  /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+  51:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  52:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     uint8  tmpCsr;
+  53:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  54:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #if(I2C_COULOMB_TIMEOUT_FF_ENABLED)
+  55:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         if(0u != I2C_COULOMB_TimeoutGetStatus())
+  56:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         {
+  57:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_TimeoutReset();
+  58:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_state = I2C_COULOMB_SM_EXIT_IDLE;
+  59:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             /* I2C_COULOMB_CSR_REG should be cleared after reset */
+  60:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         }
+  61:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #endif /* (I2C_COULOMB_TIMEOUT_FF_ENABLED) */
+  62:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  63:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  64:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     tmpCsr = I2C_COULOMB_CSR_REG;      /* Make copy as interrupts clear */
+  36              		.loc 1 64 0
+  37 0002 844B     		ldr	r3, .L36
+  38 0004 1C78     		ldrb	r4, [r3, #0]	@ zero_extendqisi2
+  39              	.LVL0:
+  65:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  66:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #if(I2C_COULOMB_MODE_MULTI_MASTER_SLAVE_ENABLED)
+  67:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         if(I2C_COULOMB_CHECK_START_GEN(I2C_COULOMB_MCSR_REG))
+  68:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         {
+  69:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_CLEAR_START_GEN;
+  70:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  71:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             /* Set READ complete, but was aborted */
+  72:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_ERR_XFER |
+  73:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                             I2C_COULOMB_GET_MSTAT_CMPLT);
+  74:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  75:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             /* The slave was addressed */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 3
+
+
+  76:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_state = I2C_COULOMB_SM_SLAVE;
+  77:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         }
+  78:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #endif /* (I2C_COULOMB_MODE_MULTI_MASTER_SLAVE_ENABLED) */
+  79:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  80:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  81:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #if(I2C_COULOMB_MODE_MULTI_MASTER_ENABLED)
+  82:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         if(I2C_COULOMB_CHECK_LOST_ARB(tmpCsr))
+  83:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         {
+  84:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             /* Set errors */
+  85:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_ERR_XFER     |
+  86:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                             I2C_COULOMB_MSTAT_ERR_ARB_LOST |
+  87:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                             I2C_COULOMB_GET_MSTAT_CMPLT);
+  88:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  89:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             I2C_COULOMB_DISABLE_INT_ON_STOP; /* Interrupt on Stop is enabled by write */
+  90:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+  91:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             #if(I2C_COULOMB_MODE_MULTI_MASTER_SLAVE_ENABLED)
+  92:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 if(I2C_COULOMB_CHECK_ADDRESS_STS(tmpCsr))
+  93:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+  94:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     /* The slave was addressed */
+  95:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_state = I2C_COULOMB_SM_SLAVE;
+  96:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+  97:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 else
+  98:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+  99:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_BUS_RELEASE;
+ 100:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 101:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_state = I2C_COULOMB_SM_EXIT_IDLE;
+ 102:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 103:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             #else
+ 104:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 I2C_COULOMB_BUS_RELEASE;
+ 105:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 106:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 I2C_COULOMB_state = I2C_COULOMB_SM_EXIT_IDLE;
+ 107:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 108:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             #endif /* (I2C_COULOMB_MODE_MULTI_MASTER_SLAVE_ENABLED) */
+ 109:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         }
+ 110:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     #endif /* (I2C_COULOMB_MODE_MULTI_MASTER_ENABLED) */
+ 111:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 112:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     /* Check for Master operation mode */
+ 113:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     if(I2C_COULOMB_CHECK_SM_MASTER)
+  40              		.loc 1 113 0
+  41 0006 844B     		ldr	r3, .L36+4
+  42 0008 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  43 000a 02F04000 		and	r0, r2, #64
+  44 000e C1B2     		uxtb	r1, r0
+  45 0010 0029     		cmp	r1, #0
+  46 0012 00F0F680 		beq	.L2
+ 114:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     {
+ 115:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         #if(I2C_COULOMB_MODE_MASTER_ENABLED)
+ 116:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             if(I2C_COULOMB_CHECK_BYTE_COMPLETE(tmpCsr))
+  47              		.loc 1 116 0
+  48 0016 E207     		lsls	r2, r4, #31
+  49 0018 40F1DC80 		bpl	.L3
+ 117:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             {
+ 118:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 switch (I2C_COULOMB_state)
+  50              		.loc 1 118 0
+  51 001c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  52 001e 453B     		subs	r3, r3, #69
+  53 0020 052B     		cmp	r3, #5
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 4
+
+
+  54 0022 00F2D780 		bhi	.L3
+  55 0026 DFE813F0 		tbh	[pc, r3, lsl #1]
+  56              	.L7:
+  57 002a 0600     		.2byte	(.L4-.L7)/2
+  58 002c 5F00     		.2byte	(.L5-.L7)/2
+  59 002e D500     		.2byte	(.L3-.L7)/2
+  60 0030 D500     		.2byte	(.L3-.L7)/2
+  61 0032 0600     		.2byte	(.L4-.L7)/2
+  62 0034 A600     		.2byte	(.L6-.L7)/2
+  63              	.L4:
+ 119:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+ 120:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 case I2C_COULOMB_SM_MSTR_WR_ADDR:  /* After address is sent, WRITE data */
+ 121:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 case I2C_COULOMB_SM_MSTR_RD_ADDR:  /* After address is sent, READ  data */
+ 122:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 123:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     tmpCsr &= ((uint8) ~I2C_COULOMB_CSR_STOP_STATUS); /* Clear STOP bit history on 
+  64              		.loc 1 123 0
+  65 0036 04F0DF03 		and	r3, r4, #223
+  66              	.LVL1:
+ 124:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     
+ 125:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     if(I2C_COULOMB_CHECK_ADDR_ACK(tmpCsr))
+  67              		.loc 1 125 0
+  68 003a 04F00A04 		and	r4, r4, #10
+  69 003e 082C     		cmp	r4, #8
+  70 0040 27D1     		bne	.L8
+ 126:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 127:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Setup for transmit or receive of data */
+ 128:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         if(I2C_COULOMB_state == I2C_COULOMB_SM_MSTR_WR_ADDR)   /* TRANSMIT data */
+  71              		.loc 1 128 0
+  72 0042 754C     		ldr	r4, .L36+4
+  73 0044 2178     		ldrb	r1, [r4, #0]	@ zero_extendqisi2
+  74 0046 4529     		cmp	r1, #69
+  75 0048 1DD1     		bne	.L9
+ 129:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 130:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Check if at least one byte to transfer */
+ 131:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             if(I2C_COULOMB_mstrWrBufSize > 0u)
+  76              		.loc 1 131 0
+  77 004a 7448     		ldr	r0, .L36+8
+  78 004c 0278     		ldrb	r2, [r0, #0]	@ zero_extendqisi2
+  79 004e 62B1     		cbz	r2, .L10
+ 132:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 133:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* Load the 1st data byte */
+ 134:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_DATA_REG = I2C_COULOMB_mstrWrBufPtr[0u];
+  80              		.loc 1 134 0
+  81 0050 7348     		ldr	r0, .L36+12
+  82 0052 7449     		ldr	r1, .L36+16
+  83 0054 0268     		ldr	r2, [r0, #0]
+  84 0056 1078     		ldrb	r0, [r2, #0]	@ zero_extendqisi2
+ 135:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_TRANSMIT_DATA;
+  85              		.loc 1 135 0
+  86 0058 0422     		movs	r2, #4
+ 134:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_DATA_REG = I2C_COULOMB_mstrWrBufPtr[0u];
+  87              		.loc 1 134 0
+  88 005a 0870     		strb	r0, [r1, #0]
+  89              		.loc 1 135 0
+  90 005c 01F8012C 		strb	r2, [r1, #-1]
+ 136:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_mstrWrBufIndex = 1u;   /* Set index to 2nd element */
+  91              		.loc 1 136 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 5
+
+
+  92 0060 7149     		ldr	r1, .L36+20
+  93 0062 0120     		movs	r0, #1
+  94 0064 0870     		strb	r0, [r1, #0]
+ 137:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 138:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* Set transmit state until done */
+ 139:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_WR_DATA;
+  95              		.loc 1 139 0
+  96 0066 4621     		movs	r1, #70
+  97 0068 11E0     		b	.L34
+  98              	.L10:
+ 140:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 141:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* End of buffer: complete writing */
+ 142:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             else if(I2C_COULOMB_CHECK_NO_STOP(I2C_COULOMB_mstrControl))
+  99              		.loc 1 142 0
+ 100 006a 7049     		ldr	r1, .L36+24
+ 101 006c 0878     		ldrb	r0, [r1, #0]	@ zero_extendqisi2
+ 102 006e 00F00202 		and	r2, r0, #2
+ 103 0072 D1B2     		uxtb	r1, r2
+ 104 0074 71B3     		cbz	r1, .L12
+ 143:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 144:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 #if(CY_PSOC5A)
+ 145:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     /* Do not handles 0 bytes transfer - HALT is NOT allowed */
+ 146:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_ENABLE_INT_ON_STOP;
+ 147:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_GENERATE_STOP;
+ 148:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 
+ 149:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 #else
+ 150:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     /* Set WRITE complete and Master HALTED */
+ 151:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT |
+ 105              		.loc 1 151 0
+ 106 0076 6E4A     		ldr	r2, .L36+28
+ 107 0078 1178     		ldrb	r1, [r2, #0]	@ zero_extendqisi2
+ 108 007a 41F00A00 		orr	r0, r1, #10
+ 109              	.LVL2:
+ 110 007e 1070     		strb	r0, [r2, #0]
+ 152:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                                     I2C_COULOMB_MSTAT_WR_CMPLT);
+ 153:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 154:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT; /* Expect RESTART
+ 111              		.loc 1 154 0
+ 112 0080 6022     		movs	r2, #96
+ 113 0082 2270     		strb	r2, [r4, #0]
+ 114 0084 21E0     		b	.L33
+ 115              	.LVL3:
+ 116              	.L9:
+ 155:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_DisableInt();
+ 156:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 
+ 157:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 #endif /* (CY_PSOC5A) */
+ 158:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 159:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             else
+ 160:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 161:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_ENABLE_INT_ON_STOP; /* Enable interrupt on STOP, to cat
+ 162:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_GENERATE_STOP;
+ 163:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 164:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 165:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else  /* Master Receive data */
+ 166:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 167:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_READY_TO_READ; /* Release bus to read data */
+ 117              		.loc 1 167 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 6
+
+
+ 118 0086 634A     		ldr	r2, .L36
+ 119 0088 0020     		movs	r0, #0
+ 120 008a 1070     		strb	r0, [r2, #0]
+ 168:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 169:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_state  = I2C_COULOMB_SM_MSTR_RD_DATA;
+ 121              		.loc 1 169 0
+ 122 008c 4A21     		movs	r1, #74
+ 123              	.L34:
+ 124 008e 2170     		strb	r1, [r4, #0]
+ 125 0090 9FE0     		b	.L24
+ 126              	.L8:
+ 170:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 171:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 172:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     /* Address is NACKed */
+ 173:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else if(I2C_COULOMB_CHECK_ADDR_NAK(tmpCsr))
+ 127              		.loc 1 173 0
+ 128 0092 0A2C     		cmp	r4, #10
+ 129 0094 40F09D80 		bne	.L24
+ 174:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 175:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Set Address NAK error */
+ 176:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_ERR_XFER |
+ 130              		.loc 1 176 0
+ 131 0098 654A     		ldr	r2, .L36+28
+ 177:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         I2C_COULOMB_MSTAT_ERR_ADDR_NAK);
+ 178:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         
+ 179:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         if(I2C_COULOMB_CHECK_NO_STOP(I2C_COULOMB_mstrControl))
+ 132              		.loc 1 179 0
+ 133 009a 644C     		ldr	r4, .L36+24
+ 176:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_ERR_XFER |
+ 134              		.loc 1 176 0
+ 135 009c 1178     		ldrb	r1, [r2, #0]	@ zero_extendqisi2
+ 136 009e 41F0A000 		orr	r0, r1, #160
+ 137              	.LVL4:
+ 138 00a2 1070     		strb	r0, [r2, #0]
+ 139              		.loc 1 179 0
+ 140 00a4 2178     		ldrb	r1, [r4, #0]	@ zero_extendqisi2
+ 141 00a6 01F00200 		and	r0, r1, #2
+ 142              	.LVL5:
+ 143 00aa C4B2     		uxtb	r4, r0
+ 144 00ac 94B1     		cbz	r4, .L12
+ 180:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 181:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT | 
+ 182:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                             I2C_COULOMB_GET_MSTAT_CMPLT);
+ 145              		.loc 1 182 0
+ 146 00ae 5A49     		ldr	r1, .L36+4
+ 181:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT | 
+ 147              		.loc 1 181 0
+ 148 00b0 1478     		ldrb	r4, [r2, #0]	@ zero_extendqisi2
+ 149              		.loc 1 182 0
+ 150 00b2 0878     		ldrb	r0, [r1, #0]	@ zero_extendqisi2
+ 181:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT | 
+ 151              		.loc 1 181 0
+ 152 00b4 00F00800 		and	r0, r0, #8
+ 153 00b8 C0B2     		uxtb	r0, r0
+ 154 00ba 0028     		cmp	r0, #0
+ 155 00bc 0CBF     		ite	eq
+ 156 00be 0A20     		moveq	r0, #10
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 7
+
+
+ 157 00c0 0920     		movne	r0, #9
+ 158 00c2 2043     		orrs	r0, r0, r4
+ 159              	.LVL6:
+ 160 00c4 1070     		strb	r0, [r2, #0]
+ 183:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 184:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT; /* Expect RESTART */
+ 161              		.loc 1 184 0
+ 162 00c6 6022     		movs	r2, #96
+ 163 00c8 0A70     		strb	r2, [r1, #0]
+ 164              	.L33:
+ 185:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DisableInt();
+ 165              		.loc 1 185 0
+ 166 00ca 5A49     		ldr	r1, .L36+32
+ 167 00cc 4FF40044 		mov	r4, #32768
+ 168 00d0 0C60     		str	r4, [r1, #0]
+ 169 00d2 7EE0     		b	.L24
+ 170              	.LVL7:
+ 171              	.L12:
+ 186:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 187:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else  /* Do normal Stop */
+ 188:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 189:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP; /* Enable interrupt on STOP, to catch i
+ 172              		.loc 1 189 0
+ 173 00d4 584C     		ldr	r4, .L36+36
+ 190:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_GENERATE_STOP;
+ 174              		.loc 1 190 0
+ 175 00d6 1021     		movs	r1, #16
+ 189:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP; /* Enable interrupt on STOP, to catch i
+ 176              		.loc 1 189 0
+ 177 00d8 2078     		ldrb	r0, [r4, #0]	@ zero_extendqisi2
+ 178 00da 40F01002 		orr	r2, r0, #16
+ 179              		.loc 1 190 0
+ 180 00de 0420     		movs	r0, #4
+ 189:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP; /* Enable interrupt on STOP, to catch i
+ 181              		.loc 1 189 0
+ 182 00e0 2270     		strb	r2, [r4, #0]
+ 183              		.loc 1 190 0
+ 184 00e2 E170     		strb	r1, [r4, #3]
+ 185 00e4 6070     		strb	r0, [r4, #1]
+ 186 00e6 74E0     		b	.L24
+ 187              	.LVL8:
+ 188              	.L5:
+ 191:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 192:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 193:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else
+ 194:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 195:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Address phase is not set for some reason: error */
+ 196:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         #if(I2C_COULOMB_TIMEOUT_ENABLED)
+ 197:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Exit from interrupt to take a chance for timeout timer handle this c
+ 198:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DisableInt();
+ 199:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ClearPendingInt();
+ 200:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         #else
+ 201:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Block execution flow: unexpected condition */
+ 202:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             CYASSERT(0u != 0u);
+ 203:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+ 204:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 205:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     break;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 8
+
+
+ 206:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 207:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 case I2C_COULOMB_SM_MSTR_WR_DATA:
+ 208:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 209:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     if(I2C_COULOMB_CHECK_DATA_ACK(tmpCsr))
+ 189              		.loc 1 209 0
+ 190 00e8 04F00200 		and	r0, r4, #2
+ 191 00ec C2B2     		uxtb	r2, r0
+ 192 00ee 4ABB     		cbnz	r2, .L14
+ 210:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 211:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Check if end of buffer */
+ 212:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         if(I2C_COULOMB_mstrWrBufIndex  < I2C_COULOMB_mstrWrBufSize)
+ 193              		.loc 1 212 0
+ 194 00f0 4D4B     		ldr	r3, .L36+20
+ 195 00f2 4A4A     		ldr	r2, .L36+8
+ 196 00f4 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 197 00f6 1078     		ldrb	r0, [r2, #0]	@ zero_extendqisi2
+ 198 00f8 8142     		cmp	r1, r0
+ 199 00fa 0CD2     		bcs	.L15
+ 213:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 214:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DATA_REG =
+ 215:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                      I2C_COULOMB_mstrWrBufPtr[I2C_COULOMB_mstrWrBuf
+ 200              		.loc 1 215 0
+ 201 00fc 4848     		ldr	r0, .L36+12
+ 202 00fe 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 203 0100 0168     		ldr	r1, [r0, #0]
+ 204 0102 885C     		ldrb	r0, [r1, r2]	@ zero_extendqisi2
+ 214:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DATA_REG =
+ 205              		.loc 1 214 0
+ 206 0104 474A     		ldr	r2, .L36+16
+ 216:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_TRANSMIT_DATA;
+ 207              		.loc 1 216 0
+ 208 0106 0421     		movs	r1, #4
+ 214:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DATA_REG =
+ 209              		.loc 1 214 0
+ 210 0108 1070     		strb	r0, [r2, #0]
+ 211              		.loc 1 216 0
+ 212 010a 02F8011C 		strb	r1, [r2, #-1]
+ 217:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_mstrWrBufIndex++;
+ 213              		.loc 1 217 0
+ 214 010e 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 215 0110 421C     		adds	r2, r0, #1
+ 216 0112 D1B2     		uxtb	r1, r2
+ 217              	.LVL9:
+ 218 0114 41E0     		b	.L30
+ 219              	.L15:
+ 218:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 219:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* End of buffer: complete writing */
+ 220:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else if(I2C_COULOMB_CHECK_NO_STOP(I2C_COULOMB_mstrControl))
+ 220              		.loc 1 220 0
+ 221 0116 454B     		ldr	r3, .L36+24
+ 222 0118 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 223 011a 01F00202 		and	r2, r1, #2
+ 224 011e D0B2     		uxtb	r0, r2
+ 225 0120 20B1     		cbz	r0, .L16
+ 221:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 222:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Set WRITE complete and Master HALTED */
+ 223:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT |
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 9
+
+
+ 226              		.loc 1 223 0
+ 227 0122 4349     		ldr	r1, .L36+28
+ 228 0124 0B78     		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 229 0126 43F00A02 		orr	r2, r3, #10
+ 230 012a 41E0     		b	.L31
+ 231              	.L16:
+ 224:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                             I2C_COULOMB_MSTAT_WR_CMPLT);
+ 225:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 226:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT;    /* Expect RESTART */
+ 227:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DisableInt();
+ 228:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 229:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else  /* Do normal STOP */
+ 230:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 231:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_Workaround();          /* Workaround: empty function */
+ 232              		.loc 1 231 0
+ 233 012c FFF7FEFF 		bl	I2C_COULOMB_Workaround
+ 234              	.LVL10:
+ 232:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP;    /* Enable interrupt on STOP, to catc
+ 235              		.loc 1 232 0
+ 236 0130 414B     		ldr	r3, .L36+36
+ 233:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_GENERATE_STOP;
+ 237              		.loc 1 233 0
+ 238 0132 1020     		movs	r0, #16
+ 232:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP;    /* Enable interrupt on STOP, to catc
+ 239              		.loc 1 232 0
+ 240 0134 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 241 0136 41F01002 		orr	r2, r1, #16
+ 242              		.loc 1 233 0
+ 243 013a 0421     		movs	r1, #4
+ 232:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP;    /* Enable interrupt on STOP, to catc
+ 244              		.loc 1 232 0
+ 245 013c 1A70     		strb	r2, [r3, #0]
+ 246              		.loc 1 233 0
+ 247 013e D870     		strb	r0, [r3, #3]
+ 248 0140 5970     		strb	r1, [r3, #1]
+ 249 0142 47E0     		b	.L3
+ 250              	.L14:
+ 234:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 235:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 236:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     /* Last byte NAKed: end writing */
+ 237:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else if(I2C_COULOMB_CHECK_NO_STOP(I2C_COULOMB_mstrControl))
+ 251              		.loc 1 237 0
+ 252 0144 3949     		ldr	r1, .L36+24
+ 253 0146 0B78     		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 254 0148 03F00200 		and	r0, r3, #2
+ 255 014c C2B2     		uxtb	r2, r0
+ 256 014e 22B1     		cbz	r2, .L17
+ 238:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 239:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Set WRITE complete, SHORT transfer and Master HALTED */
+ 240:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_ERR_XFER       |
+ 257              		.loc 1 240 0
+ 258 0150 3749     		ldr	r1, .L36+28
+ 259 0152 0878     		ldrb	r0, [r1, #0]	@ zero_extendqisi2
+ 260 0154 40F09A02 		orr	r2, r0, #154
+ 261 0158 2AE0     		b	.L31
+ 262              	.L17:
+ 241:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         I2C_COULOMB_MSTAT_ERR_SHORT_XFER |
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 10
+
+
+ 242:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         I2C_COULOMB_MSTAT_XFER_HALT      |
+ 243:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         I2C_COULOMB_MSTAT_WR_CMPLT);
+ 244:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 245:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT;    /* Expect RESTART */
+ 246:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_DisableInt();
+ 247:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 248:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else  /* Do normal STOP */
+ 249:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 250:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ENABLE_INT_ON_STOP;    /* Enable interrupt on STOP, to catch it
+ 263              		.loc 1 250 0
+ 264 015a 3749     		ldr	r1, .L36+36
+ 251:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_GENERATE_STOP;
+ 265              		.loc 1 251 0
+ 266 015c 1022     		movs	r2, #16
+ 250:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ENABLE_INT_ON_STOP;    /* Enable interrupt on STOP, to catch it
+ 267              		.loc 1 250 0
+ 268 015e 0B78     		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 269 0160 43F01000 		orr	r0, r3, #16
+ 270              		.loc 1 251 0
+ 271 0164 0423     		movs	r3, #4
+ 250:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ENABLE_INT_ON_STOP;    /* Enable interrupt on STOP, to catch it
+ 272              		.loc 1 250 0
+ 273 0166 0870     		strb	r0, [r1, #0]
+ 274              		.loc 1 251 0
+ 275 0168 CA70     		strb	r2, [r1, #3]
+ 276 016a 4B70     		strb	r3, [r1, #1]
+ 252:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 253:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Set SHORT and ERR transfer */
+ 254:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_ERR_SHORT_XFER |
+ 277              		.loc 1 254 0
+ 278 016c 304B     		ldr	r3, .L36+28
+ 279 016e 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 280 0170 41F09001 		orr	r1, r1, #144
+ 281 0174 11E0     		b	.L30
+ 282              	.L6:
+ 255:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         I2C_COULOMB_MSTAT_ERR_XFER);
+ 256:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 257:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     
+ 258:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     break;
+ 259:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 260:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 case I2C_COULOMB_SM_MSTR_RD_DATA:
+ 261:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 262:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_mstrRdBufPtr[I2C_COULOMB_mstrRdBufIndex] = I2C_COULOMB_DATA_REG;
+ 283              		.loc 1 262 0
+ 284 0176 3148     		ldr	r0, .L36+40
+ 285 0178 314B     		ldr	r3, .L36+44
+ 286 017a 0168     		ldr	r1, [r0, #0]
+ 287 017c 2948     		ldr	r0, .L36+16
+ 288 017e 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 289 0180 0078     		ldrb	r0, [r0, #0]	@ zero_extendqisi2
+ 290 0182 8854     		strb	r0, [r1, r2]
+ 263:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_mstrRdBufIndex++;
+ 291              		.loc 1 263 0
+ 292 0184 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 293 0186 511C     		adds	r1, r2, #1
+ 294 0188 C8B2     		uxtb	r0, r1
+ 295              	.LVL11:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 11
+
+
+ 296 018a 1870     		strb	r0, [r3, #0]
+ 264:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 265:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     /* Check if end of buffer */
+ 266:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     if(I2C_COULOMB_mstrRdBufIndex < I2C_COULOMB_mstrRdBufSize)
+ 297              		.loc 1 266 0
+ 298 018c 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 299              	.LVL12:
+ 300 018e 2D4B     		ldr	r3, .L36+48
+ 301 0190 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 302 0192 8A42     		cmp	r2, r1
+ 303 0194 03D2     		bcs	.L18
+ 267:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 268:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ACK_AND_RECEIVE;       /* ACK and receive byte */
+ 304              		.loc 1 268 0
+ 305 0196 1F4B     		ldr	r3, .L36
+ 306 0198 1021     		movs	r1, #16
+ 307              	.L30:
+ 308 019a 1970     		strb	r1, [r3, #0]
+ 309 019c 1AE0     		b	.L3
+ 310              	.L18:
+ 269:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 270:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     /* End of buffer: complete reading */
+ 271:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else if(I2C_COULOMB_CHECK_NO_STOP(I2C_COULOMB_mstrControl))
+ 311              		.loc 1 271 0
+ 312 019e 2348     		ldr	r0, .L36+24
+ 313 01a0 0278     		ldrb	r2, [r0, #0]	@ zero_extendqisi2
+ 314 01a2 12F00201 		ands	r1, r2, #2
+ 315 01a6 0CD0     		beq	.L19
+ 272:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {                        
+ 273:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Set READ complete and Master HALTED */
+ 274:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT |
+ 316              		.loc 1 274 0
+ 317 01a8 2149     		ldr	r1, .L36+28
+ 318 01aa 0878     		ldrb	r0, [r1, #0]	@ zero_extendqisi2
+ 319 01ac 40F00902 		orr	r2, r0, #9
+ 320              	.L31:
+ 275:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                         I2C_COULOMB_MSTAT_RD_CMPLT);
+ 276:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         
+ 277:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT;    /* Expect RESTART */
+ 321              		.loc 1 277 0
+ 322 01b0 1948     		ldr	r0, .L36+4
+ 278:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_DisableInt();
+ 323              		.loc 1 278 0
+ 324 01b2 204B     		ldr	r3, .L36+32
+ 325              	.LVL13:
+ 274:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_mstrStatus |= (I2C_COULOMB_MSTAT_XFER_HALT |
+ 326              		.loc 1 274 0
+ 327 01b4 0A70     		strb	r2, [r1, #0]
+ 277:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT;    /* Expect RESTART */
+ 328              		.loc 1 277 0
+ 329 01b6 6022     		movs	r2, #96
+ 330              	.LVL14:
+ 331              		.loc 1 278 0
+ 332 01b8 4FF40041 		mov	r1, #32768
+ 277:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_state = I2C_COULOMB_SM_MSTR_HALT;    /* Expect RESTART */
+ 333              		.loc 1 277 0
+ 334 01bc 0270     		strb	r2, [r0, #0]
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 12
+
+
+ 335              		.loc 1 278 0
+ 336 01be 1960     		str	r1, [r3, #0]
+ 337 01c0 08E0     		b	.L3
+ 338              	.L19:
+ 279:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 280:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else
+ 281:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 282:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ENABLE_INT_ON_STOP;
+ 339              		.loc 1 282 0
+ 340 01c2 1D4B     		ldr	r3, .L36+36
+ 341 01c4 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 342 01c6 40F01002 		orr	r2, r0, #16
+ 343 01ca 1A70     		strb	r2, [r3, #0]
+ 283:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_NAK_AND_RECEIVE;       /* NACK and TRY to generate STOP */
+ 344              		.loc 1 283 0
+ 345 01cc 114B     		ldr	r3, .L36
+ 346 01ce 1970     		strb	r1, [r3, #0]
+ 347 01d0 00E0     		b	.L3
+ 348              	.LVL15:
+ 349              	.L24:
+ 123:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     tmpCsr &= ((uint8) ~I2C_COULOMB_CSR_STOP_STATUS); /* Clear STOP bit history on 
+ 350              		.loc 1 123 0
+ 351 01d2 1C46     		mov	r4, r3
+ 352              	.LVL16:
+ 353              	.L3:
+ 284:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 285:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     break;
+ 286:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 287:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 default: /* This is an invalid state and should not occur */
+ 288:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 289:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #if(I2C_COULOMB_TIMEOUT_ENABLED)
+ 290:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Exit from interrupt to take a chance for timeout timer handle this case 
+ 291:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_DisableInt();
+ 292:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ClearPendingInt();
+ 293:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #else
+ 294:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Block execution flow: unexpected condition */
+ 295:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         CYASSERT(0u != 0u);
+ 296:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+ 297:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 298:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     break;
+ 299:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 300:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             }
+ 301:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 302:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             /* Catches the Stop: end of transaction */
+ 303:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             if(I2C_COULOMB_CHECK_STOP_STS(tmpCsr))
+ 354              		.loc 1 303 0
+ 355 01d4 04F02003 		and	r3, r4, #32
+ 356 01d8 DCB2     		uxtb	r4, r3
+ 357              	.LVL17:
+ 358 01da CCB1     		cbz	r4, .L1
+ 304:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             {
+ 305:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 I2C_COULOMB_mstrStatus |= I2C_COULOMB_GET_MSTAT_CMPLT;
+ 359              		.loc 1 305 0
+ 360 01dc 144A     		ldr	r2, .L36+28
+ 361 01de 0E4B     		ldr	r3, .L36+4
+ 362 01e0 1078     		ldrb	r0, [r2, #0]	@ zero_extendqisi2
+ 363              	.LVL18:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 13
+
+
+ 364 01e2 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 365 01e4 01F00801 		and	r1, r1, #8
+ 366 01e8 C9B2     		uxtb	r1, r1
+ 367 01ea 0029     		cmp	r1, #0
+ 368 01ec 0CBF     		ite	eq
+ 369 01ee 0221     		moveq	r1, #2
+ 370 01f0 0121     		movne	r1, #1
+ 371 01f2 0143     		orrs	r1, r1, r0
+ 372              	.LVL19:
+ 373 01f4 1170     		strb	r1, [r2, #0]
+ 306:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 307:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 I2C_COULOMB_DISABLE_INT_ON_STOP;
+ 374              		.loc 1 307 0
+ 375 01f6 104A     		ldr	r2, .L36+36
+ 376 01f8 1078     		ldrb	r0, [r2, #0]	@ zero_extendqisi2
+ 377 01fa 00F0EF01 		and	r1, r0, #239
+ 378              	.LVL20:
+ 379 01fe 1170     		strb	r1, [r2, #0]
+ 380 0200 04E0     		b	.L32
+ 381              	.LVL21:
+ 382              	.L2:
+ 308:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 I2C_COULOMB_state = I2C_COULOMB_SM_IDLE;
+ 309:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             }
+ 310:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         #endif /* (I2C_COULOMB_MODE_MASTER_ENABLED) */
+ 311:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     }
+ 312:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     else if(I2C_COULOMB_CHECK_SM_SLAVE)
+ 383              		.loc 1 312 0
+ 384 0202 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 385 0204 02F01000 		and	r0, r2, #16
+ 386 0208 C1B2     		uxtb	r1, r0
+ 387 020a 09B9     		cbnz	r1, .L1
+ 388              	.LVL22:
+ 389              	.L32:
+ 313:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     {
+ 314:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+ 315:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             
+ 316:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             if((I2C_COULOMB_CHECK_STOP_STS(tmpCsr)) || /* Stop || Restart */
+ 317:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                (I2C_COULOMB_CHECK_BYTE_COMPLETE(tmpCsr) && I2C_COULOMB_CHECK_ADDRESS_STS(tmpCsr)))
+ 318:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             {
+ 319:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 /* Catch end of master write transcation: use interrupt on Stop */
+ 320:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 /* The STOP bit history on address phase does not have correct state */
+ 321:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 if(I2C_COULOMB_SM_SL_WR_DATA == I2C_COULOMB_state)
+ 322:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+ 323:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_DISABLE_INT_ON_STOP;
+ 324:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 325:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_slStatus &= ((uint8) ~I2C_COULOMB_SSTAT_WR_BUSY);
+ 326:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_slStatus |= ((uint8)  I2C_COULOMB_SSTAT_WR_CMPLT);
+ 327:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 328:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     I2C_COULOMB_state = I2C_COULOMB_SM_IDLE;
+ 329:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 330:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             }
+ 331:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 332:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             if(I2C_COULOMB_CHECK_BYTE_COMPLETE(tmpCsr))
+ 333:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             {
+ 334:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 /* The address only issued after Start or ReStart: so check address
+ 335:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                    to catch this events:
+ 336:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     FF : sets Addr phase with byte_complete interrupt trigger.
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 14
+
+
+ 337:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     UDB: sets Addr phase immediately after Start or ReStart. */
+ 338:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 if(I2C_COULOMB_CHECK_ADDRESS_STS(tmpCsr))
+ 339:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+ 340:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     /* Check for software address detection */
+ 341:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #if(I2C_COULOMB_SW_ADRR_DECODE)
+ 342:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         tmp8 = I2C_COULOMB_GET_SLAVE_ADDR(I2C_COULOMB_DATA_REG);
+ 343:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 344:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         if(tmp8 == I2C_COULOMB_slAddress)   /* Check for address match */
+ 345:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 346:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             if(0u != (I2C_COULOMB_DATA_REG & I2C_COULOMB_READ_FLAG))
+ 347:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 348:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* Place code to prepare read buffer here                  */
+ 349:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* `#START I2C_COULOMB_SW_PREPARE_READ_BUF_interrupt` */
+ 350:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 351:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* `#END` */
+ 352:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 353:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* Prepare next opeation to read, get data and place in data regist
+ 354:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 if(I2C_COULOMB_slRdBufIndex < I2C_COULOMB_slRdBufSize)
+ 355:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 {
+ 356:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     /* Load first data byte from array */
+ 357:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_DATA_REG = I2C_COULOMB_slRdBufPtr[I2C_COULOMB_slRdB
+ 358:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_ACK_AND_TRANSMIT;
+ 359:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_slRdBufIndex++;
+ 360:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 361:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_slStatus |= I2C_COULOMB_SSTAT_RD_BUSY;
+ 362:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 }
+ 363:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 else    /* Overflow: provide 0xFF on the bus */
+ 364:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 {
+ 365:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_DATA_REG = I2C_COULOMB_OVERFLOW_RETURN;
+ 366:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_ACK_AND_TRANSMIT;
+ 367:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 368:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                     I2C_COULOMB_slStatus  |= (I2C_COULOMB_SSTAT_RD_BUSY |
+ 369:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                                    I2C_COULOMB_SSTAT_RD_ERR_OVFL);
+ 370:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 }
+ 371:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 372:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_state = I2C_COULOMB_SM_SL_RD_DATA;
+ 373:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 374:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             else  /* Write transaction: receive 1st byte */
+ 375:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 376:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_ACK_AND_RECEIVE;
+ 377:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_state = I2C_COULOMB_SM_SL_WR_DATA;
+ 378:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 379:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_slStatus |= I2C_COULOMB_SSTAT_WR_BUSY;
+ 380:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_ENABLE_INT_ON_STOP;
+ 381:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 382:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }    
+ 383:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else
+ 384:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 385:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /*     Place code to compare for additional address here    */
+ 386:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* `#START I2C_COULOMB_SW_ADDR_COMPARE_interruptStart` */
+ 387:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 388:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* `#END` */
+ 389:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             
+ 390:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_NAK_AND_RECEIVE;   /* NACK address */
+ 391:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 392:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Place code to end of condition for NACK generation here */
+ 393:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* `#START I2C_COULOMB_SW_ADDR_COMPARE_interruptEnd`  */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 15
+
+
+ 394:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 395:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* `#END` */
+ 396:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 397:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         
+ 398:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #else /* (I2C_COULOMB_HW_ADRR_DECODE) */
+ 399:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         
+ 400:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         if(0u != (I2C_COULOMB_DATA_REG & I2C_COULOMB_READ_FLAG))
+ 401:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 402:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Place code to prepare read buffer here                  */
+ 403:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* `#START I2C_COULOMB_HW_PREPARE_READ_BUF_interrupt` */
+ 404:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 405:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* `#END` */
+ 406:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 407:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             /* Prepare next opeation to read, get data and place in data register *
+ 408:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             if(I2C_COULOMB_slRdBufIndex < I2C_COULOMB_slRdBufSize)
+ 409:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 410:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 /* Load first data byte from array */
+ 411:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_DATA_REG = I2C_COULOMB_slRdBufPtr[I2C_COULOMB_slRdBufIn
+ 412:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_ACK_AND_TRANSMIT;
+ 413:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_slRdBufIndex++;
+ 414:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 415:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_slStatus |= I2C_COULOMB_SSTAT_RD_BUSY;
+ 416:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 417:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             else    /* Overflow: provide 0xFF on the bus */
+ 418:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             {
+ 419:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_DATA_REG = I2C_COULOMB_OVERFLOW_RETURN;
+ 420:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_ACK_AND_TRANSMIT;
+ 421:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 422:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                 I2C_COULOMB_slStatus  |= (I2C_COULOMB_SSTAT_RD_BUSY |
+ 423:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                                                                I2C_COULOMB_SSTAT_RD_ERR_OVFL);
+ 424:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             }
+ 425:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 426:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_state = I2C_COULOMB_SM_SL_RD_DATA;
+ 427:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 428:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else  /* Write transaction: receive 1st byte */
+ 429:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 430:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ACK_AND_RECEIVE;
+ 431:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_state = I2C_COULOMB_SM_SL_WR_DATA;
+ 432:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 433:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_slStatus |= I2C_COULOMB_SSTAT_WR_BUSY;
+ 434:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_ENABLE_INT_ON_STOP;
+ 435:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 436:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         
+ 437:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #endif /* (I2C_COULOMB_SW_ADRR_DECODE) */
+ 438:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 439:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 /* Data states */
+ 440:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 /* Data master writes into slave */
+ 441:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 else if(I2C_COULOMB_state == I2C_COULOMB_SM_SL_WR_DATA)
+ 442:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+ 443:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     if(I2C_COULOMB_slWrBufIndex < I2C_COULOMB_slWrBufSize)
+ 444:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 445:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         tmp8 = I2C_COULOMB_DATA_REG;
+ 446:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ACK_AND_RECEIVE;
+ 447:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_slWrBufPtr[I2C_COULOMB_slWrBufIndex] = tmp8;
+ 448:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_slWrBufIndex++;
+ 449:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 450:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else  /* of array: complete write, send NACK */
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 16
+
+
+ 451:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 452:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_NAK_AND_RECEIVE;
+ 453:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 454:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_slStatus |= I2C_COULOMB_SSTAT_WR_ERR_OVFL;
+ 455:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 456:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 457:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 /* Data master reads from slave */
+ 458:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 else if(I2C_COULOMB_state == I2C_COULOMB_SM_SL_RD_DATA)
+ 459:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+ 460:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     if(I2C_COULOMB_CHECK_DATA_ACK(tmpCsr))
+ 461:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 462:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         if(I2C_COULOMB_slRdBufIndex < I2C_COULOMB_slRdBufSize)
+ 463:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 464:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                              /* Get data from array */
+ 465:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DATA_REG = I2C_COULOMB_slRdBufPtr[I2C_COULOMB_slRdBufIndex]
+ 466:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_TRANSMIT_DATA;
+ 467:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_slRdBufIndex++;
+ 468:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 469:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         else   /* Overflow: provide 0xFF on the bus */
+ 470:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         {
+ 471:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_DATA_REG = I2C_COULOMB_OVERFLOW_RETURN;
+ 472:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_TRANSMIT_DATA;
+ 473:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 474:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                             I2C_COULOMB_slStatus |= I2C_COULOMB_SSTAT_RD_ERR_OVFL;
+ 475:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         }
+ 476:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 477:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     else  /* Last byte was NACKed: read complete */
+ 478:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     {
+ 479:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Only NACK appears on the bus */
+ 480:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_DATA_REG = I2C_COULOMB_OVERFLOW_RETURN;
+ 481:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_NAK_AND_TRANSMIT;
+ 482:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 483:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_slStatus &= ((uint8) ~I2C_COULOMB_SSTAT_RD_BUSY);
+ 484:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_slStatus |= ((uint8)  I2C_COULOMB_SSTAT_RD_CMPLT);
+ 485:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c **** 
+ 486:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_state = I2C_COULOMB_SM_IDLE;
+ 487:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     }
+ 488:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 489:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 else
+ 490:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 {
+ 491:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #if(I2C_COULOMB_TIMEOUT_ENABLED)
+ 492:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Exit from interrupt to take a chance for timeout timer handle this case 
+ 493:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_DisableInt();
+ 494:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         I2C_COULOMB_ClearPendingInt();
+ 495:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #else
+ 496:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         /* Block execution flow: unexpected condition */
+ 497:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                         CYASSERT(0u != 0u);
+ 498:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                     #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+ 499:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****                 }
+ 500:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****             }
+ 501:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         #endif /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+ 502:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     }
+ 503:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     else
+ 504:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****     {
+ 505:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         /* The FSM skips master and slave processing: return to IDLE */
+ 506:.\Generated_Source\PSoC5/I2C_COULOMB_INT.c ****         I2C_COULOMB_state = I2C_COULOMB_SM_IDLE;
+ 390              		.loc 1 506 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 17
+
+
+ 391 020c 1022     		movs	r2, #16
+ 392 020e 1A70     		strb	r2, [r3, #0]
+ 393              	.LVL23:
+ 394              	.L1:
+ 395 0210 10BD     		pop	{r4, pc}
+ 396              	.L37:
+ 397 0212 00BF     		.align	2
+ 398              	.L36:
+ 399 0214 D7490040 		.word	1073760727
+ 400 0218 00000000 		.word	I2C_COULOMB_state
+ 401 021c 00000000 		.word	I2C_COULOMB_mstrWrBufSize
+ 402 0220 00000000 		.word	I2C_COULOMB_mstrWrBufPtr
+ 403 0224 D8490040 		.word	1073760728
+ 404 0228 00000000 		.word	I2C_COULOMB_mstrWrBufIndex
+ 405 022c 00000000 		.word	I2C_COULOMB_mstrControl
+ 406 0230 00000000 		.word	I2C_COULOMB_mstrStatus
+ 407 0234 80E100E0 		.word	-536813184
+ 408 0238 D6490040 		.word	1073760726
+ 409 023c 00000000 		.word	I2C_COULOMB_mstrRdBufPtr
+ 410 0240 00000000 		.word	I2C_COULOMB_mstrRdBufIndex
+ 411 0244 00000000 		.word	I2C_COULOMB_mstrRdBufSize
+ 412              		.cfi_endproc
+ 413              	.LFE0:
+ 414              		.size	I2C_COULOMB_ISR, .-I2C_COULOMB_ISR
+ 415              		.text
+ 416              	.Letext0:
+ 417              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 418              		.file 3 ".\\Generated_Source\\PSoC5\\I2C_COULOMB_PVT.h"
+ 419              		.file 4 ".\\Generated_Source\\PSoC5\\I2C_COULOMB.h"
+ 420              		.section	.debug_info,"",%progbits
+ 421              	.Ldebug_info0:
+ 422 0000 76010000 		.4byte	0x176
+ 423 0004 0200     		.2byte	0x2
+ 424 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 425 000a 04       		.byte	0x4
+ 426 000b 01       		.uleb128 0x1
+ 427 000c 5B020000 		.4byte	.LASF26
+ 428 0010 01       		.byte	0x1
+ 429 0011 3F000000 		.4byte	.LASF27
+ 430 0015 BA000000 		.4byte	.LASF28
+ 431 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 432 001d 00000000 		.4byte	0
+ 433 0021 00000000 		.4byte	0
+ 434 0025 00000000 		.4byte	.Ldebug_line0
+ 435 0029 02       		.uleb128 0x2
+ 436 002a 01       		.byte	0x1
+ 437 002b 06       		.byte	0x6
+ 438 002c 4F020000 		.4byte	.LASF0
+ 439 0030 02       		.uleb128 0x2
+ 440 0031 01       		.byte	0x1
+ 441 0032 08       		.byte	0x8
+ 442 0033 85000000 		.4byte	.LASF1
+ 443 0037 02       		.uleb128 0x2
+ 444 0038 02       		.byte	0x2
+ 445 0039 05       		.byte	0x5
+ 446 003a 07020000 		.4byte	.LASF2
+ 447 003e 02       		.uleb128 0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 18
+
+
+ 448 003f 02       		.byte	0x2
+ 449 0040 07       		.byte	0x7
+ 450 0041 2C000000 		.4byte	.LASF3
+ 451 0045 02       		.uleb128 0x2
+ 452 0046 04       		.byte	0x4
+ 453 0047 05       		.byte	0x5
+ 454 0048 46020000 		.4byte	.LASF4
+ 455 004c 02       		.uleb128 0x2
+ 456 004d 04       		.byte	0x4
+ 457 004e 07       		.byte	0x7
+ 458 004f A8000000 		.4byte	.LASF5
+ 459 0053 02       		.uleb128 0x2
+ 460 0054 08       		.byte	0x8
+ 461 0055 05       		.byte	0x5
+ 462 0056 F4010000 		.4byte	.LASF6
+ 463 005a 02       		.uleb128 0x2
+ 464 005b 08       		.byte	0x8
+ 465 005c 07       		.byte	0x7
+ 466 005d BD010000 		.4byte	.LASF7
+ 467 0061 03       		.uleb128 0x3
+ 468 0062 04       		.byte	0x4
+ 469 0063 05       		.byte	0x5
+ 470 0064 696E7400 		.ascii	"int\000"
+ 471 0068 02       		.uleb128 0x2
+ 472 0069 04       		.byte	0x4
+ 473 006a 07       		.byte	0x7
+ 474 006b B0010000 		.4byte	.LASF8
+ 475 006f 04       		.uleb128 0x4
+ 476 0070 11020000 		.4byte	.LASF9
+ 477 0074 02       		.byte	0x2
+ 478 0075 5B       		.byte	0x5b
+ 479 0076 30000000 		.4byte	0x30
+ 480 007a 04       		.uleb128 0x4
+ 481 007b 8F010000 		.4byte	.LASF10
+ 482 007f 02       		.byte	0x2
+ 483 0080 5D       		.byte	0x5d
+ 484 0081 4C000000 		.4byte	0x4c
+ 485 0085 02       		.uleb128 0x2
+ 486 0086 04       		.byte	0x4
+ 487 0087 04       		.byte	0x4
+ 488 0088 0D000000 		.4byte	.LASF11
+ 489 008c 02       		.uleb128 0x2
+ 490 008d 08       		.byte	0x8
+ 491 008e 04       		.byte	0x4
+ 492 008f 54010000 		.4byte	.LASF12
+ 493 0093 02       		.uleb128 0x2
+ 494 0094 01       		.byte	0x1
+ 495 0095 08       		.byte	0x8
+ 496 0096 02020000 		.4byte	.LASF13
+ 497 009a 04       		.uleb128 0x4
+ 498 009b A3000000 		.4byte	.LASF14
+ 499 009f 02       		.byte	0x2
+ 500 00a0 F0       		.byte	0xf0
+ 501 00a1 A5000000 		.4byte	0xa5
+ 502 00a5 05       		.uleb128 0x5
+ 503 00a6 6F000000 		.4byte	0x6f
+ 504 00aa 04       		.uleb128 0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 19
+
+
+ 505 00ab 07000000 		.4byte	.LASF15
+ 506 00af 02       		.byte	0x2
+ 507 00b0 F2       		.byte	0xf2
+ 508 00b1 B5000000 		.4byte	0xb5
+ 509 00b5 05       		.uleb128 0x5
+ 510 00b6 7A000000 		.4byte	0x7a
+ 511 00ba 02       		.uleb128 0x2
+ 512 00bb 04       		.byte	0x4
+ 513 00bc 07       		.byte	0x7
+ 514 00bd EB010000 		.4byte	.LASF16
+ 515 00c1 06       		.uleb128 0x6
+ 516 00c2 01       		.byte	0x1
+ 517 00c3 93000000 		.4byte	.LASF29
+ 518 00c7 01       		.byte	0x1
+ 519 00c8 2E       		.byte	0x2e
+ 520 00c9 01       		.byte	0x1
+ 521 00ca 00000000 		.4byte	.LFB0
+ 522 00ce 48020000 		.4byte	.LFE0
+ 523 00d2 00000000 		.4byte	.LLST0
+ 524 00d6 01       		.byte	0x1
+ 525 00d7 F4000000 		.4byte	0xf4
+ 526 00db 07       		.uleb128 0x7
+ 527 00dc 00000000 		.4byte	.LASF30
+ 528 00e0 01       		.byte	0x1
+ 529 00e1 34       		.byte	0x34
+ 530 00e2 6F000000 		.4byte	0x6f
+ 531 00e6 20000000 		.4byte	.LLST1
+ 532 00ea 08       		.uleb128 0x8
+ 533 00eb 30010000 		.4byte	.LVL10
+ 534 00ef 6F010000 		.4byte	0x16f
+ 535 00f3 00       		.byte	0
+ 536 00f4 09       		.uleb128 0x9
+ 537 00f5 28010000 		.4byte	.LASF17
+ 538 00f9 03       		.byte	0x3
+ 539 00fa 23       		.byte	0x23
+ 540 00fb A5000000 		.4byte	0xa5
+ 541 00ff 01       		.byte	0x1
+ 542 0100 01       		.byte	0x1
+ 543 0101 09       		.uleb128 0x9
+ 544 0102 2F020000 		.4byte	.LASF18
+ 545 0106 03       		.byte	0x3
+ 546 0107 27       		.byte	0x27
+ 547 0108 A5000000 		.4byte	0xa5
+ 548 010c 01       		.byte	0x1
+ 549 010d 01       		.byte	0x1
+ 550 010e 09       		.uleb128 0x9
+ 551 010f 17020000 		.4byte	.LASF19
+ 552 0113 03       		.byte	0x3
+ 553 0114 28       		.byte	0x28
+ 554 0115 A5000000 		.4byte	0xa5
+ 555 0119 01       		.byte	0x1
+ 556 011a 01       		.byte	0x1
+ 557 011b 09       		.uleb128 0x9
+ 558 011c 13000000 		.4byte	.LASF20
+ 559 0120 03       		.byte	0x3
+ 560 0121 2B       		.byte	0x2b
+ 561 0122 28010000 		.4byte	0x128
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 20
+
+
+ 562 0126 01       		.byte	0x1
+ 563 0127 01       		.byte	0x1
+ 564 0128 0A       		.uleb128 0xa
+ 565 0129 04       		.byte	0x4
+ 566 012a A5000000 		.4byte	0xa5
+ 567 012e 09       		.uleb128 0x9
+ 568 012f 3A010000 		.4byte	.LASF21
+ 569 0133 03       		.byte	0x3
+ 570 0134 2C       		.byte	0x2c
+ 571 0135 A5000000 		.4byte	0xa5
+ 572 0139 01       		.byte	0x1
+ 573 013a 01       		.byte	0x1
+ 574 013b 09       		.uleb128 0x9
+ 575 013c 74010000 		.4byte	.LASF22
+ 576 0140 03       		.byte	0x3
+ 577 0141 2D       		.byte	0x2d
+ 578 0142 A5000000 		.4byte	0xa5
+ 579 0146 01       		.byte	0x1
+ 580 0147 01       		.byte	0x1
+ 581 0148 09       		.uleb128 0x9
+ 582 0149 5B010000 		.4byte	.LASF23
+ 583 014d 03       		.byte	0x3
+ 584 014e 30       		.byte	0x30
+ 585 014f 28010000 		.4byte	0x128
+ 586 0153 01       		.byte	0x1
+ 587 0154 01       		.byte	0x1
+ 588 0155 09       		.uleb128 0x9
+ 589 0156 96010000 		.4byte	.LASF24
+ 590 015a 03       		.byte	0x3
+ 591 015b 31       		.byte	0x31
+ 592 015c A5000000 		.4byte	0xa5
+ 593 0160 01       		.byte	0x1
+ 594 0161 01       		.byte	0x1
+ 595 0162 09       		.uleb128 0x9
+ 596 0163 6A000000 		.4byte	.LASF25
+ 597 0167 03       		.byte	0x3
+ 598 0168 32       		.byte	0x32
+ 599 0169 A5000000 		.4byte	0xa5
+ 600 016d 01       		.byte	0x1
+ 601 016e 01       		.byte	0x1
+ 602 016f 0B       		.uleb128 0xb
+ 603 0170 01       		.byte	0x1
+ 604 0171 D4010000 		.4byte	.LASF31
+ 605 0175 04       		.byte	0x4
+ 606 0176 D3       		.byte	0xd3
+ 607 0177 01       		.byte	0x1
+ 608 0178 01       		.byte	0x1
+ 609 0179 00       		.byte	0
+ 610              		.section	.debug_abbrev,"",%progbits
+ 611              	.Ldebug_abbrev0:
+ 612 0000 01       		.uleb128 0x1
+ 613 0001 11       		.uleb128 0x11
+ 614 0002 01       		.byte	0x1
+ 615 0003 25       		.uleb128 0x25
+ 616 0004 0E       		.uleb128 0xe
+ 617 0005 13       		.uleb128 0x13
+ 618 0006 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 21
+
+
+ 619 0007 03       		.uleb128 0x3
+ 620 0008 0E       		.uleb128 0xe
+ 621 0009 1B       		.uleb128 0x1b
+ 622 000a 0E       		.uleb128 0xe
+ 623 000b 55       		.uleb128 0x55
+ 624 000c 06       		.uleb128 0x6
+ 625 000d 11       		.uleb128 0x11
+ 626 000e 01       		.uleb128 0x1
+ 627 000f 52       		.uleb128 0x52
+ 628 0010 01       		.uleb128 0x1
+ 629 0011 10       		.uleb128 0x10
+ 630 0012 06       		.uleb128 0x6
+ 631 0013 00       		.byte	0
+ 632 0014 00       		.byte	0
+ 633 0015 02       		.uleb128 0x2
+ 634 0016 24       		.uleb128 0x24
+ 635 0017 00       		.byte	0
+ 636 0018 0B       		.uleb128 0xb
+ 637 0019 0B       		.uleb128 0xb
+ 638 001a 3E       		.uleb128 0x3e
+ 639 001b 0B       		.uleb128 0xb
+ 640 001c 03       		.uleb128 0x3
+ 641 001d 0E       		.uleb128 0xe
+ 642 001e 00       		.byte	0
+ 643 001f 00       		.byte	0
+ 644 0020 03       		.uleb128 0x3
+ 645 0021 24       		.uleb128 0x24
+ 646 0022 00       		.byte	0
+ 647 0023 0B       		.uleb128 0xb
+ 648 0024 0B       		.uleb128 0xb
+ 649 0025 3E       		.uleb128 0x3e
+ 650 0026 0B       		.uleb128 0xb
+ 651 0027 03       		.uleb128 0x3
+ 652 0028 08       		.uleb128 0x8
+ 653 0029 00       		.byte	0
+ 654 002a 00       		.byte	0
+ 655 002b 04       		.uleb128 0x4
+ 656 002c 16       		.uleb128 0x16
+ 657 002d 00       		.byte	0
+ 658 002e 03       		.uleb128 0x3
+ 659 002f 0E       		.uleb128 0xe
+ 660 0030 3A       		.uleb128 0x3a
+ 661 0031 0B       		.uleb128 0xb
+ 662 0032 3B       		.uleb128 0x3b
+ 663 0033 0B       		.uleb128 0xb
+ 664 0034 49       		.uleb128 0x49
+ 665 0035 13       		.uleb128 0x13
+ 666 0036 00       		.byte	0
+ 667 0037 00       		.byte	0
+ 668 0038 05       		.uleb128 0x5
+ 669 0039 35       		.uleb128 0x35
+ 670 003a 00       		.byte	0
+ 671 003b 49       		.uleb128 0x49
+ 672 003c 13       		.uleb128 0x13
+ 673 003d 00       		.byte	0
+ 674 003e 00       		.byte	0
+ 675 003f 06       		.uleb128 0x6
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 22
+
+
+ 676 0040 2E       		.uleb128 0x2e
+ 677 0041 01       		.byte	0x1
+ 678 0042 3F       		.uleb128 0x3f
+ 679 0043 0C       		.uleb128 0xc
+ 680 0044 03       		.uleb128 0x3
+ 681 0045 0E       		.uleb128 0xe
+ 682 0046 3A       		.uleb128 0x3a
+ 683 0047 0B       		.uleb128 0xb
+ 684 0048 3B       		.uleb128 0x3b
+ 685 0049 0B       		.uleb128 0xb
+ 686 004a 27       		.uleb128 0x27
+ 687 004b 0C       		.uleb128 0xc
+ 688 004c 11       		.uleb128 0x11
+ 689 004d 01       		.uleb128 0x1
+ 690 004e 12       		.uleb128 0x12
+ 691 004f 01       		.uleb128 0x1
+ 692 0050 40       		.uleb128 0x40
+ 693 0051 06       		.uleb128 0x6
+ 694 0052 9742     		.uleb128 0x2117
+ 695 0054 0C       		.uleb128 0xc
+ 696 0055 01       		.uleb128 0x1
+ 697 0056 13       		.uleb128 0x13
+ 698 0057 00       		.byte	0
+ 699 0058 00       		.byte	0
+ 700 0059 07       		.uleb128 0x7
+ 701 005a 34       		.uleb128 0x34
+ 702 005b 00       		.byte	0
+ 703 005c 03       		.uleb128 0x3
+ 704 005d 0E       		.uleb128 0xe
+ 705 005e 3A       		.uleb128 0x3a
+ 706 005f 0B       		.uleb128 0xb
+ 707 0060 3B       		.uleb128 0x3b
+ 708 0061 0B       		.uleb128 0xb
+ 709 0062 49       		.uleb128 0x49
+ 710 0063 13       		.uleb128 0x13
+ 711 0064 02       		.uleb128 0x2
+ 712 0065 06       		.uleb128 0x6
+ 713 0066 00       		.byte	0
+ 714 0067 00       		.byte	0
+ 715 0068 08       		.uleb128 0x8
+ 716 0069 898201   		.uleb128 0x4109
+ 717 006c 00       		.byte	0
+ 718 006d 11       		.uleb128 0x11
+ 719 006e 01       		.uleb128 0x1
+ 720 006f 31       		.uleb128 0x31
+ 721 0070 13       		.uleb128 0x13
+ 722 0071 00       		.byte	0
+ 723 0072 00       		.byte	0
+ 724 0073 09       		.uleb128 0x9
+ 725 0074 34       		.uleb128 0x34
+ 726 0075 00       		.byte	0
+ 727 0076 03       		.uleb128 0x3
+ 728 0077 0E       		.uleb128 0xe
+ 729 0078 3A       		.uleb128 0x3a
+ 730 0079 0B       		.uleb128 0xb
+ 731 007a 3B       		.uleb128 0x3b
+ 732 007b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 23
+
+
+ 733 007c 49       		.uleb128 0x49
+ 734 007d 13       		.uleb128 0x13
+ 735 007e 3F       		.uleb128 0x3f
+ 736 007f 0C       		.uleb128 0xc
+ 737 0080 3C       		.uleb128 0x3c
+ 738 0081 0C       		.uleb128 0xc
+ 739 0082 00       		.byte	0
+ 740 0083 00       		.byte	0
+ 741 0084 0A       		.uleb128 0xa
+ 742 0085 0F       		.uleb128 0xf
+ 743 0086 00       		.byte	0
+ 744 0087 0B       		.uleb128 0xb
+ 745 0088 0B       		.uleb128 0xb
+ 746 0089 49       		.uleb128 0x49
+ 747 008a 13       		.uleb128 0x13
+ 748 008b 00       		.byte	0
+ 749 008c 00       		.byte	0
+ 750 008d 0B       		.uleb128 0xb
+ 751 008e 2E       		.uleb128 0x2e
+ 752 008f 00       		.byte	0
+ 753 0090 3F       		.uleb128 0x3f
+ 754 0091 0C       		.uleb128 0xc
+ 755 0092 03       		.uleb128 0x3
+ 756 0093 0E       		.uleb128 0xe
+ 757 0094 3A       		.uleb128 0x3a
+ 758 0095 0B       		.uleb128 0xb
+ 759 0096 3B       		.uleb128 0x3b
+ 760 0097 0B       		.uleb128 0xb
+ 761 0098 27       		.uleb128 0x27
+ 762 0099 0C       		.uleb128 0xc
+ 763 009a 3C       		.uleb128 0x3c
+ 764 009b 0C       		.uleb128 0xc
+ 765 009c 00       		.byte	0
+ 766 009d 00       		.byte	0
+ 767 009e 00       		.byte	0
+ 768              		.section	.debug_loc,"",%progbits
+ 769              	.Ldebug_loc0:
+ 770              	.LLST0:
+ 771 0000 00000000 		.4byte	.LFB0
+ 772 0004 02000000 		.4byte	.LCFI0
+ 773 0008 0200     		.2byte	0x2
+ 774 000a 7D       		.byte	0x7d
+ 775 000b 00       		.sleb128 0
+ 776 000c 02000000 		.4byte	.LCFI0
+ 777 0010 48020000 		.4byte	.LFE0
+ 778 0014 0200     		.2byte	0x2
+ 779 0016 7D       		.byte	0x7d
+ 780 0017 08       		.sleb128 8
+ 781 0018 00000000 		.4byte	0
+ 782 001c 00000000 		.4byte	0
+ 783              	.LLST1:
+ 784 0020 06000000 		.4byte	.LVL0
+ 785 0024 3A000000 		.4byte	.LVL1
+ 786 0028 0100     		.2byte	0x1
+ 787 002a 54       		.byte	0x54
+ 788 002b 3A000000 		.4byte	.LVL1
+ 789 002f E8000000 		.4byte	.LVL8
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 24
+
+
+ 790 0033 0100     		.2byte	0x1
+ 791 0035 53       		.byte	0x53
+ 792 0036 E8000000 		.4byte	.LVL8
+ 793 003a D2010000 		.4byte	.LVL15
+ 794 003e 0100     		.2byte	0x1
+ 795 0040 54       		.byte	0x54
+ 796 0041 D2010000 		.4byte	.LVL15
+ 797 0045 D4010000 		.4byte	.LVL16
+ 798 0049 0100     		.2byte	0x1
+ 799 004b 53       		.byte	0x53
+ 800 004c D4010000 		.4byte	.LVL16
+ 801 0050 DA010000 		.4byte	.LVL17
+ 802 0054 0100     		.2byte	0x1
+ 803 0056 54       		.byte	0x54
+ 804 0057 02020000 		.4byte	.LVL21
+ 805 005b 0C020000 		.4byte	.LVL22
+ 806 005f 0100     		.2byte	0x1
+ 807 0061 54       		.byte	0x54
+ 808 0062 00000000 		.4byte	0
+ 809 0066 00000000 		.4byte	0
+ 810              		.section	.debug_aranges,"",%progbits
+ 811 0000 1C000000 		.4byte	0x1c
+ 812 0004 0200     		.2byte	0x2
+ 813 0006 00000000 		.4byte	.Ldebug_info0
+ 814 000a 04       		.byte	0x4
+ 815 000b 00       		.byte	0
+ 816 000c 0000     		.2byte	0
+ 817 000e 0000     		.2byte	0
+ 818 0010 00000000 		.4byte	.LFB0
+ 819 0014 48020000 		.4byte	.LFE0-.LFB0
+ 820 0018 00000000 		.4byte	0
+ 821 001c 00000000 		.4byte	0
+ 822              		.section	.debug_ranges,"",%progbits
+ 823              	.Ldebug_ranges0:
+ 824 0000 00000000 		.4byte	.LFB0
+ 825 0004 48020000 		.4byte	.LFE0
+ 826 0008 00000000 		.4byte	0
+ 827 000c 00000000 		.4byte	0
+ 828              		.section	.debug_line,"",%progbits
+ 829              	.Ldebug_line0:
+ 830 0000 F1000000 		.section	.debug_str,"MS",%progbits,1
+ 830      02007400 
+ 830      00000201 
+ 830      FB0E0D00 
+ 830      01010101 
+ 831              	.LASF30:
+ 832 0000 746D7043 		.ascii	"tmpCsr\000"
+ 832      737200
+ 833              	.LASF15:
+ 834 0007 72656733 		.ascii	"reg32\000"
+ 834      3200
+ 835              	.LASF11:
+ 836 000d 666C6F61 		.ascii	"float\000"
+ 836      7400
+ 837              	.LASF20:
+ 838 0013 4932435F 		.ascii	"I2C_COULOMB_mstrRdBufPtr\000"
+ 838      434F554C 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 25
+
+
+ 838      4F4D425F 
+ 838      6D737472 
+ 838      52644275 
+ 839              	.LASF3:
+ 840 002c 73686F72 		.ascii	"short unsigned int\000"
+ 840      7420756E 
+ 840      7369676E 
+ 840      65642069 
+ 840      6E7400
+ 841              	.LASF27:
+ 842 003f 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\I2C_COULOMB_INT.c\000"
+ 842      6E657261 
+ 842      7465645F 
+ 842      536F7572 
+ 842      63655C50 
+ 843              	.LASF25:
+ 844 006a 4932435F 		.ascii	"I2C_COULOMB_mstrWrBufIndex\000"
+ 844      434F554C 
+ 844      4F4D425F 
+ 844      6D737472 
+ 844      57724275 
+ 845              	.LASF1:
+ 846 0085 756E7369 		.ascii	"unsigned char\000"
+ 846      676E6564 
+ 846      20636861 
+ 846      7200
+ 847              	.LASF29:
+ 848 0093 4932435F 		.ascii	"I2C_COULOMB_ISR\000"
+ 848      434F554C 
+ 848      4F4D425F 
+ 848      49535200 
+ 849              	.LASF14:
+ 850 00a3 72656738 		.ascii	"reg8\000"
+ 850      00
+ 851              	.LASF5:
+ 852 00a8 6C6F6E67 		.ascii	"long unsigned int\000"
+ 852      20756E73 
+ 852      69676E65 
+ 852      6420696E 
+ 852      7400
+ 853              	.LASF28:
+ 854 00ba 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 854      73657273 
+ 854      5C477261 
+ 854      7A69616E 
+ 854      6F5C4465 
+ 855 00e8 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 855      525C5665 
+ 855      72732E30 
+ 855      2E302D54 
+ 855      30352032 
+ 856 0119 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 856      65446972 
+ 856      2E637964 
+ 856      736E00
+ 857              	.LASF17:
+ 858 0128 4932435F 		.ascii	"I2C_COULOMB_state\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 26
+
+
+ 858      434F554C 
+ 858      4F4D425F 
+ 858      73746174 
+ 858      6500
+ 859              	.LASF21:
+ 860 013a 4932435F 		.ascii	"I2C_COULOMB_mstrRdBufSize\000"
+ 860      434F554C 
+ 860      4F4D425F 
+ 860      6D737472 
+ 860      52644275 
+ 861              	.LASF12:
+ 862 0154 646F7562 		.ascii	"double\000"
+ 862      6C6500
+ 863              	.LASF23:
+ 864 015b 4932435F 		.ascii	"I2C_COULOMB_mstrWrBufPtr\000"
+ 864      434F554C 
+ 864      4F4D425F 
+ 864      6D737472 
+ 864      57724275 
+ 865              	.LASF22:
+ 866 0174 4932435F 		.ascii	"I2C_COULOMB_mstrRdBufIndex\000"
+ 866      434F554C 
+ 866      4F4D425F 
+ 866      6D737472 
+ 866      52644275 
+ 867              	.LASF10:
+ 868 018f 75696E74 		.ascii	"uint32\000"
+ 868      333200
+ 869              	.LASF24:
+ 870 0196 4932435F 		.ascii	"I2C_COULOMB_mstrWrBufSize\000"
+ 870      434F554C 
+ 870      4F4D425F 
+ 870      6D737472 
+ 870      57724275 
+ 871              	.LASF8:
+ 872 01b0 756E7369 		.ascii	"unsigned int\000"
+ 872      676E6564 
+ 872      20696E74 
+ 872      00
+ 873              	.LASF7:
+ 874 01bd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 874      206C6F6E 
+ 874      6720756E 
+ 874      7369676E 
+ 874      65642069 
+ 875              	.LASF31:
+ 876 01d4 4932435F 		.ascii	"I2C_COULOMB_Workaround\000"
+ 876      434F554C 
+ 876      4F4D425F 
+ 876      576F726B 
+ 876      61726F75 
+ 877              	.LASF16:
+ 878 01eb 73697A65 		.ascii	"sizetype\000"
+ 878      74797065 
+ 878      00
+ 879              	.LASF6:
+ 880 01f4 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\cciWWJIK.s 			page 27
+
+
+ 880      206C6F6E 
+ 880      6720696E 
+ 880      7400
+ 881              	.LASF13:
+ 882 0202 63686172 		.ascii	"char\000"
+ 882      00
+ 883              	.LASF2:
+ 884 0207 73686F72 		.ascii	"short int\000"
+ 884      7420696E 
+ 884      7400
+ 885              	.LASF9:
+ 886 0211 75696E74 		.ascii	"uint8\000"
+ 886      3800
+ 887              	.LASF19:
+ 888 0217 4932435F 		.ascii	"I2C_COULOMB_mstrControl\000"
+ 888      434F554C 
+ 888      4F4D425F 
+ 888      6D737472 
+ 888      436F6E74 
+ 889              	.LASF18:
+ 890 022f 4932435F 		.ascii	"I2C_COULOMB_mstrStatus\000"
+ 890      434F554C 
+ 890      4F4D425F 
+ 890      6D737472 
+ 890      53746174 
+ 891              	.LASF4:
+ 892 0246 6C6F6E67 		.ascii	"long int\000"
+ 892      20696E74 
+ 892      00
+ 893              	.LASF0:
+ 894 024f 7369676E 		.ascii	"signed char\000"
+ 894      65642063 
+ 894      68617200 
+ 895              	.LASF26:
+ 896 025b 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 896      4320342E 
+ 896      372E3320 
+ 896      32303133 
+ 896      30333132 
+ 897 028e 616E6368 		.ascii	"anch revision 196615]\000"
+ 897      20726576 
+ 897      6973696F 
+ 897      6E203139 
+ 897      36363135 
+ 898              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

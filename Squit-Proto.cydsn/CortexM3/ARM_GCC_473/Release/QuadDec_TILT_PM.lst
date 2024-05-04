@@ -1,0 +1,1066 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"QuadDec_TILT_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.QuadDec_TILT_SaveConfig,"ax",%progbits
+  19              		.align	1
+  20              		.global	QuadDec_TILT_SaveConfig
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	QuadDec_TILT_SaveConfig, %function
+  24              	QuadDec_TILT_SaveConfig:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\QuadDec_TILT_PM.c"
+   1:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * File Name: QuadDec_TILT_PM.c
+   3:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Version 2.40
+   4:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+   5:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  This file contains the setup, control and status commands to support 
+   7:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  component operations in low power mode.  
+   8:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+   9:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+  11:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  12:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** ********************************************************************************
+  13:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  15:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *******************************************************************************/
+  18:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  19:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** #include "QuadDec_TILT.h"
+  20:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  21:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** static QuadDec_TILT_BACKUP_STRUCT QuadDec_TILT_backup = {0u};
+  22:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  23:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  24:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** /*******************************************************************************
+  25:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Function Name: QuadDec_TILT_SaveConfig
+  26:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** ********************************************************************************
+  27:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Summary:
+  28:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  Saves the current user configuration of the component.
+  29:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  30:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Parameters:
+  31:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  33:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Return:
+  34:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+  35:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  36:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** void QuadDec_TILT_SaveConfig(void) 
+  38:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** {
+  27              		.loc 1 38 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  39:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     #if (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_8_BIT)
+  40:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt8_SaveConfig();
+  41:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     #else 
+  42:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         /* (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_16_BIT) || 
+  43:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****          * (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_32_BIT)
+  44:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****          */
+  45:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt16_SaveConfig();
+  46:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     #endif /* (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_8_BIT) */
+  47:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** }
+  32              		.loc 1 47 0
+  45:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt16_SaveConfig();
+  33              		.loc 1 45 0
+  34 0000 FFF7FEBF 		b	QuadDec_TILT_Cnt16_SaveConfig
+  35              	.LVL0:
+  36              		.cfi_endproc
+  37              	.LFE0:
+  38              		.size	QuadDec_TILT_SaveConfig, .-QuadDec_TILT_SaveConfig
+  39              		.section	.text.QuadDec_TILT_RestoreConfig,"ax",%progbits
+  40              		.align	1
+  41              		.global	QuadDec_TILT_RestoreConfig
+  42              		.thumb
+  43              		.thumb_func
+  44              		.type	QuadDec_TILT_RestoreConfig, %function
+  45              	QuadDec_TILT_RestoreConfig:
+  46              	.LFB1:
+  48:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  49:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  50:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** /*******************************************************************************
+  51:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Function Name: QuadDec_TILT_RestoreConfig
+  52:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** ********************************************************************************
+  53:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Summary:
+  54:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  Restores the current user configuration of the component.
+  55:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  56:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Parameters:
+  57:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+  58:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  59:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Return:
+  60:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+  61:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  62:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *******************************************************************************/
+  63:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** void QuadDec_TILT_RestoreConfig(void) 
+  64:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** {
+  47              		.loc 1 64 0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 3
+
+
+  50              		@ frame_needed = 0, uses_anonymous_args = 0
+  51              		@ link register save eliminated.
+  65:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     #if (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_8_BIT)
+  66:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt8_RestoreConfig();
+  67:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     #else 
+  68:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         /* (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_16_BIT) || 
+  69:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****          * (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_32_BIT) 
+  70:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****          */
+  71:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt16_RestoreConfig();
+  72:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     #endif /* (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_8_BIT) */
+  73:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** }
+  52              		.loc 1 73 0
+  71:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt16_RestoreConfig();
+  53              		.loc 1 71 0
+  54 0000 FFF7FEBF 		b	QuadDec_TILT_Cnt16_RestoreConfig
+  55              	.LVL1:
+  56              		.cfi_endproc
+  57              	.LFE1:
+  58              		.size	QuadDec_TILT_RestoreConfig, .-QuadDec_TILT_RestoreConfig
+  59              		.section	.text.QuadDec_TILT_Sleep,"ax",%progbits
+  60              		.align	1
+  61              		.global	QuadDec_TILT_Sleep
+  62              		.thumb
+  63              		.thumb_func
+  64              		.type	QuadDec_TILT_Sleep, %function
+  65              	QuadDec_TILT_Sleep:
+  66              	.LFB2:
+  74:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  75:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+  76:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** /*******************************************************************************
+  77:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Function Name: QuadDec_TILT_Sleep
+  78:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** ********************************************************************************
+  79:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * 
+  80:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Summary:
+  81:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  Prepare Quadrature Decoder Component goes to sleep.
+  82:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  83:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Parameters:
+  84:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+  85:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  86:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Return:
+  87:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+  88:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  89:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Global Variables:
+  90:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  QuadDec_TILT_backup - modified when non-retention registers are saved.
+  91:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  92:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Reentrant:
+  93:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  No.
+  94:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+  95:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *******************************************************************************/
+  96:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** void QuadDec_TILT_Sleep(void) 
+  97:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** {
+  67              		.loc 1 97 0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71 0000 08B5     		push	{r3, lr}
+  72              	.LCFI0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 4
+
+
+  73              		.cfi_def_cfa_offset 8
+  74              		.cfi_offset 3, -8
+  75              		.cfi_offset 14, -4
+  98:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     if (0u != (QuadDec_TILT_SR_AUX_CONTROL & QuadDec_TILT_INTERRUPTS_ENABLE))
+  76              		.loc 1 98 0
+  77 0002 074B     		ldr	r3, .L6
+  78 0004 0749     		ldr	r1, .L6+4
+  79 0006 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  80 0008 10F01002 		ands	r2, r0, #16
+  99:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     {
+ 100:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_backup.enableState = 1u;
+  81              		.loc 1 100 0
+  82 000c 18BF     		it	ne
+  83 000e 0122     		movne	r2, #1
+ 101:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     }
+ 102:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     else /* The Quadrature Decoder Component is disabled */
+ 103:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     {
+ 104:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_backup.enableState = 0u;
+  84              		.loc 1 104 0
+  85 0010 0A70     		strb	r2, [r1, #0]
+ 105:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     }
+ 106:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+ 107:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     QuadDec_TILT_Stop();
+  86              		.loc 1 107 0
+  87 0012 FFF7FEFF 		bl	QuadDec_TILT_Stop
+  88              	.LVL2:
+ 108:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     QuadDec_TILT_SaveConfig();
+ 109:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** }
+  89              		.loc 1 109 0
+  90 0016 BDE80840 		pop	{r3, lr}
+  91              	.LBB6:
+  92              	.LBB7:
+  45:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt16_SaveConfig();
+  93              		.loc 1 45 0
+  94 001a FFF7FEBF 		b	QuadDec_TILT_Cnt16_SaveConfig
+  95              	.LVL3:
+  96              	.L7:
+  97 001e 00BF     		.align	2
+  98              	.L6:
+  99 0020 97640040 		.word	1073767575
+ 100 0024 00000000 		.word	.LANCHOR0
+ 101              	.LBE7:
+ 102              	.LBE6:
+ 103              		.cfi_endproc
+ 104              	.LFE2:
+ 105              		.size	QuadDec_TILT_Sleep, .-QuadDec_TILT_Sleep
+ 106              		.section	.text.QuadDec_TILT_Wakeup,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	QuadDec_TILT_Wakeup
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.type	QuadDec_TILT_Wakeup, %function
+ 112              	QuadDec_TILT_Wakeup:
+ 113              	.LFB3:
+ 110:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+ 111:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+ 112:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** /*******************************************************************************
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 5
+
+
+ 113:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Function Name: QuadDec_TILT_Wakeup
+ 114:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** ********************************************************************************
+ 115:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+ 116:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Summary:
+ 117:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  Prepare Quadrature Decoder Component to wake up.
+ 118:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+ 119:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Parameters:
+ 120:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+ 121:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+ 122:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Return:
+ 123:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  None.
+ 124:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+ 125:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** * Global Variables:
+ 126:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *  QuadDec_TILT_backup - used when non-retention registers are restored.
+ 127:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *
+ 128:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** *******************************************************************************/
+ 129:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** void QuadDec_TILT_Wakeup(void) 
+ 130:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** {
+ 114              		.loc 1 130 0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118 0000 08B5     		push	{r3, lr}
+ 119              	.LCFI1:
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 3, -8
+ 122              		.cfi_offset 14, -4
+ 123              	.LBB8:
+ 124              	.LBB9:
+  71:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Cnt16_RestoreConfig();
+ 125              		.loc 1 71 0
+ 126 0002 FFF7FEFF 		bl	QuadDec_TILT_Cnt16_RestoreConfig
+ 127              	.LVL4:
+ 128              	.LBE9:
+ 129              	.LBE8:
+ 131:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     QuadDec_TILT_RestoreConfig();
+ 132:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+ 133:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     if (QuadDec_TILT_backup.enableState != 0u)
+ 130              		.loc 1 133 0
+ 131 0006 054B     		ldr	r3, .L11
+ 132 0008 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 133 000a 28B1     		cbz	r0, .L8
+ 134:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     {
+ 135:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         #if (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_8_BIT)
+ 136:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****             QuadDec_TILT_Cnt8_Enable();
+ 137:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         #else 
+ 138:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****             /* (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_16_BIT) || 
+ 139:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****             *  (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_32_BIT) 
+ 140:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****             */
+ 141:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****             QuadDec_TILT_Cnt16_Enable();
+ 134              		.loc 1 141 0
+ 135 000c FFF7FEFF 		bl	QuadDec_TILT_Cnt16_Enable
+ 136              	.LVL5:
+ 142:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         #endif /* (QuadDec_TILT_COUNTER_SIZE == QuadDec_TILT_COUNTER_SIZE_8_BIT) */
+ 143:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** 
+ 144:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         /* Enable component's operation */
+ 145:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Enable();
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 6
+
+
+ 146:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****     } /* Do nothing if component's block was disabled before */
+ 147:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c **** }
+ 137              		.loc 1 147 0
+ 138 0010 BDE80840 		pop	{r3, lr}
+ 145:.\Generated_Source\PSoC5/QuadDec_TILT_PM.c ****         QuadDec_TILT_Enable();
+ 139              		.loc 1 145 0
+ 140 0014 FFF7FEBF 		b	QuadDec_TILT_Enable
+ 141              	.LVL6:
+ 142              	.L8:
+ 143 0018 08BD     		pop	{r3, pc}
+ 144              	.L12:
+ 145 001a 00BF     		.align	2
+ 146              	.L11:
+ 147 001c 00000000 		.word	.LANCHOR0
+ 148              		.cfi_endproc
+ 149              	.LFE3:
+ 150              		.size	QuadDec_TILT_Wakeup, .-QuadDec_TILT_Wakeup
+ 151              		.bss
+ 152              		.set	.LANCHOR0,. + 0
+ 153              		.type	QuadDec_TILT_backup, %object
+ 154              		.size	QuadDec_TILT_backup, 1
+ 155              	QuadDec_TILT_backup:
+ 156 0000 00       		.space	1
+ 157              		.text
+ 158              	.Letext0:
+ 159              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 160              		.file 3 ".\\Generated_Source\\PSoC5\\QuadDec_TILT.h"
+ 161              		.file 4 ".\\Generated_Source\\PSoC5\\QuadDec_TILT_Cnt16.h"
+ 162              		.section	.debug_info,"",%progbits
+ 163              	.Ldebug_info0:
+ 164 0000 E9010000 		.4byte	0x1e9
+ 165 0004 0200     		.2byte	0x2
+ 166 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 167 000a 04       		.byte	0x4
+ 168 000b 01       		.uleb128 0x1
+ 169 000c F9010000 		.4byte	.LASF25
+ 170 0010 01       		.byte	0x1
+ 171 0011 45000000 		.4byte	.LASF26
+ 172 0015 9B000000 		.4byte	.LASF27
+ 173 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 174 001d 00000000 		.4byte	0
+ 175 0021 00000000 		.4byte	0
+ 176 0025 00000000 		.4byte	.Ldebug_line0
+ 177 0029 02       		.uleb128 0x2
+ 178 002a 01       		.byte	0x1
+ 179 002b 06       		.byte	0x6
+ 180 002c 69020000 		.4byte	.LASF0
+ 181 0030 02       		.uleb128 0x2
+ 182 0031 01       		.byte	0x1
+ 183 0032 08       		.byte	0x8
+ 184 0033 76000000 		.4byte	.LASF1
+ 185 0037 02       		.uleb128 0x2
+ 186 0038 02       		.byte	0x2
+ 187 0039 05       		.byte	0x5
+ 188 003a E9010000 		.4byte	.LASF2
+ 189 003e 02       		.uleb128 0x2
+ 190 003f 02       		.byte	0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 7
+
+
+ 191 0040 07       		.byte	0x7
+ 192 0041 32000000 		.4byte	.LASF3
+ 193 0045 03       		.uleb128 0x3
+ 194 0046 04       		.byte	0x4
+ 195 0047 05       		.byte	0x5
+ 196 0048 696E7400 		.ascii	"int\000"
+ 197 004c 02       		.uleb128 0x2
+ 198 004d 04       		.byte	0x4
+ 199 004e 07       		.byte	0x7
+ 200 004f 45010000 		.4byte	.LASF4
+ 201 0053 02       		.uleb128 0x2
+ 202 0054 08       		.byte	0x8
+ 203 0055 05       		.byte	0x5
+ 204 0056 BB010000 		.4byte	.LASF5
+ 205 005a 02       		.uleb128 0x2
+ 206 005b 08       		.byte	0x8
+ 207 005c 07       		.byte	0x7
+ 208 005d 6D010000 		.4byte	.LASF6
+ 209 0061 02       		.uleb128 0x2
+ 210 0062 04       		.byte	0x4
+ 211 0063 05       		.byte	0x5
+ 212 0064 4E020000 		.4byte	.LASF7
+ 213 0068 02       		.uleb128 0x2
+ 214 0069 04       		.byte	0x4
+ 215 006a 07       		.byte	0x7
+ 216 006b B2010000 		.4byte	.LASF8
+ 217 006f 02       		.uleb128 0x2
+ 218 0070 04       		.byte	0x4
+ 219 0071 07       		.byte	0x7
+ 220 0072 89000000 		.4byte	.LASF9
+ 221 0076 02       		.uleb128 0x2
+ 222 0077 01       		.byte	0x1
+ 223 0078 08       		.byte	0x8
+ 224 0079 C9010000 		.4byte	.LASF10
+ 225 007d 04       		.uleb128 0x4
+ 226 007e F3010000 		.4byte	.LASF13
+ 227 0082 02       		.byte	0x2
+ 228 0083 5B       		.byte	0x5b
+ 229 0084 30000000 		.4byte	0x30
+ 230 0088 02       		.uleb128 0x2
+ 231 0089 04       		.byte	0x4
+ 232 008a 04       		.byte	0x4
+ 233 008b 70000000 		.4byte	.LASF11
+ 234 008f 02       		.uleb128 0x2
+ 235 0090 08       		.byte	0x8
+ 236 0091 04       		.byte	0x4
+ 237 0092 1D010000 		.4byte	.LASF12
+ 238 0096 04       		.uleb128 0x4
+ 239 0097 84000000 		.4byte	.LASF14
+ 240 009b 02       		.byte	0x2
+ 241 009c F0       		.byte	0xf0
+ 242 009d A1000000 		.4byte	0xa1
+ 243 00a1 05       		.uleb128 0x5
+ 244 00a2 7D000000 		.4byte	0x7d
+ 245 00a6 06       		.uleb128 0x6
+ 246 00a7 01       		.byte	0x1
+ 247 00a8 03       		.byte	0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 8
+
+
+ 248 00a9 3D       		.byte	0x3d
+ 249 00aa BD000000 		.4byte	0xbd
+ 250 00ae 07       		.uleb128 0x7
+ 251 00af 42020000 		.4byte	.LASF28
+ 252 00b3 03       		.byte	0x3
+ 253 00b4 3F       		.byte	0x3f
+ 254 00b5 7D000000 		.4byte	0x7d
+ 255 00b9 02       		.byte	0x2
+ 256 00ba 23       		.byte	0x23
+ 257 00bb 00       		.uleb128 0
+ 258 00bc 00       		.byte	0
+ 259 00bd 04       		.uleb128 0x4
+ 260 00be 52010000 		.4byte	.LASF15
+ 261 00c2 03       		.byte	0x3
+ 262 00c3 40       		.byte	0x40
+ 263 00c4 A6000000 		.4byte	0xa6
+ 264 00c8 08       		.uleb128 0x8
+ 265 00c9 01       		.byte	0x1
+ 266 00ca 88020000 		.4byte	.LASF16
+ 267 00ce 01       		.byte	0x1
+ 268 00cf 25       		.byte	0x25
+ 269 00d0 01       		.byte	0x1
+ 270 00d1 01       		.byte	0x1
+ 271 00d2 08       		.uleb128 0x8
+ 272 00d3 01       		.byte	0x1
+ 273 00d4 CE010000 		.4byte	.LASF17
+ 274 00d8 01       		.byte	0x1
+ 275 00d9 3F       		.byte	0x3f
+ 276 00da 01       		.byte	0x1
+ 277 00db 01       		.byte	0x1
+ 278 00dc 09       		.uleb128 0x9
+ 279 00dd C8000000 		.4byte	0xc8
+ 280 00e1 00000000 		.4byte	.LFB0
+ 281 00e5 04000000 		.4byte	.LFE0
+ 282 00e9 02       		.byte	0x2
+ 283 00ea 7D       		.byte	0x7d
+ 284 00eb 00       		.sleb128 0
+ 285 00ec 01       		.byte	0x1
+ 286 00ed FC000000 		.4byte	0xfc
+ 287 00f1 0A       		.uleb128 0xa
+ 288 00f2 04000000 		.4byte	.LVL0
+ 289 00f6 01       		.byte	0x1
+ 290 00f7 BA010000 		.4byte	0x1ba
+ 291 00fb 00       		.byte	0
+ 292 00fc 09       		.uleb128 0x9
+ 293 00fd D2000000 		.4byte	0xd2
+ 294 0101 00000000 		.4byte	.LFB1
+ 295 0105 04000000 		.4byte	.LFE1
+ 296 0109 02       		.byte	0x2
+ 297 010a 7D       		.byte	0x7d
+ 298 010b 00       		.sleb128 0
+ 299 010c 01       		.byte	0x1
+ 300 010d 1C010000 		.4byte	0x11c
+ 301 0111 0A       		.uleb128 0xa
+ 302 0112 04000000 		.4byte	.LVL1
+ 303 0116 01       		.byte	0x1
+ 304 0117 C4010000 		.4byte	0x1c4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 9
+
+
+ 305 011b 00       		.byte	0
+ 306 011c 0B       		.uleb128 0xb
+ 307 011d 01       		.byte	0x1
+ 308 011e 75020000 		.4byte	.LASF18
+ 309 0122 01       		.byte	0x1
+ 310 0123 60       		.byte	0x60
+ 311 0124 01       		.byte	0x1
+ 312 0125 00000000 		.4byte	.LFB2
+ 313 0129 28000000 		.4byte	.LFE2
+ 314 012d 00000000 		.4byte	.LLST0
+ 315 0131 01       		.byte	0x1
+ 316 0132 5E010000 		.4byte	0x15e
+ 317 0136 0C       		.uleb128 0xc
+ 318 0137 C8000000 		.4byte	0xc8
+ 319 013b 1A000000 		.4byte	.LBB6
+ 320 013f 28000000 		.4byte	.LBE6
+ 321 0143 01       		.byte	0x1
+ 322 0144 6C       		.byte	0x6c
+ 323 0145 54010000 		.4byte	0x154
+ 324 0149 0A       		.uleb128 0xa
+ 325 014a 1E000000 		.4byte	.LVL3
+ 326 014e 01       		.byte	0x1
+ 327 014f BA010000 		.4byte	0x1ba
+ 328 0153 00       		.byte	0
+ 329 0154 0D       		.uleb128 0xd
+ 330 0155 16000000 		.4byte	.LVL2
+ 331 0159 CE010000 		.4byte	0x1ce
+ 332 015d 00       		.byte	0
+ 333 015e 0B       		.uleb128 0xb
+ 334 015f 01       		.byte	0x1
+ 335 0160 9E010000 		.4byte	.LASF19
+ 336 0164 01       		.byte	0x1
+ 337 0165 81       		.byte	0x81
+ 338 0166 01       		.byte	0x1
+ 339 0167 00000000 		.4byte	.LFB3
+ 340 016b 20000000 		.4byte	.LFE3
+ 341 016f 20000000 		.4byte	.LLST1
+ 342 0173 01       		.byte	0x1
+ 343 0174 A9010000 		.4byte	0x1a9
+ 344 0178 0C       		.uleb128 0xc
+ 345 0179 D2000000 		.4byte	0xd2
+ 346 017d 02000000 		.4byte	.LBB8
+ 347 0181 06000000 		.4byte	.LBE8
+ 348 0185 01       		.byte	0x1
+ 349 0186 83       		.byte	0x83
+ 350 0187 95010000 		.4byte	0x195
+ 351 018b 0D       		.uleb128 0xd
+ 352 018c 06000000 		.4byte	.LVL4
+ 353 0190 C4010000 		.4byte	0x1c4
+ 354 0194 00       		.byte	0
+ 355 0195 0D       		.uleb128 0xd
+ 356 0196 10000000 		.4byte	.LVL5
+ 357 019a D8010000 		.4byte	0x1d8
+ 358 019e 0A       		.uleb128 0xa
+ 359 019f 18000000 		.4byte	.LVL6
+ 360 01a3 01       		.byte	0x1
+ 361 01a4 E2010000 		.4byte	0x1e2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 10
+
+
+ 362 01a8 00       		.byte	0
+ 363 01a9 0E       		.uleb128 0xe
+ 364 01aa 09010000 		.4byte	.LASF29
+ 365 01ae 01       		.byte	0x1
+ 366 01af 15       		.byte	0x15
+ 367 01b0 BD000000 		.4byte	0xbd
+ 368 01b4 05       		.byte	0x5
+ 369 01b5 03       		.byte	0x3
+ 370 01b6 00000000 		.4byte	QuadDec_TILT_backup
+ 371 01ba 0F       		.uleb128 0xf
+ 372 01bb 01       		.byte	0x1
+ 373 01bc 14000000 		.4byte	.LASF20
+ 374 01c0 04       		.byte	0x4
+ 375 01c1 70       		.byte	0x70
+ 376 01c2 01       		.byte	0x1
+ 377 01c3 01       		.byte	0x1
+ 378 01c4 0F       		.uleb128 0xf
+ 379 01c5 01       		.byte	0x1
+ 380 01c6 24010000 		.4byte	.LASF21
+ 381 01ca 04       		.byte	0x4
+ 382 01cb 71       		.byte	0x71
+ 383 01cc 01       		.byte	0x1
+ 384 01cd 01       		.byte	0x1
+ 385 01ce 0F       		.uleb128 0xf
+ 386 01cf 01       		.byte	0x1
+ 387 01d0 57020000 		.4byte	.LASF22
+ 388 01d4 03       		.byte	0x3
+ 389 01d5 49       		.byte	0x49
+ 390 01d6 01       		.byte	0x1
+ 391 01d7 01       		.byte	0x1
+ 392 01d8 0F       		.uleb128 0xf
+ 393 01d9 01       		.byte	0x1
+ 394 01da 84010000 		.4byte	.LASF23
+ 395 01de 04       		.byte	0x4
+ 396 01df 6F       		.byte	0x6f
+ 397 01e0 01       		.byte	0x1
+ 398 01e1 01       		.byte	0x1
+ 399 01e2 0F       		.uleb128 0xf
+ 400 01e3 01       		.byte	0x1
+ 401 01e4 00000000 		.4byte	.LASF24
+ 402 01e8 03       		.byte	0x3
+ 403 01e9 4A       		.byte	0x4a
+ 404 01ea 01       		.byte	0x1
+ 405 01eb 01       		.byte	0x1
+ 406 01ec 00       		.byte	0
+ 407              		.section	.debug_abbrev,"",%progbits
+ 408              	.Ldebug_abbrev0:
+ 409 0000 01       		.uleb128 0x1
+ 410 0001 11       		.uleb128 0x11
+ 411 0002 01       		.byte	0x1
+ 412 0003 25       		.uleb128 0x25
+ 413 0004 0E       		.uleb128 0xe
+ 414 0005 13       		.uleb128 0x13
+ 415 0006 0B       		.uleb128 0xb
+ 416 0007 03       		.uleb128 0x3
+ 417 0008 0E       		.uleb128 0xe
+ 418 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 11
+
+
+ 419 000a 0E       		.uleb128 0xe
+ 420 000b 55       		.uleb128 0x55
+ 421 000c 06       		.uleb128 0x6
+ 422 000d 11       		.uleb128 0x11
+ 423 000e 01       		.uleb128 0x1
+ 424 000f 52       		.uleb128 0x52
+ 425 0010 01       		.uleb128 0x1
+ 426 0011 10       		.uleb128 0x10
+ 427 0012 06       		.uleb128 0x6
+ 428 0013 00       		.byte	0
+ 429 0014 00       		.byte	0
+ 430 0015 02       		.uleb128 0x2
+ 431 0016 24       		.uleb128 0x24
+ 432 0017 00       		.byte	0
+ 433 0018 0B       		.uleb128 0xb
+ 434 0019 0B       		.uleb128 0xb
+ 435 001a 3E       		.uleb128 0x3e
+ 436 001b 0B       		.uleb128 0xb
+ 437 001c 03       		.uleb128 0x3
+ 438 001d 0E       		.uleb128 0xe
+ 439 001e 00       		.byte	0
+ 440 001f 00       		.byte	0
+ 441 0020 03       		.uleb128 0x3
+ 442 0021 24       		.uleb128 0x24
+ 443 0022 00       		.byte	0
+ 444 0023 0B       		.uleb128 0xb
+ 445 0024 0B       		.uleb128 0xb
+ 446 0025 3E       		.uleb128 0x3e
+ 447 0026 0B       		.uleb128 0xb
+ 448 0027 03       		.uleb128 0x3
+ 449 0028 08       		.uleb128 0x8
+ 450 0029 00       		.byte	0
+ 451 002a 00       		.byte	0
+ 452 002b 04       		.uleb128 0x4
+ 453 002c 16       		.uleb128 0x16
+ 454 002d 00       		.byte	0
+ 455 002e 03       		.uleb128 0x3
+ 456 002f 0E       		.uleb128 0xe
+ 457 0030 3A       		.uleb128 0x3a
+ 458 0031 0B       		.uleb128 0xb
+ 459 0032 3B       		.uleb128 0x3b
+ 460 0033 0B       		.uleb128 0xb
+ 461 0034 49       		.uleb128 0x49
+ 462 0035 13       		.uleb128 0x13
+ 463 0036 00       		.byte	0
+ 464 0037 00       		.byte	0
+ 465 0038 05       		.uleb128 0x5
+ 466 0039 35       		.uleb128 0x35
+ 467 003a 00       		.byte	0
+ 468 003b 49       		.uleb128 0x49
+ 469 003c 13       		.uleb128 0x13
+ 470 003d 00       		.byte	0
+ 471 003e 00       		.byte	0
+ 472 003f 06       		.uleb128 0x6
+ 473 0040 13       		.uleb128 0x13
+ 474 0041 01       		.byte	0x1
+ 475 0042 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 12
+
+
+ 476 0043 0B       		.uleb128 0xb
+ 477 0044 3A       		.uleb128 0x3a
+ 478 0045 0B       		.uleb128 0xb
+ 479 0046 3B       		.uleb128 0x3b
+ 480 0047 0B       		.uleb128 0xb
+ 481 0048 01       		.uleb128 0x1
+ 482 0049 13       		.uleb128 0x13
+ 483 004a 00       		.byte	0
+ 484 004b 00       		.byte	0
+ 485 004c 07       		.uleb128 0x7
+ 486 004d 0D       		.uleb128 0xd
+ 487 004e 00       		.byte	0
+ 488 004f 03       		.uleb128 0x3
+ 489 0050 0E       		.uleb128 0xe
+ 490 0051 3A       		.uleb128 0x3a
+ 491 0052 0B       		.uleb128 0xb
+ 492 0053 3B       		.uleb128 0x3b
+ 493 0054 0B       		.uleb128 0xb
+ 494 0055 49       		.uleb128 0x49
+ 495 0056 13       		.uleb128 0x13
+ 496 0057 38       		.uleb128 0x38
+ 497 0058 0A       		.uleb128 0xa
+ 498 0059 00       		.byte	0
+ 499 005a 00       		.byte	0
+ 500 005b 08       		.uleb128 0x8
+ 501 005c 2E       		.uleb128 0x2e
+ 502 005d 00       		.byte	0
+ 503 005e 3F       		.uleb128 0x3f
+ 504 005f 0C       		.uleb128 0xc
+ 505 0060 03       		.uleb128 0x3
+ 506 0061 0E       		.uleb128 0xe
+ 507 0062 3A       		.uleb128 0x3a
+ 508 0063 0B       		.uleb128 0xb
+ 509 0064 3B       		.uleb128 0x3b
+ 510 0065 0B       		.uleb128 0xb
+ 511 0066 27       		.uleb128 0x27
+ 512 0067 0C       		.uleb128 0xc
+ 513 0068 20       		.uleb128 0x20
+ 514 0069 0B       		.uleb128 0xb
+ 515 006a 00       		.byte	0
+ 516 006b 00       		.byte	0
+ 517 006c 09       		.uleb128 0x9
+ 518 006d 2E       		.uleb128 0x2e
+ 519 006e 01       		.byte	0x1
+ 520 006f 31       		.uleb128 0x31
+ 521 0070 13       		.uleb128 0x13
+ 522 0071 11       		.uleb128 0x11
+ 523 0072 01       		.uleb128 0x1
+ 524 0073 12       		.uleb128 0x12
+ 525 0074 01       		.uleb128 0x1
+ 526 0075 40       		.uleb128 0x40
+ 527 0076 0A       		.uleb128 0xa
+ 528 0077 9742     		.uleb128 0x2117
+ 529 0079 0C       		.uleb128 0xc
+ 530 007a 01       		.uleb128 0x1
+ 531 007b 13       		.uleb128 0x13
+ 532 007c 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 13
+
+
+ 533 007d 00       		.byte	0
+ 534 007e 0A       		.uleb128 0xa
+ 535 007f 898201   		.uleb128 0x4109
+ 536 0082 00       		.byte	0
+ 537 0083 11       		.uleb128 0x11
+ 538 0084 01       		.uleb128 0x1
+ 539 0085 9542     		.uleb128 0x2115
+ 540 0087 0C       		.uleb128 0xc
+ 541 0088 31       		.uleb128 0x31
+ 542 0089 13       		.uleb128 0x13
+ 543 008a 00       		.byte	0
+ 544 008b 00       		.byte	0
+ 545 008c 0B       		.uleb128 0xb
+ 546 008d 2E       		.uleb128 0x2e
+ 547 008e 01       		.byte	0x1
+ 548 008f 3F       		.uleb128 0x3f
+ 549 0090 0C       		.uleb128 0xc
+ 550 0091 03       		.uleb128 0x3
+ 551 0092 0E       		.uleb128 0xe
+ 552 0093 3A       		.uleb128 0x3a
+ 553 0094 0B       		.uleb128 0xb
+ 554 0095 3B       		.uleb128 0x3b
+ 555 0096 0B       		.uleb128 0xb
+ 556 0097 27       		.uleb128 0x27
+ 557 0098 0C       		.uleb128 0xc
+ 558 0099 11       		.uleb128 0x11
+ 559 009a 01       		.uleb128 0x1
+ 560 009b 12       		.uleb128 0x12
+ 561 009c 01       		.uleb128 0x1
+ 562 009d 40       		.uleb128 0x40
+ 563 009e 06       		.uleb128 0x6
+ 564 009f 9742     		.uleb128 0x2117
+ 565 00a1 0C       		.uleb128 0xc
+ 566 00a2 01       		.uleb128 0x1
+ 567 00a3 13       		.uleb128 0x13
+ 568 00a4 00       		.byte	0
+ 569 00a5 00       		.byte	0
+ 570 00a6 0C       		.uleb128 0xc
+ 571 00a7 1D       		.uleb128 0x1d
+ 572 00a8 01       		.byte	0x1
+ 573 00a9 31       		.uleb128 0x31
+ 574 00aa 13       		.uleb128 0x13
+ 575 00ab 11       		.uleb128 0x11
+ 576 00ac 01       		.uleb128 0x1
+ 577 00ad 12       		.uleb128 0x12
+ 578 00ae 01       		.uleb128 0x1
+ 579 00af 58       		.uleb128 0x58
+ 580 00b0 0B       		.uleb128 0xb
+ 581 00b1 59       		.uleb128 0x59
+ 582 00b2 0B       		.uleb128 0xb
+ 583 00b3 01       		.uleb128 0x1
+ 584 00b4 13       		.uleb128 0x13
+ 585 00b5 00       		.byte	0
+ 586 00b6 00       		.byte	0
+ 587 00b7 0D       		.uleb128 0xd
+ 588 00b8 898201   		.uleb128 0x4109
+ 589 00bb 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 14
+
+
+ 590 00bc 11       		.uleb128 0x11
+ 591 00bd 01       		.uleb128 0x1
+ 592 00be 31       		.uleb128 0x31
+ 593 00bf 13       		.uleb128 0x13
+ 594 00c0 00       		.byte	0
+ 595 00c1 00       		.byte	0
+ 596 00c2 0E       		.uleb128 0xe
+ 597 00c3 34       		.uleb128 0x34
+ 598 00c4 00       		.byte	0
+ 599 00c5 03       		.uleb128 0x3
+ 600 00c6 0E       		.uleb128 0xe
+ 601 00c7 3A       		.uleb128 0x3a
+ 602 00c8 0B       		.uleb128 0xb
+ 603 00c9 3B       		.uleb128 0x3b
+ 604 00ca 0B       		.uleb128 0xb
+ 605 00cb 49       		.uleb128 0x49
+ 606 00cc 13       		.uleb128 0x13
+ 607 00cd 02       		.uleb128 0x2
+ 608 00ce 0A       		.uleb128 0xa
+ 609 00cf 00       		.byte	0
+ 610 00d0 00       		.byte	0
+ 611 00d1 0F       		.uleb128 0xf
+ 612 00d2 2E       		.uleb128 0x2e
+ 613 00d3 00       		.byte	0
+ 614 00d4 3F       		.uleb128 0x3f
+ 615 00d5 0C       		.uleb128 0xc
+ 616 00d6 03       		.uleb128 0x3
+ 617 00d7 0E       		.uleb128 0xe
+ 618 00d8 3A       		.uleb128 0x3a
+ 619 00d9 0B       		.uleb128 0xb
+ 620 00da 3B       		.uleb128 0x3b
+ 621 00db 0B       		.uleb128 0xb
+ 622 00dc 27       		.uleb128 0x27
+ 623 00dd 0C       		.uleb128 0xc
+ 624 00de 3C       		.uleb128 0x3c
+ 625 00df 0C       		.uleb128 0xc
+ 626 00e0 00       		.byte	0
+ 627 00e1 00       		.byte	0
+ 628 00e2 00       		.byte	0
+ 629              		.section	.debug_loc,"",%progbits
+ 630              	.Ldebug_loc0:
+ 631              	.LLST0:
+ 632 0000 00000000 		.4byte	.LFB2
+ 633 0004 02000000 		.4byte	.LCFI0
+ 634 0008 0200     		.2byte	0x2
+ 635 000a 7D       		.byte	0x7d
+ 636 000b 00       		.sleb128 0
+ 637 000c 02000000 		.4byte	.LCFI0
+ 638 0010 28000000 		.4byte	.LFE2
+ 639 0014 0200     		.2byte	0x2
+ 640 0016 7D       		.byte	0x7d
+ 641 0017 08       		.sleb128 8
+ 642 0018 00000000 		.4byte	0
+ 643 001c 00000000 		.4byte	0
+ 644              	.LLST1:
+ 645 0020 00000000 		.4byte	.LFB3
+ 646 0024 02000000 		.4byte	.LCFI1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 15
+
+
+ 647 0028 0200     		.2byte	0x2
+ 648 002a 7D       		.byte	0x7d
+ 649 002b 00       		.sleb128 0
+ 650 002c 02000000 		.4byte	.LCFI1
+ 651 0030 20000000 		.4byte	.LFE3
+ 652 0034 0200     		.2byte	0x2
+ 653 0036 7D       		.byte	0x7d
+ 654 0037 08       		.sleb128 8
+ 655 0038 00000000 		.4byte	0
+ 656 003c 00000000 		.4byte	0
+ 657              		.section	.debug_aranges,"",%progbits
+ 658 0000 34000000 		.4byte	0x34
+ 659 0004 0200     		.2byte	0x2
+ 660 0006 00000000 		.4byte	.Ldebug_info0
+ 661 000a 04       		.byte	0x4
+ 662 000b 00       		.byte	0
+ 663 000c 0000     		.2byte	0
+ 664 000e 0000     		.2byte	0
+ 665 0010 00000000 		.4byte	.LFB0
+ 666 0014 04000000 		.4byte	.LFE0-.LFB0
+ 667 0018 00000000 		.4byte	.LFB1
+ 668 001c 04000000 		.4byte	.LFE1-.LFB1
+ 669 0020 00000000 		.4byte	.LFB2
+ 670 0024 28000000 		.4byte	.LFE2-.LFB2
+ 671 0028 00000000 		.4byte	.LFB3
+ 672 002c 20000000 		.4byte	.LFE3-.LFB3
+ 673 0030 00000000 		.4byte	0
+ 674 0034 00000000 		.4byte	0
+ 675              		.section	.debug_ranges,"",%progbits
+ 676              	.Ldebug_ranges0:
+ 677 0000 00000000 		.4byte	.LFB0
+ 678 0004 04000000 		.4byte	.LFE0
+ 679 0008 00000000 		.4byte	.LFB1
+ 680 000c 04000000 		.4byte	.LFE1
+ 681 0010 00000000 		.4byte	.LFB2
+ 682 0014 28000000 		.4byte	.LFE2
+ 683 0018 00000000 		.4byte	.LFB3
+ 684 001c 20000000 		.4byte	.LFE3
+ 685 0020 00000000 		.4byte	0
+ 686 0024 00000000 		.4byte	0
+ 687              		.section	.debug_line,"",%progbits
+ 688              	.Ldebug_line0:
+ 689 0000 D5000000 		.section	.debug_str,"MS",%progbits,1
+ 689      02007800 
+ 689      00000201 
+ 689      FB0E0D00 
+ 689      01010101 
+ 690              	.LASF24:
+ 691 0000 51756164 		.ascii	"QuadDec_TILT_Enable\000"
+ 691      4465635F 
+ 691      54494C54 
+ 691      5F456E61 
+ 691      626C6500 
+ 692              	.LASF20:
+ 693 0014 51756164 		.ascii	"QuadDec_TILT_Cnt16_SaveConfig\000"
+ 693      4465635F 
+ 693      54494C54 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 16
+
+
+ 693      5F436E74 
+ 693      31365F53 
+ 694              	.LASF3:
+ 695 0032 73686F72 		.ascii	"short unsigned int\000"
+ 695      7420756E 
+ 695      7369676E 
+ 695      65642069 
+ 695      6E7400
+ 696              	.LASF26:
+ 697 0045 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\QuadDec_TILT_PM.c\000"
+ 697      6E657261 
+ 697      7465645F 
+ 697      536F7572 
+ 697      63655C50 
+ 698              	.LASF11:
+ 699 0070 666C6F61 		.ascii	"float\000"
+ 699      7400
+ 700              	.LASF1:
+ 701 0076 756E7369 		.ascii	"unsigned char\000"
+ 701      676E6564 
+ 701      20636861 
+ 701      7200
+ 702              	.LASF14:
+ 703 0084 72656738 		.ascii	"reg8\000"
+ 703      00
+ 704              	.LASF9:
+ 705 0089 6C6F6E67 		.ascii	"long unsigned int\000"
+ 705      20756E73 
+ 705      69676E65 
+ 705      6420696E 
+ 705      7400
+ 706              	.LASF27:
+ 707 009b 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 707      73657273 
+ 707      5C477261 
+ 707      7A69616E 
+ 707      6F5C4465 
+ 708 00c9 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 708      525C5665 
+ 708      72732E30 
+ 708      2E302D54 
+ 708      30352032 
+ 709 00fa 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 709      65446972 
+ 709      2E637964 
+ 709      736E00
+ 710              	.LASF29:
+ 711 0109 51756164 		.ascii	"QuadDec_TILT_backup\000"
+ 711      4465635F 
+ 711      54494C54 
+ 711      5F626163 
+ 711      6B757000 
+ 712              	.LASF12:
+ 713 011d 646F7562 		.ascii	"double\000"
+ 713      6C6500
+ 714              	.LASF21:
+ 715 0124 51756164 		.ascii	"QuadDec_TILT_Cnt16_RestoreConfig\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 17
+
+
+ 715      4465635F 
+ 715      54494C54 
+ 715      5F436E74 
+ 715      31365F52 
+ 716              	.LASF4:
+ 717 0145 756E7369 		.ascii	"unsigned int\000"
+ 717      676E6564 
+ 717      20696E74 
+ 717      00
+ 718              	.LASF15:
+ 719 0152 51756164 		.ascii	"QuadDec_TILT_BACKUP_STRUCT\000"
+ 719      4465635F 
+ 719      54494C54 
+ 719      5F424143 
+ 719      4B55505F 
+ 720              	.LASF6:
+ 721 016d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 721      206C6F6E 
+ 721      6720756E 
+ 721      7369676E 
+ 721      65642069 
+ 722              	.LASF23:
+ 723 0184 51756164 		.ascii	"QuadDec_TILT_Cnt16_Enable\000"
+ 723      4465635F 
+ 723      54494C54 
+ 723      5F436E74 
+ 723      31365F45 
+ 724              	.LASF19:
+ 725 019e 51756164 		.ascii	"QuadDec_TILT_Wakeup\000"
+ 725      4465635F 
+ 725      54494C54 
+ 725      5F57616B 
+ 725      65757000 
+ 726              	.LASF8:
+ 727 01b2 73697A65 		.ascii	"sizetype\000"
+ 727      74797065 
+ 727      00
+ 728              	.LASF5:
+ 729 01bb 6C6F6E67 		.ascii	"long long int\000"
+ 729      206C6F6E 
+ 729      6720696E 
+ 729      7400
+ 730              	.LASF10:
+ 731 01c9 63686172 		.ascii	"char\000"
+ 731      00
+ 732              	.LASF17:
+ 733 01ce 51756164 		.ascii	"QuadDec_TILT_RestoreConfig\000"
+ 733      4465635F 
+ 733      54494C54 
+ 733      5F526573 
+ 733      746F7265 
+ 734              	.LASF2:
+ 735 01e9 73686F72 		.ascii	"short int\000"
+ 735      7420696E 
+ 735      7400
+ 736              	.LASF13:
+ 737 01f3 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccCntXkM.s 			page 18
+
+
+ 737      3800
+ 738              	.LASF25:
+ 739 01f9 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 739      4320342E 
+ 739      372E3320 
+ 739      32303133 
+ 739      30333132 
+ 740 022c 616E6368 		.ascii	"anch revision 196615]\000"
+ 740      20726576 
+ 740      6973696F 
+ 740      6E203139 
+ 740      36363135 
+ 741              	.LASF28:
+ 742 0242 656E6162 		.ascii	"enableState\000"
+ 742      6C655374 
+ 742      61746500 
+ 743              	.LASF7:
+ 744 024e 6C6F6E67 		.ascii	"long int\000"
+ 744      20696E74 
+ 744      00
+ 745              	.LASF22:
+ 746 0257 51756164 		.ascii	"QuadDec_TILT_Stop\000"
+ 746      4465635F 
+ 746      54494C54 
+ 746      5F53746F 
+ 746      7000
+ 747              	.LASF0:
+ 748 0269 7369676E 		.ascii	"signed char\000"
+ 748      65642063 
+ 748      68617200 
+ 749              	.LASF18:
+ 750 0275 51756164 		.ascii	"QuadDec_TILT_Sleep\000"
+ 750      4465635F 
+ 750      54494C54 
+ 750      5F536C65 
+ 750      657000
+ 751              	.LASF16:
+ 752 0288 51756164 		.ascii	"QuadDec_TILT_SaveConfig\000"
+ 752      4465635F 
+ 752      54494C54 
+ 752      5F536176 
+ 752      65436F6E 
+ 753              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

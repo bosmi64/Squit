@@ -1,0 +1,2325 @@
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ME_lib_imu_CHRUM7.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.rodata
+  19              		.align	2
+  20              	.LC0:
+  21 0000 0D0A2530 		.ascii	"\015\012%02X \000"
+  21      32582000 
+  22              		.align	2
+  23              	.LC1:
+  24 0008 4841535F 		.ascii	"HAS_DATA \000"
+  24      44415441 
+  24      2000
+  25 0012 0000     		.align	2
+  26              	.LC2:
+  27 0014 4E4F5F44 		.ascii	"NO_DATA  \000"
+  27      41544120 
+  27      2000
+  28 001e 0000     		.align	2
+  29              	.LC3:
+  30 0020 49535F42 		.ascii	"IS_BATCH \000"
+  30      41544348 
+  30      2000
+  31 002a 0000     		.align	2
+  32              	.LC4:
+  33 002c 4E4F5F42 		.ascii	"NO_BATCH \000"
+  33      41544348 
+  33      2000
+  34 0036 0000     		.align	2
+  35              	.LC5:
+  36 0038 4C656E3A 		.ascii	"Len:%02d \000"
+  36      25303264 
+  36      2000
+  37 0042 0000     		.align	2
+  38              	.LC6:
+  39 0044 20202000 		.ascii	"   \000"
+  40              		.align	2
+  41              	.LC7:
+  42 0048 4F4B2000 		.ascii	"OK \000"
+  43              		.align	2
+  44              	.LC8:
+  45 004c 205B00   		.ascii	" [\000"
+  46 004f 00       		.align	2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 2
+
+
+  47              	.LC9:
+  48 0050 20253032 		.ascii	" %02X\000"
+  48      5800
+  49 0056 0000     		.align	2
+  50              	.LC10:
+  51 0058 205D2000 		.ascii	" ] \000"
+  52              		.section	.text.CHRUM7_PrintPacket,"ax",%progbits
+  53              		.align	2
+  54              		.global	CHRUM7_PrintPacket
+  55              		.thumb
+  56              		.thumb_func
+  57              		.type	CHRUM7_PrintPacket, %function
+  58              	CHRUM7_PrintPacket:
+  59              	.LFB0:
+  60              		.file 1 ".\\ME_lib_imu_CHRUM7.c"
+   1:.\ME_lib_imu_CHRUM7.c **** /**************************************************************************************************
+   2:.\ME_lib_imu_CHRUM7.c ****   
+   3:.\ME_lib_imu_CHRUM7.c ****   Modulo "Lib Imu CHRUM7" v0.10B
+   4:.\ME_lib_imu_CHRUM7.c ****   (c) 2015 Movie Engineering
+   5:.\ME_lib_imu_CHRUM7.c **** 
+   6:.\ME_lib_imu_CHRUM7.c ****   Vedi header file.
+   7:.\ME_lib_imu_CHRUM7.c **** 
+   8:.\ME_lib_imu_CHRUM7.c **** ***************************************************************************************************
+   9:.\ME_lib_imu_CHRUM7.c **** 
+  10:.\ME_lib_imu_CHRUM7.c **** #include <stdio.h>
+  11:.\ME_lib_imu_CHRUM7.c **** #include "ME_common.h"
+  12:.\ME_lib_imu_CHRUM7.c **** #include "ME_lib_imu_CHRUM7.h"
+  13:.\ME_lib_imu_CHRUM7.c **** 
+  14:.\ME_lib_imu_CHRUM7.c **** 
+  15:.\ME_lib_imu_CHRUM7.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  16:.\ME_lib_imu_CHRUM7.c **** 
+  17:.\ME_lib_imu_CHRUM7.c **** void CHRUM7_PrintPacket(BYTE *p)
+  18:.\ME_lib_imu_CHRUM7.c **** {
+  61              		.loc 1 18 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 24
+  64              		@ frame_needed = 1, uses_anonymous_args = 0
+  65 0000 80B5     		push	{r7, lr}
+  66              	.LCFI0:
+  67              		.cfi_def_cfa_offset 8
+  68              		.cfi_offset 7, -8
+  69              		.cfi_offset 14, -4
+  70 0002 86B0     		sub	sp, sp, #24
+  71              	.LCFI1:
+  72              		.cfi_def_cfa_offset 32
+  73 0004 00AF     		add	r7, sp, #0
+  74              	.LCFI2:
+  75              		.cfi_def_cfa_register 7
+  76 0006 7860     		str	r0, [r7, #4]
+  19:.\ME_lib_imu_CHRUM7.c ****     CHRUM7_HEADER *hp = (CHRUM7_HEADER *) p ;           // Converte il puntatore generico all'heade
+  77              		.loc 1 19 0
+  78 0008 7B68     		ldr	r3, [r7, #4]
+  79 000a 3B61     		str	r3, [r7, #16]
+  20:.\ME_lib_imu_CHRUM7.c ****     
+  21:.\ME_lib_imu_CHRUM7.c ****     BYTE i, len ;                                       // Lunghezza in DWORD (32bit)
+  22:.\ME_lib_imu_CHRUM7.c **** 
+  23:.\ME_lib_imu_CHRUM7.c ****   // Se "is_batch" è zero allora la lunghezza del pacchetto è 1 (cioè un 32bit che sono 4 byte) 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 3
+
+
+  24:.\ME_lib_imu_CHRUM7.c ****   // altrimenti la lunghezza in dwords è in "batch_len" (esempio: 5 vuol dire 20 bytes)
+  25:.\ME_lib_imu_CHRUM7.c **** 
+  26:.\ME_lib_imu_CHRUM7.c ****     len = hp->packet_type.has_data & !hp->packet_type.is_batch ? 
+  80              		.loc 1 26 0
+  81 000c 3B69     		ldr	r3, [r7, #16]
+  82 000e DB78     		ldrb	r3, [r3, #3]
+  83 0010 C3F3C013 		ubfx	r3, r3, #7, #1
+  84 0014 DBB2     		uxtb	r3, r3
+  85 0016 1A46     		mov	r2, r3
+  86 0018 3B69     		ldr	r3, [r7, #16]
+  87 001a DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+  88 001c 03F04003 		and	r3, r3, #64
+  89 0020 DBB2     		uxtb	r3, r3
+  90 0022 002B     		cmp	r3, #0
+  91 0024 14BF     		ite	ne
+  92 0026 0023     		movne	r3, #0
+  93 0028 0123     		moveq	r3, #1
+  94 002a DBB2     		uxtb	r3, r3
+  95 002c 1340     		ands	r3, r3, r2
+  96 002e 002B     		cmp	r3, #0
+  97 0030 05D1     		bne	.L2
+  27:.\ME_lib_imu_CHRUM7.c ****           1 : hp->packet_type.batch_len ; 
+  98              		.loc 1 27 0
+  99 0032 3B69     		ldr	r3, [r7, #16]
+ 100 0034 DB78     		ldrb	r3, [r3, #3]
+ 101 0036 C3F38303 		ubfx	r3, r3, #2, #4
+ 102 003a DBB2     		uxtb	r3, r3
+ 103 003c 01E0     		b	.L3
+ 104              	.L2:
+  26:.\ME_lib_imu_CHRUM7.c ****     len = hp->packet_type.has_data & !hp->packet_type.is_batch ? 
+ 105              		.loc 1 26 0 discriminator 1
+ 106 003e 4FF00103 		mov	r3, #1
+ 107              	.L3:
+  26:.\ME_lib_imu_CHRUM7.c ****     len = hp->packet_type.has_data & !hp->packet_type.is_batch ? 
+ 108              		.loc 1 26 0 is_stmt 0 discriminator 2
+ 109 0042 FB73     		strb	r3, [r7, #15]
+  28:.\ME_lib_imu_CHRUM7.c **** 
+  29:.\ME_lib_imu_CHRUM7.c **** 
+  30:.\ME_lib_imu_CHRUM7.c ****   // Stampa della parte header
+  31:.\ME_lib_imu_CHRUM7.c **** 
+  32:.\ME_lib_imu_CHRUM7.c ****     printf(CRLF"%02X ",hp->address);
+ 110              		.loc 1 32 0 is_stmt 1 discriminator 2
+ 111 0044 3B69     		ldr	r3, [r7, #16]
+ 112 0046 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 113 0048 40F20000 		movw	r0, #:lower16:.LC0
+ 114 004c C0F20000 		movt	r0, #:upper16:.LC0
+ 115 0050 1946     		mov	r1, r3
+ 116 0052 FFF7FEFF 		bl	printf
+  33:.\ME_lib_imu_CHRUM7.c ****     printf(hp->packet_type.has_data ? "HAS_DATA " : "NO_DATA  ");
+ 117              		.loc 1 33 0 discriminator 2
+ 118 0056 3B69     		ldr	r3, [r7, #16]
+ 119 0058 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 120 005a 23F07F03 		bic	r3, r3, #127
+ 121 005e DBB2     		uxtb	r3, r3
+ 122 0060 002B     		cmp	r3, #0
+ 123 0062 04D0     		beq	.L4
+ 124              		.loc 1 33 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 4
+
+
+ 125 0064 40F20003 		movw	r3, #:lower16:.LC1
+ 126 0068 C0F20003 		movt	r3, #:upper16:.LC1
+ 127 006c 03E0     		b	.L5
+ 128              	.L4:
+ 129              		.loc 1 33 0 discriminator 2
+ 130 006e 40F20003 		movw	r3, #:lower16:.LC2
+ 131 0072 C0F20003 		movt	r3, #:upper16:.LC2
+ 132              	.L5:
+ 133              		.loc 1 33 0 discriminator 3
+ 134 0076 1846     		mov	r0, r3
+ 135 0078 FFF7FEFF 		bl	printf
+  34:.\ME_lib_imu_CHRUM7.c ****     printf(hp->packet_type.is_batch ? "IS_BATCH " : "NO_BATCH ");
+ 136              		.loc 1 34 0 is_stmt 1 discriminator 3
+ 137 007c 3B69     		ldr	r3, [r7, #16]
+ 138 007e DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 139 0080 03F04003 		and	r3, r3, #64
+ 140 0084 DBB2     		uxtb	r3, r3
+ 141 0086 002B     		cmp	r3, #0
+ 142 0088 04D0     		beq	.L6
+ 143              		.loc 1 34 0 is_stmt 0 discriminator 1
+ 144 008a 40F20003 		movw	r3, #:lower16:.LC3
+ 145 008e C0F20003 		movt	r3, #:upper16:.LC3
+ 146 0092 03E0     		b	.L7
+ 147              	.L6:
+ 148              		.loc 1 34 0 discriminator 2
+ 149 0094 40F20003 		movw	r3, #:lower16:.LC4
+ 150 0098 C0F20003 		movt	r3, #:upper16:.LC4
+ 151              	.L7:
+ 152              		.loc 1 34 0 discriminator 3
+ 153 009c 1846     		mov	r0, r3
+ 154 009e FFF7FEFF 		bl	printf
+  35:.\ME_lib_imu_CHRUM7.c ****     printf("Len:%02d ", 4*hp->packet_type.batch_len );
+ 155              		.loc 1 35 0 is_stmt 1 discriminator 3
+ 156 00a2 3B69     		ldr	r3, [r7, #16]
+ 157 00a4 DB78     		ldrb	r3, [r3, #3]
+ 158 00a6 C3F38303 		ubfx	r3, r3, #2, #4
+ 159 00aa DBB2     		uxtb	r3, r3
+ 160 00ac 4FEA8303 		lsl	r3, r3, #2
+ 161 00b0 40F20000 		movw	r0, #:lower16:.LC5
+ 162 00b4 C0F20000 		movt	r0, #:upper16:.LC5
+ 163 00b8 1946     		mov	r1, r3
+ 164 00ba FFF7FEFF 		bl	printf
+  36:.\ME_lib_imu_CHRUM7.c ****     printf("%c", hp->packet_type.hidden ? 'H' : ' ' );
+ 165              		.loc 1 36 0 discriminator 3
+ 166 00be 3B69     		ldr	r3, [r7, #16]
+ 167 00c0 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 168 00c2 03F00203 		and	r3, r3, #2
+ 169 00c6 DBB2     		uxtb	r3, r3
+ 170 00c8 002B     		cmp	r3, #0
+ 171 00ca 02D0     		beq	.L8
+ 172              		.loc 1 36 0 is_stmt 0 discriminator 1
+ 173 00cc 4FF04803 		mov	r3, #72
+ 174 00d0 01E0     		b	.L9
+ 175              	.L8:
+ 176              		.loc 1 36 0 discriminator 2
+ 177 00d2 4FF02003 		mov	r3, #32
+ 178              	.L9:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 5
+
+
+ 179              		.loc 1 36 0 discriminator 3
+ 180 00d6 1846     		mov	r0, r3
+ 181 00d8 FFF7FEFF 		bl	putchar
+  37:.\ME_lib_imu_CHRUM7.c ****     printf(hp->packet_type.command_failed ? "   " : "OK ");
+ 182              		.loc 1 37 0 is_stmt 1 discriminator 3
+ 183 00dc 3B69     		ldr	r3, [r7, #16]
+ 184 00de DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 185 00e0 03F00103 		and	r3, r3, #1
+ 186 00e4 DBB2     		uxtb	r3, r3
+ 187 00e6 002B     		cmp	r3, #0
+ 188 00e8 04D0     		beq	.L10
+ 189              		.loc 1 37 0 is_stmt 0 discriminator 1
+ 190 00ea 40F20003 		movw	r3, #:lower16:.LC6
+ 191 00ee C0F20003 		movt	r3, #:upper16:.LC6
+ 192 00f2 03E0     		b	.L11
+ 193              	.L10:
+ 194              		.loc 1 37 0 discriminator 2
+ 195 00f4 40F20003 		movw	r3, #:lower16:.LC7
+ 196 00f8 C0F20003 		movt	r3, #:upper16:.LC7
+ 197              	.L11:
+ 198              		.loc 1 37 0 discriminator 3
+ 199 00fc 1846     		mov	r0, r3
+ 200 00fe FFF7FEFF 		bl	printf
+  38:.\ME_lib_imu_CHRUM7.c **** 
+  39:.\ME_lib_imu_CHRUM7.c ****   // Stampa tutto il pacchetto in esadecimale ascii
+  40:.\ME_lib_imu_CHRUM7.c **** 
+  41:.\ME_lib_imu_CHRUM7.c ****     printf(" [");         
+ 201              		.loc 1 41 0 is_stmt 1 discriminator 3
+ 202 0102 40F20000 		movw	r0, #:lower16:.LC8
+ 203 0106 C0F20000 		movt	r0, #:upper16:.LC8
+ 204 010a FFF7FEFF 		bl	printf
+  42:.\ME_lib_imu_CHRUM7.c ****     for(i=0; i < sizeof(CHRUM7_HEADER)+4*len + 2 ; i++)   // Stampa anche la checksum (ultimi 2)
+ 205              		.loc 1 42 0 discriminator 3
+ 206 010e 4FF00003 		mov	r3, #0
+ 207 0112 FB75     		strb	r3, [r7, #23]
+ 208 0114 0EE0     		b	.L12
+ 209              	.L13:
+  43:.\ME_lib_imu_CHRUM7.c ****     {
+  44:.\ME_lib_imu_CHRUM7.c ****         printf(" %02X",p[i]);
+ 210              		.loc 1 44 0 discriminator 2
+ 211 0116 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 212 0118 7A68     		ldr	r2, [r7, #4]
+ 213 011a D318     		adds	r3, r2, r3
+ 214 011c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 215 011e 40F20000 		movw	r0, #:lower16:.LC9
+ 216 0122 C0F20000 		movt	r0, #:upper16:.LC9
+ 217 0126 1946     		mov	r1, r3
+ 218 0128 FFF7FEFF 		bl	printf
+  42:.\ME_lib_imu_CHRUM7.c ****     for(i=0; i < sizeof(CHRUM7_HEADER)+4*len + 2 ; i++)   // Stampa anche la checksum (ultimi 2)
+ 219              		.loc 1 42 0 discriminator 2
+ 220 012c FB7D     		ldrb	r3, [r7, #23]
+ 221 012e 03F10103 		add	r3, r3, #1
+ 222 0132 FB75     		strb	r3, [r7, #23]
+ 223              	.L12:
+  42:.\ME_lib_imu_CHRUM7.c ****     for(i=0; i < sizeof(CHRUM7_HEADER)+4*len + 2 ; i++)   // Stampa anche la checksum (ultimi 2)
+ 224              		.loc 1 42 0 is_stmt 0 discriminator 1
+ 225 0134 FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 6
+
+
+ 226 0136 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 227 0138 4FEA8303 		lsl	r3, r3, #2
+ 228 013c 03F10703 		add	r3, r3, #7
+ 229 0140 9A42     		cmp	r2, r3
+ 230 0142 E8D3     		bcc	.L13
+  45:.\ME_lib_imu_CHRUM7.c ****     }
+  46:.\ME_lib_imu_CHRUM7.c **** 
+  47:.\ME_lib_imu_CHRUM7.c ****     printf(" ] ");
+ 231              		.loc 1 47 0 is_stmt 1
+ 232 0144 40F20000 		movw	r0, #:lower16:.LC10
+ 233 0148 C0F20000 		movt	r0, #:upper16:.LC10
+ 234 014c FFF7FEFF 		bl	printf
+  48:.\ME_lib_imu_CHRUM7.c **** }
+ 235              		.loc 1 48 0
+ 236 0150 07F11807 		add	r7, r7, #24
+ 237 0154 BD46     		mov	sp, r7
+ 238 0156 80BD     		pop	{r7, pc}
+ 239              		.cfi_endproc
+ 240              	.LFE0:
+ 241              		.size	CHRUM7_PrintPacket, .-CHRUM7_PrintPacket
+ 242              		.global	__aeabi_i2d
+ 243              		.global	__aeabi_dmul
+ 244              		.global	__aeabi_d2f
+ 245              		.section	.text.CHRUM7_PacketToEuler,"ax",%progbits
+ 246              		.align	2
+ 247              		.global	CHRUM7_PacketToEuler
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.type	CHRUM7_PacketToEuler, %function
+ 251              	CHRUM7_PacketToEuler:
+ 252              	.LFB1:
+  49:.\ME_lib_imu_CHRUM7.c **** 
+  50:.\ME_lib_imu_CHRUM7.c **** 
+  51:.\ME_lib_imu_CHRUM7.c **** 
+  52:.\ME_lib_imu_CHRUM7.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  53:.\ME_lib_imu_CHRUM7.c **** 
+  54:.\ME_lib_imu_CHRUM7.c **** void CHRUM7_PacketToEuler(BYTE *p, EULER_ANGLES *e)
+  55:.\ME_lib_imu_CHRUM7.c **** {
+ 253              		.loc 1 55 0
+ 254              		.cfi_startproc
+ 255              		@ args = 0, pretend = 0, frame = 8
+ 256              		@ frame_needed = 1, uses_anonymous_args = 0
+ 257 0000 80B5     		push	{r7, lr}
+ 258              	.LCFI3:
+ 259              		.cfi_def_cfa_offset 8
+ 260              		.cfi_offset 7, -8
+ 261              		.cfi_offset 14, -4
+ 262 0002 82B0     		sub	sp, sp, #8
+ 263              	.LCFI4:
+ 264              		.cfi_def_cfa_offset 16
+ 265 0004 00AF     		add	r7, sp, #0
+ 266              	.LCFI5:
+ 267              		.cfi_def_cfa_register 7
+ 268 0006 7860     		str	r0, [r7, #4]
+ 269 0008 3960     		str	r1, [r7, #0]
+  56:.\ME_lib_imu_CHRUM7.c ****   // Per i fattori di conversione vedi datasheet del componente hardware)
+  57:.\ME_lib_imu_CHRUM7.c ****   
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 7
+
+
+  58:.\ME_lib_imu_CHRUM7.c ****     e->phi   = 0.0109863 * (INT) W(p[5], p[6]);   
+ 270              		.loc 1 58 0
+ 271 000a 7B68     		ldr	r3, [r7, #4]
+ 272 000c 03F10503 		add	r3, r3, #5
+ 273 0010 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 274 0012 4FEA0323 		lsl	r3, r3, #8
+ 275 0016 9AB2     		uxth	r2, r3
+ 276 0018 7B68     		ldr	r3, [r7, #4]
+ 277 001a 03F10603 		add	r3, r3, #6
+ 278 001e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 279 0020 1343     		orrs	r3, r3, r2
+ 280 0022 9BB2     		uxth	r3, r3
+ 281 0024 9BB2     		uxth	r3, r3
+ 282 0026 1BB2     		sxth	r3, r3
+ 283 0028 1846     		mov	r0, r3
+ 284 002a FFF7FEFF 		bl	__aeabi_i2d
+ 285 002e 0246     		mov	r2, r0
+ 286 0030 0B46     		mov	r3, r1
+ 287 0032 1046     		mov	r0, r2
+ 288 0034 1946     		mov	r1, r3
+ 289 0036 2EA3     		adr	r3, .L15
+ 290 0038 D3E90023 		ldrd	r2, [r3]
+ 291 003c FFF7FEFF 		bl	__aeabi_dmul
+ 292 0040 0246     		mov	r2, r0
+ 293 0042 0B46     		mov	r3, r1
+ 294 0044 1046     		mov	r0, r2
+ 295 0046 1946     		mov	r1, r3
+ 296 0048 FFF7FEFF 		bl	__aeabi_d2f
+ 297 004c 0246     		mov	r2, r0
+ 298 004e 3B68     		ldr	r3, [r7, #0]
+ 299 0050 1A60     		str	r2, [r3, #0]	@ float
+  59:.\ME_lib_imu_CHRUM7.c ****     e->theta = 0.0109863 * (INT) W(p[7], p[8]);
+ 300              		.loc 1 59 0
+ 301 0052 7B68     		ldr	r3, [r7, #4]
+ 302 0054 03F10703 		add	r3, r3, #7
+ 303 0058 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 304 005a 4FEA0323 		lsl	r3, r3, #8
+ 305 005e 9AB2     		uxth	r2, r3
+ 306 0060 7B68     		ldr	r3, [r7, #4]
+ 307 0062 03F10803 		add	r3, r3, #8
+ 308 0066 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 309 0068 1343     		orrs	r3, r3, r2
+ 310 006a 9BB2     		uxth	r3, r3
+ 311 006c 9BB2     		uxth	r3, r3
+ 312 006e 1BB2     		sxth	r3, r3
+ 313 0070 1846     		mov	r0, r3
+ 314 0072 FFF7FEFF 		bl	__aeabi_i2d
+ 315 0076 0246     		mov	r2, r0
+ 316 0078 0B46     		mov	r3, r1
+ 317 007a 1046     		mov	r0, r2
+ 318 007c 1946     		mov	r1, r3
+ 319 007e 1CA3     		adr	r3, .L15
+ 320 0080 D3E90023 		ldrd	r2, [r3]
+ 321 0084 FFF7FEFF 		bl	__aeabi_dmul
+ 322 0088 0246     		mov	r2, r0
+ 323 008a 0B46     		mov	r3, r1
+ 324 008c 1046     		mov	r0, r2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 8
+
+
+ 325 008e 1946     		mov	r1, r3
+ 326 0090 FFF7FEFF 		bl	__aeabi_d2f
+ 327 0094 0246     		mov	r2, r0
+ 328 0096 3B68     		ldr	r3, [r7, #0]
+ 329 0098 5A60     		str	r2, [r3, #4]	@ float
+  60:.\ME_lib_imu_CHRUM7.c ****     e->psi   = 0.0109863 * (INT) W(p[9], p[10]);
+ 330              		.loc 1 60 0
+ 331 009a 7B68     		ldr	r3, [r7, #4]
+ 332 009c 03F10903 		add	r3, r3, #9
+ 333 00a0 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 334 00a2 4FEA0323 		lsl	r3, r3, #8
+ 335 00a6 9AB2     		uxth	r2, r3
+ 336 00a8 7B68     		ldr	r3, [r7, #4]
+ 337 00aa 03F10A03 		add	r3, r3, #10
+ 338 00ae 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 339 00b0 1343     		orrs	r3, r3, r2
+ 340 00b2 9BB2     		uxth	r3, r3
+ 341 00b4 9BB2     		uxth	r3, r3
+ 342 00b6 1BB2     		sxth	r3, r3
+ 343 00b8 1846     		mov	r0, r3
+ 344 00ba FFF7FEFF 		bl	__aeabi_i2d
+ 345 00be 0246     		mov	r2, r0
+ 346 00c0 0B46     		mov	r3, r1
+ 347 00c2 1046     		mov	r0, r2
+ 348 00c4 1946     		mov	r1, r3
+ 349 00c6 0AA3     		adr	r3, .L15
+ 350 00c8 D3E90023 		ldrd	r2, [r3]
+ 351 00cc FFF7FEFF 		bl	__aeabi_dmul
+ 352 00d0 0246     		mov	r2, r0
+ 353 00d2 0B46     		mov	r3, r1
+ 354 00d4 1046     		mov	r0, r2
+ 355 00d6 1946     		mov	r1, r3
+ 356 00d8 FFF7FEFF 		bl	__aeabi_d2f
+ 357 00dc 0246     		mov	r2, r0
+ 358 00de 3B68     		ldr	r3, [r7, #0]
+ 359 00e0 9A60     		str	r2, [r3, #8]	@ float
+  61:.\ME_lib_imu_CHRUM7.c **** }
+ 360              		.loc 1 61 0
+ 361 00e2 07F10807 		add	r7, r7, #8
+ 362 00e6 BD46     		mov	sp, r7
+ 363 00e8 80BD     		pop	{r7, pc}
+ 364              	.L16:
+ 365 00ea 00BFAFF3 		.align	3
+ 365      0080
+ 366              	.L15:
+ 367 00f0 3DE2A139 		.word	966910525
+ 368 00f4 FC7F863F 		.word	1065779196
+ 369              		.cfi_endproc
+ 370              	.LFE1:
+ 371              		.size	CHRUM7_PacketToEuler, .-CHRUM7_PacketToEuler
+ 372              		.section	.text.CHRUM7_RegisterIO,"ax",%progbits
+ 373              		.align	2
+ 374              		.global	CHRUM7_RegisterIO
+ 375              		.thumb
+ 376              		.thumb_func
+ 377              		.type	CHRUM7_RegisterIO, %function
+ 378              	CHRUM7_RegisterIO:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 9
+
+
+ 379              	.LFB2:
+  62:.\ME_lib_imu_CHRUM7.c **** 
+  63:.\ME_lib_imu_CHRUM7.c **** 
+  64:.\ME_lib_imu_CHRUM7.c **** 
+  65:.\ME_lib_imu_CHRUM7.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+  66:.\ME_lib_imu_CHRUM7.c **** 
+  67:.\ME_lib_imu_CHRUM7.c **** void CHRUM7_RegisterIO(BOOL read, BYTE address, DWORD value, void (putchar_function)(BYTE b) )
+  68:.\ME_lib_imu_CHRUM7.c **** {
+ 380              		.loc 1 68 0
+ 381              		.cfi_startproc
+ 382              		@ args = 0, pretend = 0, frame = 40
+ 383              		@ frame_needed = 1, uses_anonymous_args = 0
+ 384 0000 80B5     		push	{r7, lr}
+ 385              	.LCFI6:
+ 386              		.cfi_def_cfa_offset 8
+ 387              		.cfi_offset 7, -8
+ 388              		.cfi_offset 14, -4
+ 389 0002 8AB0     		sub	sp, sp, #40
+ 390              	.LCFI7:
+ 391              		.cfi_def_cfa_offset 48
+ 392 0004 00AF     		add	r7, sp, #0
+ 393              	.LCFI8:
+ 394              		.cfi_def_cfa_register 7
+ 395 0006 BA60     		str	r2, [r7, #8]
+ 396 0008 7B60     		str	r3, [r7, #4]
+ 397 000a 0346     		mov	r3, r0
+ 398 000c FB73     		strb	r3, [r7, #15]
+ 399 000e 0B46     		mov	r3, r1
+ 400 0010 BB73     		strb	r3, [r7, #14]
+  69:.\ME_lib_imu_CHRUM7.c ****     CHRUM7_HEADER h ;
+  70:.\ME_lib_imu_CHRUM7.c ****     WORD checksum = 0 ;
+ 401              		.loc 1 70 0
+ 402 0012 4FF00003 		mov	r3, #0
+ 403 0016 FB84     		strh	r3, [r7, #38]	@ movhi
+  71:.\ME_lib_imu_CHRUM7.c ****     BYTE i, *p ;
+  72:.\ME_lib_imu_CHRUM7.c ****     BOOL command = (address >= 0xAA) ;      // Stesso campo per indirizzo o comando (!)
+ 404              		.loc 1 72 0
+ 405 0018 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 406 001a A92B     		cmp	r3, #169
+ 407 001c 94BF     		ite	ls
+ 408 001e 0023     		movls	r3, #0
+ 409 0020 0123     		movhi	r3, #1
+ 410 0022 DBB2     		uxtb	r3, r3
+ 411 0024 87F82430 		strb	r3, [r7, #36]
+  73:.\ME_lib_imu_CHRUM7.c ****     BOOL write = !(command || read) ;       // Scrittura solo se non è comando e non è lettura
+ 412              		.loc 1 73 0
+ 413 0028 97F82430 		ldrb	r3, [r7, #36]	@ zero_extendqisi2
+ 414 002c 002B     		cmp	r3, #0
+ 415 002e 05D1     		bne	.L18
+ 416              		.loc 1 73 0 is_stmt 0 discriminator 1
+ 417 0030 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 418 0032 002B     		cmp	r3, #0
+ 419 0034 02D1     		bne	.L18
+ 420              		.loc 1 73 0 discriminator 3
+ 421 0036 4FF00103 		mov	r3, #1
+ 422 003a 01E0     		b	.L19
+ 423              	.L18:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 10
+
+
+ 424              		.loc 1 73 0 discriminator 2
+ 425 003c 4FF00003 		mov	r3, #0
+ 426              	.L19:
+ 427              		.loc 1 73 0 discriminator 4
+ 428 0040 87F82330 		strb	r3, [r7, #35]
+  74:.\ME_lib_imu_CHRUM7.c ****     
+  75:.\ME_lib_imu_CHRUM7.c ****   // Inizializza l'header (i pacchetti spediti e ricevuti hanno la stessa struttura)
+  76:.\ME_lib_imu_CHRUM7.c ****   
+  77:.\ME_lib_imu_CHRUM7.c ****     h.id[0]='s';
+ 429              		.loc 1 77 0 is_stmt 1 discriminator 4
+ 430 0044 4FF07303 		mov	r3, #115
+ 431 0048 3B75     		strb	r3, [r7, #20]
+  78:.\ME_lib_imu_CHRUM7.c ****     h.id[1]='n';
+ 432              		.loc 1 78 0 discriminator 4
+ 433 004a 4FF06E03 		mov	r3, #110
+ 434 004e 7B75     		strb	r3, [r7, #21]
+  79:.\ME_lib_imu_CHRUM7.c ****     h.id[2]='p';
+ 435              		.loc 1 79 0 discriminator 4
+ 436 0050 4FF07003 		mov	r3, #112
+ 437 0054 BB75     		strb	r3, [r7, #22]
+  80:.\ME_lib_imu_CHRUM7.c ****     
+  81:.\ME_lib_imu_CHRUM7.c ****     h.packet_type.has_data       = write ;            // 1 = scrive, se 0 = legge/esegue 
+ 438              		.loc 1 81 0 discriminator 4
+ 439 0056 97F82330 		ldrb	r3, [r7, #35]
+ 440 005a 03F00103 		and	r3, r3, #1
+ 441 005e DAB2     		uxtb	r2, r3
+ 442 0060 FB7D     		ldrb	r3, [r7, #23]
+ 443 0062 62F3C713 		bfi	r3, r2, #7, #1
+ 444 0066 FB75     		strb	r3, [r7, #23]
+  82:.\ME_lib_imu_CHRUM7.c ****     h.packet_type.batch_len      = (write ? 1 : 0) ;  // Lettura o comando non hanno batch
+ 445              		.loc 1 82 0 discriminator 4
+ 446 0068 97F82330 		ldrb	r3, [r7, #35]	@ zero_extendqisi2
+ 447 006c 002B     		cmp	r3, #0
+ 448 006e 0CBF     		ite	eq
+ 449 0070 0023     		moveq	r3, #0
+ 450 0072 0123     		movne	r3, #1
+ 451 0074 DBB2     		uxtb	r3, r3
+ 452 0076 03F00F03 		and	r3, r3, #15
+ 453 007a DAB2     		uxtb	r2, r3
+ 454 007c FB7D     		ldrb	r3, [r7, #23]
+ 455 007e 62F38503 		bfi	r3, r2, #2, #4
+ 456 0082 FB75     		strb	r3, [r7, #23]
+  83:.\ME_lib_imu_CHRUM7.c ****     h.packet_type.is_batch       = write ;            // Una sola DWORD cioè un solo registro
+ 457              		.loc 1 83 0 discriminator 4
+ 458 0084 97F82330 		ldrb	r3, [r7, #35]
+ 459 0088 03F00103 		and	r3, r3, #1
+ 460 008c DAB2     		uxtb	r2, r3
+ 461 008e FB7D     		ldrb	r3, [r7, #23]
+ 462 0090 62F38613 		bfi	r3, r2, #6, #1
+ 463 0094 FB75     		strb	r3, [r7, #23]
+  84:.\ME_lib_imu_CHRUM7.c ****     h.packet_type.hidden         = 0 ;
+ 464              		.loc 1 84 0 discriminator 4
+ 465 0096 FB7D     		ldrb	r3, [r7, #23]
+ 466 0098 6FF34103 		bfc	r3, #1, #1
+ 467 009c FB75     		strb	r3, [r7, #23]
+  85:.\ME_lib_imu_CHRUM7.c ****     h.packet_type.command_failed = 0 ;      
+ 468              		.loc 1 85 0 discriminator 4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 11
+
+
+ 469 009e FB7D     		ldrb	r3, [r7, #23]
+ 470 00a0 6FF30003 		bfc	r3, #0, #1
+ 471 00a4 FB75     		strb	r3, [r7, #23]
+  86:.\ME_lib_imu_CHRUM7.c ****     h.address                    = address ;
+ 472              		.loc 1 86 0 discriminator 4
+ 473 00a6 BB7B     		ldrb	r3, [r7, #14]
+ 474 00a8 3B76     		strb	r3, [r7, #24]
+  87:.\ME_lib_imu_CHRUM7.c ****     
+  88:.\ME_lib_imu_CHRUM7.c ****   
+  89:.\ME_lib_imu_CHRUM7.c ****   // Spedisce i dati al componente (usando la funzione putchar di call-back)
+  90:.\ME_lib_imu_CHRUM7.c ****  
+  91:.\ME_lib_imu_CHRUM7.c ****   // ...prima l'header
+  92:.\ME_lib_imu_CHRUM7.c ****  
+  93:.\ME_lib_imu_CHRUM7.c ****     p = (BYTE *) &h  ;                      // Puntatore di comodo per mandare i byte 
+ 475              		.loc 1 93 0 discriminator 4
+ 476 00aa 07F11403 		add	r3, r7, #20
+ 477 00ae FB61     		str	r3, [r7, #28]
+  94:.\ME_lib_imu_CHRUM7.c ****     for (i=0; i<sizeof(h); i++)             
+ 478              		.loc 1 94 0 discriminator 4
+ 479 00b0 4FF00003 		mov	r3, #0
+ 480 00b4 87F82530 		strb	r3, [r7, #37]
+ 481 00b8 16E0     		b	.L20
+ 482              	.L21:
+  95:.\ME_lib_imu_CHRUM7.c ****     {
+  96:.\ME_lib_imu_CHRUM7.c ****         putchar_function(*(p+i));           // (usa la funzione di call-back)
+ 483              		.loc 1 96 0 discriminator 2
+ 484 00ba 97F82530 		ldrb	r3, [r7, #37]	@ zero_extendqisi2
+ 485 00be FA69     		ldr	r2, [r7, #28]
+ 486 00c0 D318     		adds	r3, r2, r3
+ 487 00c2 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 488 00c4 7B68     		ldr	r3, [r7, #4]
+ 489 00c6 1046     		mov	r0, r2
+ 490 00c8 9847     		blx	r3
+  97:.\ME_lib_imu_CHRUM7.c ****         checksum += *(p+i) ;
+ 491              		.loc 1 97 0 discriminator 2
+ 492 00ca 97F82530 		ldrb	r3, [r7, #37]	@ zero_extendqisi2
+ 493 00ce FA69     		ldr	r2, [r7, #28]
+ 494 00d0 D318     		adds	r3, r2, r3
+ 495 00d2 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 496 00d4 1A46     		mov	r2, r3
+ 497 00d6 FB8C     		ldrh	r3, [r7, #38]	@ movhi
+ 498 00d8 D318     		adds	r3, r2, r3
+ 499 00da FB84     		strh	r3, [r7, #38]	@ movhi
+  94:.\ME_lib_imu_CHRUM7.c ****     for (i=0; i<sizeof(h); i++)             
+ 500              		.loc 1 94 0 discriminator 2
+ 501 00dc 97F82530 		ldrb	r3, [r7, #37]
+ 502 00e0 03F10103 		add	r3, r3, #1
+ 503 00e4 87F82530 		strb	r3, [r7, #37]
+ 504              	.L20:
+  94:.\ME_lib_imu_CHRUM7.c ****     for (i=0; i<sizeof(h); i++)             
+ 505              		.loc 1 94 0 is_stmt 0 discriminator 1
+ 506 00e8 97F82530 		ldrb	r3, [r7, #37]	@ zero_extendqisi2
+ 507 00ec 042B     		cmp	r3, #4
+ 508 00ee E4D9     		bls	.L21
+  98:.\ME_lib_imu_CHRUM7.c ****     }
+  99:.\ME_lib_imu_CHRUM7.c **** 
+ 100:.\ME_lib_imu_CHRUM7.c ****   // ...poi il resto del pacchetto 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 12
+
+
+ 101:.\ME_lib_imu_CHRUM7.c ****   
+ 102:.\ME_lib_imu_CHRUM7.c ****     p = (BYTE *) &value  ;                  // Puntatore di comodo per mandare i byte 
+ 509              		.loc 1 102 0 is_stmt 1
+ 510 00f0 07F10803 		add	r3, r7, #8
+ 511 00f4 FB61     		str	r3, [r7, #28]
+ 103:.\ME_lib_imu_CHRUM7.c ****     if (write)                              // (i 4 byte del dato solo se write e non comando.)
+ 512              		.loc 1 103 0
+ 513 00f6 97F82330 		ldrb	r3, [r7, #35]	@ zero_extendqisi2
+ 514 00fa 002B     		cmp	r3, #0
+ 515 00fc 23D0     		beq	.L22
+ 104:.\ME_lib_imu_CHRUM7.c ****     {
+ 105:.\ME_lib_imu_CHRUM7.c ****         for (i=4; i>0; i--)         
+ 516              		.loc 1 105 0
+ 517 00fe 4FF00403 		mov	r3, #4
+ 518 0102 87F82530 		strb	r3, [r7, #37]
+ 519 0106 1AE0     		b	.L23
+ 520              	.L24:
+ 106:.\ME_lib_imu_CHRUM7.c ****         {   
+ 107:.\ME_lib_imu_CHRUM7.c ****             putchar_function(*(p+i-1));
+ 521              		.loc 1 107 0 discriminator 2
+ 522 0108 97F82530 		ldrb	r3, [r7, #37]	@ zero_extendqisi2
+ 523 010c 03F1FF33 		add	r3, r3, #-1
+ 524 0110 FA69     		ldr	r2, [r7, #28]
+ 525 0112 D318     		adds	r3, r2, r3
+ 526 0114 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 527 0116 7B68     		ldr	r3, [r7, #4]
+ 528 0118 1046     		mov	r0, r2
+ 529 011a 9847     		blx	r3
+ 108:.\ME_lib_imu_CHRUM7.c ****             checksum += *(p+i-1) ;
+ 530              		.loc 1 108 0 discriminator 2
+ 531 011c 97F82530 		ldrb	r3, [r7, #37]	@ zero_extendqisi2
+ 532 0120 03F1FF33 		add	r3, r3, #-1
+ 533 0124 FA69     		ldr	r2, [r7, #28]
+ 534 0126 D318     		adds	r3, r2, r3
+ 535 0128 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 536 012a 1A46     		mov	r2, r3
+ 537 012c FB8C     		ldrh	r3, [r7, #38]	@ movhi
+ 538 012e D318     		adds	r3, r2, r3
+ 539 0130 FB84     		strh	r3, [r7, #38]	@ movhi
+ 105:.\ME_lib_imu_CHRUM7.c ****         for (i=4; i>0; i--)         
+ 540              		.loc 1 105 0 discriminator 2
+ 541 0132 97F82530 		ldrb	r3, [r7, #37]
+ 542 0136 03F1FF33 		add	r3, r3, #-1
+ 543 013a 87F82530 		strb	r3, [r7, #37]
+ 544              	.L23:
+ 105:.\ME_lib_imu_CHRUM7.c ****         for (i=4; i>0; i--)         
+ 545              		.loc 1 105 0 is_stmt 0 discriminator 1
+ 546 013e 97F82530 		ldrb	r3, [r7, #37]	@ zero_extendqisi2
+ 547 0142 002B     		cmp	r3, #0
+ 548 0144 E0D1     		bne	.L24
+ 549              	.L22:
+ 109:.\ME_lib_imu_CHRUM7.c ****         }
+ 110:.\ME_lib_imu_CHRUM7.c ****     }
+ 111:.\ME_lib_imu_CHRUM7.c ****     
+ 112:.\ME_lib_imu_CHRUM7.c ****   // ...infine la checksum complessiva
+ 113:.\ME_lib_imu_CHRUM7.c ****   
+ 114:.\ME_lib_imu_CHRUM7.c ****     putchar_function(H(checksum));          
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 13
+
+
+ 550              		.loc 1 114 0 is_stmt 1
+ 551 0146 FB8C     		ldrh	r3, [r7, #38]
+ 552 0148 4FEA1323 		lsr	r3, r3, #8
+ 553 014c 9BB2     		uxth	r3, r3
+ 554 014e DAB2     		uxtb	r2, r3
+ 555 0150 7B68     		ldr	r3, [r7, #4]
+ 556 0152 1046     		mov	r0, r2
+ 557 0154 9847     		blx	r3
+ 115:.\ME_lib_imu_CHRUM7.c ****     putchar_function(L(checksum));
+ 558              		.loc 1 115 0
+ 559 0156 FB8C     		ldrh	r3, [r7, #38]	@ movhi
+ 560 0158 DAB2     		uxtb	r2, r3
+ 561 015a 7B68     		ldr	r3, [r7, #4]
+ 562 015c 1046     		mov	r0, r2
+ 563 015e 9847     		blx	r3
+ 116:.\ME_lib_imu_CHRUM7.c **** }
+ 564              		.loc 1 116 0
+ 565 0160 07F12807 		add	r7, r7, #40
+ 566 0164 BD46     		mov	sp, r7
+ 567 0166 80BD     		pop	{r7, pc}
+ 568              		.cfi_endproc
+ 569              	.LFE2:
+ 570              		.size	CHRUM7_RegisterIO, .-CHRUM7_RegisterIO
+ 571              		.section	.text.CHRUM7_HeaderValidator,"ax",%progbits
+ 572              		.align	2
+ 573              		.global	CHRUM7_HeaderValidator
+ 574              		.thumb
+ 575              		.thumb_func
+ 576              		.type	CHRUM7_HeaderValidator, %function
+ 577              	CHRUM7_HeaderValidator:
+ 578              	.LFB3:
+ 117:.\ME_lib_imu_CHRUM7.c **** 
+ 118:.\ME_lib_imu_CHRUM7.c **** 
+ 119:.\ME_lib_imu_CHRUM7.c **** 
+ 120:.\ME_lib_imu_CHRUM7.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 121:.\ME_lib_imu_CHRUM7.c **** 
+ 122:.\ME_lib_imu_CHRUM7.c **** BYTE CHRUM7_HeaderValidator(BYTE *packet)
+ 123:.\ME_lib_imu_CHRUM7.c **** {
+ 579              		.loc 1 123 0
+ 580              		.cfi_startproc
+ 581              		@ args = 0, pretend = 0, frame = 16
+ 582              		@ frame_needed = 1, uses_anonymous_args = 0
+ 583              		@ link register save eliminated.
+ 584 0000 80B4     		push	{r7}
+ 585              	.LCFI9:
+ 586              		.cfi_def_cfa_offset 4
+ 587              		.cfi_offset 7, -4
+ 588 0002 85B0     		sub	sp, sp, #20
+ 589              	.LCFI10:
+ 590              		.cfi_def_cfa_offset 24
+ 591 0004 00AF     		add	r7, sp, #0
+ 592              	.LCFI11:
+ 593              		.cfi_def_cfa_register 7
+ 594 0006 7860     		str	r0, [r7, #4]
+ 124:.\ME_lib_imu_CHRUM7.c ****     CHRUM7_HEADER *hdr = (CHRUM7_HEADER *) packet ;     // Converte il puntatore generico all'heade
+ 595              		.loc 1 124 0
+ 596 0008 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 14
+
+
+ 597 000a BB60     		str	r3, [r7, #8]
+ 125:.\ME_lib_imu_CHRUM7.c ****     BYTE length = 0 ;
+ 598              		.loc 1 125 0
+ 599 000c 4FF00003 		mov	r3, #0
+ 600 0010 FB73     		strb	r3, [r7, #15]
+ 126:.\ME_lib_imu_CHRUM7.c **** 
+ 127:.\ME_lib_imu_CHRUM7.c ****     if (   (packet[0]=='s')                  // I pacchetti iniziano tutti con questi tre caratteri
+ 601              		.loc 1 127 0
+ 602 0012 7B68     		ldr	r3, [r7, #4]
+ 603 0014 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 604 0016 732B     		cmp	r3, #115
+ 605 0018 2DD1     		bne	.L26
+ 128:.\ME_lib_imu_CHRUM7.c ****         && (packet[1]=='n')
+ 606              		.loc 1 128 0
+ 607 001a 7B68     		ldr	r3, [r7, #4]
+ 608 001c 03F10103 		add	r3, r3, #1
+ 609 0020 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 610 0022 6E2B     		cmp	r3, #110
+ 611 0024 27D1     		bne	.L26
+ 129:.\ME_lib_imu_CHRUM7.c ****         && (packet[2]=='p'))
+ 612              		.loc 1 129 0
+ 613 0026 7B68     		ldr	r3, [r7, #4]
+ 614 0028 03F10203 		add	r3, r3, #2
+ 615 002c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 616 002e 702B     		cmp	r3, #112
+ 617 0030 21D1     		bne	.L26
+ 130:.\ME_lib_imu_CHRUM7.c ****     {    
+ 131:.\ME_lib_imu_CHRUM7.c ****         if (hdr->packet_type.has_data)      // Se ha dei dati calcola la lunghezza
+ 618              		.loc 1 131 0
+ 619 0032 BB68     		ldr	r3, [r7, #8]
+ 620 0034 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 621 0036 23F07F03 		bic	r3, r3, #127
+ 622 003a DBB2     		uxtb	r3, r3
+ 623 003c 002B     		cmp	r3, #0
+ 624 003e 16D0     		beq	.L27
+ 132:.\ME_lib_imu_CHRUM7.c ****         {
+ 133:.\ME_lib_imu_CHRUM7.c ****             if (hdr->packet_type.is_batch)
+ 625              		.loc 1 133 0
+ 626 0040 BB68     		ldr	r3, [r7, #8]
+ 627 0042 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 628 0044 03F04003 		and	r3, r3, #64
+ 629 0048 DBB2     		uxtb	r3, r3
+ 630 004a 002B     		cmp	r3, #0
+ 631 004c 0BD0     		beq	.L28
+ 134:.\ME_lib_imu_CHRUM7.c ****                 length = 7 + 4 * hdr->packet_type.batch_len ;
+ 632              		.loc 1 134 0
+ 633 004e BB68     		ldr	r3, [r7, #8]
+ 634 0050 DB78     		ldrb	r3, [r3, #3]
+ 635 0052 C3F38303 		ubfx	r3, r3, #2, #4
+ 636 0056 DBB2     		uxtb	r3, r3
+ 637 0058 4FEA8303 		lsl	r3, r3, #2
+ 638 005c DBB2     		uxtb	r3, r3
+ 639 005e 03F10703 		add	r3, r3, #7
+ 640 0062 FB73     		strb	r3, [r7, #15]
+ 131:.\ME_lib_imu_CHRUM7.c ****         if (hdr->packet_type.has_data)      // Se ha dei dati calcola la lunghezza
+ 641              		.loc 1 131 0
+ 642 0064 0AE0     		b	.L30
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 15
+
+
+ 643              	.L28:
+ 135:.\ME_lib_imu_CHRUM7.c ****             else
+ 136:.\ME_lib_imu_CHRUM7.c ****                 length = 11 ;
+ 644              		.loc 1 136 0
+ 645 0066 4FF00B03 		mov	r3, #11
+ 646 006a FB73     		strb	r3, [r7, #15]
+ 131:.\ME_lib_imu_CHRUM7.c ****         if (hdr->packet_type.has_data)      // Se ha dei dati calcola la lunghezza
+ 647              		.loc 1 131 0
+ 648 006c 06E0     		b	.L30
+ 649              	.L27:
+ 137:.\ME_lib_imu_CHRUM7.c ****         }
+ 138:.\ME_lib_imu_CHRUM7.c ****         else                                // Se non ha dati allora la lunghezza è fissa.
+ 139:.\ME_lib_imu_CHRUM7.c ****         {
+ 140:.\ME_lib_imu_CHRUM7.c ****             length = 7 ;        
+ 650              		.loc 1 140 0
+ 651 006e 4FF00703 		mov	r3, #7
+ 652 0072 FB73     		strb	r3, [r7, #15]
+ 131:.\ME_lib_imu_CHRUM7.c ****         if (hdr->packet_type.has_data)      // Se ha dei dati calcola la lunghezza
+ 653              		.loc 1 131 0
+ 654 0074 02E0     		b	.L30
+ 655              	.L26:
+ 141:.\ME_lib_imu_CHRUM7.c ****         }
+ 142:.\ME_lib_imu_CHRUM7.c ****     }
+ 143:.\ME_lib_imu_CHRUM7.c ****     else                                    // Se non è una header valida la lunghezza è nulla.
+ 144:.\ME_lib_imu_CHRUM7.c ****     {
+ 145:.\ME_lib_imu_CHRUM7.c ****         length = 0 ;
+ 656              		.loc 1 145 0
+ 657 0076 4FF00003 		mov	r3, #0
+ 658 007a FB73     		strb	r3, [r7, #15]
+ 659              	.L30:
+ 146:.\ME_lib_imu_CHRUM7.c ****     }
+ 147:.\ME_lib_imu_CHRUM7.c ****     
+ 148:.\ME_lib_imu_CHRUM7.c ****     return length ;
+ 660              		.loc 1 148 0
+ 661 007c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 149:.\ME_lib_imu_CHRUM7.c **** }
+ 662              		.loc 1 149 0
+ 663 007e 1846     		mov	r0, r3
+ 664 0080 07F11407 		add	r7, r7, #20
+ 665 0084 BD46     		mov	sp, r7
+ 666 0086 80BC     		pop	{r7}
+ 667 0088 7047     		bx	lr
+ 668              		.cfi_endproc
+ 669              	.LFE3:
+ 670              		.size	CHRUM7_HeaderValidator, .-CHRUM7_HeaderValidator
+ 671 008a 00BF     		.section	.text.CHRUM7_PacketValidator,"ax",%progbits
+ 672              		.align	2
+ 673              		.global	CHRUM7_PacketValidator
+ 674              		.thumb
+ 675              		.thumb_func
+ 676              		.type	CHRUM7_PacketValidator, %function
+ 677              	CHRUM7_PacketValidator:
+ 678              	.LFB4:
+ 150:.\ME_lib_imu_CHRUM7.c **** 
+ 151:.\ME_lib_imu_CHRUM7.c **** 
+ 152:.\ME_lib_imu_CHRUM7.c **** 
+ 153:.\ME_lib_imu_CHRUM7.c **** ///////////////////////////////////////////////////////////////////////////////////////////////////
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 16
+
+
+ 154:.\ME_lib_imu_CHRUM7.c **** 
+ 155:.\ME_lib_imu_CHRUM7.c **** BOOL CHRUM7_PacketValidator(BYTE *packet, BYTE length)
+ 156:.\ME_lib_imu_CHRUM7.c **** {
+ 679              		.loc 1 156 0
+ 680              		.cfi_startproc
+ 681              		@ args = 0, pretend = 0, frame = 16
+ 682              		@ frame_needed = 1, uses_anonymous_args = 0
+ 683              		@ link register save eliminated.
+ 684 0000 80B4     		push	{r7}
+ 685              	.LCFI12:
+ 686              		.cfi_def_cfa_offset 4
+ 687              		.cfi_offset 7, -4
+ 688 0002 85B0     		sub	sp, sp, #20
+ 689              	.LCFI13:
+ 690              		.cfi_def_cfa_offset 24
+ 691 0004 00AF     		add	r7, sp, #0
+ 692              	.LCFI14:
+ 693              		.cfi_def_cfa_register 7
+ 694 0006 7860     		str	r0, [r7, #4]
+ 695 0008 0B46     		mov	r3, r1
+ 696 000a FB70     		strb	r3, [r7, #3]
+ 157:.\ME_lib_imu_CHRUM7.c ****     WORD checksum = 0 ;                         // L'unica verifica di integrità del pacchetto è 
+ 697              		.loc 1 157 0
+ 698 000c 4FF00003 		mov	r3, #0
+ 699 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 158:.\ME_lib_imu_CHRUM7.c ****     WORD i ;                                    // la checksum.
+ 159:.\ME_lib_imu_CHRUM7.c ****     BOOL ok ;
+ 160:.\ME_lib_imu_CHRUM7.c ****     
+ 161:.\ME_lib_imu_CHRUM7.c **** //    printf(CRLF"[ PKT (%d): ",length);        // Usato per debug estremi
+ 162:.\ME_lib_imu_CHRUM7.c ****    
+ 163:.\ME_lib_imu_CHRUM7.c ****     for( i = 0 ; i < length-2 ; i++ )           
+ 700              		.loc 1 163 0
+ 701 0012 4FF00003 		mov	r3, #0
+ 702 0016 BB81     		strh	r3, [r7, #12]	@ movhi
+ 703 0018 0BE0     		b	.L33
+ 704              	.L34:
+ 164:.\ME_lib_imu_CHRUM7.c ****     {
+ 165:.\ME_lib_imu_CHRUM7.c ****         checksum += packet[i] ;       
+ 705              		.loc 1 165 0 discriminator 2
+ 706 001a BB89     		ldrh	r3, [r7, #12]
+ 707 001c 7A68     		ldr	r2, [r7, #4]
+ 708 001e D318     		adds	r3, r2, r3
+ 709 0020 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 710 0022 1A46     		mov	r2, r3
+ 711 0024 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 712 0026 D318     		adds	r3, r2, r3
+ 713 0028 FB81     		strh	r3, [r7, #14]	@ movhi
+ 163:.\ME_lib_imu_CHRUM7.c ****     for( i = 0 ; i < length-2 ; i++ )           
+ 714              		.loc 1 163 0 discriminator 2
+ 715 002a BB89     		ldrh	r3, [r7, #12]	@ movhi
+ 716 002c 03F10103 		add	r3, r3, #1
+ 717 0030 BB81     		strh	r3, [r7, #12]	@ movhi
+ 718              	.L33:
+ 163:.\ME_lib_imu_CHRUM7.c ****     for( i = 0 ; i < length-2 ; i++ )           
+ 719              		.loc 1 163 0 is_stmt 0 discriminator 1
+ 720 0032 BA89     		ldrh	r2, [r7, #12]
+ 721 0034 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 17
+
+
+ 722 0036 A3F10203 		sub	r3, r3, #2
+ 723 003a 9A42     		cmp	r2, r3
+ 724 003c EDDB     		blt	.L34
+ 166:.\ME_lib_imu_CHRUM7.c **** //        printf("%02X.",packet[i]);            // Usato per debug estremi
+ 167:.\ME_lib_imu_CHRUM7.c ****     }
+ 168:.\ME_lib_imu_CHRUM7.c ****     
+ 169:.\ME_lib_imu_CHRUM7.c **** //    printf("%02X.%02X",packet[length-2], packet[length-1]);   // Usato per debug estremi
+ 170:.\ME_lib_imu_CHRUM7.c **** //    printf(" Calc: %04X ]", checksum);
+ 171:.\ME_lib_imu_CHRUM7.c **** 
+ 172:.\ME_lib_imu_CHRUM7.c ****     ok = (checksum == W(packet[length-2], packet[length-1]) ); 
+ 725              		.loc 1 172 0 is_stmt 1
+ 726 003e FA89     		ldrh	r2, [r7, #14]
+ 727 0040 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 728 0042 A3F10203 		sub	r3, r3, #2
+ 729 0046 7968     		ldr	r1, [r7, #4]
+ 730 0048 CB18     		adds	r3, r1, r3
+ 731 004a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 732 004c 4FEA0323 		lsl	r3, r3, #8
+ 733 0050 9BB2     		uxth	r3, r3
+ 734 0052 1946     		mov	r1, r3
+ 735 0054 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 736 0056 03F1FF33 		add	r3, r3, #-1
+ 737 005a 7868     		ldr	r0, [r7, #4]
+ 738 005c C318     		adds	r3, r0, r3
+ 739 005e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 740 0060 0B43     		orrs	r3, r3, r1
+ 741 0062 9A42     		cmp	r2, r3
+ 742 0064 14BF     		ite	ne
+ 743 0066 0023     		movne	r3, #0
+ 744 0068 0123     		moveq	r3, #1
+ 745 006a DBB2     		uxtb	r3, r3
+ 746 006c FB72     		strb	r3, [r7, #11]
+ 173:.\ME_lib_imu_CHRUM7.c **** 
+ 174:.\ME_lib_imu_CHRUM7.c **** //    if (!ok)                                                  // Usato per debug estremi
+ 175:.\ME_lib_imu_CHRUM7.c **** //        printf(" * ");
+ 176:.\ME_lib_imu_CHRUM7.c **** 
+ 177:.\ME_lib_imu_CHRUM7.c ****     return ok ;
+ 747              		.loc 1 177 0
+ 748 006e FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 178:.\ME_lib_imu_CHRUM7.c **** }
+ 749              		.loc 1 178 0
+ 750 0070 1846     		mov	r0, r3
+ 751 0072 07F11407 		add	r7, r7, #20
+ 752 0076 BD46     		mov	sp, r7
+ 753 0078 80BC     		pop	{r7}
+ 754 007a 7047     		bx	lr
+ 755              		.cfi_endproc
+ 756              	.LFE4:
+ 757              		.size	CHRUM7_PacketValidator, .-CHRUM7_PacketValidator
+ 758              		.text
+ 759              	.Letext0:
+ 760              		.file 2 ".\\ME_common.h"
+ 761              		.file 3 ".\\ME_geometry.h"
+ 762              		.file 4 ".\\ME_lib_imu_CHRUM7.h"
+ 763              		.section	.debug_info,"",%progbits
+ 764              	.Ldebug_info0:
+ 765 0000 C5030000 		.4byte	0x3c5
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 18
+
+
+ 766 0004 0200     		.2byte	0x2
+ 767 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 768 000a 04       		.byte	0x4
+ 769 000b 01       		.uleb128 0x1
+ 770 000c 07020000 		.4byte	.LASF43
+ 771 0010 01       		.byte	0x1
+ 772 0011 61010000 		.4byte	.LASF44
+ 773 0015 E5000000 		.4byte	.LASF45
+ 774 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 775 001d 00000000 		.4byte	0
+ 776 0021 00000000 		.4byte	0
+ 777 0025 00000000 		.4byte	.Ldebug_line0
+ 778 0029 02       		.uleb128 0x2
+ 779 002a 04       		.byte	0x4
+ 780 002b 07       		.byte	0x7
+ 781 002c 77010000 		.4byte	.LASF0
+ 782 0030 02       		.uleb128 0x2
+ 783 0031 01       		.byte	0x1
+ 784 0032 06       		.byte	0x6
+ 785 0033 6F020000 		.4byte	.LASF1
+ 786 0037 02       		.uleb128 0x2
+ 787 0038 01       		.byte	0x1
+ 788 0039 08       		.byte	0x8
+ 789 003a 5E000000 		.4byte	.LASF2
+ 790 003e 02       		.uleb128 0x2
+ 791 003f 02       		.byte	0x2
+ 792 0040 05       		.byte	0x5
+ 793 0041 DB000000 		.4byte	.LASF3
+ 794 0045 02       		.uleb128 0x2
+ 795 0046 02       		.byte	0x2
+ 796 0047 07       		.byte	0x7
+ 797 0048 91000000 		.4byte	.LASF4
+ 798 004c 03       		.uleb128 0x3
+ 799 004d 04       		.byte	0x4
+ 800 004e 05       		.byte	0x5
+ 801 004f 696E7400 		.ascii	"int\000"
+ 802 0053 02       		.uleb128 0x2
+ 803 0054 08       		.byte	0x8
+ 804 0055 05       		.byte	0x5
+ 805 0056 DD010000 		.4byte	.LASF5
+ 806 005a 02       		.uleb128 0x2
+ 807 005b 08       		.byte	0x8
+ 808 005c 07       		.byte	0x7
+ 809 005d 99020000 		.4byte	.LASF6
+ 810 0061 02       		.uleb128 0x2
+ 811 0062 04       		.byte	0x4
+ 812 0063 05       		.byte	0x5
+ 813 0064 61020000 		.4byte	.LASF7
+ 814 0068 02       		.uleb128 0x2
+ 815 0069 04       		.byte	0x4
+ 816 006a 07       		.byte	0x7
+ 817 006b D4010000 		.4byte	.LASF8
+ 818 006f 02       		.uleb128 0x2
+ 819 0070 04       		.byte	0x4
+ 820 0071 07       		.byte	0x7
+ 821 0072 6C000000 		.4byte	.LASF9
+ 822 0076 02       		.uleb128 0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 19
+
+
+ 823 0077 01       		.byte	0x1
+ 824 0078 08       		.byte	0x8
+ 825 0079 6A020000 		.4byte	.LASF10
+ 826 007d 04       		.uleb128 0x4
+ 827 007e 4A000000 		.4byte	.LASF11
+ 828 0082 02       		.byte	0x2
+ 829 0083 34       		.byte	0x34
+ 830 0084 37000000 		.4byte	0x37
+ 831 0088 04       		.uleb128 0x4
+ 832 0089 31000000 		.4byte	.LASF12
+ 833 008d 02       		.byte	0x2
+ 834 008e 35       		.byte	0x35
+ 835 008f 45000000 		.4byte	0x45
+ 836 0093 04       		.uleb128 0x4
+ 837 0094 3C000000 		.4byte	.LASF13
+ 838 0098 02       		.byte	0x2
+ 839 0099 36       		.byte	0x36
+ 840 009a 6F000000 		.4byte	0x6f
+ 841 009e 05       		.uleb128 0x5
+ 842 009f 494E5400 		.ascii	"INT\000"
+ 843 00a3 02       		.byte	0x2
+ 844 00a4 38       		.byte	0x38
+ 845 00a5 3E000000 		.4byte	0x3e
+ 846 00a9 04       		.uleb128 0x4
+ 847 00aa CE000000 		.4byte	.LASF14
+ 848 00ae 02       		.byte	0x2
+ 849 00af 3A       		.byte	0x3a
+ 850 00b0 B4000000 		.4byte	0xb4
+ 851 00b4 02       		.uleb128 0x2
+ 852 00b5 04       		.byte	0x4
+ 853 00b6 04       		.byte	0x4
+ 854 00b7 4F000000 		.4byte	.LASF15
+ 855 00bb 02       		.uleb128 0x2
+ 856 00bc 08       		.byte	0x8
+ 857 00bd 04       		.byte	0x4
+ 858 00be D4000000 		.4byte	.LASF16
+ 859 00c2 06       		.uleb128 0x6
+ 860 00c3 1C000000 		.4byte	.LASF19
+ 861 00c7 01       		.byte	0x1
+ 862 00c8 02       		.byte	0x2
+ 863 00c9 3D       		.byte	0x3d
+ 864 00ca DB000000 		.4byte	0xdb
+ 865 00ce 07       		.uleb128 0x7
+ 866 00cf EB010000 		.4byte	.LASF17
+ 867 00d3 00       		.sleb128 0
+ 868 00d4 07       		.uleb128 0x7
+ 869 00d5 00000000 		.4byte	.LASF18
+ 870 00d9 01       		.sleb128 1
+ 871 00da 00       		.byte	0
+ 872 00db 04       		.uleb128 0x4
+ 873 00dc 1C000000 		.4byte	.LASF19
+ 874 00e0 02       		.byte	0x2
+ 875 00e1 41       		.byte	0x41
+ 876 00e2 C2000000 		.4byte	0xc2
+ 877 00e6 08       		.uleb128 0x8
+ 878 00e7 F1010000 		.4byte	.LASF21
+ 879 00eb 0C       		.byte	0xc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 20
+
+
+ 880 00ec 03       		.byte	0x3
+ 881 00ed 3E       		.byte	0x3e
+ 882 00ee 1D010000 		.4byte	0x11d
+ 883 00f2 09       		.uleb128 0x9
+ 884 00f3 70686900 		.ascii	"phi\000"
+ 885 00f7 03       		.byte	0x3
+ 886 00f8 40       		.byte	0x40
+ 887 00f9 A9000000 		.4byte	0xa9
+ 888 00fd 02       		.byte	0x2
+ 889 00fe 23       		.byte	0x23
+ 890 00ff 00       		.uleb128 0
+ 891 0100 0A       		.uleb128 0xa
+ 892 0101 36000000 		.4byte	.LASF20
+ 893 0105 03       		.byte	0x3
+ 894 0106 41       		.byte	0x41
+ 895 0107 A9000000 		.4byte	0xa9
+ 896 010b 02       		.byte	0x2
+ 897 010c 23       		.byte	0x23
+ 898 010d 04       		.uleb128 0x4
+ 899 010e 09       		.uleb128 0x9
+ 900 010f 70736900 		.ascii	"psi\000"
+ 901 0113 03       		.byte	0x3
+ 902 0114 42       		.byte	0x42
+ 903 0115 A9000000 		.4byte	0xa9
+ 904 0119 02       		.byte	0x2
+ 905 011a 23       		.byte	0x23
+ 906 011b 08       		.uleb128 0x8
+ 907 011c 00       		.byte	0
+ 908 011d 04       		.uleb128 0x4
+ 909 011e F1010000 		.4byte	.LASF21
+ 910 0122 03       		.byte	0x3
+ 911 0123 43       		.byte	0x43
+ 912 0124 E6000000 		.4byte	0xe6
+ 913 0128 08       		.uleb128 0x8
+ 914 0129 C8010000 		.4byte	.LASF22
+ 915 012d 01       		.byte	0x1
+ 916 012e 04       		.byte	0x4
+ 917 012f BC       		.byte	0xbc
+ 918 0130 8A010000 		.4byte	0x18a
+ 919 0134 0B       		.uleb128 0xb
+ 920 0135 AA000000 		.4byte	.LASF23
+ 921 0139 04       		.byte	0x4
+ 922 013a BE       		.byte	0xbe
+ 923 013b 7D000000 		.4byte	0x7d
+ 924 013f 01       		.byte	0x1
+ 925 0140 01       		.byte	0x1
+ 926 0141 07       		.byte	0x7
+ 927 0142 02       		.byte	0x2
+ 928 0143 23       		.byte	0x23
+ 929 0144 00       		.uleb128 0
+ 930 0145 0B       		.uleb128 0xb
+ 931 0146 A7010000 		.4byte	.LASF24
+ 932 014a 04       		.byte	0x4
+ 933 014b BF       		.byte	0xbf
+ 934 014c 7D000000 		.4byte	0x7d
+ 935 0150 01       		.byte	0x1
+ 936 0151 01       		.byte	0x1
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 21
+
+
+ 937 0152 06       		.byte	0x6
+ 938 0153 02       		.byte	0x2
+ 939 0154 23       		.byte	0x23
+ 940 0155 00       		.uleb128 0
+ 941 0156 0B       		.uleb128 0xb
+ 942 0157 21000000 		.4byte	.LASF25
+ 943 015b 04       		.byte	0x4
+ 944 015c C0       		.byte	0xc0
+ 945 015d 7D000000 		.4byte	0x7d
+ 946 0161 01       		.byte	0x1
+ 947 0162 04       		.byte	0x4
+ 948 0163 02       		.byte	0x2
+ 949 0164 02       		.byte	0x2
+ 950 0165 23       		.byte	0x23
+ 951 0166 00       		.uleb128 0
+ 952 0167 0B       		.uleb128 0xb
+ 953 0168 8C010000 		.4byte	.LASF26
+ 954 016c 04       		.byte	0x4
+ 955 016d C1       		.byte	0xc1
+ 956 016e 7D000000 		.4byte	0x7d
+ 957 0172 01       		.byte	0x1
+ 958 0173 01       		.byte	0x1
+ 959 0174 01       		.byte	0x1
+ 960 0175 02       		.byte	0x2
+ 961 0176 23       		.byte	0x23
+ 962 0177 00       		.uleb128 0
+ 963 0178 0B       		.uleb128 0xb
+ 964 0179 FE010000 		.4byte	.LASF27
+ 965 017d 04       		.byte	0x4
+ 966 017e C2       		.byte	0xc2
+ 967 017f 7D000000 		.4byte	0x7d
+ 968 0183 01       		.byte	0x1
+ 969 0184 01       		.byte	0x1
+ 970 0185 00       		.byte	0
+ 971 0186 02       		.byte	0x2
+ 972 0187 23       		.byte	0x23
+ 973 0188 00       		.uleb128 0
+ 974 0189 00       		.byte	0
+ 975 018a 08       		.uleb128 0x8
+ 976 018b BA010000 		.4byte	.LASF28
+ 977 018f 05       		.byte	0x5
+ 978 0190 04       		.byte	0x4
+ 979 0191 B9       		.byte	0xb9
+ 980 0192 C0010000 		.4byte	0x1c0
+ 981 0196 09       		.uleb128 0x9
+ 982 0197 696400   		.ascii	"id\000"
+ 983 019a 04       		.byte	0x4
+ 984 019b BB       		.byte	0xbb
+ 985 019c C0010000 		.4byte	0x1c0
+ 986 01a0 02       		.byte	0x2
+ 987 01a1 23       		.byte	0x23
+ 988 01a2 00       		.uleb128 0
+ 989 01a3 0A       		.uleb128 0xa
+ 990 01a4 AE010000 		.4byte	.LASF29
+ 991 01a8 04       		.byte	0x4
+ 992 01a9 C3       		.byte	0xc3
+ 993 01aa 28010000 		.4byte	0x128
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 22
+
+
+ 994 01ae 02       		.byte	0x2
+ 995 01af 23       		.byte	0x23
+ 996 01b0 03       		.uleb128 0x3
+ 997 01b1 0A       		.uleb128 0xa
+ 998 01b2 84010000 		.4byte	.LASF30
+ 999 01b6 04       		.byte	0x4
+ 1000 01b7 C4       		.byte	0xc4
+ 1001 01b8 7D000000 		.4byte	0x7d
+ 1002 01bc 02       		.byte	0x2
+ 1003 01bd 23       		.byte	0x23
+ 1004 01be 04       		.uleb128 0x4
+ 1005 01bf 00       		.byte	0
+ 1006 01c0 0C       		.uleb128 0xc
+ 1007 01c1 7D000000 		.4byte	0x7d
+ 1008 01c5 D0010000 		.4byte	0x1d0
+ 1009 01c9 0D       		.uleb128 0xd
+ 1010 01ca 68000000 		.4byte	0x68
+ 1011 01ce 02       		.byte	0x2
+ 1012 01cf 00       		.byte	0
+ 1013 01d0 04       		.uleb128 0x4
+ 1014 01d1 BA010000 		.4byte	.LASF28
+ 1015 01d5 04       		.byte	0x4
+ 1016 01d6 C5       		.byte	0xc5
+ 1017 01d7 8A010000 		.4byte	0x18a
+ 1018 01db 0E       		.uleb128 0xe
+ 1019 01dc 04       		.byte	0x4
+ 1020 01dd E1010000 		.4byte	0x1e1
+ 1021 01e1 0F       		.uleb128 0xf
+ 1022 01e2 01       		.byte	0x1
+ 1023 01e3 ED010000 		.4byte	0x1ed
+ 1024 01e7 10       		.uleb128 0x10
+ 1025 01e8 7D000000 		.4byte	0x7d
+ 1026 01ec 00       		.byte	0
+ 1027 01ed 11       		.uleb128 0x11
+ 1028 01ee 01       		.byte	0x1
+ 1029 01ef 7E000000 		.4byte	.LASF31
+ 1030 01f3 01       		.byte	0x1
+ 1031 01f4 11       		.byte	0x11
+ 1032 01f5 01       		.byte	0x1
+ 1033 01f6 00000000 		.4byte	.LFB0
+ 1034 01fa 58010000 		.4byte	.LFE0
+ 1035 01fe 00000000 		.4byte	.LLST0
+ 1036 0202 01       		.byte	0x1
+ 1037 0203 3B020000 		.4byte	0x23b
+ 1038 0207 12       		.uleb128 0x12
+ 1039 0208 7000     		.ascii	"p\000"
+ 1040 020a 01       		.byte	0x1
+ 1041 020b 11       		.byte	0x11
+ 1042 020c 3B020000 		.4byte	0x23b
+ 1043 0210 02       		.byte	0x2
+ 1044 0211 91       		.byte	0x91
+ 1045 0212 64       		.sleb128 -28
+ 1046 0213 13       		.uleb128 0x13
+ 1047 0214 687000   		.ascii	"hp\000"
+ 1048 0217 01       		.byte	0x1
+ 1049 0218 13       		.byte	0x13
+ 1050 0219 41020000 		.4byte	0x241
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 23
+
+
+ 1051 021d 02       		.byte	0x2
+ 1052 021e 91       		.byte	0x91
+ 1053 021f 70       		.sleb128 -16
+ 1054 0220 13       		.uleb128 0x13
+ 1055 0221 6900     		.ascii	"i\000"
+ 1056 0223 01       		.byte	0x1
+ 1057 0224 15       		.byte	0x15
+ 1058 0225 7D000000 		.4byte	0x7d
+ 1059 0229 02       		.byte	0x2
+ 1060 022a 91       		.byte	0x91
+ 1061 022b 77       		.sleb128 -9
+ 1062 022c 13       		.uleb128 0x13
+ 1063 022d 6C656E00 		.ascii	"len\000"
+ 1064 0231 01       		.byte	0x1
+ 1065 0232 15       		.byte	0x15
+ 1066 0233 7D000000 		.4byte	0x7d
+ 1067 0237 02       		.byte	0x2
+ 1068 0238 91       		.byte	0x91
+ 1069 0239 6F       		.sleb128 -17
+ 1070 023a 00       		.byte	0
+ 1071 023b 0E       		.uleb128 0xe
+ 1072 023c 04       		.byte	0x4
+ 1073 023d 7D000000 		.4byte	0x7d
+ 1074 0241 0E       		.uleb128 0xe
+ 1075 0242 04       		.byte	0x4
+ 1076 0243 D0010000 		.4byte	0x1d0
+ 1077 0247 11       		.uleb128 0x11
+ 1078 0248 01       		.byte	0x1
+ 1079 0249 B9000000 		.4byte	.LASF32
+ 1080 024d 01       		.byte	0x1
+ 1081 024e 36       		.byte	0x36
+ 1082 024f 01       		.byte	0x1
+ 1083 0250 00000000 		.4byte	.LFB1
+ 1084 0254 F8000000 		.4byte	.LFE1
+ 1085 0258 38000000 		.4byte	.LLST1
+ 1086 025c 01       		.byte	0x1
+ 1087 025d 7A020000 		.4byte	0x27a
+ 1088 0261 12       		.uleb128 0x12
+ 1089 0262 7000     		.ascii	"p\000"
+ 1090 0264 01       		.byte	0x1
+ 1091 0265 36       		.byte	0x36
+ 1092 0266 3B020000 		.4byte	0x23b
+ 1093 026a 02       		.byte	0x2
+ 1094 026b 91       		.byte	0x91
+ 1095 026c 74       		.sleb128 -12
+ 1096 026d 12       		.uleb128 0x12
+ 1097 026e 6500     		.ascii	"e\000"
+ 1098 0270 01       		.byte	0x1
+ 1099 0271 36       		.byte	0x36
+ 1100 0272 7A020000 		.4byte	0x27a
+ 1101 0276 02       		.byte	0x2
+ 1102 0277 91       		.byte	0x91
+ 1103 0278 70       		.sleb128 -16
+ 1104 0279 00       		.byte	0
+ 1105 027a 0E       		.uleb128 0xe
+ 1106 027b 04       		.byte	0x4
+ 1107 027c 1D010000 		.4byte	0x11d
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 24
+
+
+ 1108 0280 11       		.uleb128 0x11
+ 1109 0281 01       		.byte	0x1
+ 1110 0282 95010000 		.4byte	.LASF33
+ 1111 0286 01       		.byte	0x1
+ 1112 0287 43       		.byte	0x43
+ 1113 0288 01       		.byte	0x1
+ 1114 0289 00000000 		.4byte	.LFB2
+ 1115 028d 68010000 		.4byte	.LFE2
+ 1116 0291 70000000 		.4byte	.LLST2
+ 1117 0295 01       		.byte	0x1
+ 1118 0296 21030000 		.4byte	0x321
+ 1119 029a 14       		.uleb128 0x14
+ 1120 029b 5C010000 		.4byte	.LASF34
+ 1121 029f 01       		.byte	0x1
+ 1122 02a0 43       		.byte	0x43
+ 1123 02a1 DB000000 		.4byte	0xdb
+ 1124 02a5 02       		.byte	0x2
+ 1125 02a6 91       		.byte	0x91
+ 1126 02a7 5F       		.sleb128 -33
+ 1127 02a8 14       		.uleb128 0x14
+ 1128 02a9 84010000 		.4byte	.LASF30
+ 1129 02ad 01       		.byte	0x1
+ 1130 02ae 43       		.byte	0x43
+ 1131 02af 7D000000 		.4byte	0x7d
+ 1132 02b3 02       		.byte	0x2
+ 1133 02b4 91       		.byte	0x91
+ 1134 02b5 5E       		.sleb128 -34
+ 1135 02b6 14       		.uleb128 0x14
+ 1136 02b7 2B000000 		.4byte	.LASF35
+ 1137 02bb 01       		.byte	0x1
+ 1138 02bc 43       		.byte	0x43
+ 1139 02bd 93000000 		.4byte	0x93
+ 1140 02c1 02       		.byte	0x2
+ 1141 02c2 91       		.byte	0x91
+ 1142 02c3 58       		.sleb128 -40
+ 1143 02c4 14       		.uleb128 0x14
+ 1144 02c5 50020000 		.4byte	.LASF36
+ 1145 02c9 01       		.byte	0x1
+ 1146 02ca 43       		.byte	0x43
+ 1147 02cb DB010000 		.4byte	0x1db
+ 1148 02cf 02       		.byte	0x2
+ 1149 02d0 91       		.byte	0x91
+ 1150 02d1 54       		.sleb128 -44
+ 1151 02d2 13       		.uleb128 0x13
+ 1152 02d3 6800     		.ascii	"h\000"
+ 1153 02d5 01       		.byte	0x1
+ 1154 02d6 45       		.byte	0x45
+ 1155 02d7 D0010000 		.4byte	0x1d0
+ 1156 02db 02       		.byte	0x2
+ 1157 02dc 91       		.byte	0x91
+ 1158 02dd 64       		.sleb128 -28
+ 1159 02de 15       		.uleb128 0x15
+ 1160 02df 55000000 		.4byte	.LASF37
+ 1161 02e3 01       		.byte	0x1
+ 1162 02e4 46       		.byte	0x46
+ 1163 02e5 88000000 		.4byte	0x88
+ 1164 02e9 02       		.byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 25
+
+
+ 1165 02ea 91       		.byte	0x91
+ 1166 02eb 76       		.sleb128 -10
+ 1167 02ec 13       		.uleb128 0x13
+ 1168 02ed 6900     		.ascii	"i\000"
+ 1169 02ef 01       		.byte	0x1
+ 1170 02f0 47       		.byte	0x47
+ 1171 02f1 7D000000 		.4byte	0x7d
+ 1172 02f5 02       		.byte	0x2
+ 1173 02f6 91       		.byte	0x91
+ 1174 02f7 75       		.sleb128 -11
+ 1175 02f8 13       		.uleb128 0x13
+ 1176 02f9 7000     		.ascii	"p\000"
+ 1177 02fb 01       		.byte	0x1
+ 1178 02fc 47       		.byte	0x47
+ 1179 02fd 3B020000 		.4byte	0x23b
+ 1180 0301 02       		.byte	0x2
+ 1181 0302 91       		.byte	0x91
+ 1182 0303 6C       		.sleb128 -20
+ 1183 0304 15       		.uleb128 0x15
+ 1184 0305 42000000 		.4byte	.LASF38
+ 1185 0309 01       		.byte	0x1
+ 1186 030a 48       		.byte	0x48
+ 1187 030b DB000000 		.4byte	0xdb
+ 1188 030f 02       		.byte	0x2
+ 1189 0310 91       		.byte	0x91
+ 1190 0311 74       		.sleb128 -12
+ 1191 0312 15       		.uleb128 0x15
+ 1192 0313 A4000000 		.4byte	.LASF39
+ 1193 0317 01       		.byte	0x1
+ 1194 0318 49       		.byte	0x49
+ 1195 0319 DB000000 		.4byte	0xdb
+ 1196 031d 02       		.byte	0x2
+ 1197 031e 91       		.byte	0x91
+ 1198 031f 73       		.sleb128 -13
+ 1199 0320 00       		.byte	0
+ 1200 0321 16       		.uleb128 0x16
+ 1201 0322 01       		.byte	0x1
+ 1202 0323 7B020000 		.4byte	.LASF46
+ 1203 0327 01       		.byte	0x1
+ 1204 0328 7A       		.byte	0x7a
+ 1205 0329 01       		.byte	0x1
+ 1206 032a 7D000000 		.4byte	0x7d
+ 1207 032e 00000000 		.4byte	.LFB3
+ 1208 0332 8A000000 		.4byte	.LFE3
+ 1209 0336 A8000000 		.4byte	.LLST3
+ 1210 033a 01       		.byte	0x1
+ 1211 033b 6A030000 		.4byte	0x36a
+ 1212 033f 14       		.uleb128 0x14
+ 1213 0340 55010000 		.4byte	.LASF40
+ 1214 0344 01       		.byte	0x1
+ 1215 0345 7A       		.byte	0x7a
+ 1216 0346 3B020000 		.4byte	0x23b
+ 1217 034a 02       		.byte	0x2
+ 1218 034b 91       		.byte	0x91
+ 1219 034c 6C       		.sleb128 -20
+ 1220 034d 13       		.uleb128 0x13
+ 1221 034e 68647200 		.ascii	"hdr\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 26
+
+
+ 1222 0352 01       		.byte	0x1
+ 1223 0353 7C       		.byte	0x7c
+ 1224 0354 41020000 		.4byte	0x241
+ 1225 0358 02       		.byte	0x2
+ 1226 0359 91       		.byte	0x91
+ 1227 035a 70       		.sleb128 -16
+ 1228 035b 15       		.uleb128 0x15
+ 1229 035c 92020000 		.4byte	.LASF41
+ 1230 0360 01       		.byte	0x1
+ 1231 0361 7D       		.byte	0x7d
+ 1232 0362 7D000000 		.4byte	0x7d
+ 1233 0366 02       		.byte	0x2
+ 1234 0367 91       		.byte	0x91
+ 1235 0368 77       		.sleb128 -9
+ 1236 0369 00       		.byte	0
+ 1237 036a 17       		.uleb128 0x17
+ 1238 036b 01       		.byte	0x1
+ 1239 036c 05000000 		.4byte	.LASF42
+ 1240 0370 01       		.byte	0x1
+ 1241 0371 9B       		.byte	0x9b
+ 1242 0372 01       		.byte	0x1
+ 1243 0373 DB000000 		.4byte	0xdb
+ 1244 0377 00000000 		.4byte	.LFB4
+ 1245 037b 7C000000 		.4byte	.LFE4
+ 1246 037f E0000000 		.4byte	.LLST4
+ 1247 0383 01       		.byte	0x1
+ 1248 0384 14       		.uleb128 0x14
+ 1249 0385 55010000 		.4byte	.LASF40
+ 1250 0389 01       		.byte	0x1
+ 1251 038a 9B       		.byte	0x9b
+ 1252 038b 3B020000 		.4byte	0x23b
+ 1253 038f 02       		.byte	0x2
+ 1254 0390 91       		.byte	0x91
+ 1255 0391 6C       		.sleb128 -20
+ 1256 0392 14       		.uleb128 0x14
+ 1257 0393 92020000 		.4byte	.LASF41
+ 1258 0397 01       		.byte	0x1
+ 1259 0398 9B       		.byte	0x9b
+ 1260 0399 7D000000 		.4byte	0x7d
+ 1261 039d 02       		.byte	0x2
+ 1262 039e 91       		.byte	0x91
+ 1263 039f 6B       		.sleb128 -21
+ 1264 03a0 15       		.uleb128 0x15
+ 1265 03a1 55000000 		.4byte	.LASF37
+ 1266 03a5 01       		.byte	0x1
+ 1267 03a6 9D       		.byte	0x9d
+ 1268 03a7 88000000 		.4byte	0x88
+ 1269 03ab 02       		.byte	0x2
+ 1270 03ac 91       		.byte	0x91
+ 1271 03ad 76       		.sleb128 -10
+ 1272 03ae 13       		.uleb128 0x13
+ 1273 03af 6900     		.ascii	"i\000"
+ 1274 03b1 01       		.byte	0x1
+ 1275 03b2 9E       		.byte	0x9e
+ 1276 03b3 88000000 		.4byte	0x88
+ 1277 03b7 02       		.byte	0x2
+ 1278 03b8 91       		.byte	0x91
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 27
+
+
+ 1279 03b9 74       		.sleb128 -12
+ 1280 03ba 13       		.uleb128 0x13
+ 1281 03bb 6F6B00   		.ascii	"ok\000"
+ 1282 03be 01       		.byte	0x1
+ 1283 03bf 9F       		.byte	0x9f
+ 1284 03c0 DB000000 		.4byte	0xdb
+ 1285 03c4 02       		.byte	0x2
+ 1286 03c5 91       		.byte	0x91
+ 1287 03c6 73       		.sleb128 -13
+ 1288 03c7 00       		.byte	0
+ 1289 03c8 00       		.byte	0
+ 1290              		.section	.debug_abbrev,"",%progbits
+ 1291              	.Ldebug_abbrev0:
+ 1292 0000 01       		.uleb128 0x1
+ 1293 0001 11       		.uleb128 0x11
+ 1294 0002 01       		.byte	0x1
+ 1295 0003 25       		.uleb128 0x25
+ 1296 0004 0E       		.uleb128 0xe
+ 1297 0005 13       		.uleb128 0x13
+ 1298 0006 0B       		.uleb128 0xb
+ 1299 0007 03       		.uleb128 0x3
+ 1300 0008 0E       		.uleb128 0xe
+ 1301 0009 1B       		.uleb128 0x1b
+ 1302 000a 0E       		.uleb128 0xe
+ 1303 000b 55       		.uleb128 0x55
+ 1304 000c 06       		.uleb128 0x6
+ 1305 000d 11       		.uleb128 0x11
+ 1306 000e 01       		.uleb128 0x1
+ 1307 000f 52       		.uleb128 0x52
+ 1308 0010 01       		.uleb128 0x1
+ 1309 0011 10       		.uleb128 0x10
+ 1310 0012 06       		.uleb128 0x6
+ 1311 0013 00       		.byte	0
+ 1312 0014 00       		.byte	0
+ 1313 0015 02       		.uleb128 0x2
+ 1314 0016 24       		.uleb128 0x24
+ 1315 0017 00       		.byte	0
+ 1316 0018 0B       		.uleb128 0xb
+ 1317 0019 0B       		.uleb128 0xb
+ 1318 001a 3E       		.uleb128 0x3e
+ 1319 001b 0B       		.uleb128 0xb
+ 1320 001c 03       		.uleb128 0x3
+ 1321 001d 0E       		.uleb128 0xe
+ 1322 001e 00       		.byte	0
+ 1323 001f 00       		.byte	0
+ 1324 0020 03       		.uleb128 0x3
+ 1325 0021 24       		.uleb128 0x24
+ 1326 0022 00       		.byte	0
+ 1327 0023 0B       		.uleb128 0xb
+ 1328 0024 0B       		.uleb128 0xb
+ 1329 0025 3E       		.uleb128 0x3e
+ 1330 0026 0B       		.uleb128 0xb
+ 1331 0027 03       		.uleb128 0x3
+ 1332 0028 08       		.uleb128 0x8
+ 1333 0029 00       		.byte	0
+ 1334 002a 00       		.byte	0
+ 1335 002b 04       		.uleb128 0x4
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 28
+
+
+ 1336 002c 16       		.uleb128 0x16
+ 1337 002d 00       		.byte	0
+ 1338 002e 03       		.uleb128 0x3
+ 1339 002f 0E       		.uleb128 0xe
+ 1340 0030 3A       		.uleb128 0x3a
+ 1341 0031 0B       		.uleb128 0xb
+ 1342 0032 3B       		.uleb128 0x3b
+ 1343 0033 0B       		.uleb128 0xb
+ 1344 0034 49       		.uleb128 0x49
+ 1345 0035 13       		.uleb128 0x13
+ 1346 0036 00       		.byte	0
+ 1347 0037 00       		.byte	0
+ 1348 0038 05       		.uleb128 0x5
+ 1349 0039 16       		.uleb128 0x16
+ 1350 003a 00       		.byte	0
+ 1351 003b 03       		.uleb128 0x3
+ 1352 003c 08       		.uleb128 0x8
+ 1353 003d 3A       		.uleb128 0x3a
+ 1354 003e 0B       		.uleb128 0xb
+ 1355 003f 3B       		.uleb128 0x3b
+ 1356 0040 0B       		.uleb128 0xb
+ 1357 0041 49       		.uleb128 0x49
+ 1358 0042 13       		.uleb128 0x13
+ 1359 0043 00       		.byte	0
+ 1360 0044 00       		.byte	0
+ 1361 0045 06       		.uleb128 0x6
+ 1362 0046 04       		.uleb128 0x4
+ 1363 0047 01       		.byte	0x1
+ 1364 0048 03       		.uleb128 0x3
+ 1365 0049 0E       		.uleb128 0xe
+ 1366 004a 0B       		.uleb128 0xb
+ 1367 004b 0B       		.uleb128 0xb
+ 1368 004c 3A       		.uleb128 0x3a
+ 1369 004d 0B       		.uleb128 0xb
+ 1370 004e 3B       		.uleb128 0x3b
+ 1371 004f 0B       		.uleb128 0xb
+ 1372 0050 01       		.uleb128 0x1
+ 1373 0051 13       		.uleb128 0x13
+ 1374 0052 00       		.byte	0
+ 1375 0053 00       		.byte	0
+ 1376 0054 07       		.uleb128 0x7
+ 1377 0055 28       		.uleb128 0x28
+ 1378 0056 00       		.byte	0
+ 1379 0057 03       		.uleb128 0x3
+ 1380 0058 0E       		.uleb128 0xe
+ 1381 0059 1C       		.uleb128 0x1c
+ 1382 005a 0D       		.uleb128 0xd
+ 1383 005b 00       		.byte	0
+ 1384 005c 00       		.byte	0
+ 1385 005d 08       		.uleb128 0x8
+ 1386 005e 13       		.uleb128 0x13
+ 1387 005f 01       		.byte	0x1
+ 1388 0060 03       		.uleb128 0x3
+ 1389 0061 0E       		.uleb128 0xe
+ 1390 0062 0B       		.uleb128 0xb
+ 1391 0063 0B       		.uleb128 0xb
+ 1392 0064 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 29
+
+
+ 1393 0065 0B       		.uleb128 0xb
+ 1394 0066 3B       		.uleb128 0x3b
+ 1395 0067 0B       		.uleb128 0xb
+ 1396 0068 01       		.uleb128 0x1
+ 1397 0069 13       		.uleb128 0x13
+ 1398 006a 00       		.byte	0
+ 1399 006b 00       		.byte	0
+ 1400 006c 09       		.uleb128 0x9
+ 1401 006d 0D       		.uleb128 0xd
+ 1402 006e 00       		.byte	0
+ 1403 006f 03       		.uleb128 0x3
+ 1404 0070 08       		.uleb128 0x8
+ 1405 0071 3A       		.uleb128 0x3a
+ 1406 0072 0B       		.uleb128 0xb
+ 1407 0073 3B       		.uleb128 0x3b
+ 1408 0074 0B       		.uleb128 0xb
+ 1409 0075 49       		.uleb128 0x49
+ 1410 0076 13       		.uleb128 0x13
+ 1411 0077 38       		.uleb128 0x38
+ 1412 0078 0A       		.uleb128 0xa
+ 1413 0079 00       		.byte	0
+ 1414 007a 00       		.byte	0
+ 1415 007b 0A       		.uleb128 0xa
+ 1416 007c 0D       		.uleb128 0xd
+ 1417 007d 00       		.byte	0
+ 1418 007e 03       		.uleb128 0x3
+ 1419 007f 0E       		.uleb128 0xe
+ 1420 0080 3A       		.uleb128 0x3a
+ 1421 0081 0B       		.uleb128 0xb
+ 1422 0082 3B       		.uleb128 0x3b
+ 1423 0083 0B       		.uleb128 0xb
+ 1424 0084 49       		.uleb128 0x49
+ 1425 0085 13       		.uleb128 0x13
+ 1426 0086 38       		.uleb128 0x38
+ 1427 0087 0A       		.uleb128 0xa
+ 1428 0088 00       		.byte	0
+ 1429 0089 00       		.byte	0
+ 1430 008a 0B       		.uleb128 0xb
+ 1431 008b 0D       		.uleb128 0xd
+ 1432 008c 00       		.byte	0
+ 1433 008d 03       		.uleb128 0x3
+ 1434 008e 0E       		.uleb128 0xe
+ 1435 008f 3A       		.uleb128 0x3a
+ 1436 0090 0B       		.uleb128 0xb
+ 1437 0091 3B       		.uleb128 0x3b
+ 1438 0092 0B       		.uleb128 0xb
+ 1439 0093 49       		.uleb128 0x49
+ 1440 0094 13       		.uleb128 0x13
+ 1441 0095 0B       		.uleb128 0xb
+ 1442 0096 0B       		.uleb128 0xb
+ 1443 0097 0D       		.uleb128 0xd
+ 1444 0098 0B       		.uleb128 0xb
+ 1445 0099 0C       		.uleb128 0xc
+ 1446 009a 0B       		.uleb128 0xb
+ 1447 009b 38       		.uleb128 0x38
+ 1448 009c 0A       		.uleb128 0xa
+ 1449 009d 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 30
+
+
+ 1450 009e 00       		.byte	0
+ 1451 009f 0C       		.uleb128 0xc
+ 1452 00a0 01       		.uleb128 0x1
+ 1453 00a1 01       		.byte	0x1
+ 1454 00a2 49       		.uleb128 0x49
+ 1455 00a3 13       		.uleb128 0x13
+ 1456 00a4 01       		.uleb128 0x1
+ 1457 00a5 13       		.uleb128 0x13
+ 1458 00a6 00       		.byte	0
+ 1459 00a7 00       		.byte	0
+ 1460 00a8 0D       		.uleb128 0xd
+ 1461 00a9 21       		.uleb128 0x21
+ 1462 00aa 00       		.byte	0
+ 1463 00ab 49       		.uleb128 0x49
+ 1464 00ac 13       		.uleb128 0x13
+ 1465 00ad 2F       		.uleb128 0x2f
+ 1466 00ae 0B       		.uleb128 0xb
+ 1467 00af 00       		.byte	0
+ 1468 00b0 00       		.byte	0
+ 1469 00b1 0E       		.uleb128 0xe
+ 1470 00b2 0F       		.uleb128 0xf
+ 1471 00b3 00       		.byte	0
+ 1472 00b4 0B       		.uleb128 0xb
+ 1473 00b5 0B       		.uleb128 0xb
+ 1474 00b6 49       		.uleb128 0x49
+ 1475 00b7 13       		.uleb128 0x13
+ 1476 00b8 00       		.byte	0
+ 1477 00b9 00       		.byte	0
+ 1478 00ba 0F       		.uleb128 0xf
+ 1479 00bb 15       		.uleb128 0x15
+ 1480 00bc 01       		.byte	0x1
+ 1481 00bd 27       		.uleb128 0x27
+ 1482 00be 0C       		.uleb128 0xc
+ 1483 00bf 01       		.uleb128 0x1
+ 1484 00c0 13       		.uleb128 0x13
+ 1485 00c1 00       		.byte	0
+ 1486 00c2 00       		.byte	0
+ 1487 00c3 10       		.uleb128 0x10
+ 1488 00c4 05       		.uleb128 0x5
+ 1489 00c5 00       		.byte	0
+ 1490 00c6 49       		.uleb128 0x49
+ 1491 00c7 13       		.uleb128 0x13
+ 1492 00c8 00       		.byte	0
+ 1493 00c9 00       		.byte	0
+ 1494 00ca 11       		.uleb128 0x11
+ 1495 00cb 2E       		.uleb128 0x2e
+ 1496 00cc 01       		.byte	0x1
+ 1497 00cd 3F       		.uleb128 0x3f
+ 1498 00ce 0C       		.uleb128 0xc
+ 1499 00cf 03       		.uleb128 0x3
+ 1500 00d0 0E       		.uleb128 0xe
+ 1501 00d1 3A       		.uleb128 0x3a
+ 1502 00d2 0B       		.uleb128 0xb
+ 1503 00d3 3B       		.uleb128 0x3b
+ 1504 00d4 0B       		.uleb128 0xb
+ 1505 00d5 27       		.uleb128 0x27
+ 1506 00d6 0C       		.uleb128 0xc
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 31
+
+
+ 1507 00d7 11       		.uleb128 0x11
+ 1508 00d8 01       		.uleb128 0x1
+ 1509 00d9 12       		.uleb128 0x12
+ 1510 00da 01       		.uleb128 0x1
+ 1511 00db 40       		.uleb128 0x40
+ 1512 00dc 06       		.uleb128 0x6
+ 1513 00dd 9642     		.uleb128 0x2116
+ 1514 00df 0C       		.uleb128 0xc
+ 1515 00e0 01       		.uleb128 0x1
+ 1516 00e1 13       		.uleb128 0x13
+ 1517 00e2 00       		.byte	0
+ 1518 00e3 00       		.byte	0
+ 1519 00e4 12       		.uleb128 0x12
+ 1520 00e5 05       		.uleb128 0x5
+ 1521 00e6 00       		.byte	0
+ 1522 00e7 03       		.uleb128 0x3
+ 1523 00e8 08       		.uleb128 0x8
+ 1524 00e9 3A       		.uleb128 0x3a
+ 1525 00ea 0B       		.uleb128 0xb
+ 1526 00eb 3B       		.uleb128 0x3b
+ 1527 00ec 0B       		.uleb128 0xb
+ 1528 00ed 49       		.uleb128 0x49
+ 1529 00ee 13       		.uleb128 0x13
+ 1530 00ef 02       		.uleb128 0x2
+ 1531 00f0 0A       		.uleb128 0xa
+ 1532 00f1 00       		.byte	0
+ 1533 00f2 00       		.byte	0
+ 1534 00f3 13       		.uleb128 0x13
+ 1535 00f4 34       		.uleb128 0x34
+ 1536 00f5 00       		.byte	0
+ 1537 00f6 03       		.uleb128 0x3
+ 1538 00f7 08       		.uleb128 0x8
+ 1539 00f8 3A       		.uleb128 0x3a
+ 1540 00f9 0B       		.uleb128 0xb
+ 1541 00fa 3B       		.uleb128 0x3b
+ 1542 00fb 0B       		.uleb128 0xb
+ 1543 00fc 49       		.uleb128 0x49
+ 1544 00fd 13       		.uleb128 0x13
+ 1545 00fe 02       		.uleb128 0x2
+ 1546 00ff 0A       		.uleb128 0xa
+ 1547 0100 00       		.byte	0
+ 1548 0101 00       		.byte	0
+ 1549 0102 14       		.uleb128 0x14
+ 1550 0103 05       		.uleb128 0x5
+ 1551 0104 00       		.byte	0
+ 1552 0105 03       		.uleb128 0x3
+ 1553 0106 0E       		.uleb128 0xe
+ 1554 0107 3A       		.uleb128 0x3a
+ 1555 0108 0B       		.uleb128 0xb
+ 1556 0109 3B       		.uleb128 0x3b
+ 1557 010a 0B       		.uleb128 0xb
+ 1558 010b 49       		.uleb128 0x49
+ 1559 010c 13       		.uleb128 0x13
+ 1560 010d 02       		.uleb128 0x2
+ 1561 010e 0A       		.uleb128 0xa
+ 1562 010f 00       		.byte	0
+ 1563 0110 00       		.byte	0
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 32
+
+
+ 1564 0111 15       		.uleb128 0x15
+ 1565 0112 34       		.uleb128 0x34
+ 1566 0113 00       		.byte	0
+ 1567 0114 03       		.uleb128 0x3
+ 1568 0115 0E       		.uleb128 0xe
+ 1569 0116 3A       		.uleb128 0x3a
+ 1570 0117 0B       		.uleb128 0xb
+ 1571 0118 3B       		.uleb128 0x3b
+ 1572 0119 0B       		.uleb128 0xb
+ 1573 011a 49       		.uleb128 0x49
+ 1574 011b 13       		.uleb128 0x13
+ 1575 011c 02       		.uleb128 0x2
+ 1576 011d 0A       		.uleb128 0xa
+ 1577 011e 00       		.byte	0
+ 1578 011f 00       		.byte	0
+ 1579 0120 16       		.uleb128 0x16
+ 1580 0121 2E       		.uleb128 0x2e
+ 1581 0122 01       		.byte	0x1
+ 1582 0123 3F       		.uleb128 0x3f
+ 1583 0124 0C       		.uleb128 0xc
+ 1584 0125 03       		.uleb128 0x3
+ 1585 0126 0E       		.uleb128 0xe
+ 1586 0127 3A       		.uleb128 0x3a
+ 1587 0128 0B       		.uleb128 0xb
+ 1588 0129 3B       		.uleb128 0x3b
+ 1589 012a 0B       		.uleb128 0xb
+ 1590 012b 27       		.uleb128 0x27
+ 1591 012c 0C       		.uleb128 0xc
+ 1592 012d 49       		.uleb128 0x49
+ 1593 012e 13       		.uleb128 0x13
+ 1594 012f 11       		.uleb128 0x11
+ 1595 0130 01       		.uleb128 0x1
+ 1596 0131 12       		.uleb128 0x12
+ 1597 0132 01       		.uleb128 0x1
+ 1598 0133 40       		.uleb128 0x40
+ 1599 0134 06       		.uleb128 0x6
+ 1600 0135 9742     		.uleb128 0x2117
+ 1601 0137 0C       		.uleb128 0xc
+ 1602 0138 01       		.uleb128 0x1
+ 1603 0139 13       		.uleb128 0x13
+ 1604 013a 00       		.byte	0
+ 1605 013b 00       		.byte	0
+ 1606 013c 17       		.uleb128 0x17
+ 1607 013d 2E       		.uleb128 0x2e
+ 1608 013e 01       		.byte	0x1
+ 1609 013f 3F       		.uleb128 0x3f
+ 1610 0140 0C       		.uleb128 0xc
+ 1611 0141 03       		.uleb128 0x3
+ 1612 0142 0E       		.uleb128 0xe
+ 1613 0143 3A       		.uleb128 0x3a
+ 1614 0144 0B       		.uleb128 0xb
+ 1615 0145 3B       		.uleb128 0x3b
+ 1616 0146 0B       		.uleb128 0xb
+ 1617 0147 27       		.uleb128 0x27
+ 1618 0148 0C       		.uleb128 0xc
+ 1619 0149 49       		.uleb128 0x49
+ 1620 014a 13       		.uleb128 0x13
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 33
+
+
+ 1621 014b 11       		.uleb128 0x11
+ 1622 014c 01       		.uleb128 0x1
+ 1623 014d 12       		.uleb128 0x12
+ 1624 014e 01       		.uleb128 0x1
+ 1625 014f 40       		.uleb128 0x40
+ 1626 0150 06       		.uleb128 0x6
+ 1627 0151 9742     		.uleb128 0x2117
+ 1628 0153 0C       		.uleb128 0xc
+ 1629 0154 00       		.byte	0
+ 1630 0155 00       		.byte	0
+ 1631 0156 00       		.byte	0
+ 1632              		.section	.debug_loc,"",%progbits
+ 1633              	.Ldebug_loc0:
+ 1634              	.LLST0:
+ 1635 0000 00000000 		.4byte	.LFB0
+ 1636 0004 02000000 		.4byte	.LCFI0
+ 1637 0008 0200     		.2byte	0x2
+ 1638 000a 7D       		.byte	0x7d
+ 1639 000b 00       		.sleb128 0
+ 1640 000c 02000000 		.4byte	.LCFI0
+ 1641 0010 04000000 		.4byte	.LCFI1
+ 1642 0014 0200     		.2byte	0x2
+ 1643 0016 7D       		.byte	0x7d
+ 1644 0017 08       		.sleb128 8
+ 1645 0018 04000000 		.4byte	.LCFI1
+ 1646 001c 06000000 		.4byte	.LCFI2
+ 1647 0020 0200     		.2byte	0x2
+ 1648 0022 7D       		.byte	0x7d
+ 1649 0023 20       		.sleb128 32
+ 1650 0024 06000000 		.4byte	.LCFI2
+ 1651 0028 58010000 		.4byte	.LFE0
+ 1652 002c 0200     		.2byte	0x2
+ 1653 002e 77       		.byte	0x77
+ 1654 002f 20       		.sleb128 32
+ 1655 0030 00000000 		.4byte	0
+ 1656 0034 00000000 		.4byte	0
+ 1657              	.LLST1:
+ 1658 0038 00000000 		.4byte	.LFB1
+ 1659 003c 02000000 		.4byte	.LCFI3
+ 1660 0040 0200     		.2byte	0x2
+ 1661 0042 7D       		.byte	0x7d
+ 1662 0043 00       		.sleb128 0
+ 1663 0044 02000000 		.4byte	.LCFI3
+ 1664 0048 04000000 		.4byte	.LCFI4
+ 1665 004c 0200     		.2byte	0x2
+ 1666 004e 7D       		.byte	0x7d
+ 1667 004f 08       		.sleb128 8
+ 1668 0050 04000000 		.4byte	.LCFI4
+ 1669 0054 06000000 		.4byte	.LCFI5
+ 1670 0058 0200     		.2byte	0x2
+ 1671 005a 7D       		.byte	0x7d
+ 1672 005b 10       		.sleb128 16
+ 1673 005c 06000000 		.4byte	.LCFI5
+ 1674 0060 F8000000 		.4byte	.LFE1
+ 1675 0064 0200     		.2byte	0x2
+ 1676 0066 77       		.byte	0x77
+ 1677 0067 10       		.sleb128 16
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 34
+
+
+ 1678 0068 00000000 		.4byte	0
+ 1679 006c 00000000 		.4byte	0
+ 1680              	.LLST2:
+ 1681 0070 00000000 		.4byte	.LFB2
+ 1682 0074 02000000 		.4byte	.LCFI6
+ 1683 0078 0200     		.2byte	0x2
+ 1684 007a 7D       		.byte	0x7d
+ 1685 007b 00       		.sleb128 0
+ 1686 007c 02000000 		.4byte	.LCFI6
+ 1687 0080 04000000 		.4byte	.LCFI7
+ 1688 0084 0200     		.2byte	0x2
+ 1689 0086 7D       		.byte	0x7d
+ 1690 0087 08       		.sleb128 8
+ 1691 0088 04000000 		.4byte	.LCFI7
+ 1692 008c 06000000 		.4byte	.LCFI8
+ 1693 0090 0200     		.2byte	0x2
+ 1694 0092 7D       		.byte	0x7d
+ 1695 0093 30       		.sleb128 48
+ 1696 0094 06000000 		.4byte	.LCFI8
+ 1697 0098 68010000 		.4byte	.LFE2
+ 1698 009c 0200     		.2byte	0x2
+ 1699 009e 77       		.byte	0x77
+ 1700 009f 30       		.sleb128 48
+ 1701 00a0 00000000 		.4byte	0
+ 1702 00a4 00000000 		.4byte	0
+ 1703              	.LLST3:
+ 1704 00a8 00000000 		.4byte	.LFB3
+ 1705 00ac 02000000 		.4byte	.LCFI9
+ 1706 00b0 0200     		.2byte	0x2
+ 1707 00b2 7D       		.byte	0x7d
+ 1708 00b3 00       		.sleb128 0
+ 1709 00b4 02000000 		.4byte	.LCFI9
+ 1710 00b8 04000000 		.4byte	.LCFI10
+ 1711 00bc 0200     		.2byte	0x2
+ 1712 00be 7D       		.byte	0x7d
+ 1713 00bf 04       		.sleb128 4
+ 1714 00c0 04000000 		.4byte	.LCFI10
+ 1715 00c4 06000000 		.4byte	.LCFI11
+ 1716 00c8 0200     		.2byte	0x2
+ 1717 00ca 7D       		.byte	0x7d
+ 1718 00cb 18       		.sleb128 24
+ 1719 00cc 06000000 		.4byte	.LCFI11
+ 1720 00d0 8A000000 		.4byte	.LFE3
+ 1721 00d4 0200     		.2byte	0x2
+ 1722 00d6 77       		.byte	0x77
+ 1723 00d7 18       		.sleb128 24
+ 1724 00d8 00000000 		.4byte	0
+ 1725 00dc 00000000 		.4byte	0
+ 1726              	.LLST4:
+ 1727 00e0 00000000 		.4byte	.LFB4
+ 1728 00e4 02000000 		.4byte	.LCFI12
+ 1729 00e8 0200     		.2byte	0x2
+ 1730 00ea 7D       		.byte	0x7d
+ 1731 00eb 00       		.sleb128 0
+ 1732 00ec 02000000 		.4byte	.LCFI12
+ 1733 00f0 04000000 		.4byte	.LCFI13
+ 1734 00f4 0200     		.2byte	0x2
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 35
+
+
+ 1735 00f6 7D       		.byte	0x7d
+ 1736 00f7 04       		.sleb128 4
+ 1737 00f8 04000000 		.4byte	.LCFI13
+ 1738 00fc 06000000 		.4byte	.LCFI14
+ 1739 0100 0200     		.2byte	0x2
+ 1740 0102 7D       		.byte	0x7d
+ 1741 0103 18       		.sleb128 24
+ 1742 0104 06000000 		.4byte	.LCFI14
+ 1743 0108 7C000000 		.4byte	.LFE4
+ 1744 010c 0200     		.2byte	0x2
+ 1745 010e 77       		.byte	0x77
+ 1746 010f 18       		.sleb128 24
+ 1747 0110 00000000 		.4byte	0
+ 1748 0114 00000000 		.4byte	0
+ 1749              		.section	.debug_aranges,"",%progbits
+ 1750 0000 3C000000 		.4byte	0x3c
+ 1751 0004 0200     		.2byte	0x2
+ 1752 0006 00000000 		.4byte	.Ldebug_info0
+ 1753 000a 04       		.byte	0x4
+ 1754 000b 00       		.byte	0
+ 1755 000c 0000     		.2byte	0
+ 1756 000e 0000     		.2byte	0
+ 1757 0010 00000000 		.4byte	.LFB0
+ 1758 0014 58010000 		.4byte	.LFE0-.LFB0
+ 1759 0018 00000000 		.4byte	.LFB1
+ 1760 001c F8000000 		.4byte	.LFE1-.LFB1
+ 1761 0020 00000000 		.4byte	.LFB2
+ 1762 0024 68010000 		.4byte	.LFE2-.LFB2
+ 1763 0028 00000000 		.4byte	.LFB3
+ 1764 002c 8A000000 		.4byte	.LFE3-.LFB3
+ 1765 0030 00000000 		.4byte	.LFB4
+ 1766 0034 7C000000 		.4byte	.LFE4-.LFB4
+ 1767 0038 00000000 		.4byte	0
+ 1768 003c 00000000 		.4byte	0
+ 1769              		.section	.debug_ranges,"",%progbits
+ 1770              	.Ldebug_ranges0:
+ 1771 0000 00000000 		.4byte	.LFB0
+ 1772 0004 58010000 		.4byte	.LFE0
+ 1773 0008 00000000 		.4byte	.LFB1
+ 1774 000c F8000000 		.4byte	.LFE1
+ 1775 0010 00000000 		.4byte	.LFB2
+ 1776 0014 68010000 		.4byte	.LFE2
+ 1777 0018 00000000 		.4byte	.LFB3
+ 1778 001c 8A000000 		.4byte	.LFE3
+ 1779 0020 00000000 		.4byte	.LFB4
+ 1780 0024 7C000000 		.4byte	.LFE4
+ 1781 0028 00000000 		.4byte	0
+ 1782 002c 00000000 		.4byte	0
+ 1783              		.section	.debug_line,"",%progbits
+ 1784              	.Ldebug_line0:
+ 1785 0000 09020000 		.section	.debug_str,"MS",%progbits,1
+ 1785      02006900 
+ 1785      00000201 
+ 1785      FB0E0D00 
+ 1785      01010101 
+ 1786              	.LASF18:
+ 1787 0000 74727565 		.ascii	"true\000"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 36
+
+
+ 1787      00
+ 1788              	.LASF42:
+ 1789 0005 43485255 		.ascii	"CHRUM7_PacketValidator\000"
+ 1789      4D375F50 
+ 1789      61636B65 
+ 1789      7456616C 
+ 1789      69646174 
+ 1790              	.LASF19:
+ 1791 001c 424F4F4C 		.ascii	"BOOL\000"
+ 1791      00
+ 1792              	.LASF25:
+ 1793 0021 62617463 		.ascii	"batch_len\000"
+ 1793      685F6C65 
+ 1793      6E00
+ 1794              	.LASF35:
+ 1795 002b 76616C75 		.ascii	"value\000"
+ 1795      6500
+ 1796              	.LASF12:
+ 1797 0031 574F5244 		.ascii	"WORD\000"
+ 1797      00
+ 1798              	.LASF20:
+ 1799 0036 74686574 		.ascii	"theta\000"
+ 1799      6100
+ 1800              	.LASF13:
+ 1801 003c 44574F52 		.ascii	"DWORD\000"
+ 1801      4400
+ 1802              	.LASF38:
+ 1803 0042 636F6D6D 		.ascii	"command\000"
+ 1803      616E6400 
+ 1804              	.LASF11:
+ 1805 004a 42595445 		.ascii	"BYTE\000"
+ 1805      00
+ 1806              	.LASF15:
+ 1807 004f 666C6F61 		.ascii	"float\000"
+ 1807      7400
+ 1808              	.LASF37:
+ 1809 0055 63686563 		.ascii	"checksum\000"
+ 1809      6B73756D 
+ 1809      00
+ 1810              	.LASF2:
+ 1811 005e 756E7369 		.ascii	"unsigned char\000"
+ 1811      676E6564 
+ 1811      20636861 
+ 1811      7200
+ 1812              	.LASF9:
+ 1813 006c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1813      20756E73 
+ 1813      69676E65 
+ 1813      6420696E 
+ 1813      7400
+ 1814              	.LASF31:
+ 1815 007e 43485255 		.ascii	"CHRUM7_PrintPacket\000"
+ 1815      4D375F50 
+ 1815      72696E74 
+ 1815      5061636B 
+ 1815      657400
+ 1816              	.LASF4:
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 37
+
+
+ 1817 0091 73686F72 		.ascii	"short unsigned int\000"
+ 1817      7420756E 
+ 1817      7369676E 
+ 1817      65642069 
+ 1817      6E7400
+ 1818              	.LASF39:
+ 1819 00a4 77726974 		.ascii	"write\000"
+ 1819      6500
+ 1820              	.LASF23:
+ 1821 00aa 636F6D6D 		.ascii	"command_failed\000"
+ 1821      616E645F 
+ 1821      6661696C 
+ 1821      656400
+ 1822              	.LASF32:
+ 1823 00b9 43485255 		.ascii	"CHRUM7_PacketToEuler\000"
+ 1823      4D375F50 
+ 1823      61636B65 
+ 1823      74546F45 
+ 1823      756C6572 
+ 1824              	.LASF14:
+ 1825 00ce 464C4F41 		.ascii	"FLOAT\000"
+ 1825      5400
+ 1826              	.LASF16:
+ 1827 00d4 646F7562 		.ascii	"double\000"
+ 1827      6C6500
+ 1828              	.LASF3:
+ 1829 00db 73686F72 		.ascii	"short int\000"
+ 1829      7420696E 
+ 1829      7400
+ 1830              	.LASF45:
+ 1831 00e5 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
+ 1831      73657273 
+ 1831      5C477261 
+ 1831      7A69616E 
+ 1831      6F20472E 
+ 1832 0114 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
+ 1832      5C535155 
+ 1832      49545C56 
+ 1832      6572732E 
+ 1832      302E302D 
+ 1833 0144 71756974 		.ascii	"quit-Proto.cydsn\000"
+ 1833      2D50726F 
+ 1833      746F2E63 
+ 1833      7964736E 
+ 1833      00
+ 1834              	.LASF40:
+ 1835 0155 7061636B 		.ascii	"packet\000"
+ 1835      657400
+ 1836              	.LASF34:
+ 1837 015c 72656164 		.ascii	"read\000"
+ 1837      00
+ 1838              	.LASF44:
+ 1839 0161 2E5C4D45 		.ascii	".\\ME_lib_imu_CHRUM7.c\000"
+ 1839      5F6C6962 
+ 1839      5F696D75 
+ 1839      5F434852 
+ 1839      554D372E 
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 38
+
+
+ 1840              	.LASF0:
+ 1841 0177 756E7369 		.ascii	"unsigned int\000"
+ 1841      676E6564 
+ 1841      20696E74 
+ 1841      00
+ 1842              	.LASF30:
+ 1843 0184 61646472 		.ascii	"address\000"
+ 1843      65737300 
+ 1844              	.LASF26:
+ 1845 018c 69735F62 		.ascii	"is_batch\000"
+ 1845      61746368 
+ 1845      00
+ 1846              	.LASF33:
+ 1847 0195 43485255 		.ascii	"CHRUM7_RegisterIO\000"
+ 1847      4D375F52 
+ 1847      65676973 
+ 1847      74657249 
+ 1847      4F00
+ 1848              	.LASF24:
+ 1849 01a7 68696464 		.ascii	"hidden\000"
+ 1849      656E00
+ 1850              	.LASF29:
+ 1851 01ae 7061636B 		.ascii	"packet_type\000"
+ 1851      65745F74 
+ 1851      79706500 
+ 1852              	.LASF28:
+ 1853 01ba 43485255 		.ascii	"CHRUM7_HEADER\000"
+ 1853      4D375F48 
+ 1853      45414445 
+ 1853      5200
+ 1854              	.LASF22:
+ 1855 01c8 5041434B 		.ascii	"PACKET_TYPE\000"
+ 1855      45545F54 
+ 1855      59504500 
+ 1856              	.LASF8:
+ 1857 01d4 73697A65 		.ascii	"sizetype\000"
+ 1857      74797065 
+ 1857      00
+ 1858              	.LASF5:
+ 1859 01dd 6C6F6E67 		.ascii	"long long int\000"
+ 1859      206C6F6E 
+ 1859      6720696E 
+ 1859      7400
+ 1860              	.LASF17:
+ 1861 01eb 66616C73 		.ascii	"false\000"
+ 1861      6500
+ 1862              	.LASF21:
+ 1863 01f1 45554C45 		.ascii	"EULER_ANGLES\000"
+ 1863      525F414E 
+ 1863      474C4553 
+ 1863      00
+ 1864              	.LASF27:
+ 1865 01fe 6861735F 		.ascii	"has_data\000"
+ 1865      64617461 
+ 1865      00
+ 1866              	.LASF43:
+ 1867 0207 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccJDI7dg.s 			page 39
+
+
+ 1867      4320342E 
+ 1867      372E3320 
+ 1867      32303133 
+ 1867      30333132 
+ 1868 023a 616E6368 		.ascii	"anch revision 196615]\000"
+ 1868      20726576 
+ 1868      6973696F 
+ 1868      6E203139 
+ 1868      36363135 
+ 1869              	.LASF36:
+ 1870 0250 70757463 		.ascii	"putchar_function\000"
+ 1870      6861725F 
+ 1870      66756E63 
+ 1870      74696F6E 
+ 1870      00
+ 1871              	.LASF7:
+ 1872 0261 6C6F6E67 		.ascii	"long int\000"
+ 1872      20696E74 
+ 1872      00
+ 1873              	.LASF10:
+ 1874 026a 63686172 		.ascii	"char\000"
+ 1874      00
+ 1875              	.LASF1:
+ 1876 026f 7369676E 		.ascii	"signed char\000"
+ 1876      65642063 
+ 1876      68617200 
+ 1877              	.LASF46:
+ 1878 027b 43485255 		.ascii	"CHRUM7_HeaderValidator\000"
+ 1878      4D375F48 
+ 1878      65616465 
+ 1878      7256616C 
+ 1878      69646174 
+ 1879              	.LASF41:
+ 1880 0292 6C656E67 		.ascii	"length\000"
+ 1880      746800
+ 1881              	.LASF6:
+ 1882 0299 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1882      206C6F6E 
+ 1882      6720756E 
+ 1882      7369676E 
+ 1882      65642069 
+ 1883              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

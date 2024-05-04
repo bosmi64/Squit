@@ -1,0 +1,1498 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"I2C_COULOMB_PM.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.I2C_COULOMB_SaveConfig,"ax",%progbits
+  19              		.align	1
+  20              		.global	I2C_COULOMB_SaveConfig
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	I2C_COULOMB_SaveConfig, %function
+  24              	I2C_COULOMB_SaveConfig:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\I2C_COULOMB_PM.c"
+   1:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * File Name: I2C_COULOMB_PM.c
+   3:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Version 3.30
+   4:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+   5:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  This file provides Low power mode APIs for I2C component.
+   7:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+   8:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Note:
+   9:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+  10:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  11:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  18:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** #include "I2C_COULOMB_PVT.h"
+  19:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  20:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** I2C_COULOMB_BACKUP_STRUCT I2C_COULOMB_backup =
+  21:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** {
+  22:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     I2C_COULOMB_DISABLE, /* enableState */
+  23:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  24:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_FF_IMPLEMENTED)
+  25:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_DEFAULT_XCFG,  /* xcfg */
+  26:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_DEFAULT_CFG,   /* cfg  */
+  27:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  28:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+  29:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_DEFAULT_ADDR, /* addr */
+  30:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+  31:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(CY_PSOC5A)
+  33:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             LO8(I2C_COULOMB_DEFAULT_DIVIDE_FACTOR),  /* div */
+  34:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #else
+  35:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             LO8(I2C_COULOMB_DEFAULT_DIVIDE_FACTOR), /* div1 */
+  36:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             HI8(I2C_COULOMB_DEFAULT_DIVIDE_FACTOR), /* div2 */
+  37:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (CY_PSOC5A) */
+  38:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  39:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #else  /* (I2C_COULOMB_UDB_IMPLEMENTED) */
+  40:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_DEFAULT_CFG,    /* control */
+  41:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  42:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(CY_UDB_V0)
+  43:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_INT_ENABLE_MASK, /* aux_ctl */
+  44:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  45:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+  46:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_DEFAULT_ADDR, /* addr_d0 */
+  47:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+  48:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (CY_UDB_V0) */
+  49:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_FF_IMPLEMENTED) */
+  50:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  51:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_TIMEOUT_ENABLED)
+  52:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_DEFAULT_TMOUT_PERIOD,
+  53:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_DEFAULT_TMOUT_INTR_MASK,
+  54:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  55:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_TIMEOUT_PRESCALER_ENABLED && CY_UDB_V0)
+  56:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_DEFAULT_TMOUT_PRESCALER_PRD,
+  57:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_TIMEOUT_PRESCALER_ENABLED) */
+  58:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  59:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+  60:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** };
+  61:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  62:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** #if((I2C_COULOMB_FF_IMPLEMENTED) && (I2C_COULOMB_WAKEUP_ENABLED))
+  63:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     volatile uint8 I2C_COULOMB_wakeupSource;
+  64:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** #endif /* ((I2C_COULOMB_FF_IMPLEMENTED) && (I2C_COULOMB_WAKEUP_ENABLED)) */
+  65:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  66:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+  67:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** /*******************************************************************************
+  68:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Function Name: I2C_COULOMB_SaveConfig
+  69:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** ********************************************************************************
+  70:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  71:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Summary:
+  72:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match enabled: disables I2C Master(if was enabled before go
+  73:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  to sleep), enables I2C backup regulator. Waits while on-going transaction be
+  74:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  will completed and I2C will be ready go to sleep. All incoming transaction
+  75:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  will be NACKed till power down will be asserted. The address match event
+  76:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  wakes up the chip.
+  77:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match disabled: saves I2C configuration and non-retention
+  78:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  register values.
+  79:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  80:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Parameters:
+  81:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+  82:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  83:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Return:
+  84:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+  85:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  86:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Global Variables:
+  87:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  I2C_COULOMB_backup - used to save component configuration and
+  88:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *       none-retention registers before enter sleep mode.
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  90:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Reentrant:
+  91:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  No
+  92:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+  93:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *******************************************************************************/
+  94:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** void I2C_COULOMB_SaveConfig(void) 
+  95:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** {
+  27              		.loc 1 95 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  96:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_FF_IMPLEMENTED)
+  97:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_WAKEUP_ENABLED)
+  98:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             uint8 enableInterrupts;
+  99:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_WAKEUP_ENABLED) */
+ 100:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 101:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         /* Store regiters in either Sleep mode */
+ 102:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.cfg  = I2C_COULOMB_CFG_REG;
+  32              		.loc 1 102 0
+  33 0000 064B     		ldr	r3, .L2
+  34 0002 0748     		ldr	r0, .L2+4
+  35 0004 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 103:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.xcfg = I2C_COULOMB_XCFG_REG;
+  36              		.loc 1 103 0
+  37 0006 0749     		ldr	r1, .L2+8
+ 102:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.cfg  = I2C_COULOMB_CFG_REG;
+  38              		.loc 1 102 0
+  39 0008 8270     		strb	r2, [r0, #2]
+  40              		.loc 1 103 0
+  41 000a 0B78     		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 104:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 105:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+ 106:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_backup.addr = I2C_COULOMB_ADDR_REG;
+ 107:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+ 108:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 109:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(CY_PSOC5A)
+ 110:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_backup.clkDiv   = I2C_COULOMB_CLKDIV_REG;
+ 111:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #else
+ 112:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_backup.clkDiv1  = I2C_COULOMB_CLKDIV1_REG;
+  42              		.loc 1 112 0
+  43 000c 064A     		ldr	r2, .L2+12
+ 103:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.xcfg = I2C_COULOMB_XCFG_REG;
+  44              		.loc 1 103 0
+  45 000e 4370     		strb	r3, [r0, #1]
+  46              		.loc 1 112 0
+  47 0010 1178     		ldrb	r1, [r2, #0]	@ zero_extendqisi2
+ 113:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_backup.clkDiv2  = I2C_COULOMB_CLKDIV2_REG;
+  48              		.loc 1 113 0
+  49 0012 064B     		ldr	r3, .L2+16
+ 112:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_backup.clkDiv1  = I2C_COULOMB_CLKDIV1_REG;
+  50              		.loc 1 112 0
+  51 0014 C170     		strb	r1, [r0, #3]
+  52              		.loc 1 113 0
+  53 0016 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  54 0018 0271     		strb	r2, [r0, #4]
+  55 001a 7047     		bx	lr
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 4
+
+
+  56              	.L3:
+  57              		.align	2
+  58              	.L2:
+  59 001c D6490040 		.word	1073760726
+  60 0020 00000000 		.word	.LANCHOR0
+  61 0024 C8490040 		.word	1073760712
+  62 0028 DB490040 		.word	1073760731
+  63 002c DC490040 		.word	1073760732
+  64              		.cfi_endproc
+  65              	.LFE0:
+  66              		.size	I2C_COULOMB_SaveConfig, .-I2C_COULOMB_SaveConfig
+  67              		.section	.text.I2C_COULOMB_Sleep,"ax",%progbits
+  68              		.align	1
+  69              		.global	I2C_COULOMB_Sleep
+  70              		.thumb
+  71              		.thumb_func
+  72              		.type	I2C_COULOMB_Sleep, %function
+  73              	I2C_COULOMB_Sleep:
+  74              	.LFB1:
+ 114:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (CY_PSOC5A) */
+ 115:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 116:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_WAKEUP_ENABLED)
+ 117:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Need to disable Master */
+ 118:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_CFG_REG &= ((uint8) ~I2C_COULOMB_ENABLE_MASTER);
+ 119:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 120:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Enable the I2C regulator backup */
+ 121:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             enableInterrupts = CyEnterCriticalSection();
+ 122:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_PWRSYS_CR1_REG |= I2C_COULOMB_PWRSYS_CR1_I2C_REG_BACKUP;
+ 123:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             CyExitCriticalSection(enableInterrupts);
+ 124:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 125:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* 1) Set force NACK to ignore I2C transactions
+ 126:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                2) Wait while I2C will be ready go to Sleep
+ 127:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                3) These bits are cleared on wake up */
+ 128:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_XCFG_REG |= I2C_COULOMB_XCFG_FORCE_NACK;
+ 129:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             while(0u == (I2C_COULOMB_XCFG_REG & I2C_COULOMB_XCFG_RDY_TO_SLEEP))
+ 130:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             {
+ 131:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 ; /* Wait when block is ready to Sleep */
+ 132:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             }
+ 133:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 134:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Setup wakeup interrupt */
+ 135:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_DisableInt();
+ 136:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             (void) CyIntSetVector(I2C_COULOMB_ISR_NUMBER, &I2C_COULOMB_WAKEUP_ISR);
+ 137:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_wakeupSource = 0u;
+ 138:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_EnableInt();
+ 139:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 140:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_WAKEUP_ENABLED) */
+ 141:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 142:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #else
+ 143:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         /* Store only address match bit */
+ 144:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.control = (I2C_COULOMB_CFG_REG & I2C_COULOMB_CTRL_ANY_ADDRESS_MASK);
+ 145:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 146:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(CY_UDB_V0)
+ 147:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Store interrupt mask bits */
+ 148:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_backup.intMask = I2C_COULOMB_INT_MASK_REG;
+ 149:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 150:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(I2C_COULOMB_MODE & I2C_COULOMB_MODE_SLAVE)
+ 151:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_backup.addr = I2C_COULOMB_ADDR_REG;
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 5
+
+
+ 152:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (I2C_COULOMB_MODE & I2C_COULOMB_MODE_SLAVE) */
+ 153:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 154:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (CY_UDB_V0) */
+ 155:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 156:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_FF_IMPLEMENTED) */
+ 157:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 158:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_TIMEOUT_ENABLED)
+ 159:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_TimeoutSaveConfig();   /* Save Timeout config */
+ 160:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+ 161:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** }
+ 162:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 163:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 164:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** /*******************************************************************************
+ 165:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Function Name: I2C_COULOMB_Sleep
+ 166:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** ********************************************************************************
+ 167:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 168:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Summary:
+ 169:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match enabled: All incoming transaction will be NACKed till
+ 170:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  power down will be asserted. The address match event wakes up the chip.
+ 171:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match disabled: Disables active mode power template bits or
+ 172:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  clock gating as appropriate. Saves I2C configuration and non-retention
+ 173:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  register values.
+ 174:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Disables I2C interrupt.
+ 175:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 176:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Parameters:
+ 177:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+ 178:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 179:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Return:
+ 180:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+ 181:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 182:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Reentrant:
+ 183:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  No
+ 184:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 185:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *******************************************************************************/
+ 186:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** void I2C_COULOMB_Sleep(void) 
+ 187:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** {
+  75              		.loc 1 187 0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79 0000 08B5     		push	{r3, lr}
+  80              	.LCFI0:
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 3, -8
+  83              		.cfi_offset 14, -4
+ 188:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_WAKEUP_ENABLED)
+ 189:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         /* The I2C block should be always enabled if used as wakeup source */
+ 190:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.enableState = I2C_COULOMB_DISABLE;
+ 191:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 192:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_TIMEOUT_ENABLED)
+ 193:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_TimeoutStop();
+ 194:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+ 195:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 196:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #else
+ 197:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 198:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_backup.enableState = ((uint8) I2C_COULOMB_IS_ENABLED);
+  84              		.loc 1 198 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 6
+
+
+  85 0002 084B     		ldr	r3, .L10
+  86 0004 084A     		ldr	r2, .L10+4
+  87 0006 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+  88 0008 C1F38000 		ubfx	r0, r1, #2, #1
+  89 000c 1070     		strb	r0, [r2, #0]
+ 199:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 200:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         if(I2C_COULOMB_IS_ENABLED)
+  90              		.loc 1 200 0
+  91 000e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  92 0010 03F00401 		and	r1, r3, #4
+  93 0014 C8B2     		uxtb	r0, r1
+  94 0016 08B1     		cbz	r0, .L5
+ 201:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         {
+ 202:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_Stop();
+  95              		.loc 1 202 0
+  96 0018 FFF7FEFF 		bl	I2C_COULOMB_Stop
+  97              	.LVL0:
+  98              	.L5:
+ 203:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         }
+ 204:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_WAKEUP_ENABLED) */
+ 205:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 206:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     I2C_COULOMB_SaveConfig();
+ 207:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** }
+  99              		.loc 1 207 0
+ 100 001c BDE80840 		pop	{r3, lr}
+ 206:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     I2C_COULOMB_SaveConfig();
+ 101              		.loc 1 206 0
+ 102 0020 FFF7FEBF 		b	I2C_COULOMB_SaveConfig
+ 103              	.LVL1:
+ 104              	.L11:
+ 105              		.align	2
+ 106              	.L10:
+ 107 0024 A5430040 		.word	1073759141
+ 108 0028 00000000 		.word	.LANCHOR0
+ 109              		.cfi_endproc
+ 110              	.LFE1:
+ 111              		.size	I2C_COULOMB_Sleep, .-I2C_COULOMB_Sleep
+ 112              		.section	.text.I2C_COULOMB_RestoreConfig,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	I2C_COULOMB_RestoreConfig
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.type	I2C_COULOMB_RestoreConfig, %function
+ 118              	I2C_COULOMB_RestoreConfig:
+ 119              	.LFB2:
+ 208:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 209:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 210:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** /*******************************************************************************
+ 211:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Function Name: I2C_COULOMB_RestoreConfig
+ 212:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** ********************************************************************************
+ 213:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 214:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Summary:
+ 215:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match enabled: enables I2C Master (if was enabled before go
+ 216:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  to sleep), disables I2C backup regulator.
+ 217:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match disabled: Restores I2C configuration and
+ 218:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  non-retention register values.
+ 219:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 7
+
+
+ 220:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Parameters:
+ 221:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+ 222:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 223:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Return:
+ 224:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+ 225:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 226:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Global Variables:
+ 227:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  I2C_COULOMB_backup - used to save component configuration and
+ 228:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  none-retention registers before exit sleep mode.
+ 229:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 230:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *******************************************************************************/
+ 231:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** void I2C_COULOMB_RestoreConfig(void) 
+ 232:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** {
+ 120              		.loc 1 232 0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ 124 0000 10B5     		push	{r4, lr}
+ 125              	.LCFI1:
+ 126              		.cfi_def_cfa_offset 8
+ 127              		.cfi_offset 4, -8
+ 128              		.cfi_offset 14, -4
+ 233:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_FF_IMPLEMENTED)
+ 234:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         uint8 enableInterrupts;
+ 235:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 236:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         if(I2C_COULOMB_CHECK_PWRSYS_I2C_BACKUP)    /* Enabled if was in Sleep */
+ 129              		.loc 1 236 0
+ 130 0002 0F4C     		ldr	r4, .L16
+ 131 0004 2378     		ldrb	r3, [r4, #0]	@ zero_extendqisi2
+ 132 0006 03F00400 		and	r0, r3, #4
+ 133 000a C1B2     		uxtb	r1, r0
+ 134 000c 59B1     		cbz	r1, .L13
+ 237:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         {
+ 238:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Disable back-up regulator */
+ 239:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             enableInterrupts = CyEnterCriticalSection();
+ 135              		.loc 1 239 0
+ 136 000e FFF7FEFF 		bl	CyEnterCriticalSection
+ 137              	.LVL2:
+ 240:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_PWRSYS_CR1_REG &= ((uint8) ~I2C_COULOMB_PWRSYS_CR1_I2C_REG_BACKUP);
+ 138              		.loc 1 240 0
+ 139 0012 2178     		ldrb	r1, [r4, #0]	@ zero_extendqisi2
+ 140 0014 01F0FB02 		and	r2, r1, #251
+ 141 0018 2270     		strb	r2, [r4, #0]
+ 241:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             CyExitCriticalSection(enableInterrupts);
+ 142              		.loc 1 241 0
+ 143 001a FFF7FEFF 		bl	CyExitCriticalSection
+ 144              	.LVL3:
+ 242:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 243:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Re-enable Master */
+ 244:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_CFG_REG = I2C_COULOMB_backup.cfg;
+ 145              		.loc 1 244 0
+ 146 001e 0948     		ldr	r0, .L16+4
+ 147 0020 094B     		ldr	r3, .L16+8
+ 148 0022 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
+ 149 0024 09E0     		b	.L15
+ 150              	.L13:
+ 245:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         }
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 8
+
+
+ 246:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         else /* The I2C_REG_BACKUP was cleaned by PM API: it means Hibernate or wake-up not set */
+ 247:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         {
+ 248:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(I2C_COULOMB_WAKEUP_ENABLED)
+ 249:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 /* Disable power to I2C block before register restore */
+ 250:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 enableInterrupts = CyEnterCriticalSection();
+ 251:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_ACT_PWRMGR_REG  &= ((uint8) ~I2C_COULOMB_ACT_PWR_EN);
+ 252:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_STBY_PWRMGR_REG &= ((uint8) ~I2C_COULOMB_STBY_PWR_EN);
+ 253:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 CyExitCriticalSection(enableInterrupts);
+ 254:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 255:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 /* Enable component after restore complete */
+ 256:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_backup.enableState = I2C_COULOMB_ENABLE;
+ 257:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (I2C_COULOMB_WAKEUP_ENABLED) */
+ 258:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 259:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             /* Restore component registers: Hibernate disable power */
+ 260:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_XCFG_REG = I2C_COULOMB_backup.xcfg;
+ 151              		.loc 1 260 0
+ 152 0026 074B     		ldr	r3, .L16+4
+ 153 0028 084A     		ldr	r2, .L16+12
+ 154 002a 5878     		ldrb	r0, [r3, #1]	@ zero_extendqisi2
+ 155 002c 1070     		strb	r0, [r2, #0]
+ 261:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_CFG_REG  = I2C_COULOMB_backup.cfg;
+ 156              		.loc 1 261 0
+ 157 002e 9978     		ldrb	r1, [r3, #2]	@ zero_extendqisi2
+ 158 0030 9173     		strb	r1, [r2, #14]
+ 262:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 263:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+ 264:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_ADDR_REG = I2C_COULOMB_backup.addr;
+ 265:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+ 266:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 267:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(CY_PSOC5A)
+ 268:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_CLKDIV_REG  = I2C_COULOMB_backup.clkDiv;
+ 269:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #else
+ 270:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_CLKDIV1_REG = I2C_COULOMB_backup.clkDiv1;
+ 159              		.loc 1 270 0
+ 160 0032 D878     		ldrb	r0, [r3, #3]	@ zero_extendqisi2
+ 161 0034 D074     		strb	r0, [r2, #19]
+ 271:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_CLKDIV2_REG = I2C_COULOMB_backup.clkDiv2;
+ 162              		.loc 1 271 0
+ 163 0036 1A79     		ldrb	r2, [r3, #4]	@ zero_extendqisi2
+ 164 0038 054B     		ldr	r3, .L16+16
+ 165              	.L15:
+ 166 003a 1A70     		strb	r2, [r3, #0]
+ 167 003c 10BD     		pop	{r4, pc}
+ 168              	.L17:
+ 169 003e 00BF     		.align	2
+ 170              	.L16:
+ 171 0040 31430040 		.word	1073759025
+ 172 0044 00000000 		.word	.LANCHOR0
+ 173 0048 D6490040 		.word	1073760726
+ 174 004c C8490040 		.word	1073760712
+ 175 0050 DC490040 		.word	1073760732
+ 176              		.cfi_endproc
+ 177              	.LFE2:
+ 178              		.size	I2C_COULOMB_RestoreConfig, .-I2C_COULOMB_RestoreConfig
+ 179              		.section	.text.I2C_COULOMB_Wakeup,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	I2C_COULOMB_Wakeup
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 9
+
+
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.type	I2C_COULOMB_Wakeup, %function
+ 185              	I2C_COULOMB_Wakeup:
+ 186              	.LFB3:
+ 272:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (CY_PSOC5A) */
+ 273:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         }
+ 274:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 275:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(I2C_COULOMB_WAKEUP_ENABLED)
+ 276:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_DisableInt();
+ 277:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             (void) CyIntSetVector(I2C_COULOMB_ISR_NUMBER, &I2C_COULOMB_ISR);
+ 278:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             if(0u != I2C_COULOMB_wakeupSource)
+ 279:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             {
+ 280:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_SetPendingInt();   /* Generate interrupt to process incomming transcati
+ 281:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             }
+ 282:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_EnableInt();
+ 283:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (I2C_COULOMB_WAKEUP_ENABLED) */
+ 284:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 285:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #else
+ 286:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 287:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #if(CY_UDB_V0)
+ 288:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             uint8 enableInterrupts;
+ 289:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 290:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_INT_MASK_REG |= I2C_COULOMB_backup.intMask;
+ 291:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 292:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             enableInterrupts = CyEnterCriticalSection();
+ 293:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             I2C_COULOMB_INT_ENABLE_REG |= I2C_COULOMB_INT_ENABLE_MASK;
+ 294:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             CyExitCriticalSection(enableInterrupts);
+ 295:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 296:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(I2C_COULOMB_MODE_MASTER_ENABLED)
+ 297:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 /* Restore Master Clock generator */
+ 298:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_MCLK_PRD_REG = I2C_COULOMB_DEFAULT_MCLK_PRD;
+ 299:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_MCLK_CMP_REG = I2C_COULOMB_DEFAULT_MCLK_CMP;
+ 300:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (I2C_COULOMB_MODE_MASTER_ENABLED) */
+ 301:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 302:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #if(I2C_COULOMB_MODE_SLAVE_ENABLED)
+ 303:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_ADDR_REG = I2C_COULOMB_backup.addr;
+ 304:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 305:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 /* Restore slave bit counter period */
+ 306:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****                 I2C_COULOMB_PERIOD_REG = I2C_COULOMB_DEFAULT_PERIOD;
+ 307:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****             #endif /* (I2C_COULOMB_MODE_SLAVE_ENABLED) */
+ 308:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 309:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         #endif /* (CY_UDB_V0) */
+ 310:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 311:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_CFG_REG = I2C_COULOMB_backup.control;
+ 312:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 313:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_FF_IMPLEMENTED) */
+ 314:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 315:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #if(I2C_COULOMB_TIMEOUT_ENABLED)
+ 316:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_TimeoutRestoreConfig();
+ 317:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     #endif /* (I2C_COULOMB_TIMEOUT_ENABLED) */
+ 318:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** }
+ 319:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 320:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 321:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** /*******************************************************************************
+ 322:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Function Name: I2C_COULOMB_Wakeup
+ 323:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** ********************************************************************************
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 10
+
+
+ 324:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 325:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Summary:
+ 326:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match enabled: enables I2C Master (if was enabled before go
+ 327:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  to sleep) and disables I2C backup regulator.
+ 328:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  Wakeup on address match disabled: Restores I2C configuration and
+ 329:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  non-retention register values. Restores Active mode power template bits or
+ 330:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  clock gating as appropriate.
+ 331:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  The I2C interrupt remains disabled after function call.
+ 332:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 333:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Parameters:
+ 334:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+ 335:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 336:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Return:
+ 337:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  None
+ 338:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 339:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** * Reentrant:
+ 340:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *  No
+ 341:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *
+ 342:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** *******************************************************************************/
+ 343:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** void I2C_COULOMB_Wakeup(void) 
+ 344:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** {
+ 187              		.loc 1 344 0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191 0000 08B5     		push	{r3, lr}
+ 192              	.LCFI2:
+ 193              		.cfi_def_cfa_offset 8
+ 194              		.cfi_offset 3, -8
+ 195              		.cfi_offset 14, -4
+ 345:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     I2C_COULOMB_RestoreConfig();   /* Restore I2C register settings */
+ 196              		.loc 1 345 0
+ 197 0002 FFF7FEFF 		bl	I2C_COULOMB_RestoreConfig
+ 198              	.LVL4:
+ 346:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c **** 
+ 347:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     /* Restore component enable state */
+ 348:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     if(0u != I2C_COULOMB_backup.enableState)
+ 199              		.loc 1 348 0
+ 200 0006 054B     		ldr	r3, .L23
+ 201 0008 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 202 000a 28B1     		cbz	r0, .L18
+ 349:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****     {
+ 350:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_Enable();
+ 203              		.loc 1 350 0
+ 204 000c FFF7FEFF 		bl	I2C_COULOMB_Enable
+ 205              	.LVL5:
+ 351:.\Generated_Source\PSoC5/I2C_COULOMB_PM.c ****         I2C_COULOMB_EnableInt();
+ 206              		.loc 1 351 0
+ 207 0010 0349     		ldr	r1, .L23+4
+ 208 0012 4FF40042 		mov	r2, #32768
+ 209 0016 0A60     		str	r2, [r1, #0]
+ 210              	.L18:
+ 211 0018 08BD     		pop	{r3, pc}
+ 212              	.L24:
+ 213 001a 00BF     		.align	2
+ 214              	.L23:
+ 215 001c 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 11
+
+
+ 216 0020 00E100E0 		.word	-536813312
+ 217              		.cfi_endproc
+ 218              	.LFE3:
+ 219              		.size	I2C_COULOMB_Wakeup, .-I2C_COULOMB_Wakeup
+ 220              		.global	I2C_COULOMB_backup
+ 221              		.data
+ 222              		.set	.LANCHOR0,. + 0
+ 223              		.type	I2C_COULOMB_backup, %object
+ 224              		.size	I2C_COULOMB_backup, 5
+ 225              	I2C_COULOMB_backup:
+ 226 0000 00       		.byte	0
+ 227 0001 81       		.byte	-127
+ 228 0002 06       		.byte	6
+ 229 0003 2A       		.byte	42
+ 230 0004 00       		.byte	0
+ 231              		.text
+ 232              	.Letext0:
+ 233              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 234              		.file 3 ".\\Generated_Source\\PSoC5\\I2C_COULOMB.h"
+ 235              		.file 4 ".\\Generated_Source\\PSoC5\\CyLib.h"
+ 236              		.section	.debug_info,"",%progbits
+ 237              	.Ldebug_info0:
+ 238 0000 18020000 		.4byte	0x218
+ 239 0004 0200     		.2byte	0x2
+ 240 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 241 000a 04       		.byte	0x4
+ 242 000b 01       		.uleb128 0x1
+ 243 000c 4B020000 		.4byte	.LASF28
+ 244 0010 01       		.byte	0x1
+ 245 0011 CC010000 		.4byte	.LASF29
+ 246 0015 72000000 		.4byte	.LASF30
+ 247 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 248 001d 00000000 		.4byte	0
+ 249 0021 00000000 		.4byte	0
+ 250 0025 00000000 		.4byte	.Ldebug_line0
+ 251 0029 02       		.uleb128 0x2
+ 252 002a 01       		.byte	0x1
+ 253 002b 06       		.byte	0x6
+ 254 002c 2C020000 		.4byte	.LASF0
+ 255 0030 02       		.uleb128 0x2
+ 256 0031 01       		.byte	0x1
+ 257 0032 08       		.byte	0x8
+ 258 0033 36000000 		.4byte	.LASF1
+ 259 0037 02       		.uleb128 0x2
+ 260 0038 02       		.byte	0x2
+ 261 0039 05       		.byte	0x5
+ 262 003a FB010000 		.4byte	.LASF2
+ 263 003e 02       		.uleb128 0x2
+ 264 003f 02       		.byte	0x2
+ 265 0040 07       		.byte	0x7
+ 266 0041 06000000 		.4byte	.LASF3
+ 267 0045 02       		.uleb128 0x2
+ 268 0046 04       		.byte	0x4
+ 269 0047 05       		.byte	0x5
+ 270 0048 1E020000 		.4byte	.LASF4
+ 271 004c 02       		.uleb128 0x2
+ 272 004d 04       		.byte	0x4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 12
+
+
+ 273 004e 07       		.byte	0x7
+ 274 004f 60000000 		.4byte	.LASF5
+ 275 0053 02       		.uleb128 0x2
+ 276 0054 08       		.byte	0x8
+ 277 0055 05       		.byte	0x5
+ 278 0056 BE010000 		.4byte	.LASF6
+ 279 005a 02       		.uleb128 0x2
+ 280 005b 08       		.byte	0x8
+ 281 005c 07       		.byte	0x7
+ 282 005d 1F000000 		.4byte	.LASF7
+ 283 0061 03       		.uleb128 0x3
+ 284 0062 04       		.byte	0x4
+ 285 0063 05       		.byte	0x5
+ 286 0064 696E7400 		.ascii	"int\000"
+ 287 0068 02       		.uleb128 0x2
+ 288 0069 04       		.byte	0x4
+ 289 006a 07       		.byte	0x7
+ 290 006b 82010000 		.4byte	.LASF8
+ 291 006f 04       		.uleb128 0x4
+ 292 0070 05020000 		.4byte	.LASF9
+ 293 0074 02       		.byte	0x2
+ 294 0075 5B       		.byte	0x5b
+ 295 0076 30000000 		.4byte	0x30
+ 296 007a 04       		.uleb128 0x4
+ 297 007b 51010000 		.4byte	.LASF10
+ 298 007f 02       		.byte	0x2
+ 299 0080 5C       		.byte	0x5c
+ 300 0081 3E000000 		.4byte	0x3e
+ 301 0085 04       		.uleb128 0x4
+ 302 0086 58010000 		.4byte	.LASF11
+ 303 008a 02       		.byte	0x2
+ 304 008b 5D       		.byte	0x5d
+ 305 008c 4C000000 		.4byte	0x4c
+ 306 0090 02       		.uleb128 0x2
+ 307 0091 04       		.byte	0x4
+ 308 0092 04       		.byte	0x4
+ 309 0093 19000000 		.4byte	.LASF12
+ 310 0097 02       		.uleb128 0x2
+ 311 0098 08       		.byte	0x8
+ 312 0099 04       		.byte	0x4
+ 313 009a 37010000 		.4byte	.LASF13
+ 314 009e 02       		.uleb128 0x2
+ 315 009f 01       		.byte	0x1
+ 316 00a0 08       		.byte	0x8
+ 317 00a1 27020000 		.4byte	.LASF14
+ 318 00a5 04       		.uleb128 0x4
+ 319 00a6 44000000 		.4byte	.LASF15
+ 320 00aa 02       		.byte	0x2
+ 321 00ab F0       		.byte	0xf0
+ 322 00ac B0000000 		.4byte	0xb0
+ 323 00b0 05       		.uleb128 0x5
+ 324 00b1 6F000000 		.4byte	0x6f
+ 325 00b5 04       		.uleb128 0x4
+ 326 00b6 00000000 		.4byte	.LASF16
+ 327 00ba 02       		.byte	0x2
+ 328 00bb F2       		.byte	0xf2
+ 329 00bc C0000000 		.4byte	0xc0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 13
+
+
+ 330 00c0 05       		.uleb128 0x5
+ 331 00c1 85000000 		.4byte	0x85
+ 332 00c5 02       		.uleb128 0x2
+ 333 00c6 04       		.byte	0x4
+ 334 00c7 07       		.byte	0x7
+ 335 00c8 B5010000 		.4byte	.LASF17
+ 336 00cc 06       		.uleb128 0x6
+ 337 00cd 05       		.byte	0x5
+ 338 00ce 03       		.byte	0x3
+ 339 00cf 78       		.byte	0x78
+ 340 00d0 1B010000 		.4byte	0x11b
+ 341 00d4 07       		.uleb128 0x7
+ 342 00d5 5F010000 		.4byte	.LASF18
+ 343 00d9 03       		.byte	0x3
+ 344 00da 7A       		.byte	0x7a
+ 345 00db 6F000000 		.4byte	0x6f
+ 346 00df 02       		.byte	0x2
+ 347 00e0 23       		.byte	0x23
+ 348 00e1 00       		.uleb128 0
+ 349 00e2 07       		.uleb128 0x7
+ 350 00e3 F6010000 		.4byte	.LASF19
+ 351 00e7 03       		.byte	0x3
+ 352 00e8 7D       		.byte	0x7d
+ 353 00e9 6F000000 		.4byte	0x6f
+ 354 00ed 02       		.byte	0x2
+ 355 00ee 23       		.byte	0x23
+ 356 00ef 01       		.uleb128 0x1
+ 357 00f0 08       		.uleb128 0x8
+ 358 00f1 63666700 		.ascii	"cfg\000"
+ 359 00f5 03       		.byte	0x3
+ 360 00f6 7E       		.byte	0x7e
+ 361 00f7 6F000000 		.4byte	0x6f
+ 362 00fb 02       		.byte	0x2
+ 363 00fc 23       		.byte	0x23
+ 364 00fd 02       		.uleb128 0x2
+ 365 00fe 07       		.uleb128 0x7
+ 366 00ff A5010000 		.4byte	.LASF20
+ 367 0103 03       		.byte	0x3
+ 368 0104 87       		.byte	0x87
+ 369 0105 6F000000 		.4byte	0x6f
+ 370 0109 02       		.byte	0x2
+ 371 010a 23       		.byte	0x23
+ 372 010b 03       		.uleb128 0x3
+ 373 010c 07       		.uleb128 0x7
+ 374 010d AD010000 		.4byte	.LASF21
+ 375 0111 03       		.byte	0x3
+ 376 0112 88       		.byte	0x88
+ 377 0113 6F000000 		.4byte	0x6f
+ 378 0117 02       		.byte	0x2
+ 379 0118 23       		.byte	0x23
+ 380 0119 04       		.uleb128 0x4
+ 381 011a 00       		.byte	0
+ 382 011b 04       		.uleb128 0x4
+ 383 011c E0000000 		.4byte	.LASF22
+ 384 0120 03       		.byte	0x3
+ 385 0121 A2       		.byte	0xa2
+ 386 0122 CC000000 		.4byte	0xcc
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 14
+
+
+ 387 0126 09       		.uleb128 0x9
+ 388 0127 01       		.byte	0x1
+ 389 0128 49000000 		.4byte	.LASF31
+ 390 012c 01       		.byte	0x1
+ 391 012d 5E       		.byte	0x5e
+ 392 012e 01       		.byte	0x1
+ 393 012f 00000000 		.4byte	.LFB0
+ 394 0133 30000000 		.4byte	.LFE0
+ 395 0137 02       		.byte	0x2
+ 396 0138 7D       		.byte	0x7d
+ 397 0139 00       		.sleb128 0
+ 398 013a 01       		.byte	0x1
+ 399 013b 0A       		.uleb128 0xa
+ 400 013c 01       		.byte	0x1
+ 401 013d 25010000 		.4byte	.LASF23
+ 402 0141 01       		.byte	0x1
+ 403 0142 BA       		.byte	0xba
+ 404 0143 01       		.byte	0x1
+ 405 0144 00000000 		.4byte	.LFB1
+ 406 0148 2C000000 		.4byte	.LFE1
+ 407 014c 00000000 		.4byte	.LLST0
+ 408 0150 01       		.byte	0x1
+ 409 0151 69010000 		.4byte	0x169
+ 410 0155 0B       		.uleb128 0xb
+ 411 0156 1C000000 		.4byte	.LVL0
+ 412 015a E5010000 		.4byte	0x1e5
+ 413 015e 0C       		.uleb128 0xc
+ 414 015f 24000000 		.4byte	.LVL1
+ 415 0163 01       		.byte	0x1
+ 416 0164 26010000 		.4byte	0x126
+ 417 0168 00       		.byte	0
+ 418 0169 0A       		.uleb128 0xa
+ 419 016a 01       		.byte	0x1
+ 420 016b 0B010000 		.4byte	.LASF24
+ 421 016f 01       		.byte	0x1
+ 422 0170 E7       		.byte	0xe7
+ 423 0171 01       		.byte	0x1
+ 424 0172 00000000 		.4byte	.LFB2
+ 425 0176 54000000 		.4byte	.LFE2
+ 426 017a 20000000 		.4byte	.LLST1
+ 427 017e 01       		.byte	0x1
+ 428 017f A5010000 		.4byte	0x1a5
+ 429 0183 0D       		.uleb128 0xd
+ 430 0184 FA000000 		.4byte	.LASF32
+ 431 0188 01       		.byte	0x1
+ 432 0189 EA       		.byte	0xea
+ 433 018a 6F000000 		.4byte	0x6f
+ 434 018e 40000000 		.4byte	.LLST2
+ 435 0192 0B       		.uleb128 0xb
+ 436 0193 12000000 		.4byte	.LVL2
+ 437 0197 EF010000 		.4byte	0x1ef
+ 438 019b 0B       		.uleb128 0xb
+ 439 019c 1E000000 		.4byte	.LVL3
+ 440 01a0 FD010000 		.4byte	0x1fd
+ 441 01a4 00       		.byte	0
+ 442 01a5 0E       		.uleb128 0xe
+ 443 01a6 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 15
+
+
+ 444 01a7 38020000 		.4byte	.LASF25
+ 445 01ab 01       		.byte	0x1
+ 446 01ac 5701     		.2byte	0x157
+ 447 01ae 01       		.byte	0x1
+ 448 01af 00000000 		.4byte	.LFB3
+ 449 01b3 24000000 		.4byte	.LFE3
+ 450 01b7 53000000 		.4byte	.LLST3
+ 451 01bb 01       		.byte	0x1
+ 452 01bc D3010000 		.4byte	0x1d3
+ 453 01c0 0B       		.uleb128 0xb
+ 454 01c1 06000000 		.4byte	.LVL4
+ 455 01c5 69010000 		.4byte	0x169
+ 456 01c9 0B       		.uleb128 0xb
+ 457 01ca 10000000 		.4byte	.LVL5
+ 458 01ce 11020000 		.4byte	0x211
+ 459 01d2 00       		.byte	0
+ 460 01d3 0F       		.uleb128 0xf
+ 461 01d4 0B020000 		.4byte	.LASF33
+ 462 01d8 01       		.byte	0x1
+ 463 01d9 14       		.byte	0x14
+ 464 01da 1B010000 		.4byte	0x11b
+ 465 01de 01       		.byte	0x1
+ 466 01df 05       		.byte	0x5
+ 467 01e0 03       		.byte	0x3
+ 468 01e1 00000000 		.4byte	I2C_COULOMB_backup
+ 469 01e5 10       		.uleb128 0x10
+ 470 01e6 01       		.byte	0x1
+ 471 01e7 94020000 		.4byte	.LASF26
+ 472 01eb 03       		.byte	0x3
+ 473 01ec AD       		.byte	0xad
+ 474 01ed 01       		.byte	0x1
+ 475 01ee 01       		.byte	0x1
+ 476 01ef 11       		.uleb128 0x11
+ 477 01f0 01       		.byte	0x1
+ 478 01f1 6B010000 		.4byte	.LASF34
+ 479 01f5 04       		.byte	0x4
+ 480 01f6 7E       		.byte	0x7e
+ 481 01f7 01       		.byte	0x1
+ 482 01f8 6F000000 		.4byte	0x6f
+ 483 01fc 01       		.byte	0x1
+ 484 01fd 12       		.uleb128 0x12
+ 485 01fe 01       		.byte	0x1
+ 486 01ff 8F010000 		.4byte	.LASF35
+ 487 0203 04       		.byte	0x4
+ 488 0204 7F       		.byte	0x7f
+ 489 0205 01       		.byte	0x1
+ 490 0206 01       		.byte	0x1
+ 491 0207 11020000 		.4byte	0x211
+ 492 020b 13       		.uleb128 0x13
+ 493 020c 6F000000 		.4byte	0x6f
+ 494 0210 00       		.byte	0
+ 495 0211 10       		.uleb128 0x10
+ 496 0212 01       		.byte	0x1
+ 497 0213 3E010000 		.4byte	.LASF27
+ 498 0217 03       		.byte	0x3
+ 499 0218 AA       		.byte	0xaa
+ 500 0219 01       		.byte	0x1
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 16
+
+
+ 501 021a 01       		.byte	0x1
+ 502 021b 00       		.byte	0
+ 503              		.section	.debug_abbrev,"",%progbits
+ 504              	.Ldebug_abbrev0:
+ 505 0000 01       		.uleb128 0x1
+ 506 0001 11       		.uleb128 0x11
+ 507 0002 01       		.byte	0x1
+ 508 0003 25       		.uleb128 0x25
+ 509 0004 0E       		.uleb128 0xe
+ 510 0005 13       		.uleb128 0x13
+ 511 0006 0B       		.uleb128 0xb
+ 512 0007 03       		.uleb128 0x3
+ 513 0008 0E       		.uleb128 0xe
+ 514 0009 1B       		.uleb128 0x1b
+ 515 000a 0E       		.uleb128 0xe
+ 516 000b 55       		.uleb128 0x55
+ 517 000c 06       		.uleb128 0x6
+ 518 000d 11       		.uleb128 0x11
+ 519 000e 01       		.uleb128 0x1
+ 520 000f 52       		.uleb128 0x52
+ 521 0010 01       		.uleb128 0x1
+ 522 0011 10       		.uleb128 0x10
+ 523 0012 06       		.uleb128 0x6
+ 524 0013 00       		.byte	0
+ 525 0014 00       		.byte	0
+ 526 0015 02       		.uleb128 0x2
+ 527 0016 24       		.uleb128 0x24
+ 528 0017 00       		.byte	0
+ 529 0018 0B       		.uleb128 0xb
+ 530 0019 0B       		.uleb128 0xb
+ 531 001a 3E       		.uleb128 0x3e
+ 532 001b 0B       		.uleb128 0xb
+ 533 001c 03       		.uleb128 0x3
+ 534 001d 0E       		.uleb128 0xe
+ 535 001e 00       		.byte	0
+ 536 001f 00       		.byte	0
+ 537 0020 03       		.uleb128 0x3
+ 538 0021 24       		.uleb128 0x24
+ 539 0022 00       		.byte	0
+ 540 0023 0B       		.uleb128 0xb
+ 541 0024 0B       		.uleb128 0xb
+ 542 0025 3E       		.uleb128 0x3e
+ 543 0026 0B       		.uleb128 0xb
+ 544 0027 03       		.uleb128 0x3
+ 545 0028 08       		.uleb128 0x8
+ 546 0029 00       		.byte	0
+ 547 002a 00       		.byte	0
+ 548 002b 04       		.uleb128 0x4
+ 549 002c 16       		.uleb128 0x16
+ 550 002d 00       		.byte	0
+ 551 002e 03       		.uleb128 0x3
+ 552 002f 0E       		.uleb128 0xe
+ 553 0030 3A       		.uleb128 0x3a
+ 554 0031 0B       		.uleb128 0xb
+ 555 0032 3B       		.uleb128 0x3b
+ 556 0033 0B       		.uleb128 0xb
+ 557 0034 49       		.uleb128 0x49
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 17
+
+
+ 558 0035 13       		.uleb128 0x13
+ 559 0036 00       		.byte	0
+ 560 0037 00       		.byte	0
+ 561 0038 05       		.uleb128 0x5
+ 562 0039 35       		.uleb128 0x35
+ 563 003a 00       		.byte	0
+ 564 003b 49       		.uleb128 0x49
+ 565 003c 13       		.uleb128 0x13
+ 566 003d 00       		.byte	0
+ 567 003e 00       		.byte	0
+ 568 003f 06       		.uleb128 0x6
+ 569 0040 13       		.uleb128 0x13
+ 570 0041 01       		.byte	0x1
+ 571 0042 0B       		.uleb128 0xb
+ 572 0043 0B       		.uleb128 0xb
+ 573 0044 3A       		.uleb128 0x3a
+ 574 0045 0B       		.uleb128 0xb
+ 575 0046 3B       		.uleb128 0x3b
+ 576 0047 0B       		.uleb128 0xb
+ 577 0048 01       		.uleb128 0x1
+ 578 0049 13       		.uleb128 0x13
+ 579 004a 00       		.byte	0
+ 580 004b 00       		.byte	0
+ 581 004c 07       		.uleb128 0x7
+ 582 004d 0D       		.uleb128 0xd
+ 583 004e 00       		.byte	0
+ 584 004f 03       		.uleb128 0x3
+ 585 0050 0E       		.uleb128 0xe
+ 586 0051 3A       		.uleb128 0x3a
+ 587 0052 0B       		.uleb128 0xb
+ 588 0053 3B       		.uleb128 0x3b
+ 589 0054 0B       		.uleb128 0xb
+ 590 0055 49       		.uleb128 0x49
+ 591 0056 13       		.uleb128 0x13
+ 592 0057 38       		.uleb128 0x38
+ 593 0058 0A       		.uleb128 0xa
+ 594 0059 00       		.byte	0
+ 595 005a 00       		.byte	0
+ 596 005b 08       		.uleb128 0x8
+ 597 005c 0D       		.uleb128 0xd
+ 598 005d 00       		.byte	0
+ 599 005e 03       		.uleb128 0x3
+ 600 005f 08       		.uleb128 0x8
+ 601 0060 3A       		.uleb128 0x3a
+ 602 0061 0B       		.uleb128 0xb
+ 603 0062 3B       		.uleb128 0x3b
+ 604 0063 0B       		.uleb128 0xb
+ 605 0064 49       		.uleb128 0x49
+ 606 0065 13       		.uleb128 0x13
+ 607 0066 38       		.uleb128 0x38
+ 608 0067 0A       		.uleb128 0xa
+ 609 0068 00       		.byte	0
+ 610 0069 00       		.byte	0
+ 611 006a 09       		.uleb128 0x9
+ 612 006b 2E       		.uleb128 0x2e
+ 613 006c 00       		.byte	0
+ 614 006d 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 18
+
+
+ 615 006e 0C       		.uleb128 0xc
+ 616 006f 03       		.uleb128 0x3
+ 617 0070 0E       		.uleb128 0xe
+ 618 0071 3A       		.uleb128 0x3a
+ 619 0072 0B       		.uleb128 0xb
+ 620 0073 3B       		.uleb128 0x3b
+ 621 0074 0B       		.uleb128 0xb
+ 622 0075 27       		.uleb128 0x27
+ 623 0076 0C       		.uleb128 0xc
+ 624 0077 11       		.uleb128 0x11
+ 625 0078 01       		.uleb128 0x1
+ 626 0079 12       		.uleb128 0x12
+ 627 007a 01       		.uleb128 0x1
+ 628 007b 40       		.uleb128 0x40
+ 629 007c 0A       		.uleb128 0xa
+ 630 007d 9742     		.uleb128 0x2117
+ 631 007f 0C       		.uleb128 0xc
+ 632 0080 00       		.byte	0
+ 633 0081 00       		.byte	0
+ 634 0082 0A       		.uleb128 0xa
+ 635 0083 2E       		.uleb128 0x2e
+ 636 0084 01       		.byte	0x1
+ 637 0085 3F       		.uleb128 0x3f
+ 638 0086 0C       		.uleb128 0xc
+ 639 0087 03       		.uleb128 0x3
+ 640 0088 0E       		.uleb128 0xe
+ 641 0089 3A       		.uleb128 0x3a
+ 642 008a 0B       		.uleb128 0xb
+ 643 008b 3B       		.uleb128 0x3b
+ 644 008c 0B       		.uleb128 0xb
+ 645 008d 27       		.uleb128 0x27
+ 646 008e 0C       		.uleb128 0xc
+ 647 008f 11       		.uleb128 0x11
+ 648 0090 01       		.uleb128 0x1
+ 649 0091 12       		.uleb128 0x12
+ 650 0092 01       		.uleb128 0x1
+ 651 0093 40       		.uleb128 0x40
+ 652 0094 06       		.uleb128 0x6
+ 653 0095 9742     		.uleb128 0x2117
+ 654 0097 0C       		.uleb128 0xc
+ 655 0098 01       		.uleb128 0x1
+ 656 0099 13       		.uleb128 0x13
+ 657 009a 00       		.byte	0
+ 658 009b 00       		.byte	0
+ 659 009c 0B       		.uleb128 0xb
+ 660 009d 898201   		.uleb128 0x4109
+ 661 00a0 00       		.byte	0
+ 662 00a1 11       		.uleb128 0x11
+ 663 00a2 01       		.uleb128 0x1
+ 664 00a3 31       		.uleb128 0x31
+ 665 00a4 13       		.uleb128 0x13
+ 666 00a5 00       		.byte	0
+ 667 00a6 00       		.byte	0
+ 668 00a7 0C       		.uleb128 0xc
+ 669 00a8 898201   		.uleb128 0x4109
+ 670 00ab 00       		.byte	0
+ 671 00ac 11       		.uleb128 0x11
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 19
+
+
+ 672 00ad 01       		.uleb128 0x1
+ 673 00ae 9542     		.uleb128 0x2115
+ 674 00b0 0C       		.uleb128 0xc
+ 675 00b1 31       		.uleb128 0x31
+ 676 00b2 13       		.uleb128 0x13
+ 677 00b3 00       		.byte	0
+ 678 00b4 00       		.byte	0
+ 679 00b5 0D       		.uleb128 0xd
+ 680 00b6 34       		.uleb128 0x34
+ 681 00b7 00       		.byte	0
+ 682 00b8 03       		.uleb128 0x3
+ 683 00b9 0E       		.uleb128 0xe
+ 684 00ba 3A       		.uleb128 0x3a
+ 685 00bb 0B       		.uleb128 0xb
+ 686 00bc 3B       		.uleb128 0x3b
+ 687 00bd 0B       		.uleb128 0xb
+ 688 00be 49       		.uleb128 0x49
+ 689 00bf 13       		.uleb128 0x13
+ 690 00c0 02       		.uleb128 0x2
+ 691 00c1 06       		.uleb128 0x6
+ 692 00c2 00       		.byte	0
+ 693 00c3 00       		.byte	0
+ 694 00c4 0E       		.uleb128 0xe
+ 695 00c5 2E       		.uleb128 0x2e
+ 696 00c6 01       		.byte	0x1
+ 697 00c7 3F       		.uleb128 0x3f
+ 698 00c8 0C       		.uleb128 0xc
+ 699 00c9 03       		.uleb128 0x3
+ 700 00ca 0E       		.uleb128 0xe
+ 701 00cb 3A       		.uleb128 0x3a
+ 702 00cc 0B       		.uleb128 0xb
+ 703 00cd 3B       		.uleb128 0x3b
+ 704 00ce 05       		.uleb128 0x5
+ 705 00cf 27       		.uleb128 0x27
+ 706 00d0 0C       		.uleb128 0xc
+ 707 00d1 11       		.uleb128 0x11
+ 708 00d2 01       		.uleb128 0x1
+ 709 00d3 12       		.uleb128 0x12
+ 710 00d4 01       		.uleb128 0x1
+ 711 00d5 40       		.uleb128 0x40
+ 712 00d6 06       		.uleb128 0x6
+ 713 00d7 9742     		.uleb128 0x2117
+ 714 00d9 0C       		.uleb128 0xc
+ 715 00da 01       		.uleb128 0x1
+ 716 00db 13       		.uleb128 0x13
+ 717 00dc 00       		.byte	0
+ 718 00dd 00       		.byte	0
+ 719 00de 0F       		.uleb128 0xf
+ 720 00df 34       		.uleb128 0x34
+ 721 00e0 00       		.byte	0
+ 722 00e1 03       		.uleb128 0x3
+ 723 00e2 0E       		.uleb128 0xe
+ 724 00e3 3A       		.uleb128 0x3a
+ 725 00e4 0B       		.uleb128 0xb
+ 726 00e5 3B       		.uleb128 0x3b
+ 727 00e6 0B       		.uleb128 0xb
+ 728 00e7 49       		.uleb128 0x49
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 20
+
+
+ 729 00e8 13       		.uleb128 0x13
+ 730 00e9 3F       		.uleb128 0x3f
+ 731 00ea 0C       		.uleb128 0xc
+ 732 00eb 02       		.uleb128 0x2
+ 733 00ec 0A       		.uleb128 0xa
+ 734 00ed 00       		.byte	0
+ 735 00ee 00       		.byte	0
+ 736 00ef 10       		.uleb128 0x10
+ 737 00f0 2E       		.uleb128 0x2e
+ 738 00f1 00       		.byte	0
+ 739 00f2 3F       		.uleb128 0x3f
+ 740 00f3 0C       		.uleb128 0xc
+ 741 00f4 03       		.uleb128 0x3
+ 742 00f5 0E       		.uleb128 0xe
+ 743 00f6 3A       		.uleb128 0x3a
+ 744 00f7 0B       		.uleb128 0xb
+ 745 00f8 3B       		.uleb128 0x3b
+ 746 00f9 0B       		.uleb128 0xb
+ 747 00fa 27       		.uleb128 0x27
+ 748 00fb 0C       		.uleb128 0xc
+ 749 00fc 3C       		.uleb128 0x3c
+ 750 00fd 0C       		.uleb128 0xc
+ 751 00fe 00       		.byte	0
+ 752 00ff 00       		.byte	0
+ 753 0100 11       		.uleb128 0x11
+ 754 0101 2E       		.uleb128 0x2e
+ 755 0102 00       		.byte	0
+ 756 0103 3F       		.uleb128 0x3f
+ 757 0104 0C       		.uleb128 0xc
+ 758 0105 03       		.uleb128 0x3
+ 759 0106 0E       		.uleb128 0xe
+ 760 0107 3A       		.uleb128 0x3a
+ 761 0108 0B       		.uleb128 0xb
+ 762 0109 3B       		.uleb128 0x3b
+ 763 010a 0B       		.uleb128 0xb
+ 764 010b 27       		.uleb128 0x27
+ 765 010c 0C       		.uleb128 0xc
+ 766 010d 49       		.uleb128 0x49
+ 767 010e 13       		.uleb128 0x13
+ 768 010f 3C       		.uleb128 0x3c
+ 769 0110 0C       		.uleb128 0xc
+ 770 0111 00       		.byte	0
+ 771 0112 00       		.byte	0
+ 772 0113 12       		.uleb128 0x12
+ 773 0114 2E       		.uleb128 0x2e
+ 774 0115 01       		.byte	0x1
+ 775 0116 3F       		.uleb128 0x3f
+ 776 0117 0C       		.uleb128 0xc
+ 777 0118 03       		.uleb128 0x3
+ 778 0119 0E       		.uleb128 0xe
+ 779 011a 3A       		.uleb128 0x3a
+ 780 011b 0B       		.uleb128 0xb
+ 781 011c 3B       		.uleb128 0x3b
+ 782 011d 0B       		.uleb128 0xb
+ 783 011e 27       		.uleb128 0x27
+ 784 011f 0C       		.uleb128 0xc
+ 785 0120 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 21
+
+
+ 786 0121 0C       		.uleb128 0xc
+ 787 0122 01       		.uleb128 0x1
+ 788 0123 13       		.uleb128 0x13
+ 789 0124 00       		.byte	0
+ 790 0125 00       		.byte	0
+ 791 0126 13       		.uleb128 0x13
+ 792 0127 05       		.uleb128 0x5
+ 793 0128 00       		.byte	0
+ 794 0129 49       		.uleb128 0x49
+ 795 012a 13       		.uleb128 0x13
+ 796 012b 00       		.byte	0
+ 797 012c 00       		.byte	0
+ 798 012d 00       		.byte	0
+ 799              		.section	.debug_loc,"",%progbits
+ 800              	.Ldebug_loc0:
+ 801              	.LLST0:
+ 802 0000 00000000 		.4byte	.LFB1
+ 803 0004 02000000 		.4byte	.LCFI0
+ 804 0008 0200     		.2byte	0x2
+ 805 000a 7D       		.byte	0x7d
+ 806 000b 00       		.sleb128 0
+ 807 000c 02000000 		.4byte	.LCFI0
+ 808 0010 2C000000 		.4byte	.LFE1
+ 809 0014 0200     		.2byte	0x2
+ 810 0016 7D       		.byte	0x7d
+ 811 0017 08       		.sleb128 8
+ 812 0018 00000000 		.4byte	0
+ 813 001c 00000000 		.4byte	0
+ 814              	.LLST1:
+ 815 0020 00000000 		.4byte	.LFB2
+ 816 0024 02000000 		.4byte	.LCFI1
+ 817 0028 0200     		.2byte	0x2
+ 818 002a 7D       		.byte	0x7d
+ 819 002b 00       		.sleb128 0
+ 820 002c 02000000 		.4byte	.LCFI1
+ 821 0030 54000000 		.4byte	.LFE2
+ 822 0034 0200     		.2byte	0x2
+ 823 0036 7D       		.byte	0x7d
+ 824 0037 08       		.sleb128 8
+ 825 0038 00000000 		.4byte	0
+ 826 003c 00000000 		.4byte	0
+ 827              	.LLST2:
+ 828 0040 12000000 		.4byte	.LVL2
+ 829 0044 1D000000 		.4byte	.LVL3-1
+ 830 0048 0100     		.2byte	0x1
+ 831 004a 50       		.byte	0x50
+ 832 004b 00000000 		.4byte	0
+ 833 004f 00000000 		.4byte	0
+ 834              	.LLST3:
+ 835 0053 00000000 		.4byte	.LFB3
+ 836 0057 02000000 		.4byte	.LCFI2
+ 837 005b 0200     		.2byte	0x2
+ 838 005d 7D       		.byte	0x7d
+ 839 005e 00       		.sleb128 0
+ 840 005f 02000000 		.4byte	.LCFI2
+ 841 0063 24000000 		.4byte	.LFE3
+ 842 0067 0200     		.2byte	0x2
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 22
+
+
+ 843 0069 7D       		.byte	0x7d
+ 844 006a 08       		.sleb128 8
+ 845 006b 00000000 		.4byte	0
+ 846 006f 00000000 		.4byte	0
+ 847              		.section	.debug_aranges,"",%progbits
+ 848 0000 34000000 		.4byte	0x34
+ 849 0004 0200     		.2byte	0x2
+ 850 0006 00000000 		.4byte	.Ldebug_info0
+ 851 000a 04       		.byte	0x4
+ 852 000b 00       		.byte	0
+ 853 000c 0000     		.2byte	0
+ 854 000e 0000     		.2byte	0
+ 855 0010 00000000 		.4byte	.LFB0
+ 856 0014 30000000 		.4byte	.LFE0-.LFB0
+ 857 0018 00000000 		.4byte	.LFB1
+ 858 001c 2C000000 		.4byte	.LFE1-.LFB1
+ 859 0020 00000000 		.4byte	.LFB2
+ 860 0024 54000000 		.4byte	.LFE2-.LFB2
+ 861 0028 00000000 		.4byte	.LFB3
+ 862 002c 24000000 		.4byte	.LFE3-.LFB3
+ 863 0030 00000000 		.4byte	0
+ 864 0034 00000000 		.4byte	0
+ 865              		.section	.debug_ranges,"",%progbits
+ 866              	.Ldebug_ranges0:
+ 867 0000 00000000 		.4byte	.LFB0
+ 868 0004 30000000 		.4byte	.LFE0
+ 869 0008 00000000 		.4byte	.LFB1
+ 870 000c 2C000000 		.4byte	.LFE1
+ 871 0010 00000000 		.4byte	.LFB2
+ 872 0014 54000000 		.4byte	.LFE2
+ 873 0018 00000000 		.4byte	.LFB3
+ 874 001c 24000000 		.4byte	.LFE3
+ 875 0020 00000000 		.4byte	0
+ 876 0024 00000000 		.4byte	0
+ 877              		.section	.debug_line,"",%progbits
+ 878              	.Ldebug_line0:
+ 879 0000 D7000000 		.section	.debug_str,"MS",%progbits,1
+ 879      02006900 
+ 879      00000201 
+ 879      FB0E0D00 
+ 879      01010101 
+ 880              	.LASF16:
+ 881 0000 72656733 		.ascii	"reg32\000"
+ 881      3200
+ 882              	.LASF3:
+ 883 0006 73686F72 		.ascii	"short unsigned int\000"
+ 883      7420756E 
+ 883      7369676E 
+ 883      65642069 
+ 883      6E7400
+ 884              	.LASF12:
+ 885 0019 666C6F61 		.ascii	"float\000"
+ 885      7400
+ 886              	.LASF7:
+ 887 001f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 887      206C6F6E 
+ 887      6720756E 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 23
+
+
+ 887      7369676E 
+ 887      65642069 
+ 888              	.LASF1:
+ 889 0036 756E7369 		.ascii	"unsigned char\000"
+ 889      676E6564 
+ 889      20636861 
+ 889      7200
+ 890              	.LASF15:
+ 891 0044 72656738 		.ascii	"reg8\000"
+ 891      00
+ 892              	.LASF31:
+ 893 0049 4932435F 		.ascii	"I2C_COULOMB_SaveConfig\000"
+ 893      434F554C 
+ 893      4F4D425F 
+ 893      53617665 
+ 893      436F6E66 
+ 894              	.LASF5:
+ 895 0060 6C6F6E67 		.ascii	"long unsigned int\000"
+ 895      20756E73 
+ 895      69676E65 
+ 895      6420696E 
+ 895      7400
+ 896              	.LASF30:
+ 897 0072 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 897      73657273 
+ 897      5C477261 
+ 897      7A69616E 
+ 897      6F5C4465 
+ 898 00a0 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 898      525C5665 
+ 898      72732E30 
+ 898      2E302D54 
+ 898      30352032 
+ 899 00d1 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 899      65446972 
+ 899      2E637964 
+ 899      736E00
+ 900              	.LASF22:
+ 901 00e0 4932435F 		.ascii	"I2C_COULOMB_BACKUP_STRUCT\000"
+ 901      434F554C 
+ 901      4F4D425F 
+ 901      4241434B 
+ 901      55505F53 
+ 902              	.LASF32:
+ 903 00fa 656E6162 		.ascii	"enableInterrupts\000"
+ 903      6C65496E 
+ 903      74657272 
+ 903      75707473 
+ 903      00
+ 904              	.LASF24:
+ 905 010b 4932435F 		.ascii	"I2C_COULOMB_RestoreConfig\000"
+ 905      434F554C 
+ 905      4F4D425F 
+ 905      52657374 
+ 905      6F726543 
+ 906              	.LASF23:
+ 907 0125 4932435F 		.ascii	"I2C_COULOMB_Sleep\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 24
+
+
+ 907      434F554C 
+ 907      4F4D425F 
+ 907      536C6565 
+ 907      7000
+ 908              	.LASF13:
+ 909 0137 646F7562 		.ascii	"double\000"
+ 909      6C6500
+ 910              	.LASF27:
+ 911 013e 4932435F 		.ascii	"I2C_COULOMB_Enable\000"
+ 911      434F554C 
+ 911      4F4D425F 
+ 911      456E6162 
+ 911      6C6500
+ 912              	.LASF10:
+ 913 0151 75696E74 		.ascii	"uint16\000"
+ 913      313600
+ 914              	.LASF11:
+ 915 0158 75696E74 		.ascii	"uint32\000"
+ 915      333200
+ 916              	.LASF18:
+ 917 015f 656E6162 		.ascii	"enableState\000"
+ 917      6C655374 
+ 917      61746500 
+ 918              	.LASF34:
+ 919 016b 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 919      74657243 
+ 919      72697469 
+ 919      63616C53 
+ 919      65637469 
+ 920              	.LASF8:
+ 921 0182 756E7369 		.ascii	"unsigned int\000"
+ 921      676E6564 
+ 921      20696E74 
+ 921      00
+ 922              	.LASF35:
+ 923 018f 43794578 		.ascii	"CyExitCriticalSection\000"
+ 923      69744372 
+ 923      69746963 
+ 923      616C5365 
+ 923      6374696F 
+ 924              	.LASF20:
+ 925 01a5 636C6B44 		.ascii	"clkDiv1\000"
+ 925      69763100 
+ 926              	.LASF21:
+ 927 01ad 636C6B44 		.ascii	"clkDiv2\000"
+ 927      69763200 
+ 928              	.LASF17:
+ 929 01b5 73697A65 		.ascii	"sizetype\000"
+ 929      74797065 
+ 929      00
+ 930              	.LASF6:
+ 931 01be 6C6F6E67 		.ascii	"long long int\000"
+ 931      206C6F6E 
+ 931      6720696E 
+ 931      7400
+ 932              	.LASF29:
+ 933 01cc 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\I2C_COULOMB_PM.c\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccQb7321.s 			page 25
+
+
+ 933      6E657261 
+ 933      7465645F 
+ 933      536F7572 
+ 933      63655C50 
+ 934              	.LASF19:
+ 935 01f6 78636667 		.ascii	"xcfg\000"
+ 935      00
+ 936              	.LASF2:
+ 937 01fb 73686F72 		.ascii	"short int\000"
+ 937      7420696E 
+ 937      7400
+ 938              	.LASF9:
+ 939 0205 75696E74 		.ascii	"uint8\000"
+ 939      3800
+ 940              	.LASF33:
+ 941 020b 4932435F 		.ascii	"I2C_COULOMB_backup\000"
+ 941      434F554C 
+ 941      4F4D425F 
+ 941      6261636B 
+ 941      757000
+ 942              	.LASF4:
+ 943 021e 6C6F6E67 		.ascii	"long int\000"
+ 943      20696E74 
+ 943      00
+ 944              	.LASF14:
+ 945 0227 63686172 		.ascii	"char\000"
+ 945      00
+ 946              	.LASF0:
+ 947 022c 7369676E 		.ascii	"signed char\000"
+ 947      65642063 
+ 947      68617200 
+ 948              	.LASF25:
+ 949 0238 4932435F 		.ascii	"I2C_COULOMB_Wakeup\000"
+ 949      434F554C 
+ 949      4F4D425F 
+ 949      57616B65 
+ 949      757000
+ 950              	.LASF28:
+ 951 024b 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 951      4320342E 
+ 951      372E3320 
+ 951      32303133 
+ 951      30333132 
+ 952 027e 616E6368 		.ascii	"anch revision 196615]\000"
+ 952      20726576 
+ 952      6973696F 
+ 952      6E203139 
+ 952      36363135 
+ 953              	.LASF26:
+ 954 0294 4932435F 		.ascii	"I2C_COULOMB_Stop\000"
+ 954      434F554C 
+ 954      4F4D425F 
+ 954      53746F70 
+ 954      00
+ 955              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -1,0 +1,130 @@
+/*******************************************************************************
+* File Name: ADIS16210_DOUT.h  
+* Version 1.90
+*
+* Description:
+*  This file containts Control Register function prototypes and register defines
+*
+* Note:
+*
+********************************************************************************
+* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* You may use this file only in accordance with the license, terms, conditions, 
+* disclaimers, and limitations in the end user license agreement accompanying 
+* the software package with which this file was provided.
+*******************************************************************************/
+
+#if !defined(CY_PINS_ADIS16210_DOUT_H) /* Pins ADIS16210_DOUT_H */
+#define CY_PINS_ADIS16210_DOUT_H
+
+#include "cytypes.h"
+#include "cyfitter.h"
+#include "cypins.h"
+#include "ADIS16210_DOUT_aliases.h"
+
+/* Check to see if required defines such as CY_PSOC5A are available */
+/* They are defined starting with cy_boot v3.0 */
+#if !defined (CY_PSOC5A)
+    #error Component cy_pins_v1_90 requires cy_boot v3.0 or later
+#endif /* (CY_PSOC5A) */
+
+/* APIs are not generated for P15[7:6] */
+#if !(CY_PSOC5A &&\
+	 ADIS16210_DOUT__PORT == 15 && ((ADIS16210_DOUT__MASK & 0xC0) != 0))
+
+
+/***************************************
+*        Function Prototypes             
+***************************************/    
+
+void    ADIS16210_DOUT_Write(uint8 value) ;
+void    ADIS16210_DOUT_SetDriveMode(uint8 mode) ;
+uint8   ADIS16210_DOUT_ReadDataReg(void) ;
+uint8   ADIS16210_DOUT_Read(void) ;
+uint8   ADIS16210_DOUT_ClearInterrupt(void) ;
+
+
+/***************************************
+*           API Constants        
+***************************************/
+
+/* Drive Modes */
+#define ADIS16210_DOUT_DM_ALG_HIZ         PIN_DM_ALG_HIZ
+#define ADIS16210_DOUT_DM_DIG_HIZ         PIN_DM_DIG_HIZ
+#define ADIS16210_DOUT_DM_RES_UP          PIN_DM_RES_UP
+#define ADIS16210_DOUT_DM_RES_DWN         PIN_DM_RES_DWN
+#define ADIS16210_DOUT_DM_OD_LO           PIN_DM_OD_LO
+#define ADIS16210_DOUT_DM_OD_HI           PIN_DM_OD_HI
+#define ADIS16210_DOUT_DM_STRONG          PIN_DM_STRONG
+#define ADIS16210_DOUT_DM_RES_UPDWN       PIN_DM_RES_UPDWN
+
+/* Digital Port Constants */
+#define ADIS16210_DOUT_MASK               ADIS16210_DOUT__MASK
+#define ADIS16210_DOUT_SHIFT              ADIS16210_DOUT__SHIFT
+#define ADIS16210_DOUT_WIDTH              1u
+
+
+/***************************************
+*             Registers        
+***************************************/
+
+/* Main Port Registers */
+/* Pin State */
+#define ADIS16210_DOUT_PS                     (* (reg8 *) ADIS16210_DOUT__PS)
+/* Data Register */
+#define ADIS16210_DOUT_DR                     (* (reg8 *) ADIS16210_DOUT__DR)
+/* Port Number */
+#define ADIS16210_DOUT_PRT_NUM                (* (reg8 *) ADIS16210_DOUT__PRT) 
+/* Connect to Analog Globals */                                                  
+#define ADIS16210_DOUT_AG                     (* (reg8 *) ADIS16210_DOUT__AG)                       
+/* Analog MUX bux enable */
+#define ADIS16210_DOUT_AMUX                   (* (reg8 *) ADIS16210_DOUT__AMUX) 
+/* Bidirectional Enable */                                                        
+#define ADIS16210_DOUT_BIE                    (* (reg8 *) ADIS16210_DOUT__BIE)
+/* Bit-mask for Aliased Register Access */
+#define ADIS16210_DOUT_BIT_MASK               (* (reg8 *) ADIS16210_DOUT__BIT_MASK)
+/* Bypass Enable */
+#define ADIS16210_DOUT_BYP                    (* (reg8 *) ADIS16210_DOUT__BYP)
+/* Port wide control signals */                                                   
+#define ADIS16210_DOUT_CTL                    (* (reg8 *) ADIS16210_DOUT__CTL)
+/* Drive Modes */
+#define ADIS16210_DOUT_DM0                    (* (reg8 *) ADIS16210_DOUT__DM0) 
+#define ADIS16210_DOUT_DM1                    (* (reg8 *) ADIS16210_DOUT__DM1)
+#define ADIS16210_DOUT_DM2                    (* (reg8 *) ADIS16210_DOUT__DM2) 
+/* Input Buffer Disable Override */
+#define ADIS16210_DOUT_INP_DIS                (* (reg8 *) ADIS16210_DOUT__INP_DIS)
+/* LCD Common or Segment Drive */
+#define ADIS16210_DOUT_LCD_COM_SEG            (* (reg8 *) ADIS16210_DOUT__LCD_COM_SEG)
+/* Enable Segment LCD */
+#define ADIS16210_DOUT_LCD_EN                 (* (reg8 *) ADIS16210_DOUT__LCD_EN)
+/* Slew Rate Control */
+#define ADIS16210_DOUT_SLW                    (* (reg8 *) ADIS16210_DOUT__SLW)
+
+/* DSI Port Registers */
+/* Global DSI Select Register */
+#define ADIS16210_DOUT_PRTDSI__CAPS_SEL       (* (reg8 *) ADIS16210_DOUT__PRTDSI__CAPS_SEL) 
+/* Double Sync Enable */
+#define ADIS16210_DOUT_PRTDSI__DBL_SYNC_IN    (* (reg8 *) ADIS16210_DOUT__PRTDSI__DBL_SYNC_IN) 
+/* Output Enable Select Drive Strength */
+#define ADIS16210_DOUT_PRTDSI__OE_SEL0        (* (reg8 *) ADIS16210_DOUT__PRTDSI__OE_SEL0) 
+#define ADIS16210_DOUT_PRTDSI__OE_SEL1        (* (reg8 *) ADIS16210_DOUT__PRTDSI__OE_SEL1) 
+/* Port Pin Output Select Registers */
+#define ADIS16210_DOUT_PRTDSI__OUT_SEL0       (* (reg8 *) ADIS16210_DOUT__PRTDSI__OUT_SEL0) 
+#define ADIS16210_DOUT_PRTDSI__OUT_SEL1       (* (reg8 *) ADIS16210_DOUT__PRTDSI__OUT_SEL1) 
+/* Sync Output Enable Registers */
+#define ADIS16210_DOUT_PRTDSI__SYNC_OUT       (* (reg8 *) ADIS16210_DOUT__PRTDSI__SYNC_OUT) 
+
+
+#if defined(ADIS16210_DOUT__INTSTAT)  /* Interrupt Registers */
+
+    #define ADIS16210_DOUT_INTSTAT                (* (reg8 *) ADIS16210_DOUT__INTSTAT)
+    #define ADIS16210_DOUT_SNAP                   (* (reg8 *) ADIS16210_DOUT__SNAP)
+
+#endif /* Interrupt Registers */
+
+#endif /* CY_PSOC5A... */
+
+#endif /*  CY_PINS_ADIS16210_DOUT_H */
+
+
+/* [] END OF FILE */

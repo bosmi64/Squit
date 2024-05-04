@@ -1,0 +1,1034 @@
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Status_Reg_BUTTON.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.Status_Reg_BUTTON_Read,"ax",%progbits
+  19              		.align	1
+  20              		.global	Status_Reg_BUTTON_Read
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	Status_Reg_BUTTON_Read, %function
+  24              	Status_Reg_BUTTON_Read:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\Status_Reg_BUTTON.c"
+   1:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * File Name: Status_Reg_BUTTON.c  
+   3:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Version 1.80
+   4:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+   5:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Description:
+   6:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  This file contains API to enable firmware to read the value of a Status 
+   7:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  Register.
+   8:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+   9:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Note:
+  10:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  11:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  18:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** #include "Status_Reg_BUTTON.h"
+  19:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  20:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** #if !defined(Status_Reg_BUTTON_sts_sts_reg__REMOVED) /* Check for removal by optimization */
+  21:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  22:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  23:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** /*******************************************************************************
+  24:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Function Name: Status_Reg_BUTTON_Read
+  25:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** ********************************************************************************
+  26:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  27:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Summary:
+  28:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  Reads the current value assigned to the Status Register.
+  29:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  30:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Parameters:
+  31:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  33:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Return:
+  34:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  The current value in the Status Register.
+  35:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  36:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** uint8 Status_Reg_BUTTON_Read(void) 
+  38:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** { 
+  27              		.loc 1 38 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  39:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     return Status_Reg_BUTTON_Status;
+  32              		.loc 1 39 0
+  33 0000 014B     		ldr	r3, .L2
+  34 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+  40:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
+  35              		.loc 1 40 0
+  36 0004 7047     		bx	lr
+  37              	.L3:
+  38 0006 00BF     		.align	2
+  39              	.L2:
+  40 0008 6C640040 		.word	1073767532
+  41              		.cfi_endproc
+  42              	.LFE0:
+  43              		.size	Status_Reg_BUTTON_Read, .-Status_Reg_BUTTON_Read
+  44              		.section	.text.Status_Reg_BUTTON_InterruptEnable,"ax",%progbits
+  45              		.align	1
+  46              		.global	Status_Reg_BUTTON_InterruptEnable
+  47              		.thumb
+  48              		.thumb_func
+  49              		.type	Status_Reg_BUTTON_InterruptEnable, %function
+  50              	Status_Reg_BUTTON_InterruptEnable:
+  51              	.LFB1:
+  41:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  42:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  43:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** /*******************************************************************************
+  44:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Function Name: Status_Reg_BUTTON_InterruptEnable
+  45:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  47:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Summary:
+  48:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  Enables the Status Register interrupt.
+  49:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  50:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Parameters:
+  51:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+  52:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  53:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Return:
+  54:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+  55:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  56:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** void Status_Reg_BUTTON_InterruptEnable(void) 
+  58:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** {
+  52              		.loc 1 58 0
+  53              		.cfi_startproc
+  54              		@ args = 0, pretend = 0, frame = 0
+  55              		@ frame_needed = 0, uses_anonymous_args = 0
+  56 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 3
+
+
+  57              	.LCFI0:
+  58              		.cfi_def_cfa_offset 8
+  59              		.cfi_offset 3, -8
+  60              		.cfi_offset 14, -4
+  59:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     uint8 interruptState;
+  60:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     interruptState = CyEnterCriticalSection();
+  61              		.loc 1 60 0
+  62 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+  63              	.LVL0:
+  61:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     Status_Reg_BUTTON_Status_Aux_Ctrl |= Status_Reg_BUTTON_STATUS_INTR_ENBL;
+  64              		.loc 1 61 0
+  65 0006 044B     		ldr	r3, .L5
+  66 0008 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+  67 000a 42F01001 		orr	r1, r2, #16
+  68 000e 1970     		strb	r1, [r3, #0]
+  62:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     CyExitCriticalSection(interruptState);
+  63:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
+  69              		.loc 1 63 0
+  70 0010 BDE80840 		pop	{r3, lr}
+  62:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     CyExitCriticalSection(interruptState);
+  71              		.loc 1 62 0
+  72 0014 FFF7FEBF 		b	CyExitCriticalSection
+  73              	.LVL1:
+  74              	.L6:
+  75              		.align	2
+  76              	.L5:
+  77 0018 9C640040 		.word	1073767580
+  78              		.cfi_endproc
+  79              	.LFE1:
+  80              		.size	Status_Reg_BUTTON_InterruptEnable, .-Status_Reg_BUTTON_InterruptEnable
+  81              		.section	.text.Status_Reg_BUTTON_InterruptDisable,"ax",%progbits
+  82              		.align	1
+  83              		.global	Status_Reg_BUTTON_InterruptDisable
+  84              		.thumb
+  85              		.thumb_func
+  86              		.type	Status_Reg_BUTTON_InterruptDisable, %function
+  87              	Status_Reg_BUTTON_InterruptDisable:
+  88              	.LFB2:
+  64:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  65:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  66:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** /*******************************************************************************
+  67:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Function Name: Status_Reg_BUTTON_InterruptDisable
+  68:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** ********************************************************************************
+  69:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  70:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Summary:
+  71:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  Disables the Status Register interrupt.
+  72:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  73:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Parameters:
+  74:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+  75:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  76:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Return:
+  77:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+  78:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  79:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
+  80:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** void Status_Reg_BUTTON_InterruptDisable(void) 
+  81:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** {
+  89              		.loc 1 81 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 4
+
+
+  90              		.cfi_startproc
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93 0000 08B5     		push	{r3, lr}
+  94              	.LCFI1:
+  95              		.cfi_def_cfa_offset 8
+  96              		.cfi_offset 3, -8
+  97              		.cfi_offset 14, -4
+  82:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     uint8 interruptState;
+  83:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     interruptState = CyEnterCriticalSection();
+  98              		.loc 1 83 0
+  99 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+ 100              	.LVL2:
+  84:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     Status_Reg_BUTTON_Status_Aux_Ctrl &= (uint8)(~Status_Reg_BUTTON_STATUS_INTR_ENBL);
+ 101              		.loc 1 84 0
+ 102 0006 044B     		ldr	r3, .L8
+ 103 0008 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 104 000a 02F0EF01 		and	r1, r2, #239
+ 105 000e 1970     		strb	r1, [r3, #0]
+  85:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     CyExitCriticalSection(interruptState);
+  86:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
+ 106              		.loc 1 86 0
+ 107 0010 BDE80840 		pop	{r3, lr}
+  85:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     CyExitCriticalSection(interruptState);
+ 108              		.loc 1 85 0
+ 109 0014 FFF7FEBF 		b	CyExitCriticalSection
+ 110              	.LVL3:
+ 111              	.L9:
+ 112              		.align	2
+ 113              	.L8:
+ 114 0018 9C640040 		.word	1073767580
+ 115              		.cfi_endproc
+ 116              	.LFE2:
+ 117              		.size	Status_Reg_BUTTON_InterruptDisable, .-Status_Reg_BUTTON_InterruptDisable
+ 118              		.section	.text.Status_Reg_BUTTON_WriteMask,"ax",%progbits
+ 119              		.align	1
+ 120              		.global	Status_Reg_BUTTON_WriteMask
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.type	Status_Reg_BUTTON_WriteMask, %function
+ 124              	Status_Reg_BUTTON_WriteMask:
+ 125              	.LFB3:
+  87:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  88:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+  89:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** /*******************************************************************************
+  90:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Function Name: Status_Reg_BUTTON_WriteMask
+  91:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** ********************************************************************************
+  92:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  93:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Summary:
+  94:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  Writes the current mask value assigned to the Status Register.
+  95:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  96:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Parameters:
+  97:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  mask:  Value to write into the mask register.
+  98:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+  99:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Return:
+ 100:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+ 101:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 5
+
+
+ 102:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
+ 103:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** void Status_Reg_BUTTON_WriteMask(uint8 mask) 
+ 104:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** {
+ 126              		.loc 1 104 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131              	.LVL4:
+ 105:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     #if(Status_Reg_BUTTON_INPUTS < 8u)
+ 106:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     	mask &= (uint8)((((uint8)1u) << Status_Reg_BUTTON_INPUTS) - 1u);
+ 107:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 	#endif /* End Status_Reg_BUTTON_INPUTS < 8u */
+ 108:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     Status_Reg_BUTTON_Status_Mask = mask;
+ 132              		.loc 1 108 0
+ 133 0000 024B     		ldr	r3, .L11
+ 106:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     	mask &= (uint8)((((uint8)1u) << Status_Reg_BUTTON_INPUTS) - 1u);
+ 134              		.loc 1 106 0
+ 135 0002 00F00700 		and	r0, r0, #7
+ 136              	.LVL5:
+ 137              		.loc 1 108 0
+ 138 0006 1870     		strb	r0, [r3, #0]
+ 139 0008 7047     		bx	lr
+ 140              	.L12:
+ 141 000a 00BF     		.align	2
+ 142              	.L11:
+ 143 000c 8C640040 		.word	1073767564
+ 144              		.cfi_endproc
+ 145              	.LFE3:
+ 146              		.size	Status_Reg_BUTTON_WriteMask, .-Status_Reg_BUTTON_WriteMask
+ 147              		.section	.text.Status_Reg_BUTTON_ReadMask,"ax",%progbits
+ 148              		.align	1
+ 149              		.global	Status_Reg_BUTTON_ReadMask
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.type	Status_Reg_BUTTON_ReadMask, %function
+ 153              	Status_Reg_BUTTON_ReadMask:
+ 154              	.LFB4:
+ 109:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
+ 110:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+ 111:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
+ 112:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** /*******************************************************************************
+ 113:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Function Name: Status_Reg_BUTTON_ReadMask
+ 114:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** ********************************************************************************
+ 115:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+ 116:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Summary:
+ 117:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  Reads the current interrupt mask assigned to the Status Register.
+ 118:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+ 119:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Parameters:
+ 120:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
+ 121:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+ 122:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Return:
+ 123:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  The value of the interrupt mask of the Status Register.
+ 124:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
+ 125:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
+ 126:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** uint8 Status_Reg_BUTTON_ReadMask(void) 
+ 127:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** {
+ 155              		.loc 1 127 0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 6
+
+
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+ 128:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     return Status_Reg_BUTTON_Status_Mask;
+ 160              		.loc 1 128 0
+ 161 0000 014B     		ldr	r3, .L14
+ 162 0002 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 129:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
+ 163              		.loc 1 129 0
+ 164 0004 7047     		bx	lr
+ 165              	.L15:
+ 166 0006 00BF     		.align	2
+ 167              	.L14:
+ 168 0008 8C640040 		.word	1073767564
+ 169              		.cfi_endproc
+ 170              	.LFE4:
+ 171              		.size	Status_Reg_BUTTON_ReadMask, .-Status_Reg_BUTTON_ReadMask
+ 172              		.text
+ 173              	.Letext0:
+ 174              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 175              		.file 3 ".\\Generated_Source\\PSoC5\\CyLib.h"
+ 176              		.section	.debug_info,"",%progbits
+ 177              	.Ldebug_info0:
+ 178 0000 96010000 		.4byte	0x196
+ 179 0004 0200     		.2byte	0x2
+ 180 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 181 000a 04       		.byte	0x4
+ 182 000b 01       		.uleb128 0x1
+ 183 000c 81000000 		.4byte	.LASF21
+ 184 0010 01       		.byte	0x1
+ 185 0011 1B000000 		.4byte	.LASF22
+ 186 0015 15010000 		.4byte	.LASF23
+ 187 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 188 001d 00000000 		.4byte	0
+ 189 0021 00000000 		.4byte	0
+ 190 0025 00000000 		.4byte	.Ldebug_line0
+ 191 0029 02       		.uleb128 0x2
+ 192 002a 01       		.byte	0x1
+ 193 002b 06       		.byte	0x6
+ 194 002c DF010000 		.4byte	.LASF0
+ 195 0030 02       		.uleb128 0x2
+ 196 0031 01       		.byte	0x1
+ 197 0032 08       		.byte	0x8
+ 198 0033 88010000 		.4byte	.LASF1
+ 199 0037 02       		.uleb128 0x2
+ 200 0038 02       		.byte	0x2
+ 201 0039 05       		.byte	0x5
+ 202 003a A4010000 		.4byte	.LASF2
+ 203 003e 02       		.uleb128 0x2
+ 204 003f 02       		.byte	0x2
+ 205 0040 07       		.byte	0x7
+ 206 0041 CC010000 		.4byte	.LASF3
+ 207 0045 02       		.uleb128 0x2
+ 208 0046 04       		.byte	0x4
+ 209 0047 05       		.byte	0x5
+ 210 0048 9B010000 		.4byte	.LASF4
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 7
+
+
+ 211 004c 02       		.uleb128 0x2
+ 212 004d 04       		.byte	0x4
+ 213 004e 07       		.byte	0x7
+ 214 004f D0000000 		.4byte	.LASF5
+ 215 0053 02       		.uleb128 0x2
+ 216 0054 08       		.byte	0x8
+ 217 0055 05       		.byte	0x5
+ 218 0056 00000000 		.4byte	.LASF6
+ 219 005a 02       		.uleb128 0x2
+ 220 005b 08       		.byte	0x8
+ 221 005c 07       		.byte	0x7
+ 222 005d E2000000 		.4byte	.LASF7
+ 223 0061 03       		.uleb128 0x3
+ 224 0062 04       		.byte	0x4
+ 225 0063 05       		.byte	0x5
+ 226 0064 696E7400 		.ascii	"int\000"
+ 227 0068 02       		.uleb128 0x2
+ 228 0069 04       		.byte	0x4
+ 229 006a 07       		.byte	0x7
+ 230 006b 0E000000 		.4byte	.LASF8
+ 231 006f 04       		.uleb128 0x4
+ 232 0070 CA000000 		.4byte	.LASF12
+ 233 0074 02       		.byte	0x2
+ 234 0075 5B       		.byte	0x5b
+ 235 0076 30000000 		.4byte	0x30
+ 236 007a 02       		.uleb128 0x2
+ 237 007b 04       		.byte	0x4
+ 238 007c 04       		.byte	0x4
+ 239 007d 1C020000 		.4byte	.LASF9
+ 240 0081 02       		.uleb128 0x2
+ 241 0082 08       		.byte	0x8
+ 242 0083 04       		.byte	0x4
+ 243 0084 AE010000 		.4byte	.LASF10
+ 244 0088 02       		.uleb128 0x2
+ 245 0089 01       		.byte	0x1
+ 246 008a 08       		.byte	0x8
+ 247 008b 96010000 		.4byte	.LASF11
+ 248 008f 04       		.uleb128 0x4
+ 249 0090 45020000 		.4byte	.LASF13
+ 250 0094 02       		.byte	0x2
+ 251 0095 F0       		.byte	0xf0
+ 252 0096 9A000000 		.4byte	0x9a
+ 253 009a 05       		.uleb128 0x5
+ 254 009b 6F000000 		.4byte	0x6f
+ 255 009f 02       		.uleb128 0x2
+ 256 00a0 04       		.byte	0x4
+ 257 00a1 07       		.byte	0x7
+ 258 00a2 4A020000 		.4byte	.LASF14
+ 259 00a6 06       		.uleb128 0x6
+ 260 00a7 01       		.byte	0x1
+ 261 00a8 B5010000 		.4byte	.LASF19
+ 262 00ac 01       		.byte	0x1
+ 263 00ad 25       		.byte	0x25
+ 264 00ae 01       		.byte	0x1
+ 265 00af 6F000000 		.4byte	0x6f
+ 266 00b3 00000000 		.4byte	.LFB0
+ 267 00b7 0C000000 		.4byte	.LFE0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 8
+
+
+ 268 00bb 02       		.byte	0x2
+ 269 00bc 7D       		.byte	0x7d
+ 270 00bd 00       		.sleb128 0
+ 271 00be 01       		.byte	0x1
+ 272 00bf 07       		.uleb128 0x7
+ 273 00c0 01       		.byte	0x1
+ 274 00c1 5F000000 		.4byte	.LASF15
+ 275 00c5 01       		.byte	0x1
+ 276 00c6 39       		.byte	0x39
+ 277 00c7 01       		.byte	0x1
+ 278 00c8 00000000 		.4byte	.LFB1
+ 279 00cc 1C000000 		.4byte	.LFE1
+ 280 00d0 00000000 		.4byte	.LLST0
+ 281 00d4 01       		.byte	0x1
+ 282 00d5 FC000000 		.4byte	0xfc
+ 283 00d9 08       		.uleb128 0x8
+ 284 00da 53020000 		.4byte	.LASF17
+ 285 00de 01       		.byte	0x1
+ 286 00df 3B       		.byte	0x3b
+ 287 00e0 6F000000 		.4byte	0x6f
+ 288 00e4 20000000 		.4byte	.LLST1
+ 289 00e8 09       		.uleb128 0x9
+ 290 00e9 06000000 		.4byte	.LVL0
+ 291 00ed 7B010000 		.4byte	0x17b
+ 292 00f1 0A       		.uleb128 0xa
+ 293 00f2 18000000 		.4byte	.LVL1
+ 294 00f6 01       		.byte	0x1
+ 295 00f7 89010000 		.4byte	0x189
+ 296 00fb 00       		.byte	0
+ 297 00fc 07       		.uleb128 0x7
+ 298 00fd 01       		.byte	0x1
+ 299 00fe 22020000 		.4byte	.LASF16
+ 300 0102 01       		.byte	0x1
+ 301 0103 50       		.byte	0x50
+ 302 0104 01       		.byte	0x1
+ 303 0105 00000000 		.4byte	.LFB2
+ 304 0109 1C000000 		.4byte	.LFE2
+ 305 010d 33000000 		.4byte	.LLST2
+ 306 0111 01       		.byte	0x1
+ 307 0112 39010000 		.4byte	0x139
+ 308 0116 08       		.uleb128 0x8
+ 309 0117 53020000 		.4byte	.LASF17
+ 310 011b 01       		.byte	0x1
+ 311 011c 52       		.byte	0x52
+ 312 011d 6F000000 		.4byte	0x6f
+ 313 0121 53000000 		.4byte	.LLST3
+ 314 0125 09       		.uleb128 0x9
+ 315 0126 06000000 		.4byte	.LVL2
+ 316 012a 7B010000 		.4byte	0x17b
+ 317 012e 0A       		.uleb128 0xa
+ 318 012f 18000000 		.4byte	.LVL3
+ 319 0133 01       		.byte	0x1
+ 320 0134 89010000 		.4byte	0x189
+ 321 0138 00       		.byte	0
+ 322 0139 0B       		.uleb128 0xb
+ 323 013a 01       		.byte	0x1
+ 324 013b F9000000 		.4byte	.LASF18
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 9
+
+
+ 325 013f 01       		.byte	0x1
+ 326 0140 67       		.byte	0x67
+ 327 0141 01       		.byte	0x1
+ 328 0142 00000000 		.4byte	.LFB3
+ 329 0146 10000000 		.4byte	.LFE3
+ 330 014a 02       		.byte	0x2
+ 331 014b 7D       		.byte	0x7d
+ 332 014c 00       		.sleb128 0
+ 333 014d 01       		.byte	0x1
+ 334 014e 62010000 		.4byte	0x162
+ 335 0152 0C       		.uleb128 0xc
+ 336 0153 83010000 		.4byte	.LASF24
+ 337 0157 01       		.byte	0x1
+ 338 0158 67       		.byte	0x67
+ 339 0159 6F000000 		.4byte	0x6f
+ 340 015d 66000000 		.4byte	.LLST4
+ 341 0161 00       		.byte	0
+ 342 0162 06       		.uleb128 0x6
+ 343 0163 01       		.byte	0x1
+ 344 0164 EB010000 		.4byte	.LASF20
+ 345 0168 01       		.byte	0x1
+ 346 0169 7E       		.byte	0x7e
+ 347 016a 01       		.byte	0x1
+ 348 016b 6F000000 		.4byte	0x6f
+ 349 016f 00000000 		.4byte	.LFB4
+ 350 0173 0C000000 		.4byte	.LFE4
+ 351 0177 02       		.byte	0x2
+ 352 0178 7D       		.byte	0x7d
+ 353 0179 00       		.sleb128 0
+ 354 017a 01       		.byte	0x1
+ 355 017b 0D       		.uleb128 0xd
+ 356 017c 01       		.byte	0x1
+ 357 017d 48000000 		.4byte	.LASF25
+ 358 0181 03       		.byte	0x3
+ 359 0182 7E       		.byte	0x7e
+ 360 0183 01       		.byte	0x1
+ 361 0184 6F000000 		.4byte	0x6f
+ 362 0188 01       		.byte	0x1
+ 363 0189 0E       		.uleb128 0xe
+ 364 018a 01       		.byte	0x1
+ 365 018b 06020000 		.4byte	.LASF26
+ 366 018f 03       		.byte	0x3
+ 367 0190 7F       		.byte	0x7f
+ 368 0191 01       		.byte	0x1
+ 369 0192 01       		.byte	0x1
+ 370 0193 0F       		.uleb128 0xf
+ 371 0194 6F000000 		.4byte	0x6f
+ 372 0198 00       		.byte	0
+ 373 0199 00       		.byte	0
+ 374              		.section	.debug_abbrev,"",%progbits
+ 375              	.Ldebug_abbrev0:
+ 376 0000 01       		.uleb128 0x1
+ 377 0001 11       		.uleb128 0x11
+ 378 0002 01       		.byte	0x1
+ 379 0003 25       		.uleb128 0x25
+ 380 0004 0E       		.uleb128 0xe
+ 381 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 10
+
+
+ 382 0006 0B       		.uleb128 0xb
+ 383 0007 03       		.uleb128 0x3
+ 384 0008 0E       		.uleb128 0xe
+ 385 0009 1B       		.uleb128 0x1b
+ 386 000a 0E       		.uleb128 0xe
+ 387 000b 55       		.uleb128 0x55
+ 388 000c 06       		.uleb128 0x6
+ 389 000d 11       		.uleb128 0x11
+ 390 000e 01       		.uleb128 0x1
+ 391 000f 52       		.uleb128 0x52
+ 392 0010 01       		.uleb128 0x1
+ 393 0011 10       		.uleb128 0x10
+ 394 0012 06       		.uleb128 0x6
+ 395 0013 00       		.byte	0
+ 396 0014 00       		.byte	0
+ 397 0015 02       		.uleb128 0x2
+ 398 0016 24       		.uleb128 0x24
+ 399 0017 00       		.byte	0
+ 400 0018 0B       		.uleb128 0xb
+ 401 0019 0B       		.uleb128 0xb
+ 402 001a 3E       		.uleb128 0x3e
+ 403 001b 0B       		.uleb128 0xb
+ 404 001c 03       		.uleb128 0x3
+ 405 001d 0E       		.uleb128 0xe
+ 406 001e 00       		.byte	0
+ 407 001f 00       		.byte	0
+ 408 0020 03       		.uleb128 0x3
+ 409 0021 24       		.uleb128 0x24
+ 410 0022 00       		.byte	0
+ 411 0023 0B       		.uleb128 0xb
+ 412 0024 0B       		.uleb128 0xb
+ 413 0025 3E       		.uleb128 0x3e
+ 414 0026 0B       		.uleb128 0xb
+ 415 0027 03       		.uleb128 0x3
+ 416 0028 08       		.uleb128 0x8
+ 417 0029 00       		.byte	0
+ 418 002a 00       		.byte	0
+ 419 002b 04       		.uleb128 0x4
+ 420 002c 16       		.uleb128 0x16
+ 421 002d 00       		.byte	0
+ 422 002e 03       		.uleb128 0x3
+ 423 002f 0E       		.uleb128 0xe
+ 424 0030 3A       		.uleb128 0x3a
+ 425 0031 0B       		.uleb128 0xb
+ 426 0032 3B       		.uleb128 0x3b
+ 427 0033 0B       		.uleb128 0xb
+ 428 0034 49       		.uleb128 0x49
+ 429 0035 13       		.uleb128 0x13
+ 430 0036 00       		.byte	0
+ 431 0037 00       		.byte	0
+ 432 0038 05       		.uleb128 0x5
+ 433 0039 35       		.uleb128 0x35
+ 434 003a 00       		.byte	0
+ 435 003b 49       		.uleb128 0x49
+ 436 003c 13       		.uleb128 0x13
+ 437 003d 00       		.byte	0
+ 438 003e 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 11
+
+
+ 439 003f 06       		.uleb128 0x6
+ 440 0040 2E       		.uleb128 0x2e
+ 441 0041 00       		.byte	0
+ 442 0042 3F       		.uleb128 0x3f
+ 443 0043 0C       		.uleb128 0xc
+ 444 0044 03       		.uleb128 0x3
+ 445 0045 0E       		.uleb128 0xe
+ 446 0046 3A       		.uleb128 0x3a
+ 447 0047 0B       		.uleb128 0xb
+ 448 0048 3B       		.uleb128 0x3b
+ 449 0049 0B       		.uleb128 0xb
+ 450 004a 27       		.uleb128 0x27
+ 451 004b 0C       		.uleb128 0xc
+ 452 004c 49       		.uleb128 0x49
+ 453 004d 13       		.uleb128 0x13
+ 454 004e 11       		.uleb128 0x11
+ 455 004f 01       		.uleb128 0x1
+ 456 0050 12       		.uleb128 0x12
+ 457 0051 01       		.uleb128 0x1
+ 458 0052 40       		.uleb128 0x40
+ 459 0053 0A       		.uleb128 0xa
+ 460 0054 9742     		.uleb128 0x2117
+ 461 0056 0C       		.uleb128 0xc
+ 462 0057 00       		.byte	0
+ 463 0058 00       		.byte	0
+ 464 0059 07       		.uleb128 0x7
+ 465 005a 2E       		.uleb128 0x2e
+ 466 005b 01       		.byte	0x1
+ 467 005c 3F       		.uleb128 0x3f
+ 468 005d 0C       		.uleb128 0xc
+ 469 005e 03       		.uleb128 0x3
+ 470 005f 0E       		.uleb128 0xe
+ 471 0060 3A       		.uleb128 0x3a
+ 472 0061 0B       		.uleb128 0xb
+ 473 0062 3B       		.uleb128 0x3b
+ 474 0063 0B       		.uleb128 0xb
+ 475 0064 27       		.uleb128 0x27
+ 476 0065 0C       		.uleb128 0xc
+ 477 0066 11       		.uleb128 0x11
+ 478 0067 01       		.uleb128 0x1
+ 479 0068 12       		.uleb128 0x12
+ 480 0069 01       		.uleb128 0x1
+ 481 006a 40       		.uleb128 0x40
+ 482 006b 06       		.uleb128 0x6
+ 483 006c 9742     		.uleb128 0x2117
+ 484 006e 0C       		.uleb128 0xc
+ 485 006f 01       		.uleb128 0x1
+ 486 0070 13       		.uleb128 0x13
+ 487 0071 00       		.byte	0
+ 488 0072 00       		.byte	0
+ 489 0073 08       		.uleb128 0x8
+ 490 0074 34       		.uleb128 0x34
+ 491 0075 00       		.byte	0
+ 492 0076 03       		.uleb128 0x3
+ 493 0077 0E       		.uleb128 0xe
+ 494 0078 3A       		.uleb128 0x3a
+ 495 0079 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 12
+
+
+ 496 007a 3B       		.uleb128 0x3b
+ 497 007b 0B       		.uleb128 0xb
+ 498 007c 49       		.uleb128 0x49
+ 499 007d 13       		.uleb128 0x13
+ 500 007e 02       		.uleb128 0x2
+ 501 007f 06       		.uleb128 0x6
+ 502 0080 00       		.byte	0
+ 503 0081 00       		.byte	0
+ 504 0082 09       		.uleb128 0x9
+ 505 0083 898201   		.uleb128 0x4109
+ 506 0086 00       		.byte	0
+ 507 0087 11       		.uleb128 0x11
+ 508 0088 01       		.uleb128 0x1
+ 509 0089 31       		.uleb128 0x31
+ 510 008a 13       		.uleb128 0x13
+ 511 008b 00       		.byte	0
+ 512 008c 00       		.byte	0
+ 513 008d 0A       		.uleb128 0xa
+ 514 008e 898201   		.uleb128 0x4109
+ 515 0091 00       		.byte	0
+ 516 0092 11       		.uleb128 0x11
+ 517 0093 01       		.uleb128 0x1
+ 518 0094 9542     		.uleb128 0x2115
+ 519 0096 0C       		.uleb128 0xc
+ 520 0097 31       		.uleb128 0x31
+ 521 0098 13       		.uleb128 0x13
+ 522 0099 00       		.byte	0
+ 523 009a 00       		.byte	0
+ 524 009b 0B       		.uleb128 0xb
+ 525 009c 2E       		.uleb128 0x2e
+ 526 009d 01       		.byte	0x1
+ 527 009e 3F       		.uleb128 0x3f
+ 528 009f 0C       		.uleb128 0xc
+ 529 00a0 03       		.uleb128 0x3
+ 530 00a1 0E       		.uleb128 0xe
+ 531 00a2 3A       		.uleb128 0x3a
+ 532 00a3 0B       		.uleb128 0xb
+ 533 00a4 3B       		.uleb128 0x3b
+ 534 00a5 0B       		.uleb128 0xb
+ 535 00a6 27       		.uleb128 0x27
+ 536 00a7 0C       		.uleb128 0xc
+ 537 00a8 11       		.uleb128 0x11
+ 538 00a9 01       		.uleb128 0x1
+ 539 00aa 12       		.uleb128 0x12
+ 540 00ab 01       		.uleb128 0x1
+ 541 00ac 40       		.uleb128 0x40
+ 542 00ad 0A       		.uleb128 0xa
+ 543 00ae 9742     		.uleb128 0x2117
+ 544 00b0 0C       		.uleb128 0xc
+ 545 00b1 01       		.uleb128 0x1
+ 546 00b2 13       		.uleb128 0x13
+ 547 00b3 00       		.byte	0
+ 548 00b4 00       		.byte	0
+ 549 00b5 0C       		.uleb128 0xc
+ 550 00b6 05       		.uleb128 0x5
+ 551 00b7 00       		.byte	0
+ 552 00b8 03       		.uleb128 0x3
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 13
+
+
+ 553 00b9 0E       		.uleb128 0xe
+ 554 00ba 3A       		.uleb128 0x3a
+ 555 00bb 0B       		.uleb128 0xb
+ 556 00bc 3B       		.uleb128 0x3b
+ 557 00bd 0B       		.uleb128 0xb
+ 558 00be 49       		.uleb128 0x49
+ 559 00bf 13       		.uleb128 0x13
+ 560 00c0 02       		.uleb128 0x2
+ 561 00c1 06       		.uleb128 0x6
+ 562 00c2 00       		.byte	0
+ 563 00c3 00       		.byte	0
+ 564 00c4 0D       		.uleb128 0xd
+ 565 00c5 2E       		.uleb128 0x2e
+ 566 00c6 00       		.byte	0
+ 567 00c7 3F       		.uleb128 0x3f
+ 568 00c8 0C       		.uleb128 0xc
+ 569 00c9 03       		.uleb128 0x3
+ 570 00ca 0E       		.uleb128 0xe
+ 571 00cb 3A       		.uleb128 0x3a
+ 572 00cc 0B       		.uleb128 0xb
+ 573 00cd 3B       		.uleb128 0x3b
+ 574 00ce 0B       		.uleb128 0xb
+ 575 00cf 27       		.uleb128 0x27
+ 576 00d0 0C       		.uleb128 0xc
+ 577 00d1 49       		.uleb128 0x49
+ 578 00d2 13       		.uleb128 0x13
+ 579 00d3 3C       		.uleb128 0x3c
+ 580 00d4 0C       		.uleb128 0xc
+ 581 00d5 00       		.byte	0
+ 582 00d6 00       		.byte	0
+ 583 00d7 0E       		.uleb128 0xe
+ 584 00d8 2E       		.uleb128 0x2e
+ 585 00d9 01       		.byte	0x1
+ 586 00da 3F       		.uleb128 0x3f
+ 587 00db 0C       		.uleb128 0xc
+ 588 00dc 03       		.uleb128 0x3
+ 589 00dd 0E       		.uleb128 0xe
+ 590 00de 3A       		.uleb128 0x3a
+ 591 00df 0B       		.uleb128 0xb
+ 592 00e0 3B       		.uleb128 0x3b
+ 593 00e1 0B       		.uleb128 0xb
+ 594 00e2 27       		.uleb128 0x27
+ 595 00e3 0C       		.uleb128 0xc
+ 596 00e4 3C       		.uleb128 0x3c
+ 597 00e5 0C       		.uleb128 0xc
+ 598 00e6 00       		.byte	0
+ 599 00e7 00       		.byte	0
+ 600 00e8 0F       		.uleb128 0xf
+ 601 00e9 05       		.uleb128 0x5
+ 602 00ea 00       		.byte	0
+ 603 00eb 49       		.uleb128 0x49
+ 604 00ec 13       		.uleb128 0x13
+ 605 00ed 00       		.byte	0
+ 606 00ee 00       		.byte	0
+ 607 00ef 00       		.byte	0
+ 608              		.section	.debug_loc,"",%progbits
+ 609              	.Ldebug_loc0:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 14
+
+
+ 610              	.LLST0:
+ 611 0000 00000000 		.4byte	.LFB1
+ 612 0004 02000000 		.4byte	.LCFI0
+ 613 0008 0200     		.2byte	0x2
+ 614 000a 7D       		.byte	0x7d
+ 615 000b 00       		.sleb128 0
+ 616 000c 02000000 		.4byte	.LCFI0
+ 617 0010 1C000000 		.4byte	.LFE1
+ 618 0014 0200     		.2byte	0x2
+ 619 0016 7D       		.byte	0x7d
+ 620 0017 08       		.sleb128 8
+ 621 0018 00000000 		.4byte	0
+ 622 001c 00000000 		.4byte	0
+ 623              	.LLST1:
+ 624 0020 06000000 		.4byte	.LVL0
+ 625 0024 17000000 		.4byte	.LVL1-1
+ 626 0028 0100     		.2byte	0x1
+ 627 002a 50       		.byte	0x50
+ 628 002b 00000000 		.4byte	0
+ 629 002f 00000000 		.4byte	0
+ 630              	.LLST2:
+ 631 0033 00000000 		.4byte	.LFB2
+ 632 0037 02000000 		.4byte	.LCFI1
+ 633 003b 0200     		.2byte	0x2
+ 634 003d 7D       		.byte	0x7d
+ 635 003e 00       		.sleb128 0
+ 636 003f 02000000 		.4byte	.LCFI1
+ 637 0043 1C000000 		.4byte	.LFE2
+ 638 0047 0200     		.2byte	0x2
+ 639 0049 7D       		.byte	0x7d
+ 640 004a 08       		.sleb128 8
+ 641 004b 00000000 		.4byte	0
+ 642 004f 00000000 		.4byte	0
+ 643              	.LLST3:
+ 644 0053 06000000 		.4byte	.LVL2
+ 645 0057 17000000 		.4byte	.LVL3-1
+ 646 005b 0100     		.2byte	0x1
+ 647 005d 50       		.byte	0x50
+ 648 005e 00000000 		.4byte	0
+ 649 0062 00000000 		.4byte	0
+ 650              	.LLST4:
+ 651 0066 00000000 		.4byte	.LVL4
+ 652 006a 06000000 		.4byte	.LVL5
+ 653 006e 0100     		.2byte	0x1
+ 654 0070 50       		.byte	0x50
+ 655 0071 06000000 		.4byte	.LVL5
+ 656 0075 10000000 		.4byte	.LFE3
+ 657 0079 0100     		.2byte	0x1
+ 658 007b 50       		.byte	0x50
+ 659 007c 00000000 		.4byte	0
+ 660 0080 00000000 		.4byte	0
+ 661              		.section	.debug_aranges,"",%progbits
+ 662 0000 3C000000 		.4byte	0x3c
+ 663 0004 0200     		.2byte	0x2
+ 664 0006 00000000 		.4byte	.Ldebug_info0
+ 665 000a 04       		.byte	0x4
+ 666 000b 00       		.byte	0
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 15
+
+
+ 667 000c 0000     		.2byte	0
+ 668 000e 0000     		.2byte	0
+ 669 0010 00000000 		.4byte	.LFB0
+ 670 0014 0C000000 		.4byte	.LFE0-.LFB0
+ 671 0018 00000000 		.4byte	.LFB1
+ 672 001c 1C000000 		.4byte	.LFE1-.LFB1
+ 673 0020 00000000 		.4byte	.LFB2
+ 674 0024 1C000000 		.4byte	.LFE2-.LFB2
+ 675 0028 00000000 		.4byte	.LFB3
+ 676 002c 10000000 		.4byte	.LFE3-.LFB3
+ 677 0030 00000000 		.4byte	.LFB4
+ 678 0034 0C000000 		.4byte	.LFE4-.LFB4
+ 679 0038 00000000 		.4byte	0
+ 680 003c 00000000 		.4byte	0
+ 681              		.section	.debug_ranges,"",%progbits
+ 682              	.Ldebug_ranges0:
+ 683 0000 00000000 		.4byte	.LFB0
+ 684 0004 0C000000 		.4byte	.LFE0
+ 685 0008 00000000 		.4byte	.LFB1
+ 686 000c 1C000000 		.4byte	.LFE1
+ 687 0010 00000000 		.4byte	.LFB2
+ 688 0014 1C000000 		.4byte	.LFE2
+ 689 0018 00000000 		.4byte	.LFB3
+ 690 001c 10000000 		.4byte	.LFE3
+ 691 0020 00000000 		.4byte	.LFB4
+ 692 0024 0C000000 		.4byte	.LFE4
+ 693 0028 00000000 		.4byte	0
+ 694 002c 00000000 		.4byte	0
+ 695              		.section	.debug_line,"",%progbits
+ 696              	.Ldebug_line0:
+ 697 0000 BE000000 		.section	.debug_str,"MS",%progbits,1
+ 697      02005B00 
+ 697      00000201 
+ 697      FB0E0D00 
+ 697      01010101 
+ 698              	.LASF6:
+ 699 0000 6C6F6E67 		.ascii	"long long int\000"
+ 699      206C6F6E 
+ 699      6720696E 
+ 699      7400
+ 700              	.LASF8:
+ 701 000e 756E7369 		.ascii	"unsigned int\000"
+ 701      676E6564 
+ 701      20696E74 
+ 701      00
+ 702              	.LASF22:
+ 703 001b 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Status_Reg_BUTTON.c\000"
+ 703      6E657261 
+ 703      7465645F 
+ 703      536F7572 
+ 703      63655C50 
+ 704              	.LASF25:
+ 705 0048 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 705      74657243 
+ 705      72697469 
+ 705      63616C53 
+ 705      65637469 
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 16
+
+
+ 706              	.LASF15:
+ 707 005f 53746174 		.ascii	"Status_Reg_BUTTON_InterruptEnable\000"
+ 707      75735F52 
+ 707      65675F42 
+ 707      5554544F 
+ 707      4E5F496E 
+ 708              	.LASF21:
+ 709 0081 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 709      4320342E 
+ 709      372E3320 
+ 709      32303133 
+ 709      30333132 
+ 710 00b4 616E6368 		.ascii	"anch revision 196615]\000"
+ 710      20726576 
+ 710      6973696F 
+ 710      6E203139 
+ 710      36363135 
+ 711              	.LASF12:
+ 712 00ca 75696E74 		.ascii	"uint8\000"
+ 712      3800
+ 713              	.LASF5:
+ 714 00d0 6C6F6E67 		.ascii	"long unsigned int\000"
+ 714      20756E73 
+ 714      69676E65 
+ 714      6420696E 
+ 714      7400
+ 715              	.LASF7:
+ 716 00e2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 716      206C6F6E 
+ 716      6720756E 
+ 716      7369676E 
+ 716      65642069 
+ 717              	.LASF18:
+ 718 00f9 53746174 		.ascii	"Status_Reg_BUTTON_WriteMask\000"
+ 718      75735F52 
+ 718      65675F42 
+ 718      5554544F 
+ 718      4E5F5772 
+ 719              	.LASF23:
+ 720 0115 433A5C55 		.ascii	"C:\\Users\\Graziano\\Desktop\\PSOC CODES\\GOBEE DIR"
+ 720      73657273 
+ 720      5C477261 
+ 720      7A69616E 
+ 720      6F5C4465 
+ 721 0143 4543544F 		.ascii	"ECTOR\\Vers.0.0-T05 2017-0201 C3.0 (test board V)\\"
+ 721      525C5665 
+ 721      72732E30 
+ 721      2E302D54 
+ 721      30352032 
+ 722 0174 476F6265 		.ascii	"GobeeDir.cydsn\000"
+ 722      65446972 
+ 722      2E637964 
+ 722      736E00
+ 723              	.LASF24:
+ 724 0183 6D61736B 		.ascii	"mask\000"
+ 724      00
+ 725              	.LASF1:
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 17
+
+
+ 726 0188 756E7369 		.ascii	"unsigned char\000"
+ 726      676E6564 
+ 726      20636861 
+ 726      7200
+ 727              	.LASF11:
+ 728 0196 63686172 		.ascii	"char\000"
+ 728      00
+ 729              	.LASF4:
+ 730 019b 6C6F6E67 		.ascii	"long int\000"
+ 730      20696E74 
+ 730      00
+ 731              	.LASF2:
+ 732 01a4 73686F72 		.ascii	"short int\000"
+ 732      7420696E 
+ 732      7400
+ 733              	.LASF10:
+ 734 01ae 646F7562 		.ascii	"double\000"
+ 734      6C6500
+ 735              	.LASF19:
+ 736 01b5 53746174 		.ascii	"Status_Reg_BUTTON_Read\000"
+ 736      75735F52 
+ 736      65675F42 
+ 736      5554544F 
+ 736      4E5F5265 
+ 737              	.LASF3:
+ 738 01cc 73686F72 		.ascii	"short unsigned int\000"
+ 738      7420756E 
+ 738      7369676E 
+ 738      65642069 
+ 738      6E7400
+ 739              	.LASF0:
+ 740 01df 7369676E 		.ascii	"signed char\000"
+ 740      65642063 
+ 740      68617200 
+ 741              	.LASF20:
+ 742 01eb 53746174 		.ascii	"Status_Reg_BUTTON_ReadMask\000"
+ 742      75735F52 
+ 742      65675F42 
+ 742      5554544F 
+ 742      4E5F5265 
+ 743              	.LASF26:
+ 744 0206 43794578 		.ascii	"CyExitCriticalSection\000"
+ 744      69744372 
+ 744      69746963 
+ 744      616C5365 
+ 744      6374696F 
+ 745              	.LASF9:
+ 746 021c 666C6F61 		.ascii	"float\000"
+ 746      7400
+ 747              	.LASF16:
+ 748 0222 53746174 		.ascii	"Status_Reg_BUTTON_InterruptDisable\000"
+ 748      75735F52 
+ 748      65675F42 
+ 748      5554544F 
+ 748      4E5F496E 
+ 749              	.LASF13:
+ 750 0245 72656738 		.ascii	"reg8\000"
+ARM GAS  C:\Users\Graziano\AppData\Local\Temp\ccsoQaj2.s 			page 18
+
+
+ 750      00
+ 751              	.LASF14:
+ 752 024a 73697A65 		.ascii	"sizetype\000"
+ 752      74797065 
+ 752      00
+ 753              	.LASF17:
+ 754 0253 696E7465 		.ascii	"interruptState\000"
+ 754      72727570 
+ 754      74537461 
+ 754      746500
+ 755              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
