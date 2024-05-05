@@ -2481,28 +2481,28 @@ exit_showencf:
 //			// END SHOW MOVER N			
 
 			
-			// SHOW MOVERS
-			if (strcmp(actual_cmd.parameter, "movers") == 0)
-			{	
-				if (strlen(actual_cmd.number1) == 0)
-				{			
-					while (AnyButtonPressed() == NO_PRESSED)
-					{
-						printf("Movers Ticks=%+ld, %+ld [ticks]", (int32)mover_pan.ticks, (int32)mover_tilt.ticks);
-//						printf("  Steps=%+ld [step]", (int32)steps_loc);	
-//						printf("  Int(Steps)=%+ld [step]", (int32)steps_integral_loc);
-						printf("  status=%2i, %2i", (int16)mover_pan.status, (int16)mover_tilt.status);							
-						printf("\r\n");
-						CyDelay(50);						
-					}
-				}
-				else
-				{
-					printf(STR_ERROR5);				/* ERROR5: Number not allowed */
-				}					
-				goto exitpars;	
-			}
-			// END SHOW MOVERS		
+//			// SHOW MOVERS
+//			if (strcmp(actual_cmd.parameter, "movers") == 0)
+//			{	
+//				if (strlen(actual_cmd.number1) == 0)
+//				{			
+//					while (AnyButtonPressed() == NO_PRESSED)
+//					{
+//						printf("Movers Ticks=%+ld, %+ld [ticks]", (int32)mover_pan.ticks, (int32)mover_tilt.ticks);
+////						printf("  Steps=%+ld [step]", (int32)steps_loc);	
+////						printf("  Int(Steps)=%+ld [step]", (int32)steps_integral_loc);
+//						printf("  status=%2i, %2i", (int16)mover_pan.status, (int16)mover_tilt.status);							
+//						printf("\r\n");
+//						CyDelay(50);						
+//					}
+//				}
+//				else
+//				{
+//					printf(STR_ERROR5);				/* ERROR5: Number not allowed */
+//				}					
+//				goto exitpars;	
+//			}
+//			// END SHOW MOVERS		
 			
 			// SHOW CLU N
 			if (strcmp(actual_cmd.parameter, "clu") == 0)

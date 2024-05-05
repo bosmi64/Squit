@@ -1,0 +1,32 @@
+# exported automated datasheet
+*.pdf
+
+# psoc creator logs
+*.html
+*.log
+*.rpt
+*.svd
+
+#user IDE configs
+Squit.cywrk.gravi
+Squit.cywrk.Graziano G. Ravizza
+
+# temporary code generated files
+Squit-Proto.cydsn/codegentemp
+
+# build files
+Squit-Proto.cydsn/CortexM3/ArM_GCC_473
+
+# exports
+#
+#
+
+# generated source ancillaries
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.inc
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.scat
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.ld
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.txt
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.inc
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.scat
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.ld
+Squit-Proto.cydsn/Generated_Source/Psoc5/*.txt
