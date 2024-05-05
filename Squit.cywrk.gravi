@@ -443,44 +443,7 @@
 <v>Squit\Squit-Proto\Generated_Source\PSoC5\cymetadata.c</v>
 <v>Squit\Squit-Proto\Generated_Source\PSoC5\project.h</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Squit\Squit-Proto\Header Files\gml.h</v>
-<v>Squit\Squit-Proto\Header Files\gobee.h</v>
-<v>Squit\Squit-Proto\Header Files\gobeelib.h</v>
-<v>Squit\Squit-Proto\Header Files\ITG-3701.h</v>
-<v>Squit\Squit-Proto\Header Files\ME_geometry.h</v>
-<v>Squit\Squit-Proto\Header Files\motor_CTRL.h</v>
-<v>Squit\Squit-Proto\Header Files\mover.h</v>
-<v>Squit\Squit-Proto\Header Files\My_I2C_lib.h</v>
-<v>Squit\Squit-Proto\Header Files\pid_lib.h</v>
-<v>Squit\Squit-Proto\Header Files\sensor_CTRL.h</v>
-<v>Squit\Squit-Proto\Header Files\statistics.h</v>
-<v>Squit\Squit-Proto\Header Files\systrings.h</v>
-<v>Squit\Squit-Proto\Header Files\torquestat.h</v>
-<v>Squit\Squit-Proto\Header Files\XTR-8LR100.h</v>
-<v>Squit\Squit-Proto\Source Files</v>
-<v>Squit\Squit-Proto\Source Files\__HyStory.txt</v>
-<v>Squit\Squit-Proto\Source Files\__Performance.txt</v>
-<v>Squit\Squit-Proto\Source Files\__WtoDO.txt</v>
-<v>Squit\Squit-Proto\Source Files\_GML 1.0.txt</v>
-<v>Squit\Squit-Proto\Source Files\clu.c</v>
-<v>Squit\Squit-Proto\Source Files\console.c</v>
-<v>Squit\Squit-Proto\Source Files\estimators.c</v>
-<v>Squit\Squit-Proto\Source Files\gml.c</v>
-<v>Squit\Squit-Proto\Source Files\gobeelib.c</v>
-<v>Squit\Squit-Proto\Source Files\ITG-3701.c</v>
-<v>Squit\Squit-Proto\Source Files\main.c</v>
-<v>Squit\Squit-Proto\Source Files\ME_geometry.c</v>
-<v>Squit\Squit-Proto\Source Files\ME_lib_cbuffer.c</v>
-<v>Squit\Squit-Proto\Source Files\ME_lib_imu_CHRUM7.c</v>
-<v>Squit\Squit-Proto\Source Files\ME_lib_packetizer.c</v>
-<v>Squit\Squit-Proto\Source Files\motor_CTRL.c</v>
-<v>Squit\Squit-Proto\Source Files\mover.c</v>
-<v>Squit\Squit-Proto\Source Files\My_I2C_lib.c</v>
-<v>Squit\Squit-Proto\Source Files\pid_lib.c</v>
-<v>Squit\Squit-Proto\Source Files\sensor_CTRL.c</v>
-<v>Squit\Squit-Proto\Source Files\statistics.c</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -519,42 +482,7 @@
 <v>Squit\Squit-Proto\TopDesign</v>
 <v>Squit\Squit-Proto\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Squit</v>
-<v>Squit\Squit-Proto</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12\API</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12\API\ME_CBuffer.c</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12\API\ME_CBuffer.h</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12\ME_CBuffer.pdf</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12\ME_CBuffer.txt</v>
-<v>Squit\Squit-Proto\ME_CBuffer_v0_12\ME_CBuffer_v0_12.cysym</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\API</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\API\ME_I2CSW.c</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\API\ME_I2CSW.h</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\ME_I2CSW.pdf</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\ME_I2CSW.txt</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\ME_I2CSW_v0_13.cysch</v>
-<v>Squit\Squit-Proto\ME_I2CSW_v0_13\ME_I2CSW_v0_13.cysym</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\API</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\API\ME_Imu_CHRUM7.c</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\API\ME_Imu_CHRUM7.h</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\ME_Imu_CHRUM7.pdf</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\ME_Imu_CHRUM7.txt</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\ME_Imu_CHRUM7_v0_11.cysch</v>
-<v>Squit\Squit-Proto\ME_Imu_CHRUM7_v0_11\ME_Imu_CHRUM7_v0_11.cysym</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11\API</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11\API\ME_Packetizer.c</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11\API\ME_Packetizer.h</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11\ME_Packetizer.pdf</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11\ME_Packetizer.txt</v>
-<v>Squit\Squit-Proto\ME_Packetizer_v0_11\ME_Packetizer_v0_11.cysym</v>
-<v>Squit\Squit-Proto\TopDesign</v>
-<v>Squit\Squit-Proto\TopDesign\TopDesign.cysch</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -841,10 +769,7 @@
 <v>Squit\Squit-Proto\Squit-Proto.rpt</v>
 <v>Squit\Squit-Proto\Squit-Proto_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Squit</v>
-<v>Squit\Squit-Proto</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -886,40 +811,7 @@
 <v>Squit\Squit-Proto\WaveDAC8_v2_0</v>
 <v>Squit\Squit-Proto\ZeroTerminal</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Squit</v>
-<v>Squit\Squit-Proto</v>
-<v>Squit\Squit-Proto\PSoC 5 Architecture TRM</v>
-<v>Squit\Squit-Proto\CY8C58LP Family Datasheet</v>
-<v>Squit\Squit-Proto\System Reference Guide v4_11</v>
-<v>Squit\Squit-Proto\ADC_DelSig_v3_10</v>
-<v>Squit\Squit-Proto\AMuxSeq_v1_80</v>
-<v>Squit\Squit-Proto\and_v1_0</v>
-<v>Squit\Squit-Proto\Counter_v2_40</v>
-<v>Squit\Squit-Proto\cy_clock_v2_20</v>
-<v>Squit\Squit-Proto\cy_constant_v1_0</v>
-<v>Squit\Squit-Proto\cy_isr_v1_70</v>
-<v>Squit\Squit-Proto\cy_pins_v2_5</v>
-<v>Squit\Squit-Proto\cy_virtualmux_v1_0</v>
-<v>Squit\Squit-Proto\CyControlReg_v1_70</v>
-<v>Squit\Squit-Proto\cydff_v1_30</v>
-<v>Squit\Squit-Proto\CyStatusReg_v1_80</v>
-<v>Squit\Squit-Proto\EEPROM_v2_10</v>
-<v>Squit\Squit-Proto\FreqDiv_v1_0</v>
-<v>Squit\Squit-Proto\Gnd_v1_0</v>
-<v>Squit\Squit-Proto\I2C_v3_30</v>
-<v>Squit\Squit-Proto\not_v1_0</v>
-<v>Squit\Squit-Proto\PGA_v2_0</v>
-<v>Squit\Squit-Proto\Power_v1_0</v>
-<v>Squit\Squit-Proto\PWM_v3_0</v>
-<v>Squit\Squit-Proto\QuadDec_v2_40</v>
-<v>Squit\Squit-Proto\Resistor_v1_0</v>
-<v>Squit\Squit-Proto\SwitchSPST_v1_0</v>
-<v>Squit\Squit-Proto\UART_v2_30</v>
-<v>Squit\Squit-Proto\VDAC8_v1_90</v>
-<v>Squit\Squit-Proto\WaveDAC8_v2_0</v>
-<v>Squit\Squit-Proto\ZeroTerminal</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
@@ -927,7 +819,10 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\Squit-Proto.cydsn\__HyStory.txt" />
+<name v=".\Squit-Proto.cydsn\console.c" />
+</OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
