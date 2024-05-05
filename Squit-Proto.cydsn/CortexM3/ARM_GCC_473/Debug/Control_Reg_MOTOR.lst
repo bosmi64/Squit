@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
   29:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** *  control:  The value to be assigned to the Control Register.
   30:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** *
   31:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** * Return:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 2
 
 
   32:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** *  None.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
   48:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** * Parameters:
   49:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** *  None.
   50:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** *
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 3
 
 
   51:.\Generated_Source\PSoC5/Control_Reg_MOTOR.c **** * Return:
@@ -164,10 +164,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
   97 0006 00000000 		.4byte	.Ldebug_abbrev0
   98 000a 04       		.byte	0x4
   99 000b 01       		.uleb128 0x1
- 100 000c 48010000 		.4byte	.LASF14
+ 100 000c 07010000 		.4byte	.LASF14
  101 0010 01       		.byte	0x1
- 102 0011 17000000 		.4byte	.LASF15
- 103 0015 91000000 		.4byte	.LASF16
+ 102 0011 46000000 		.4byte	.LASF15
+ 103 0015 00000000 		.4byte	.LASF16
  104 0019 00000000 		.4byte	.Ldebug_ranges0+0
  105 001d 00000000 		.4byte	0
  106 0021 00000000 		.4byte	0
@@ -175,38 +175,38 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  108 0029 02       		.uleb128 0x2
  109 002a 01       		.byte	0x1
  110 002b 06       		.byte	0x6
- 111 002c B2010000 		.4byte	.LASF0
+ 111 002c 71010000 		.4byte	.LASF0
  112 0030 02       		.uleb128 0x2
  113 0031 01       		.byte	0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 4
 
 
  114 0032 08       		.byte	0x8
- 115 0033 4A000000 		.4byte	.LASF1
+ 115 0033 79000000 		.4byte	.LASF1
  116 0037 02       		.uleb128 0x2
  117 0038 02       		.byte	0x2
  118 0039 05       		.byte	0x5
- 119 003a 38010000 		.4byte	.LASF2
+ 119 003a F7000000 		.4byte	.LASF2
  120 003e 02       		.uleb128 0x2
  121 003f 02       		.byte	0x2
  122 0040 07       		.byte	0x7
- 123 0041 6F000000 		.4byte	.LASF3
+ 123 0041 9E000000 		.4byte	.LASF3
  124 0045 02       		.uleb128 0x2
  125 0046 04       		.byte	0x4
  126 0047 05       		.byte	0x5
- 127 0048 91010000 		.4byte	.LASF4
+ 127 0048 50010000 		.4byte	.LASF4
  128 004c 02       		.uleb128 0x2
  129 004d 04       		.byte	0x4
  130 004e 07       		.byte	0x7
- 131 004f 5D000000 		.4byte	.LASF5
+ 131 004f 8C000000 		.4byte	.LASF5
  132 0053 02       		.uleb128 0x2
  133 0054 08       		.byte	0x8
  134 0055 05       		.byte	0x5
- 135 0056 25010000 		.4byte	.LASF6
+ 135 0056 E4000000 		.4byte	.LASF6
  136 005a 02       		.uleb128 0x2
  137 005b 08       		.byte	0x8
  138 005c 07       		.byte	0x7
- 139 005d 0E010000 		.4byte	.LASF7
+ 139 005d CD000000 		.4byte	.LASF7
  140 0061 03       		.uleb128 0x3
  141 0062 04       		.byte	0x4
  142 0063 05       		.byte	0x5
@@ -214,37 +214,37 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  144 0068 02       		.uleb128 0x2
  145 0069 04       		.byte	0x4
  146 006a 07       		.byte	0x7
- 147 006b 01010000 		.4byte	.LASF8
+ 147 006b C0000000 		.4byte	.LASF8
  148 006f 04       		.uleb128 0x4
- 149 0070 42010000 		.4byte	.LASF12
+ 149 0070 01010000 		.4byte	.LASF12
  150 0074 02       		.byte	0x2
  151 0075 5B       		.byte	0x5b
  152 0076 30000000 		.4byte	0x30
  153 007a 02       		.uleb128 0x2
  154 007b 04       		.byte	0x4
  155 007c 04       		.byte	0x4
- 156 007d 44000000 		.4byte	.LASF9
+ 156 007d 73000000 		.4byte	.LASF9
  157 0081 02       		.uleb128 0x2
  158 0082 08       		.byte	0x8
  159 0083 04       		.byte	0x4
- 160 0084 8A000000 		.4byte	.LASF10
+ 160 0084 B9000000 		.4byte	.LASF10
  161 0088 02       		.uleb128 0x2
  162 0089 01       		.byte	0x1
  163 008a 08       		.byte	0x8
- 164 008b 33010000 		.4byte	.LASF11
+ 164 008b F2000000 		.4byte	.LASF11
  165 008f 04       		.uleb128 0x4
- 166 0090 58000000 		.4byte	.LASF13
+ 166 0090 87000000 		.4byte	.LASF13
  167 0094 02       		.byte	0x2
  168 0095 F0       		.byte	0xf0
  169 0096 9A000000 		.4byte	0x9a
  170 009a 05       		.uleb128 0x5
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 5
 
 
  171 009b 6F000000 		.4byte	0x6f
  172 009f 06       		.uleb128 0x6
  173 00a0 01       		.byte	0x1
- 174 00a1 9A010000 		.4byte	.LASF17
+ 174 00a1 59010000 		.4byte	.LASF17
  175 00a5 01       		.byte	0x1
  176 00a6 23       		.byte	0x23
  177 00a7 01       		.byte	0x1
@@ -254,7 +254,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  181 00b4 01       		.byte	0x1
  182 00b5 C8000000 		.4byte	0xc8
  183 00b9 07       		.uleb128 0x7
- 184 00ba 82000000 		.4byte	.LASF18
+ 184 00ba B1000000 		.4byte	.LASF18
  185 00be 01       		.byte	0x1
  186 00bf 23       		.byte	0x23
  187 00c0 6F000000 		.4byte	0x6f
@@ -264,7 +264,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  191 00c7 00       		.byte	0
  192 00c8 08       		.uleb128 0x8
  193 00c9 01       		.byte	0x1
- 194 00ca 00000000 		.4byte	.LASF19
+ 194 00ca 2F000000 		.4byte	.LASF19
  195 00ce 01       		.byte	0x1
  196 00cf 37       		.byte	0x37
  197 00d0 01       		.byte	0x1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  225 0013 00       		.byte	0
  226 0014 00       		.byte	0
  227 0015 02       		.uleb128 0x2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 6
 
 
  228 0016 24       		.uleb128 0x24
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  282 004c 11       		.uleb128 0x11
  283 004d 01       		.uleb128 0x1
  284 004e 12       		.uleb128 0x12
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 7
 
 
  285 004f 01       		.uleb128 0x1
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  339 0004 02000000 		.4byte	.LCFI0
  340 0008 0200     		.2byte	0x2
  341 000a 7D       		.byte	0x7d
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 8
 
 
  342 000b 00       		.sleb128 0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  396 0008 00000000 		.4byte	.LFB1
  397 000c 18000000 		.4byte	.LFE1
  398 0010 00000000 		.4byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 9
 
 
  399 0014 00000000 		.4byte	0
@@ -489,118 +489,105 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 1
  402      00000201 
  402      FB0E0D00 
  402      01010101 
- 403              	.LASF19:
- 404 0000 436F6E74 		.ascii	"Control_Reg_MOTOR_Read\000"
- 404      726F6C5F 
- 404      5265675F 
- 404      4D4F544F 
- 404      525F5265 
- 405              	.LASF15:
- 406 0017 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Control_Reg_MOTOR.c\000"
- 406      6E657261 
- 406      7465645F 
- 406      536F7572 
- 406      63655C50 
- 407              	.LASF9:
- 408 0044 666C6F61 		.ascii	"float\000"
- 408      7400
- 409              	.LASF1:
- 410 004a 756E7369 		.ascii	"unsigned char\000"
- 410      676E6564 
- 410      20636861 
- 410      7200
- 411              	.LASF13:
- 412 0058 72656738 		.ascii	"reg8\000"
- 412      00
- 413              	.LASF5:
- 414 005d 6C6F6E67 		.ascii	"long unsigned int\000"
- 414      20756E73 
- 414      69676E65 
- 414      6420696E 
- 414      7400
- 415              	.LASF3:
- 416 006f 73686F72 		.ascii	"short unsigned int\000"
- 416      7420756E 
- 416      7369676E 
- 416      65642069 
- 416      6E7400
- 417              	.LASF18:
- 418 0082 636F6E74 		.ascii	"control\000"
- 418      726F6C00 
- 419              	.LASF10:
- 420 008a 646F7562 		.ascii	"double\000"
- 420      6C6500
- 421              	.LASF16:
- 422 0091 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 422      73657273 
- 422      5C477261 
- 422      7A69616E 
- 422      6F20472E 
- 423 00c0 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 423      5C535155 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 10
+ 403              	.LASF16:
+ 404 0000 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 404      47495448 
+ 404      55422072 
+ 404      65706F73 
+ 404      5C537175 
+ 405              	.LASF19:
+ 406 002f 436F6E74 		.ascii	"Control_Reg_MOTOR_Read\000"
+ 406      726F6C5F 
+ 406      5265675F 
+ 406      4D4F544F 
+ 406      525F5265 
+ 407              	.LASF15:
+ 408 0046 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Control_Reg_MOTOR.c\000"
+ 408      6E657261 
+ 408      7465645F 
+ 408      536F7572 
+ 408      63655C50 
+ 409              	.LASF9:
+ 410 0073 666C6F61 		.ascii	"float\000"
+ 410      7400
+ 411              	.LASF1:
+ 412 0079 756E7369 		.ascii	"unsigned char\000"
+ 412      676E6564 
+ 412      20636861 
+ 412      7200
+ 413              	.LASF13:
+ 414 0087 72656738 		.ascii	"reg8\000"
+ 414      00
+ 415              	.LASF5:
+ 416 008c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 416      20756E73 
+ 416      69676E65 
+ 416      6420696E 
+ 416      7400
+ 417              	.LASF3:
+ 418 009e 73686F72 		.ascii	"short unsigned int\000"
+ 418      7420756E 
+ 418      7369676E 
+ 418      65642069 
+ 418      6E7400
+ 419              	.LASF18:
+ 420 00b1 636F6E74 		.ascii	"control\000"
+ 420      726F6C00 
+ 421              	.LASF10:
+ 422 00b9 646F7562 		.ascii	"double\000"
+ 422      6C6500
+ 423              	.LASF8:
+ 424 00c0 756E7369 		.ascii	"unsigned int\000"
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccI4NYCF.s 			page 10
 
 
- 423      49545C56 
- 423      6572732E 
- 423      302E302D 
- 424 00f0 71756974 		.ascii	"quit-Proto.cydsn\000"
- 424      2D50726F 
- 424      746F2E63 
- 424      7964736E 
+ 424      676E6564 
+ 424      20696E74 
  424      00
- 425              	.LASF8:
- 426 0101 756E7369 		.ascii	"unsigned int\000"
- 426      676E6564 
- 426      20696E74 
- 426      00
- 427              	.LASF7:
- 428 010e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 425              	.LASF7:
+ 426 00cd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 426      206C6F6E 
+ 426      6720756E 
+ 426      7369676E 
+ 426      65642069 
+ 427              	.LASF6:
+ 428 00e4 6C6F6E67 		.ascii	"long long int\000"
  428      206C6F6E 
- 428      6720756E 
- 428      7369676E 
- 428      65642069 
- 429              	.LASF6:
- 430 0125 6C6F6E67 		.ascii	"long long int\000"
- 430      206C6F6E 
- 430      6720696E 
- 430      7400
- 431              	.LASF11:
- 432 0133 63686172 		.ascii	"char\000"
- 432      00
- 433              	.LASF2:
- 434 0138 73686F72 		.ascii	"short int\000"
- 434      7420696E 
- 434      7400
- 435              	.LASF12:
- 436 0142 75696E74 		.ascii	"uint8\000"
- 436      3800
- 437              	.LASF14:
- 438 0148 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 438      4320342E 
- 438      372E3320 
- 438      32303133 
- 438      30333132 
- 439 017b 616E6368 		.ascii	"anch revision 196615]\000"
- 439      20726576 
- 439      6973696F 
- 439      6E203139 
- 439      36363135 
- 440              	.LASF4:
- 441 0191 6C6F6E67 		.ascii	"long int\000"
- 441      20696E74 
- 441      00
- 442              	.LASF17:
- 443 019a 436F6E74 		.ascii	"Control_Reg_MOTOR_Write\000"
- 443      726F6C5F 
- 443      5265675F 
- 443      4D4F544F 
- 443      525F5772 
- 444              	.LASF0:
- 445 01b2 7369676E 		.ascii	"signed char\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccuOpKyR.s 			page 11
-
-
- 445      65642063 
- 445      68617200 
- 446              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 428      6720696E 
+ 428      7400
+ 429              	.LASF11:
+ 430 00f2 63686172 		.ascii	"char\000"
+ 430      00
+ 431              	.LASF2:
+ 432 00f7 73686F72 		.ascii	"short int\000"
+ 432      7420696E 
+ 432      7400
+ 433              	.LASF12:
+ 434 0101 75696E74 		.ascii	"uint8\000"
+ 434      3800
+ 435              	.LASF14:
+ 436 0107 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 436      4320342E 
+ 436      372E3320 
+ 436      32303133 
+ 436      30333132 
+ 437 013a 616E6368 		.ascii	"anch revision 196615]\000"
+ 437      20726576 
+ 437      6973696F 
+ 437      6E203139 
+ 437      36363135 
+ 438              	.LASF4:
+ 439 0150 6C6F6E67 		.ascii	"long int\000"
+ 439      20696E74 
+ 439      00
+ 440              	.LASF17:
+ 441 0159 436F6E74 		.ascii	"Control_Reg_MOTOR_Write\000"
+ 441      726F6C5F 
+ 441      5265675F 
+ 441      4D4F544F 
+ 441      525F5772 
+ 442              	.LASF0:
+ 443 0171 7369676E 		.ascii	"signed char\000"
+ 443      65642063 
+ 443      68617200 
+ 444              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

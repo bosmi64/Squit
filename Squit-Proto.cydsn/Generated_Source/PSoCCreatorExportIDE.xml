@@ -18,7 +18,7 @@
       <Tool Name="postbuild" Command="" Options="" />
     </Toolchain>
   </Toolchains>
-  <Project Name="Squit-Proto" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" Version="4.11" Type="Normal">
+  <Project Name="Squit-Proto" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" Version="4.11" Type="Normal">
     <CMSIS_SVD_File>Squit-Proto.svd</CMSIS_SVD_File>
     <Datasheet />
     <LinkerFiles>
@@ -27,8 +27,8 @@
       <LinkerFile Toolchain="IAR EWARM">.\Generated_Source\PSoC5\Cm3Iar.icf</LinkerFile>
     </LinkerFiles>
     <Folders>
-      <Folder BuildType="BUILD" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="BUILD" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="">.\main.c</File>
           <File BuildType="BUILD" Toolchain="">.\console.c</File>
           <File BuildType="BUILD" Toolchain="">.\gobeelib.c</File>
@@ -68,8 +68,8 @@
           <File BuildType="BUILD" Toolchain="">.\XTR-8LR100.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\Generated_Source\PSoC5">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="STRICT" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\Generated_Source\PSoC5">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\cyfitter_cfg.h</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\cyfitter_cfg.c</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\cydevice.h</File>
@@ -361,65 +361,65 @@
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\libelf.dll</File>
         </Files>
       </Folder>
-      <Folder BuildType="BUILD" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\ME_Imu_CHRUM7_v0_11\API">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="BUILD" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\ME_Imu_CHRUM7_v0_11\API">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="">.\ME_Imu_CHRUM7_v0_11\API\ME_Imu_CHRUM7.c</File>
           <File BuildType="BUILD" Toolchain="">.\ME_Imu_CHRUM7_v0_11\API\ME_Imu_CHRUM7.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="BUILD" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\ME_I2CSW_v0_13\API">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="BUILD" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\ME_I2CSW_v0_13\API">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="">.\ME_I2CSW_v0_13\API\ME_I2CSW.c</File>
           <File BuildType="BUILD" Toolchain="">.\ME_I2CSW_v0_13\API\ME_I2CSW.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="BUILD" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\ME_CBuffer_v0_12\API">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="BUILD" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\ME_CBuffer_v0_12\API">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="">.\ME_CBuffer_v0_12\API\ME_CBuffer.c</File>
           <File BuildType="BUILD" Toolchain="">.\ME_CBuffer_v0_12\API\ME_CBuffer.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="BUILD" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\ME_Packetizer_v0_11\API">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="BUILD" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\ME_Packetizer_v0_11\API">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="">.\ME_Packetizer_v0_11\API\ME_Packetizer.c</File>
           <File BuildType="BUILD" Toolchain="">.\ME_Packetizer_v0_11\API\ME_Packetizer.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\Generated_Source\PSoC5\ARM_GCC">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="STRICT" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\Generated_Source\PSoC5\ARM_GCC">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="ARM GCC">.\Generated_Source\PSoC5\ARM_GCC\CyComponentLibrary.a</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\Generated_Source\PSoC5\ARM_Keil_MDK">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="STRICT" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\Generated_Source\PSoC5\ARM_Keil_MDK">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="ARM Keil MDK">.\Generated_Source\PSoC5\ARM_Keil_MDK\CyComponentLibrary.a</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\Generated_Source\PSoC5\IAR">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn">
+      <Folder BuildType="STRICT" Path="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\Generated_Source\PSoC5\IAR">
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn">
           <File BuildType="BUILD" Toolchain="IAR">.\Generated_Source\PSoC5\IAR\CyComponentLibrary.a</File>
         </Files>
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\codegentemp">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\ARM_GCC_441">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\ARM_GCC_473">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\DP8051_Keil_951">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\DP8051">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM0">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM3">
-        <Files Root="C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn" />
+        <Files Root="D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn" />
       </Folder>
     </Folders>
   </Project>

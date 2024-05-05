@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
   25:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c **** * Function Name: VDAC8_ANAPOS_SaveConfig
   26:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c **** ********************************************************************************
   27:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c **** * Summary:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 2
 
 
   28:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c **** *  Save the current user configuration
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
   69              		.global	VDAC8_ANAPOS_RestoreConfig
   70              		.thumb
   71              		.thumb_func
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 3
 
 
   72              		.type	VDAC8_ANAPOS_RestoreConfig, %function
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  103              		.loc 1 66 0
  104 002c 45F68F23 		movw	r3, #23183
  105 0030 C4F20003 		movt	r3, 16384
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 4
 
 
  106 0034 45F68F22 		movw	r2, #23183
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  151              		.thumb_func
  152              		.type	VDAC8_ANAPOS_Sleep, %function
  153              	VDAC8_ANAPOS_Sleep:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 5
 
 
  154              	.LFB2:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  102:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c ****     }
  103:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c ****     else
  104:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c ****     {
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 6
 
 
  105:.\Generated_Source\PSoC5/VDAC8_ANAPOS_PM.c ****         /* VDAC8 is disabled */
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  207              		@ args = 0, pretend = 0, frame = 0
  208              		@ frame_needed = 1, uses_anonymous_args = 0
  209 0000 80B5     		push	{r7, lr}
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 7
 
 
  210              	.LCFI6:
@@ -413,12 +413,12 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  248 0006 00000000 		.4byte	.Ldebug_abbrev0
  249 000a 04       		.byte	0x4
  250 000b 01       		.uleb128 0x1
- 251 000c BA010000 		.4byte	.LASF21
+ 251 000c 79010000 		.4byte	.LASF21
  252 0010 01       		.byte	0x1
- 253 0011 13000000 		.4byte	.LASF22
- 254 0015 C1000000 		.4byte	.LASF23
+ 253 0011 42000000 		.4byte	.LASF22
+ 254 0015 13000000 		.4byte	.LASF23
  255 0019 00000000 		.4byte	.Ldebug_ranges0+0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 8
 
 
  256 001d 00000000 		.4byte	0
@@ -427,35 +427,35 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  259 0029 02       		.uleb128 0x2
  260 002a 01       		.byte	0x1
  261 002b 06       		.byte	0x6
- 262 002c 18020000 		.4byte	.LASF0
+ 262 002c D7010000 		.4byte	.LASF0
  263 0030 02       		.uleb128 0x2
  264 0031 01       		.byte	0x1
  265 0032 08       		.byte	0x8
- 266 0033 82000000 		.4byte	.LASF1
+ 266 0033 B1000000 		.4byte	.LASF1
  267 0037 02       		.uleb128 0x2
  268 0038 02       		.byte	0x2
  269 0039 05       		.byte	0x5
- 270 003a AA010000 		.4byte	.LASF2
+ 270 003a 69010000 		.4byte	.LASF2
  271 003e 02       		.uleb128 0x2
  272 003f 02       		.byte	0x2
  273 0040 07       		.byte	0x7
- 274 0041 A7000000 		.4byte	.LASF3
+ 274 0041 D6000000 		.4byte	.LASF3
  275 0045 02       		.uleb128 0x2
  276 0046 04       		.byte	0x4
  277 0047 05       		.byte	0x5
- 278 0048 03020000 		.4byte	.LASF4
+ 278 0048 C2010000 		.4byte	.LASF4
  279 004c 02       		.uleb128 0x2
  280 004d 04       		.byte	0x4
  281 004e 07       		.byte	0x7
- 282 004f 95000000 		.4byte	.LASF5
+ 282 004f C4000000 		.4byte	.LASF5
  283 0053 02       		.uleb128 0x2
  284 0054 08       		.byte	0x8
  285 0055 05       		.byte	0x5
- 286 0056 69010000 		.4byte	.LASF6
+ 286 0056 28010000 		.4byte	.LASF6
  287 005a 02       		.uleb128 0x2
  288 005b 08       		.byte	0x8
  289 005c 07       		.byte	0x7
- 290 005d 3E010000 		.4byte	.LASF7
+ 290 005d FD000000 		.4byte	.LASF7
  291 0061 03       		.uleb128 0x3
  292 0062 04       		.byte	0x4
  293 0063 05       		.byte	0x5
@@ -463,29 +463,29 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  295 0068 02       		.uleb128 0x2
  296 0069 04       		.byte	0x4
  297 006a 07       		.byte	0x7
- 298 006b 31010000 		.4byte	.LASF8
+ 298 006b F0000000 		.4byte	.LASF8
  299 006f 04       		.uleb128 0x4
- 300 0070 B4010000 		.4byte	.LASF12
+ 300 0070 73010000 		.4byte	.LASF12
  301 0074 02       		.byte	0x2
  302 0075 5B       		.byte	0x5b
  303 0076 30000000 		.4byte	0x30
  304 007a 02       		.uleb128 0x2
  305 007b 04       		.byte	0x4
  306 007c 04       		.byte	0x4
- 307 007d 64000000 		.4byte	.LASF9
+ 307 007d 93000000 		.4byte	.LASF9
  308 0081 02       		.uleb128 0x2
  309 0082 08       		.byte	0x8
  310 0083 04       		.byte	0x4
- 311 0084 BA000000 		.4byte	.LASF10
+ 311 0084 E9000000 		.4byte	.LASF10
  312 0088 02       		.uleb128 0x2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 9
 
 
  313 0089 01       		.byte	0x1
  314 008a 08       		.byte	0x8
- 315 008b 77010000 		.4byte	.LASF11
+ 315 008b 36010000 		.4byte	.LASF11
  316 008f 04       		.uleb128 0x4
- 317 0090 90000000 		.4byte	.LASF13
+ 317 0090 BF000000 		.4byte	.LASF13
  318 0094 02       		.byte	0x2
  319 0095 F0       		.byte	0xf0
  320 0096 9A000000 		.4byte	0x9a
@@ -497,7 +497,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  326 00a2 25       		.byte	0x25
  327 00a3 C4000000 		.4byte	0xc4
  328 00a7 07       		.uleb128 0x7
- 329 00a8 0C020000 		.4byte	.LASF14
+ 329 00a8 CB010000 		.4byte	.LASF14
  330 00ac 03       		.byte	0x3
  331 00ad 27       		.byte	0x27
  332 00ae 6F000000 		.4byte	0x6f
@@ -505,7 +505,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  334 00b3 23       		.byte	0x23
  335 00b4 00       		.uleb128 0
  336 00b5 07       		.uleb128 0x7
- 337 00b6 59000000 		.4byte	.LASF15
+ 337 00b6 88000000 		.4byte	.LASF15
  338 00ba 03       		.byte	0x3
  339 00bb 28       		.byte	0x28
  340 00bc 6F000000 		.4byte	0x6f
@@ -514,13 +514,13 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  343 00c2 01       		.uleb128 0x1
  344 00c3 00       		.byte	0
  345 00c4 04       		.uleb128 0x4
- 346 00c5 90010000 		.4byte	.LASF16
+ 346 00c5 4F010000 		.4byte	.LASF16
  347 00c9 03       		.byte	0x3
  348 00ca 29       		.byte	0x29
  349 00cb 9F000000 		.4byte	0x9f
  350 00cf 08       		.uleb128 0x8
  351 00d0 01       		.byte	0x1
- 352 00d1 6A000000 		.4byte	.LASF17
+ 352 00d1 99000000 		.4byte	.LASF17
  353 00d5 01       		.byte	0x1
  354 00d6 25       		.byte	0x25
  355 00d7 01       		.byte	0x1
@@ -530,7 +530,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  359 00e4 01       		.byte	0x1
  360 00e5 08       		.uleb128 0x8
  361 00e6 01       		.byte	0x1
- 362 00e7 3E000000 		.4byte	.LASF18
+ 362 00e7 6D000000 		.4byte	.LASF18
  363 00eb 01       		.byte	0x1
  364 00ec 3C       		.byte	0x3c
  365 00ed 01       		.byte	0x1
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  367 00f2 94000000 		.4byte	.LFE1
  368 00f6 2C000000 		.4byte	.LLST1
  369 00fa 01       		.byte	0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 10
 
 
  370 00fb 09       		.uleb128 0x9
@@ -553,7 +553,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  379 0110 01       		.byte	0x1
  380 0111 09       		.uleb128 0x9
  381 0112 01       		.byte	0x1
- 382 0113 7C010000 		.4byte	.LASF20
+ 382 0113 3B010000 		.4byte	.LASF20
  383 0117 01       		.byte	0x1
  384 0118 84       		.byte	0x84
  385 0119 01       		.byte	0x1
@@ -562,7 +562,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  388 0122 84000000 		.4byte	.LLST3
  389 0126 01       		.byte	0x1
  390 0127 0A       		.uleb128 0xa
- 391 0128 55010000 		.4byte	.LASF24
+ 391 0128 14010000 		.4byte	.LASF24
  392 012c 01       		.byte	0x1
  393 012d 15       		.byte	0x15
  394 012e C4000000 		.4byte	0xc4
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  424 0017 00       		.byte	0
  425 0018 0B       		.uleb128 0xb
  426 0019 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 11
 
 
  427 001a 3E       		.uleb128 0x3e
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  481 0050 0E       		.uleb128 0xe
  482 0051 3A       		.uleb128 0x3a
  483 0052 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 12
 
 
  484 0053 3B       		.uleb128 0x3b
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  538 008b 0A       		.uleb128 0xa
  539 008c 34       		.uleb128 0x34
  540 008d 00       		.byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 13
 
 
  541 008e 03       		.uleb128 0x3
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  595 0060 0200     		.2byte	0x2
  596 0062 7D       		.byte	0x7d
  597 0063 00       		.sleb128 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 14
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 14
 
 
  598 0064 02000000 		.4byte	.LCFI4
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  652 0010 00000000 		.4byte	.LFB2
  653 0014 40000000 		.4byte	.LFE2
  654 0018 00000000 		.4byte	.LFB3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 15
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 15
 
 
  655 001c 2E000000 		.4byte	.LFE3
@@ -857,141 +857,131 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 1
  662      41504F53 
  662      5F536C65 
  662      657000
- 663              	.LASF22:
- 664 0013 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\VDAC8_ANAPOS_PM.c\000"
- 664      6E657261 
- 664      7465645F 
- 664      536F7572 
- 664      63655C50 
- 665              	.LASF18:
- 666 003e 56444143 		.ascii	"VDAC8_ANAPOS_RestoreConfig\000"
- 666      385F414E 
- 666      41504F53 
- 666      5F526573 
- 666      746F7265 
- 667              	.LASF15:
- 668 0059 64617461 		.ascii	"data_value\000"
- 668      5F76616C 
- 668      756500
- 669              	.LASF9:
- 670 0064 666C6F61 		.ascii	"float\000"
- 670      7400
- 671              	.LASF17:
- 672 006a 56444143 		.ascii	"VDAC8_ANAPOS_SaveConfig\000"
- 672      385F414E 
- 672      41504F53 
- 672      5F536176 
- 672      65436F6E 
- 673              	.LASF1:
- 674 0082 756E7369 		.ascii	"unsigned char\000"
- 674      676E6564 
- 674      20636861 
- 674      7200
- 675              	.LASF13:
- 676 0090 72656738 		.ascii	"reg8\000"
- 676      00
- 677              	.LASF5:
- 678 0095 6C6F6E67 		.ascii	"long unsigned int\000"
- 678      20756E73 
- 678      69676E65 
- 678      6420696E 
- 678      7400
- 679              	.LASF3:
- 680 00a7 73686F72 		.ascii	"short unsigned int\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 16
+ 663              	.LASF23:
+ 664 0013 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 664      47495448 
+ 664      55422072 
+ 664      65706F73 
+ 664      5C537175 
+ 665              	.LASF22:
+ 666 0042 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\VDAC8_ANAPOS_PM.c\000"
+ 666      6E657261 
+ 666      7465645F 
+ 666      536F7572 
+ 666      63655C50 
+ 667              	.LASF18:
+ 668 006d 56444143 		.ascii	"VDAC8_ANAPOS_RestoreConfig\000"
+ 668      385F414E 
+ 668      41504F53 
+ 668      5F526573 
+ 668      746F7265 
+ 669              	.LASF15:
+ 670 0088 64617461 		.ascii	"data_value\000"
+ 670      5F76616C 
+ 670      756500
+ 671              	.LASF9:
+ 672 0093 666C6F61 		.ascii	"float\000"
+ 672      7400
+ 673              	.LASF17:
+ 674 0099 56444143 		.ascii	"VDAC8_ANAPOS_SaveConfig\000"
+ 674      385F414E 
+ 674      41504F53 
+ 674      5F536176 
+ 674      65436F6E 
+ 675              	.LASF1:
+ 676 00b1 756E7369 		.ascii	"unsigned char\000"
+ 676      676E6564 
+ 676      20636861 
+ 676      7200
+ 677              	.LASF13:
+ 678 00bf 72656738 		.ascii	"reg8\000"
+ 678      00
+ 679              	.LASF5:
+ 680 00c4 6C6F6E67 		.ascii	"long unsigned int\000"
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 16
 
 
- 680      7420756E 
- 680      7369676E 
- 680      65642069 
- 680      6E7400
- 681              	.LASF10:
- 682 00ba 646F7562 		.ascii	"double\000"
- 682      6C6500
- 683              	.LASF23:
- 684 00c1 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 684      73657273 
- 684      5C477261 
- 684      7A69616E 
- 684      6F20472E 
- 685 00f0 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 685      5C535155 
- 685      49545C56 
- 685      6572732E 
- 685      302E302D 
- 686 0120 71756974 		.ascii	"quit-Proto.cydsn\000"
- 686      2D50726F 
- 686      746F2E63 
- 686      7964736E 
+ 680      20756E73 
+ 680      69676E65 
+ 680      6420696E 
+ 680      7400
+ 681              	.LASF3:
+ 682 00d6 73686F72 		.ascii	"short unsigned int\000"
+ 682      7420756E 
+ 682      7369676E 
+ 682      65642069 
+ 682      6E7400
+ 683              	.LASF10:
+ 684 00e9 646F7562 		.ascii	"double\000"
+ 684      6C6500
+ 685              	.LASF8:
+ 686 00f0 756E7369 		.ascii	"unsigned int\000"
+ 686      676E6564 
+ 686      20696E74 
  686      00
- 687              	.LASF8:
- 688 0131 756E7369 		.ascii	"unsigned int\000"
- 688      676E6564 
- 688      20696E74 
- 688      00
- 689              	.LASF7:
- 690 013e 6C6F6E67 		.ascii	"long long unsigned int\000"
- 690      206C6F6E 
- 690      6720756E 
- 690      7369676E 
- 690      65642069 
- 691              	.LASF24:
- 692 0155 56444143 		.ascii	"VDAC8_ANAPOS_backup\000"
- 692      385F414E 
- 692      41504F53 
- 692      5F626163 
- 692      6B757000 
- 693              	.LASF6:
- 694 0169 6C6F6E67 		.ascii	"long long int\000"
- 694      206C6F6E 
- 694      6720696E 
- 694      7400
- 695              	.LASF11:
- 696 0177 63686172 		.ascii	"char\000"
- 696      00
- 697              	.LASF20:
- 698 017c 56444143 		.ascii	"VDAC8_ANAPOS_Wakeup\000"
+ 687              	.LASF7:
+ 688 00fd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 688      206C6F6E 
+ 688      6720756E 
+ 688      7369676E 
+ 688      65642069 
+ 689              	.LASF24:
+ 690 0114 56444143 		.ascii	"VDAC8_ANAPOS_backup\000"
+ 690      385F414E 
+ 690      41504F53 
+ 690      5F626163 
+ 690      6B757000 
+ 691              	.LASF6:
+ 692 0128 6C6F6E67 		.ascii	"long long int\000"
+ 692      206C6F6E 
+ 692      6720696E 
+ 692      7400
+ 693              	.LASF11:
+ 694 0136 63686172 		.ascii	"char\000"
+ 694      00
+ 695              	.LASF20:
+ 696 013b 56444143 		.ascii	"VDAC8_ANAPOS_Wakeup\000"
+ 696      385F414E 
+ 696      41504F53 
+ 696      5F57616B 
+ 696      65757000 
+ 697              	.LASF16:
+ 698 014f 56444143 		.ascii	"VDAC8_ANAPOS_backupStruct\000"
  698      385F414E 
  698      41504F53 
- 698      5F57616B 
- 698      65757000 
- 699              	.LASF16:
- 700 0190 56444143 		.ascii	"VDAC8_ANAPOS_backupStruct\000"
- 700      385F414E 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc9uU4jK.s 			page 17
+ 698      5F626163 
+ 698      6B757053 
+ 699              	.LASF2:
+ 700 0169 73686F72 		.ascii	"short int\000"
+ 700      7420696E 
+ 700      7400
+ 701              	.LASF12:
+ 702 0173 75696E74 		.ascii	"uint8\000"
+ 702      3800
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc8BWFw0.s 			page 17
 
 
- 700      41504F53 
- 700      5F626163 
- 700      6B757053 
- 701              	.LASF2:
- 702 01aa 73686F72 		.ascii	"short int\000"
- 702      7420696E 
- 702      7400
- 703              	.LASF12:
- 704 01b4 75696E74 		.ascii	"uint8\000"
- 704      3800
- 705              	.LASF21:
- 706 01ba 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 706      4320342E 
- 706      372E3320 
- 706      32303133 
- 706      30333132 
- 707 01ed 616E6368 		.ascii	"anch revision 196615]\000"
- 707      20726576 
- 707      6973696F 
- 707      6E203139 
- 707      36363135 
- 708              	.LASF4:
- 709 0203 6C6F6E67 		.ascii	"long int\000"
- 709      20696E74 
- 709      00
- 710              	.LASF14:
- 711 020c 656E6162 		.ascii	"enableState\000"
- 711      6C655374 
- 711      61746500 
- 712              	.LASF0:
- 713 0218 7369676E 		.ascii	"signed char\000"
- 713      65642063 
- 713      68617200 
- 714              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 703              	.LASF21:
+ 704 0179 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 704      4320342E 
+ 704      372E3320 
+ 704      32303133 
+ 704      30333132 
+ 705 01ac 616E6368 		.ascii	"anch revision 196615]\000"
+ 705      20726576 
+ 705      6973696F 
+ 705      6E203139 
+ 705      36363135 
+ 706              	.LASF4:
+ 707 01c2 6C6F6E67 		.ascii	"long int\000"
+ 707      20696E74 
+ 707      00
+ 708              	.LASF14:
+ 709 01cb 656E6162 		.ascii	"enableState\000"
+ 709      6C655374 
+ 709      61746500 
+ 710              	.LASF0:
+ 711 01d7 7369676E 		.ascii	"signed char\000"
+ 711      65642063 
+ 711      68617200 
+ 712              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

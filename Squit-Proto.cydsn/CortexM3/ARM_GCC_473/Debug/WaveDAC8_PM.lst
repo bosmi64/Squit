@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
   25:.\Generated_Source\PSoC5/WaveDAC8_PM.c **** * Summary:
   26:.\Generated_Source\PSoC5/WaveDAC8_PM.c **** *  Stops the component and saves its configuration. Should be called 
   27:.\Generated_Source\PSoC5/WaveDAC8_PM.c **** *  just prior to entering sleep.
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 2
 
 
   28:.\Generated_Source\PSoC5/WaveDAC8_PM.c **** *  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
   60 0022 40F20003 		movw	r3, #:lower16:WaveDAC8_backup
   61 0026 C0F20003 		movt	r3, #:upper16:WaveDAC8_backup
   62 002a 1A70     		strb	r2, [r3, #0]
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 3
 
 
   49:.\Generated_Source\PSoC5/WaveDAC8_PM.c **** 	
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
   87              		.cfi_offset 7, -8
   88              		.cfi_offset 14, -4
   89 0002 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 4
 
 
   90              	.LCFI3:
@@ -217,10 +217,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  116 0006 00000000 		.4byte	.Ldebug_abbrev0
  117 000a 04       		.byte	0x4
  118 000b 01       		.uleb128 0x1
- 119 000c 97000000 		.4byte	.LASF18
+ 119 000c 27000000 		.4byte	.LASF18
  120 0010 01       		.byte	0x1
- 121 0011 B5010000 		.4byte	.LASF19
- 122 0015 27000000 		.4byte	.LASF20
+ 121 0011 74010000 		.4byte	.LASF19
+ 122 0015 DC000000 		.4byte	.LASF20
  123 0019 00000000 		.4byte	.Ldebug_ranges0+0
  124 001d 00000000 		.4byte	0
  125 0021 00000000 		.4byte	0
@@ -228,30 +228,30 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  127 0029 02       		.uleb128 0x2
  128 002a 01       		.byte	0x1
  129 002b 06       		.byte	0x6
- 130 002c 5F010000 		.4byte	.LASF0
+ 130 002c 1E010000 		.4byte	.LASF0
  131 0030 02       		.uleb128 0x2
  132 0031 01       		.byte	0x1
  133 0032 08       		.byte	0x8
- 134 0033 0D010000 		.4byte	.LASF1
+ 134 0033 9D000000 		.4byte	.LASF1
  135 0037 02       		.uleb128 0x2
  136 0038 02       		.byte	0x2
  137 0039 05       		.byte	0x5
- 138 003a 29010000 		.4byte	.LASF2
+ 138 003a B9000000 		.4byte	.LASF2
  139 003e 02       		.uleb128 0x2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 5
 
 
  140 003f 02       		.byte	0x2
  141 0040 07       		.byte	0x7
- 142 0041 4C010000 		.4byte	.LASF3
+ 142 0041 0B010000 		.4byte	.LASF3
  143 0045 02       		.uleb128 0x2
  144 0046 04       		.byte	0x4
  145 0047 05       		.byte	0x5
- 146 0048 20010000 		.4byte	.LASF4
+ 146 0048 B0000000 		.4byte	.LASF4
  147 004c 02       		.uleb128 0x2
  148 004d 04       		.byte	0x4
  149 004e 07       		.byte	0x7
- 150 004f 33010000 		.4byte	.LASF5
+ 150 004f C3000000 		.4byte	.LASF5
  151 0053 02       		.uleb128 0x2
  152 0054 08       		.byte	0x8
  153 0055 05       		.byte	0x5
@@ -259,7 +259,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  155 005a 02       		.uleb128 0x2
  156 005b 08       		.byte	0x8
  157 005c 07       		.byte	0x7
- 158 005d F6000000 		.4byte	.LASF7
+ 158 005d 86000000 		.4byte	.LASF7
  159 0061 03       		.uleb128 0x3
  160 0062 04       		.byte	0x4
  161 0063 05       		.byte	0x5
@@ -269,24 +269,24 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  165 006a 07       		.byte	0x7
  166 006b 1A000000 		.4byte	.LASF8
  167 006f 04       		.uleb128 0x4
- 168 0070 E0000000 		.4byte	.LASF12
+ 168 0070 70000000 		.4byte	.LASF12
  169 0074 02       		.byte	0x2
  170 0075 5B       		.byte	0x5b
  171 0076 30000000 		.4byte	0x30
  172 007a 02       		.uleb128 0x2
  173 007b 04       		.byte	0x4
  174 007c 04       		.byte	0x4
- 175 007d 6B010000 		.4byte	.LASF9
+ 175 007d 2A010000 		.4byte	.LASF9
  176 0081 02       		.uleb128 0x2
  177 0082 08       		.byte	0x8
  178 0083 04       		.byte	0x4
- 179 0084 45010000 		.4byte	.LASF10
+ 179 0084 D5000000 		.4byte	.LASF10
  180 0088 02       		.uleb128 0x2
  181 0089 01       		.byte	0x1
  182 008a 08       		.byte	0x8
- 183 008b 1B010000 		.4byte	.LASF11
+ 183 008b AB000000 		.4byte	.LASF11
  184 008f 04       		.uleb128 0x4
- 185 0090 97010000 		.4byte	.LASF13
+ 185 0090 56010000 		.4byte	.LASF13
  186 0094 02       		.byte	0x2
  187 0095 F0       		.byte	0xf0
  188 0096 9A000000 		.4byte	0x9a
@@ -295,10 +295,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  191 009f 02       		.uleb128 0x2
  192 00a0 04       		.byte	0x4
  193 00a1 07       		.byte	0x7
- 194 00a2 9C010000 		.4byte	.LASF14
+ 194 00a2 5B010000 		.4byte	.LASF14
  195 00a6 06       		.uleb128 0x6
  196 00a7 01       		.byte	0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 6
 
 
  197 00a8 03       		.byte	0x3
@@ -314,13 +314,13 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  207 00bb 00       		.uleb128 0
  208 00bc 00       		.byte	0
  209 00bd 04       		.uleb128 0x4
- 210 00be 71010000 		.4byte	.LASF15
+ 210 00be 30010000 		.4byte	.LASF15
  211 00c2 03       		.byte	0x3
  212 00c3 60       		.byte	0x60
  213 00c4 A6000000 		.4byte	0xa6
  214 00c8 08       		.uleb128 0x8
  215 00c9 01       		.byte	0x1
- 216 00ca 88010000 		.4byte	.LASF16
+ 216 00ca 47010000 		.4byte	.LASF16
  217 00ce 01       		.byte	0x1
  218 00cf 2B       		.byte	0x2b
  219 00d0 01       		.byte	0x1
@@ -330,7 +330,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  223 00dd 01       		.byte	0x1
  224 00de 08       		.uleb128 0x8
  225 00df 01       		.byte	0x1
- 226 00e0 E6000000 		.4byte	.LASF17
+ 226 00e0 76000000 		.4byte	.LASF17
  227 00e4 01       		.byte	0x1
  228 00e5 4D       		.byte	0x4d
  229 00e6 01       		.byte	0x1
@@ -339,7 +339,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  232 00ef 2C000000 		.4byte	.LLST1
  233 00f3 01       		.byte	0x1
  234 00f4 09       		.uleb128 0x9
- 235 00f5 A5010000 		.4byte	.LASF22
+ 235 00f5 64010000 		.4byte	.LASF22
  236 00f9 01       		.byte	0x1
  237 00fa 12       		.byte	0x12
  238 00fb BD000000 		.4byte	0xbd
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  251 0006 0B       		.uleb128 0xb
  252 0007 03       		.uleb128 0x3
  253 0008 0E       		.uleb128 0xe
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 7
 
 
  254 0009 1B       		.uleb128 0x1b
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  308 003f 06       		.uleb128 0x6
  309 0040 13       		.uleb128 0x13
  310 0041 01       		.byte	0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 8
 
 
  311 0042 0B       		.uleb128 0xb
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  365 0079 0B       		.uleb128 0xb
  366 007a 3B       		.uleb128 0x3b
  367 007b 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 9
 
 
  368 007c 49       		.uleb128 0x49
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  422 0014 36000000 		.4byte	.LFE0-.LFB0
  423 0018 00000000 		.4byte	.LFB1
  424 001c 1C000000 		.4byte	.LFE1-.LFB1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 10
 
 
  425 0020 00000000 		.4byte	0
@@ -572,118 +572,108 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 1
  443      676E6564 
  443      20696E74 
  443      00
- 444              	.LASF20:
- 445 0027 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 445      73657273 
- 445      5C477261 
- 445      7A69616E 
- 445      6F20472E 
- 446 0056 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 446      5C535155 
- 446      49545C56 
- 446      6572732E 
- 446      302E302D 
- 447 0086 71756974 		.ascii	"quit-Proto.cydsn\000"
- 447      2D50726F 
- 447      746F2E63 
- 447      7964736E 
- 447      00
- 448              	.LASF18:
- 449 0097 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 449      4320342E 
- 449      372E3320 
- 449      32303133 
- 449      30333132 
- 450 00ca 616E6368 		.ascii	"anch revision 196615]\000"
- 450      20726576 
- 450      6973696F 
- 450      6E203139 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 11
+ 444              	.LASF18:
+ 445 0027 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 445      4320342E 
+ 445      372E3320 
+ 445      32303133 
+ 445      30333132 
+ 446 005a 616E6368 		.ascii	"anch revision 196615]\000"
+ 446      20726576 
+ 446      6973696F 
+ 446      6E203139 
+ 446      36363135 
+ 447              	.LASF12:
+ 448 0070 75696E74 		.ascii	"uint8\000"
+ 448      3800
+ 449              	.LASF17:
+ 450 0076 57617665 		.ascii	"WaveDAC8_Wakeup\000"
+ 450      44414338 
+ 450      5F57616B 
+ 450      65757000 
+ 451              	.LASF7:
+ 452 0086 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 452      206C6F6E 
+ 452      6720756E 
+ 452      7369676E 
+ 452      65642069 
+ 453              	.LASF1:
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 11
 
 
- 450      36363135 
- 451              	.LASF12:
- 452 00e0 75696E74 		.ascii	"uint8\000"
- 452      3800
- 453              	.LASF17:
- 454 00e6 57617665 		.ascii	"WaveDAC8_Wakeup\000"
- 454      44414338 
- 454      5F57616B 
- 454      65757000 
- 455              	.LASF7:
- 456 00f6 6C6F6E67 		.ascii	"long long unsigned int\000"
- 456      206C6F6E 
- 456      6720756E 
- 456      7369676E 
- 456      65642069 
- 457              	.LASF1:
- 458 010d 756E7369 		.ascii	"unsigned char\000"
- 458      676E6564 
- 458      20636861 
- 458      7200
- 459              	.LASF11:
- 460 011b 63686172 		.ascii	"char\000"
- 460      00
- 461              	.LASF4:
- 462 0120 6C6F6E67 		.ascii	"long int\000"
- 462      20696E74 
- 462      00
- 463              	.LASF2:
- 464 0129 73686F72 		.ascii	"short int\000"
- 464      7420696E 
- 464      7400
- 465              	.LASF5:
- 466 0133 6C6F6E67 		.ascii	"long unsigned int\000"
- 466      20756E73 
- 466      69676E65 
- 466      6420696E 
- 466      7400
- 467              	.LASF10:
- 468 0145 646F7562 		.ascii	"double\000"
- 468      6C6500
- 469              	.LASF3:
- 470 014c 73686F72 		.ascii	"short unsigned int\000"
- 470      7420756E 
- 470      7369676E 
- 470      65642069 
- 470      6E7400
- 471              	.LASF0:
- 472 015f 7369676E 		.ascii	"signed char\000"
- 472      65642063 
- 472      68617200 
- 473              	.LASF9:
- 474 016b 666C6F61 		.ascii	"float\000"
- 474      7400
- 475              	.LASF15:
- 476 0171 57617665 		.ascii	"WaveDAC8_BACKUP_STRUCT\000"
+ 454 009d 756E7369 		.ascii	"unsigned char\000"
+ 454      676E6564 
+ 454      20636861 
+ 454      7200
+ 455              	.LASF11:
+ 456 00ab 63686172 		.ascii	"char\000"
+ 456      00
+ 457              	.LASF4:
+ 458 00b0 6C6F6E67 		.ascii	"long int\000"
+ 458      20696E74 
+ 458      00
+ 459              	.LASF2:
+ 460 00b9 73686F72 		.ascii	"short int\000"
+ 460      7420696E 
+ 460      7400
+ 461              	.LASF5:
+ 462 00c3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 462      20756E73 
+ 462      69676E65 
+ 462      6420696E 
+ 462      7400
+ 463              	.LASF10:
+ 464 00d5 646F7562 		.ascii	"double\000"
+ 464      6C6500
+ 465              	.LASF20:
+ 466 00dc 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 466      47495448 
+ 466      55422072 
+ 466      65706F73 
+ 466      5C537175 
+ 467              	.LASF3:
+ 468 010b 73686F72 		.ascii	"short unsigned int\000"
+ 468      7420756E 
+ 468      7369676E 
+ 468      65642069 
+ 468      6E7400
+ 469              	.LASF0:
+ 470 011e 7369676E 		.ascii	"signed char\000"
+ 470      65642063 
+ 470      68617200 
+ 471              	.LASF9:
+ 472 012a 666C6F61 		.ascii	"float\000"
+ 472      7400
+ 473              	.LASF15:
+ 474 0130 57617665 		.ascii	"WaveDAC8_BACKUP_STRUCT\000"
+ 474      44414338 
+ 474      5F424143 
+ 474      4B55505F 
+ 474      53545255 
+ 475              	.LASF16:
+ 476 0147 57617665 		.ascii	"WaveDAC8_Sleep\000"
  476      44414338 
- 476      5F424143 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccSiVGCo.s 			page 12
+ 476      5F536C65 
+ 476      657000
+ 477              	.LASF13:
+ 478 0156 72656738 		.ascii	"reg8\000"
+ 478      00
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccHQ0yuR.s 			page 12
 
 
- 476      4B55505F 
- 476      53545255 
- 477              	.LASF16:
- 478 0188 57617665 		.ascii	"WaveDAC8_Sleep\000"
- 478      44414338 
- 478      5F536C65 
- 478      657000
- 479              	.LASF13:
- 480 0197 72656738 		.ascii	"reg8\000"
+ 479              	.LASF14:
+ 480 015b 73697A65 		.ascii	"sizetype\000"
+ 480      74797065 
  480      00
- 481              	.LASF14:
- 482 019c 73697A65 		.ascii	"sizetype\000"
- 482      74797065 
- 482      00
- 483              	.LASF22:
- 484 01a5 57617665 		.ascii	"WaveDAC8_backup\000"
- 484      44414338 
- 484      5F626163 
- 484      6B757000 
- 485              	.LASF19:
- 486 01b5 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\WaveDAC8_PM.c\000"
- 486      6E657261 
- 486      7465645F 
- 486      536F7572 
- 486      63655C50 
- 487              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 481              	.LASF22:
+ 482 0164 57617665 		.ascii	"WaveDAC8_backup\000"
+ 482      44414338 
+ 482      5F626163 
+ 482      6B757000 
+ 483              	.LASF19:
+ 484 0174 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\WaveDAC8_PM.c\000"
+ 484      6E657261 
+ 484      7465645F 
+ 484      536F7572 
+ 484      63655C50 
+ 485              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

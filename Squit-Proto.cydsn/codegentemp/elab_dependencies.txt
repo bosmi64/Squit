@@ -1,4 +1,4 @@
-C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\TopDesign\TopDesign.cysch
+D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\TopDesign\TopDesign.cysch
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_pins_v2_5\cy_pins_v2_5.cyprimitive
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_pins_v2_5\cy_pins_v2_5.cysym
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_pins_v2_5\cy_pins_v2_5.pdf
@@ -3404,7 +3404,7 @@ C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprim
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\not_v1_0\not_v1_0.pdf
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\not_v1_0\not_v1_0.v
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\not_v1_0\Custom\custom.cs
-C:\Users\Graziano G. Ravizza\Documents\PSoC Creator\SQUIT\Vers.0.0-T00 2019-0208 C3.0 (start)\Squit-Proto.cydsn\Squit-Proto.cydwr
+D:\_GITHUB repos\Squit-HW0.0\Squit-Proto.cydsn\Squit-Proto.cydwr
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v4_11\PSoC5\API\cm3gcc.ld
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v4_11\PSoC5\API\Cm3RealView.scat
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v4_11\PSoC5\API\Cm3Start.c

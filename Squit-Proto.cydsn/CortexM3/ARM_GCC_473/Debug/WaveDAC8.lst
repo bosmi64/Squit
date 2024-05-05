@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
   55 0019 85       		.byte	-123
   56 001a 86       		.byte	-122
   57 001b 86       		.byte	-122
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 2
 
 
   58 001c 86       		.byte	-122
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  112 0052 93       		.byte	-109
  113 0053 93       		.byte	-109
  114 0054 93       		.byte	-109
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 3
 
 
  115 0055 93       		.byte	-109
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  169 008b A0       		.byte	-96
  170 008c A0       		.byte	-96
  171 008d A0       		.byte	-96
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 4
 
 
  172 008e A1       		.byte	-95
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  226 00c4 AD       		.byte	-83
  227 00c5 AD       		.byte	-83
  228 00c6 AD       		.byte	-83
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 5
 
 
  229 00c7 AD       		.byte	-83
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  283 00fd B9       		.byte	-71
  284 00fe B9       		.byte	-71
  285 00ff B9       		.byte	-71
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 6
 
 
  286 0100 BA       		.byte	-70
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  340 0136 C4       		.byte	-60
  341 0137 C5       		.byte	-59
  342 0138 C5       		.byte	-59
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 7
 
 
  343 0139 C5       		.byte	-59
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  397 016f CF       		.byte	-49
  398 0170 CF       		.byte	-49
  399 0171 D0       		.byte	-48
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 8
 
 
  400 0172 D0       		.byte	-48
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  454 01a8 D9       		.byte	-39
  455 01a9 D9       		.byte	-39
  456 01aa D9       		.byte	-39
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 9
 
 
  457 01ab DA       		.byte	-38
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  511 01e1 E2       		.byte	-30
  512 01e2 E2       		.byte	-30
  513 01e3 E2       		.byte	-30
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 10
 
 
  514 01e4 E2       		.byte	-30
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  568 021a EA       		.byte	-22
  569 021b EA       		.byte	-22
  570 021c EA       		.byte	-22
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 11
 
 
  571 021d EA       		.byte	-22
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  625 0253 F0       		.byte	-16
  626 0254 F0       		.byte	-16
  627 0255 F0       		.byte	-16
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 12
 
 
  628 0256 F0       		.byte	-16
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  682 028c F5       		.byte	-11
  683 028d F5       		.byte	-11
  684 028e F5       		.byte	-11
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 13
 
 
  685 028f F6       		.byte	-10
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  739 02c5 F9       		.byte	-7
  740 02c6 F9       		.byte	-7
  741 02c7 F9       		.byte	-7
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 14
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 14
 
 
  742 02c8 F9       		.byte	-7
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  796 02fe FB       		.byte	-5
  797 02ff FC       		.byte	-4
  798 0300 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 15
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 15
 
 
  799 0301 FC       		.byte	-4
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  853 0337 FC       		.byte	-4
  854 0338 FC       		.byte	-4
  855 0339 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 16
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 16
 
 
  856 033a FC       		.byte	-4
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  910 0370 FC       		.byte	-4
  911 0371 FC       		.byte	-4
  912 0372 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 17
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 17
 
 
  913 0373 FC       		.byte	-4
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  967 03a9 FA       		.byte	-6
  968 03aa FA       		.byte	-6
  969 03ab FA       		.byte	-6
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 18
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 18
 
 
  970 03ac FA       		.byte	-6
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1024 03e2 F7       		.byte	-9
  1025 03e3 F7       		.byte	-9
  1026 03e4 F7       		.byte	-9
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 19
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 19
 
 
  1027 03e5 F7       		.byte	-9
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1081 041b F2       		.byte	-14
  1082 041c F2       		.byte	-14
  1083 041d F2       		.byte	-14
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 20
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 20
 
 
  1084 041e F2       		.byte	-14
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1138 0454 EC       		.byte	-20
  1139 0455 EC       		.byte	-20
  1140 0456 EC       		.byte	-20
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 21
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 21
 
 
  1141 0457 EC       		.byte	-20
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1195 048d E5       		.byte	-27
  1196 048e E5       		.byte	-27
  1197 048f E5       		.byte	-27
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 22
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 22
 
 
  1198 0490 E4       		.byte	-28
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1252 04c6 DC       		.byte	-36
  1253 04c7 DC       		.byte	-36
  1254 04c8 DC       		.byte	-36
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 23
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 23
 
 
  1255 04c9 DC       		.byte	-36
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1309 04ff D3       		.byte	-45
  1310 0500 D3       		.byte	-45
  1311 0501 D3       		.byte	-45
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 24
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 24
 
 
  1312 0502 D2       		.byte	-46
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1366 0538 C8       		.byte	-56
  1367 0539 C8       		.byte	-56
  1368 053a C8       		.byte	-56
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 25
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 25
 
 
  1369 053b C8       		.byte	-56
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1423 0571 BD       		.byte	-67
  1424 0572 BD       		.byte	-67
  1425 0573 BD       		.byte	-67
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 26
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 26
 
 
  1426 0574 BD       		.byte	-67
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1480 05aa B1       		.byte	-79
  1481 05ab B1       		.byte	-79
  1482 05ac B1       		.byte	-79
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 27
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 27
 
 
  1483 05ad B0       		.byte	-80
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1537 05e3 A5       		.byte	-91
  1538 05e4 A4       		.byte	-92
  1539 05e5 A4       		.byte	-92
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 28
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 28
 
 
  1540 05e6 A4       		.byte	-92
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1594 061c 98       		.byte	-104
  1595 061d 97       		.byte	-105
  1596 061e 97       		.byte	-105
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 29
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 29
 
 
  1597 061f 97       		.byte	-105
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1651 0655 8A       		.byte	-118
  1652 0656 8A       		.byte	-118
  1653 0657 8A       		.byte	-118
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 30
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 30
 
 
  1654 0658 8A       		.byte	-118
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1708 068e 7D       		.byte	125
  1709 068f 7D       		.byte	125
  1710 0690 7C       		.byte	124
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 31
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 31
 
 
  1711 0691 7C       		.byte	124
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1765 06c7 6F       		.byte	111
  1766 06c8 6F       		.byte	111
  1767 06c9 6F       		.byte	111
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 32
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 32
 
 
  1768 06ca 6F       		.byte	111
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1822 0700 62       		.byte	98
  1823 0701 62       		.byte	98
  1824 0702 62       		.byte	98
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 33
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 33
 
 
  1825 0703 62       		.byte	98
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1879 0739 55       		.byte	85
  1880 073a 55       		.byte	85
  1881 073b 55       		.byte	85
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 34
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 34
 
 
  1882 073c 55       		.byte	85
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1936 0772 49       		.byte	73
  1937 0773 49       		.byte	73
  1938 0774 49       		.byte	73
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 35
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 35
 
 
  1939 0775 48       		.byte	72
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  1993 07ab 3D       		.byte	61
  1994 07ac 3D       		.byte	61
  1995 07ad 3D       		.byte	61
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 36
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 36
 
 
  1996 07ae 3D       		.byte	61
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2050 07e4 32       		.byte	50
  2051 07e5 32       		.byte	50
  2052 07e6 32       		.byte	50
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 37
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 37
 
 
  2053 07e7 32       		.byte	50
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2107 081d 28       		.byte	40
  2108 081e 28       		.byte	40
  2109 081f 28       		.byte	40
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 38
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 38
 
 
  2110 0820 28       		.byte	40
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2164 0856 1F       		.byte	31
  2165 0857 1F       		.byte	31
  2166 0858 1F       		.byte	31
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 39
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 39
 
 
  2167 0859 1F       		.byte	31
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2221 088f 17       		.byte	23
  2222 0890 17       		.byte	23
  2223 0891 17       		.byte	23
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 40
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 40
 
 
  2224 0892 17       		.byte	23
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2278 08c8 10       		.byte	16
  2279 08c9 10       		.byte	16
  2280 08ca 10       		.byte	16
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 41
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 41
 
 
  2281 08cb 10       		.byte	16
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2335 0901 0B       		.byte	11
  2336 0902 0B       		.byte	11
  2337 0903 0B       		.byte	11
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 42
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 42
 
 
  2338 0904 0B       		.byte	11
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2392 093a 07       		.byte	7
  2393 093b 07       		.byte	7
  2394 093c 07       		.byte	7
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 43
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 43
 
 
  2395 093d 07       		.byte	7
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2449 0973 04       		.byte	4
  2450 0974 04       		.byte	4
  2451 0975 04       		.byte	4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 44
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 44
 
 
  2452 0976 04       		.byte	4
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2506 09ac 03       		.byte	3
  2507 09ad 03       		.byte	3
  2508 09ae 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 45
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 45
 
 
  2509 09af 03       		.byte	3
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2563 09e5 03       		.byte	3
  2564 09e6 03       		.byte	3
  2565 09e7 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 46
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 46
 
 
  2566 09e8 03       		.byte	3
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2620 0a1e 04       		.byte	4
  2621 0a1f 04       		.byte	4
  2622 0a20 04       		.byte	4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 47
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 47
 
 
  2623 0a21 04       		.byte	4
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2677 0a57 07       		.byte	7
  2678 0a58 07       		.byte	7
  2679 0a59 07       		.byte	7
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 48
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 48
 
 
  2680 0a5a 07       		.byte	7
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2734 0a90 0C       		.byte	12
  2735 0a91 0C       		.byte	12
  2736 0a92 0C       		.byte	12
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 49
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 49
 
 
  2737 0a93 0C       		.byte	12
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2791 0ac9 11       		.byte	17
  2792 0aca 11       		.byte	17
  2793 0acb 12       		.byte	18
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 50
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 50
 
 
  2794 0acc 12       		.byte	18
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2848 0b02 18       		.byte	24
  2849 0b03 18       		.byte	24
  2850 0b04 19       		.byte	25
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 51
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 51
 
 
  2851 0b05 19       		.byte	25
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2905 0b3b 20       		.byte	32
  2906 0b3c 21       		.byte	33
  2907 0b3d 21       		.byte	33
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 52
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 52
 
 
  2908 0b3e 21       		.byte	33
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  2962 0b74 2A       		.byte	42
  2963 0b75 2A       		.byte	42
  2964 0b76 2A       		.byte	42
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 53
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 53
 
 
  2965 0b77 2A       		.byte	42
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3019 0bad 34       		.byte	52
  3020 0bae 34       		.byte	52
  3021 0baf 34       		.byte	52
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 54
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 54
 
 
  3022 0bb0 35       		.byte	53
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3076 0be6 3F       		.byte	63
  3077 0be7 3F       		.byte	63
  3078 0be8 40       		.byte	64
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 55
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 55
 
 
  3079 0be9 40       		.byte	64
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3133 0c1f 4B       		.byte	75
  3134 0c20 4B       		.byte	75
  3135 0c21 4B       		.byte	75
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 56
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 56
 
 
  3136 0c22 4C       		.byte	76
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3190 0c58 57       		.byte	87
  3191 0c59 58       		.byte	88
  3192 0c5a 58       		.byte	88
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 57
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 57
 
 
  3193 0c5b 58       		.byte	88
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3247 0c91 64       		.byte	100
  3248 0c92 65       		.byte	101
  3249 0c93 65       		.byte	101
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 58
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 58
 
 
  3250 0c94 65       		.byte	101
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3304 0cca 72       		.byte	114
  3305 0ccb 72       		.byte	114
  3306 0ccc 72       		.byte	114
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 59
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 59
 
 
  3307 0ccd 72       		.byte	114
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3361 0d03 7F       		.byte	127
  3362 0d04 7F       		.byte	127
  3363              		.global	WaveDAC8_wave2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 60
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 60
 
 
  3364 0d05 000000   		.align	2
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3418 0d3a FC       		.byte	-4
  3419 0d3b FC       		.byte	-4
  3420 0d3c FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 61
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 61
 
 
  3421 0d3d FC       		.byte	-4
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3475 0d73 FC       		.byte	-4
  3476 0d74 FC       		.byte	-4
  3477 0d75 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 62
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 62
 
 
  3478 0d76 FC       		.byte	-4
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3532 0dac FC       		.byte	-4
  3533 0dad FC       		.byte	-4
  3534 0dae FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 63
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 63
 
 
  3535 0daf FC       		.byte	-4
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3589 0de5 FC       		.byte	-4
  3590 0de6 FC       		.byte	-4
  3591 0de7 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 64
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 64
 
 
  3592 0de8 FC       		.byte	-4
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3646 0e1e FC       		.byte	-4
  3647 0e1f FC       		.byte	-4
  3648 0e20 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 65
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 65
 
 
  3649 0e21 FC       		.byte	-4
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3703 0e57 FC       		.byte	-4
  3704 0e58 FC       		.byte	-4
  3705 0e59 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 66
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 66
 
 
  3706 0e5a FC       		.byte	-4
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3760 0e90 FC       		.byte	-4
  3761 0e91 FC       		.byte	-4
  3762 0e92 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 67
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 67
 
 
  3763 0e93 FC       		.byte	-4
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3817 0ec9 FC       		.byte	-4
  3818 0eca FC       		.byte	-4
  3819 0ecb FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 68
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 68
 
 
  3820 0ecc FC       		.byte	-4
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3874 0f02 FC       		.byte	-4
  3875 0f03 FC       		.byte	-4
  3876 0f04 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 69
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 69
 
 
  3877 0f05 FC       		.byte	-4
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3931 0f3b FC       		.byte	-4
  3932 0f3c FC       		.byte	-4
  3933 0f3d FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 70
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 70
 
 
  3934 0f3e FC       		.byte	-4
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  3988 0f74 FC       		.byte	-4
  3989 0f75 FC       		.byte	-4
  3990 0f76 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 71
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 71
 
 
  3991 0f77 FC       		.byte	-4
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4045 0fad FC       		.byte	-4
  4046 0fae FC       		.byte	-4
  4047 0faf FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 72
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 72
 
 
  4048 0fb0 FC       		.byte	-4
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4102 0fe6 FC       		.byte	-4
  4103 0fe7 FC       		.byte	-4
  4104 0fe8 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 73
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 73
 
 
  4105 0fe9 FC       		.byte	-4
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4159 101f FC       		.byte	-4
  4160 1020 FC       		.byte	-4
  4161 1021 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 74
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 74
 
 
  4162 1022 FC       		.byte	-4
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4216 1058 FC       		.byte	-4
  4217 1059 FC       		.byte	-4
  4218 105a FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 75
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 75
 
 
  4219 105b FC       		.byte	-4
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4273 1091 FC       		.byte	-4
  4274 1092 FC       		.byte	-4
  4275 1093 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 76
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 76
 
 
  4276 1094 FC       		.byte	-4
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4330 10ca FC       		.byte	-4
  4331 10cb FC       		.byte	-4
  4332 10cc FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 77
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 77
 
 
  4333 10cd FC       		.byte	-4
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4387 1103 FC       		.byte	-4
  4388 1104 FC       		.byte	-4
  4389 1105 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 78
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 78
 
 
  4390 1106 FC       		.byte	-4
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4444 113c FC       		.byte	-4
  4445 113d FC       		.byte	-4
  4446 113e FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 79
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 79
 
 
  4447 113f FC       		.byte	-4
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4501 1175 FC       		.byte	-4
  4502 1176 FC       		.byte	-4
  4503 1177 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 80
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 80
 
 
  4504 1178 FC       		.byte	-4
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4558 11ae FC       		.byte	-4
  4559 11af FC       		.byte	-4
  4560 11b0 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 81
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 81
 
 
  4561 11b1 FC       		.byte	-4
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4615 11e7 FC       		.byte	-4
  4616 11e8 FC       		.byte	-4
  4617 11e9 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 82
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 82
 
 
  4618 11ea FC       		.byte	-4
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4672 1220 FC       		.byte	-4
  4673 1221 FC       		.byte	-4
  4674 1222 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 83
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 83
 
 
  4675 1223 FC       		.byte	-4
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4729 1259 FC       		.byte	-4
  4730 125a FC       		.byte	-4
  4731 125b FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 84
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 84
 
 
  4732 125c FC       		.byte	-4
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4786 1292 FC       		.byte	-4
  4787 1293 FC       		.byte	-4
  4788 1294 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 85
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 85
 
 
  4789 1295 FC       		.byte	-4
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4843 12cb FC       		.byte	-4
  4844 12cc FC       		.byte	-4
  4845 12cd FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 86
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 86
 
 
  4846 12ce FC       		.byte	-4
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4900 1304 FC       		.byte	-4
  4901 1305 FC       		.byte	-4
  4902 1306 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 87
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 87
 
 
  4903 1307 FC       		.byte	-4
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  4957 133d FC       		.byte	-4
  4958 133e FC       		.byte	-4
  4959 133f FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 88
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 88
 
 
  4960 1340 FC       		.byte	-4
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5014 1376 FC       		.byte	-4
  5015 1377 FC       		.byte	-4
  5016 1378 FC       		.byte	-4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 89
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 89
 
 
  5017 1379 FC       		.byte	-4
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5071 13af 03       		.byte	3
  5072 13b0 03       		.byte	3
  5073 13b1 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 90
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 90
 
 
  5074 13b2 03       		.byte	3
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5128 13e8 03       		.byte	3
  5129 13e9 03       		.byte	3
  5130 13ea 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 91
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 91
 
 
  5131 13eb 03       		.byte	3
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5185 1421 03       		.byte	3
  5186 1422 03       		.byte	3
  5187 1423 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 92
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 92
 
 
  5188 1424 03       		.byte	3
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5242 145a 03       		.byte	3
  5243 145b 03       		.byte	3
  5244 145c 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 93
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 93
 
 
  5245 145d 03       		.byte	3
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5299 1493 03       		.byte	3
  5300 1494 03       		.byte	3
  5301 1495 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 94
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 94
 
 
  5302 1496 03       		.byte	3
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5356 14cc 03       		.byte	3
  5357 14cd 03       		.byte	3
  5358 14ce 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 95
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 95
 
 
  5359 14cf 03       		.byte	3
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5413 1505 03       		.byte	3
  5414 1506 03       		.byte	3
  5415 1507 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 96
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 96
 
 
  5416 1508 03       		.byte	3
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5470 153e 03       		.byte	3
  5471 153f 03       		.byte	3
  5472 1540 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 97
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 97
 
 
  5473 1541 03       		.byte	3
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5527 1577 03       		.byte	3
  5528 1578 03       		.byte	3
  5529 1579 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 98
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 98
 
 
  5530 157a 03       		.byte	3
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5584 15b0 03       		.byte	3
  5585 15b1 03       		.byte	3
  5586 15b2 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 99
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 99
 
 
  5587 15b3 03       		.byte	3
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5641 15e9 03       		.byte	3
  5642 15ea 03       		.byte	3
  5643 15eb 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 100
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 100
 
 
  5644 15ec 03       		.byte	3
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5698 1622 03       		.byte	3
  5699 1623 03       		.byte	3
  5700 1624 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 101
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 101
 
 
  5701 1625 03       		.byte	3
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5755 165b 03       		.byte	3
  5756 165c 03       		.byte	3
  5757 165d 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 102
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 102
 
 
  5758 165e 03       		.byte	3
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5812 1694 03       		.byte	3
  5813 1695 03       		.byte	3
  5814 1696 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 103
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 103
 
 
  5815 1697 03       		.byte	3
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5869 16cd 03       		.byte	3
  5870 16ce 03       		.byte	3
  5871 16cf 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 104
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 104
 
 
  5872 16d0 03       		.byte	3
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5926 1706 03       		.byte	3
  5927 1707 03       		.byte	3
  5928 1708 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 105
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 105
 
 
  5929 1709 03       		.byte	3
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  5983 173f 03       		.byte	3
  5984 1740 03       		.byte	3
  5985 1741 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 106
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 106
 
 
  5986 1742 03       		.byte	3
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6040 1778 03       		.byte	3
  6041 1779 03       		.byte	3
  6042 177a 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 107
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 107
 
 
  6043 177b 03       		.byte	3
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6097 17b1 03       		.byte	3
  6098 17b2 03       		.byte	3
  6099 17b3 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 108
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 108
 
 
  6100 17b4 03       		.byte	3
@@ -6478,7 +6478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6154 17ea 03       		.byte	3
  6155 17eb 03       		.byte	3
  6156 17ec 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 109
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 109
 
 
  6157 17ed 03       		.byte	3
@@ -6538,7 +6538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6211 1823 03       		.byte	3
  6212 1824 03       		.byte	3
  6213 1825 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 110
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 110
 
 
  6214 1826 03       		.byte	3
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6268 185c 03       		.byte	3
  6269 185d 03       		.byte	3
  6270 185e 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 111
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 111
 
 
  6271 185f 03       		.byte	3
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6325 1895 03       		.byte	3
  6326 1896 03       		.byte	3
  6327 1897 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 112
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 112
 
 
  6328 1898 03       		.byte	3
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6382 18ce 03       		.byte	3
  6383 18cf 03       		.byte	3
  6384 18d0 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 113
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 113
 
 
  6385 18d1 03       		.byte	3
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6439 1907 03       		.byte	3
  6440 1908 03       		.byte	3
  6441 1909 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 114
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 114
 
 
  6442 190a 03       		.byte	3
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6496 1940 03       		.byte	3
  6497 1941 03       		.byte	3
  6498 1942 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 115
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 115
 
 
  6499 1943 03       		.byte	3
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6553 1979 03       		.byte	3
  6554 197a 03       		.byte	3
  6555 197b 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 116
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 116
 
 
  6556 197c 03       		.byte	3
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6610 19b2 03       		.byte	3
  6611 19b3 03       		.byte	3
  6612 19b4 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 117
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 117
 
 
  6613 19b5 03       		.byte	3
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6667 19eb 03       		.byte	3
  6668 19ec 03       		.byte	3
  6669 19ed 03       		.byte	3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 118
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 118
 
 
  6670 19ee 03       		.byte	3
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
    6:.\Generated_Source\PSoC5/WaveDAC8.c **** *  This file provides the source code for the 8-bit Waveform DAC 
    7:.\Generated_Source\PSoC5/WaveDAC8.c **** *  (WaveDAC8) Component.
    8:.\Generated_Source\PSoC5/WaveDAC8.c **** *
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 119
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 119
 
 
    9:.\Generated_Source\PSoC5/WaveDAC8.c **** ********************************************************************************
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6735 000c FFF7FEFF 		bl	WaveDAC8_VDAC8_SetSpeed
   47:.\Generated_Source\PSoC5/WaveDAC8.c **** 	WaveDAC8_VDAC8_SetRange(WaveDAC8_DAC_RANGE);
  6736              		.loc 1 47 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 120
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 120
 
 
  6737 0010 4FF00400 		mov	r0, #4
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6769              		.size	WaveDAC8_Init, .-WaveDAC8_Init
  6770 0062 00BF     		.section	.text.WaveDAC8_Enable,"ax",%progbits
  6771              		.align	2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 121
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 121
 
 
  6772              		.global	WaveDAC8_Enable
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6797 0014 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
  6798 0016 1846     		mov	r0, r3
  6799 0018 4FF00101 		mov	r1, #1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 122
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 122
 
 
  6800 001c FFF7FEFF 		bl	CyDmaChEnable
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  127:.\Generated_Source\PSoC5/WaveDAC8.c **** *
  128:.\Generated_Source\PSoC5/WaveDAC8.c **** *******************************************************************************/
  129:.\Generated_Source\PSoC5/WaveDAC8.c **** void WaveDAC8_Start(void) 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 123
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 123
 
 
  130:.\Generated_Source\PSoC5/WaveDAC8.c **** {
@@ -7378,7 +7378,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  143:.\Generated_Source\PSoC5/WaveDAC8.c **** * Function Name: WaveDAC8_StartEx
  144:.\Generated_Source\PSoC5/WaveDAC8.c **** ********************************************************************************
  145:.\Generated_Source\PSoC5/WaveDAC8.c **** *
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 124
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 124
 
 
  146:.\Generated_Source\PSoC5/WaveDAC8.c **** * Summary:
@@ -7438,7 +7438,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6898 0024 FFF7FEFF 		bl	WaveDAC8_Start
  169:.\Generated_Source\PSoC5/WaveDAC8.c **** }
  6899              		.loc 1 169 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 125
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 125
 
 
  6900 0028 07F11007 		add	r7, r7, #16
@@ -7498,7 +7498,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6928              		.loc 1 195 0
  6929 0008 40F20003 		movw	r3, #:lower16:WaveDAC8_Wave1Chan
  6930 000c C0F20003 		movt	r3, #:upper16:WaveDAC8_Wave1Chan
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 126
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 126
 
 
  6931 0010 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
@@ -7558,7 +7558,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6960              	.LCFI11:
  6961              		.cfi_def_cfa_offset 8
  6962              		.cfi_offset 7, -8
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 127
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 127
 
 
  6963              		.cfi_offset 14, -4
@@ -7618,7 +7618,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  6998 004e 1A46     		mov	r2, r3
  6999 0050 4FF00103 		mov	r3, #1
  7000 0054 FFF7FEFF 		bl	CyDmaTdSetConfiguration
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 128
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 128
 
 
  239:.\Generated_Source\PSoC5/WaveDAC8.c ****                                     (uint8)CY_DMA_TD_INC_SRC_ADR | (uint8)WaveDAC8_Wave1_DMA__TD_TE
@@ -7678,7 +7678,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  258:.\Generated_Source\PSoC5/WaveDAC8.c **** *  uint16  SampleSize:  The amount of samples in the waveform.
  259:.\Generated_Source\PSoC5/WaveDAC8.c **** *
  260:.\Generated_Source\PSoC5/WaveDAC8.c **** * Return: 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 129
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 129
 
 
  261:.\Generated_Source\PSoC5/WaveDAC8.c **** *  None
@@ -7738,7 +7738,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  281:.\Generated_Source\PSoC5/WaveDAC8.c **** 	* TD is looping on itself. 
  282:.\Generated_Source\PSoC5/WaveDAC8.c **** 	* Increment the source address, but not the destination address. 
  283:.\Generated_Source\PSoC5/WaveDAC8.c **** 	*/
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 130
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 130
 
 
  284:.\Generated_Source\PSoC5/WaveDAC8.c **** 	(void)CyDmaTdSetConfiguration(WaveDAC8_Wave2TD, sampleSize, WaveDAC8_Wave2TD, 
@@ -7798,15 +7798,15 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7114 0000 65020000 		.4byte	0x265
  7115 0004 0200     		.2byte	0x2
  7116 0006 00000000 		.4byte	.Ldebug_abbrev0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 131
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 131
 
 
  7117 000a 04       		.byte	0x4
  7118 000b 01       		.uleb128 0x1
- 7119 000c 06020000 		.4byte	.LASF36
+ 7119 000c C5010000 		.4byte	.LASF36
  7120 0010 01       		.byte	0x1
- 7121 0011 58020000 		.4byte	.LASF37
- 7122 0015 F5000000 		.4byte	.LASF38
+ 7121 0011 17020000 		.4byte	.LASF37
+ 7122 0015 0E000000 		.4byte	.LASF38
  7123 0019 00000000 		.4byte	.Ldebug_ranges0+0
  7124 001d 00000000 		.4byte	0
  7125 0021 00000000 		.4byte	0
@@ -7814,35 +7814,35 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7127 0029 02       		.uleb128 0x2
  7128 002a 01       		.byte	0x1
  7129 002b 06       		.byte	0x6
- 7130 002c 7C020000 		.4byte	.LASF0
+ 7130 002c 3B020000 		.4byte	.LASF0
  7131 0030 02       		.uleb128 0x2
  7132 0031 01       		.byte	0x1
  7133 0032 08       		.byte	0x8
- 7134 0033 C2000000 		.4byte	.LASF1
+ 7134 0033 F1000000 		.4byte	.LASF1
  7135 0037 02       		.uleb128 0x2
  7136 0038 02       		.byte	0x2
  7137 0039 05       		.byte	0x5
- 7138 003a EB000000 		.4byte	.LASF2
+ 7138 003a 1A010000 		.4byte	.LASF2
  7139 003e 02       		.uleb128 0x2
  7140 003f 02       		.byte	0x2
  7141 0040 07       		.byte	0x7
- 7142 0041 22000000 		.4byte	.LASF3
+ 7142 0041 51000000 		.4byte	.LASF3
  7143 0045 02       		.uleb128 0x2
  7144 0046 04       		.byte	0x4
  7145 0047 05       		.byte	0x5
- 7146 0048 4F020000 		.4byte	.LASF4
+ 7146 0048 0E020000 		.4byte	.LASF4
  7147 004c 02       		.uleb128 0x2
  7148 004d 04       		.byte	0x4
  7149 004e 07       		.byte	0x7
- 7150 004f 86000000 		.4byte	.LASF5
+ 7150 004f B5000000 		.4byte	.LASF5
  7151 0053 02       		.uleb128 0x2
  7152 0054 08       		.byte	0x8
  7153 0055 05       		.byte	0x5
- 7154 0056 C2010000 		.4byte	.LASF6
+ 7154 0056 81010000 		.4byte	.LASF6
  7155 005a 02       		.uleb128 0x2
  7156 005b 08       		.byte	0x8
  7157 005c 07       		.byte	0x7
- 7158 005d 91010000 		.4byte	.LASF7
+ 7158 005d 50010000 		.4byte	.LASF7
  7159 0061 03       		.uleb128 0x3
  7160 0062 04       		.byte	0x4
  7161 0063 05       		.byte	0x5
@@ -7850,41 +7850,41 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7163 0068 02       		.uleb128 0x2
  7164 0069 04       		.byte	0x4
  7165 006a 07       		.byte	0x7
- 7166 006b 84010000 		.4byte	.LASF8
+ 7166 006b 43010000 		.4byte	.LASF8
  7167 006f 04       		.uleb128 0x4
- 7168 0070 A0000000 		.4byte	.LASF9
+ 7168 0070 CF000000 		.4byte	.LASF9
  7169 0074 02       		.byte	0x2
  7170 0075 5B       		.byte	0x5b
  7171 0076 30000000 		.4byte	0x30
  7172 007a 04       		.uleb128 0x4
- 7173 007b 65010000 		.4byte	.LASF10
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 132
+ 7173 007b 24010000 		.4byte	.LASF10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 132
 
 
  7174 007f 02       		.byte	0x2
  7175 0080 5C       		.byte	0x5c
  7176 0081 3E000000 		.4byte	0x3e
  7177 0085 04       		.uleb128 0x4
- 7178 0086 6C010000 		.4byte	.LASF11
+ 7178 0086 2B010000 		.4byte	.LASF11
  7179 008a 02       		.byte	0x2
  7180 008b 5D       		.byte	0x5d
  7181 008c 4C000000 		.4byte	0x4c
  7182 0090 02       		.uleb128 0x2
  7183 0091 04       		.byte	0x4
  7184 0092 04       		.byte	0x4
- 7185 0093 47000000 		.4byte	.LASF12
+ 7185 0093 76000000 		.4byte	.LASF12
  7186 0097 02       		.uleb128 0x2
  7187 0098 08       		.byte	0x8
  7188 0099 04       		.byte	0x4
- 7189 009a D0000000 		.4byte	.LASF13
+ 7189 009a FF000000 		.4byte	.LASF13
  7190 009e 02       		.uleb128 0x2
  7191 009f 01       		.byte	0x1
  7192 00a0 08       		.byte	0x8
- 7193 00a1 D0010000 		.4byte	.LASF14
+ 7193 00a1 8F010000 		.4byte	.LASF14
  7194 00a5 02       		.uleb128 0x2
  7195 00a6 04       		.byte	0x4
  7196 00a7 07       		.byte	0x7
- 7197 00a8 B9010000 		.4byte	.LASF15
+ 7197 00a8 78010000 		.4byte	.LASF15
  7198 00ac 05       		.uleb128 0x5
  7199 00ad 01       		.byte	0x1
  7200 00ae 00000000 		.4byte	.LASF16
@@ -7897,7 +7897,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7207 00c1 01       		.byte	0x1
  7208 00c2 05       		.uleb128 0x5
  7209 00c3 01       		.byte	0x1
- 7210 00c4 A6000000 		.4byte	.LASF17
+ 7210 00c4 D5000000 		.4byte	.LASF17
  7211 00c8 01       		.byte	0x1
  7212 00c9 56       		.byte	0x56
  7213 00ca 01       		.byte	0x1
@@ -7907,7 +7907,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7217 00d7 01       		.byte	0x1
  7218 00d8 05       		.uleb128 0x5
  7219 00d9 01       		.byte	0x1
- 7220 00da 4D000000 		.4byte	.LASF18
+ 7220 00da 7C000000 		.4byte	.LASF18
  7221 00de 01       		.byte	0x1
  7222 00df 81       		.byte	0x81
  7223 00e0 01       		.byte	0x1
@@ -7917,8 +7917,8 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7227 00ed 01       		.byte	0x1
  7228 00ee 06       		.uleb128 0x6
  7229 00ef 01       		.byte	0x1
- 7230 00f0 73010000 		.4byte	.LASF24
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 133
+ 7230 00f0 32010000 		.4byte	.LASF24
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 133
 
 
  7231 00f4 01       		.byte	0x1
@@ -7930,7 +7930,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7237 0103 01       		.byte	0x1
  7238 0104 41010000 		.4byte	0x141
  7239 0108 07       		.uleb128 0x7
- 7240 0109 35000000 		.4byte	.LASF19
+ 7240 0109 64000000 		.4byte	.LASF19
  7241 010d 01       		.byte	0x1
  7242 010e A3       		.byte	0xa3
  7243 010f 41010000 		.4byte	0x141
@@ -7938,7 +7938,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7245 0114 91       		.byte	0x91
  7246 0115 74       		.sleb128 -12
  7247 0116 07       		.uleb128 0x7
- 7248 0117 88020000 		.4byte	.LASF20
+ 7248 0117 47020000 		.4byte	.LASF20
  7249 011b 01       		.byte	0x1
  7250 011c A3       		.byte	0xa3
  7251 011d 7A000000 		.4byte	0x7a
@@ -7946,7 +7946,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7253 0122 91       		.byte	0x91
  7254 0123 72       		.sleb128 -14
  7255 0124 07       		.uleb128 0x7
- 7256 0125 3E000000 		.4byte	.LASF21
+ 7256 0125 6D000000 		.4byte	.LASF21
  7257 0129 01       		.byte	0x1
  7258 012a A3       		.byte	0xa3
  7259 012b 41010000 		.4byte	0x141
@@ -7954,7 +7954,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7261 0130 91       		.byte	0x91
  7262 0131 6C       		.sleb128 -20
  7263 0132 07       		.uleb128 0x7
- 7264 0133 B6000000 		.4byte	.LASF22
+ 7264 0133 E5000000 		.4byte	.LASF22
  7265 0137 01       		.byte	0x1
  7266 0138 A3       		.byte	0xa3
  7267 0139 7A000000 		.4byte	0x7a
@@ -7969,7 +7969,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7276 0148 6F000000 		.4byte	0x6f
  7277 014c 05       		.uleb128 0x5
  7278 014d 01       		.byte	0x1
- 7279 014e 67000000 		.4byte	.LASF23
+ 7279 014e 96000000 		.4byte	.LASF23
  7280 0152 01       		.byte	0x1
  7281 0153 BB       		.byte	0xbb
  7282 0154 01       		.byte	0x1
@@ -7978,11 +7978,11 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7285 015d BC000000 		.4byte	.LLST4
  7286 0161 01       		.byte	0x1
  7287 0162 06       		.uleb128 0x6
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 134
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 134
 
 
  7288 0163 01       		.byte	0x1
- 7289 0164 0E000000 		.4byte	.LASF25
+ 7289 0164 3D000000 		.4byte	.LASF25
  7290 0168 01       		.byte	0x1
  7291 0169 DA       		.byte	0xda
  7292 016a 01       		.byte	0x1
@@ -7992,7 +7992,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7296 0177 01       		.byte	0x1
  7297 0178 99010000 		.4byte	0x199
  7298 017c 07       		.uleb128 0x7
- 7299 017d 98000000 		.4byte	.LASF26
+ 7299 017d C7000000 		.4byte	.LASF26
  7300 0181 01       		.byte	0x1
  7301 0182 DA       		.byte	0xda
  7302 0183 41010000 		.4byte	0x141
@@ -8000,7 +8000,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7304 0188 91       		.byte	0x91
  7305 0189 74       		.sleb128 -12
  7306 018a 07       		.uleb128 0x7
- 7307 018b 5C000000 		.4byte	.LASF27
+ 7307 018b 8B000000 		.4byte	.LASF27
  7308 018f 01       		.byte	0x1
  7309 0190 DA       		.byte	0xda
  7310 0191 7A000000 		.4byte	0x7a
@@ -8010,7 +8010,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7314 0198 00       		.byte	0
  7315 0199 0A       		.uleb128 0xa
  7316 019a 01       		.byte	0x1
- 7317 019b D7000000 		.4byte	.LASF28
+ 7317 019b 06010000 		.4byte	.LASF28
  7318 019f 01       		.byte	0x1
  7319 01a0 0801     		.2byte	0x108
  7320 01a2 01       		.byte	0x1
@@ -8020,7 +8020,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7324 01af 01       		.byte	0x1
  7325 01b0 D3010000 		.4byte	0x1d3
  7326 01b4 0B       		.uleb128 0xb
- 7327 01b5 98000000 		.4byte	.LASF26
+ 7327 01b5 C7000000 		.4byte	.LASF26
  7328 01b9 01       		.byte	0x1
  7329 01ba 0801     		.2byte	0x108
  7330 01bc 41010000 		.4byte	0x141
@@ -8028,7 +8028,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7332 01c1 91       		.byte	0x91
  7333 01c2 74       		.sleb128 -12
  7334 01c3 0B       		.uleb128 0xb
- 7335 01c4 5C000000 		.4byte	.LASF27
+ 7335 01c4 8B000000 		.4byte	.LASF27
  7336 01c8 01       		.byte	0x1
  7337 01c9 0801     		.2byte	0x108
  7338 01cb 7A000000 		.4byte	0x7a
@@ -8037,8 +8037,8 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7341 01d1 72       		.sleb128 -14
  7342 01d2 00       		.byte	0
  7343 01d3 0C       		.uleb128 0xc
- 7344 01d4 D5010000 		.4byte	.LASF29
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 135
+ 7344 01d4 94010000 		.4byte	.LASF29
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 135
 
 
  7345 01d8 01       		.byte	0x1
@@ -8048,7 +8048,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7349 01df 03       		.byte	0x3
  7350 01e0 01000000 		.4byte	WaveDAC8_Wave1Chan
  7351 01e4 0C       		.uleb128 0xc
- 7352 01e5 A5020000 		.4byte	.LASF30
+ 7352 01e5 64020000 		.4byte	.LASF30
  7353 01e9 01       		.byte	0x1
  7354 01ea 18       		.byte	0x18
  7355 01eb 6F000000 		.4byte	0x6f
@@ -8056,7 +8056,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7357 01f0 03       		.byte	0x3
  7358 01f1 02000000 		.4byte	WaveDAC8_Wave2Chan
  7359 01f5 0C       		.uleb128 0xc
- 7360 01f6 A8010000 		.4byte	.LASF31
+ 7360 01f6 67010000 		.4byte	.LASF31
  7361 01fa 01       		.byte	0x1
  7362 01fb 19       		.byte	0x19
  7363 01fc 6F000000 		.4byte	0x6f
@@ -8064,7 +8064,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7365 0201 03       		.byte	0x3
  7366 0202 03000000 		.4byte	WaveDAC8_Wave1TD
  7367 0206 0C       		.uleb128 0xc
- 7368 0207 94020000 		.4byte	.LASF32
+ 7368 0207 53020000 		.4byte	.LASF32
  7369 020b 01       		.byte	0x1
  7370 020c 1A       		.byte	0x1a
  7371 020d 6F000000 		.4byte	0x6f
@@ -8072,7 +8072,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7373 0212 03       		.byte	0x3
  7374 0213 04000000 		.4byte	WaveDAC8_Wave2TD
  7375 0217 0D       		.uleb128 0xd
- 7376 0218 75000000 		.4byte	.LASF33
+ 7376 0218 A4000000 		.4byte	.LASF33
  7377 021c 01       		.byte	0x1
  7378 021d 12       		.byte	0x12
  7379 021e 6F000000 		.4byte	0x6f
@@ -8088,7 +8088,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7389 0237 040D     		.2byte	0xd04
  7390 0239 00       		.byte	0
  7391 023a 0D       		.uleb128 0xd
- 7392 023b E8010000 		.4byte	.LASF34
+ 7392 023b A7010000 		.4byte	.LASF34
  7393 023f 01       		.byte	0x1
  7394 0240 14       		.byte	0x14
  7395 0241 4C020000 		.4byte	0x24c
@@ -8098,11 +8098,11 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7399 0248 00000000 		.4byte	WaveDAC8_wave1
  7400 024c 09       		.uleb128 0x9
  7401 024d 29020000 		.4byte	0x229
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 136
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 136
 
 
  7402 0251 0D       		.uleb128 0xd
- 7403 0252 F7010000 		.4byte	.LASF35
+ 7403 0252 B6010000 		.4byte	.LASF35
  7404 0256 01       		.byte	0x1
  7405 0257 15       		.byte	0x15
  7406 0258 63020000 		.4byte	0x263
@@ -8158,7 +8158,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7456 0028 08       		.uleb128 0x8
  7457 0029 00       		.byte	0
  7458 002a 00       		.byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 137
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 137
 
 
  7459 002b 04       		.uleb128 0x4
@@ -8218,7 +8218,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7513 0062 06       		.uleb128 0x6
  7514 0063 9642     		.uleb128 0x2116
  7515 0065 0C       		.uleb128 0xc
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 138
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 138
 
 
  7516 0066 01       		.uleb128 0x1
@@ -8278,7 +8278,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7570 009c 9642     		.uleb128 0x2116
  7571 009e 0C       		.uleb128 0xc
  7572 009f 01       		.uleb128 0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 139
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 139
 
 
  7573 00a0 13       		.uleb128 0x13
@@ -8338,7 +8338,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7627 00d6 13       		.uleb128 0x13
  7628 00d7 01       		.uleb128 0x1
  7629 00d8 13       		.uleb128 0x13
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 140
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 140
 
 
  7630 00d9 00       		.byte	0
@@ -8398,7 +8398,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7684 0062 7D       		.byte	0x7d
  7685 0063 00       		.sleb128 0
  7686 0064 02000000 		.4byte	.LCFI4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 141
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 141
 
 
  7687 0068 04000000 		.4byte	.LCFI5
@@ -8458,7 +8458,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7741 00ec 02000000 		.4byte	.LCFI11
  7742 00f0 0200     		.2byte	0x2
  7743 00f2 7D       		.byte	0x7d
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 142
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 142
 
 
  7744 00f3 00       		.sleb128 0
@@ -8518,7 +8518,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7798 0024 2A000000 		.4byte	.LFE2-.LFB2
  7799 0028 00000000 		.4byte	.LFB3
  7800 002c 30000000 		.4byte	.LFE3-.LFB3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 143
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 143
 
 
  7801 0030 00000000 		.4byte	.LFB4
@@ -8559,212 +8559,199 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 1
  7831      44414338 
  7831      5F496E69 
  7831      7400
- 7832              	.LASF25:
- 7833 000e 57617665 		.ascii	"WaveDAC8_Wave1Setup\000"
- 7833      44414338 
- 7833      5F576176 
- 7833      65315365 
- 7833      74757000 
- 7834              	.LASF3:
- 7835 0022 73686F72 		.ascii	"short unsigned int\000"
- 7835      7420756E 
- 7835      7369676E 
- 7835      65642069 
- 7835      6E7400
- 7836              	.LASF19:
- 7837 0035 77617665 		.ascii	"wavePtr1\000"
- 7837      50747231 
- 7837      00
- 7838              	.LASF21:
- 7839 003e 77617665 		.ascii	"wavePtr2\000"
- 7839      50747232 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 144
+ 7832              	.LASF38:
+ 7833 000e 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 7833      47495448 
+ 7833      55422072 
+ 7833      65706F73 
+ 7833      5C537175 
+ 7834              	.LASF25:
+ 7835 003d 57617665 		.ascii	"WaveDAC8_Wave1Setup\000"
+ 7835      44414338 
+ 7835      5F576176 
+ 7835      65315365 
+ 7835      74757000 
+ 7836              	.LASF3:
+ 7837 0051 73686F72 		.ascii	"short unsigned int\000"
+ 7837      7420756E 
+ 7837      7369676E 
+ 7837      65642069 
+ 7837      6E7400
+ 7838              	.LASF19:
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 144
 
 
+ 7839 0064 77617665 		.ascii	"wavePtr1\000"
+ 7839      50747231 
  7839      00
- 7840              	.LASF12:
- 7841 0047 666C6F61 		.ascii	"float\000"
- 7841      7400
- 7842              	.LASF18:
- 7843 004d 57617665 		.ascii	"WaveDAC8_Start\000"
- 7843      44414338 
- 7843      5F537461 
- 7843      727400
- 7844              	.LASF27:
- 7845 005c 73616D70 		.ascii	"sampleSize\000"
- 7845      6C655369 
- 7845      7A6500
- 7846              	.LASF23:
- 7847 0067 57617665 		.ascii	"WaveDAC8_Stop\000"
- 7847      44414338 
- 7847      5F53746F 
- 7847      7000
- 7848              	.LASF33:
- 7849 0075 57617665 		.ascii	"WaveDAC8_initVar\000"
+ 7840              	.LASF21:
+ 7841 006d 77617665 		.ascii	"wavePtr2\000"
+ 7841      50747232 
+ 7841      00
+ 7842              	.LASF12:
+ 7843 0076 666C6F61 		.ascii	"float\000"
+ 7843      7400
+ 7844              	.LASF18:
+ 7845 007c 57617665 		.ascii	"WaveDAC8_Start\000"
+ 7845      44414338 
+ 7845      5F537461 
+ 7845      727400
+ 7846              	.LASF27:
+ 7847 008b 73616D70 		.ascii	"sampleSize\000"
+ 7847      6C655369 
+ 7847      7A6500
+ 7848              	.LASF23:
+ 7849 0096 57617665 		.ascii	"WaveDAC8_Stop\000"
  7849      44414338 
- 7849      5F696E69 
- 7849      74566172 
- 7849      00
- 7850              	.LASF5:
- 7851 0086 6C6F6E67 		.ascii	"long unsigned int\000"
- 7851      20756E73 
- 7851      69676E65 
- 7851      6420696E 
- 7851      7400
- 7852              	.LASF26:
- 7853 0098 77617665 		.ascii	"wavePtr\000"
- 7853      50747200 
- 7854              	.LASF9:
- 7855 00a0 75696E74 		.ascii	"uint8\000"
- 7855      3800
- 7856              	.LASF17:
- 7857 00a6 57617665 		.ascii	"WaveDAC8_Enable\000"
- 7857      44414338 
- 7857      5F456E61 
- 7857      626C6500 
- 7858              	.LASF22:
- 7859 00b6 73616D70 		.ascii	"sampleSize2\000"
- 7859      6C655369 
- 7859      7A653200 
- 7860              	.LASF1:
- 7861 00c2 756E7369 		.ascii	"unsigned char\000"
- 7861      676E6564 
- 7861      20636861 
- 7861      7200
- 7862              	.LASF13:
- 7863 00d0 646F7562 		.ascii	"double\000"
- 7863      6C6500
- 7864              	.LASF28:
- 7865 00d7 57617665 		.ascii	"WaveDAC8_Wave2Setup\000"
- 7865      44414338 
- 7865      5F576176 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 145
+ 7849      5F53746F 
+ 7849      7000
+ 7850              	.LASF33:
+ 7851 00a4 57617665 		.ascii	"WaveDAC8_initVar\000"
+ 7851      44414338 
+ 7851      5F696E69 
+ 7851      74566172 
+ 7851      00
+ 7852              	.LASF5:
+ 7853 00b5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 7853      20756E73 
+ 7853      69676E65 
+ 7853      6420696E 
+ 7853      7400
+ 7854              	.LASF26:
+ 7855 00c7 77617665 		.ascii	"wavePtr\000"
+ 7855      50747200 
+ 7856              	.LASF9:
+ 7857 00cf 75696E74 		.ascii	"uint8\000"
+ 7857      3800
+ 7858              	.LASF17:
+ 7859 00d5 57617665 		.ascii	"WaveDAC8_Enable\000"
+ 7859      44414338 
+ 7859      5F456E61 
+ 7859      626C6500 
+ 7860              	.LASF22:
+ 7861 00e5 73616D70 		.ascii	"sampleSize2\000"
+ 7861      6C655369 
+ 7861      7A653200 
+ 7862              	.LASF1:
+ 7863 00f1 756E7369 		.ascii	"unsigned char\000"
+ 7863      676E6564 
+ 7863      20636861 
+ 7863      7200
+ 7864              	.LASF13:
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 145
 
 
- 7865      65325365 
- 7865      74757000 
- 7866              	.LASF2:
- 7867 00eb 73686F72 		.ascii	"short int\000"
- 7867      7420696E 
- 7867      7400
- 7868              	.LASF38:
- 7869 00f5 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 7869      73657273 
- 7869      5C477261 
- 7869      7A69616E 
- 7869      6F20472E 
- 7870 0124 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 7870      5C535155 
- 7870      49545C56 
- 7870      6572732E 
- 7870      302E302D 
- 7871 0154 71756974 		.ascii	"quit-Proto.cydsn\000"
- 7871      2D50726F 
- 7871      746F2E63 
- 7871      7964736E 
- 7871      00
- 7872              	.LASF10:
- 7873 0165 75696E74 		.ascii	"uint16\000"
- 7873      313600
- 7874              	.LASF11:
- 7875 016c 75696E74 		.ascii	"uint32\000"
- 7875      333200
- 7876              	.LASF24:
- 7877 0173 57617665 		.ascii	"WaveDAC8_StartEx\000"
- 7877      44414338 
- 7877      5F537461 
- 7877      72744578 
+ 7865 00ff 646F7562 		.ascii	"double\000"
+ 7865      6C6500
+ 7866              	.LASF28:
+ 7867 0106 57617665 		.ascii	"WaveDAC8_Wave2Setup\000"
+ 7867      44414338 
+ 7867      5F576176 
+ 7867      65325365 
+ 7867      74757000 
+ 7868              	.LASF2:
+ 7869 011a 73686F72 		.ascii	"short int\000"
+ 7869      7420696E 
+ 7869      7400
+ 7870              	.LASF10:
+ 7871 0124 75696E74 		.ascii	"uint16\000"
+ 7871      313600
+ 7872              	.LASF11:
+ 7873 012b 75696E74 		.ascii	"uint32\000"
+ 7873      333200
+ 7874              	.LASF24:
+ 7875 0132 57617665 		.ascii	"WaveDAC8_StartEx\000"
+ 7875      44414338 
+ 7875      5F537461 
+ 7875      72744578 
+ 7875      00
+ 7876              	.LASF8:
+ 7877 0143 756E7369 		.ascii	"unsigned int\000"
+ 7877      676E6564 
+ 7877      20696E74 
  7877      00
- 7878              	.LASF8:
- 7879 0184 756E7369 		.ascii	"unsigned int\000"
- 7879      676E6564 
- 7879      20696E74 
- 7879      00
- 7880              	.LASF7:
- 7881 0191 6C6F6E67 		.ascii	"long long unsigned int\000"
- 7881      206C6F6E 
- 7881      6720756E 
- 7881      7369676E 
- 7881      65642069 
- 7882              	.LASF31:
- 7883 01a8 57617665 		.ascii	"WaveDAC8_Wave1TD\000"
- 7883      44414338 
- 7883      5F576176 
- 7883      65315444 
+ 7878              	.LASF7:
+ 7879 0150 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 7879      206C6F6E 
+ 7879      6720756E 
+ 7879      7369676E 
+ 7879      65642069 
+ 7880              	.LASF31:
+ 7881 0167 57617665 		.ascii	"WaveDAC8_Wave1TD\000"
+ 7881      44414338 
+ 7881      5F576176 
+ 7881      65315444 
+ 7881      00
+ 7882              	.LASF15:
+ 7883 0178 73697A65 		.ascii	"sizetype\000"
+ 7883      74797065 
  7883      00
- 7884              	.LASF15:
- 7885 01b9 73697A65 		.ascii	"sizetype\000"
- 7885      74797065 
- 7885      00
- 7886              	.LASF6:
- 7887 01c2 6C6F6E67 		.ascii	"long long int\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 146
+ 7884              	.LASF6:
+ 7885 0181 6C6F6E67 		.ascii	"long long int\000"
+ 7885      206C6F6E 
+ 7885      6720696E 
+ 7885      7400
+ 7886              	.LASF14:
+ 7887 018f 63686172 		.ascii	"char\000"
+ 7887      00
+ 7888              	.LASF29:
+ 7889 0194 57617665 		.ascii	"WaveDAC8_Wave1Chan\000"
+ 7889      44414338 
+ 7889      5F576176 
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc1coBlx.s 			page 146
 
 
- 7887      206C6F6E 
- 7887      6720696E 
- 7887      7400
- 7888              	.LASF14:
- 7889 01d0 63686172 		.ascii	"char\000"
- 7889      00
- 7890              	.LASF29:
- 7891 01d5 57617665 		.ascii	"WaveDAC8_Wave1Chan\000"
+ 7889      65314368 
+ 7889      616E00
+ 7890              	.LASF34:
+ 7891 01a7 57617665 		.ascii	"WaveDAC8_wave1\000"
  7891      44414338 
- 7891      5F576176 
- 7891      65314368 
- 7891      616E00
- 7892              	.LASF34:
- 7893 01e8 57617665 		.ascii	"WaveDAC8_wave1\000"
+ 7891      5F776176 
+ 7891      653100
+ 7892              	.LASF35:
+ 7893 01b6 57617665 		.ascii	"WaveDAC8_wave2\000"
  7893      44414338 
  7893      5F776176 
- 7893      653100
- 7894              	.LASF35:
- 7895 01f7 57617665 		.ascii	"WaveDAC8_wave2\000"
- 7895      44414338 
- 7895      5F776176 
- 7895      653200
- 7896              	.LASF36:
- 7897 0206 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 7897      4320342E 
- 7897      372E3320 
- 7897      32303133 
- 7897      30333132 
- 7898 0239 616E6368 		.ascii	"anch revision 196615]\000"
- 7898      20726576 
- 7898      6973696F 
- 7898      6E203139 
- 7898      36363135 
- 7899              	.LASF4:
- 7900 024f 6C6F6E67 		.ascii	"long int\000"
- 7900      20696E74 
- 7900      00
- 7901              	.LASF37:
- 7902 0258 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\WaveDAC8.c\000"
- 7902      6E657261 
- 7902      7465645F 
- 7902      536F7572 
- 7902      63655C50 
- 7903              	.LASF0:
- 7904 027c 7369676E 		.ascii	"signed char\000"
- 7904      65642063 
- 7904      68617200 
- 7905              	.LASF20:
- 7906 0288 73616D70 		.ascii	"sampleSize1\000"
- 7906      6C655369 
- 7906      7A653100 
- 7907              	.LASF32:
- 7908 0294 57617665 		.ascii	"WaveDAC8_Wave2TD\000"
+ 7893      653200
+ 7894              	.LASF36:
+ 7895 01c5 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 7895      4320342E 
+ 7895      372E3320 
+ 7895      32303133 
+ 7895      30333132 
+ 7896 01f8 616E6368 		.ascii	"anch revision 196615]\000"
+ 7896      20726576 
+ 7896      6973696F 
+ 7896      6E203139 
+ 7896      36363135 
+ 7897              	.LASF4:
+ 7898 020e 6C6F6E67 		.ascii	"long int\000"
+ 7898      20696E74 
+ 7898      00
+ 7899              	.LASF37:
+ 7900 0217 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\WaveDAC8.c\000"
+ 7900      6E657261 
+ 7900      7465645F 
+ 7900      536F7572 
+ 7900      63655C50 
+ 7901              	.LASF0:
+ 7902 023b 7369676E 		.ascii	"signed char\000"
+ 7902      65642063 
+ 7902      68617200 
+ 7903              	.LASF20:
+ 7904 0247 73616D70 		.ascii	"sampleSize1\000"
+ 7904      6C655369 
+ 7904      7A653100 
+ 7905              	.LASF32:
+ 7906 0253 57617665 		.ascii	"WaveDAC8_Wave2TD\000"
+ 7906      44414338 
+ 7906      5F576176 
+ 7906      65325444 
+ 7906      00
+ 7907              	.LASF30:
+ 7908 0264 57617665 		.ascii	"WaveDAC8_Wave2Chan\000"
  7908      44414338 
  7908      5F576176 
- 7908      65325444 
- 7908      00
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccD37yia.s 			page 147
-
-
- 7909              	.LASF30:
- 7910 02a5 57617665 		.ascii	"WaveDAC8_Wave2Chan\000"
- 7910      44414338 
- 7910      5F576176 
- 7910      65324368 
- 7910      616E00
- 7911              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 7908      65324368 
+ 7908      616E00
+ 7909              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

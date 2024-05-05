@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
   25:.\Generated_Source\PSoC5/Counter_LED_PM.c **** * Function Name: Counter_LED_SaveConfig
   26:.\Generated_Source\PSoC5/Counter_LED_PM.c **** ********************************************************************************
   27:.\Generated_Source\PSoC5/Counter_LED_PM.c **** * Summary:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 2
 
 
   28:.\Generated_Source\PSoC5/Counter_LED_PM.c **** *     Save the current user configuration
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
   53              		.thumb
   54              		.thumb_func
   55              		.type	Counter_LED_RestoreConfig, %function
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 3
 
 
   56              	Counter_LED_RestoreConfig:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  100:.\Generated_Source\PSoC5/Counter_LED_PM.c **** 
  101:.\Generated_Source\PSoC5/Counter_LED_PM.c ****         #if(!Counter_LED_ControlRegRemoved)
  102:.\Generated_Source\PSoC5/Counter_LED_PM.c ****             Counter_LED_WriteControlRegister(Counter_LED_backup.CounterControlRegister);
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 4
 
 
  103:.\Generated_Source\PSoC5/Counter_LED_PM.c ****         #endif /* (!Counter_LED_ControlRegRemoved) */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  130:.\Generated_Source\PSoC5/Counter_LED_PM.c ****         if(Counter_LED_CTRL_ENABLE == (Counter_LED_CONTROL & Counter_LED_CTRL_ENABLE))
   97              		.loc 1 130 0
   98 0004 4FF49E43 		mov	r3, #20224
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 5
 
 
   99 0008 C4F20003 		movt	r3, 16384
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  133              	Counter_LED_Wakeup:
  134              	.LFB3:
  151:.\Generated_Source\PSoC5/Counter_LED_PM.c **** 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 6
 
 
  152:.\Generated_Source\PSoC5/Counter_LED_PM.c **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  158              		.loc 1 182 0
  159 001a 80BD     		pop	{r7, pc}
  160              		.cfi_endproc
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 7
 
 
  161              	.LFE3:
@@ -374,10 +374,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  171 0006 00000000 		.4byte	.Ldebug_abbrev0
  172 000a 04       		.byte	0x4
  173 000b 01       		.uleb128 0x1
- 174 000c F1000000 		.4byte	.LASF23
+ 174 000c 81000000 		.4byte	.LASF23
  175 0010 01       		.byte	0x1
- 176 0011 1A020000 		.4byte	.LASF24
- 177 0015 1B000000 		.4byte	.LASF25
+ 176 0011 D9010000 		.4byte	.LASF24
+ 177 0015 24010000 		.4byte	.LASF25
  178 0019 00000000 		.4byte	.Ldebug_ranges0+0
  179 001d 00000000 		.4byte	0
  180 0021 00000000 		.4byte	0
@@ -385,27 +385,27 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  182 0029 02       		.uleb128 0x2
  183 002a 01       		.byte	0x1
  184 002b 06       		.byte	0x6
- 185 002c C1010000 		.4byte	.LASF0
+ 185 002c 80010000 		.4byte	.LASF0
  186 0030 02       		.uleb128 0x2
  187 0031 01       		.byte	0x1
  188 0032 08       		.byte	0x8
- 189 0033 8B000000 		.4byte	.LASF1
+ 189 0033 1B000000 		.4byte	.LASF1
  190 0037 02       		.uleb128 0x2
  191 0038 02       		.byte	0x2
  192 0039 05       		.byte	0x5
- 193 003a F7010000 		.4byte	.LASF2
+ 193 003a B6010000 		.4byte	.LASF2
  194 003e 02       		.uleb128 0x2
  195 003f 02       		.byte	0x2
  196 0040 07       		.byte	0x7
- 197 0041 AE010000 		.4byte	.LASF3
+ 197 0041 6D010000 		.4byte	.LASF3
  198 0045 02       		.uleb128 0x2
  199 0046 04       		.byte	0x4
  200 0047 05       		.byte	0x5
- 201 0048 71010000 		.4byte	.LASF4
+ 201 0048 01010000 		.4byte	.LASF4
  202 004c 02       		.uleb128 0x2
  203 004d 04       		.byte	0x4
  204 004e 07       		.byte	0x7
- 205 004f C8000000 		.4byte	.LASF5
+ 205 004f 58000000 		.4byte	.LASF5
  206 0053 02       		.uleb128 0x2
  207 0054 08       		.byte	0x8
  208 0055 05       		.byte	0x5
@@ -413,12 +413,12 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  210 005a 02       		.uleb128 0x2
  211 005b 08       		.byte	0x8
  212 005c 07       		.byte	0x7
- 213 005d DA000000 		.4byte	.LASF7
+ 213 005d 6A000000 		.4byte	.LASF7
  214 0061 03       		.uleb128 0x3
  215 0062 04       		.byte	0x4
  216 0063 05       		.byte	0x5
  217 0064 696E7400 		.ascii	"int\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 8
 
 
  218 0068 02       		.uleb128 0x2
@@ -426,24 +426,24 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  220 006a 07       		.byte	0x7
  221 006b 0E000000 		.4byte	.LASF8
  222 006f 04       		.uleb128 0x4
- 223 0070 C2000000 		.4byte	.LASF12
+ 223 0070 52000000 		.4byte	.LASF12
  224 0074 02       		.byte	0x2
  225 0075 5B       		.byte	0x5b
  226 0076 30000000 		.4byte	0x30
  227 007a 02       		.uleb128 0x2
  228 007b 04       		.byte	0x4
  229 007c 04       		.byte	0x4
- 230 007d 3A010000 		.4byte	.LASF9
+ 230 007d CA000000 		.4byte	.LASF9
  231 0081 02       		.uleb128 0x2
  232 0082 08       		.byte	0x8
  233 0083 04       		.byte	0x4
- 234 0084 8D010000 		.4byte	.LASF10
+ 234 0084 1D010000 		.4byte	.LASF10
  235 0088 02       		.uleb128 0x2
  236 0089 01       		.byte	0x1
  237 008a 08       		.byte	0x8
- 238 008b 6C010000 		.4byte	.LASF11
+ 238 008b FC000000 		.4byte	.LASF11
  239 008f 04       		.uleb128 0x4
- 240 0090 01020000 		.4byte	.LASF13
+ 240 0090 C0010000 		.4byte	.LASF13
  241 0094 02       		.byte	0x2
  242 0095 F0       		.byte	0xf0
  243 0096 9A000000 		.4byte	0x9a
@@ -452,14 +452,14 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  246 009f 02       		.uleb128 0x2
  247 00a0 04       		.byte	0x4
  248 00a1 07       		.byte	0x7
- 249 00a2 11020000 		.4byte	.LASF14
+ 249 00a2 D0010000 		.4byte	.LASF14
  250 00a6 06       		.uleb128 0x6
  251 00a7 03       		.byte	0x3
  252 00a8 03       		.byte	0x3
  253 00a9 38       		.byte	0x38
  254 00aa D9000000 		.4byte	0xd9
  255 00ae 07       		.uleb128 0x7
- 256 00af 7A010000 		.4byte	.LASF15
+ 256 00af 0A010000 		.4byte	.LASF15
  257 00b3 03       		.byte	0x3
  258 00b4 3A       		.byte	0x3a
  259 00b5 6F000000 		.4byte	0x6f
@@ -467,7 +467,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  261 00ba 23       		.byte	0x23
  262 00bb 00       		.uleb128 0
  263 00bc 07       		.uleb128 0x7
- 264 00bd 06020000 		.4byte	.LASF16
+ 264 00bd C5010000 		.4byte	.LASF16
  265 00c1 03       		.byte	0x3
  266 00c2 3B       		.byte	0x3b
  267 00c3 6F000000 		.4byte	0x6f
@@ -475,10 +475,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  269 00c8 23       		.byte	0x23
  270 00c9 01       		.uleb128 0x1
  271 00ca 07       		.uleb128 0x7
- 272 00cb CD010000 		.4byte	.LASF17
+ 272 00cb 8C010000 		.4byte	.LASF17
  273 00cf 03       		.byte	0x3
  274 00d0 44       		.byte	0x44
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 9
 
 
  275 00d1 6F000000 		.4byte	0x6f
@@ -487,13 +487,13 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  278 00d7 02       		.uleb128 0x2
  279 00d8 00       		.byte	0
  280 00d9 04       		.uleb128 0x4
- 281 00da 40010000 		.4byte	.LASF18
+ 281 00da D0000000 		.4byte	.LASF18
  282 00de 03       		.byte	0x3
  283 00df 47       		.byte	0x47
  284 00e0 A6000000 		.4byte	0xa6
  285 00e4 08       		.uleb128 0x8
  286 00e5 01       		.byte	0x1
- 287 00e6 AB000000 		.4byte	.LASF19
+ 287 00e6 3B000000 		.4byte	.LASF19
  288 00ea 01       		.byte	0x1
  289 00eb 2A       		.byte	0x2a
  290 00ec 01       		.byte	0x1
@@ -503,7 +503,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  294 00f9 01       		.byte	0x1
  295 00fa 08       		.uleb128 0x8
  296 00fb 01       		.byte	0x1
- 297 00fc 94010000 		.4byte	.LASF20
+ 297 00fc 53010000 		.4byte	.LASF20
  298 0100 01       		.byte	0x1
  299 0101 50       		.byte	0x50
  300 0102 01       		.byte	0x1
@@ -513,7 +513,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  304 010f 01       		.byte	0x1
  305 0110 09       		.uleb128 0x9
  306 0111 01       		.byte	0x1
- 307 0112 99000000 		.4byte	.LASF21
+ 307 0112 29000000 		.4byte	.LASF21
  308 0116 01       		.byte	0x1
  309 0117 7E       		.byte	0x7e
  310 0118 01       		.byte	0x1
@@ -523,7 +523,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  314 0125 01       		.byte	0x1
  315 0126 09       		.uleb128 0x9
  316 0127 01       		.byte	0x1
- 317 0128 E4010000 		.4byte	.LASF22
+ 317 0128 A3010000 		.4byte	.LASF22
  318 012c 01       		.byte	0x1
  319 012d AB       		.byte	0xab
  320 012e 01       		.byte	0x1
@@ -532,13 +532,13 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  323 0137 84000000 		.4byte	.LLST3
  324 013b 01       		.byte	0x1
  325 013c 0A       		.uleb128 0xa
- 326 013d 59010000 		.4byte	.LASF26
+ 326 013d E9000000 		.4byte	.LASF26
  327 0141 01       		.byte	0x1
  328 0142 15       		.byte	0x15
  329 0143 D9000000 		.4byte	0xd9
  330 0147 05       		.byte	0x5
  331 0148 03       		.byte	0x3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 10
 
 
  332 0149 00000000 		.4byte	Counter_LED_backup
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  386 0032 3B       		.uleb128 0x3b
  387 0033 0B       		.uleb128 0xb
  388 0034 49       		.uleb128 0x49
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 11
 
 
  389 0035 13       		.uleb128 0x13
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  443 006b 01       		.uleb128 0x1
  444 006c 40       		.uleb128 0x40
  445 006d 06       		.uleb128 0x6
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 12
 
 
  446 006e 9742     		.uleb128 0x2117
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  500 0016 7D       		.byte	0x7d
  501 0017 04       		.sleb128 4
  502 0018 04000000 		.4byte	.LCFI1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 13
 
 
  503 001c 0A000000 		.4byte	.LFE0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  557 00a0 1C000000 		.4byte	.LFE3
  558 00a4 0200     		.2byte	0x2
  559 00a6 77       		.byte	0x77
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 14
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 14
 
 
  560 00a7 08       		.sleb128 8
@@ -831,152 +831,142 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 1
  599      676E6564 
  599      20696E74 
  599      00
- 600              	.LASF25:
- 601 001b 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 601      73657273 
- 601      5C477261 
- 601      7A69616E 
- 601      6F20472E 
- 602 004a 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 15
+ 600              	.LASF1:
+ 601 001b 756E7369 		.ascii	"unsigned char\000"
+ 601      676E6564 
+ 601      20636861 
+ 601      7200
+ 602              	.LASF21:
+ 603 0029 436F756E 		.ascii	"Counter_LED_Sleep\000"
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 15
 
 
- 602      5C535155 
- 602      49545C56 
- 602      6572732E 
- 602      302E302D 
- 603 007a 71756974 		.ascii	"quit-Proto.cydsn\000"
- 603      2D50726F 
- 603      746F2E63 
- 603      7964736E 
- 603      00
- 604              	.LASF1:
- 605 008b 756E7369 		.ascii	"unsigned char\000"
- 605      676E6564 
- 605      20636861 
- 605      7200
- 606              	.LASF21:
- 607 0099 436F756E 		.ascii	"Counter_LED_Sleep\000"
- 607      7465725F 
- 607      4C45445F 
- 607      536C6565 
- 607      7000
- 608              	.LASF19:
- 609 00ab 436F756E 		.ascii	"Counter_LED_SaveConfig\000"
- 609      7465725F 
- 609      4C45445F 
- 609      53617665 
- 609      436F6E66 
- 610              	.LASF12:
- 611 00c2 75696E74 		.ascii	"uint8\000"
- 611      3800
- 612              	.LASF5:
- 613 00c8 6C6F6E67 		.ascii	"long unsigned int\000"
- 613      20756E73 
- 613      69676E65 
- 613      6420696E 
- 613      7400
- 614              	.LASF7:
- 615 00da 6C6F6E67 		.ascii	"long long unsigned int\000"
- 615      206C6F6E 
- 615      6720756E 
- 615      7369676E 
- 615      65642069 
- 616              	.LASF23:
- 617 00f1 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 617      4320342E 
- 617      372E3320 
- 617      32303133 
- 617      30333132 
- 618 0124 616E6368 		.ascii	"anch revision 196615]\000"
- 618      20726576 
- 618      6973696F 
- 618      6E203139 
- 618      36363135 
- 619              	.LASF9:
- 620 013a 666C6F61 		.ascii	"float\000"
- 620      7400
- 621              	.LASF18:
- 622 0140 436F756E 		.ascii	"Counter_LED_backupStruct\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 16
+ 603      7465725F 
+ 603      4C45445F 
+ 603      536C6565 
+ 603      7000
+ 604              	.LASF19:
+ 605 003b 436F756E 		.ascii	"Counter_LED_SaveConfig\000"
+ 605      7465725F 
+ 605      4C45445F 
+ 605      53617665 
+ 605      436F6E66 
+ 606              	.LASF12:
+ 607 0052 75696E74 		.ascii	"uint8\000"
+ 607      3800
+ 608              	.LASF5:
+ 609 0058 6C6F6E67 		.ascii	"long unsigned int\000"
+ 609      20756E73 
+ 609      69676E65 
+ 609      6420696E 
+ 609      7400
+ 610              	.LASF7:
+ 611 006a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 611      206C6F6E 
+ 611      6720756E 
+ 611      7369676E 
+ 611      65642069 
+ 612              	.LASF23:
+ 613 0081 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 613      4320342E 
+ 613      372E3320 
+ 613      32303133 
+ 613      30333132 
+ 614 00b4 616E6368 		.ascii	"anch revision 196615]\000"
+ 614      20726576 
+ 614      6973696F 
+ 614      6E203139 
+ 614      36363135 
+ 615              	.LASF9:
+ 616 00ca 666C6F61 		.ascii	"float\000"
+ 616      7400
+ 617              	.LASF18:
+ 618 00d0 436F756E 		.ascii	"Counter_LED_backupStruct\000"
+ 618      7465725F 
+ 618      4C45445F 
+ 618      6261636B 
+ 618      75705374 
+ 619              	.LASF26:
+ 620 00e9 436F756E 		.ascii	"Counter_LED_backup\000"
+ 620      7465725F 
+ 620      4C45445F 
+ 620      6261636B 
+ 620      757000
+ 621              	.LASF11:
+ 622 00fc 63686172 		.ascii	"char\000"
+ 622      00
+ 623              	.LASF4:
+ 624 0101 6C6F6E67 		.ascii	"long int\000"
+ 624      20696E74 
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 16
 
 
- 622      7465725F 
- 622      4C45445F 
- 622      6261636B 
- 622      75705374 
- 623              	.LASF26:
- 624 0159 436F756E 		.ascii	"Counter_LED_backup\000"
- 624      7465725F 
- 624      4C45445F 
- 624      6261636B 
- 624      757000
- 625              	.LASF11:
- 626 016c 63686172 		.ascii	"char\000"
- 626      00
- 627              	.LASF4:
- 628 0171 6C6F6E67 		.ascii	"long int\000"
- 628      20696E74 
- 628      00
- 629              	.LASF15:
- 630 017a 436F756E 		.ascii	"CounterEnableState\000"
- 630      74657245 
- 630      6E61626C 
- 630      65537461 
- 630      746500
- 631              	.LASF10:
- 632 018d 646F7562 		.ascii	"double\000"
- 632      6C6500
- 633              	.LASF20:
- 634 0194 436F756E 		.ascii	"Counter_LED_RestoreConfig\000"
- 634      7465725F 
- 634      4C45445F 
- 634      52657374 
- 634      6F726543 
- 635              	.LASF3:
- 636 01ae 73686F72 		.ascii	"short unsigned int\000"
- 636      7420756E 
- 636      7369676E 
- 636      65642069 
- 636      6E7400
- 637              	.LASF0:
- 638 01c1 7369676E 		.ascii	"signed char\000"
- 638      65642063 
- 638      68617200 
- 639              	.LASF17:
- 640 01cd 436F756E 		.ascii	"CounterControlRegister\000"
- 640      74657243 
- 640      6F6E7472 
- 640      6F6C5265 
- 640      67697374 
- 641              	.LASF22:
- 642 01e4 436F756E 		.ascii	"Counter_LED_Wakeup\000"
- 642      7465725F 
- 642      4C45445F 
- 642      57616B65 
- 642      757000
- 643              	.LASF2:
- 644 01f7 73686F72 		.ascii	"short int\000"
- 644      7420696E 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccay0crN.s 			page 17
+ 624      00
+ 625              	.LASF15:
+ 626 010a 436F756E 		.ascii	"CounterEnableState\000"
+ 626      74657245 
+ 626      6E61626C 
+ 626      65537461 
+ 626      746500
+ 627              	.LASF10:
+ 628 011d 646F7562 		.ascii	"double\000"
+ 628      6C6500
+ 629              	.LASF25:
+ 630 0124 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 630      47495448 
+ 630      55422072 
+ 630      65706F73 
+ 630      5C537175 
+ 631              	.LASF20:
+ 632 0153 436F756E 		.ascii	"Counter_LED_RestoreConfig\000"
+ 632      7465725F 
+ 632      4C45445F 
+ 632      52657374 
+ 632      6F726543 
+ 633              	.LASF3:
+ 634 016d 73686F72 		.ascii	"short unsigned int\000"
+ 634      7420756E 
+ 634      7369676E 
+ 634      65642069 
+ 634      6E7400
+ 635              	.LASF0:
+ 636 0180 7369676E 		.ascii	"signed char\000"
+ 636      65642063 
+ 636      68617200 
+ 637              	.LASF17:
+ 638 018c 436F756E 		.ascii	"CounterControlRegister\000"
+ 638      74657243 
+ 638      6F6E7472 
+ 638      6F6C5265 
+ 638      67697374 
+ 639              	.LASF22:
+ 640 01a3 436F756E 		.ascii	"Counter_LED_Wakeup\000"
+ 640      7465725F 
+ 640      4C45445F 
+ 640      57616B65 
+ 640      757000
+ 641              	.LASF2:
+ 642 01b6 73686F72 		.ascii	"short int\000"
+ 642      7420696E 
+ 642      7400
+ 643              	.LASF13:
+ 644 01c0 72656738 		.ascii	"reg8\000"
+ 644      00
+ 645              	.LASF16:
+ 646 01c5 436F756E 		.ascii	"CounterUdb\000"
+ 646      74657255 
+ 646      646200
+ 647              	.LASF14:
+ 648 01d0 73697A65 		.ascii	"sizetype\000"
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cc0Pptn7.s 			page 17
 
 
- 644      7400
- 645              	.LASF13:
- 646 0201 72656738 		.ascii	"reg8\000"
- 646      00
- 647              	.LASF16:
- 648 0206 436F756E 		.ascii	"CounterUdb\000"
- 648      74657255 
- 648      646200
- 649              	.LASF14:
- 650 0211 73697A65 		.ascii	"sizetype\000"
- 650      74797065 
- 650      00
- 651              	.LASF24:
- 652 021a 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Counter_LED_PM.c\000"
- 652      6E657261 
- 652      7465645F 
- 652      536F7572 
- 652      63655C50 
- 653              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 648      74797065 
+ 648      00
+ 649              	.LASF24:
+ 650 01d9 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Counter_LED_PM.c\000"
+ 650      6E657261 
+ 650      7465645F 
+ 650      536F7572 
+ 650      63655C50 
+ 651              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

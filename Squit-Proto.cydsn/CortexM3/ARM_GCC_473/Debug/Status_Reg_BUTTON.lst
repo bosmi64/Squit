@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
   29:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
   30:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Parameters:
   31:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 2
 
 
   32:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
   53:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** * Return:
   54:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *  None.
   55:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 3
 
 
   56:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** *******************************************************************************/
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  106              	Status_Reg_BUTTON_InterruptDisable:
  107              	.LFB2:
   64:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 4
 
 
   65:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
   86:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
  141              		.loc 1 86 0
  142 0032 07F10807 		add	r7, r7, #8
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 5
 
 
  143 0036 BD46     		mov	sp, r7
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  107:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** 	#endif /* End Status_Reg_BUTTON_INPUTS < 8u */
  108:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c ****     Status_Reg_BUTTON_Status_Mask = mask;
  177              		.loc 1 108 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 6
 
 
  178 0012 46F28553 		movw	r3, #25989
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  212 0008 C4F20003 		movt	r3, 16384
  213 000c 1B78     		ldrb	r3, [r3, #0]
  214 000e DBB2     		uxtb	r3, r3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 7
 
 
  129:.\Generated_Source\PSoC5/Status_Reg_BUTTON.c **** }
@@ -380,10 +380,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  230 0006 00000000 		.4byte	.Ldebug_abbrev0
  231 000a 04       		.byte	0x4
  232 000b 01       		.uleb128 0x1
- 233 000c DA000000 		.4byte	.LASF21
+ 233 000c 6A000000 		.4byte	.LASF21
  234 0010 01       		.byte	0x1
- 235 0011 8B000000 		.4byte	.LASF22
- 236 0015 1B000000 		.4byte	.LASF23
+ 235 0011 1B000000 		.4byte	.LASF22
+ 236 0015 30010000 		.4byte	.LASF23
  237 0019 00000000 		.4byte	.Ldebug_ranges0+0
  238 001d 00000000 		.4byte	0
  239 0021 00000000 		.4byte	0
@@ -391,38 +391,38 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  241 0029 02       		.uleb128 0x2
  242 002a 01       		.byte	0x1
  243 002b 06       		.byte	0x6
- 244 002c CA010000 		.4byte	.LASF0
+ 244 002c 89010000 		.4byte	.LASF0
  245 0030 02       		.uleb128 0x2
  246 0031 01       		.byte	0x1
  247 0032 08       		.byte	0x8
- 248 0033 73010000 		.4byte	.LASF1
+ 248 0033 03010000 		.4byte	.LASF1
  249 0037 02       		.uleb128 0x2
  250 0038 02       		.byte	0x2
  251 0039 05       		.byte	0x5
- 252 003a 8F010000 		.4byte	.LASF2
+ 252 003a 1F010000 		.4byte	.LASF2
  253 003e 02       		.uleb128 0x2
  254 003f 02       		.byte	0x2
  255 0040 07       		.byte	0x7
- 256 0041 B7010000 		.4byte	.LASF3
+ 256 0041 76010000 		.4byte	.LASF3
  257 0045 02       		.uleb128 0x2
  258 0046 04       		.byte	0x4
  259 0047 05       		.byte	0x5
- 260 0048 86010000 		.4byte	.LASF4
+ 260 0048 16010000 		.4byte	.LASF4
  261 004c 02       		.uleb128 0x2
  262 004d 04       		.byte	0x4
  263 004e 07       		.byte	0x7
- 264 004f 29010000 		.4byte	.LASF5
+ 264 004f B9000000 		.4byte	.LASF5
  265 0053 02       		.uleb128 0x2
  266 0054 08       		.byte	0x8
  267 0055 05       		.byte	0x5
  268 0056 00000000 		.4byte	.LASF6
  269 005a 02       		.uleb128 0x2
  270 005b 08       		.byte	0x8
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 8
 
 
  271 005c 07       		.byte	0x7
- 272 005d 3B010000 		.4byte	.LASF7
+ 272 005d CB000000 		.4byte	.LASF7
  273 0061 03       		.uleb128 0x3
  274 0062 04       		.byte	0x4
  275 0063 05       		.byte	0x5
@@ -432,24 +432,24 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  279 006a 07       		.byte	0x7
  280 006b 0E000000 		.4byte	.LASF8
  281 006f 04       		.uleb128 0x4
- 282 0070 23010000 		.4byte	.LASF12
+ 282 0070 B3000000 		.4byte	.LASF12
  283 0074 02       		.byte	0x2
  284 0075 5B       		.byte	0x5b
  285 0076 30000000 		.4byte	0x30
  286 007a 02       		.uleb128 0x2
  287 007b 04       		.byte	0x4
  288 007c 04       		.byte	0x4
- 289 007d F1010000 		.4byte	.LASF9
+ 289 007d B0010000 		.4byte	.LASF9
  290 0081 02       		.uleb128 0x2
  291 0082 08       		.byte	0x8
  292 0083 04       		.byte	0x4
- 293 0084 99010000 		.4byte	.LASF10
+ 293 0084 29010000 		.4byte	.LASF10
  294 0088 02       		.uleb128 0x2
  295 0089 01       		.byte	0x1
  296 008a 08       		.byte	0x8
- 297 008b 81010000 		.4byte	.LASF11
+ 297 008b 11010000 		.4byte	.LASF11
  298 008f 04       		.uleb128 0x4
- 299 0090 1A020000 		.4byte	.LASF13
+ 299 0090 D9010000 		.4byte	.LASF13
  300 0094 02       		.byte	0x2
  301 0095 F0       		.byte	0xf0
  302 0096 9A000000 		.4byte	0x9a
@@ -458,10 +458,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  305 009f 02       		.uleb128 0x2
  306 00a0 04       		.byte	0x4
  307 00a1 07       		.byte	0x7
- 308 00a2 1F020000 		.4byte	.LASF14
+ 308 00a2 DE010000 		.4byte	.LASF14
  309 00a6 06       		.uleb128 0x6
  310 00a7 01       		.byte	0x1
- 311 00a8 A0010000 		.4byte	.LASF19
+ 311 00a8 5F010000 		.4byte	.LASF19
  312 00ac 01       		.byte	0x1
  313 00ad 25       		.byte	0x25
  314 00ae 01       		.byte	0x1
@@ -472,20 +472,20 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  319 00bf 01       		.byte	0x1
  320 00c0 07       		.uleb128 0x7
  321 00c1 01       		.byte	0x1
- 322 00c2 B8000000 		.4byte	.LASF15
+ 322 00c2 48000000 		.4byte	.LASF15
  323 00c6 01       		.byte	0x1
  324 00c7 39       		.byte	0x39
  325 00c8 01       		.byte	0x1
  326 00c9 00000000 		.4byte	.LFB1
  327 00cd 3A000000 		.4byte	.LFE1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 9
 
 
  328 00d1 2C000000 		.4byte	.LLST1
  329 00d5 01       		.byte	0x1
  330 00d6 E9000000 		.4byte	0xe9
  331 00da 08       		.uleb128 0x8
- 332 00db 28020000 		.4byte	.LASF17
+ 332 00db E7010000 		.4byte	.LASF17
  333 00df 01       		.byte	0x1
  334 00e0 3B       		.byte	0x3b
  335 00e1 6F000000 		.4byte	0x6f
@@ -495,7 +495,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  339 00e8 00       		.byte	0
  340 00e9 07       		.uleb128 0x7
  341 00ea 01       		.byte	0x1
- 342 00eb F7010000 		.4byte	.LASF16
+ 342 00eb B6010000 		.4byte	.LASF16
  343 00ef 01       		.byte	0x1
  344 00f0 50       		.byte	0x50
  345 00f1 01       		.byte	0x1
@@ -505,7 +505,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  349 00fe 01       		.byte	0x1
  350 00ff 12010000 		.4byte	0x112
  351 0103 08       		.uleb128 0x8
- 352 0104 28020000 		.4byte	.LASF17
+ 352 0104 E7010000 		.4byte	.LASF17
  353 0108 01       		.byte	0x1
  354 0109 52       		.byte	0x52
  355 010a 6F000000 		.4byte	0x6f
@@ -515,7 +515,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  359 0111 00       		.byte	0
  360 0112 09       		.uleb128 0x9
  361 0113 01       		.byte	0x1
- 362 0114 52010000 		.4byte	.LASF18
+ 362 0114 E2000000 		.4byte	.LASF18
  363 0118 01       		.byte	0x1
  364 0119 67       		.byte	0x67
  365 011a 01       		.byte	0x1
@@ -525,7 +525,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  369 0127 01       		.byte	0x1
  370 0128 3B010000 		.4byte	0x13b
  371 012c 0A       		.uleb128 0xa
- 372 012d 6E010000 		.4byte	.LASF24
+ 372 012d FE000000 		.4byte	.LASF24
  373 0131 01       		.byte	0x1
  374 0132 67       		.byte	0x67
  375 0133 6F000000 		.4byte	0x6f
@@ -535,10 +535,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  379 013a 00       		.byte	0
  380 013b 06       		.uleb128 0x6
  381 013c 01       		.byte	0x1
- 382 013d D6010000 		.4byte	.LASF20
+ 382 013d 95010000 		.4byte	.LASF20
  383 0141 01       		.byte	0x1
  384 0142 7E       		.byte	0x7e
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 10
 
 
  385 0143 01       		.byte	0x1
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  439 002d 00       		.byte	0
  440 002e 03       		.uleb128 0x3
  441 002f 0E       		.uleb128 0xe
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 11
 
 
  442 0030 3A       		.uleb128 0x3a
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  496 0067 01       		.uleb128 0x1
  497 0068 12       		.uleb128 0x12
  498 0069 01       		.uleb128 0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 12
 
 
  499 006a 40       		.uleb128 0x40
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  553 00a2 0B       		.uleb128 0xb
  554 00a3 3B       		.uleb128 0x3b
  555 00a4 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 13
 
 
  556 00a5 49       		.uleb128 0x49
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  610 006e 7D       		.byte	0x7d
  611 006f 00       		.sleb128 0
  612 0070 02000000 		.4byte	.LCFI5
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 14
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 14
 
 
  613 0074 04000000 		.4byte	.LCFI6
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  667 00f7 04       		.sleb128 4
  668 00f8 00000000 		.4byte	0
  669 00fc 00000000 		.4byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 15
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 15
 
 
  670              		.section	.debug_aranges,"",%progbits
@@ -892,138 +892,125 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 1
  710      676E6564 
  710      20696E74 
  710      00
- 711              	.LASF23:
- 712 001b 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 712      73657273 
- 712      5C477261 
- 712      7A69616E 
- 712      6F20472E 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 16
+ 711              	.LASF22:
+ 712 001b 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Status_Reg_BUTTON.c\000"
+ 712      6E657261 
+ 712      7465645F 
+ 712      536F7572 
+ 712      63655C50 
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 16
 
 
- 713 004a 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 713      5C535155 
- 713      49545C56 
- 713      6572732E 
- 713      302E302D 
- 714 007a 71756974 		.ascii	"quit-Proto.cydsn\000"
- 714      2D50726F 
- 714      746F2E63 
- 714      7964736E 
- 714      00
- 715              	.LASF22:
- 716 008b 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Status_Reg_BUTTON.c\000"
- 716      6E657261 
- 716      7465645F 
- 716      536F7572 
- 716      63655C50 
- 717              	.LASF15:
- 718 00b8 53746174 		.ascii	"Status_Reg_BUTTON_InterruptEnable\000"
- 718      75735F52 
- 718      65675F42 
- 718      5554544F 
- 718      4E5F496E 
- 719              	.LASF21:
- 720 00da 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 720      4320342E 
- 720      372E3320 
- 720      32303133 
- 720      30333132 
- 721 010d 616E6368 		.ascii	"anch revision 196615]\000"
- 721      20726576 
- 721      6973696F 
- 721      6E203139 
- 721      36363135 
- 722              	.LASF12:
- 723 0123 75696E74 		.ascii	"uint8\000"
- 723      3800
- 724              	.LASF5:
- 725 0129 6C6F6E67 		.ascii	"long unsigned int\000"
- 725      20756E73 
- 725      69676E65 
- 725      6420696E 
- 725      7400
- 726              	.LASF7:
- 727 013b 6C6F6E67 		.ascii	"long long unsigned int\000"
- 727      206C6F6E 
- 727      6720756E 
- 727      7369676E 
- 727      65642069 
- 728              	.LASF18:
- 729 0152 53746174 		.ascii	"Status_Reg_BUTTON_WriteMask\000"
- 729      75735F52 
- 729      65675F42 
- 729      5554544F 
- 729      4E5F5772 
- 730              	.LASF24:
- 731 016e 6D61736B 		.ascii	"mask\000"
+ 713              	.LASF15:
+ 714 0048 53746174 		.ascii	"Status_Reg_BUTTON_InterruptEnable\000"
+ 714      75735F52 
+ 714      65675F42 
+ 714      5554544F 
+ 714      4E5F496E 
+ 715              	.LASF21:
+ 716 006a 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 716      4320342E 
+ 716      372E3320 
+ 716      32303133 
+ 716      30333132 
+ 717 009d 616E6368 		.ascii	"anch revision 196615]\000"
+ 717      20726576 
+ 717      6973696F 
+ 717      6E203139 
+ 717      36363135 
+ 718              	.LASF12:
+ 719 00b3 75696E74 		.ascii	"uint8\000"
+ 719      3800
+ 720              	.LASF5:
+ 721 00b9 6C6F6E67 		.ascii	"long unsigned int\000"
+ 721      20756E73 
+ 721      69676E65 
+ 721      6420696E 
+ 721      7400
+ 722              	.LASF7:
+ 723 00cb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 723      206C6F6E 
+ 723      6720756E 
+ 723      7369676E 
+ 723      65642069 
+ 724              	.LASF18:
+ 725 00e2 53746174 		.ascii	"Status_Reg_BUTTON_WriteMask\000"
+ 725      75735F52 
+ 725      65675F42 
+ 725      5554544F 
+ 725      4E5F5772 
+ 726              	.LASF24:
+ 727 00fe 6D61736B 		.ascii	"mask\000"
+ 727      00
+ 728              	.LASF1:
+ 729 0103 756E7369 		.ascii	"unsigned char\000"
+ 729      676E6564 
+ 729      20636861 
+ 729      7200
+ 730              	.LASF11:
+ 731 0111 63686172 		.ascii	"char\000"
  731      00
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 17
+ 732              	.LASF4:
+ 733 0116 6C6F6E67 		.ascii	"long int\000"
+ 733      20696E74 
+ 733      00
+ 734              	.LASF2:
+ 735 011f 73686F72 		.ascii	"short int\000"
+ 735      7420696E 
+ 735      7400
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccOxpiSL.s 			page 17
 
 
- 732              	.LASF1:
- 733 0173 756E7369 		.ascii	"unsigned char\000"
- 733      676E6564 
- 733      20636861 
- 733      7200
- 734              	.LASF11:
- 735 0181 63686172 		.ascii	"char\000"
- 735      00
- 736              	.LASF4:
- 737 0186 6C6F6E67 		.ascii	"long int\000"
- 737      20696E74 
- 737      00
- 738              	.LASF2:
- 739 018f 73686F72 		.ascii	"short int\000"
- 739      7420696E 
- 739      7400
- 740              	.LASF10:
- 741 0199 646F7562 		.ascii	"double\000"
- 741      6C6500
- 742              	.LASF19:
- 743 01a0 53746174 		.ascii	"Status_Reg_BUTTON_Read\000"
- 743      75735F52 
- 743      65675F42 
- 743      5554544F 
- 743      4E5F5265 
- 744              	.LASF3:
- 745 01b7 73686F72 		.ascii	"short unsigned int\000"
- 745      7420756E 
- 745      7369676E 
- 745      65642069 
- 745      6E7400
- 746              	.LASF0:
- 747 01ca 7369676E 		.ascii	"signed char\000"
- 747      65642063 
- 747      68617200 
- 748              	.LASF20:
- 749 01d6 53746174 		.ascii	"Status_Reg_BUTTON_ReadMask\000"
- 749      75735F52 
- 749      65675F42 
- 749      5554544F 
- 749      4E5F5265 
- 750              	.LASF9:
- 751 01f1 666C6F61 		.ascii	"float\000"
- 751      7400
- 752              	.LASF16:
- 753 01f7 53746174 		.ascii	"Status_Reg_BUTTON_InterruptDisable\000"
- 753      75735F52 
- 753      65675F42 
- 753      5554544F 
- 753      4E5F496E 
- 754              	.LASF13:
- 755 021a 72656738 		.ascii	"reg8\000"
+ 736              	.LASF10:
+ 737 0129 646F7562 		.ascii	"double\000"
+ 737      6C6500
+ 738              	.LASF23:
+ 739 0130 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 739      47495448 
+ 739      55422072 
+ 739      65706F73 
+ 739      5C537175 
+ 740              	.LASF19:
+ 741 015f 53746174 		.ascii	"Status_Reg_BUTTON_Read\000"
+ 741      75735F52 
+ 741      65675F42 
+ 741      5554544F 
+ 741      4E5F5265 
+ 742              	.LASF3:
+ 743 0176 73686F72 		.ascii	"short unsigned int\000"
+ 743      7420756E 
+ 743      7369676E 
+ 743      65642069 
+ 743      6E7400
+ 744              	.LASF0:
+ 745 0189 7369676E 		.ascii	"signed char\000"
+ 745      65642063 
+ 745      68617200 
+ 746              	.LASF20:
+ 747 0195 53746174 		.ascii	"Status_Reg_BUTTON_ReadMask\000"
+ 747      75735F52 
+ 747      65675F42 
+ 747      5554544F 
+ 747      4E5F5265 
+ 748              	.LASF9:
+ 749 01b0 666C6F61 		.ascii	"float\000"
+ 749      7400
+ 750              	.LASF16:
+ 751 01b6 53746174 		.ascii	"Status_Reg_BUTTON_InterruptDisable\000"
+ 751      75735F52 
+ 751      65675F42 
+ 751      5554544F 
+ 751      4E5F496E 
+ 752              	.LASF13:
+ 753 01d9 72656738 		.ascii	"reg8\000"
+ 753      00
+ 754              	.LASF14:
+ 755 01de 73697A65 		.ascii	"sizetype\000"
+ 755      74797065 
  755      00
- 756              	.LASF14:
- 757 021f 73697A65 		.ascii	"sizetype\000"
- 757      74797065 
- 757      00
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccmwLZbp.s 			page 18
-
-
- 758              	.LASF17:
- 759 0228 696E7465 		.ascii	"interruptState\000"
- 759      72727570 
- 759      74537461 
- 759      746500
- 760              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 756              	.LASF17:
+ 757 01e7 696E7465 		.ascii	"interruptState\000"
+ 757      72727570 
+ 757      74537461 
+ 757      746500
+ 758              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

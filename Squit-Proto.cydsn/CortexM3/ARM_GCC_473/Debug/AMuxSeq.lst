@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
   23:.\Generated_Source\PSoC5/AMuxSeq.c **** * Function Name: AMuxSeq_Start
   24:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
   25:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 2
 
 
   26:.\Generated_Source\PSoC5/AMuxSeq.c **** *  Disconnect all channels. The next time Next is called, channel 0 will be
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
   48:.\Generated_Source\PSoC5/AMuxSeq.c **** *  connected.
   49:.\Generated_Source\PSoC5/AMuxSeq.c **** *
   50:.\Generated_Source\PSoC5/AMuxSeq.c **** * Parameters:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 3
 
 
   51:.\Generated_Source\PSoC5/AMuxSeq.c **** *  void
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
   78:.\Generated_Source\PSoC5/AMuxSeq.c **** {
   92              		.loc 1 78 0
   93              		.cfi_startproc
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 4
 
 
   94              		@ args = 0, pretend = 0, frame = 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  108:.\Generated_Source\PSoC5/AMuxSeq.c **** ********************************************************************************
  109:.\Generated_Source\PSoC5/AMuxSeq.c **** * Summary:
  110:.\Generated_Source\PSoC5/AMuxSeq.c **** *  This function disconnects all channels. The next time Next is called, channel
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 5
 
 
  111:.\Generated_Source\PSoC5/AMuxSeq.c **** *  0 will be connected.
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  120              		.cfi_startproc
  121              		@ args = 0, pretend = 0, frame = 0
  122              		@ frame_needed = 1, uses_anonymous_args = 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 6
 
 
  123              		@ link register save eliminated.
@@ -335,10 +335,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  152 0006 00000000 		.4byte	.Ldebug_abbrev0
  153 000a 04       		.byte	0x4
  154 000b 01       		.uleb128 0x1
- 155 000c 3D010000 		.4byte	.LASF19
+ 155 000c FC000000 		.4byte	.LASF19
  156 0010 01       		.byte	0x1
- 157 0011 B8010000 		.4byte	.LASF20
- 158 0015 60000000 		.4byte	.LASF21
+ 157 0011 77010000 		.4byte	.LASF20
+ 158 0015 13000000 		.4byte	.LASF21
  159 0019 00000000 		.4byte	.Ldebug_ranges0+0
  160 001d 00000000 		.4byte	0
  161 0021 00000000 		.4byte	0
@@ -346,38 +346,38 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  163 0029 02       		.uleb128 0x2
  164 002a 01       		.byte	0x1
  165 002b 06       		.byte	0x6
- 166 002c 9C010000 		.4byte	.LASF0
+ 166 002c 5B010000 		.4byte	.LASF0
  167 0030 02       		.uleb128 0x2
  168 0031 01       		.byte	0x1
  169 0032 08       		.byte	0x8
- 170 0033 26000000 		.4byte	.LASF1
+ 170 0033 55000000 		.4byte	.LASF1
  171 0037 02       		.uleb128 0x2
  172 0038 02       		.byte	0x2
  173 0039 05       		.byte	0x5
- 174 003a 2D010000 		.4byte	.LASF2
+ 174 003a EC000000 		.4byte	.LASF2
  175 003e 02       		.uleb128 0x2
  176 003f 02       		.byte	0x2
  177 0040 07       		.byte	0x7
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 7
 
 
- 178 0041 46000000 		.4byte	.LASF3
+ 178 0041 75000000 		.4byte	.LASF3
  179 0045 02       		.uleb128 0x2
  180 0046 04       		.byte	0x4
  181 0047 05       		.byte	0x5
- 182 0048 93010000 		.4byte	.LASF4
+ 182 0048 52010000 		.4byte	.LASF4
  183 004c 02       		.uleb128 0x2
  184 004d 04       		.byte	0x4
  185 004e 07       		.byte	0x7
- 186 004f 34000000 		.4byte	.LASF5
+ 186 004f 63000000 		.4byte	.LASF5
  187 0053 02       		.uleb128 0x2
  188 0054 08       		.byte	0x8
  189 0055 05       		.byte	0x5
- 190 0056 1A010000 		.4byte	.LASF6
+ 190 0056 D9000000 		.4byte	.LASF6
  191 005a 02       		.uleb128 0x2
  192 005b 08       		.byte	0x8
  193 005c 07       		.byte	0x7
- 194 005d E2000000 		.4byte	.LASF7
+ 194 005d A1000000 		.4byte	.LASF7
  195 0061 03       		.uleb128 0x3
  196 0062 04       		.byte	0x4
  197 0063 05       		.byte	0x5
@@ -385,32 +385,32 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  199 0068 02       		.uleb128 0x2
  200 0069 04       		.byte	0x4
  201 006a 07       		.byte	0x7
- 202 006b D5000000 		.4byte	.LASF8
+ 202 006b 94000000 		.4byte	.LASF8
  203 006f 04       		.uleb128 0x4
- 204 0070 37010000 		.4byte	.LASF9
+ 204 0070 F6000000 		.4byte	.LASF9
  205 0074 02       		.byte	0x2
  206 0075 5B       		.byte	0x5b
  207 0076 30000000 		.4byte	0x30
  208 007a 04       		.uleb128 0x4
- 209 007b D0000000 		.4byte	.LASF10
+ 209 007b 8F000000 		.4byte	.LASF10
  210 007f 02       		.byte	0x2
  211 0080 5E       		.byte	0x5e
  212 0081 29000000 		.4byte	0x29
  213 0085 02       		.uleb128 0x2
  214 0086 04       		.byte	0x4
  215 0087 04       		.byte	0x4
- 216 0088 20000000 		.4byte	.LASF11
+ 216 0088 4F000000 		.4byte	.LASF11
  217 008c 02       		.uleb128 0x2
  218 008d 08       		.byte	0x8
  219 008e 04       		.byte	0x4
- 220 008f 59000000 		.4byte	.LASF12
+ 220 008f 88000000 		.4byte	.LASF12
  221 0093 02       		.uleb128 0x2
  222 0094 01       		.byte	0x1
  223 0095 08       		.byte	0x8
- 224 0096 28010000 		.4byte	.LASF13
+ 224 0096 E7000000 		.4byte	.LASF13
  225 009a 05       		.uleb128 0x5
  226 009b 01       		.byte	0x1
- 227 009c 0C010000 		.4byte	.LASF14
+ 227 009c CB000000 		.4byte	.LASF14
  228 00a0 01       		.byte	0x1
  229 00a1 24       		.byte	0x24
  230 00a2 01       		.byte	0x1
@@ -418,12 +418,12 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  232 00a7 18000000 		.4byte	.LFE0
  233 00ab 00000000 		.4byte	.LLST0
  234 00af 01       		.byte	0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 8
 
 
  235 00b0 05       		.uleb128 0x5
  236 00b1 01       		.byte	0x1
- 237 00b2 13000000 		.4byte	.LASF15
+ 237 00b2 42000000 		.4byte	.LASF15
  238 00b6 01       		.byte	0x1
  239 00b7 39       		.byte	0x39
  240 00b8 01       		.byte	0x1
@@ -433,7 +433,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  244 00c5 01       		.byte	0x1
  245 00c6 05       		.uleb128 0x5
  246 00c7 01       		.byte	0x1
- 247 00c8 86010000 		.4byte	.LASF16
+ 247 00c8 45010000 		.4byte	.LASF16
  248 00cc 01       		.byte	0x1
  249 00cd 4D       		.byte	0x4d
  250 00ce 01       		.byte	0x1
@@ -453,14 +453,14 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  264 00f1 84000000 		.4byte	.LLST3
  265 00f5 01       		.byte	0x1
  266 00f6 07       		.uleb128 0x7
- 267 00f7 F9000000 		.4byte	.LASF17
+ 267 00f7 B8000000 		.4byte	.LASF17
  268 00fb 03       		.byte	0x3
  269 00fc 1A       		.byte	0x1a
  270 00fd 7A000000 		.4byte	0x7a
  271 0101 01       		.byte	0x1
  272 0102 01       		.byte	0x1
  273 0103 08       		.uleb128 0x8
- 274 0104 A8010000 		.4byte	.LASF18
+ 274 0104 67010000 		.4byte	.LASF18
  275 0108 01       		.byte	0x1
  276 0109 13       		.byte	0x13
  277 010a 6F000000 		.4byte	0x6f
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  289 0004 0E       		.uleb128 0xe
  290 0005 13       		.uleb128 0x13
  291 0006 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 9
 
 
  292 0007 03       		.uleb128 0x3
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  346 003d 03       		.uleb128 0x3
  347 003e 0E       		.uleb128 0xe
  348 003f 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 10
 
 
  349 0040 0B       		.uleb128 0xb
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  403 0078 0C       		.uleb128 0xc
  404 0079 00       		.byte	0
  405 007a 00       		.byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 11
 
 
  406 007b 08       		.uleb128 0x8
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  460 0050 00000000 		.4byte	0
  461 0054 00000000 		.4byte	0
  462              	.LLST2:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 12
 
 
  463 0058 00000000 		.4byte	.LFB2
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  517              	.Ldebug_ranges0:
  518 0000 00000000 		.4byte	.LFB0
  519 0004 18000000 		.4byte	.LFE0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 13
 
 
  520 0008 00000000 		.4byte	.LFB1
@@ -742,129 +742,119 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 1
  532      47657443 
  532      68616E6E 
  532      656C00
- 533              	.LASF15:
- 534 0013 414D7578 		.ascii	"AMuxSeq_Init\000"
- 534      5365715F 
- 534      496E6974 
- 534      00
- 535              	.LASF11:
- 536 0020 666C6F61 		.ascii	"float\000"
- 536      7400
- 537              	.LASF1:
- 538 0026 756E7369 		.ascii	"unsigned char\000"
- 538      676E6564 
- 538      20636861 
- 538      7200
- 539              	.LASF5:
- 540 0034 6C6F6E67 		.ascii	"long unsigned int\000"
- 540      20756E73 
- 540      69676E65 
- 540      6420696E 
- 540      7400
- 541              	.LASF3:
- 542 0046 73686F72 		.ascii	"short unsigned int\000"
- 542      7420756E 
- 542      7369676E 
- 542      65642069 
- 542      6E7400
- 543              	.LASF12:
- 544 0059 646F7562 		.ascii	"double\000"
- 544      6C6500
- 545              	.LASF21:
- 546 0060 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 546      73657273 
- 546      5C477261 
- 546      7A69616E 
- 546      6F20472E 
- 547 008f 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 547      5C535155 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 14
+ 533              	.LASF21:
+ 534 0013 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 534      47495448 
+ 534      55422072 
+ 534      65706F73 
+ 534      5C537175 
+ 535              	.LASF15:
+ 536 0042 414D7578 		.ascii	"AMuxSeq_Init\000"
+ 536      5365715F 
+ 536      496E6974 
+ 536      00
+ 537              	.LASF11:
+ 538 004f 666C6F61 		.ascii	"float\000"
+ 538      7400
+ 539              	.LASF1:
+ 540 0055 756E7369 		.ascii	"unsigned char\000"
+ 540      676E6564 
+ 540      20636861 
+ 540      7200
+ 541              	.LASF5:
+ 542 0063 6C6F6E67 		.ascii	"long unsigned int\000"
+ 542      20756E73 
+ 542      69676E65 
+ 542      6420696E 
+ 542      7400
+ 543              	.LASF3:
+ 544 0075 73686F72 		.ascii	"short unsigned int\000"
+ 544      7420756E 
+ 544      7369676E 
+ 544      65642069 
+ 544      6E7400
+ 545              	.LASF12:
+ 546 0088 646F7562 		.ascii	"double\000"
+ 546      6C6500
+ 547              	.LASF10:
+ 548 008f 696E7438 		.ascii	"int8\000"
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 14
 
 
- 547      49545C56 
- 547      6572732E 
- 547      302E302D 
- 548 00bf 71756974 		.ascii	"quit-Proto.cydsn\000"
- 548      2D50726F 
- 548      746F2E63 
- 548      7964736E 
  548      00
- 549              	.LASF10:
- 550 00d0 696E7438 		.ascii	"int8\000"
+ 549              	.LASF8:
+ 550 0094 756E7369 		.ascii	"unsigned int\000"
+ 550      676E6564 
+ 550      20696E74 
  550      00
- 551              	.LASF8:
- 552 00d5 756E7369 		.ascii	"unsigned int\000"
- 552      676E6564 
- 552      20696E74 
- 552      00
- 553              	.LASF7:
- 554 00e2 6C6F6E67 		.ascii	"long long unsigned int\000"
- 554      206C6F6E 
- 554      6720756E 
- 554      7369676E 
- 554      65642069 
- 555              	.LASF17:
- 556 00f9 414D7578 		.ascii	"AMuxSeq_curChannel\000"
+ 551              	.LASF7:
+ 552 00a1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 552      206C6F6E 
+ 552      6720756E 
+ 552      7369676E 
+ 552      65642069 
+ 553              	.LASF17:
+ 554 00b8 414D7578 		.ascii	"AMuxSeq_curChannel\000"
+ 554      5365715F 
+ 554      63757243 
+ 554      68616E6E 
+ 554      656C00
+ 555              	.LASF14:
+ 556 00cb 414D7578 		.ascii	"AMuxSeq_Start\000"
  556      5365715F 
- 556      63757243 
- 556      68616E6E 
- 556      656C00
- 557              	.LASF14:
- 558 010c 414D7578 		.ascii	"AMuxSeq_Start\000"
- 558      5365715F 
- 558      53746172 
+ 556      53746172 
+ 556      7400
+ 557              	.LASF6:
+ 558 00d9 6C6F6E67 		.ascii	"long long int\000"
+ 558      206C6F6E 
+ 558      6720696E 
  558      7400
- 559              	.LASF6:
- 560 011a 6C6F6E67 		.ascii	"long long int\000"
- 560      206C6F6E 
- 560      6720696E 
- 560      7400
- 561              	.LASF13:
- 562 0128 63686172 		.ascii	"char\000"
- 562      00
- 563              	.LASF2:
- 564 012d 73686F72 		.ascii	"short int\000"
- 564      7420696E 
- 564      7400
- 565              	.LASF9:
- 566 0137 75696E74 		.ascii	"uint8\000"
- 566      3800
- 567              	.LASF19:
- 568 013d 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 568      4320342E 
- 568      372E3320 
- 568      32303133 
- 568      30333132 
- 569 0170 616E6368 		.ascii	"anch revision 196615]\000"
- 569      20726576 
- 569      6973696F 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\ccbDvyuT.s 			page 15
+ 559              	.LASF13:
+ 560 00e7 63686172 		.ascii	"char\000"
+ 560      00
+ 561              	.LASF2:
+ 562 00ec 73686F72 		.ascii	"short int\000"
+ 562      7420696E 
+ 562      7400
+ 563              	.LASF9:
+ 564 00f6 75696E74 		.ascii	"uint8\000"
+ 564      3800
+ 565              	.LASF19:
+ 566 00fc 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 566      4320342E 
+ 566      372E3320 
+ 566      32303133 
+ 566      30333132 
+ 567 012f 616E6368 		.ascii	"anch revision 196615]\000"
+ 567      20726576 
+ 567      6973696F 
+ 567      6E203139 
+ 567      36363135 
+ 568              	.LASF16:
+ 569 0145 414D7578 		.ascii	"AMuxSeq_Stop\000"
+ 569      5365715F 
+ 569      53746F70 
+ 569      00
+ 570              	.LASF4:
+ 571 0152 6C6F6E67 		.ascii	"long int\000"
+ 571      20696E74 
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccw0mxue.s 			page 15
 
 
- 569      6E203139 
- 569      36363135 
- 570              	.LASF16:
- 571 0186 414D7578 		.ascii	"AMuxSeq_Stop\000"
- 571      5365715F 
- 571      53746F70 
  571      00
- 572              	.LASF4:
- 573 0193 6C6F6E67 		.ascii	"long int\000"
- 573      20696E74 
- 573      00
- 574              	.LASF0:
- 575 019c 7369676E 		.ascii	"signed char\000"
- 575      65642063 
- 575      68617200 
- 576              	.LASF18:
- 577 01a8 414D7578 		.ascii	"AMuxSeq_initVar\000"
- 577      5365715F 
- 577      696E6974 
- 577      56617200 
- 578              	.LASF20:
- 579 01b8 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\AMuxSeq.c\000"
- 579      6E657261 
- 579      7465645F 
- 579      536F7572 
- 579      63655C50 
- 580              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 572              	.LASF0:
+ 573 015b 7369676E 		.ascii	"signed char\000"
+ 573      65642063 
+ 573      68617200 
+ 574              	.LASF18:
+ 575 0167 414D7578 		.ascii	"AMuxSeq_initVar\000"
+ 575      5365715F 
+ 575      696E6974 
+ 575      56617200 
+ 576              	.LASF20:
+ 577 0177 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\AMuxSeq.c\000"
+ 577      6E657261 
+ 577      7465645F 
+ 577      536F7572 
+ 577      63655C50 
+ 578              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

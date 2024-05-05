@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
   23:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
   24:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #include "cytypes.h"
   25:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** #include "PWM_MOTOR_TILT.h"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 2
 
 
   26:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
   56 001e 4FF00102 		mov	r2, #1
   57 0022 1A70     		strb	r2, [r3, #0]
   58              	.L2:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 3
 
 
   57:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
   81:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #if (PWM_MOTOR_TILT_UsingFixedFunction || PWM_MOTOR_TILT_UseControl)
   82:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         uint8 ctrl;
   83:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UsingFixedFunction || PWM_MOTOR_TILT_UseControl) */
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 4
 
 
   84:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  123              		.loc 1 103 0
  124 0062 44F62373 		movw	r3, #20259
  125 0066 C4F20003 		movt	r3, 16384
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 5
 
 
  126 006a 44F62372 		movw	r2, #20259
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  121:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else /* (PWM_MOTOR_TILT_Resolution == 16)*/
  122:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             /* Set FIFO 0 to 1 byte register for period */
  123:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_AUX_CONTROLDP0 |= (PWM_MOTOR_TILT_AUX_CTRL_FIFO0_CLR);
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 6
 
 
  124:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             PWM_MOTOR_TILT_AUX_CONTROLDP1 |= (PWM_MOTOR_TILT_AUX_CTRL_FIFO0_CLR);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  185              		.loc 1 155 0
  186 010e 44F61973 		movw	r3, #20249
  187 0112 C4F20003 		movt	r3, 16384
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 7
 
 
  188 0116 44F61972 		movw	r2, #20249
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  188:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
  189:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** * Side Effects: 
  190:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  This works only if software enable mode is chosen
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 8
 
 
  191:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  251 0056 1A70     		strb	r2, [r3, #0]
  204:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     #endif /* (PWM_MOTOR_TILT_UseControl || PWM_MOTOR_TILT_UsingFixedFunction) */
  205:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** }
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 9
 
 
  252              		.loc 1 205 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  281 0008 C4F20003 		movt	r3, 16384
  282 000c 44F61872 		movw	r2, #20248
  283 0010 C4F20002 		movt	r2, 16384
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 10
 
 
  284 0014 1278     		ldrb	r2, [r2, #0]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  245:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		/*******************************************************************************
  246:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* Function Name: PWM_MOTOR_TILT_SetCompareMode
  247:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		********************************************************************************
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 11
 
 
  248:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		* 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  302:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 	#if (PWM_MOTOR_TILT_CompareMode1SW)
  303:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
  304:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 12
 
 
  305:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 		/*******************************************************************************
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  359:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****                                                  PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK;
  360:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
  361:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             uint8 comparemodemasked = comparemode & PWM_MOTOR_TILT_CTRL_CMPMODE2_MASK;            
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 13
 
 
  362:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (0 != PWM_MOTOR_TILT_CTRL_CMPMODE2_SHIFT) */
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  416:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The current value of the counter.
  417:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
  418:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 14
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 14
 
 
  419:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCounter(void) 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  473:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *  None
  474:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *
  475:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** *******************************************************************************/
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 15
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 15
 
 
  476:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** void PWM_MOTOR_TILT_WritePeriod(uint16 period) 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  492:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
  493:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  This funtion is used to change the compare1 value when the PWM is in Dither
  494:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  mode. The compare output will reflect the new value on the next UDB clock. 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 16
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 16
 
 
  495:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  The compare output will be driven high when the present counter value is 
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  384              		.loc 1 526 0
  385 0016 07F10C07 		add	r7, r7, #12
  386 001a BD46     		mov	sp, r7
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 17
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 17
 
 
  387 001c 80BC     		pop	{r7}
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  568:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  less than or less than or equal to the compare register, depending on the 
  569:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  mode.
  570:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 18
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 18
 
 
  571:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Parameters:  
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  608:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         /* If using the Dead Band 1-255 mode then just write the register */
  609:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #if(!PWM_MOTOR_TILT_DeadBand2_4)
  610:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             CY_SET_REG8(PWM_MOTOR_TILT_DEADBAND_COUNT_PTR, deadtime);
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 19
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 19
 
 
  611:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  456              		.type	PWM_MOTOR_TILT_ReadDeadTime, %function
  457              	PWM_MOTOR_TILT_ReadDeadTime:
  458              	.LFB7:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 20
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 20
 
 
  626:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c **** 
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  481 001a 80BC     		pop	{r7}
  482 001c 7047     		bx	lr
  483              		.cfi_endproc
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 21
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 21
 
 
  484              	.LFE7:
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  515 0014 1A70     		strb	r2, [r3, #0]
  681:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     }
  516              		.loc 1 681 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 22
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 22
 
 
  517 0016 07F10C07 		add	r7, r7, #12
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  546              		.cfi_def_cfa_register 7
  707:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	uint8 result;
  708:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 23
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 23
 
 
  709:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     	result = CY_GET_REG8(PWM_MOTOR_TILT_STATUS_PTR);
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  574              		@ frame_needed = 1, uses_anonymous_args = 0
  575              		@ link register save eliminated.
  576 0000 80B4     		push	{r7}
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 24
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 24
 
 
  577              	.LCFI26:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  757:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
  758:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Return: 
  759:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  None
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 25
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 25
 
 
  760:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  776:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * 
  777:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     * Summary:
  778:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *  Reads the capture value from the capture FIFO.
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 26
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 26
 
 
  779:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  664 000e 9BB2     		uxth	r3, r3
  817:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #else
  818:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****             return (CY_GET_REG16(PWM_MOTOR_TILT_COMPARE1_LSB_PTR));
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 27
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 27
 
 
  819:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****         #endif /* (PWM_MOTOR_TILT_UsingFixedFunction) */
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  857:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *
  858:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     *******************************************************************************/  
  859:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     uint16 PWM_MOTOR_TILT_ReadCompare2(void)  
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 28
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 28
 
 
  860:.\Generated_Source\PSoC5/PWM_MOTOR_TILT.c ****     {
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  706              		.text
  707              	.Letext0:
  708              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 29
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 29
 
 
  709              		.section	.debug_info,"",%progbits
@@ -1688,10 +1688,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  713 0006 00000000 		.4byte	.Ldebug_abbrev0
  714 000a 04       		.byte	0x4
  715 000b 01       		.uleb128 0x1
- 716 000c E4020000 		.4byte	.LASF38
+ 716 000c A3020000 		.4byte	.LASF38
  717 0010 01       		.byte	0x1
- 718 0011 8F010000 		.4byte	.LASF39
- 719 0015 04010000 		.4byte	.LASF40
+ 718 0011 4E010000 		.4byte	.LASF39
+ 719 0015 06000000 		.4byte	.LASF40
  720 0019 00000000 		.4byte	.Ldebug_ranges0+0
  721 001d 00000000 		.4byte	0
  722 0021 00000000 		.4byte	0
@@ -1699,35 +1699,35 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  724 0029 02       		.uleb128 0x2
  725 002a 01       		.byte	0x1
  726 002b 06       		.byte	0x6
- 727 002c 4F030000 		.4byte	.LASF0
+ 727 002c 0E030000 		.4byte	.LASF0
  728 0030 02       		.uleb128 0x2
  729 0031 01       		.byte	0x1
  730 0032 08       		.byte	0x8
- 731 0033 72000000 		.4byte	.LASF1
+ 731 0033 A1000000 		.4byte	.LASF1
  732 0037 02       		.uleb128 0x2
  733 0038 02       		.byte	0x2
  734 0039 05       		.byte	0x5
- 735 003a BD020000 		.4byte	.LASF2
+ 735 003a 7C020000 		.4byte	.LASF2
  736 003e 02       		.uleb128 0x2
  737 003f 02       		.byte	0x2
  738 0040 07       		.byte	0x7
- 739 0041 28000000 		.4byte	.LASF3
+ 739 0041 57000000 		.4byte	.LASF3
  740 0045 02       		.uleb128 0x2
  741 0046 04       		.byte	0x4
  742 0047 05       		.byte	0x5
- 743 0048 41030000 		.4byte	.LASF4
+ 743 0048 00030000 		.4byte	.LASF4
  744 004c 02       		.uleb128 0x2
  745 004d 04       		.byte	0x4
  746 004e 07       		.byte	0x7
- 747 004f A5000000 		.4byte	.LASF5
+ 747 004f D4000000 		.4byte	.LASF5
  748 0053 02       		.uleb128 0x2
  749 0054 08       		.byte	0x8
  750 0055 05       		.byte	0x5
- 751 0056 7F020000 		.4byte	.LASF6
+ 751 0056 3E020000 		.4byte	.LASF6
  752 005a 02       		.uleb128 0x2
  753 005b 08       		.byte	0x8
  754 005c 07       		.byte	0x7
- 755 005d EE010000 		.4byte	.LASF7
+ 755 005d AD010000 		.4byte	.LASF7
  756 0061 03       		.uleb128 0x3
  757 0062 04       		.byte	0x4
  758 0063 05       		.byte	0x5
@@ -1735,34 +1735,34 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  760 0068 02       		.uleb128 0x2
  761 0069 04       		.byte	0x4
  762 006a 07       		.byte	0x7
- 763 006b 3B000000 		.4byte	.LASF8
+ 763 006b 6A000000 		.4byte	.LASF8
  764 006f 04       		.uleb128 0x4
- 765 0070 B7000000 		.4byte	.LASF9
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 30
+ 765 0070 E6000000 		.4byte	.LASF9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 30
 
 
  766 0074 02       		.byte	0x2
  767 0075 5B       		.byte	0x5b
  768 0076 30000000 		.4byte	0x30
  769 007a 04       		.uleb128 0x4
- 770 007b 74010000 		.4byte	.LASF10
+ 770 007b 33010000 		.4byte	.LASF10
  771 007f 02       		.byte	0x2
  772 0080 5C       		.byte	0x5c
  773 0081 3E000000 		.4byte	0x3e
  774 0085 02       		.uleb128 0x2
  775 0086 04       		.byte	0x4
  776 0087 04       		.byte	0x4
- 777 0088 48000000 		.4byte	.LASF11
+ 777 0088 77000000 		.4byte	.LASF11
  778 008c 02       		.uleb128 0x2
  779 008d 08       		.byte	0x8
  780 008e 04       		.byte	0x4
- 781 008f C5000000 		.4byte	.LASF12
+ 781 008f F4000000 		.4byte	.LASF12
  782 0093 02       		.uleb128 0x2
  783 0094 01       		.byte	0x1
  784 0095 08       		.byte	0x8
- 785 0096 4A030000 		.4byte	.LASF13
+ 785 0096 09030000 		.4byte	.LASF13
  786 009a 04       		.uleb128 0x4
- 787 009b A0000000 		.4byte	.LASF14
+ 787 009b CF000000 		.4byte	.LASF14
  788 009f 02       		.byte	0x2
  789 00a0 F0       		.byte	0xf0
  790 00a1 A5000000 		.4byte	0xa5
@@ -1778,10 +1778,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  800 00ba 02       		.uleb128 0x2
  801 00bb 04       		.byte	0x4
  802 00bc 07       		.byte	0x7
- 803 00bd 76020000 		.4byte	.LASF16
+ 803 00bd 35020000 		.4byte	.LASF16
  804 00c1 06       		.uleb128 0x6
  805 00c2 01       		.byte	0x1
- 806 00c3 CC000000 		.4byte	.LASF17
+ 806 00c3 FB000000 		.4byte	.LASF17
  807 00c7 01       		.byte	0x1
  808 00c8 32       		.byte	0x32
  809 00c9 01       		.byte	0x1
@@ -1791,20 +1791,20 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  813 00d6 01       		.byte	0x1
  814 00d7 07       		.uleb128 0x7
  815 00d8 01       		.byte	0x1
- 816 00d9 7B010000 		.4byte	.LASF20
+ 816 00d9 3A010000 		.4byte	.LASF20
  817 00dd 01       		.byte	0x1
  818 00de 4F       		.byte	0x4f
  819 00df 01       		.byte	0x1
  820 00e0 00000000 		.4byte	.LFB1
  821 00e4 32010000 		.4byte	.LFE1
  822 00e8 2C000000 		.4byte	.LLST1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 31
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 31
 
 
  823 00ec 01       		.byte	0x1
  824 00ed 00010000 		.4byte	0x100
  825 00f1 08       		.uleb128 0x8
- 826 00f2 71020000 		.4byte	.LASF29
+ 826 00f2 30020000 		.4byte	.LASF29
  827 00f6 01       		.byte	0x1
  828 00f7 52       		.byte	0x52
  829 00f8 6F000000 		.4byte	0x6f
@@ -1814,7 +1814,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  833 00ff 00       		.byte	0
  834 0100 09       		.uleb128 0x9
  835 0101 01       		.byte	0x1
- 836 0102 1C020000 		.4byte	.LASF18
+ 836 0102 DB010000 		.4byte	.LASF18
  837 0106 01       		.byte	0x1
  838 0107 C1       		.byte	0xc1
  839 0108 01       		.byte	0x1
@@ -1824,7 +1824,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  843 0115 01       		.byte	0x1
  844 0116 09       		.uleb128 0x9
  845 0117 01       		.byte	0x1
- 846 0118 2D030000 		.4byte	.LASF19
+ 846 0118 EC020000 		.4byte	.LASF19
  847 011c 01       		.byte	0x1
  848 011d E3       		.byte	0xe3
  849 011e 01       		.byte	0x1
@@ -1834,7 +1834,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  853 012b 01       		.byte	0x1
  854 012c 0A       		.uleb128 0xa
  855 012d 01       		.byte	0x1
- 856 012e 06000000 		.4byte	.LASF21
+ 856 012e 35000000 		.4byte	.LASF21
  857 0132 01       		.byte	0x1
  858 0133 DC01     		.2byte	0x1dc
  859 0135 01       		.byte	0x1
@@ -1844,7 +1844,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  863 0142 01       		.byte	0x1
  864 0143 57010000 		.4byte	0x157
  865 0147 0B       		.uleb128 0xb
- 866 0148 21000000 		.4byte	.LASF23
+ 866 0148 50000000 		.4byte	.LASF23
  867 014c 01       		.byte	0x1
  868 014d DC01     		.2byte	0x1dc
  869 014f 7A000000 		.4byte	0x7a
@@ -1854,11 +1854,11 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  873 0156 00       		.byte	0
  874 0157 0A       		.uleb128 0xa
  875 0158 01       		.byte	0x1
- 876 0159 39020000 		.4byte	.LASF22
+ 876 0159 F8010000 		.4byte	.LASF22
  877 015d 01       		.byte	0x1
  878 015e FE01     		.2byte	0x1fe
  879 0160 01       		.byte	0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 32
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 32
 
 
  880 0161 00000000 		.4byte	.LFB5
@@ -1867,7 +1867,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  883 016d 01       		.byte	0x1
  884 016e 82010000 		.4byte	0x182
  885 0172 0B       		.uleb128 0xb
- 886 0173 5B030000 		.4byte	.LASF24
+ 886 0173 1A030000 		.4byte	.LASF24
  887 0177 01       		.byte	0x1
  888 0178 FE01     		.2byte	0x1fe
  889 017a 7A000000 		.4byte	0x7a
@@ -1877,7 +1877,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  893 0181 00       		.byte	0
  894 0182 0A       		.uleb128 0xa
  895 0183 01       		.byte	0x1
- 896 0184 C7020000 		.4byte	.LASF25
+ 896 0184 86020000 		.4byte	.LASF25
  897 0188 01       		.byte	0x1
  898 0189 5E02     		.2byte	0x25e
  899 018b 01       		.byte	0x1
@@ -1887,7 +1887,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  903 0198 01       		.byte	0x1
  904 0199 AD010000 		.4byte	0x1ad
  905 019d 0B       		.uleb128 0xb
- 906 019e 63030000 		.4byte	.LASF26
+ 906 019e 22030000 		.4byte	.LASF26
  907 01a2 01       		.byte	0x1
  908 01a3 5E02     		.2byte	0x25e
  909 01a5 6F000000 		.4byte	0x6f
@@ -1897,7 +1897,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  913 01ac 00       		.byte	0
  914 01ad 0C       		.uleb128 0xc
  915 01ae 01       		.byte	0x1
- 916 01af 55020000 		.4byte	.LASF35
+ 916 01af 14020000 		.4byte	.LASF35
  917 01b3 01       		.byte	0x1
  918 01b4 8202     		.2byte	0x282
  919 01b6 01       		.byte	0x1
@@ -1908,7 +1908,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  924 01c7 01       		.byte	0x1
  925 01c8 0A       		.uleb128 0xa
  926 01c9 01       		.byte	0x1
- 927 01ca 80000000 		.4byte	.LASF27
+ 927 01ca AF000000 		.4byte	.LASF27
  928 01ce 01       		.byte	0x1
  929 01cf A602     		.2byte	0x2a6
  930 01d1 01       		.byte	0x1
@@ -1918,10 +1918,10 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  934 01de 01       		.byte	0x1
  935 01df F3010000 		.4byte	0x1f3
  936 01e3 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 33
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 33
 
 
- 937 01e4 8D020000 		.4byte	.LASF28
+ 937 01e4 4C020000 		.4byte	.LASF28
  938 01e8 01       		.byte	0x1
  939 01e9 A602     		.2byte	0x2a6
  940 01eb 6F000000 		.4byte	0x6f
@@ -1931,7 +1931,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  944 01f2 00       		.byte	0
  945 01f3 0D       		.uleb128 0xd
  946 01f4 01       		.byte	0x1
- 947 01f5 9B020000 		.4byte	.LASF31
+ 947 01f5 5A020000 		.4byte	.LASF31
  948 01f9 01       		.byte	0x1
  949 01fa C102     		.2byte	0x2c1
  950 01fc 01       		.byte	0x1
@@ -1942,7 +1942,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  955 020d 01       		.byte	0x1
  956 020e 22020000 		.4byte	0x222
  957 0212 0E       		.uleb128 0xe
- 958 0213 32020000 		.4byte	.LASF30
+ 958 0213 F1010000 		.4byte	.LASF30
  959 0217 01       		.byte	0x1
  960 0218 C302     		.2byte	0x2c3
  961 021a 6F000000 		.4byte	0x6f
@@ -1952,7 +1952,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  965 0221 00       		.byte	0
  966 0222 0D       		.uleb128 0xd
  967 0223 01       		.byte	0x1
- 968 0224 E1000000 		.4byte	.LASF32
+ 968 0224 10010000 		.4byte	.LASF32
  969 0228 01       		.byte	0x1
  970 0229 DE02     		.2byte	0x2de
  971 022b 01       		.byte	0x1
@@ -1963,7 +1963,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  976 023c 01       		.byte	0x1
  977 023d 51020000 		.4byte	0x251
  978 0241 0E       		.uleb128 0xe
- 979 0242 32020000 		.4byte	.LASF30
+ 979 0242 F1010000 		.4byte	.LASF30
  980 0246 01       		.byte	0x1
  981 0247 E002     		.2byte	0x2e0
  982 0249 6F000000 		.4byte	0x6f
@@ -1973,12 +1973,12 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  986 0250 00       		.byte	0
  987 0251 0A       		.uleb128 0xa
  988 0252 01       		.byte	0x1
- 989 0253 4E000000 		.4byte	.LASF33
+ 989 0253 7D000000 		.4byte	.LASF33
  990 0257 01       		.byte	0x1
  991 0258 FA02     		.2byte	0x2fa
  992 025a 01       		.byte	0x1
  993 025b 00000000 		.4byte	.LFB11
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 34
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 34
 
 
  994 025f 20000000 		.4byte	.LFE11
@@ -1986,7 +1986,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  996 0267 01       		.byte	0x1
  997 0268 7C020000 		.4byte	0x27c
  998 026c 0B       		.uleb128 0xb
- 999 026d BD000000 		.4byte	.LASF34
+ 999 026d EC000000 		.4byte	.LASF34
  1000 0271 01       		.byte	0x1
  1001 0272 FA02     		.2byte	0x2fa
  1002 0274 6F000000 		.4byte	0x6f
@@ -1996,7 +1996,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1006 027b 00       		.byte	0
  1007 027c 0C       		.uleb128 0xc
  1008 027d 01       		.byte	0x1
- 1009 027e B9010000 		.4byte	.LASF36
+ 1009 027e 78010000 		.4byte	.LASF36
  1010 0282 01       		.byte	0x1
  1011 0283 2D03     		.2byte	0x32d
  1012 0285 01       		.byte	0x1
@@ -2007,7 +2007,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1017 0296 01       		.byte	0x1
  1018 0297 0C       		.uleb128 0xc
  1019 0298 01       		.byte	0x1
- 1020 0299 D4010000 		.4byte	.LASF37
+ 1020 0299 93010000 		.4byte	.LASF37
  1021 029d 01       		.byte	0x1
  1022 029e 7103     		.2byte	0x371
  1023 02a0 01       		.byte	0x1
@@ -2017,7 +2017,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1027 02ad 9C020000 		.4byte	.LLST13
  1028 02b1 01       		.byte	0x1
  1029 02b2 0F       		.uleb128 0xf
- 1030 02b3 05020000 		.4byte	.LASF41
+ 1030 02b3 C4010000 		.4byte	.LASF41
  1031 02b7 01       		.byte	0x1
  1032 02b8 1B       		.byte	0x1b
  1033 02b9 6F000000 		.4byte	0x6f
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1048 0007 03       		.uleb128 0x3
  1049 0008 0E       		.uleb128 0xe
  1050 0009 1B       		.uleb128 0x1b
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 35
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 35
 
 
  1051 000a 0E       		.uleb128 0xe
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1105 0040 2E       		.uleb128 0x2e
  1106 0041 00       		.byte	0
  1107 0042 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 36
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 36
 
 
  1108 0043 0C       		.uleb128 0xc
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1162 007b 13       		.uleb128 0x13
  1163 007c 02       		.uleb128 0x2
  1164 007d 0A       		.uleb128 0xa
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 37
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 37
 
 
  1165 007e 00       		.byte	0
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1219 00b6 0E       		.uleb128 0xe
  1220 00b7 3A       		.uleb128 0x3a
  1221 00b8 0B       		.uleb128 0xb
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 38
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 38
 
 
  1222 00b9 3B       		.uleb128 0x3b
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1276 00f0 9742     		.uleb128 0x2117
  1277 00f2 0C       		.uleb128 0xc
  1278 00f3 01       		.uleb128 0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 39
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 39
 
 
  1279 00f4 13       		.uleb128 0x13
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1333 0024 00000000 		.4byte	0
  1334 0028 00000000 		.4byte	0
  1335              	.LLST1:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 40
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 40
 
 
  1336 002c 00000000 		.4byte	.LFB1
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1390 00b2 77       		.byte	0x77
  1391 00b3 04       		.sleb128 4
  1392 00b4 00000000 		.4byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 41
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 41
 
 
  1393 00b8 00000000 		.4byte	0
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1447 013c 04000000 		.4byte	.LCFI16
  1448 0140 0200     		.2byte	0x2
  1449 0142 7D       		.byte	0x7d
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 42
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 42
 
 
  1450 0143 04       		.sleb128 4
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1504              	.LLST9:
  1505 01c8 00000000 		.4byte	.LFB9
  1506 01cc 02000000 		.4byte	.LCFI23
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 43
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 43
 
 
  1507 01d0 0200     		.2byte	0x2
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1561 0250 04000000 		.4byte	.LCFI30
  1562 0254 06000000 		.4byte	.LCFI31
  1563 0258 0200     		.2byte	0x2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 44
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 44
 
 
  1564 025a 7D       		.byte	0x7d
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1618 0014 2A000000 		.4byte	.LFE0-.LFB0
  1619 0018 00000000 		.4byte	.LFB1
  1620 001c 32010000 		.4byte	.LFE1-.LFB1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 45
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 45
 
 
  1621 0020 00000000 		.4byte	.LFB2
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1675 0068 00000000 		.4byte	.LFB13
  1676 006c 18000000 		.4byte	.LFE13
  1677 0070 00000000 		.4byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 46
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 46
 
 
  1678 0074 00000000 		.4byte	0
@@ -2712,227 +2712,217 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 1
  1682              	.LASF15:
  1683 0000 72656731 		.ascii	"reg16\000"
  1683      3600
- 1684              	.LASF21:
- 1685 0006 50574D5F 		.ascii	"PWM_MOTOR_TILT_WritePeriod\000"
- 1685      4D4F544F 
- 1685      525F5449 
- 1685      4C545F57 
- 1685      72697465 
- 1686              	.LASF23:
- 1687 0021 70657269 		.ascii	"period\000"
- 1687      6F6400
- 1688              	.LASF3:
- 1689 0028 73686F72 		.ascii	"short unsigned int\000"
- 1689      7420756E 
- 1689      7369676E 
- 1689      65642069 
- 1689      6E7400
- 1690              	.LASF8:
- 1691 003b 756E7369 		.ascii	"unsigned int\000"
- 1691      676E6564 
- 1691      20696E74 
- 1691      00
- 1692              	.LASF11:
- 1693 0048 666C6F61 		.ascii	"float\000"
- 1693      7400
- 1694              	.LASF33:
- 1695 004e 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteControlRegister\000"
- 1695      4D4F544F 
- 1695      525F5449 
- 1695      4C545F57 
- 1695      72697465 
- 1696              	.LASF1:
- 1697 0072 756E7369 		.ascii	"unsigned char\000"
- 1697      676E6564 
- 1697      20636861 
- 1697      7200
- 1698              	.LASF27:
- 1699 0080 50574D5F 		.ascii	"PWM_MOTOR_TILT_SetInterruptMode\000"
- 1699      4D4F544F 
- 1699      525F5449 
- 1699      4C545F53 
- 1699      6574496E 
- 1700              	.LASF14:
- 1701 00a0 72656738 		.ascii	"reg8\000"
- 1701      00
- 1702              	.LASF5:
- 1703 00a5 6C6F6E67 		.ascii	"long unsigned int\000"
- 1703      20756E73 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 47
+ 1684              	.LASF40:
+ 1685 0006 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 1685      47495448 
+ 1685      55422072 
+ 1685      65706F73 
+ 1685      5C537175 
+ 1686              	.LASF21:
+ 1687 0035 50574D5F 		.ascii	"PWM_MOTOR_TILT_WritePeriod\000"
+ 1687      4D4F544F 
+ 1687      525F5449 
+ 1687      4C545F57 
+ 1687      72697465 
+ 1688              	.LASF23:
+ 1689 0050 70657269 		.ascii	"period\000"
+ 1689      6F6400
+ 1690              	.LASF3:
+ 1691 0057 73686F72 		.ascii	"short unsigned int\000"
+ 1691      7420756E 
+ 1691      7369676E 
+ 1691      65642069 
+ 1691      6E7400
+ 1692              	.LASF8:
+ 1693 006a 756E7369 		.ascii	"unsigned int\000"
+ 1693      676E6564 
+ 1693      20696E74 
+ 1693      00
+ 1694              	.LASF11:
+ 1695 0077 666C6F61 		.ascii	"float\000"
+ 1695      7400
+ 1696              	.LASF33:
+ 1697 007d 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteControlRegister\000"
+ 1697      4D4F544F 
+ 1697      525F5449 
+ 1697      4C545F57 
+ 1697      72697465 
+ 1698              	.LASF1:
+ 1699 00a1 756E7369 		.ascii	"unsigned char\000"
+ 1699      676E6564 
+ 1699      20636861 
+ 1699      7200
+ 1700              	.LASF27:
+ 1701 00af 50574D5F 		.ascii	"PWM_MOTOR_TILT_SetInterruptMode\000"
+ 1701      4D4F544F 
+ 1701      525F5449 
+ 1701      4C545F53 
+ 1701      6574496E 
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 47
 
 
- 1703      69676E65 
- 1703      6420696E 
- 1703      7400
- 1704              	.LASF9:
- 1705 00b7 75696E74 		.ascii	"uint8\000"
- 1705      3800
- 1706              	.LASF34:
- 1707 00bd 636F6E74 		.ascii	"control\000"
- 1707      726F6C00 
- 1708              	.LASF12:
- 1709 00c5 646F7562 		.ascii	"double\000"
- 1709      6C6500
- 1710              	.LASF17:
- 1711 00cc 50574D5F 		.ascii	"PWM_MOTOR_TILT_Start\000"
- 1711      4D4F544F 
- 1711      525F5449 
- 1711      4C545F53 
- 1711      74617274 
- 1712              	.LASF32:
- 1713 00e1 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadControlRegister\000"
+ 1702              	.LASF14:
+ 1703 00cf 72656738 		.ascii	"reg8\000"
+ 1703      00
+ 1704              	.LASF5:
+ 1705 00d4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1705      20756E73 
+ 1705      69676E65 
+ 1705      6420696E 
+ 1705      7400
+ 1706              	.LASF9:
+ 1707 00e6 75696E74 		.ascii	"uint8\000"
+ 1707      3800
+ 1708              	.LASF34:
+ 1709 00ec 636F6E74 		.ascii	"control\000"
+ 1709      726F6C00 
+ 1710              	.LASF12:
+ 1711 00f4 646F7562 		.ascii	"double\000"
+ 1711      6C6500
+ 1712              	.LASF17:
+ 1713 00fb 50574D5F 		.ascii	"PWM_MOTOR_TILT_Start\000"
  1713      4D4F544F 
  1713      525F5449 
- 1713      4C545F52 
- 1713      65616443 
- 1714              	.LASF40:
- 1715 0104 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 1715      73657273 
- 1715      5C477261 
- 1715      7A69616E 
- 1715      6F20472E 
- 1716 0133 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 1716      5C535155 
- 1716      49545C56 
- 1716      6572732E 
- 1716      302E302D 
- 1717 0163 71756974 		.ascii	"quit-Proto.cydsn\000"
- 1717      2D50726F 
- 1717      746F2E63 
- 1717      7964736E 
- 1717      00
- 1718              	.LASF10:
- 1719 0174 75696E74 		.ascii	"uint16\000"
- 1719      313600
- 1720              	.LASF20:
- 1721 017b 50574D5F 		.ascii	"PWM_MOTOR_TILT_Init\000"
- 1721      4D4F544F 
- 1721      525F5449 
- 1721      4C545F49 
- 1721      6E697400 
- 1722              	.LASF39:
- 1723 018f 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PWM_MOTOR_TILT.c\000"
- 1723      6E657261 
- 1723      7465645F 
- 1723      536F7572 
- 1723      63655C50 
- 1724              	.LASF36:
- 1725 01b9 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadCompare\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 48
-
-
+ 1713      4C545F53 
+ 1713      74617274 
+ 1714              	.LASF32:
+ 1715 0110 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadControlRegister\000"
+ 1715      4D4F544F 
+ 1715      525F5449 
+ 1715      4C545F52 
+ 1715      65616443 
+ 1716              	.LASF10:
+ 1717 0133 75696E74 		.ascii	"uint16\000"
+ 1717      313600
+ 1718              	.LASF20:
+ 1719 013a 50574D5F 		.ascii	"PWM_MOTOR_TILT_Init\000"
+ 1719      4D4F544F 
+ 1719      525F5449 
+ 1719      4C545F49 
+ 1719      6E697400 
+ 1720              	.LASF39:
+ 1721 014e 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\PWM_MOTOR_TILT.c\000"
+ 1721      6E657261 
+ 1721      7465645F 
+ 1721      536F7572 
+ 1721      63655C50 
+ 1722              	.LASF36:
+ 1723 0178 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadCompare\000"
+ 1723      4D4F544F 
+ 1723      525F5449 
+ 1723      4C545F52 
+ 1723      65616443 
+ 1724              	.LASF37:
+ 1725 0193 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadPeriod\000"
  1725      4D4F544F 
  1725      525F5449 
  1725      4C545F52 
- 1725      65616443 
- 1726              	.LASF37:
- 1727 01d4 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadPeriod\000"
- 1727      4D4F544F 
- 1727      525F5449 
- 1727      4C545F52 
- 1727      65616450 
- 1728              	.LASF7:
- 1729 01ee 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1729      206C6F6E 
- 1729      6720756E 
- 1729      7369676E 
- 1729      65642069 
- 1730              	.LASF41:
- 1731 0205 50574D5F 		.ascii	"PWM_MOTOR_TILT_initVar\000"
+ 1725      65616450 
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 48
+
+
+ 1726              	.LASF7:
+ 1727 01ad 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1727      206C6F6E 
+ 1727      6720756E 
+ 1727      7369676E 
+ 1727      65642069 
+ 1728              	.LASF41:
+ 1729 01c4 50574D5F 		.ascii	"PWM_MOTOR_TILT_initVar\000"
+ 1729      4D4F544F 
+ 1729      525F5449 
+ 1729      4C545F69 
+ 1729      6E697456 
+ 1730              	.LASF18:
+ 1731 01db 50574D5F 		.ascii	"PWM_MOTOR_TILT_Enable\000"
  1731      4D4F544F 
  1731      525F5449 
- 1731      4C545F69 
- 1731      6E697456 
- 1732              	.LASF18:
- 1733 021c 50574D5F 		.ascii	"PWM_MOTOR_TILT_Enable\000"
- 1733      4D4F544F 
- 1733      525F5449 
- 1733      4C545F45 
- 1733      6E61626C 
- 1734              	.LASF30:
- 1735 0232 72657375 		.ascii	"result\000"
- 1735      6C7400
- 1736              	.LASF22:
- 1737 0239 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteCompare\000"
+ 1731      4C545F45 
+ 1731      6E61626C 
+ 1732              	.LASF30:
+ 1733 01f1 72657375 		.ascii	"result\000"
+ 1733      6C7400
+ 1734              	.LASF22:
+ 1735 01f8 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteCompare\000"
+ 1735      4D4F544F 
+ 1735      525F5449 
+ 1735      4C545F57 
+ 1735      72697465 
+ 1736              	.LASF35:
+ 1737 0214 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadDeadTime\000"
  1737      4D4F544F 
  1737      525F5449 
- 1737      4C545F57 
- 1737      72697465 
- 1738              	.LASF35:
- 1739 0255 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadDeadTime\000"
- 1739      4D4F544F 
- 1739      525F5449 
- 1739      4C545F52 
- 1739      65616444 
- 1740              	.LASF29:
- 1741 0271 6374726C 		.ascii	"ctrl\000"
+ 1737      4C545F52 
+ 1737      65616444 
+ 1738              	.LASF29:
+ 1739 0230 6374726C 		.ascii	"ctrl\000"
+ 1739      00
+ 1740              	.LASF16:
+ 1741 0235 73697A65 		.ascii	"sizetype\000"
+ 1741      74797065 
  1741      00
- 1742              	.LASF16:
- 1743 0276 73697A65 		.ascii	"sizetype\000"
- 1743      74797065 
- 1743      00
- 1744              	.LASF6:
- 1745 027f 6C6F6E67 		.ascii	"long long int\000"
- 1745      206C6F6E 
- 1745      6720696E 
- 1745      7400
- 1746              	.LASF28:
- 1747 028d 696E7465 		.ascii	"interruptMode\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc0kSQha.s 			page 49
+ 1742              	.LASF6:
+ 1743 023e 6C6F6E67 		.ascii	"long long int\000"
+ 1743      206C6F6E 
+ 1743      6720696E 
+ 1743      7400
+ 1744              	.LASF28:
+ 1745 024c 696E7465 		.ascii	"interruptMode\000"
+ 1745      72727570 
+ 1745      744D6F64 
+ 1745      6500
+ 1746              	.LASF31:
+ 1747 025a 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadStatusRegister\000"
+ 1747      4D4F544F 
+ 1747      525F5449 
+ 1747      4C545F52 
+ 1747      65616453 
+ 1748              	.LASF2:
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\ccpniQ7P.s 			page 49
 
 
- 1747      72727570 
- 1747      744D6F64 
- 1747      6500
- 1748              	.LASF31:
- 1749 029b 50574D5F 		.ascii	"PWM_MOTOR_TILT_ReadStatusRegister\000"
- 1749      4D4F544F 
- 1749      525F5449 
- 1749      4C545F52 
- 1749      65616453 
- 1750              	.LASF2:
- 1751 02bd 73686F72 		.ascii	"short int\000"
- 1751      7420696E 
- 1751      7400
- 1752              	.LASF25:
- 1753 02c7 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteDeadTime\000"
- 1753      4D4F544F 
- 1753      525F5449 
- 1753      4C545F57 
- 1753      72697465 
- 1754              	.LASF38:
- 1755 02e4 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 1755      4320342E 
- 1755      372E3320 
- 1755      32303133 
- 1755      30333132 
- 1756 0317 616E6368 		.ascii	"anch revision 196615]\000"
- 1756      20726576 
- 1756      6973696F 
- 1756      6E203139 
- 1756      36363135 
- 1757              	.LASF19:
- 1758 032d 50574D5F 		.ascii	"PWM_MOTOR_TILT_Stop\000"
- 1758      4D4F544F 
- 1758      525F5449 
- 1758      4C545F53 
- 1758      746F7000 
- 1759              	.LASF4:
- 1760 0341 6C6F6E67 		.ascii	"long int\000"
- 1760      20696E74 
+ 1749 027c 73686F72 		.ascii	"short int\000"
+ 1749      7420696E 
+ 1749      7400
+ 1750              	.LASF25:
+ 1751 0286 50574D5F 		.ascii	"PWM_MOTOR_TILT_WriteDeadTime\000"
+ 1751      4D4F544F 
+ 1751      525F5449 
+ 1751      4C545F57 
+ 1751      72697465 
+ 1752              	.LASF38:
+ 1753 02a3 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1753      4320342E 
+ 1753      372E3320 
+ 1753      32303133 
+ 1753      30333132 
+ 1754 02d6 616E6368 		.ascii	"anch revision 196615]\000"
+ 1754      20726576 
+ 1754      6973696F 
+ 1754      6E203139 
+ 1754      36363135 
+ 1755              	.LASF19:
+ 1756 02ec 50574D5F 		.ascii	"PWM_MOTOR_TILT_Stop\000"
+ 1756      4D4F544F 
+ 1756      525F5449 
+ 1756      4C545F53 
+ 1756      746F7000 
+ 1757              	.LASF4:
+ 1758 0300 6C6F6E67 		.ascii	"long int\000"
+ 1758      20696E74 
+ 1758      00
+ 1759              	.LASF13:
+ 1760 0309 63686172 		.ascii	"char\000"
  1760      00
- 1761              	.LASF13:
- 1762 034a 63686172 		.ascii	"char\000"
- 1762      00
- 1763              	.LASF0:
- 1764 034f 7369676E 		.ascii	"signed char\000"
- 1764      65642063 
- 1764      68617200 
- 1765              	.LASF24:
- 1766 035b 636F6D70 		.ascii	"compare\000"
- 1766      61726500 
- 1767              	.LASF26:
- 1768 0363 64656164 		.ascii	"deadtime\000"
- 1768      74696D65 
- 1768      00
- 1769              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 1761              	.LASF0:
+ 1762 030e 7369676E 		.ascii	"signed char\000"
+ 1762      65642063 
+ 1762      68617200 
+ 1763              	.LASF24:
+ 1764 031a 636F6D70 		.ascii	"compare\000"
+ 1764      61726500 
+ 1765              	.LASF26:
+ 1766 0322 64656164 		.ascii	"deadtime\000"
+ 1766      74696D65 
+ 1766      00
+ 1767              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

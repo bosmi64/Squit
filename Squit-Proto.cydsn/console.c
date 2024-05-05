@@ -2404,45 +2404,45 @@ exit_showencf:
 			// END SHOW Q (SHOT) N
 			
 			
-			// SHOW PATH N
-			if ((strcmp(actual_cmd.parameter, "path") == 0)	
-			|| (strcmp(actual_cmd.parameter, "pa") == 0))
-			{
-				if (((path_n = atoi(actual_cmd.number1)) >= 0)
-				&& (path_n = atoi(actual_cmd.number1)) <= 64)
-				{
-					for (idx=0; idx<path[path_n].param.Trapezoid_Number; idx++)
-					{
-						printf(" Trapezoid num =%3i\r\n", (int16)idx);	
-						printf(" Acc           =%+1.2f [%%]\r\n", (float)path[path_n].trapezoid[idx].param.acc_pc.fnum * 100);
-						printf(" Dec           =%+1.2f [%%]\r\n", (float)path[path_n].trapezoid[idx].param.dec_pc.fnum * 100);
-						printf(" Time          =%+1.2f [sec]\r\n", (float)path[path_n].trapezoid[idx].param.time_sec.fnum);
-						printf(" Steps         =%+1.2f [step]\r\n", (float)path[path_n].trapezoid[idx].param.steps);
-						printf(" Last_flg      =%3i [1=last]\r\n", (int16)path[path_n].trapezoid[idx].param.last_flg);
-						printf("----------------------------\r\n");
-						printf(" Ticks Initial =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.ticks_initial);
-						printf(" Acc EndPoint  =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.acc_end_tpoint);	
-						printf(" Dec StartPoint=%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.dec_start_tpoint);
-						printf(" Dec EndPoint  =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.dec_end_tpoint);							
-						printf(" Ticks Final   =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.ticks_final);						
-						printf(" Acc Ticks     =%+1.2f [float ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.acc_ticks);
-						printf(" Vconst Ticks  =%+1.2f [float ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.vconst_ticks);
-						printf(" Dec Ticks     =%+1.2f [float ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.dec_ticks);						
-						printf(" V initial     =%+1.8f [step/ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.v_initial);						
-						printf(" Acc slope     =%+1.8f [step/ticks^2]\r\n", (float)path[path_n].trapezoid[idx].mover.acc_slope);
-						printf(" V constant    =%+1.8f [step/ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.v_const);						
-						printf(" Dec slope     =%+1.8f [step/ticks^2]\r\n", (float)path[path_n].trapezoid[idx].mover.dec_slope);
-						printf(" V final       =%+1.8f [step/ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.v_final);						
-						printf("\r\n");						
-					}				
-				}
-				else
-				{
-					printf(STR_ERROR5);				/* ERROR5: Number not allowed */
-				}
-				goto exitpars;	
-			}
-			// END SHOW PATH N				
+//			// SHOW PATH N
+//			if ((strcmp(actual_cmd.parameter, "path") == 0)	
+//			|| (strcmp(actual_cmd.parameter, "pa") == 0))
+//			{
+//				if (((path_n = atoi(actual_cmd.number1)) >= 0)
+//				&& (path_n = atoi(actual_cmd.number1)) <= 64)
+//				{
+//					for (idx=0; idx<path[path_n].param.Trapezoid_Number; idx++)
+//					{
+//						printf(" Trapezoid num =%3i\r\n", (int16)idx);	
+//						printf(" Acc           =%+1.2f [%%]\r\n", (float)path[path_n].trapezoid[idx].param.acc_pc.fnum * 100);
+//						printf(" Dec           =%+1.2f [%%]\r\n", (float)path[path_n].trapezoid[idx].param.dec_pc.fnum * 100);
+//						printf(" Time          =%+1.2f [sec]\r\n", (float)path[path_n].trapezoid[idx].param.time_sec.fnum);
+//						printf(" Steps         =%+1.2f [step]\r\n", (float)path[path_n].trapezoid[idx].param.steps);
+//						printf(" Last_flg      =%3i [1=last]\r\n", (int16)path[path_n].trapezoid[idx].param.last_flg);
+//						printf("----------------------------\r\n");
+//						printf(" Ticks Initial =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.ticks_initial);
+//						printf(" Acc EndPoint  =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.acc_end_tpoint);	
+//						printf(" Dec StartPoint=%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.dec_start_tpoint);
+//						printf(" Dec EndPoint  =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.dec_end_tpoint);							
+//						printf(" Ticks Final   =%+ld [ticks]\r\n", (int32)path[path_n].trapezoid[idx].mover.ticks_final);						
+//						printf(" Acc Ticks     =%+1.2f [float ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.acc_ticks);
+//						printf(" Vconst Ticks  =%+1.2f [float ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.vconst_ticks);
+//						printf(" Dec Ticks     =%+1.2f [float ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.dec_ticks);						
+//						printf(" V initial     =%+1.8f [step/ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.v_initial);						
+//						printf(" Acc slope     =%+1.8f [step/ticks^2]\r\n", (float)path[path_n].trapezoid[idx].mover.acc_slope);
+//						printf(" V constant    =%+1.8f [step/ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.v_const);						
+//						printf(" Dec slope     =%+1.8f [step/ticks^2]\r\n", (float)path[path_n].trapezoid[idx].mover.dec_slope);
+//						printf(" V final       =%+1.8f [step/ticks]\r\n", (float)path[path_n].trapezoid[idx].mover.v_final);						
+//						printf("\r\n");						
+//					}				
+//				}
+//				else
+//				{
+//					printf(STR_ERROR5);				/* ERROR5: Number not allowed */
+//				}
+//				goto exitpars;	
+//			}
+//			// END SHOW PATH N				
 
 			
 //			// SHOW MOVER N

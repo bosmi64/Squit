@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
   39      544F4800 
   40              		.align	2
   41              	.LC7:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 2
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 2
 
 
   42 005c 23504155 		.ascii	"#PAUSE 5.5\000"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
   69      302E3320 
   69      3500
   70 00f2 0000     		.align	2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 3
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 3
 
 
   71              	.LC17:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
   96      53452031 
   96      00
   97 018d 000000   		.align	2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 4
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 4
 
 
   98              	.LC26:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  120      00
  121 022d 000000   		.align	2
  122              	.LC34:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 5
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 5
 
 
  123 0230 23505452 		.ascii	"#PTRAP +200 0.2 2.5\000"
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  145 02ce 0000     		.align	2
  146              	.LC42:
  147 02d0 23545452 		.ascii	"#TTRAP -45 0.2 2\000"
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 6
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 6
 
 
  147      4150202D 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  171      20323120 
  171      302E3320 
  171      3600
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 7
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 7
 
 
  172 0376 0000     		.align	2
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  198      302E3320 
  198      323000
  199 040f 00       		.align	2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 8
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 8
 
 
  200              	.LC60:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  225      53452032 
  225      00
  226 04a9 000000   		.align	2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 9
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 9
 
 
  227              	.LC69:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  254              	.LC78:
  255 0540 23545452 		.ascii	"#TTRAP +120   0.2 28\000"
  255      4150202B 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 10
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 10
 
 
  255      31323020 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
   11:.\clu.c       **** */
   12:.\clu.c       **** #include <device.h>
   13:.\clu.c       **** #include <string.h>
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 11
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 11
 
 
   14:.\clu.c       **** #include <math.h>
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  301 0018 03CB     		ldmia	r3!, {r0, r1}
  302 001a 1060     		str	r0, [r2, #0]	@ unaligned
  303 001c 5160     		str	r1, [r2, #4]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 12
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 12
 
 
  304 001e 1B88     		ldrh	r3, [r3, #0]	@ unaligned
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  353 0086 BC4A     		ldr	r2, .L2+16
  354 0088 40F20003 		movw	r3, #:lower16:.LC5
  355 008c C0F20003 		movt	r3, #:upper16:.LC5
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 13
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 13
 
 
  356 0090 03CB     		ldmia	r3!, {r0, r1}
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  400 00f0 AB74     		strb	r3, [r5, #18]
   62:.\clu.c       **** 	sprintf(clu[1][4], "#PATHEXEC");
  401              		.loc 1 62 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 14
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 14
 
 
  402 00f2 A64A     		ldr	r2, .L2+36
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
   73:.\clu.c       **** 	sprintf(clu[2][1], "#PAUSE 5");	
  446              		.loc 1 73 0
  447 0156 924A     		ldr	r2, .L2+56
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 15
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 15
 
 
  448 0158 40F20003 		movw	r3, #:lower16:.LC10
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  498 01c8 9372     		strb	r3, [r2, #10]
   78:.\clu.c       **** 	sprintf(clu[2][6], "#CLUEND");		
  499              		.loc 1 78 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 16
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 16
 
 
  500 01ca 7A4A     		ldr	r2, .L2+76
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  544 022e 1C46     		mov	r4, r3
  545 0230 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
  546 0232 2860     		str	r0, [r5, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 17
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 17
 
 
  547 0234 6960     		str	r1, [r5, #4]	@ unaligned
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  596 029e C0F20003 		movt	r3, #:upper16:.LC5
  597 02a2 03CB     		ldmia	r3!, {r0, r1}
  598 02a4 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 18
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 18
 
 
  599 02a6 5160     		str	r1, [r2, #4]	@ unaligned
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  641 0302 C0F20003 		movt	r3, #:upper16:.LC4
  642 0306 03CB     		ldmia	r3!, {r0, r1}
  643 0308 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 19
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 19
 
 
  644 030a 5160     		str	r1, [r2, #4]	@ unaligned
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  687 0366 00BF     		.align	2
  688              	.L2:
  689 0368 19000000 		.word	clu+25
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 20
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 20
 
 
  690 036c 32000000 		.word	clu+50
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  742 0420 1060     		str	r0, [r2, #0]	@ unaligned
  743 0422 5160     		str	r1, [r2, #4]	@ unaligned
  744 0424 1988     		ldrh	r1, [r3, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 21
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 21
 
 
  745 0426 9B78     		ldrb	r3, [r3, #2]
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  787 0482 C0F20003 		movt	r3, #:upper16:.LC9
  788 0486 03CB     		ldmia	r3!, {r0, r1}
  789 0488 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 22
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 22
 
 
  790 048a 5160     		str	r1, [r2, #4]	@ unaligned
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  142:.\clu.c       **** 	sprintf(clu[10][2], "#PTRAP +180 0.2 1.5");	
  833              		.loc 1 142 0
  834 04e8 A24A     		ldr	r2, .L5+44
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 23
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 23
 
 
  835 04ea 40F20003 		movw	r3, #:lower16:.LC18
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  879 054e 9188     		ldrh	r1, [r2, #4]	@ unaligned
  880 0550 9279     		ldrb	r2, [r2, #6]
  881 0552 9980     		strh	r1, [r3, #4]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 24
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 24
 
 
  882 0554 9A71     		strb	r2, [r3, #6]
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  924 05ae 7A4A     		ldr	r2, .L5+80
  925 05b0 40F20003 		movw	r3, #:lower16:.LC10
  926 05b4 C0F20003 		movt	r3, #:upper16:.LC10
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 25
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 25
 
 
  927 05b8 03CB     		ldmia	r3!, {r0, r1}
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  969              		.loc 1 176 0
  970 0614 654A     		ldr	r2, .L5+100
  971 0616 40F20003 		movw	r3, #:lower16:.LC20
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 26
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 26
 
 
  972 061a C0F20003 		movt	r3, #:upper16:.LC20
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1022 0686 C0F20003 		movt	r3, #:upper16:.LC3
  1023 068a 03CB     		ldmia	r3!, {r0, r1}
  1024 068c 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 27
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 27
 
 
  1025 068e 5160     		str	r1, [r2, #4]	@ unaligned
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1067 06ea C0F20003 		movt	r3, #:upper16:.LC24
  1068 06ee 1546     		mov	r5, r2
  1069 06f0 1C46     		mov	r4, r3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 28
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 28
 
 
  1070 06f2 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1121 076c 82140000 		.word	clu+5250
  1122 0770 9B140000 		.word	clu+5275
  1123 0774 B4140000 		.word	clu+5300
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 29
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 29
 
 
  1124 0778 CD140000 		.word	clu+5325
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1175 0816 5160     		str	r1, [r2, #4]	@ unaligned
  1176 0818 1988     		ldrh	r1, [r3, #0]	@ unaligned
  1177 081a 9B78     		ldrb	r3, [r3, #2]
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 30
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 30
 
 
  1178 081c 1181     		strh	r1, [r2, #8]	@ unaligned
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1222 087c 2A82     		strh	r2, [r5, #16]	@ unaligned
  1223 087e AB74     		strb	r3, [r5, #18]
  209:.\clu.c       **** 	sprintf(clu[15][3], "#PATHEXEC");	
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 31
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 31
 
 
  1224              		.loc 1 209 0
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1274 08ee 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
  1275 08f0 2860     		str	r0, [r5, #0]	@ unaligned
  1276 08f2 6960     		str	r1, [r5, #4]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 32
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 32
 
 
  1277 08f4 AA60     		str	r2, [r5, #8]	@ unaligned
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1327 0960 9A71     		strb	r2, [r3, #6]
  218:.\clu.c       **** 	sprintf(clu[15][12], "#CLUEND");
  1328              		.loc 1 218 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 33
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 33
 
 
  1329 0962 7E4A     		ldr	r2, .L8+64
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1372 09c4 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
  1373 09c6 2860     		str	r0, [r5, #0]	@ unaligned
  1374 09c8 6960     		str	r1, [r5, #4]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 34
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 34
 
 
  1375 09ca AA60     		str	r2, [r5, #8]	@ unaligned
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1417 0a24 40F20003 		movw	r3, #:lower16:.LC0
  1418 0a28 C0F20003 		movt	r3, #:upper16:.LC0
  1419 0a2c 03CB     		ldmia	r3!, {r0, r1}
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 35
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 35
 
 
  1420 0a2e 1060     		str	r0, [r2, #0]	@ unaligned
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1470 0a9a AA60     		str	r2, [r5, #8]	@ unaligned
  1471 0a9c EB60     		str	r3, [r5, #12]	@ unaligned
  1472 0a9e 2068     		ldr	r0, [r4, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 36
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 36
 
 
  1473 0aa0 2861     		str	r0, [r5, #16]	@ unaligned
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1523 0b0c A378     		ldrb	r3, [r4, #2]
  1524 0b0e 2A82     		strh	r2, [r5, #16]	@ unaligned
  1525 0b10 AB74     		strb	r3, [r5, #18]
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 37
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 37
 
 
  250:.\clu.c       **** 	sprintf(clu[17][9], "#PATHEXEC");		
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1578 0bbc C0F20003 		movt	r3, #:upper16:.LC4
  1579 0bc0 03CB     		ldmia	r3!, {r0, r1}
  1580 0bc2 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 38
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 38
 
 
  1581 0bc4 5160     		str	r1, [r2, #4]	@ unaligned
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  263:.\clu.c       **** 	sprintf(clu[18][3], "#PAUSE 1");			
  1624              		.loc 1 263 0
  1625 0c22 B84A     		ldr	r2, .L11+20
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 39
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 39
 
 
  1626 0c24 40F20003 		movw	r3, #:lower16:.LC25
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1669 0c86 AA60     		str	r2, [r5, #8]	@ unaligned
  1670 0c88 EB60     		str	r3, [r5, #12]	@ unaligned
  1671 0c8a 2388     		ldrh	r3, [r4, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 40
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 40
 
 
  1672 0c8c 2B82     		strh	r3, [r5, #16]	@ unaligned
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1721 0cf8 5160     		str	r1, [r2, #4]	@ unaligned
  280:.\clu.c       **** 	
  281:.\clu.c       **** 	
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 41
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 41
 
 
  282:.\clu.c       **** 	/*----------------------------------------------*/
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1767 0d5c 5160     		str	r1, [r2, #4]	@ unaligned
  1768 0d5e 1B88     		ldrh	r3, [r3, #0]	@ unaligned
  1769 0d60 1381     		strh	r3, [r2, #8]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 42
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 42
 
 
  291:.\clu.c       **** 	sprintf(clu[20][4], "#PTRAP +180 0.2 2");	
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1819 0dca 604A     		ldr	r2, .L11+92
  1820 0dcc 40F20003 		movw	r3, #:lower16:.LC3
  1821 0dd0 C0F20003 		movt	r3, #:upper16:.LC3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 43
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 43
 
 
  1822 0dd4 03CB     		ldmia	r3!, {r0, r1}
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  307:.\clu.c       **** 	sprintf(clu[30][2], "#PATHEXEC");
  1865              		.loc 1 307 0
  1866 0e32 4B4A     		ldr	r2, .L11+112
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 44
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 44
 
 
  1867 0e34 40F20003 		movw	r3, #:lower16:.LC3
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1910 0e96 A260     		str	r2, [r4, #8]	@ unaligned
  1911 0e98 E360     		str	r3, [r4, #12]	@ unaligned
  319:.\clu.c       **** 	sprintf(clu[31][2],  "#PATHEXEC");
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 45
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 45
 
 
  1912              		.loc 1 319 0
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  1963 0f14 10270000 		.word	clu+10000
  1964 0f18 29270000 		.word	clu+10025
  1965 0f1c 42270000 		.word	clu+10050
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 46
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 46
 
 
  1966 0f20 5B270000 		.word	clu+10075
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2017 0fba C0F20003 		movt	r3, #:upper16:.LC3
  2018 0fbe 03CB     		ldmia	r3!, {r0, r1}
  2019 0fc0 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 47
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 47
 
 
  2020 0fc2 5160     		str	r1, [r2, #4]	@ unaligned
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2062 101c B14A     		ldr	r2, .L14+28
  2063 101e 40F20003 		movw	r3, #:lower16:.LC3
  2064 1022 C0F20003 		movt	r3, #:upper16:.LC3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 48
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 48
 
 
  2065 1026 03CB     		ldmia	r3!, {r0, r1}
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2114 108e 40F20003 		movw	r3, #:lower16:.LC55
  2115 1092 C0F20003 		movt	r3, #:upper16:.LC55
  2116 1096 1546     		mov	r5, r2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 49
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 49
 
 
  2117 1098 1C46     		mov	r4, r3
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2166 1100 824A     		ldr	r2, .L14+68
  2167 1102 40F20003 		movw	r3, #:lower16:.LC4
  2168 1106 C0F20003 		movt	r3, #:upper16:.LC4
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 50
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 50
 
 
  2169 110a 03CB     		ldmia	r3!, {r0, r1}
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  359:.\clu.c       **** 	sprintf(clu[33][3],  "#PAUSE 5");
  2212              		.loc 1 359 0
  2213 1168 6D4A     		ldr	r2, .L14+88
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 51
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 51
 
 
  2214 116a 40F20003 		movw	r3, #:lower16:.LC10
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  367:.\clu.c       **** 	/* CLU 34 INIT																				*/
  368:.\clu.c       **** 	/* SEQ PANORAMA SX REAR (Q44) -> (Q40+120°PAN) --> (Q40-120°PAN)	*/
  369:.\clu.c       **** 	/*                 "########################\0" 											*/
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 52
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 52
 
 
  370:.\clu.c       **** 	/*------------------------------------------------------------------------------------------*/	
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2309 123e EB60     		str	r3, [r5, #12]	@ unaligned
  2310 1240 2288     		ldrh	r2, [r4, #0]	@ unaligned
  2311 1242 A378     		ldrb	r3, [r4, #2]
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 53
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 53
 
 
  2312 1244 2A82     		strh	r2, [r5, #16]	@ unaligned
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2354 12a2 1446     		mov	r4, r2
  2355 12a4 1D46     		mov	r5, r3
  2356 12a6 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 54
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 54
 
 
  2357 12a8 2060     		str	r0, [r4, #0]	@ unaligned
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2410 1358 E0470000 		.word	clu+18400
  2411 135c F9470000 		.word	clu+18425
  2412              	.L15:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 55
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 55
 
 
  389:.\clu.c       **** 	sprintf(clu[35][3],  "#PAUSE 5");
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  394:.\clu.c       **** 	
  395:.\clu.c       **** 	
  396:.\clu.c       **** 	/*----------------------------------------------*/
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 56
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 56
 
 
  397:.\clu.c       **** 	/* CLU 36 INIT									*/
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2507 142e C0F20003 		movt	r3, #:upper16:.LC3
  2508 1432 03CB     		ldmia	r3!, {r0, r1}
  2509 1434 1060     		str	r0, [r2, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 57
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 57
 
 
  2510 1436 5160     		str	r1, [r2, #4]	@ unaligned
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2552 1490 8E4A     		ldr	r2, .L17+56
  2553 1492 40F20003 		movw	r3, #:lower16:.LC10
  2554 1496 C0F20003 		movt	r3, #:upper16:.LC10
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 58
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 58
 
 
  2555 149a 03CB     		ldmia	r3!, {r0, r1}
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2605 1506 1381     		strh	r3, [r2, #8]	@ unaligned
  422:.\clu.c       **** 	sprintf(clu[37][7],  "#PTRAP +90 0.4 1");
  2606              		.loc 1 422 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 59
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 59
 
 
  2607 1508 754A     		ldr	r2, .L17+76
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2657 1578 2860     		str	r0, [r5, #0]	@ unaligned
  2658 157a 6960     		str	r1, [r5, #4]	@ unaligned
  2659 157c AA60     		str	r2, [r5, #8]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 60
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 60
 
 
  2660 157e EB60     		str	r3, [r5, #12]	@ unaligned
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2709 15e6 40F20003 		movw	r3, #:lower16:.LC3
  2710 15ea C0F20003 		movt	r3, #:upper16:.LC3
  2711 15ee 03CB     		ldmia	r3!, {r0, r1}
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 61
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 61
 
 
  2712 15f0 1060     		str	r0, [r2, #0]	@ unaligned
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2754              		.loc 1 443 0
  2755 164c 324A     		ldr	r2, .L17+132
  2756 164e 40F20003 		movw	r3, #:lower16:.LC3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 62
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 62
 
 
  2757 1652 C0F20003 		movt	r3, #:upper16:.LC3
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2808 16dc 774C0000 		.word	clu+19575
  2809 16e0 904C0000 		.word	clu+19600
  2810 16e4 A94C0000 		.word	clu+19625
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 63
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 63
 
 
  2811 16e8 C24C0000 		.word	clu+19650
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2862 1774 1381     		strh	r3, [r2, #8]	@ unaligned
  450:.\clu.c       **** 	sprintf(clu[38][8],  "#PAUSE 2");	
  2863              		.loc 1 450 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 64
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 64
 
 
  2864 1776 C04A     		ldr	r2, .L20+12
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  2913 17e2 AA4A     		ldr	r2, .L20+32
  2914 17e4 40F20003 		movw	r3, #:lower16:.LC3
  2915 17e8 C0F20003 		movt	r3, #:upper16:.LC3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 65
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 65
 
 
  2916 17ec 03CB     		ldmia	r3!, {r0, r1}
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  467:.\clu.c       **** 	sprintf(clu[39][0],  "#PTQ 11 0.2 1.5");
  2959              		.loc 1 467 0
  2960 184a 954A     		ldr	r2, .L20+52
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 66
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 66
 
 
  2961 184c 40F20003 		movw	r3, #:lower16:.LC61
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3010 18b8 40F20003 		movw	r3, #:lower16:.LC25
  3011 18bc C0F20003 		movt	r3, #:upper16:.LC25
  3012 18c0 03CB     		ldmia	r3!, {r0, r1}
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 67
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 67
 
 
  3013 18c2 1060     		str	r0, [r2, #0]	@ unaligned
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3062 192e 1060     		str	r0, [r2, #0]	@ unaligned
  3063 1930 5160     		str	r1, [r2, #4]	@ unaligned
  3064 1932 1B88     		ldrh	r3, [r3, #0]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 68
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 68
 
 
  3065 1934 1381     		strh	r3, [r2, #8]	@ unaligned
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3114 19a0 A260     		str	r2, [r4, #8]	@ unaligned
  3115 19a2 1B88     		ldrh	r3, [r3, #0]	@ unaligned
  3116 19a4 A381     		strh	r3, [r4, #12]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 69
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 69
 
 
  483:.\clu.c       **** 	sprintf(clu[39][16], "#PATHEXEC");		
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3159 1a04 5160     		str	r1, [r2, #4]	@ unaligned
  3160 1a06 1B88     		ldrh	r3, [r3, #0]	@ unaligned
  3161 1a08 1381     		strh	r3, [r2, #8]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 70
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 70
 
 
  495:.\clu.c       **** 	sprintf(clu[40][3], "#PTRAP +1620  0.2 28");
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3212 1a78 B64E0000 		.word	clu+20150
  3213 1a7c CF4E0000 		.word	clu+20175
  3214 1a80 E84E0000 		.word	clu+20200
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 71
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 71
 
 
  3215 1a84 014F0000 		.word	clu+20225
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  506:.\clu.c       **** 	/*----------------------------------------------*/
  507:.\clu.c       **** 	sprintf(clu[41][0], "#CAMERAON");	
  3262              		.loc 1 507 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 72
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 72
 
 
  3263 1b22 5F4A     		ldr	r2, .L23+4
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3313 1b92 2379     		ldrb	r3, [r4, #4]
  3314 1b94 2B75     		strb	r3, [r5, #20]
  512:.\clu.c       **** 	sprintf(clu[41][5], "#TTRAP +100   0.2 10");	
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 73
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 73
 
 
  3315              		.loc 1 512 0
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3358 1bf2 344A     		ldr	r2, .L23+40
  3359 1bf4 40F20003 		movw	r3, #:lower16:.LC0
  3360 1bf8 C0F20003 		movt	r3, #:upper16:.LC0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 74
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 74
 
 
  3361 1bfc 03CB     		ldmia	r3!, {r0, r1}
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3410 1c68 03CB     		ldmia	r3!, {r0, r1}
  3411 1c6a 1060     		str	r0, [r2, #0]	@ unaligned
  3412 1c6c 5160     		str	r1, [r2, #4]	@ unaligned
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 75
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 75
 
 
  3413 1c6e 1B88     		ldrh	r3, [r3, #0]	@ unaligned
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3463              		.thumb_func
  3464              		.type	InitCluSequence, %function
  3465              	InitCluSequence:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 76
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 76
 
 
  3466              	.LFB57:
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3503 0048 1A71     		strb	r2, [r3, #4]
  550:.\clu.c       **** 	clu_sequence[5]  = 11;
  3504              		.loc 1 550 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 77
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 77
 
 
  3505 004a 40F20003 		movw	r3, #:lower16:clu_sequence
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3550 00c8 40F20003 		movw	r3, #:lower16:clu_sequence
  3551 00cc C0F20003 		movt	r3, #:upper16:clu_sequence
  3552 00d0 4FF02302 		mov	r2, #35
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 78
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 78
 
 
  3553 00d4 9A73     		strb	r2, [r3, #14]
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3598 0152 DA75     		strb	r2, [r3, #23]
  569:.\clu.c       **** 	clu_sequence[24] = 11;	
  3599              		.loc 1 569 0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 79
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 79
 
 
  3600 0154 40F20003 		movw	r3, #:lower16:clu_sequence
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3646              		.thumb
  3647              		.thumb_func
  3648              		.type	PrintClu, %function
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 80
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 80
 
 
  3649              	PrintClu:
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3692 0040 002B     		cmp	r3, #0
  3693 0042 19D0     		beq	.L29
  588:.\clu.c       **** 			{
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 81
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 81
 
 
  589:.\clu.c       **** 				printf("%s\r\n",clu[number][index]);
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3740              	PrintCluStep:
  3741              	.LFB59:
  595:.\clu.c       **** 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 82
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 82
 
 
  596:.\clu.c       **** //Prints CLU number at step index
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3788 0048 BA79     		ldrb	r2, [r7, #6]	@ zero_extendqisi2
  3789 004a 1346     		mov	r3, r2
  3790 004c 4FEA8303 		lsl	r3, r3, #2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 83
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 83
 
 
  3791 0050 9B18     		adds	r3, r3, r2
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  614:.\clu.c       **** 	for (index=0; index < MAX_CLU_NUMBER ; index++)
  3835              		.loc 1 614 0
  3836 0006 4FF00003 		mov	r3, #0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 84
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 84
 
 
  3837 000a FB71     		strb	r3, [r7, #7]
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3880              		@ frame_needed = 1, uses_anonymous_args = 0
  3881 0000 80B5     		push	{r7, lr}
  3882              	.LCFI13:
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 85
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 85
 
 
  3883              		.cfi_def_cfa_offset 8
@@ -5098,13 +5098,13 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3932 0006 00000000 		.4byte	.Ldebug_abbrev0
  3933 000a 04       		.byte	0x4
  3934 000b 01       		.uleb128 0x1
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 86
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 86
 
 
- 3935 000c 8C010000 		.4byte	.LASF26
+ 3935 000c 4B010000 		.4byte	.LASF26
  3936 0010 01       		.byte	0x1
  3937 0011 00000000 		.4byte	.LASF27
- 3938 0015 B1000000 		.4byte	.LASF28
+ 3938 0015 18000000 		.4byte	.LASF28
  3939 0019 00000000 		.4byte	.Ldebug_ranges0+0
  3940 001d 00000000 		.4byte	0
  3941 0021 00000000 		.4byte	0
@@ -5112,40 +5112,40 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3943 0029 02       		.uleb128 0x2
  3944 002a 01       		.byte	0x1
  3945 002b 06       		.byte	0x6
- 3946 002c EA010000 		.4byte	.LASF0
+ 3946 002c A9010000 		.4byte	.LASF0
  3947 0030 02       		.uleb128 0x2
  3948 0031 01       		.byte	0x1
  3949 0032 08       		.byte	0x8
- 3950 0033 4E000000 		.4byte	.LASF1
+ 3950 0033 7D000000 		.4byte	.LASF1
  3951 0037 02       		.uleb128 0x2
  3952 0038 02       		.byte	0x2
  3953 0039 05       		.byte	0x5
- 3954 003a 7B010000 		.4byte	.LASF2
+ 3954 003a 3A010000 		.4byte	.LASF2
  3955 003e 02       		.uleb128 0x2
  3956 003f 02       		.byte	0x2
  3957 0040 07       		.byte	0x7
- 3958 0041 67000000 		.4byte	.LASF3
+ 3958 0041 96000000 		.4byte	.LASF3
  3959 0045 03       		.uleb128 0x3
- 3960 0046 45010000 		.4byte	.LASF9
+ 3960 0046 04010000 		.4byte	.LASF9
  3961 004a 02       		.byte	0x2
  3962 004b 4F       		.byte	0x4f
  3963 004c 50000000 		.4byte	0x50
  3964 0050 02       		.uleb128 0x2
  3965 0051 04       		.byte	0x4
  3966 0052 05       		.byte	0x5
- 3967 0053 D5010000 		.4byte	.LASF4
+ 3967 0053 94010000 		.4byte	.LASF4
  3968 0057 02       		.uleb128 0x2
  3969 0058 04       		.byte	0x4
  3970 0059 07       		.byte	0x7
- 3971 005a 9F000000 		.4byte	.LASF5
+ 3971 005a CE000000 		.4byte	.LASF5
  3972 005e 02       		.uleb128 0x2
  3973 005f 08       		.byte	0x8
  3974 0060 05       		.byte	0x5
- 3975 0061 56010000 		.4byte	.LASF6
+ 3975 0061 15010000 		.4byte	.LASF6
  3976 0065 02       		.uleb128 0x2
  3977 0066 08       		.byte	0x8
  3978 0067 07       		.byte	0x7
- 3979 0068 2E010000 		.4byte	.LASF7
+ 3979 0068 ED000000 		.4byte	.LASF7
  3980 006c 04       		.uleb128 0x4
  3981 006d 04       		.byte	0x4
  3982 006e 05       		.byte	0x5
@@ -5153,38 +5153,38 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  3984 0073 02       		.uleb128 0x2
  3985 0074 04       		.byte	0x4
  3986 0075 07       		.byte	0x7
- 3987 0076 21010000 		.4byte	.LASF8
+ 3987 0076 E0000000 		.4byte	.LASF8
  3988 007a 03       		.uleb128 0x3
- 3989 007b 2C000000 		.4byte	.LASF10
+ 3989 007b 5B000000 		.4byte	.LASF10
  3990 007f 03       		.byte	0x3
  3991 0080 5B       		.byte	0x5b
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 87
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 87
 
 
  3992 0081 30000000 		.4byte	0x30
  3993 0085 02       		.uleb128 0x2
  3994 0086 04       		.byte	0x4
  3995 0087 04       		.byte	0x4
- 3996 0088 3B000000 		.4byte	.LASF11
+ 3996 0088 6A000000 		.4byte	.LASF11
  3997 008c 02       		.uleb128 0x2
  3998 008d 08       		.byte	0x8
  3999 008e 04       		.byte	0x4
- 4000 008f 25000000 		.4byte	.LASF12
+ 4000 008f 54000000 		.4byte	.LASF12
  4001 0093 02       		.uleb128 0x2
  4002 0094 01       		.byte	0x1
  4003 0095 08       		.byte	0x8
- 4004 0096 64010000 		.4byte	.LASF13
+ 4004 0096 23010000 		.4byte	.LASF13
  4005 009a 02       		.uleb128 0x2
  4006 009b 04       		.byte	0x4
  4007 009c 07       		.byte	0x7
- 4008 009d 4D010000 		.4byte	.LASF14
+ 4008 009d 0C010000 		.4byte	.LASF14
  4009 00a1 02       		.uleb128 0x2
  4010 00a2 08       		.byte	0x8
  4011 00a3 04       		.byte	0x4
- 4012 00a4 DE010000 		.4byte	.LASF15
+ 4012 00a4 9D010000 		.4byte	.LASF15
  4013 00a8 05       		.uleb128 0x5
  4014 00a9 01       		.byte	0x1
- 4015 00aa 6F010000 		.4byte	.LASF16
+ 4015 00aa 2E010000 		.4byte	.LASF16
  4016 00ae 01       		.byte	0x1
  4017 00af 26       		.byte	0x26
  4018 00b0 01       		.byte	0x1
@@ -5204,7 +5204,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4032 00d4 01       		.byte	0x1
  4033 00d5 07       		.uleb128 0x7
  4034 00d6 01       		.byte	0x1
- 4035 00d7 32000000 		.4byte	.LASF18
+ 4035 00d7 61000000 		.4byte	.LASF18
  4036 00db 01       		.byte	0x1
  4037 00dc 4302     		.2byte	0x243
  4038 00de 01       		.byte	0x1
@@ -5214,18 +5214,18 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4042 00eb 01       		.byte	0x1
  4043 00ec 0F010000 		.4byte	0x10f
  4044 00f0 08       		.uleb128 0x8
- 4045 00f1 85010000 		.4byte	.LASF20
+ 4045 00f1 44010000 		.4byte	.LASF20
  4046 00f5 01       		.byte	0x1
  4047 00f6 4302     		.2byte	0x243
  4048 00f8 7A000000 		.4byte	0x7a
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 88
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 88
 
 
  4049 00fc 02       		.byte	0x2
  4050 00fd 91       		.byte	0x91
  4051 00fe 6F       		.sleb128 -17
  4052 00ff 09       		.uleb128 0x9
- 4053 0100 69010000 		.4byte	.LASF21
+ 4053 0100 28010000 		.4byte	.LASF21
  4054 0104 01       		.byte	0x1
  4055 0105 4502     		.2byte	0x245
  4056 0107 7A000000 		.4byte	0x7a
@@ -5235,7 +5235,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4060 010e 00       		.byte	0
  4061 010f 07       		.uleb128 0x7
  4062 0110 01       		.byte	0x1
- 4063 0111 41000000 		.4byte	.LASF19
+ 4063 0111 70000000 		.4byte	.LASF19
  4064 0115 01       		.byte	0x1
  4065 0116 5502     		.2byte	0x255
  4066 0118 01       		.byte	0x1
@@ -5245,7 +5245,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4070 0125 01       		.byte	0x1
  4071 0126 49010000 		.4byte	0x149
  4072 012a 08       		.uleb128 0x8
- 4073 012b 85010000 		.4byte	.LASF20
+ 4073 012b 44010000 		.4byte	.LASF20
  4074 012f 01       		.byte	0x1
  4075 0130 5502     		.2byte	0x255
  4076 0132 7A000000 		.4byte	0x7a
@@ -5253,7 +5253,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4078 0137 91       		.byte	0x91
  4079 0138 77       		.sleb128 -9
  4080 0139 08       		.uleb128 0x8
- 4081 013a 69010000 		.4byte	.LASF21
+ 4081 013a 28010000 		.4byte	.LASF21
  4082 013e 01       		.byte	0x1
  4083 013f 5502     		.2byte	0x255
  4084 0141 7A000000 		.4byte	0x7a
@@ -5263,7 +5263,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4088 0148 00       		.byte	0
  4089 0149 0A       		.uleb128 0xa
  4090 014a 01       		.byte	0x1
- 4091 014b 18000000 		.4byte	.LASF22
+ 4091 014b 47000000 		.4byte	.LASF22
  4092 014f 01       		.byte	0x1
  4093 0150 6202     		.2byte	0x262
  4094 0152 01       		.byte	0x1
@@ -5273,12 +5273,12 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4098 015f 01       		.byte	0x1
  4099 0160 74010000 		.4byte	0x174
  4100 0164 09       		.uleb128 0x9
- 4101 0165 69010000 		.4byte	.LASF21
+ 4101 0165 28010000 		.4byte	.LASF21
  4102 0169 01       		.byte	0x1
  4103 016a 6402     		.2byte	0x264
  4104 016c 7A000000 		.4byte	0x7a
  4105 0170 02       		.byte	0x2
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 89
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 89
 
 
  4106 0171 91       		.byte	0x91
@@ -5286,7 +5286,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4108 0173 00       		.byte	0
  4109 0174 0B       		.uleb128 0xb
  4110 0175 01       		.byte	0x1
- 4111 0176 5C000000 		.4byte	.LASF29
+ 4111 0176 8B000000 		.4byte	.LASF29
  4112 017a 01       		.byte	0x1
  4113 017b 6E02     		.2byte	0x26e
  4114 017d 01       		.byte	0x1
@@ -5297,7 +5297,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4119 018e 01       		.byte	0x1
  4120 018f A3010000 		.4byte	0x1a3
  4121 0193 08       		.uleb128 0x8
- 4122 0194 94000000 		.4byte	.LASF23
+ 4122 0194 C3000000 		.4byte	.LASF23
  4123 0198 01       		.byte	0x1
  4124 0199 6E02     		.2byte	0x26e
  4125 019b 7A000000 		.4byte	0x7a
@@ -5306,7 +5306,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4128 01a1 77       		.sleb128 -9
  4129 01a2 00       		.byte	0
  4130 01a3 0C       		.uleb128 0xc
- 4131 01a4 87000000 		.4byte	.LASF24
+ 4131 01a4 B6000000 		.4byte	.LASF24
  4132 01a8 04       		.byte	0x4
  4133 01a9 1606     		.2byte	0x616
  4134 01ab B1010000 		.4byte	0x1b1
@@ -5338,14 +5338,14 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4160 01e0 7A000000 		.4byte	0x7a
  4161 01e4 EF010000 		.4byte	0x1ef
  4162 01e8 0F       		.uleb128 0xf
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 90
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 90
 
 
  4163 01e9 9A000000 		.4byte	0x9a
  4164 01ed 63       		.byte	0x63
  4165 01ee 00       		.byte	0
  4166 01ef 11       		.uleb128 0x11
- 4167 01f0 7A000000 		.4byte	.LASF25
+ 4167 01f0 A9000000 		.4byte	.LASF25
  4168 01f4 01       		.byte	0x1
  4169 01f5 18       		.byte	0x18
  4170 01f6 DF010000 		.4byte	0x1df
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4217 0029 49       		.uleb128 0x49
  4218 002a 13       		.uleb128 0x13
  4219 002b 00       		.byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 91
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 91
 
 
  4220 002c 00       		.byte	0
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4274 0063 9742     		.uleb128 0x2117
  4275 0065 0C       		.uleb128 0xc
  4276 0066 00       		.byte	0
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 92
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 92
 
 
  4277 0067 00       		.byte	0
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4331 009e 00       		.byte	0
  4332 009f 00       		.byte	0
  4333 00a0 0A       		.uleb128 0xa
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 93
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 93
 
 
  4334 00a1 2E       		.uleb128 0x2e
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4388 00d9 03       		.uleb128 0x3
  4389 00da 0E       		.uleb128 0xe
  4390 00db 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 94
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 94
 
 
  4391 00dc 0B       		.uleb128 0xb
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4445 0112 34       		.uleb128 0x34
  4446 0113 00       		.byte	0
  4447 0114 03       		.uleb128 0x3
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 95
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 95
 
 
  4448 0115 0E       		.uleb128 0xe
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4502 005c 02000000 		.4byte	.LCFI4
  4503 0060 0200     		.2byte	0x2
  4504 0062 7D       		.byte	0x7d
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 96
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 96
 
 
  4505 0063 00       		.sleb128 0
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4559 00e8 0200     		.2byte	0x2
  4560 00ea 7D       		.byte	0x7d
  4561 00eb 10       		.sleb128 16
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 97
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 97
 
 
  4562 00ec 06000000 		.4byte	.LCFI12
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4616 0000 00000000 		.4byte	.LFB56
  4617 0004 E41C0000 		.4byte	.LFE56
  4618 0008 00000000 		.4byte	.LFB57
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 98
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 98
 
 
  4619 000c AE010000 		.4byte	.LFE57
@@ -5847,147 +5847,137 @@ ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 1
  4636      436C7553 
  4636      65717565 
  4636      6E636500 
- 4637              	.LASF22:
- 4638 0018 436C6561 		.ascii	"ClearAllClus\000"
- 4638      72416C6C 
- 4638      436C7573 
- 4638      00
- 4639              	.LASF12:
- 4640 0025 646F7562 		.ascii	"double\000"
- 4640      6C6500
- 4641              	.LASF10:
- 4642 002c 75696E74 		.ascii	"uint8\000"
- 4642      3800
- 4643              	.LASF18:
- 4644 0032 5072696E 		.ascii	"PrintClu\000"
- 4644      74436C75 
- 4644      00
- 4645              	.LASF11:
- 4646 003b 666C6F61 		.ascii	"float\000"
- 4646      7400
- 4647              	.LASF19:
- 4648 0041 5072696E 		.ascii	"PrintCluStep\000"
- 4648      74436C75 
- 4648      53746570 
- 4648      00
- 4649              	.LASF1:
- 4650 004e 756E7369 		.ascii	"unsigned char\000"
- 4650      676E6564 
- 4650      20636861 
- 4650      7200
- 4651              	.LASF29:
- 4652 005c 6973436C 		.ascii	"isCluEmpty\000"
- 4652      75456D70 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 99
+ 4637              	.LASF28:
+ 4638 0018 443A5C5F 		.ascii	"D:\\_GITHUB repos\\Squit-HW0.0\\Squit-Proto.cydsn\000"
+ 4638      47495448 
+ 4638      55422072 
+ 4638      65706F73 
+ 4638      5C537175 
+ 4639              	.LASF22:
+ 4640 0047 436C6561 		.ascii	"ClearAllClus\000"
+ 4640      72416C6C 
+ 4640      436C7573 
+ 4640      00
+ 4641              	.LASF12:
+ 4642 0054 646F7562 		.ascii	"double\000"
+ 4642      6C6500
+ 4643              	.LASF10:
+ 4644 005b 75696E74 		.ascii	"uint8\000"
+ 4644      3800
+ 4645              	.LASF18:
+ 4646 0061 5072696E 		.ascii	"PrintClu\000"
+ 4646      74436C75 
+ 4646      00
+ 4647              	.LASF11:
+ 4648 006a 666C6F61 		.ascii	"float\000"
+ 4648      7400
+ 4649              	.LASF19:
+ 4650 0070 5072696E 		.ascii	"PrintCluStep\000"
+ 4650      74436C75 
+ 4650      53746570 
+ 4650      00
+ 4651              	.LASF1:
+ 4652 007d 756E7369 		.ascii	"unsigned char\000"
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 99
 
 
- 4652      747900
- 4653              	.LASF3:
- 4654 0067 73686F72 		.ascii	"short unsigned int\000"
- 4654      7420756E 
- 4654      7369676E 
- 4654      65642069 
- 4654      6E7400
- 4655              	.LASF25:
- 4656 007a 636C755F 		.ascii	"clu_sequence\000"
- 4656      73657175 
- 4656      656E6365 
- 4656      00
- 4657              	.LASF24:
- 4658 0087 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 4658      52784275 
- 4658      66666572 
+ 4652      676E6564 
+ 4652      20636861 
+ 4652      7200
+ 4653              	.LASF29:
+ 4654 008b 6973436C 		.ascii	"isCluEmpty\000"
+ 4654      75456D70 
+ 4654      747900
+ 4655              	.LASF3:
+ 4656 0096 73686F72 		.ascii	"short unsigned int\000"
+ 4656      7420756E 
+ 4656      7369676E 
+ 4656      65642069 
+ 4656      6E7400
+ 4657              	.LASF25:
+ 4658 00a9 636C755F 		.ascii	"clu_sequence\000"
+ 4658      73657175 
+ 4658      656E6365 
  4658      00
- 4659              	.LASF23:
- 4660 0094 636C755F 		.ascii	"clu_number\000"
- 4660      6E756D62 
- 4660      657200
- 4661              	.LASF5:
- 4662 009f 6C6F6E67 		.ascii	"long unsigned int\000"
- 4662      20756E73 
- 4662      69676E65 
- 4662      6420696E 
- 4662      7400
- 4663              	.LASF28:
- 4664 00b1 433A5C55 		.ascii	"C:\\Users\\Graziano G. Ravizza\\Documents\\PSoC Cre"
- 4664      73657273 
- 4664      5C477261 
- 4664      7A69616E 
- 4664      6F20472E 
- 4665 00e0 61746F72 		.ascii	"ator\\SQUIT\\Vers.0.0-T00 2019-0208 C3.0 (start)\\S"
- 4665      5C535155 
- 4665      49545C56 
- 4665      6572732E 
- 4665      302E302D 
- 4666 0110 71756974 		.ascii	"quit-Proto.cydsn\000"
- 4666      2D50726F 
- 4666      746F2E63 
- 4666      7964736E 
+ 4659              	.LASF24:
+ 4660 00b6 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 4660      52784275 
+ 4660      66666572 
+ 4660      00
+ 4661              	.LASF23:
+ 4662 00c3 636C755F 		.ascii	"clu_number\000"
+ 4662      6E756D62 
+ 4662      657200
+ 4663              	.LASF5:
+ 4664 00ce 6C6F6E67 		.ascii	"long unsigned int\000"
+ 4664      20756E73 
+ 4664      69676E65 
+ 4664      6420696E 
+ 4664      7400
+ 4665              	.LASF8:
+ 4666 00e0 756E7369 		.ascii	"unsigned int\000"
+ 4666      676E6564 
+ 4666      20696E74 
  4666      00
- 4667              	.LASF8:
- 4668 0121 756E7369 		.ascii	"unsigned int\000"
- 4668      676E6564 
- 4668      20696E74 
- 4668      00
- 4669              	.LASF7:
- 4670 012e 6C6F6E67 		.ascii	"long long unsigned int\000"
- 4670      206C6F6E 
- 4670      6720756E 
- 4670      7369676E 
- 4670      65642069 
- 4671              	.LASF9:
- 4672 0145 696E7433 		.ascii	"int32_t\000"
- 4672      325F7400 
-ARM GAS  C:\Users\GRAZIA~1.RAV\AppData\Local\Temp\cc72nxDQ.s 			page 100
+ 4667              	.LASF7:
+ 4668 00ed 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 4668      206C6F6E 
+ 4668      6720756E 
+ 4668      7369676E 
+ 4668      65642069 
+ 4669              	.LASF9:
+ 4670 0104 696E7433 		.ascii	"int32_t\000"
+ 4670      325F7400 
+ 4671              	.LASF14:
+ 4672 010c 73697A65 		.ascii	"sizetype\000"
+ 4672      74797065 
+ 4672      00
+ 4673              	.LASF6:
+ 4674 0115 6C6F6E67 		.ascii	"long long int\000"
+ 4674      206C6F6E 
+ 4674      6720696E 
+ 4674      7400
+ 4675              	.LASF13:
+ARM GAS  C:\Users\gravi\AppData\Local\Temp\cczW92Yj.s 			page 100
 
 
- 4673              	.LASF14:
- 4674 014d 73697A65 		.ascii	"sizetype\000"
- 4674      74797065 
- 4674      00
- 4675              	.LASF6:
- 4676 0156 6C6F6E67 		.ascii	"long long int\000"
- 4676      206C6F6E 
- 4676      6720696E 
- 4676      7400
- 4677              	.LASF13:
- 4678 0164 63686172 		.ascii	"char\000"
- 4678      00
- 4679              	.LASF21:
- 4680 0169 696E6465 		.ascii	"index\000"
- 4680      7800
- 4681              	.LASF16:
- 4682 016f 496E6974 		.ascii	"InitAllClus\000"
- 4682      416C6C43 
- 4682      6C757300 
- 4683              	.LASF2:
- 4684 017b 73686F72 		.ascii	"short int\000"
- 4684      7420696E 
- 4684      7400
- 4685              	.LASF20:
- 4686 0185 6E756D62 		.ascii	"number\000"
- 4686      657200
- 4687              	.LASF26:
- 4688 018c 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
- 4688      4320342E 
- 4688      372E3320 
- 4688      32303133 
- 4688      30333132 
- 4689 01bf 616E6368 		.ascii	"anch revision 196615]\000"
- 4689      20726576 
- 4689      6973696F 
- 4689      6E203139 
- 4689      36363135 
- 4690              	.LASF4:
- 4691 01d5 6C6F6E67 		.ascii	"long int\000"
- 4691      20696E74 
- 4691      00
- 4692              	.LASF15:
- 4693 01de 6C6F6E67 		.ascii	"long double\000"
- 4693      20646F75 
- 4693      626C6500 
- 4694              	.LASF0:
- 4695 01ea 7369676E 		.ascii	"signed char\000"
- 4695      65642063 
- 4695      68617200 
- 4696              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
+ 4676 0123 63686172 		.ascii	"char\000"
+ 4676      00
+ 4677              	.LASF21:
+ 4678 0128 696E6465 		.ascii	"index\000"
+ 4678      7800
+ 4679              	.LASF16:
+ 4680 012e 496E6974 		.ascii	"InitAllClus\000"
+ 4680      416C6C43 
+ 4680      6C757300 
+ 4681              	.LASF2:
+ 4682 013a 73686F72 		.ascii	"short int\000"
+ 4682      7420696E 
+ 4682      7400
+ 4683              	.LASF20:
+ 4684 0144 6E756D62 		.ascii	"number\000"
+ 4684      657200
+ 4685              	.LASF26:
+ 4686 014b 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 4686      4320342E 
+ 4686      372E3320 
+ 4686      32303133 
+ 4686      30333132 
+ 4687 017e 616E6368 		.ascii	"anch revision 196615]\000"
+ 4687      20726576 
+ 4687      6973696F 
+ 4687      6E203139 
+ 4687      36363135 
+ 4688              	.LASF4:
+ 4689 0194 6C6F6E67 		.ascii	"long int\000"
+ 4689      20696E74 
+ 4689      00
+ 4690              	.LASF15:
+ 4691 019d 6C6F6E67 		.ascii	"long double\000"
+ 4691      20646F75 
+ 4691      626C6500 
+ 4692              	.LASF0:
+ 4693 01a9 7369676E 		.ascii	"signed char\000"
+ 4693      65642063 
+ 4693      68617200 
+ 4694              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
